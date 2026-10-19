@@ -1,0 +1,6 @@
+@UPMS.Server_HostAddress = http://localhost:5054
+
+GET {{UPMS.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
