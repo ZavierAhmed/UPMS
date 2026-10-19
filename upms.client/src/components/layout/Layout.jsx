@@ -1,34 +1,48 @@
 import { useState, useEffect, useRef } from "react";
+import { Link, NavLink } from "react-router";
 import logo from "../../assets/unique_plastic_logos_hd/unique_plastic.svg";
 import { navigation, company, products, email } from "../../data/company";
 export function Brand() {
   return (
-    <a className="brand" href="#/" aria-label="Unique Plastic Industry home">
+    <Link className="brand" to="/">
       <img src={logo} width="52" height="52" alt="" />
       <span>
         UNIQUE PLASTIC<small>INDUSTRY · KARACHI</small>
       </span>
-    </a>
+    </Link>
   );
 }
-export function Header({ route }) {
+export function Header() {
   const [open, setOpen] = useState(false),
     [scrolled, setScrolled] = useState(false);
-  const toggle = useRef(null);
+  const toggle = useRef(null),
+    header = useRef(null);
   useEffect(() => {
     const scroll = () => setScrolled(window.scrollY > 20);
     scroll();
     window.addEventListener("scroll", scroll, { passive: true });
     return () => window.removeEventListener("scroll", scroll);
   }, []);
+  useEffect(() => {
+    if (!open) return;
+    const outside = (e) => {
+      if (!header.current?.contains(e.target)) setOpen(false);
+    };
+    document.addEventListener("pointerdown", outside);
+    return () => document.removeEventListener("pointerdown", outside);
+  }, [open]);
   return (
     <header
+      ref={header}
       className={`header ${scrolled ? "scrolled" : ""}`}
       onKeyDown={(e) => {
         if (e.key === "Escape" && open) {
           setOpen(false);
           toggle.current.focus();
         }
+      }}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) setOpen(false);
       }}
     >
       <div className="container header-inner">
@@ -46,30 +60,24 @@ export function Header({ route }) {
           id="navigation"
           aria-label="Main navigation"
           className={`nav ${open ? "open" : ""}`}
-          onKeyDown={(e) => {
-            if (e.key === "Escape") {
-              setOpen(false);
-              toggle.current.focus();
-            }
-          }}
         >
           {navigation.map(([label, path]) => (
-            <a
+            <NavLink
               key={path}
-              href={`#${path}`}
-              aria-current={route === path ? "page" : undefined}
+              to={path}
+              end={path === "/"}
               onClick={() => setOpen(false)}
             >
               {label}
-            </a>
+            </NavLink>
           ))}
-          <a
+          <Link
             className="button compact"
-            href="#/contact"
+            to="/contact"
             onClick={() => setOpen(false)}
           >
             Get a Quote ↗
-          </a>
+          </Link>
         </nav>
       </div>
     </header>
@@ -90,25 +98,28 @@ export function Footer() {
         <div>
           <h3>Discover</h3>
           {navigation.slice(1).map(([name, path]) => (
-            <a key={path} href={`#${path}`}>
+            <Link key={path} to={path}>
               {name}
-            </a>
+            </Link>
           ))}
         </div>
         <div>
           <h3>Our products</h3>
           {products.map((p) => (
-            <a key={p.id} href={`#/products/${p.id}`}>
+            <Link key={p.id} to={`/products/${p.id}`}>
               {p.title}
-            </a>
+            </Link>
           ))}
         </div>
         <div>
           <h3>Let’s talk</h3>
           <address>{company.address}</address>
           <a href={email}>{company.email}</a>
-          <a href="tel:+923422743901">0342-2743901</a>
-          <a href="tel:+923142113472">0314-2113472</a>
+          {company.phones.map((phone) => (
+            <a href={phone.href} key={phone.href}>
+              {phone.label}
+            </a>
+          ))}
         </div>
       </div>
       <div className="container footer-bottom">

@@ -1,67 +1,102 @@
-# Unique Plastic Industry — W01
+# Unique Plastic Industry — public website
 
-Corporate portfolio website for Unique Plastic Industry, a Karachi plastic packaging manufacturer established in 2018. The existing React 19 / Vite 8 JavaScript frontend and ASP.NET Core (.NET 10) backend remain in place.
+Corporate portfolio for Unique Plastic Industry, a plastic packaging manufacturer in Karachi established in 2018. W02 completes the public pages on the React 19 / Vite 8 / ASP.NET Core (.NET 10) foundation. No management system, authentication, database or payment features are included.
 
-## Local development
+## Setup and local development
 
-Prerequisites: Node.js compatible with Vite 8 (this milestone verified with Node 26.4.0), npm, .NET 10 SDK, and Visual Studio with JavaScript/ASP.NET workloads if using the solution launcher.
+Prerequisites: Node compatible with Vite 8 and Vitest 5 (verified with Node 26.4.0), npm, .NET 10 SDK. Visual Studio can use the existing JavaScript/ASP.NET workloads and `UPMS.slnx` launcher.
 
-Frontend, from `upms.client`:
+From `upms.client`:
 
 ```powershell
 npm ci
 npm run dev
 ```
 
-The existing development HTTPS endpoint is `https://localhost:58500`. Development certificates are exported through `dotnet dev-certs`; trust your certificate locally with `dotnet dev-certs https --trust` if needed. The existing weather forecast proxy target remains `https://localhost:7081` by default.
+Development uses `https://localhost:58500` with the existing .NET development certificate export. If needed, trust your own developer certificate with `dotnet dev-certs https --trust`. The existing weather proxy defaults to `https://localhost:7081`. Stop Vite before running `npm ci` on Windows to avoid locked native modules, then restart it.
 
-Backend, from the repository root:
+From the repository root:
 
 ```powershell
 dotnet restore
 dotnet run --project UPMS.Server --launch-profile https
 ```
 
-Open `UPMS.slnx` in Visual Studio for the existing integrated launch. The server retains its SPA proxy, static assets, controllers and fallback routing. Production builds and previews no longer generate development certificates. Backend endpoints and management features were not changed.
+The existing Visual Studio SPA proxy and development HTTPS configuration are preserved. Backend source/configuration did not change in W02.
 
-## Build and verification
+## Build, test and publish
+
+From `upms.client`:
 
 ```powershell
-# upms.client
 npm run build
 npm run lint
+npm test
+npm run test:watch
 npm run preview
-# repository root
-dotnet restore
-dotnet build
 ```
 
-Frontend output: `upms.client/dist`. Preview: `http://localhost:4173`. Existing solution build settings are preserved. No automated test suites or test scripts exist in the baseline. See `docs/W01-verification.md` for actual results, screenshots and verification limits.
+From the root:
 
-## Architecture and milestone
+```powershell
+dotnet restore
+dotnet build
+dotnet publish UPMS.Server -c Release -o ./artifacts/publish
+```
 
-- `src/components/layout`: shared branding, sticky header, keyboard-accessible mobile navigation and footer.
-- `src/components/sections`: reusable contact inquiry section with real email and phone links.
-- `src/pages/Home.jsx`: complete homepage with about, products, benefits, manufacturing and industries.
-- `src/data/company.js`: company, navigation, product, feature and industry data.
-- `src/styles/site.css`: shared tokens, responsive layouts and reduced-motion support.
-- `src/App.jsx`: lightweight hash routes with no router dependency, route focus management and native intersection-based section reveals.
+The existing JavaScript SDK project reference builds and packages `upms.client/dist` into the published server's `wwwroot`. No manual copy or new publish target is required. Run frontend builds and publishing sequentially because they share the same output. Serve the published app with ASP.NET Core; its existing `MapFallbackToFile` handles extensionless page routes. Other static hosting must rewrite page requests to `index.html` while serving asset/API paths normally. Deploy at the domain root unless a basename and Vite base are configured together.
 
-Routes: `#/`, `#/about`, `#/products`, `#/products/:category`, `#/manufacturing`, `#/industries`, `#/contact`. Homepage content is complete; other informational routes explicitly identify themselves as previews. Contact provides direct inquiry actions, with no simulated form submission. Unknown routes show a presentable fallback.
+## Routes and architecture
 
-Future milestones may expand company, catalog, manufacturing, approved clients and contact pages. Sales, inventory, vendors, customers, authentication and payment ledgers are out of scope. Build a separate authenticated management application when specified; public website components have no management or API coupling.
+- `/`: established homepage with corrected category presentation and navigation.
+- `/about`: company history, capabilities, quality approach and values.
+- `/products`: five-category catalog, text search, packaging-type filter and empty-state recovery. Search/filter state is kept in query parameters for sharing and history restoration.
+- `/products/buckets`, `/products/cans`, `/products/jars`, `/products/containers`, `/products/custom`: category details, supported metadata, inquiry brief and category-specific email links.
+- `/manufacturing`: molding, design, raw materials, samples, delivery and service.
+- `/industries`: lubricant/oil, chemical and industrial/commercial applications, without customer logos or endorsements.
+- `/contact`: address, phone, email, map search link and guidance for a useful inquiry. No fake form submission.
+- Unknown page/category paths: consistent 404 view and `noindex,follow` metadata. URLs use lowercase paths; path matches are case-sensitive. The SPA fallback returns HTTP 200 for extensionless unknown URLs; the 404 is rendered client-side.
 
-## Assets and source provenance
+React Router declarative BrowserRouter provides path URLs and browser history. Already-shared W01 root hash links (`/#/products/cans`) are converted to path URLs on initial load. Vite development/preview and a real local .NET publish were checked for nested-route support.
 
-The supplied brochure is `upms.client/src/assets/UNIQUE COMPANY MOCKUP.pdf`. Official supplied branding is in `src/assets/unique_plastic_logos_hd/unique_plastic.svg`. Only this Unique Plastic logo is used. Other supplied logo files are preserved locally; Z.A Khan branding and Unique Lubricants products are not published.
+- `src/components/layout`: shared header, responsive keyboard navigation and footer.
+- `src/components/ui`: breadcrumbs/page hero, reusable product card/visual and icons.
+- `src/components/sections`: shared contact CTA.
+- `src/pages`: complete public page components and 404.
+- `src/data/company.js`, `src/data/pages.js`: business details, category metadata, page descriptions, process and industry content.
+- `src/styles/site.css`: W01 design tokens/layouts. `pages.css`: internal-page layouts and mobile refinements.
+- `src/App.jsx`: route definitions, page metadata, route focus/scroll and lightweight reveals. Query-only filter updates preserve input focus. Reduced-motion preferences remain respected.
 
-`src/assets/products` contains JPEG crops from rendered brochure pages, without customer names or logos:
+## Testing and evidence
 
-- `hero.jpg`: page 5, cans and bucket.
+Vitest, jsdom and React Testing Library provide route, catalog, product-selection, unknown-route, menu, metadata and basic focus/semantic tests. `npm test` is a single-run command; no second unit-test framework was added.
+
+`upms.client/scripts/browser-smoke.mjs` exports `runBrowserSmoke` and `runBrowserInteractions` for the Codex CUA browser runtime. Pass a connected tab, its browser viewport capability and the local base URL. These repeatable tests cover six widths, all public routes, internal targets, mobile navigation, search/filter recovery, refresh, legacy links and history. They require the connected browser tool and are separate from the jsdom tests; there is no claimed headless-browser CI job.
+
+See [W02 audit](docs/W02-audit.md), [verification](docs/W02-verification.md), [browser results](docs/W02-browser-results.json) and [Lighthouse summary](docs/W02-lighthouse-summary.json). Completed-page screenshots are under `docs/screenshots/w02`. W01 evidence remains under `docs/W01-verification.md` and the original screenshot paths.
+
+## Assets and content provenance
+
+Supplied brochure: `upms.client/src/assets/UNIQUE COMPANY MOCKUP.pdf`. Official extracted logo: `src/assets/unique_plastic_logos_hd/unique_plastic.svg`. Alternative supplied logos remain untouched locally. The site does not use Z.A Khan branding or market Unique Lubricants products as the primary identity.
+
+JPEG derivatives in `src/assets/products`:
+
+- `hero.jpg`: page 5, cans and bucket; company/hero illustration.
 - `buckets.jpg`, `cans.jpg`: page 3.
 - `jars.jpg`: page 2, smaller containers.
-- `manufacturing.jpg`: page 4, machinery illustration.
+- `containers.jpg`: page 5, grey/yellow/black bucket group; added in W02 to distinguish the category card from the hero.
+- `manufacturing.jpg`: page 4, machinery illustration, explicitly labeled as brochure imagery.
 
-These are brochure illustrations, not independently verified factory photography. Custom packaging reuses bucket imagery as a category illustration, with no claim of a specific custom design. Brochure capacities are mentioned only for buckets. No prices, certifications, customer endorsements or manufacturing capacities were invented.
+Custom Packaging has a labeled CSS/SVG design treatment rather than duplicated photography. Brochure illustrations do not establish factory ownership or current product availability. Only 8L/10L/14L/20L bucket capacities are published. Small-container weight labels are not converted into capacities. No material grades, color availability, prices, certifications, workforce/facility sizes or numerical achievements are inferred.
 
-The originally named `ZA AND UNIQUE LOGO.pdf` was not present, but separately extracted official Unique Plastic assets were supplied. Missing for future publication: high-resolution original product photos, verified factory photography, approved customer branding and a production domain/social-sharing image. Brochure crops are provisional in quality. Google Fonts supplies Manrope and DM Sans with local Arial/sans-serif fallbacks; this creates an external font request. No runtime dependencies were added.
+## SEO and remaining publication inputs
+
+Page and category titles, descriptions and Open Graph text are updated client-side. Native headings, breadcrumbs, image alternatives, visible focus and a skip link support accessibility. Google Fonts supplies Manrope and DM Sans with system fallbacks; early stylesheet discovery and preconnect hints reduce the font request chain.
+
+The current SPA is sufficient for interactive navigation but client-rendered metadata is not a guarantee of indexing or social-preview rendering. Non-JavaScript crawlers receive the shared HTML metadata. Consider static prerendering or SSR before a broader search/social launch; neither is implemented or verified here. Unknown routes are client-side soft 404s. No canonical production domain or social-sharing image is fabricated.
+
+Still needed: high-resolution product originals, verified factory photography, approved client branding/permission if a showcase is desired, verified specifications for non-bucket categories, and production domain/social assets. Brochure crops remain provisional. A reliable validated inquiry backend, if needed, belongs to a separately scoped milestone.
+
+## Milestone boundaries
+
+W02 completes the public company portfolio. Future sales, inventory, vendor/customer records, authentication, accounting and ledger workflows must remain separate from public website components. Do not start W03 until reviewed and defined.

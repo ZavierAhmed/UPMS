@@ -1,3 +1,5 @@
+import ProductCard from "../components/ui/ProductCard";
+import { Link } from "react-router";
 import Icon from "../components/ui/Icon";
 import hero from "../assets/products/hero.jpg";
 import machine from "../assets/products/manufacturing.jpg";
@@ -22,12 +24,12 @@ export default function Home() {
               lubricant cans and containers for the demands of your business.
             </p>
             <div className="actions">
-              <a className="button" href="#/products">
+              <Link className="button" to="/products">
                 Explore Products ↗
-              </a>
-              <a className="button outline" href="#/contact">
+              </Link>
+              <Link className="button outline" to="/contact">
                 Request a Quote ↗
-              </a>
+              </Link>
             </div>
             <div className="hero-note">
               <span>EST. 2018</span>
@@ -41,7 +43,6 @@ export default function Home() {
           <div className="hero-visual">
             <div className="visual-top">
               <span>THE UNIQUE STANDARD</span>
-              <span>01 / 05</span>
             </div>
             <img
               src={hero}
@@ -56,9 +57,9 @@ export default function Home() {
                 <br />
                 <strong>Dependable packaging.</strong>
               </span>
-              <a href="#/products" aria-label="Explore our packaging">
+              <Link to="/products" aria-label="Explore our packaging">
                 ↗
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -81,9 +82,9 @@ export default function Home() {
               Karachi, we bring together quality manufacturing, thoughtful
               customization and dependable service.
             </p>
-            <a className="text-link" href="#/about">
+            <Link className="text-link" to="/about">
               Get to know us →
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -98,33 +99,13 @@ export default function Home() {
                 your business.
               </h2>
             </div>
-            <a className="text-link" href="#/products">
+            <Link className="text-link" to="/products">
               Explore the range →
-            </a>
+            </Link>
           </div>
           <div className="product-grid">
             {products.map((p, i) => (
-              <a
-                className="product-card reveal"
-                key={p.id}
-                href={`#/products/${p.id}`}
-              >
-                <div className="product-image">
-                  <span className="product-number">0{i + 1}</span>
-                  <img
-                    src={p.image}
-                    alt={`${p.title} shown in the company brochure`}
-                    loading="lazy"
-                    width="420"
-                    height="300"
-                  />
-                </div>
-                <div className="product-title">
-                  <h3>{p.title}</h3>
-                  <span aria-hidden="true">↗</span>
-                </div>
-                <p>{p.text}</p>
-              </a>
+              <ProductCard key={p.id} product={p} index={i} />
             ))}
           </div>
         </div>
@@ -192,9 +173,9 @@ export default function Home() {
                 <span>03</span> Design and customization discussions
               </li>
             </ul>
-            <a className="text-link" href="#/manufacturing">
+            <Link className="text-link" to="/manufacturing">
               Discover our approach →
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -211,10 +192,10 @@ export default function Home() {
         </p>
         <div className="industry-grid">
           {industries.map((name, i) => (
-            <a href="#/industries" key={name}>
+            <Link to="/industries" key={name}>
               <span>0{i + 1}</span>
               <h3>{name} ↗</h3>
-            </a>
+            </Link>
           ))}
         </div>
       </section>

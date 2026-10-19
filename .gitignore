@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+# Local W02 verification output (never publish or stage)
+/tmp/w02/
+/artifacts/
+/upms.client/.vitest/

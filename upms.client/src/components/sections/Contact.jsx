@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { company, email } from "../../data/company";
 export default function Contact({ page = false }) {
   const Heading = page ? "h1" : "h2";
@@ -27,9 +28,9 @@ export default function Contact({ page = false }) {
             {company.email}
           </a>
           <address>{company.address}</address>
-          <a className="text-link" href="#/products">
+          <Link className="text-link" to="/products">
             Explore our products →
-          </a>
+          </Link>
         </div>
       </div>
     </section>

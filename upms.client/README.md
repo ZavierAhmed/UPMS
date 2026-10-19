@@ -1,7 +1,19 @@
 # UPMS public website client
 
-React 19 and Vite 8 corporate website for Unique Plastic Industry.
+React 19 / Vite 8 corporate website for Unique Plastic Industry with React Router path navigation.
 
-See the repository [README](../README.md) for setup, build commands, source assets, routing and milestone boundaries. See [verification](../docs/W01-verification.md) for measured checks and screenshots.
+See the repository [README](../README.md) for setup, routes, source provenance, SEO limitations and milestone boundaries. See [W02 verification](../docs/W02-verification.md) for results and screenshots.
 
-From this directory: `npm ci`, `npm run dev`, `npm run build`, `npm run lint`, `npm run preview`.
+From this directory:
+
+```powershell
+npm ci
+npm run dev
+npm run build
+npm run lint
+npm test
+npm run test:watch
+npm run preview
+```
+
+Stop Vite before `npm ci` on Windows to release native-module locks. Unit/component tests use Vitest, jsdom and React Testing Library. The CUA browser smoke harness is `scripts/browser-smoke.mjs`; its browser requirements and invocation are documented in the W02 verification report.
