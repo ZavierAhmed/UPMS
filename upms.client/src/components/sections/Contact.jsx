@@ -1,0 +1,37 @@
+import { company, email } from "../../data/company";
+export default function Contact({ page = false }) {
+  const Heading = page ? "h1" : "h2";
+  return (
+    <section className="contact-section">
+      <div className="container contact-grid">
+        <div>
+          <p className="eyebrow">YOUR NEXT IDEA STARTS HERE</p>
+          <Heading>
+            Let’s build your next
+            <br />
+            packaging solution.
+          </Heading>
+          <p>
+            Tell us what you have in mind. We’ll help you explore the
+            possibilities.
+          </p>
+          <a className="button dark-button" href={email}>
+            Email an inquiry ↗
+          </a>
+        </div>
+        <div className="contact-details">
+          <span>CONTACT OUR TEAM</span>
+          <a href="tel:+923422743901">0342-2743901 ↗</a>
+          <a href="tel:+923142113472">0314-2113472 ↗</a>
+          <a className="email" href={email}>
+            {company.email}
+          </a>
+          <address>{company.address}</address>
+          <a className="text-link" href="#/products">
+            Explore our products →
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
