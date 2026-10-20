@@ -8,8 +8,8 @@ import { buildWhatsAppLink, defaultWhatsAppMessage } from "../utils/whatsapp";
 const open = (path) => render(<MemoryRouter initialEntries={[path]}><App /></MemoryRouter>);
 const paths = ["/", "/about", "/products", "/manufacturing", "/industries", "/contact", ...products.map(p => `/products/${p.id}`), "/missing"];
 describe("company location", () => {
-  it("uses the supplied destination and neutral city pending identity confirmation", () => {
-    expect(company.address).toBe("Karachi, Pakistan");
+  it("uses the owner-confirmed address and preserves the supplied destination", () => {
+    expect(company.address).toBe("Wali Road, Metroville, S.I.T.E., Karachi 75700, Pakistan");
     expect(company.map).toBe("https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6");
     const directions = new URL(company.directions);
     expect(directions.origin + directions.pathname).toBe("https://www.google.com/maps/dir/");
@@ -18,10 +18,13 @@ describe("company location", () => {
   });
   it.each(paths)("removes outdated public address and secures location links at %s", path => {
     const { container } = open(path);
-    expect(container.textContent).not.toMatch(/F-260|S\.I\.T\.E\.|Z\.A\s*KHAN/i);
-    expect(document.querySelector('meta[name="description"]').content).not.toMatch(/F-260|S\.I\.T\.E\./);
+    expect(container.textContent).not.toMatch(/F-260|Z\.A\s*KHAN/i);
+    expect(document.querySelector('meta[name="description"]').content).not.toMatch(/F-260/);
     const footer = within(screen.getByRole("contentinfo"));
     expect(footer.getByText(company.address)).toBeTruthy();
+    for (const address of container.querySelectorAll("address")) {
+      expect(address.textContent).toBe(company.address);
+    }
     const maps = screen.getAllByRole("link").filter(a => /maps\.app\.goo\.gl|google\.com\/maps/.test(a.href));
     expect(maps.length).toBeGreaterThan(0);
     for (const link of maps) {

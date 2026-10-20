@@ -6,9 +6,8 @@ export const company = {
   name: "Unique Plastic Industry",
   email: "uniqueplastic56@gmail.com",
   whatsappNumber: "923142113472",
-  // The supplied Maps listing has a different business name; street address
-  // attribution to Unique Plastic Industry remains unconfirmed.
-  address: "Karachi, Pakistan",
+  // Company owner confirmed this premises address in W03.3.
+  address: "Wali Road, Metroville, S.I.T.E., Karachi 75700, Pakistan",
   phones: [
     { label: "0342-2743901", href: "tel:+923422743901" },
     { label: "0314-2113472", href: "tel:+923142113472" },

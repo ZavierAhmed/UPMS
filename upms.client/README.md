@@ -30,8 +30,8 @@ Product detail pages retain the original inquiry CTA and category query paramete
 
 See [W03.1 verification](../docs/W031-verification.md) for automated checks, responsive browser results, Lighthouse comparison, and screenshots. No real WhatsApp messages were sent.
 
-## Location configuration (W03.2)
+## Location configuration (W03.3)
 
 `src/data/company.js` owns `company.address`, `company.map` (the exact company-supplied short Maps link), and `company.directions` (Google Maps directions to the resolved destination pin). Contact, the shared contact section and footer read these values. About and Contact metadata use the same address display.
 
-The supplied link currently resolves to a listing with a different business name. Until its street address is confirmed for Unique Plastic Industry, the public address is the neutral **Karachi, Pakistan**. Do not restore the old street address, copy the other listing identity/contact details, or claim a corporate relationship. See [W03.2 location evidence and verification](../docs/W032-verification.md) before changing the display or coordinates.
+The company owner confirmed the shared premises in W03.3. The public address is **Wali Road, Metroville, S.I.T.E., Karachi 75700, Pakistan**. Unique Plastic Industry remains the only website identity; the shared premises do not authorize adding another brand or affiliate. The supplied map destination and directions coordinates remain unchanged. See [W03.3 verification](../docs/W033-verification.md) for the confirmation and checks; [W03.2 evidence](../docs/W032-verification.md) records the original map resolution.

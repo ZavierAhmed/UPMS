@@ -1,0 +1,9 @@
+docs/W032-verification.md
+docs/W033-verification.md
+docs/screenshots/w033/contact-desktop.jpg
+docs/screenshots/w033/contact-mobile.jpg
+docs/screenshots/w033/footer-mobile.jpg
+upms.client/README.md
+upms.client/src/data/company.js
+upms.client/src/test/Location.test.jsx
+docs/W033-files.txt

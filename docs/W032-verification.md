@@ -1,5 +1,7 @@
 # UPMS W03.2 — Location correction
 
+Historical report: the pending address attribution below was resolved by company-owner confirmation in [W03.3](W033-verification.md). The neutral city display described here has been replaced by the confirmed premises address; map destination and pin are unchanged.
+
 Starting SHA: `09f6d94775478fa294c34dc48a1d8ff12ab9f63b`.
 Branch: `feature/upms-w03-2-location-fix`.
 Fetched origin and verified the remote W03.1 tip before branching. Existing untracked source assets were preserved. No merge or W04 work.
