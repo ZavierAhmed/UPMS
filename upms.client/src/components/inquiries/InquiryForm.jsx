@@ -1,8 +1,13 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useSyncExternalStore } from "react";
 import { products } from "../../data/company";
 import { emptyInquiry, validateInquiry } from "./validation";
 import "./inquiry.css";
+const subscribe = () => () => {};
+const clientReady = () => true;
+const serverReady = () => false;
+
 export default function InquiryForm({ initialCategory = "" }) {
+  const ready = useSyncExternalStore(subscribe, clientReady, serverReady);
   const [values, setValues] = useState({
     ...emptyInquiry,
     productCategory: initialCategory,
@@ -274,12 +279,14 @@ export default function InquiryForm({ initialCategory = "" }) {
         </button>
       ) : (
         <form
+          method="post"
+          action="/api/v1/public/inquiries"
           noValidate
           onSubmit={submit}
           aria-label="Packaging inquiry"
           aria-busy={pending}
         >
-          <fieldset disabled={pending}>
+          <fieldset disabled={!ready || pending}>
             <legend className="visually-hidden">
               Your contact details and packaging requirements
             </legend>
@@ -328,7 +335,7 @@ export default function InquiryForm({ initialCategory = "" }) {
             <button
               className="button dark-button inquiry-submit"
               type="submit"
-              disabled={pending}
+              disabled={!ready || pending}
             >
               {pending ? "Sending inquiry…" : "Send inquiry ↗"}
             </button>

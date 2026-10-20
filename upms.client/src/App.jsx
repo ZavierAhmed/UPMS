@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Routes, Route, useLocation, matchPath } from "react-router";
+import { Routes, Route, useLocation } from "react-router";
 import { Header, Footer } from "./components/layout/Layout";
 import WhatsAppFloatingButton from "./components/ui/WhatsAppFloatingButton";
 import Home from "./pages/Home";
@@ -10,22 +10,14 @@ import Manufacturing from "./pages/Manufacturing";
 import Industries from "./pages/Industries";
 import ContactPage from "./pages/ContactPage";
 import NotFound from "./pages/NotFound";
-import { pageMeta, notFoundMeta } from "./data/pages";
-import { products } from "./data/company";
+import { notFoundMeta } from "./data/pages";
+import { publicPage } from "./data/publicRoutes";
 import "./styles/site.css";
 import "./styles/pages.css";
 function RouteEffects() {
   const { pathname } = useLocation();
   useEffect(() => {
-    const normalized = pathname.replace(/\/$/, "") || "/";
-    const detail = matchPath(
-      { path: "/products/:id", caseSensitive: true },
-      normalized,
-    );
-    const product = detail && products.find((p) => p.id === detail.params.id);
-    const meta = product
-      ? { title: product.title, description: product.text }
-      : pageMeta[normalized] || notFoundMeta;
+    const meta = publicPage(pathname);
     document.title = `${meta.title} | Unique Plastic Industry`;
     for (const [attr, key, value] of [
       ["name", "description", meta.description],
@@ -34,7 +26,8 @@ function RouteEffects() {
       [
         "name",
         "robots",
-        meta === notFoundMeta ? "noindex,follow" : "index,follow",
+        meta === notFoundMeta || document.querySelector('meta[name="site-indexing"]')?.content === "disabled"
+          ? "noindex,follow" : "index,follow",
       ],
     ]) {
       let tag = document.head.querySelector(`meta[${attr}="${key}"]`);
@@ -44,6 +37,16 @@ function RouteEffects() {
         document.head.append(tag);
       }
       tag.setAttribute("content", value);
+    }
+    const origin = document.querySelector('meta[name="site-origin"]')?.content;
+    for (const [selector, tagName, attributes] of [
+      ['link[rel="canonical"]', "link", { rel: "canonical", href: `${origin}${meta.path || "/"}` }],
+      ['meta[property="og:url"]', "meta", { property: "og:url", content: `${origin}${meta.path || "/"}` }],
+    ]) {
+      let tag = document.head.querySelector(selector);
+      if (!origin || meta === notFoundMeta) { tag?.remove(); continue; }
+      if (!tag) { tag = document.createElement(tagName); document.head.append(tag); }
+      Object.entries(attributes).forEach(([key, value]) => tag.setAttribute(key, value));
     }
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     document.getElementById("main")?.focus({ preventScroll: true });

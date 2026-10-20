@@ -46,7 +46,8 @@ export default function Products() {
           </p>
         </div>
       </PageHero>
-      <section className="section container catalog-section">
+      <section className="section container catalog-section" aria-labelledby="catalog-heading">
+        <h2 id="catalog-heading" className="visually-hidden">Packaging categories</h2>
         <div className="catalog-controls">
           <div>
             <label htmlFor="product-search">Search packaging</label>

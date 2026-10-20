@@ -902,3 +902,6 @@ footer {
 .whatsapp-secondary svg { flex-shrink: 0; }
 .whatsapp-secondary:hover { background: #e4f6e9; color: #126632; }
 @media (prefers-reduced-motion: reduce) { .whatsapp-floating { transition: none; } }
+
+/* Prerendered content stays visible without JavaScript. */
+html:not(.js) .reveal { opacity: 1; transform: none; }

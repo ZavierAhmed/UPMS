@@ -35,3 +35,11 @@ See [W03.1 verification](../docs/W031-verification.md) for automated checks, res
 `src/data/company.js` owns `company.address`, `company.map` (the exact company-supplied short Maps link), and `company.directions` (Google Maps directions to the resolved destination pin). Contact, the shared contact section and footer read these values. About and Contact metadata use the same address display.
 
 The company owner confirmed the shared premises in W03.3. The public address is **Wali Road, Metroville, S.I.T.E., Karachi 75700, Pakistan**. Unique Plastic Industry remains the only website identity; the shared premises do not authorize adding another brand or affiliate. The supplied map destination and directions coordinates remain unchanged. See [W03.3 verification](../docs/W033-verification.md) for the confirmation and checks; [W03.2 evidence](../docs/W032-verification.md) records the original map resolution.
+
+## W04 rendering and production hosting
+
+`npm run build` builds client assets, a temporary `.prerender` React server entry, and eleven static pages plus a 404 page. Only `dist` is published. `src/data/publicRoutes.js` derives the page registry from page metadata/product data; `scripts/prerender.mjs` generates HTML and the .NET manifest. Register a new public page in App.jsx and its metadata/product data, rebuild, and extend HTTP/browser tests. Keep future management routes separate.
+
+Normal pages hydrate; query-driven and legacy hash URLs mount from the live URL to retain inquiry/search behavior without mismatched HTML. Prerendered inquiry controls remain disabled until JavaScript activates, and form POST prevents accidental query-string submission. Reveal content is visible without JavaScript. Self-hosted DM Sans and Manrope font files have OFL notices in `public/licenses` and preload from the generated assets. Original brochure JPEGs are preserved.
+
+Vite preview can inspect static output but does not reproduce the .NET HTTP statuses, canonical injection, sitemap, robots, CSP or inquiry API. Use the ASP.NET published host for production validation. See [W04 audit](../docs/W04-audit.md), [verification](../docs/W04-verification.md) and [deployment guide](../docs/W04-deployment.md).

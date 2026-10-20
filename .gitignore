@@ -369,3 +369,7 @@ FodyWeavers.xsd
 # W03 private development outbox and local verification
 /UPMS.Server/.local/
 /tmp/w03/
+
+# W04 build-time renderer and local production verification
+/upms.client/.prerender/
+/tmp/w04/

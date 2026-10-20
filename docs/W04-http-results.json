@@ -1,0 +1,88 @@
+[
+  {
+    "path": "/",
+    "status": 200,
+    "initialHeading": true,
+    "title": "Plastic Packaging Manufacturer in Karachi | Unique Plastic Industry"
+  },
+  {
+    "path": "/about",
+    "status": 200,
+    "initialHeading": true,
+    "title": "About Us | Unique Plastic Industry"
+  },
+  {
+    "path": "/products",
+    "status": 200,
+    "initialHeading": true,
+    "title": "Plastic Packaging Products | Unique Plastic Industry"
+  },
+  {
+    "path": "/manufacturing",
+    "status": 200,
+    "initialHeading": true,
+    "title": "Plastic Molding & Manufacturing | Unique Plastic Industry"
+  },
+  {
+    "path": "/industries",
+    "status": 200,
+    "initialHeading": true,
+    "title": "Industries We Serve | Unique Plastic Industry"
+  },
+  {
+    "path": "/contact",
+    "status": 200,
+    "initialHeading": true,
+    "title": "Contact Us | Unique Plastic Industry"
+  },
+  {
+    "path": "/products/buckets",
+    "status": 200,
+    "initialHeading": true,
+    "title": "Plastic Buckets | Unique Plastic Industry"
+  },
+  {
+    "path": "/products/cans",
+    "status": 200,
+    "initialHeading": true,
+    "title": "Lubricant Cans | Unique Plastic Industry"
+  },
+  {
+    "path": "/products/jars",
+    "status": 200,
+    "initialHeading": true,
+    "title": "Plastic Jars | Unique Plastic Industry"
+  },
+  {
+    "path": "/products/containers",
+    "status": 200,
+    "initialHeading": true,
+    "title": "Industrial Containers | Unique Plastic Industry"
+  },
+  {
+    "path": "/products/custom",
+    "status": 200,
+    "initialHeading": true,
+    "title": "Custom Packaging | Unique Plastic Industry"
+  },
+  {
+    "path": "/missing",
+    "status": 404
+  },
+  {
+    "path": "/assets/missing.js",
+    "status": 404
+  },
+  {
+    "path": "/_pages/home.html",
+    "status": 404
+  },
+  {
+    "path": "/management/orders",
+    "status": 404
+  },
+  {
+    "path": "/api/missing",
+    "status": 404
+  }
+]

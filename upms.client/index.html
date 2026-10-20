@@ -2,12 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preload" href="/src/assets/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/src/assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link
       rel="icon"
       type="image/svg+xml"
@@ -31,9 +27,11 @@
     <title>
       Unique Plastic Industry | Plastic Packaging Manufacturer in Karachi
     </title>
+    <!--site-url-->
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"><!--prerender--></div>
+    <noscript>Online inquiry submission requires JavaScript. Please use the phone or email contact links to reach our team.</noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

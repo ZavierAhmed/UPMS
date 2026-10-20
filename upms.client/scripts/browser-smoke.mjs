@@ -99,6 +99,7 @@ export async function runBrowserInteractions({ tab, viewport, baseURL }) {
     "Menu closes after navigation",
   );
   await tab.playwright.getByLabel("Search packaging").fill("zzzzz");
+  await tab.playwright.getByText("0 categories", { exact: true }).waitFor({ state: "visible" });
   assert(
     (await tab.playwright.getByRole("status").innerText()) === "0 categories",
     "Search empty state",
@@ -106,6 +107,7 @@ export async function runBrowserInteractions({ tab, viewport, baseURL }) {
   await tab.playwright
     .getByRole("button", { name: "Clear search and filters" })
     .click();
+  await tab.playwright.getByText("5 categories", { exact: true }).waitFor({ state: "visible" });
   assert(
     (await tab.playwright.getByRole("status").innerText()) === "5 categories",
     "Clear filters restores catalog",
@@ -113,6 +115,7 @@ export async function runBrowserInteractions({ tab, viewport, baseURL }) {
   await tab.playwright
     .getByLabel("Packaging type")
     .selectOption("Custom solutions");
+  await tab.playwright.getByText("1 category", { exact: true }).waitFor({ state: "visible" });
   assert(
     (await tab.playwright.getByRole("status").innerText()) === "1 category",
     "Custom packaging filter",
@@ -124,6 +127,7 @@ export async function runBrowserInteractions({ tab, viewport, baseURL }) {
     "Direct detail refresh renders selected category",
   );
   await tab.back();
+  await tab.playwright.getByText("1 category", { exact: true }).waitFor({ state: "visible" });
   assert(
     (await tab.playwright.getByRole("status").innerText()) === "1 category",
     "Back restores catalog filter",
@@ -141,6 +145,7 @@ export async function runBrowserInteractions({ tab, viewport, baseURL }) {
     "Unknown route displays 404",
   );
   await tab.goto(baseURL + "/#/products/cans");
+  await tab.playwright.getByRole("heading", { name: "Lubricant Cans", exact: true }).waitFor({ state: "visible" });
   assert(
     (await tab.playwright.locator("h1").innerText()) === "Lubricant Cans",
     "Shared W01 hash link resolves to path route",

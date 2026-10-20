@@ -1,0 +1,82 @@
+[
+  {
+    "page": "home",
+    "url": "https://localhost:7443/",
+    "version": "13.5.0",
+    "fetchTime": "2026-10-20T09:40:46.255Z",
+    "formFactor": "mobile",
+    "runWarnings": [],
+    "scores": {
+      "performance": 98,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "largest-contentful-paint": 2036,
+      "total-blocking-time": 62,
+      "cumulative-layout-shift": 0
+    },
+    "accessibilityFailures": []
+  },
+  {
+    "page": "catalog",
+    "url": "https://localhost:7443/products",
+    "version": "13.5.0",
+    "fetchTime": "2026-10-20T09:41:00.942Z",
+    "formFactor": "mobile",
+    "runWarnings": [],
+    "scores": {
+      "performance": 99,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "largest-contentful-paint": 1883.5,
+      "total-blocking-time": 57,
+      "cumulative-layout-shift": 0
+    },
+    "accessibilityFailures": []
+  },
+  {
+    "page": "detail",
+    "url": "https://localhost:7443/products/buckets",
+    "version": "13.5.0",
+    "fetchTime": "2026-10-20T09:41:15.696Z",
+    "formFactor": "mobile",
+    "runWarnings": [],
+    "scores": {
+      "performance": 99,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "largest-contentful-paint": 1800.796,
+      "total-blocking-time": 0.5,
+      "cumulative-layout-shift": 0
+    },
+    "accessibilityFailures": []
+  },
+  {
+    "page": "contact",
+    "url": "https://localhost:7443/contact",
+    "version": "13.5.0",
+    "fetchTime": "2026-10-20T09:41:30.490Z",
+    "formFactor": "mobile",
+    "runWarnings": [],
+    "scores": {
+      "performance": 99,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "largest-contentful-paint": 1847.585,
+      "total-blocking-time": 45,
+      "cumulative-layout-shift": 0
+    },
+    "accessibilityFailures": []
+  }
+]

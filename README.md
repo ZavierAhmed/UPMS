@@ -1,6 +1,6 @@
 # Unique Plastic Industry — public website
 
-Corporate portfolio for Unique Plastic Industry, a plastic packaging manufacturer in Karachi established in 2018. W03 adds a real inquiry API and quotation-request form to the public pages on the React 19 / Vite 8 / ASP.NET Core (.NET 10) foundation. No management system, authentication, database or payment features are included. Production inquiry delivery requires configuration; see [W03 inquiry operations](docs/W03-inquiries.md).
+Corporate portfolio for Unique Plastic Industry, a plastic packaging manufacturer in Karachi established in 2018. W04 adds build-time prerendering, correct HTTP statuses, configured SEO and production hosting safeguards to the React 19 / Vite 8 / ASP.NET Core (.NET 10) website and W03 inquiry system. No management system, authentication, database or payment features are included. Production inquiry delivery requires configuration; see [W03 inquiry operations](docs/W03-inquiries.md).
 
 ## Setup and local development
 
@@ -10,6 +10,7 @@ From `upms.client`:
 
 ```powershell
 npm ci
+npm run build
 npm run dev
 ```
 
@@ -45,7 +46,7 @@ dotnet test UPMS.Server.Tests
 dotnet publish UPMS.Server -c Release -o ./artifacts/publish
 ```
 
-The existing JavaScript SDK project reference builds and packages `upms.client/dist` into the published server's `wwwroot`. No manual copy or new publish target is required. Run frontend builds and publishing sequentially because they share the same output. Serve the published app with ASP.NET Core; its existing `MapFallbackToFile` handles extensionless page routes. Other static hosting must rewrite page requests to `index.html` while serving asset/API paths normally. Deploy at the domain root unless a basename and Vite base are configured together.
+The JavaScript SDK project reference builds and packages `upms.client/dist` into the published server's `wwwroot`, including prerendered HTML and the public route manifest. Run builds and publishing sequentially because they share output. Build the frontend before starting a fresh checkout or running HTTP tests. ASP.NET serves known pages and correct 404s from the generated registry; do not add an index.html rewrite. Deploy at the domain root. See [W04 deployment](docs/W04-deployment.md) for required origin/host/proxy/HTTPS settings, IIS and generic hosting, and rollback.
 
 ## Routes and architecture
 
@@ -92,15 +93,15 @@ Custom Packaging has a labeled CSS/SVG design treatment rather than duplicated p
 
 ## SEO and remaining publication inputs
 
-Page and category titles, descriptions and Open Graph text are updated client-side. Native headings, breadcrumbs, image alternatives, visible focus and a skip link support accessibility. Google Fonts supplies Manrope and DM Sans with system fallbacks; early stylesheet discovery and preconnect hints reduce the font request chain.
+W04 prerenders initial content, headings, titles, descriptions and Open Graph text for all eleven public routes, then activates the existing React site. Unknown public routes return HTTP 404; API and asset errors never receive a public SPA shell. The same public registry drives the .NET host and sitemap. Query-based Contact preselection is retained. Fonts are self-hosted with licenses, and the approved image sources and design are preserved.
 
-The current SPA is sufficient for interactive navigation but client-rendered metadata is not a guarantee of indexing or social-preview rendering. Non-JavaScript crawlers receive the shared HTML metadata. Consider static prerendering or SSR before a broader search/social launch; neither is implemented or verified here. Unknown routes are client-side soft 404s. No canonical production domain or social-sharing image is fabricated.
+Set the real `Website__PublicOrigin` and explicit `AllowedHosts` before launch. Without the origin the site is noindex, robots disallows crawling and sitemap returns 503; no production domain is invented. See [audit and trade-offs](docs/W04-audit.md), [deployment](docs/W04-deployment.md) and [verification/checklist](docs/W04-verification.md).
 
 Still needed: high-resolution product originals, verified factory photography, approved client branding/permission if a showcase is desired, verified specifications for non-bucket categories, and production domain/social assets. Brochure crops remain provisional. W03 provides a validated inquiry backend with configurable SMTP; production relay credentials, approved sender/recipient and delivery verification remain deployment dependencies.
 
 ## Milestone boundaries
 
-W03 completes customer inquiry intake on the public company portfolio. Future sales, inventory, vendor/customer records, authentication, accounting and ledger workflows must remain separate from public website components. Stop after W03 until reviewed; do not begin W04 automatically.
+W04 prepares production hosting and discoverability for the public company portfolio. Future sales, inventory, vendor/customer records, authentication, accounting and ledger workflows must remain separate from public website components. Stop after W04 for independent commit review; do not deploy publicly, activate SMTP or begin W05 automatically.
 
 ## W03 inquiry workflow
 
