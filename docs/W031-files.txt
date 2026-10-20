@@ -1,0 +1,16 @@
+docs/W031-browser-results.json
+docs/W031-lighthouse-summary.json
+docs/W031-verification.md
+docs/screenshots/w031/product-desktop.jpg
+docs/screenshots/w031/product-mobile.jpg
+upms.client/README.md
+upms.client/src/App.jsx
+upms.client/src/components/ui/WhatsAppFloatingButton.jsx
+upms.client/src/components/ui/WhatsAppIcon.jsx
+upms.client/src/data/company.js
+upms.client/src/pages/ContactPage.jsx
+upms.client/src/pages/ProductDetail.jsx
+upms.client/src/styles/site.css
+upms.client/src/test/WhatsApp.test.jsx
+upms.client/src/utils/whatsapp.js
+docs/W031-files.txt

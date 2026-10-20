@@ -1,3 +1,5 @@
+import WhatsAppIcon from "../components/ui/WhatsAppIcon";
+import { buildWhatsAppLink, productWhatsAppMessage } from "../utils/whatsapp";
 import { Link, useParams } from "react-router";
 import { products } from "../data/company";
 import PageHero from "../components/ui/PageHero";
@@ -56,9 +58,19 @@ export default function ProductDetail() {
               </dd>
             </div>
           </dl>
-          <Link className="button" to={`/contact?category=${product.id}`}>
-            Inquire about {product.title} ↗
-          </Link>
+          <div className="product-contact-actions">
+            <Link className="button" to={`/contact?category=${product.id}`}>
+              Inquire about {product.title} ↗
+            </Link>
+            <a
+              className="button whatsapp-secondary"
+              href={buildWhatsAppLink(productWhatsAppMessage(product.title))}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <WhatsAppIcon /> Contact on WhatsApp
+            </a>
+          </div>
         </div>
       </section>
       <section className="products-section section">

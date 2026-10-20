@@ -1,3 +1,4 @@
+import { buildWhatsAppLink, defaultWhatsAppMessage } from "../utils/whatsapp";
 import InquiryForm from "../components/inquiries/InquiryForm";
 import { useSearchParams } from "react-router";
 import { company, email, products, productInquiry } from "../data/company";
@@ -33,6 +34,17 @@ export default function ContactPage() {
                 {phone.label} ↗
               </a>
             ))}
+          </div>
+          <div className="contact-method">
+            <h3>WhatsApp</h3>
+            <a
+              href={buildWhatsAppLink(defaultWhatsAppMessage)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              +{company.whatsappNumber} ↗
+            </a>
+            <p>Opens WhatsApp with a draft for you to review and send.</p>
           </div>
           <div className="contact-method">
             <h3>Email your inquiry</h3>

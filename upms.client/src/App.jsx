@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Routes, Route, useLocation, matchPath } from "react-router";
 import { Header, Footer } from "./components/layout/Layout";
+import WhatsAppFloatingButton from "./components/ui/WhatsAppFloatingButton";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Products from "./pages/Products";
@@ -101,6 +102,7 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
+      <WhatsAppFloatingButton />
       <RouteEffects />
     </>
   );

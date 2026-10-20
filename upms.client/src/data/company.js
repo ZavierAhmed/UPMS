@@ -5,6 +5,7 @@ import containers from "../assets/products/containers.jpg";
 export const company = {
   name: "Unique Plastic Industry",
   email: "uniqueplastic56@gmail.com",
+  whatsappNumber: "923142113472",
   address: "F-260-A, S.I.T.E., Karachi, Pakistan",
   phones: [
     { label: "0342-2743901", href: "tel:+923422743901" },

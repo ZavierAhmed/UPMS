@@ -1,0 +1,32 @@
+[
+  {
+    "page": "contact",
+    "url": "http://127.0.0.1:5186/contact",
+    "version": "13.5.0",
+    "fetchTime": "2026-10-20T08:17:43.844Z",
+    "formFactor": "mobile",
+    "runWarnings": [],
+    "scores": {
+      "performance": 91,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100,
+      "agentic-browsing": 100
+    }
+  },
+  {
+    "page": "home",
+    "url": "http://127.0.0.1:5186/",
+    "version": "13.5.0",
+    "fetchTime": "2026-10-20T08:18:00.103Z",
+    "formFactor": "mobile",
+    "runWarnings": [],
+    "scores": {
+      "performance": 90,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100,
+      "agentic-browsing": 100
+    }
+  }
+]

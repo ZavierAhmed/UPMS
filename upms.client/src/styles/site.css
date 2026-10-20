@@ -869,3 +869,36 @@ footer {
   letter-spacing: -1.8px;
   margin-bottom: 24px;
 }
+
+/* Preserve full-bleed sections while keeping controls out of the FAB rail. */
+.container {
+  max-width: calc(100% - 96px - env(safe-area-inset-right, 0px));
+  margin-right: max(calc(76px + env(safe-area-inset-right, 0px)), calc((100% - 1320px) / 2));
+}
+.whatsapp-floating {
+  position: fixed;
+  right: calc(10px + env(safe-area-inset-right, 0px));
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #25d366;
+  color: #102a1a;
+  box-shadow: 0 4px 16px #0003;
+  z-index: 15;
+  transition: background-color .15s, box-shadow .15s;
+}
+.whatsapp-floating svg { width: 30px; height: 30px; }
+.whatsapp-floating:hover { background: #20bd5a; box-shadow: 0 6px 20px #0004; }
+.whatsapp-floating:focus-visible, .whatsapp-secondary:focus-visible {
+  outline: 3px solid #126632;
+  outline-offset: 4px;
+}
+.product-contact-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.product-contact-actions .button { white-space: normal; }
+.whatsapp-secondary { background: transparent; color: #126632; border: 1px solid #126632; gap: 10px; }
+.whatsapp-secondary svg { flex-shrink: 0; }
+.whatsapp-secondary:hover { background: #e4f6e9; color: #126632; }
+@media (prefers-reduced-motion: reduce) { .whatsapp-floating { transition: none; } }
