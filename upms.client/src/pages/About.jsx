@@ -3,7 +3,7 @@ import PageHero from "../components/ui/PageHero";
 import Contact from "../components/sections/Contact";
 import Icon from "../components/ui/Icon";
 import { values } from "../data/pages";
-import { products } from "../data/company";
+import { company, products } from "../data/company";
 import hero from "../assets/products/hero.jpg";
 export default function About() {
   return (
@@ -23,7 +23,7 @@ export default function About() {
         <div className="year-panel">
           <span>ESTABLISHED</span>
           <strong>2018</strong>
-          <p>Karachi, Pakistan</p>
+          <p>{company.address}</p>
         </div>
       </PageHero>
       <section className="section container split-content reveal">
@@ -43,7 +43,7 @@ export default function About() {
             plastic packaging products.
           </p>
           <p>
-            Based in S.I.T.E., Karachi, we focus on understanding each
+            Based in {company.address}, we focus on understanding each
             customer’s requirements and bringing together product quality,
             design discussions and dependable service. Our company brochure
             describes a commitment to innovation and customer satisfaction

@@ -6,12 +6,16 @@ export const company = {
   name: "Unique Plastic Industry",
   email: "uniqueplastic56@gmail.com",
   whatsappNumber: "923142113472",
-  address: "F-260-A, S.I.T.E., Karachi, Pakistan",
+  // The supplied Maps listing has a different business name; street address
+  // attribution to Unique Plastic Industry remains unconfirmed.
+  address: "Karachi, Pakistan",
   phones: [
     { label: "0342-2743901", href: "tel:+923422743901" },
     { label: "0314-2113472", href: "tel:+923142113472" },
   ],
-  map: "https://www.google.com/maps/search/?api=1&query=F-260-A%2C%20S.I.T.E.%2C%20Karachi%2C%20Pakistan",
+  map: "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+  // Pin coordinates from the supplied destination, not its map viewport center.
+  directions: "https://www.google.com/maps/dir/?api=1&destination=24.9054755%2C66.9876346",
 };
 export const email =
   "mailto:uniqueplastic56@gmail.com?subject=Packaging%20inquiry";

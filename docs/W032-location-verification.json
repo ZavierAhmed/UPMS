@@ -1,0 +1,23 @@
+{
+  "checkedOn": "2026-10-20",
+  "sourceURL": "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+  "retrieval": "Live Firecrawl scrape, HTTP 200",
+  "resolvedPlaceURL": "https://www.google.com/maps/place/Z.A+KHAN+packages/@24.9054803,66.9850597,1079m/data=!3m2!1e3!4b1!4m6!3m5!1s0x3eb315ff4208c2ff:0x57b91da02c9e86cb!8m2!3d24.9054755!4d66.9876346!16s%2Fg%2F11nxbvbxrq",
+  "canonicalURLNote": "Resolved Google Maps place URL with tracking query parameters removed; no separately declared canonical URL was exposed.",
+  "listingName": "Z.A KHAN packages",
+  "listingAddress": "Wali Rd, Metroville Sindh Industrial Trading Estate, Karachi, 75700, Pakistan",
+  "city": "Karachi",
+  "province": null,
+  "provinceNote": "The listing did not separately expose a province field. Sindh Industrial Trading Estate appears in the address as a locality name.",
+  "pinCoordinates": {
+    "latitude": 24.9054755,
+    "longitude": 66.9876346
+  },
+  "coordinateProvenance": "Place pin !3d/!4d in resolved Maps URL, not @ viewport center.",
+  "companyStreetAddressVerified": false,
+  "oldAddressRelationship": "Unverified",
+  "publicAddress": "Karachi, Pakistan",
+  "publicMapURL": "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+  "publicDirectionsURL": "https://www.google.com/maps/dir/?api=1&destination=24.9054755%2C66.9876346",
+  "identityDecision": "Use the explicitly supplied destination; do not publish the other listing name or claim a company relationship."
+}

@@ -8,7 +8,7 @@ import {
 } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import App from "../App";
-import { products } from "../data/company";
+import { company, products } from "../data/company";
 function open(path = "/") {
   return render(
     <MemoryRouter initialEntries={[path]}>
@@ -196,9 +196,9 @@ describe("navigation controls and contact", () => {
     ).toMatch(/^mailto:uniqueplastic56@gmail.com/);
     expect(
       main
-        .getByRole("link", { name: "Open address in Google Maps ↗" })
+        .getByRole("link", { name: "Open location in Google Maps ↗" })
         .getAttribute("href"),
-    ).toContain("F-260-A");
+    ).toBe(company.map);
     expect(
       screen.getByRole("form", { name: "Packaging inquiry" }),
     ).toBeTruthy();

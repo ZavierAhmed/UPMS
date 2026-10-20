@@ -1,0 +1,546 @@
+{
+  "baseURL": "http://127.0.0.1:5185",
+  "widths": [
+    360,
+    390,
+    768,
+    1024,
+    1440,
+    1920
+  ],
+  "checks": [
+    {
+      "path": "/",
+      "width": 360,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/about",
+      "width": 360,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products",
+      "width": 360,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/manufacturing",
+      "width": 360,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/industries",
+      "width": 360,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/contact",
+      "width": 360,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/buckets",
+      "width": 360,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/cans",
+      "width": 360,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/jars",
+      "width": 360,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/containers",
+      "width": 360,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/custom",
+      "width": 360,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/",
+      "width": 390,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/about",
+      "width": 390,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products",
+      "width": 390,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/manufacturing",
+      "width": 390,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/industries",
+      "width": 390,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/contact",
+      "width": 390,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/buckets",
+      "width": 390,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/cans",
+      "width": 390,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/jars",
+      "width": 390,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/containers",
+      "width": 390,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/custom",
+      "width": 390,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/",
+      "width": 768,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/about",
+      "width": 768,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products",
+      "width": 768,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/manufacturing",
+      "width": 768,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/industries",
+      "width": 768,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/contact",
+      "width": 768,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/buckets",
+      "width": 768,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/cans",
+      "width": 768,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/jars",
+      "width": 768,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/containers",
+      "width": 768,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/custom",
+      "width": 768,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/",
+      "width": 1024,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/about",
+      "width": 1024,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products",
+      "width": 1024,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/manufacturing",
+      "width": 1024,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/industries",
+      "width": 1024,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/contact",
+      "width": 1024,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/buckets",
+      "width": 1024,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/cans",
+      "width": 1024,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/jars",
+      "width": 1024,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/containers",
+      "width": 1024,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/custom",
+      "width": 1024,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/",
+      "width": 1440,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/about",
+      "width": 1440,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products",
+      "width": 1440,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/manufacturing",
+      "width": 1440,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/industries",
+      "width": 1440,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/contact",
+      "width": 1440,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/buckets",
+      "width": 1440,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/cans",
+      "width": 1440,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/jars",
+      "width": 1440,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/containers",
+      "width": 1440,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/custom",
+      "width": 1440,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/",
+      "width": 1920,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/about",
+      "width": 1920,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products",
+      "width": 1920,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/manufacturing",
+      "width": 1920,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/industries",
+      "width": 1920,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/contact",
+      "width": 1920,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/buckets",
+      "width": 1920,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/cans",
+      "width": 1920,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/jars",
+      "width": 1920,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/containers",
+      "width": 1920,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    },
+    {
+      "path": "/products/custom",
+      "width": 1920,
+      "overflow": false,
+      "oldAddress": false,
+      "footerAddress": "Karachi, Pakistan",
+      "overlap": []
+    }
+  ],
+  "allMapLinksMatchedConfiguredDestination": true,
+  "allMapLinksSecure": true,
+  "whatsappUnchanged": true,
+  "formValidationPassed": true,
+  "categoryPreselection": "cans"
+}

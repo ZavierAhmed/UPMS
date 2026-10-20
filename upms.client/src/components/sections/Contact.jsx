@@ -28,6 +28,9 @@ export default function Contact({ page = false }) {
             {company.email}
           </a>
           <address>{company.address}</address>
+          <a href={company.map} target="_blank" rel="noopener noreferrer">
+            View Location ↗
+          </a>
           <Link className="text-link" to="/products">
             Explore our products →
           </Link>

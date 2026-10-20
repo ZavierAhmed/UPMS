@@ -29,3 +29,9 @@ W03 inquiry submissions require the .NET API (integrated development or publishe
 Product detail pages retain the original inquiry CTA and category query parameter. The secondary outlined WhatsApp CTA uses the current structured product title in its draft, and wraps beside/below the inquiry CTA according to space. The Contact page adds the same configured number as another contact method. Opening a link only opens WhatsApp and prepares a draft; visitors review and send it themselves. There is no WhatsApp API, credential, automatic message, or dependency addition.
 
 See [W03.1 verification](../docs/W031-verification.md) for automated checks, responsive browser results, Lighthouse comparison, and screenshots. No real WhatsApp messages were sent.
+
+## Location configuration (W03.2)
+
+`src/data/company.js` owns `company.address`, `company.map` (the exact company-supplied short Maps link), and `company.directions` (Google Maps directions to the resolved destination pin). Contact, the shared contact section and footer read these values. About and Contact metadata use the same address display.
+
+The supplied link currently resolves to a listing with a different business name. Until its street address is confirmed for Unique Plastic Industry, the public address is the neutral **Karachi, Pakistan**. Do not restore the old street address, copy the other listing identity/contact details, or claim a corporate relationship. See [W03.2 location evidence and verification](../docs/W032-verification.md) before changing the display or coordinates.

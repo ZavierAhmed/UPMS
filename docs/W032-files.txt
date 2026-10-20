@@ -1,0 +1,15 @@
+docs/W032-browser-results.json
+docs/W032-location-verification.json
+docs/W032-verification.md
+docs/screenshots/w032/contact-desktop.jpg
+docs/screenshots/w032/contact-mobile.jpg
+upms.client/README.md
+upms.client/src/components/layout/Layout.jsx
+upms.client/src/components/sections/Contact.jsx
+upms.client/src/data/company.js
+upms.client/src/data/pages.js
+upms.client/src/pages/About.jsx
+upms.client/src/pages/ContactPage.jsx
+upms.client/src/test/App.test.jsx
+upms.client/src/test/Location.test.jsx
+docs/W032-files.txt

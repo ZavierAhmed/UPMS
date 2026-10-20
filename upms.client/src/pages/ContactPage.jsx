@@ -58,7 +58,7 @@ export default function ContactPage() {
             </p>
           </div>
           <div className="contact-method">
-            <h3>Find us in Karachi</h3>
+            <h3>Company location</h3>
             <address>{company.address}</address>
             <a
               className="text-link"
@@ -66,11 +66,20 @@ export default function ContactPage() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Open address in Google Maps ↗
+              Open location in Google Maps ↗
             </a>
+            <p>
+              <a
+                className="text-link"
+                href={company.directions}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Get Directions ↗
+              </a>
+            </p>
             <p className="small-note">
-              Searches the business address. Please call to confirm directions
-              before visiting.
+              Please call to confirm directions before visiting.
             </p>
           </div>
         </div>

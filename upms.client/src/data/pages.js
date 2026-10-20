@@ -1,3 +1,5 @@
+import { company } from "./company";
+
 export const pageMeta = {
   "/": {
     title: "Plastic Packaging Manufacturer in Karachi",
@@ -27,7 +29,7 @@ export const pageMeta = {
   "/contact": {
     title: "Contact Us",
     description:
-      "Contact Unique Plastic Industry at F-260-A, S.I.T.E., Karachi. Call 0342-2743901 or email uniqueplastic56@gmail.com for packaging inquiries.",
+      `Contact ${company.name} in ${company.address}. Call 0342-2743901 or email uniqueplastic56@gmail.com for packaging inquiries.`,
   },
 };
 export const notFoundMeta = {

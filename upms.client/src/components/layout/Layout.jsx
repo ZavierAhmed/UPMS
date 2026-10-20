@@ -114,6 +114,9 @@ export function Footer() {
         <div>
           <h3>Let’s talk</h3>
           <address>{company.address}</address>
+          <a href={company.map} target="_blank" rel="noopener noreferrer">
+            View Location ↗
+          </a>
           <a href={email}>{company.email}</a>
           {company.phones.map((phone) => (
             <a href={phone.href} key={phone.href}>
