@@ -64,6 +64,7 @@ export default defineConfig(({ command, isPreview }) => ({
   },
   server: {
     proxy: {
+      "^/api": { target, secure: false },
       "^/weatherforecast": {
         target,
         secure: false,

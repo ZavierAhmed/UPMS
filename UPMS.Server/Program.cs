@@ -1,28 +1,19 @@
+using UPMS.Server.Inquiries;
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-
+builder.AddInquiryServices();
 var app = builder.Build();
-
+app.UseInquiryBoundary();
 app.UseDefaultFiles();
 app.MapStaticAssets();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
-
+if (app.Environment.IsDevelopment()) app.MapOpenApi();
 app.UseHttpsRedirection();
-
+app.UseRouting();
+app.UseRateLimiter();
 app.UseAuthorization();
-
 app.MapControllers();
-
+app.MapInquiryApi();
 app.MapFallbackToFile("/index.html");
-
 app.Run();
+public partial class Program { }

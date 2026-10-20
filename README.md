@@ -1,6 +1,6 @@
 # Unique Plastic Industry — public website
 
-Corporate portfolio for Unique Plastic Industry, a plastic packaging manufacturer in Karachi established in 2018. W02 completes the public pages on the React 19 / Vite 8 / ASP.NET Core (.NET 10) foundation. No management system, authentication, database or payment features are included.
+Corporate portfolio for Unique Plastic Industry, a plastic packaging manufacturer in Karachi established in 2018. W03 adds a real inquiry API and quotation-request form to the public pages on the React 19 / Vite 8 / ASP.NET Core (.NET 10) foundation. No management system, authentication, database or payment features are included. Production inquiry delivery requires configuration; see [W03 inquiry operations](docs/W03-inquiries.md).
 
 ## Setup and local development
 
@@ -22,7 +22,7 @@ dotnet restore
 dotnet run --project UPMS.Server --launch-profile https
 ```
 
-The existing Visual Studio SPA proxy and development HTTPS configuration are preserved. Backend source/configuration did not change in W02.
+The existing Visual Studio SPA proxy and development HTTPS configuration are preserved. W03 adds `/api/v1/public/inquiries`, protected delivery handling and a development file outbox; the existing SPA integration remains in place.
 
 ## Build, test and publish
 
@@ -41,6 +41,7 @@ From the root:
 ```powershell
 dotnet restore
 dotnet build
+dotnet test UPMS.Server.Tests
 dotnet publish UPMS.Server -c Release -o ./artifacts/publish
 ```
 
@@ -54,7 +55,7 @@ The existing JavaScript SDK project reference builds and packages `upms.client/d
 - `/products/buckets`, `/products/cans`, `/products/jars`, `/products/containers`, `/products/custom`: category details, supported metadata, inquiry brief and category-specific email links.
 - `/manufacturing`: molding, design, raw materials, samples, delivery and service.
 - `/industries`: lubricant/oil, chemical and industrial/commercial applications, without customer logos or endorsements.
-- `/contact`: address, phone, email, map search link and guidance for a useful inquiry. No fake form submission.
+- `/contact`: validated quotation-request form with category preselection, backend-confirmed handoff, accessible failure states, and direct phone/email/map alternatives. Production delivery is disabled until SMTP is configured.
 - Unknown page/category paths: consistent 404 view and `noindex,follow` metadata. URLs use lowercase paths; path matches are case-sensitive. The SPA fallback returns HTTP 200 for extensionless unknown URLs; the 404 is rendered client-side.
 
 React Router declarative BrowserRouter provides path URLs and browser history. Already-shared W01 root hash links (`/#/products/cans`) are converted to path URLs on initial load. Vite development/preview and a real local .NET publish were checked for nested-route support.
@@ -95,8 +96,14 @@ Page and category titles, descriptions and Open Graph text are updated client-si
 
 The current SPA is sufficient for interactive navigation but client-rendered metadata is not a guarantee of indexing or social-preview rendering. Non-JavaScript crawlers receive the shared HTML metadata. Consider static prerendering or SSR before a broader search/social launch; neither is implemented or verified here. Unknown routes are client-side soft 404s. No canonical production domain or social-sharing image is fabricated.
 
-Still needed: high-resolution product originals, verified factory photography, approved client branding/permission if a showcase is desired, verified specifications for non-bucket categories, and production domain/social assets. Brochure crops remain provisional. A reliable validated inquiry backend, if needed, belongs to a separately scoped milestone.
+Still needed: high-resolution product originals, verified factory photography, approved client branding/permission if a showcase is desired, verified specifications for non-bucket categories, and production domain/social assets. Brochure crops remain provisional. W03 provides a validated inquiry backend with configurable SMTP; production relay credentials, approved sender/recipient and delivery verification remain deployment dependencies.
 
 ## Milestone boundaries
 
-W02 completes the public company portfolio. Future sales, inventory, vendor/customer records, authentication, accounting and ledger workflows must remain separate from public website components. Do not start W03 until reviewed and defined.
+W03 completes customer inquiry intake on the public company portfolio. Future sales, inventory, vendor/customer records, authentication, accounting and ledger workflows must remain separate from public website components. Stop after W03 until reviewed; do not begin W04 automatically.
+
+## W03 inquiry workflow
+
+The contact form posts to the same-origin `/api/v1/public/inquiries` endpoint. Development explicitly saves to a private local file outbox; Production defaults to disabled and cannot report a simulated success. SMTP handoff is replaceable via `IInquiryDelivery`. Successful SMTP acceptance is distinguished from inbox receipt. No durable production queue or management database was introduced.
+
+See [API/configuration/security documentation](docs/W03-inquiries.md), [verification](docs/W03-verification.md), [changed-file manifest](docs/W03-files.txt) and `UPMS.Server.Tests` for backend coverage. Frontend tests also cover duplicate protection, failure-state drafts, category preselection and timeouts.

@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router";
-import { products, productInquiry } from "../data/company";
+import { products } from "../data/company";
 import PageHero from "../components/ui/PageHero";
 import ProductCard, { ProductVisual } from "../components/ui/ProductCard";
 import Contact from "../components/sections/Contact";
@@ -56,9 +56,9 @@ export default function ProductDetail() {
               </dd>
             </div>
           </dl>
-          <a className="button" href={productInquiry(product.title)}>
+          <Link className="button" to={`/contact?category=${product.id}`}>
             Inquire about {product.title} ↗
-          </a>
+          </Link>
         </div>
       </section>
       <section className="products-section section">
@@ -83,7 +83,10 @@ export default function ProductDetail() {
               </li>
             ))}
             <li>
-              <Link to="/contact" className="text-link">
+              <Link
+                to={`/contact?category=${product.id}`}
+                className="text-link"
+              >
                 Contact our team →
               </Link>
             </li>

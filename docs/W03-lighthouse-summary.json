@@ -1,0 +1,32 @@
+[
+  {
+    "page": "contact",
+    "url": "http://localhost:5183/contact",
+    "version": "13.5.0",
+    "fetchTime": "2026-10-20T07:37:31.645Z",
+    "formFactor": "mobile",
+    "runWarnings": [],
+    "scores": {
+      "performance": 91,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "accessibilityFailures": []
+  },
+  {
+    "page": "home",
+    "url": "http://localhost:5183/",
+    "version": "13.5.0",
+    "fetchTime": "2026-10-20T07:37:48.525Z",
+    "formFactor": "mobile",
+    "runWarnings": [],
+    "scores": {
+      "performance": 87,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "accessibilityFailures": []
+  }
+]

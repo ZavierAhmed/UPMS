@@ -16,9 +16,9 @@ export default function Contact({ page = false }) {
             Tell us what you have in mind. We’ll help you explore the
             possibilities.
           </p>
-          <a className="button dark-button" href={email}>
-            Email an inquiry ↗
-          </a>
+          <Link className="button dark-button" to="/contact">
+            Request a quote ↗
+          </Link>
         </div>
         <div className="contact-details">
           <span>CONTACT OUR TEAM</span>

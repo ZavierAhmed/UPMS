@@ -96,7 +96,7 @@ describe("catalog and product detail", () => {
         screen
           .getByRole("link", { name: `Inquire about ${product.title} ↗` })
           .getAttribute("href"),
-      ).toContain(encodeURIComponent(product.title));
+      ).toBe(`/contact?category=${product.id}`);
       if (product.id === "buckets") {
         for (const capacity of ["8L", "10L", "14L", "20L"])
           expect(screen.getByText(capacity)).toBeTruthy();
@@ -191,7 +191,7 @@ describe("navigation controls and contact", () => {
     ).toBe("tel:+923422743901");
     expect(
       main
-        .getByRole("link", { name: "Write an email inquiry ↗" })
+        .getByRole("link", { name: /uniqueplastic56@gmail.com/ })
         .getAttribute("href"),
     ).toMatch(/^mailto:uniqueplastic56@gmail.com/);
     expect(
@@ -199,6 +199,8 @@ describe("navigation controls and contact", () => {
         .getByRole("link", { name: "Open address in Google Maps ↗" })
         .getAttribute("href"),
     ).toContain("F-260-A");
-    expect(document.querySelector("form")).toBeNull();
+    expect(
+      screen.getByRole("form", { name: "Packaging inquiry" }),
+    ).toBeTruthy();
   });
 });

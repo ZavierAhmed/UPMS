@@ -34,6 +34,7 @@ export async function runBrowserSmoke({ tab, viewport, baseURL }) {
         title: document.title,
       }));
       if (
+        state.width !== width ||
         state.scrollWidth > state.width ||
         state.h1Count !== 1 ||
         !state.focusedMain ||
@@ -48,6 +49,7 @@ export async function runBrowserSmoke({ tab, viewport, baseURL }) {
       results.push({
         path,
         width,
+        actualWidth: state.width,
         title: state.title,
         overflow: false,
         brokenImages: state.brokenImages.length,

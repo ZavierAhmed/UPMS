@@ -1,4 +1,5 @@
-import { Link, useSearchParams } from "react-router";
+import InquiryForm from "../components/inquiries/InquiryForm";
+import { useSearchParams } from "react-router";
 import { company, email, products, productInquiry } from "../data/company";
 import PageHero from "../components/ui/PageHero";
 export default function ContactPage() {
@@ -61,38 +62,7 @@ export default function ContactPage() {
             </p>
           </div>
         </div>
-        <aside className="inquiry-panel">
-          <p className="eyebrow">A USEFUL STARTING POINT</p>
-          <h2>
-            What to include
-            <br />
-            in your inquiry.
-          </h2>
-          <p>
-            A brief message is enough to start. Share any of the following
-            details you have:
-          </p>
-          <ol>
-            <li>Product or packaging category</li>
-            <li>Intended contents and application</li>
-            <li>Required size or design reference</li>
-            <li>Approximate order quantity</li>
-            <li>Delivery location and preferred timing</li>
-          </ol>
-          <a
-            className="button dark-button"
-            href={product ? productInquiry(product.title) : email}
-          >
-            Write an email inquiry ↗
-          </a>
-          <p className="small-note">
-            Opens your email application. If one isn’t configured, copy the
-            email address above into your preferred mail service.
-          </p>
-          <Link className="text-link" to="/products">
-            Still exploring? View our range →
-          </Link>
-        </aside>
+        <InquiryForm initialCategory={product?.id || ""} />
       </section>
     </>
   );

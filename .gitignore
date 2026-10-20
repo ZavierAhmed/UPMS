@@ -365,3 +365,7 @@ FodyWeavers.xsd
 /tmp/w02/
 /artifacts/
 /upms.client/.vitest/
+
+# W03 private development outbox and local verification
+/UPMS.Server/.local/
+/tmp/w03/

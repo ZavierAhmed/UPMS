@@ -3,5 +3,6 @@
     <Build />
     <Deploy />
   </Project>
+  <Project Path="UPMS.Server.Tests/UPMS.Server.Tests.csproj" />
   <Project Path="UPMS.Server/UPMS.Server.csproj" />
 </Solution>
