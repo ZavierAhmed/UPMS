@@ -77,7 +77,7 @@ See [W02 audit](docs/W02-audit.md), [verification](docs/W02-verification.md), [b
 
 ## Assets and content provenance
 
-Supplied brochure: `upms.client/src/assets/UNIQUE COMPANY MOCKUP.pdf`. Official extracted logo: `src/assets/unique_plastic_logos_hd/unique_plastic.svg`. Alternative supplied logos remain untouched locally. The site does not use Z.A Khan branding or market Unique Lubricants products as the primary identity.
+Supplied brochure: `upms.client/src/assets/UNIQUE COMPANY MOCKUP.pdf`. Official extracted logo: `src/assets/unique_plastic_logos_hd/unique_plastic.svg`. Alternative supplied logos remain untouched locally. Unique Plastic Industry is the only company represented by the website. Z.A Khan Packages and Unique Lubricants must not appear as affiliated companies, subsidiaries, sister companies, independent website brands or alternate identities. Lubricant packaging remains a manufactured-product category. This mandatory constraint applies to all future milestones; see `AGENTS.md`.
 
 JPEG derivatives in `src/assets/products`:
 
