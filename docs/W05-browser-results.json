@@ -1,0 +1,1127 @@
+{
+  "browser": "Chrome/155.0.8059.84",
+  "base": "https://localhost:7445",
+  "productionMode": true,
+  "syntheticCanonicalOrigin": "https://www.example.test",
+  "results": [
+    {
+      "path": "/",
+      "width": 360,
+      "status": 200,
+      "scrollWidth": 360,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/about",
+      "width": 360,
+      "status": 200,
+      "scrollWidth": 360,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products",
+      "width": 360,
+      "status": 200,
+      "scrollWidth": 360,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/manufacturing",
+      "width": 360,
+      "status": 200,
+      "scrollWidth": 360,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/industries",
+      "width": 360,
+      "status": 200,
+      "scrollWidth": 360,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/contact",
+      "width": 360,
+      "status": 200,
+      "scrollWidth": 360,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/buckets",
+      "width": 360,
+      "status": 200,
+      "scrollWidth": 360,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Plastic%20Buckets.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/cans",
+      "width": 360,
+      "status": 200,
+      "scrollWidth": 360,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Lubricant%20Cans.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/jars",
+      "width": 360,
+      "status": 200,
+      "scrollWidth": 360,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Plastic%20Jars.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/containers",
+      "width": 360,
+      "status": 200,
+      "scrollWidth": 360,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Industrial%20Containers.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/custom",
+      "width": 360,
+      "status": 200,
+      "scrollWidth": 360,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Custom%20Packaging.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/",
+      "width": 390,
+      "status": 200,
+      "scrollWidth": 390,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/about",
+      "width": 390,
+      "status": 200,
+      "scrollWidth": 390,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products",
+      "width": 390,
+      "status": 200,
+      "scrollWidth": 390,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/manufacturing",
+      "width": 390,
+      "status": 200,
+      "scrollWidth": 390,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/industries",
+      "width": 390,
+      "status": 200,
+      "scrollWidth": 390,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/contact",
+      "width": 390,
+      "status": 200,
+      "scrollWidth": 390,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/buckets",
+      "width": 390,
+      "status": 200,
+      "scrollWidth": 390,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Plastic%20Buckets.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/cans",
+      "width": 390,
+      "status": 200,
+      "scrollWidth": 390,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Lubricant%20Cans.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/jars",
+      "width": 390,
+      "status": 200,
+      "scrollWidth": 390,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Plastic%20Jars.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/containers",
+      "width": 390,
+      "status": 200,
+      "scrollWidth": 390,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Industrial%20Containers.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/custom",
+      "width": 390,
+      "status": 200,
+      "scrollWidth": 390,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Custom%20Packaging.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/",
+      "width": 768,
+      "status": 200,
+      "scrollWidth": 768,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/about",
+      "width": 768,
+      "status": 200,
+      "scrollWidth": 768,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products",
+      "width": 768,
+      "status": 200,
+      "scrollWidth": 768,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/manufacturing",
+      "width": 768,
+      "status": 200,
+      "scrollWidth": 768,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/industries",
+      "width": 768,
+      "status": 200,
+      "scrollWidth": 768,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/contact",
+      "width": 768,
+      "status": 200,
+      "scrollWidth": 768,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/buckets",
+      "width": 768,
+      "status": 200,
+      "scrollWidth": 768,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Plastic%20Buckets.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/cans",
+      "width": 768,
+      "status": 200,
+      "scrollWidth": 768,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Lubricant%20Cans.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/jars",
+      "width": 768,
+      "status": 200,
+      "scrollWidth": 768,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Plastic%20Jars.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/containers",
+      "width": 768,
+      "status": 200,
+      "scrollWidth": 768,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Industrial%20Containers.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/custom",
+      "width": 768,
+      "status": 200,
+      "scrollWidth": 768,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Custom%20Packaging.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/",
+      "width": 1024,
+      "status": 200,
+      "scrollWidth": 1024,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/about",
+      "width": 1024,
+      "status": 200,
+      "scrollWidth": 1024,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products",
+      "width": 1024,
+      "status": 200,
+      "scrollWidth": 1024,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/manufacturing",
+      "width": 1024,
+      "status": 200,
+      "scrollWidth": 1024,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/industries",
+      "width": 1024,
+      "status": 200,
+      "scrollWidth": 1024,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/contact",
+      "width": 1024,
+      "status": 200,
+      "scrollWidth": 1024,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/buckets",
+      "width": 1024,
+      "status": 200,
+      "scrollWidth": 1024,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Plastic%20Buckets.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/cans",
+      "width": 1024,
+      "status": 200,
+      "scrollWidth": 1024,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Lubricant%20Cans.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/jars",
+      "width": 1024,
+      "status": 200,
+      "scrollWidth": 1024,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Plastic%20Jars.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/containers",
+      "width": 1024,
+      "status": 200,
+      "scrollWidth": 1024,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Industrial%20Containers.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/custom",
+      "width": 1024,
+      "status": 200,
+      "scrollWidth": 1024,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Custom%20Packaging.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/",
+      "width": 1440,
+      "status": 200,
+      "scrollWidth": 1440,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/about",
+      "width": 1440,
+      "status": 200,
+      "scrollWidth": 1440,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products",
+      "width": 1440,
+      "status": 200,
+      "scrollWidth": 1440,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/manufacturing",
+      "width": 1440,
+      "status": 200,
+      "scrollWidth": 1440,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/industries",
+      "width": 1440,
+      "status": 200,
+      "scrollWidth": 1440,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/contact",
+      "width": 1440,
+      "status": 200,
+      "scrollWidth": 1440,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/buckets",
+      "width": 1440,
+      "status": 200,
+      "scrollWidth": 1440,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Plastic%20Buckets.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/cans",
+      "width": 1440,
+      "status": 200,
+      "scrollWidth": 1440,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Lubricant%20Cans.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/jars",
+      "width": 1440,
+      "status": 200,
+      "scrollWidth": 1440,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Plastic%20Jars.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/containers",
+      "width": 1440,
+      "status": 200,
+      "scrollWidth": 1440,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Industrial%20Containers.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/custom",
+      "width": 1440,
+      "status": 200,
+      "scrollWidth": 1440,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Custom%20Packaging.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/",
+      "width": 1920,
+      "status": 200,
+      "scrollWidth": 1920,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/about",
+      "width": 1920,
+      "status": 200,
+      "scrollWidth": 1920,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products",
+      "width": 1920,
+      "status": 200,
+      "scrollWidth": 1920,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/manufacturing",
+      "width": 1920,
+      "status": 200,
+      "scrollWidth": 1920,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/industries",
+      "width": 1920,
+      "status": 200,
+      "scrollWidth": 1920,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/contact",
+      "width": 1920,
+      "status": 200,
+      "scrollWidth": 1920,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/buckets",
+      "width": 1920,
+      "status": 200,
+      "scrollWidth": 1920,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Plastic%20Buckets.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/cans",
+      "width": 1920,
+      "status": 200,
+      "scrollWidth": 1920,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Lubricant%20Cans.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/jars",
+      "width": 1920,
+      "status": 200,
+      "scrollWidth": 1920,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Plastic%20Jars.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/containers",
+      "width": 1920,
+      "status": 200,
+      "scrollWidth": 1920,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Industrial%20Containers.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    },
+    {
+      "path": "/products/custom",
+      "width": 1920,
+      "status": 200,
+      "scrollWidth": 1920,
+      "h1Count": 1,
+      "focusedMain": true,
+      "brokenImages": [],
+      "whatsapp": [
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20am%20interested%20in%20your%20Custom%20Packaging.%20Please%20share%20details%20about%20available%20sizes%2C%20minimum%20order%20quantity%20and%20pricing.",
+        "https://wa.me/923142113472?text=Hello%20Unique%20Plastic%20Industry%2C%20I%20would%20like%20to%20know%20more%20about%20your%20plastic%20packaging%20products."
+      ],
+      "maps": [
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
+        "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6"
+      ]
+    }
+  ],
+  "interactions": [
+    "Mobile menu opens",
+    "Escape closes menu",
+    "Menu closes after navigation",
+    "Search empty state",
+    "Clear restores five categories",
+    "Custom packaging filter",
+    "Direct detail refresh",
+    "Product WhatsApp action buckets",
+    "Category preselection buckets",
+    "Product WhatsApp action cans",
+    "Category preselection cans",
+    "Product WhatsApp action jars",
+    "Category preselection jars",
+    "Product WhatsApp action containers",
+    "Category preselection containers",
+    "Product WhatsApp action custom",
+    "Category preselection custom",
+    "Disabled production form honestly reports unavailable",
+    "Failed form preserves details",
+    "Development-only outbox accepted through browser",
+    "Unknown page is HTTP 404",
+    "Legacy hash navigation"
+  ],
+  "errors": [],
+  "hydration": [],
+  "passed": true
+}

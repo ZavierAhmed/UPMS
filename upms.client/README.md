@@ -18,7 +18,7 @@ npm run preview
 
 Stop Vite before `npm ci` on Windows to release native-module locks. Unit/component tests use Vitest, jsdom and React Testing Library. The CUA browser smoke harness is `scripts/browser-smoke.mjs`; its browser requirements and invocation are documented in the W02 verification report.
 
-W03 inquiry submissions require the .NET API (integrated development or published hosting). Vite-only preview cannot deliver inquiries. See [inquiry operations](../docs/W03-inquiries.md) for safe local testing and production SMTP configuration.
+W05 inquiry submissions require the Node API (`npm run dev` from the repository root), with Vite proxying `/api` to `http://localhost:3000`. Vite-only preview cannot deliver inquiries. See [current inquiry and deployment operations](../docs/W05-hostinger-deployment.md). W03 documentation is historical.
 
 ## WhatsApp contact (W03.1)
 
@@ -38,8 +38,8 @@ The company owner confirmed the shared premises in W03.3. The public address is 
 
 ## W04 rendering and production hosting
 
-`npm run build` builds client assets, a temporary `.prerender` React server entry, and eleven static pages plus a 404 page. Only `dist` is published. `src/data/publicRoutes.js` derives the page registry from page metadata/product data; `scripts/prerender.mjs` generates HTML and the .NET manifest. Register a new public page in App.jsx and its metadata/product data, rebuild, and extend HTTP/browser tests. Keep future management routes separate.
+`npm run build` builds client assets, a temporary `.prerender` React server entry, and eleven static pages plus a 404 page. The Node application serves `dist`. `src/data/publicRoutes.js` derives the page registry from page metadata/product data; `scripts/prerender.mjs` generates HTML and the shared route manifest. Register a new public page in App.jsx and its metadata/product data, rebuild, and extend HTTP/browser tests. Keep future management routes separate.
 
 Normal pages hydrate; query-driven and legacy hash URLs mount from the live URL to retain inquiry/search behavior without mismatched HTML. Prerendered inquiry controls remain disabled until JavaScript activates, and form POST prevents accidental query-string submission. Reveal content is visible without JavaScript. Self-hosted DM Sans and Manrope font files have OFL notices in `public/licenses` and preload from the generated assets. Original brochure JPEGs are preserved.
 
-Vite preview can inspect static output but does not reproduce the .NET HTTP statuses, canonical injection, sitemap, robots, CSP or inquiry API. Use the ASP.NET published host for production validation. See [W04 audit](../docs/W04-audit.md), [verification](../docs/W04-verification.md) and [deployment guide](../docs/W04-deployment.md).
+Vite preview can inspect static output but does not reproduce Node HTTP statuses, canonical injection, sitemap, robots, CSP or the inquiry API. Use `npm start` from the repository root for complete local website validation. See [W05 parity](../docs/W05-node-parity.md), [verification](../docs/W05-verification.md) and [deployment guide](../docs/W05-hostinger-deployment.md). W04 records remain historical references.

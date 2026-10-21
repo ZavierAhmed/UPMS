@@ -373,3 +373,10 @@ FodyWeavers.xsd
 # W04 build-time renderer and local production verification
 /upms.client/.prerender/
 /tmp/w04/
+
+# W05 private runtime data and local verification
+/server/.local/
+/tmp/w05/
+.env
+.env.*
+!.env.example

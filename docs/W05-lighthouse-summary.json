@@ -1,0 +1,82 @@
+[
+  {
+    "page": "home",
+    "url": "https://localhost:7445/",
+    "version": "13.5.0",
+    "fetchTime": "2026-10-21T11:40:14.799Z",
+    "formFactor": "mobile",
+    "runWarnings": [],
+    "scores": {
+      "performance": 96,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "largest-contentful-paint": 2699.8374000000003,
+      "total-blocking-time": 48,
+      "cumulative-layout-shift": 0
+    },
+    "accessibilityFailures": []
+  },
+  {
+    "page": "catalog",
+    "url": "https://localhost:7445/products",
+    "version": "13.5.0",
+    "fetchTime": "2026-10-21T11:40:22.127Z",
+    "formFactor": "mobile",
+    "runWarnings": [],
+    "scores": {
+      "performance": 97,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "largest-contentful-paint": 2408.4575999999997,
+      "total-blocking-time": 0,
+      "cumulative-layout-shift": 0
+    },
+    "accessibilityFailures": []
+  },
+  {
+    "page": "detail",
+    "url": "https://localhost:7445/products/buckets",
+    "version": "13.5.0",
+    "fetchTime": "2026-10-21T11:40:28.680Z",
+    "formFactor": "mobile",
+    "runWarnings": [],
+    "scores": {
+      "performance": 97,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "largest-contentful-paint": 2487.8320000000003,
+      "total-blocking-time": 0.5,
+      "cumulative-layout-shift": 0
+    },
+    "accessibilityFailures": []
+  },
+  {
+    "page": "contact",
+    "url": "https://localhost:7445/contact",
+    "version": "13.5.0",
+    "fetchTime": "2026-10-21T11:40:35.176Z",
+    "formFactor": "mobile",
+    "runWarnings": [],
+    "scores": {
+      "performance": 98,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "largest-contentful-paint": 2259.7236000000003,
+      "total-blocking-time": 7,
+      "cumulative-layout-shift": 0
+    },
+    "accessibilityFailures": []
+  }
+]

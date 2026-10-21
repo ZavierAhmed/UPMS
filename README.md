@@ -1,110 +1,47 @@
-# Unique Plastic Industry — public website
+# Unique Plastic Industry — UPMS
 
-Corporate portfolio for Unique Plastic Industry, a plastic packaging manufacturer in Karachi established in 2018. W04 adds build-time prerendering, correct HTTP statuses, configured SEO and production hosting safeguards to the React 19 / Vite 8 / ASP.NET Core (.NET 10) website and W03 inquiry system. No management system, authentication, database or payment features are included. Production inquiry delivery requires configuration; see [W03 inquiry operations](docs/W03-inquiries.md).
+W05 migrates the public website backend to Node.js 24 LTS and Express. The W04 React/Vite design, public routes, approved assets, accessibility and build-time prerendering remain intact. Unique Plastic Industry is the only represented company. No Phase 2 management system, database or authentication is implemented.
 
-## Setup and local development
+## Run locally
 
-Prerequisites: Node compatible with Vite 8 and Vitest 5 (verified with Node 26.4.0), npm, .NET 10 SDK. Visual Studio can use the existing JavaScript/ASP.NET workloads and `UPMS.slnx` launcher.
+Use Node 24 LTS and npm. From the repository root:
 
-From `upms.client`:
-
-```powershell
+```sh
 npm ci
+npm ci --prefix upms.client
 npm run build
-npm run dev
+npm start
 ```
 
-Development uses `https://localhost:58500` with the existing .NET development certificate export. If needed, trust your own developer certificate with `dotnet dev-certs https --trust`. The existing weather proxy defaults to `https://localhost:7081`. Stop Vite before running `npm ci` on Windows to avoid locked native modules, then restart it.
+Open http://localhost:3000. Delivery is Disabled by default. An unconfigured public origin deliberately disables indexing; sitemap returns 503 until the real HTTPS origin is configured. No .NET runtime or Visual Studio is needed.
 
-From the repository root:
+For frontend hot reload, run `npm run dev` in the root and `npm run dev --prefix upms.client` in another terminal. Vite listens on http://localhost:58500 and proxies API requests to port 3000. Export `INQUIRY_MODE=DevelopmentFile` only in local development to save synthetic inquiries privately under `server/.local/inquiry-outbox`; no external email is sent. Environment files are not loaded implicitly.
 
-```powershell
-dotnet restore
-dotnet run --project UPMS.Server --launch-profile https
-```
+## Build and verify
 
-The existing Visual Studio SPA proxy and development HTTPS configuration are preserved. W03 adds `/api/v1/public/inquiries`, protected delivery handling and a development file outbox; the existing SPA integration remains in place.
-
-## Build, test and publish
-
-From `upms.client`:
-
-```powershell
+```sh
+npm run install:all
 npm run build
-npm run lint
-npm test
-npm run test:watch
-npm run preview
+npm run test:backend
+npm run test:frontend
+npm run verify
+npm run test:browser
 ```
 
-From the root:
+Browser/Lighthouse verification requires installed Chrome and a local TLS certificate/key supplied as TEST_TLS_CERT and TEST_TLS_KEY. CHROME_PATH overrides the Windows Chrome default. The harness uses only loopback ports 7445/7446, a reserved synthetic example.test canonical origin and synthetic inquiry data. It never invokes a live sender. It writes summaries under docs and full Lighthouse reports under ignored tmp/w05. The fallback certificate path is the existing developer certificate location; creating/trusting local certificates is a developer setup task, not a production requirement. `test:parity` requires an isolated running W04 baseline, described in the parity report.
 
-```powershell
-dotnet restore
-dotnet build
-dotnet test UPMS.Server.Tests
-dotnet publish UPMS.Server -c Release -o ./artifacts/publish
-```
+## Architecture
 
-The JavaScript SDK project reference builds and packages `upms.client/dist` into the published server's `wwwroot`, including prerendered HTML and the public route manifest. Run builds and publishing sequentially because they share output. Build the frontend before starting a fresh checkout or running HTTP tests. ASP.NET serves known pages and correct 404s from the generated registry; do not add an index.html rewrite. Deploy at the domain root. See [W04 deployment](docs/W04-deployment.md) for required origin/host/proxy/HTTPS settings, IIS and generic hosting, and rollback.
+- `server/src/app.js` composes Express without opening a listener; `index.js` validates startup, binds PORT on 0.0.0.0 and handles shutdown.
+- `config`, `middleware`, `inquiries` and `website` separate configuration, host/proxy/security, delivery/retries and prerender/static serving.
+- Root package.json/lockfile own backend runtime and test dependencies. `upms.client` retains its own package/lockfile and all existing frontend tests.
+- `upms.client/src/data/publicRoutes.js` and `scripts/prerender.mjs` generate eleven page documents plus a 404 page. A production request never requires React SSR or another Node process.
+- APIs and assets share one application origin. Only approved static prefixes/files are served. Unknown public URLs return real 404s; API unknowns return structured JSON.
 
-## Routes and architecture
+## Operations and milestone records
 
-- `/`: established homepage with corrected category presentation and navigation.
-- `/about`: company history, capabilities, quality approach and values.
-- `/products`: five-category catalog, text search, packaging-type filter and empty-state recovery. Search/filter state is kept in query parameters for sharing and history restoration.
-- `/products/buckets`, `/products/cans`, `/products/jars`, `/products/containers`, `/products/custom`: category details, supported metadata, inquiry brief and category-specific email links.
-- `/manufacturing`: molding, design, raw materials, samples, delivery and service.
-- `/industries`: lubricant/oil, chemical and industrial/commercial applications, without customer logos or endorsements.
-- `/contact`: validated quotation-request form with category preselection, backend-confirmed handoff, accessible failure states, and direct phone/email/map alternatives. Production delivery is disabled until SMTP is configured.
-- Unknown page/category paths: consistent 404 view and `noindex,follow` metadata. URLs use lowercase paths; path matches are case-sensitive. The SPA fallback returns HTTP 200 for extensionless unknown URLs; the 404 is rendered client-side.
+[W05 deployment/environment guide](docs/W05-hostinger-deployment.md), [migration audit](docs/W05-migration-audit.md), [parity gate](docs/W05-node-parity.md), and [verification](docs/W05-verification.md) record architecture, commands, security, SMTP, future MySQL guidance, rollback and remaining blockers.
 
-React Router declarative BrowserRouter provides path URLs and browser history. Already-shared W01 root hash links (`/#/products/cans`) are converted to path URLs on initial load. Vite development/preview and a real local .NET publish were checked for nested-route support.
+**Hostinger Premium is not verified as eligible:** official documentation currently lists managed Node apps on Business/Unlimited and Cloud. Account eligibility, proxy behavior and SMTP connectivity must be resolved before deployment. No external deployment, live credentials or sender activation was performed. Production requires explicit ALLOWED_HOSTS and NODE_ENV=production; consult `.env.example` and the deployment guide.
 
-- `src/components/layout`: shared header, responsive keyboard navigation and footer.
-- `src/components/ui`: breadcrumbs/page hero, reusable product card/visual and icons.
-- `src/components/sections`: shared contact CTA.
-- `src/pages`: complete public page components and 404.
-- `src/data/company.js`, `src/data/pages.js`: business details, category metadata, page descriptions, process and industry content.
-- `src/styles/site.css`: W01 design tokens/layouts. `pages.css`: internal-page layouts and mobile refinements.
-- `src/App.jsx`: route definitions, page metadata, route focus/scroll and lightweight reveals. Query-only filter updates preserve input focus. Reduced-motion preferences remain respected.
-
-## Testing and evidence
-
-Vitest, jsdom and React Testing Library provide route, catalog, product-selection, unknown-route, menu, metadata and basic focus/semantic tests. `npm test` is a single-run command; no second unit-test framework was added.
-
-`upms.client/scripts/browser-smoke.mjs` exports `runBrowserSmoke` and `runBrowserInteractions` for the Codex CUA browser runtime. Pass a connected tab, its browser viewport capability and the local base URL. These repeatable tests cover six widths, all public routes, internal targets, mobile navigation, search/filter recovery, refresh, legacy links and history. They require the connected browser tool and are separate from the jsdom tests; there is no claimed headless-browser CI job.
-
-See [W02 audit](docs/W02-audit.md), [verification](docs/W02-verification.md), [browser results](docs/W02-browser-results.json) and [Lighthouse summary](docs/W02-lighthouse-summary.json). Completed-page screenshots are under `docs/screenshots/w02`. W01 evidence remains under `docs/W01-verification.md` and the original screenshot paths.
-
-## Assets and content provenance
-
-Supplied brochure: `upms.client/src/assets/UNIQUE COMPANY MOCKUP.pdf`. Official extracted logo: `src/assets/unique_plastic_logos_hd/unique_plastic.svg`. Alternative supplied logos remain untouched locally. Unique Plastic Industry is the only company represented by the website. Z.A Khan Packages and Unique Lubricants must not appear as affiliated companies, subsidiaries, sister companies, independent website brands or alternate identities. Lubricant packaging remains a manufactured-product category. This mandatory constraint applies to all future milestones; see `AGENTS.md`.
-
-JPEG derivatives in `src/assets/products`:
-
-- `hero.jpg`: page 5, cans and bucket; company/hero illustration.
-- `buckets.jpg`, `cans.jpg`: page 3.
-- `jars.jpg`: page 2, smaller containers.
-- `containers.jpg`: page 5, grey/yellow/black bucket group; added in W02 to distinguish the category card from the hero.
-- `manufacturing.jpg`: page 4, machinery illustration, explicitly labeled as brochure imagery.
-
-Custom Packaging has a labeled CSS/SVG design treatment rather than duplicated photography. Brochure illustrations do not establish factory ownership or current product availability. Only 8L/10L/14L/20L bucket capacities are published. Small-container weight labels are not converted into capacities. No material grades, color availability, prices, certifications, workforce/facility sizes or numerical achievements are inferred.
-
-## SEO and remaining publication inputs
-
-W04 prerenders initial content, headings, titles, descriptions and Open Graph text for all eleven public routes, then activates the existing React site. Unknown public routes return HTTP 404; API and asset errors never receive a public SPA shell. The same public registry drives the .NET host and sitemap. Query-based Contact preselection is retained. Fonts are self-hosted with licenses, and the approved image sources and design are preserved.
-
-Set the real `Website__PublicOrigin` and explicit `AllowedHosts` before launch. Without the origin the site is noindex, robots disallows crawling and sitemap returns 503; no production domain is invented. See [audit and trade-offs](docs/W04-audit.md), [deployment](docs/W04-deployment.md) and [verification/checklist](docs/W04-verification.md).
-
-Still needed: high-resolution product originals, verified factory photography, approved client branding/permission if a showcase is desired, verified specifications for non-bucket categories, and production domain/social assets. Brochure crops remain provisional. W03 provides a validated inquiry backend with configurable SMTP; production relay credentials, approved sender/recipient and delivery verification remain deployment dependencies.
-
-## Milestone boundaries
-
-W04 prepares production hosting and discoverability for the public company portfolio. Future sales, inventory, vendor/customer records, authentication, accounting and ledger workflows must remain separate from public website components. Stop after W04 for independent commit review; do not deploy publicly, activate SMTP or begin W05 automatically.
-
-## W03 inquiry workflow
-
-The contact form posts to the same-origin `/api/v1/public/inquiries` endpoint. Development explicitly saves to a private local file outbox; Production defaults to disabled and cannot report a simulated success. SMTP handoff is replaceable via `IInquiryDelivery`. Successful SMTP acceptance is distinguished from inbox receipt. No durable production queue or management database was introduced.
-
-See [API/configuration/security documentation](docs/W03-inquiries.md), [verification](docs/W03-verification.md), [changed-file manifest](docs/W03-files.txt) and `UPMS.Server.Tests` for backend coverage. Frontend tests also cover duplicate protection, failure-state drafts, category preselection and timeouts.
+Historical W01–W04 documents and screenshots remain under `docs`. The complete old backend remains at W04 commit `bfb28d318939b33e1edd2d76613cc2f4353ba8ba` for rollback/reference; those historical .NET setup instructions no longer describe the current application. User-provided brochures and unused logos remain source material and are not publication approval.

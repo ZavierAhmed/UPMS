@@ -1,8 +1,0 @@
-<Solution>
-  <Project Path="upms.client/upms.client.esproj">
-    <Build />
-    <Deploy />
-  </Project>
-  <Project Path="UPMS.Server.Tests/UPMS.Server.Tests.csproj" />
-  <Project Path="UPMS.Server/UPMS.Server.csproj" />
-</Solution>

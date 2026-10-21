@@ -1,0 +1,30 @@
+{
+  "name": "upms",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "install:all": "npm ci && npm ci --prefix upms.client",
+    "build": "npm run build --prefix upms.client",
+    "start": "node server/src/index.js",
+    "dev": "node --watch server/src/index.js",
+    "test:backend": "node --test server/tests/*.test.js",
+    "test:frontend": "npm test --prefix upms.client",
+    "test:parity": "node server/tests/parity.mjs",
+    "test:browser": "node server/tests/verify-browser.mjs",
+    "verify": "npm run build && npm run test:backend && npm run test:frontend && npm run lint --prefix upms.client"
+  },
+  "dependencies": {
+    "compression": "^1.8.1",
+    "express": "^5.1.0",
+    "nodemailer": "^10.1.7"
+  },
+  "devDependencies": {
+    "lighthouse": "^13.5.0",
+    "puppeteer-core": "^25.15.0",
+    "supertest": "^7.1.4"
+  }
+}
