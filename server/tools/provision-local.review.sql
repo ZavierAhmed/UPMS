@@ -1,22 +1,24 @@
--- OWNER REVIEW ONLY. Not invoked by the application, migration command or tests.
--- Run only against the intended local development MySQL Server as an authorized owner.
--- Replace both password placeholders privately; do not commit the resulting script.
--- CREATE fails if these names already exist; inspect and reconcile, never DROP to retry.
-CREATE DATABASE upms_dev CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
--- The angle-bracket placeholders intentionally prevent execution without owner editing.
-CREATE USER 'upms_migrator'@'localhost' IDENTIFIED BY <PRIVATE_MIGRATION_PASSWORD_SQL_LITERAL>;
-CREATE USER 'upms_runtime'@'localhost' IDENTIFIED BY <PRIVATE_RUNTIME_PASSWORD_SQL_LITERAL>;
-GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, ALTER, INDEX, REFERENCES ON upms_dev.* TO 'upms_migrator'@'localhost';
--- After reviewed migration, run these exact per-table runtime grants:
-GRANT SELECT, UPDATE ON upms_dev.identity_guard TO 'upms_runtime'@'localhost';
-GRANT SELECT, INSERT, UPDATE ON upms_dev.users TO 'upms_runtime'@'localhost';
-GRANT SELECT ON upms_dev.roles TO 'upms_runtime'@'localhost';
-GRANT SELECT ON upms_dev.permissions TO 'upms_runtime'@'localhost';
-GRANT SELECT, INSERT, DELETE ON upms_dev.user_roles TO 'upms_runtime'@'localhost';
-GRANT SELECT ON upms_dev.role_permissions TO 'upms_runtime'@'localhost';
-GRANT SELECT, INSERT, UPDATE, DELETE ON upms_dev.sessions TO 'upms_runtime'@'localhost';
-GRANT SELECT, INSERT, UPDATE, DELETE ON upms_dev.login_attempts TO 'upms_runtime'@'localhost';
-GRANT SELECT, INSERT ON upms_dev.identity_audit_events TO 'upms_runtime'@'localhost';
--- Create a separate EMPTY upms_test_<unique_suffix> schema and a dedicated integration
--- migration account with grants scoped only to that exact schema, following the above pattern.
--- No production grants, wildcard host accounts, shared root account or automatic teardown.
+-- P2.1A OWNER REVIEW: existing local XAMPP database upms only.
+-- Require a fresh reviewed metadata checkpoint; never create/replace this database.
+-- Phase A: check both account names at ALL hosts, then obtain owner authorization.
+-- Known owner-created @% accounts must remain unchanged. Main execution is stopped
+-- pending the separately reviewed docs/phase2/P2-1A-forward-plan.md exception.
+-- Placeholders intentionally prevent execution until the owner supplies secrets privately.
+CREATE USER 'upms_migrator'@'localhost' IDENTIFIED BY <OWNER_CHOSEN_MIGRATOR_PASSWORD_SQL_LITERAL>;
+CREATE USER 'upms_runtime'@'localhost' IDENTIFIED BY <OWNER_CHOSEN_RUNTIME_PASSWORD_SQL_LITERAL>;
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, ALTER, INDEX, REFERENCES ON upms.* TO 'upms_migrator'@'localhost';
+-- Apply unchanged 202610210001_identity.js explicitly as the migrator, with exact
+-- DB_CONFIRM_NAME=upms, MariaDB opt-in and verified empty-schema checkpoint.
+-- Phase B: only after complete identity schema/tracking verification.
+GRANT SELECT, UPDATE ON upms.identity_guard TO 'upms_runtime'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON upms.users TO 'upms_runtime'@'localhost';
+GRANT SELECT ON upms.roles TO 'upms_runtime'@'localhost';
+GRANT SELECT ON upms.permissions TO 'upms_runtime'@'localhost';
+GRANT SELECT, INSERT, DELETE ON upms.user_roles TO 'upms_runtime'@'localhost';
+GRANT SELECT ON upms.role_permissions TO 'upms_runtime'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON upms.sessions TO 'upms_runtime'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON upms.login_attempts TO 'upms_runtime'@'localhost';
+GRANT SELECT, INSERT ON upms.identity_audit_events TO 'upms_runtime'@'localhost';
+-- No audit UPDATE/DELETE, DDL, delegation, wildcard-host or global runtime grants.
+-- Test schemas/accounts require separate approval and use this same table allowlist
+-- scoped to their exact dedicated schema. No DROP/TRUNCATE/REPLACE/ALTER USER/REVOKE.

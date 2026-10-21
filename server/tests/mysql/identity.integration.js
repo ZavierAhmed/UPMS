@@ -14,22 +14,27 @@ import express from 'express';
 import session from 'express-session';
 import { spawn } from 'node:child_process';
 import { once } from 'node:events';
+import { grantTestRuntime } from '../../tools/identity-provisioning.js';
 
 test('real dedicated SQL-server identity integration (fails rather than mocks when unavailable)', async t => {
   if (!/^upms_test_[a-z0-9_]+$/.test(process.env.DB_NAME || '') || process.env.DB_CONFIRM_NAME !== process.env.DB_NAME)
     throw new Error('Use an owner-provisioned empty upms_test_<suffix> schema and explicit DB_CONFIRM_NAME.');
-  let db = createDatabase();
+  if (!process.env.UPMS_TEST_OWNER_USER || !process.env.UPMS_TEST_OWNER_PASSWORD || !/^upms_runtime_test_/.test(process.env.DB_USER || ''))
+    throw new Error('Separate private test-operator and restricted runtime credentials required.');
+  const ownerEnv = { ...process.env, DB_USER: process.env.UPMS_TEST_OWNER_USER, DB_PASSWORD: process.env.UPMS_TEST_OWNER_PASSWORD, IDENTITY_DB_PURPOSE: 'operator' };
+  const runtimeEnv = { ...process.env, IDENTITY_DB_PURPOSE: 'runtime' };
+  let db = createDatabase(ownerEnv), runtimeDb;
   const env = { ...process.env, MANAGEMENT_ENABLED: 'true', MANAGEMENT_ORIGIN: 'http://localhost:3000', MANAGEMENT_LOCAL_HTTP: 'true', SESSION_SECRET: randomBytes(32).toString('hex') };
   const config = identityConfig(env), publicConfig = loadConfig({});
   const base = '/api/v1/management';
-  const password = randomBytes(24).toString('hex');
+  const password = process.env.UPMS_TEST_INITIAL_PASSWORD || randomBytes(24).toString('hex');
   let app, admin, staff, adminId, staffId, csrfAdmin, csrfStaff;
   const csrf = async agent => { const r = await agent.get(`${base}/session/csrf`); assert.equal(r.status, 200); return r.body.csrfToken; };
   const post = (agent, path, token, data) => agent.post(base + path).set('Origin', config.origin).set('X-CSRF-Token', token).send(data);
   const login = async (agent, username) => post(agent, '/session/login', await csrf(agent), { username, password });
   try {
     const info = await capabilities(db);
-    console.info(JSON.stringify({ integrationDatabase: info.database_name, serverVersion: info.version, classification: /MariaDB/.test(info.version) ? 'MariaDB compatibility only; real MySQL gate pending' : 'real MySQL', timeZone: info.time_zone, charset: info.charset, engine: info.engine }));
+    console.info(JSON.stringify({ integrationDatabase: info.database_name, serverVersion: info.version, classification: /MariaDB/.test(info.version) ? 'Owner-approved MariaDB local-development acceptance; not Oracle MySQL evidence' : 'Oracle MySQL', timeZone: info.time_zone, charset: info.charset, engine: info.engine }));
     // This guard must be outside a subtest: a failed subtest does not stop its parent.
     const existing = await db.raw('SELECT COUNT(*) AS n FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE()');
     assert.equal(Number(existing[0][0].n), 0, 'Provision a fresh schema; never destroy existing test data to retry.');
@@ -43,7 +48,9 @@ test('real dedicated SQL-server identity integration (fails rather than mocks wh
       migrationPassed = true;
     });
     if (!migrationPassed) throw new Error('Migration acceptance failed; refusing dependent fixture writes.');
-    const service = createIdentityService(db); await service.ready();
+    await grantTestRuntime(db);
+    runtimeDb = createDatabase(runtimeEnv);
+    const service = createIdentityService(runtimeDb); await service.ready();
     await t.test('concurrent one-time administrator bootstrap and unique users', async () => {
       const input = { username: 'fixture_admin', displayName: 'Synthetic Administrator', password };
       const results = await Promise.allSettled([service.bootstrap(input), service.bootstrap(input)]);
@@ -53,7 +60,7 @@ test('real dedicated SQL-server identity integration (fails rather than mocks wh
       assert.equal((await db('identity_audit_events').where({ action: 'administrator.bootstrap' })).length, 1);
       await assert.rejects(db('users').insert({ login_key: 'fixture_admin', display_name: 'Duplicate', password_hash: 'synthetic', created_at: new Date(), updated_at: new Date() }), e => e.code === 'ER_DUP_ENTRY');
     });
-    app = createApp({ config: publicConfig, management: config, identityDatabase: db });
+    app = createApp({ config: publicConfig, management: config, identityDatabase: runtimeDb });
     admin = request.agent(app);
     await t.test('valid login rotates pre-auth session; no plaintext stored and cookie scope', async () => {
       const token = await csrf(admin);
@@ -102,7 +109,7 @@ test('real dedicated SQL-server identity integration (fails rather than mocks wh
         await audit(trx, null, null, 'synthetic.test.permissions.seeded');
       });
       const fixture = express();
-      fixture.use(session({ name: config.cookieName, secret: config.secret, store: new MysqlSessionStore(db, config), resave: false, saveUninitialized: false }));
+      fixture.use(session({ name: config.cookieName, secret: config.secret, store: new MysqlSessionStore(runtimeDb, config), resave: false, saveUninitialized: false }));
       fixture.get('/fixture/inventory', async (req, res) => {
         Object.defineProperty(req.session, 'recordHash', { value: digest(req.sessionID), enumerable: false });
         try { res.json(await service.read(req.session, 'test.inventory.read', async (_, current) => ({ item: 'Synthetic fixture', quantity: '1', ...(current.permissions.includes('test.rates.read') ? { rate: '1.00' } : {}) }))); }
@@ -150,21 +157,23 @@ test('real dedicated SQL-server identity integration (fails rather than mocks wh
       const response = await admin.get(`${base}/session/current`);
       const cookies = response.headers['set-cookie'];
       assert.ok(cookies?.length);
-      await db.destroy(); db = createDatabase();
+      await db.destroy(); await runtimeDb.destroy(); db = createDatabase(ownerEnv); runtimeDb = createDatabase(runtimeEnv);
+      const childEnv = { ...env, NODE_ENV: 'development', IDENTITY_DB_PURPOSE: 'runtime' };
+      for (const key of ['UPMS_TEST_OWNER_USER','UPMS_TEST_OWNER_PASSWORD']) delete childEnv[key];
       const child = spawn(process.execPath, ['--input-type=module', '-e', `
         import {createApp} from './server/src/app.js';
         import {loadConfig} from './server/src/config/index.js';
         const app=createApp({config:loadConfig({})});
         const server=app.listen(0,'127.0.0.1',()=>console.log(JSON.stringify({port:server.address().port,pid:process.pid})));
         process.on('SIGTERM',()=>server.close(async()=>{await app.locals.identityDatabase.destroy();process.exit(0)}));
-      `], { env: { ...env, NODE_ENV: 'development' }, stdio: ['ignore', 'pipe', 'pipe'] });
+      `], { env: childEnv, stdio: ['ignore', 'pipe', 'pipe'] });
       try {
         const output = await Promise.race([once(child.stdout, 'data'), new Promise((_, reject) => { const timer = setTimeout(() => reject(new Error('Restart process did not become ready.')), 5000); timer.unref(); })]);
         const ready = JSON.parse(String(output[0])); assert.notEqual(ready.pid, process.pid);
         const fromNewProcess = await request(`http://127.0.0.1:${ready.port}`).get(`${base}/session/current`).set('Cookie', cookies.map(c => c.split(';')[0]).join('; '));
         assert.equal(fromNewProcess.status, 200); assert.equal(fromNewProcess.body.user.id, adminId);
       } finally { const exited = once(child, 'exit'); child.kill(); await exited; }
-      app = createApp({ config: publicConfig, management: config, identityDatabase: db });
+      app = createApp({ config: publicConfig, management: config, identityDatabase: runtimeDb });
       const restarted = await request(app).get(`${base}/session/current`).set('Cookie', cookies.map(c => c.split(';')[0]).join('; '));
       assert.equal(restarted.status, 200); assert.equal(restarted.body.user.id, adminId);
       admin = request.agent(app); const result = await login(admin, 'fixture_admin'); csrfAdmin = result.body.csrfToken;
@@ -176,7 +185,7 @@ test('real dedicated SQL-server identity integration (fails rather than mocks wh
       const [changed, concurrent] = await Promise.all([update, staff.get(`${base}/session/current`)]);
       assert.equal(changed.status, 200); assert.ok([200, 401].includes(concurrent.status));
       for (let i = 0; i < 3; i++) assert.equal((await staff.get(`${base}/session/current`)).status, 401);
-      const second = createDatabase();
+      const second = createDatabase(runtimeEnv);
       try { assert.equal((await second('sessions').where({ user_id: staffId })).length, 0); } finally { await second.destroy(); }
     });
     await t.test('disabled login and expired, revoked session rejection; logout cannot resurrect', async () => {
@@ -193,18 +202,18 @@ test('real dedicated SQL-server identity integration (fails rather than mocks wh
       assert.equal((await post(logoutAgent, '/session/logout', fresh.body.csrfToken, {})).status, 204);
       assert.equal((await logoutAgent.get(`${base}/session/current`)).status, 401);
       assert.ok((await db('sessions').where({ user_id: adminId, revoked: true })).length > 0);
-      const store = new MysqlSessionStore(db, config);
+      const store = new MysqlSessionStore(runtimeDb, config);
       await assert.rejects(new Promise((resolve, reject) => store.set(rawSid, JSON.parse(original.data), error => error ? reject(error) : resolve())));
       const stale = { ...JSON.parse(original.data), recordHash: original.token_hash };
       await assert.rejects(transaction(db, trx => authorize(trx, stale, 'portal.access')), e => e.status === 401);
       void signed;
     });
     await t.test('durable throttling does not rely on client IP; password change revokes sessions', async () => {
-      const service = createIdentityService(db); await service.ready();
+      const service = createIdentityService(runtimeDb); await service.ready();
       for (let i = 0; i < 10; i++) await service.login('fixture_throttle', 'wrong');
       await assert.rejects(service.login('fixture_throttle', 'wrong'), e => e.code === 'LOGIN_THROTTLED');
       const agent = request.agent(app); const signed = await login(agent, 'fixture_admin');
-      const changed = await post(agent, '/profile/password', signed.body.csrfToken, { currentPassword: password, newPassword: randomBytes(24).toString('hex') });
+      const changed = await post(agent, '/profile/password', signed.body.csrfToken, { currentPassword: password, newPassword: process.env.UPMS_TEST_CHANGED_PASSWORD || randomBytes(24).toString('hex') });
       assert.equal(changed.status, 204); assert.equal((await agent.get(`${base}/session/current`)).status, 401);
     });
     await t.test('database unavailability denies management while public routes still work', async () => {
@@ -234,5 +243,5 @@ test('real dedicated SQL-server identity integration (fails rather than mocks wh
         assert.equal((await trx('identity_audit_events').where({ action: 'synthetic.timeout.must.rollback' })).length, 0);
       });
     });
-  } finally { await db.destroy(); }
+  } finally { await runtimeDb?.destroy(); await db.destroy(); }
 });

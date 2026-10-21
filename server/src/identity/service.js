@@ -15,17 +15,23 @@ export async function identity(trx, id) {
   if (!user?.enabled) throw new IdentityError(401, 'SESSION_EXPIRED');
   const assigned = await query(trx('user_roles').where({ user_id: id }).select('role_code'));
   const grants = await query(trx('role_permissions').whereIn('role_code', assigned.map(r => r.role_code)).select('permission_code'));
+  const bootstrap = await query(trx('identity_audit_events').where({ target_id: id, action: 'administrator.bootstrap' }).first());
+  const rotationRequired = bootstrap && JSON.parse(bootstrap.details).requirePasswordChange === true &&
+    !await query(trx('identity_audit_events').where({ target_id: id, action: 'user.password.changed' }).where('id', '>', bootstrap.id).first());
   return { id: String(user.id), username: user.login_key, displayName: user.display_name,
+    ...(rotationRequired ? { passwordChangeRequired: true } : {}),
     version: user.authorization_version, roles: assigned.map(r => r.role_code),
     permissions: [...new Set(grants.map(p => p.permission_code))].sort() };
 }
 export async function authorize(trx, session, permission) {
   if (!session?.userId) throw new IdentityError(401, 'AUTH_REQUIRED');
   const persisted = session.recordHash && await query(trx('sessions').where({ token_hash: session.recordHash }).first());
-  if (!persisted || persisted.revoked || Date.now() >= Number(persisted.idle_expires) || Date.now() >= Number(persisted.absolute_expires))
+  if (!persisted || String(persisted.user_id) !== String(session.userId) || persisted.revoked || Date.now() >= Number(persisted.idle_expires) || Date.now() >= Number(persisted.absolute_expires))
     throw new IdentityError(401, 'SESSION_EXPIRED');
   const current = await identity(trx, session.userId);
   if (current.version !== session.authVersion) throw new IdentityError(401, 'SESSION_EXPIRED');
+  if (current.passwordChangeRequired && !['portal.access','profile.read','profile.password','sessions.self'].includes(permission))
+    throw new IdentityError(403, 'PASSWORD_CHANGE_REQUIRED');
   if (!current.permissions.includes(permission)) throw new IdentityError(403, 'ACCESS_DENIED');
   return current;
 }
@@ -42,7 +48,8 @@ export function createIdentityService(db) {
         const [id] = await query(trx('users').insert({ login_key: input.username, display_name: input.displayName,
           password_hash: hash, enabled: true, created_at: utc(), updated_at: utc() }));
         await query(trx('user_roles').insert({ user_id: id, role_code: 'administrator' }));
-        await audit(trx, null, id, 'administrator.bootstrap', { roles: ['administrator'], source: 'explicit-local-command' });
+        await audit(trx, null, id, 'administrator.bootstrap', { roles: ['administrator'], source: 'explicit-local-command',
+          ...(input.requirePasswordChange ? { requirePasswordChange: true } : {}) });
         return String(id);
       });
     },
@@ -117,6 +124,7 @@ export function createIdentityService(db) {
       });
     },
     async password(session, input) {
+      if (input.currentPassword === input.newPassword) throw new IdentityError(400, 'PASSWORD_MUST_DIFFER');
       const before = await this.read(session, 'profile.password', (trx, actor) => query(trx('users').where({ id: actor.id }).first()));
       if (!await verifyPassword(before.password_hash, input.currentPassword)) throw new IdentityError(401, 'INVALID_CREDENTIALS');
       const hash = await hashPassword(input.newPassword);
@@ -130,6 +138,7 @@ export function createIdentityService(db) {
     },
     async revoke(session, id) {
       return this.read(session, session.userId === id ? 'sessions.self' : 'sessions.revoke', async (trx, actor) => {
+        await identityIncludingDisabled(trx, id);
         await query(trx('users').where({ id }).increment('authorization_version', 1));
         await query(trx('sessions').where({ user_id: id }).delete());
         await audit(trx, actor.id, id, 'sessions.revoked');

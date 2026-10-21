@@ -18,11 +18,19 @@ let server, browser;
 const results = [];
 try {
   const [tables] = await db.raw('SELECT COUNT(*) AS n FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE()');
-  assert.equal(Number(tables[0].n), 0, 'Use a fresh disposable schema; no destructive reset.');
-  const migration = await migrate(db);
-  const password = randomBytes(24).toString('hex');
-  const service = createIdentityService(db); await service.ready();
-  await service.bootstrap({ username: 'browser_admin', displayName: 'Synthetic Administrator', password });
+  const reuse = process.env.UPMS_TEST_REUSE_FIXTURES === 'true';
+  let migration, password, adminUsername;
+  if (reuse) {
+    assert.equal(process.env.DB_NAME,process.env.UPMS_TEST_APPROVED_DATABASE);
+    assert.ok(process.env.UPMS_TEST_CHANGED_PASSWORD && process.env.UPMS_TEST_INITIAL_PASSWORD && Number(tables[0].n)>0);
+    migration={source:'preceding fresh-schema integration run; no repeated migration or bootstrap'};
+    password=process.env.UPMS_TEST_CHANGED_PASSWORD; adminUsername='fixture_admin';
+  } else {
+    assert.equal(Number(tables[0].n), 0, 'Use a fresh disposable schema; no destructive reset.');
+    migration=await migrate(db); password=randomBytes(24).toString('hex'); adminUsername='browser_admin';
+    const service=createIdentityService(db); await service.ready();
+    await service.bootstrap({username:adminUsername,displayName:'Synthetic Administrator',password});
+  }
   const base = 'https://localhost:7447';
   const settings = identityConfig({ MANAGEMENT_ENABLED: 'true', MANAGEMENT_ORIGIN: base, NODE_ENV: 'production', SESSION_SECRET: randomBytes(32).toString('hex') });
   const certRoot = join(process.env.APPDATA || '', 'ASP.NET', 'https');
@@ -33,9 +41,10 @@ try {
   await page.setViewport({ width: 1365, height: 900 });
   await page.goto(`${base}/management`, { waitUntil: 'domcontentloaded' });
   await page.waitForSelector('input[name=username]');
-  await mkdir('tmp/w06/p21-browser', { recursive: true });
-  await page.screenshot({ path: 'tmp/w06/p21-browser/login.png', fullPage: true });
-  await page.type('input[name=username]', 'browser_admin'); await page.type('input[name=password]', password);
+  const output=reuse?'tmp/w06/p21a-browser':'tmp/w06/p21-browser';
+  await mkdir(output, { recursive: true });
+  await page.screenshot({ path: `${output}/login.png`, fullPage: true });
+  await page.type('input[name=username]', adminUsername); await page.type('input[name=password]', password);
   await page.click('button[type=submit], form button');
   await page.waitForFunction(() => document.querySelector('h1')?.textContent.includes('Welcome'));
   const cookies = await page.cookies(); const cookie = cookies.find(c => c.name === '__Host-upms');
@@ -48,8 +57,13 @@ try {
   await page.type('input[name=reason]', 'Synthetic browser acceptance');
   await page.click('form button');
   await page.waitForFunction(() => document.querySelector('tbody')?.textContent.includes('browser_inventory'));
-  await page.screenshot({ path: 'tmp/w06/p21-browser/admin.png', fullPage: true });
+  await page.screenshot({ path: `${output}/admin.png`, fullPage: true });
   results.push('Administrator creates staff through the UI and sees assigned department');
+  if(reuse) for(const [code,label,name] of [['sales_dispatch','Sales/Dispatch','browser_sales'],['accounts','Accounts','browser_accounts']]) {
+    await page.type('input[name=displayName]',`Synthetic Browser ${label}`);await page.type('input[name=username]',name);await page.type('input[name=password]',password);
+    await page.click(`input[name=roles][value=${code}]`);await page.type('input[name=reason]','Synthetic restricted-credential acceptance');await page.click('form button');
+    await page.waitForFunction(value=>document.querySelector('tbody')?.textContent.includes(value),{},name);
+  }
   await page.evaluate(() => [...document.querySelectorAll('nav button')].find(b => b.textContent === 'Identity history').click());
   await page.waitForFunction(() => document.body.textContent.includes('user.created'));
   results.push('Protected audit history displays the atomic staff creation event');
@@ -61,9 +75,31 @@ try {
   const denied = await page.evaluate(async () => (await fetch('/api/v1/management/users')).status); assert.equal(denied, 403);
   results.push('Inventory login, department-aware navigation and direct API access denial');
   await page.setViewport({ width: 390, height: 844 });
-  await page.screenshot({ path: 'tmp/w06/p21-browser/staff-mobile.png', fullPage: true });
+  await page.screenshot({ path: `${output}/staff-mobile.png`, fullPage: true });
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth), false);
   results.push('Mobile staff shell has no horizontal overflow');
+  if(reuse) {
+    for(const name of ['browser_sales','browser_accounts']) {
+      await Promise.all([page.waitForNavigation({waitUntil:'domcontentloaded'}),page.evaluate(()=>document.querySelector('header button').click())]);
+      await page.waitForSelector('input[name=username]');await page.type('input[name=username]',name);await page.type('input[name=password]',password);await page.click('form button');
+      await page.waitForFunction(()=>document.querySelector('h1')?.textContent.includes('Welcome'));
+      assert.equal(await page.evaluate(async()=> (await fetch('/api/v1/management/users')).status),403);
+      assert.equal(await page.evaluate(async()=> (await fetch('/api/v1/management/audit')).status),403);
+      results.push(`${name} department UI and direct API restriction`);
+    }
+    const context=await browser.createBrowserContext(), administrator=await context.newPage();
+    try {
+      await administrator.goto(`${base}/management`,{waitUntil:'domcontentloaded'});await administrator.waitForSelector('input[name=username]');
+      await administrator.type('input[name=username]',adminUsername);await administrator.type('input[name=password]',password);await administrator.click('form button');
+      await administrator.waitForFunction(()=>document.querySelector('h1')?.textContent.includes('Welcome'));
+      const revoked=await administrator.evaluate(async()=>{
+        const current=await(await fetch('/api/v1/management/session/current')).json();const list=await(await fetch('/api/v1/management/users')).json();const target=list.users.find(u=>u.username==='browser_accounts');
+        return(await fetch(`/api/v1/management/users/${target.id}/revoke-sessions`,{method:'POST',headers:{'Content-Type':'application/json','X-CSRF-Token':current.csrfToken},body:'{}'})).status;
+      });assert.equal(revoked,204);
+    } finally {await context.close();}
+    const publicSafe=await page.evaluate(async()=>{const html=await(await fetch('/')).text();return !html.includes('browser_')&&!html.includes('csrfToken')&&!html.includes('/management/assets/');});assert.equal(publicSafe,true);
+    results.push('Public HTML contains no private records, CSRF token or management script');
+  } else {
   const row = await db('users').where({ login_key: 'browser_inventory' }).first();
   // Simulates a separately committed, guard-coordinated administrative revocation.
   const { transaction } = await import('../src/identity/database.js');
@@ -73,15 +109,21 @@ try {
     await trx('sessions').where({ user_id: row.id }).delete();
     await audit(trx, null, row.id, 'synthetic.browser.revocation');
   });
+  }
   await page.evaluate(() => [...document.querySelectorAll('nav button')].find(b => b.textContent === 'My profile').click());
   await page.waitForFunction(() => [...document.querySelectorAll('button')].some(b => b.textContent === 'Revoke all my sessions'));
   // Profile navigation is local; a server action must demonstrate expired-session handling.
   await page.evaluate(() => [...document.querySelectorAll('button')].find(b => b.textContent === 'Revoke all my sessions').click());
   await page.waitForSelector('input[name=username]');
   results.push('Revoked session returns to sign-in without retaining private rows');
+  if(reuse) {
+    await page.type('input[name=username]','fixture_inventory');await page.type('input[name=password]',process.env.UPMS_TEST_INITIAL_PASSWORD);await page.click('form button');
+    await page.waitForFunction(()=>document.querySelector('[role=alert]')?.textContent.includes('Unable to sign in'));
+    results.push('Disabled fixture rejects its known correct password in the browser');
+  }
   assert.deepEqual(errors, []);
-  await writeFile('tmp/w06/p21-browser/results.json', JSON.stringify({ migration, checks: results, pageErrors: errors }, null, 2));
-  console.info(JSON.stringify({ checks: results, pageErrors: errors, screenshots: 'tmp/w06/p21-browser', database: process.env.DB_NAME }));
+  await writeFile(`${output}/results.json`, JSON.stringify({ migration, checks: results, pageErrors: errors }, null, 2));
+  console.info(JSON.stringify({ checks: results, pageErrors: errors, screenshots: output, database: process.env.DB_NAME }));
 } finally {
   if (browser) await browser.close();
   if (server) await new Promise(r => server.close(r));

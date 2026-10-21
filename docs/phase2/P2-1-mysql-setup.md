@@ -1,3 +1,4 @@
+> **2026-10-21 P2.1A decision amendment:** The owner approved existing XAMPP MariaDB for local development. Historical P2.1 results below remain evidence of the earlier milestone; Oracle MySQL installation is no longer a local acceptance prerequisite. Current provisioning, restricted-account testing and bootstrap status are recorded in [P2.1A executive summary](P2-1A-executive-summary.md). This amendment does not convert historical compatibility tests into current acceptance or production certification.
 # Local SQL server setup and operator commands
 
 ## Detected environment and authorization
@@ -16,7 +17,7 @@ The migration account receives only schema-scoped DDL/DML needed for reviewed mi
 
 For integration tests, separately provision an **empty** `upms_test_<unique_suffix>` schema and a test account scoped to it. The audit-failure integration scenario temporarily creates/removes its own synthetic trigger and therefore needs test-schema TRIGGER permission, in addition to migration rights. This permission is unnecessary for runtime. Tests neither create databases themselves nor drop schemas/tables. Retain failed fixtures for investigation; use a newly approved empty schema for a new full run. Cleanup of retained test schemas is an owner task, not an automatic test action.
 
-A real local MySQL Server endpoint must still be supplied/provisioned by the owner. MySQL 8.0.16+ is the code's minimum version gate; prefer a reviewed supported MySQL release and verify the exact chosen version. MariaDB requires `DB_ALLOW_MARIADB_COMPATIBILITY=true` for migrations and never counts as MySQL acceptance.
+Historical P2.1 gate, superseded for local development by the P2.1A owner decision: an Oracle MySQL endpoint is no longer required. MySQL 8.0.16+ is the code's minimum version gate; prefer a reviewed supported MySQL release and verify the exact chosen version. MariaDB requires `DB_ALLOW_MARIADB_COMPATIBILITY=true` for migrations and never counts as MySQL acceptance.
 
 ## Private environment configuration
 

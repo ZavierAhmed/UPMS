@@ -1,3 +1,4 @@
+> **2026-10-21 P2.1A decision amendment:** The owner approved existing XAMPP MariaDB for local development. Historical P2.1 results below remain evidence of the earlier milestone; Oracle MySQL installation is no longer a local acceptance prerequisite. Current provisioning, restricted-account testing and bootstrap status are recorded in [P2.1A executive summary](P2-1A-executive-summary.md). This amendment does not convert historical compatibility tests into current acceptance or production certification.
 # Department permissions and identity API
 
 Four confirmed departments are seeded. Auditor/read-only and future business actions are not active roles or permissions. Administrator receives all eleven explicitly enumerated identity grants; there is no implicit role-name/superuser bypass. Staff may have multiple departments, with the union of assigned grants. Permissions are fetched from the database on every protected operation.

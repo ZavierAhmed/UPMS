@@ -1,3 +1,4 @@
+> **2026-10-21 P2.1A decision amendment:** The owner approved existing XAMPP MariaDB for local development. Historical P2.1 results below remain evidence of the earlier milestone; Oracle MySQL installation is no longer a local acceptance prerequisite. Current provisioning, restricted-account testing and bootstrap status are recorded in [P2.1A executive summary](P2-1A-executive-summary.md). This amendment does not convert historical compatibility tests into current acceptance or production certification.
 # P2.1 identity foundation implementation
 
 Date: 2026-10-21 (Asia/Karachi). Baseline: `ad77c391cf6a8d640503330f090cb74e0e4d669e`. Branch: `feature/upms-p2-1-identity-foundation`.

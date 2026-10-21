@@ -17,7 +17,7 @@ export function Management() {
         LAST_ADMINISTRATOR: 'Keep at least one enabled administrator.', STALE_VERSION: 'This account changed. Refresh before trying again.',
         IDENTITY_CONFLICT: 'That username is unavailable.', LOGIN_THROTTLED: 'Too many attempts. Please wait a minute.',
         CSRF_REJECTED: 'Your security token expired. Reload this page.', INVALID_INPUT: 'Check all fields. Passwords need 12–128 characters.',
-        SESSION_EXPIRED: 'Your session ended. Sign in again.', AUTH_REQUIRED: 'Sign in to continue.' };
+        PASSWORD_CHANGE_REQUIRED: 'Change your initial password to continue.', PASSWORD_MUST_DIFFER: 'Choose a different new password.', SESSION_EXPIRED: 'Your session ended. Sign in again.', AUTH_REQUIRED: 'Sign in to continue.' };
       throw new Error(labels[data.error?.code] || 'The management service is unavailable. Please try again later.');
     }
     return data;
@@ -31,7 +31,7 @@ export function Management() {
         const data = await csrf.json();
         if (mounted) setToken(data.csrfToken);
         const current = await fetch('/api/v1/management/session/current', { credentials: 'same-origin', cache: 'no-store' });
-        if (current.ok && mounted) { const result = await current.json(); setUser(result.user); setToken(result.csrfToken); }
+        if (current.ok && mounted) { const result = await current.json(); setUser(result.user); setToken(result.csrfToken); if (result.user.passwordChangeRequired) setPage('profile'); }
       } catch (error) { if (mounted) setMessage(error.message); }
       finally { if (mounted) setReady(true); }
     })();
@@ -46,12 +46,13 @@ export function Management() {
   async function refreshUsers() { const data = await api('/users'); setUsers(data.users); }
   async function navigate(next) {
     await run(async () => {
+      if (user?.passwordChangeRequired) { setPage('profile'); return; }
       if (next === 'users') await refreshUsers();
       if (next === 'audit') { const data = await api('/audit'); setEvents(data.events); }
       setEditing(null); setPage(next);
     });
   }
-  const can = permission => user?.permissions.includes(permission);
+  const can = permission => !user?.passwordChangeRequired && user?.permissions.includes(permission);
   return <div className="management"><header><a href="/management">UNIQUE PLASTIC <span>INDUSTRY</span></a><p>Staff management</p>
     {user && <div>{user.displayName}<button disabled={busy} onClick={() => run(async () => { await api('/session/logout', 'POST', {}); setUser(null); setUsers([]); setEvents([]); setToken(''); window.location.assign('/management'); })}>Sign out</button></div>}</header>
     <main>{message && <p className="notice" role="alert">{message}</p>}
@@ -60,7 +61,7 @@ export function Management() {
           let csrf = token;
           if (!csrf) { const result = await api('/session/csrf'); csrf = result.csrfToken; setToken(csrf); }
           const result = await api('/session/login', 'POST', { username: data.get('username'), password: data.get('password') }, csrf);
-          form.reset(); setUser(result.user); setToken(result.csrfToken); setPage('home');
+          form.reset(); setUser(result.user); setToken(result.csrfToken); setPage(result.user.passwordChangeRequired ? 'profile' : 'home');
         }); }}>
           <label>Username<input name="username" autoComplete="username" maxLength={64} required /></label>
           <label>Password<input type="password" name="password" autoComplete="current-password" maxLength={128} required /></label>
@@ -69,7 +70,7 @@ export function Management() {
         <nav aria-label="Management"><button onClick={() => navigate('home')}>Overview</button><button onClick={() => navigate('profile')}>My profile</button>{can('users.read') && <button onClick={() => navigate('users')}>Staff accounts</button>}{can('audit.read') && <button onClick={() => navigate('audit')}>Identity history</button>}</nav>
         {page === 'denied' && <section><h1>Access denied</h1><p>Your current department permissions do not allow this action.</p><button onClick={() => navigate('home')}>Return to overview</button></section>}
         {page === 'home' && <section><p className="eyebrow">UNIQUE PLASTIC INDUSTRY</p><h1>Welcome, {user.displayName}</h1><p>Your departments: {user.roles.map(code => departments.find(([key]) => key === code)?.[1]).join(', ')}</p><div className="card"><h2>Management foundation</h2><p>Your staff account and department access are active.</p><p>Inventory, sales and accounts workflows are upcoming milestones.</p></div></section>}
-        {page === 'profile' && <section><h1>My profile</h1><p>{user.username} · {user.displayName}</p><h2>Change password</h2><p>This signs out all your sessions.</p><form onSubmit={event => { event.preventDefault(); const data = new FormData(event.currentTarget); run(async () => {
+        {page === 'profile' && <section><h1>My profile</h1><p>{user.username} · {user.displayName}</p><h2>Change password</h2>{user.passwordChangeRequired && <p role="alert">Change your temporary password before using staff management.</p>}<p>This signs out all your sessions.</p><form onSubmit={event => { event.preventDefault(); const data = new FormData(event.currentTarget); run(async () => {
           await api('/profile/password', 'POST', { currentPassword: data.get('current'), newPassword: data.get('new') }); window.location.assign('/management');
         }); }}><label>Current password<input type="password" name="current" autoComplete="current-password" maxLength={128} required /></label><label>New password<input type="password" name="new" autoComplete="new-password" minLength={12} maxLength={128} required /></label><button disabled={busy}>Change password and sign out</button></form><button disabled={busy} onClick={() => run(async () => { await api(`/users/${user.id}/revoke-sessions`, 'POST', {}); window.location.assign('/management'); })}>Revoke all my sessions</button></section>}
         {page === 'users' && (!can('users.read') ? <h1>Access denied</h1> : <section><h1>Staff accounts</h1><p>Up to 100 accounts. Changes take effect immediately and are recorded.</p>

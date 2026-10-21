@@ -6,6 +6,7 @@ import { migrate } from '../src/identity/migrations.js';
 import { createIdentityService } from '../src/identity/service.js';
 import { createInput } from '../src/identity/validation.js';
 import { hashPassword, verifyPassword } from '../src/identity/passwords.js';
+import { writeFile } from 'node:fs/promises';
 
 // Masked TTY input; never echo passwords or accept them in command arguments.
 async function hidden(label) {
@@ -39,6 +40,8 @@ try {
     if (command === 'migrate') console.info(JSON.stringify(await migrate(db)));
     if (command === 'bootstrap') {
       if (process.env.NODE_ENV === 'production' || process.env.DB_CONFIRM_NAME !== process.env.DB_NAME) throw new Error('Explicit local development target confirmation required.');
+      if (process.env.DB_NAME === 'upms' && process.env.IDENTITY_DB_PURPOSE !== 'runtime') throw new Error('Owner bootstrap requires verified dedicated runtime credentials.');
+      if (!process.stdin.isTTY) throw new Error('Owner-controlled bootstrap requires an interactive local terminal.');
       const rl = createInterface({ input: process.stdin, output: process.stdout });
       const username = await rl.question('Administrator username: ');
       const displayName = await rl.question('Display name: '); rl.close();
@@ -47,6 +50,7 @@ try {
       if (password !== confirm) throw new Error('Passwords do not match.');
       const input = createInput.parse({ username, displayName, password, roles: ['administrator'], reason: 'Initial local bootstrap' });
       const id = await createIdentityService(db).bootstrap(input);
+      if (process.env.DB_NAME === 'upms') await writeFile('server/.local/p21a/owner-bootstrap-receipt.json',JSON.stringify({database:'upms',administratorId:id,completedAtUtc:new Date().toISOString(),source:'owner-controlled masked local terminal',authoritativeEvidence:'atomic administrator.bootstrap database audit event'},null,2),{flag:'wx'});
       console.info(JSON.stringify({ database: process.env.DB_NAME, administratorId: id, status: 'bootstrapped' }));
     }
   }

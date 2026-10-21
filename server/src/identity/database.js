@@ -1,5 +1,7 @@
 import knex from 'knex';
 import { databaseConfig } from './config.js';
+import { validateEngine } from './engine.js';
+import { verifyRuntimeGrants } from './grants.js';
 
 export function createDatabase(env = process.env) {
   const db = knex({ client: 'mysql2', connection: databaseConfig(env), acquireConnectionTimeout: 3000,
@@ -15,7 +17,18 @@ export function createDatabase(env = process.env) {
           };
           return run(typeof options === 'string' ? { sql: options, timeout: 5000 } : { ...options, timeout: 5000 }, ...args);
         };
-        connection.query("SET SESSION time_zone = '+00:00', innodb_lock_wait_timeout = 3, sql_mode = 'STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION'", err => done(err, connection));
+        const fail = error => { connection.destroy(); done(error, connection); };
+        connection.query('SELECT VERSION() AS version, CURRENT_USER() AS account', (error, rows) => {
+          if (error) return fail(error);
+          try { validateEngine(rows[0].version, env); } catch (invalid) { return fail(invalid); }
+          const initialize = () => connection.query("SET SESSION time_zone = '+00:00', innodb_lock_wait_timeout = 3, sql_mode = 'STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION'", err => err ? fail(err) : done(null, connection));
+          if (env.IDENTITY_DB_PURPOSE !== 'runtime') return initialize();
+          connection.query('SHOW GRANTS FOR CURRENT_USER', (grantError, grants) => {
+            if (grantError) return fail(grantError);
+            try { verifyRuntimeGrants(grants, env.DB_NAME, rows[0].account); } catch (invalid) { return fail(invalid); }
+            initialize();
+          });
+        });
       } },
     log: { warn() {}, error() {}, deprecate() {}, debug() {} },
   });

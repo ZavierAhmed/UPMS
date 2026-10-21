@@ -1,5 +1,6 @@
 import { createApp } from "./app.js";
 const stopping = new AbortController();
+let startupDatabase;
 try {
   const port = Number(process.env.PORT || 3000);
   if (!Number.isInteger(port) || port < 1 || port > 65535)
@@ -8,6 +9,8 @@ try {
     shutdownSignal: stopping.signal,
     log: (event) => console.info(JSON.stringify(event)),
   });
+  startupDatabase = app.locals.identityDatabase;
+  if (startupDatabase) await startupDatabase.raw('SELECT 1');
   const server = app.listen(port, "0.0.0.0", () =>
     console.info(`UPMS listening on port ${port}`),
   );
@@ -36,6 +39,7 @@ try {
       }, 5000).unref();
     });
 } catch {
+  await startupDatabase?.destroy();
   console.error(
     "UPMS startup failed. Check the build, explicit ALLOWED_HOSTS, PUBLIC_ORIGIN and environment configuration.",
   );

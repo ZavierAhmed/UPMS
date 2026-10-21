@@ -1,3 +1,4 @@
+> **2026-10-21 P2.1A decision amendment:** The owner approved existing XAMPP MariaDB for local development. Historical P2.1 results below remain evidence of the earlier milestone; Oracle MySQL installation is no longer a local acceptance prerequisite. Current provisioning, restricted-account testing and bootstrap status are recorded in [P2.1A executive summary](P2-1A-executive-summary.md). This amendment does not convert historical compatibility tests into current acceptance or production certification.
 # Identity schema and migration contract
 
 P2.1 implements only `server/migrations/202610210001_identity.js`, using Knex 3.3.0 and mysql2 3.24.6 as resolved in the lockfile. [Knex's migration API](https://knexjs.org/guide/migrations.html) supplies explicit version tracking and migration locking. Application startup never calls it.

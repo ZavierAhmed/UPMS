@@ -7,6 +7,16 @@ beforeEach(() => {
   vi.stubGlobal('fetch', vi.fn(async url => url.endsWith('/csrf') ? response(200, { csrfToken: 'fixture-token' }) : response(401, { error: { code: 'AUTH_REQUIRED' } })));
 });
 describe('private management shell', () => {
+  it('requires an initial password change and keeps administration navigation unavailable', async () => {
+    fetch.mockImplementation(async url => url.endsWith('/csrf') ? response(200, { csrfToken: 'fixture-token' }) : response(200, { csrfToken: 'fixture-token', user: { id: '1', username: 'fixture', displayName: 'Synthetic Admin', roles: ['administrator'], permissions: ['portal.access', 'users.read', 'audit.read'], passwordChangeRequired: true } }));
+    render(<Management />);
+    await screen.findByRole('heading', { name: 'My profile' });
+    expect(screen.getByRole('alert').textContent).toContain('temporary password');
+    expect(screen.queryByRole('button', { name: 'Staff accounts' })).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: 'Overview' }));
+    await waitFor(() => expect(screen.getByRole('heading', { name: 'My profile' })).toBeTruthy());
+    expect(screen.queryByRole('heading', { name: /Welcome/ })).toBeNull();
+  });
   it('offers private staff login without registration or business balances', async () => {
     render(<Management />);
     await screen.findByRole('heading', { name: 'Staff sign in' });

@@ -25,7 +25,7 @@ export function createApp({
   app.set("trust proxy", false);
   app.use(security(config));
   if (management) {
-    const db = identityDatabase || createDatabase();
+    const db = identityDatabase || createDatabase({ ...process.env, IDENTITY_DB_PURPOSE: 'runtime' });
     app.locals.identityDatabase = db;
     app.use(managementRouter(db, management));
   }

@@ -2,6 +2,9 @@
 
 W05 migrates the public website backend to Node.js 24 LTS and Express. The W04 React/Vite design, public routes, approved assets, accessibility and build-time prerendering remain intact. Unique Plastic Industry is the only represented company. P2.1 adds an opt-in private identity foundation; business modules remain unimplemented.
 
+
+P2.1A adopts the existing XAMPP MariaDB engine for local development. Current restricted-account provisioning and acceptance gates are recorded in [the P2.1A summary](docs/phase2/P2-1A-executive-summary.md).
+
 ## Run locally
 
 Use Node 24 LTS and npm. From the repository root:
@@ -59,3 +62,5 @@ Read [implementation](docs/phase2/P2-1-implementation.md), [local MySQL setup an
 Explicit operator commands are `npm run identity:inspect`, `npm run identity:migrate`, `npm run identity:bootstrap` and `npm run identity:benchmark`. Migrations/bootstrap never run on startup. Supply private DB environment variables and exact target confirmation as documented. `npm run test:mysql` requires a separately provisioned empty `upms_test_<suffix>` schema and fails instead of silently mocking an unavailable database. `node server/tests/verify-identity-browser.mjs` uses a separate fresh test schema, installed Chrome and local TLS certificate. Existing `npm run verify` includes identity unit/UI tests and all public regressions.
 
 The five private business references were moved outside the repository only after owner approval, with matching hashes and overwrite refusal. Unused source logos remain preserved and untracked. Local ZIP packaging includes only exact management build paths alongside the existing public runtime; it does not package operator provisioning tools, secrets or private evidence. No merge, public deployment, live email activation or P2.2 implementation was performed.
+
+For the configured local P2.1A workspace, run `.\server\tools\Complete-UPMSLocalSetup.ps1 -ShowCredentials` to reuse setup and open the private initial-credential handoff. See [administrator setup](docs/phase2/P2-1A-administrator-bootstrap.md). The temporary password must be changed at first login.
