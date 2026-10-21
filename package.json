@@ -19,12 +19,23 @@
     "test:browser": "node server/tests/verify-browser.mjs",
     "test:browser:w06": "node server/tests/verify-browser.mjs --milestone=W06",
     "test:package": "node server/tests/verify-package.mjs",
-    "verify": "npm run build && npm run test:backend && npm run test:frontend && npm run lint --prefix upms.client"
+    "verify": "npm run build && npm run test:backend && npm run test:frontend && npm run lint --prefix upms.client",
+    "identity:inspect": "node server/tools/identity.mjs inspect",
+    "identity:migrate": "node server/tools/identity.mjs migrate",
+    "identity:bootstrap": "node server/tools/identity.mjs bootstrap",
+    "test:mysql": "node --test server/tests/mysql/identity.integration.js",
+    "identity:benchmark": "node server/tools/identity.mjs benchmark"
   },
   "dependencies": {
+    "argon2": "^0.45.1",
     "compression": "^1.8.1",
+    "csrf-sync": "^4.2.1",
     "express": "^5.1.0",
-    "nodemailer": "^10.1.7"
+    "express-session": "^1.19.0",
+    "knex": "^3.3.0",
+    "mysql2": "^3.24.6",
+    "nodemailer": "^10.1.7",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "lighthouse": "^13.5.0",

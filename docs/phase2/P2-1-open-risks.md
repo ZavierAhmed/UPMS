@@ -1,0 +1,25 @@
+# P2.1 unresolved security and acceptance gates
+
+**P2.1 remains partially complete.** Implemented local functionality and passing MariaDB compatibility tests do not satisfy the explicitly required real MySQL definition of done. No deployment, merge or P2.2 work is authorized by this report.
+
+| Gate / risk | Current evidence | Required next action |
+| --- | --- | --- |
+| Real MySQL Server | Actual listener is MariaDB 10.4.32; Workbench client is MySQL 8.0.46. Owner approved compatibility testing | Owner supplies/provisions a supported local MySQL endpoint and separate empty test schema; rerun migrations, integration, HTTPS browser and timeout/revocation cases there |
+| Runtime least privilege | Supplied account has global/all privileges; used only for authorized local capability inspection and disposable compatibility fixtures | Owner reviews provisioning template, creates separate scoped migration/runtime accounts and verifies actual runtime operation/denial grants. Existing broad grants were not changed |
+| Owner development initialization | `upms` remains empty; no real owner administrator or schema was created | After engine/account review, explicitly migrate the chosen dedicated development schema and run masked bootstrap locally with an owner-selected password |
+| Credential handling | No credentials committed, no private environment file created; user supplied a development password through chat | Rotate that credential before reuse, inject private environment values through a trusted local terminal/secret facility and never reuse it for production |
+| Administrator recovery and MFA | Last-admin guard exists; no backdoor reset or email recovery | Approve offline recovery/identity verification, backup/restore and optional independently controlled second administrator; decide MFA before public administrative exposure |
+| Global throttling/capacity | Durable per-login/global minute windows and bounded hash/pool/session/counter work | Tune with real deployment/load evidence; global rate limits and finite anonymous session capacity can still cause temporary denial of login under attack; verify edge controls |
+| Native Argon2/runtime budget | Local Windows Node24 native hash/verify and production-only ZIP dependency install pass | Verify native binary installation, CPU/memory/concurrency budgets on the actual managed Linux/Windows runtime; never silently fall back to weaker hashing |
+| Hosting/proxy/HTTPS/database | W06 host/proxy rules retained; local HTTPS tests pass; DB configuration intentionally loopback-only in P2.1 | Resolve Hostinger entitlement, exact proxy peers/header sanitation, database access policy/limits, secret injection and process shutdown/backup behavior before release |
+| Audit retention and privileged DB access | Mutations/audit atomic; runtime grant template append-only; actual broad test account can alter history | Approve retention, off-host backups/restore tests and restricted operational access; no tamper-proofness claim |
+| DDL recovery and catalogue evolution | Explicit migration, DDL nontransactionality documented, destructive down disabled | Independently review schema; rehearse recovery/forward fix and future grant-change guard/version protocol on MySQL |
+| Bounded administration | First 100 accounts and most recent 100 audit events; no full HR or audit export | Add reviewed pagination/filtering only when required; no completeness claim beyond displayed limits |
+| Uncertain response/commit | Identity uniqueness/version checks and audit history assist investigation | Reconcile database/audit state before manual retry after a lost response; no durable business-command idempotency claim |
+| Independent security review | Local regression, compatibility and browser evidence recorded | Review code, permission matrix, session-store concurrency, setup grants and actual MySQL evidence before approving milestone completion |
+
+The five private source references were moved only after explicit owner approval to `C:\Users\zasah\Documents\UPMS_Private_References`. SHA-256 checks matched before/after, no destination was overwritten, and runtime folders are clean. This resolves the previous reference-file packaging obstruction. User-provided unused logo assets remain untracked and preserved. No conflicting identity was imported into the new shell or public site.
+
+Disposable schemas `upms_test_p21_20261021`, `_run2`, `_run3`, `_run4`, `_run5`, `_run6`, `_run7`, `_run8`, `_browser`, `_browser2`, `_browser3`, `_browser4`, `_browser5` retain synthetic test data from development/retries. No schema/table cleanup was performed. Their generated fixture credentials are not owner accounts and were not retained for normal use. Owner-reviewed cleanup may be performed separately; never drop the owner's `upms` database.
+
+Recommended next step: independent P2.1 review plus a real MySQL/least-privilege acceptance pass and owner-controlled development bootstrap. P2.2 remains deferred until P2.1 is approved and separately authorized.

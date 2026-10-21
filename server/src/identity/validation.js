@@ -1,0 +1,10 @@
+import { z } from 'zod';
+import { roles } from './catalog.js';
+export const loginKey = z.string().min(3).max(64).regex(/^[a-zA-Z0-9._-]+$/).transform(s => s.toLowerCase());
+export const password = z.string().min(12).max(128);
+const roleCodes = z.array(z.enum(roles.map(r => r.code))).min(1).max(4).refine(a => new Set(a).size === a.length);
+export const loginInput = z.object({ username: z.string().max(64), password: z.string().max(128) }).strict();
+export const createInput = z.object({ username: loginKey, displayName: z.string().trim().min(1).max(100), password, roles: roleCodes, reason: z.string().trim().min(3).max(250) }).strict();
+export const updateInput = z.object({ enabled: z.boolean(), roles: roleCodes, version: z.number().int().positive(), reason: z.string().trim().min(3).max(250) }).strict();
+export const passwordInput = z.object({ currentPassword: z.string().max(128), newPassword: password }).strict();
+export const idInput = z.string().regex(/^[1-9][0-9]{0,18}$/);

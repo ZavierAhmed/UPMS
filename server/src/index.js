@@ -25,7 +25,9 @@ try {
       if (closing) return;
       closing = true;
       stopping.abort();
-      server.close(() => {
+      server.close(async () => {
+        try { await app.locals.identityDatabase?.destroy(); }
+        catch { process.exitCode = 1; return; }
         process.exitCode = 0;
       });
       server.closeIdleConnections();

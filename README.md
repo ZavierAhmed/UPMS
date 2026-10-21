@@ -1,6 +1,6 @@
 # Unique Plastic Industry — UPMS
 
-W05 migrates the public website backend to Node.js 24 LTS and Express. The W04 React/Vite design, public routes, approved assets, accessibility and build-time prerendering remain intact. Unique Plastic Industry is the only represented company. No Phase 2 management system, database or authentication is implemented.
+W05 migrates the public website backend to Node.js 24 LTS and Express. The W04 React/Vite design, public routes, approved assets, accessibility and build-time prerendering remain intact. Unique Plastic Industry is the only represented company. P2.1 adds an opt-in private identity foundation; business modules remain unimplemented.
 
 ## Run locally
 
@@ -47,3 +47,15 @@ W06 adds [current hosting compatibility](docs/W06-hosting-compatibility.md), a [
 **Hostinger Premium is not verified as eligible:** official documentation currently lists managed Node apps on Business/Unlimited and Cloud. Account eligibility, proxy behavior and SMTP connectivity must be resolved before deployment. No external deployment, live credentials or sender activation was performed. Production requires explicit ALLOWED_HOSTS and NODE_ENV=production; consult `.env.example` and the deployment guide.
 
 Historical W01–W04 documents and screenshots remain under `docs`. The complete old backend remains at W04 commit `bfb28d318939b33e1edd2d76613cc2f4353ba8ba` for rollback/reference; those historical .NET setup instructions no longer describe the current application. User-provided brochures and unused logos remain source material and are not publication approval.
+
+## P2.1 private management identity foundation
+
+Management is disabled by default. The separate built React entry is `/management`; protected identity APIs use `/api/v1/management`. No management scripts or records are inserted into the eleven public prerendered pages, and public inquiries retain their existing contract and disabled live-delivery configuration.
+
+**Acceptance is partial:** the supplied local listener is MariaDB 10.4.32, despite Workbench's MySQL 8.0.46 client. Owner-approved MariaDB compatibility tests pass; real MySQL Server acceptance and separate least-privilege account provisioning remain pending. The owner's `upms` database remains empty, and no real owner administrator was created. Do not treat the broad supplied development account or synthetic test accounts as deployment credentials.
+
+Read [implementation](docs/phase2/P2-1-implementation.md), [local MySQL setup and masked bootstrap](docs/phase2/P2-1-mysql-setup.md), [schema/migration recovery](docs/phase2/P2-1-schema-and-migrations.md), [authentication security](docs/phase2/P2-1-authentication-security.md), [permission/API matrix](docs/phase2/P2-1-authorization-matrix.md), [verification](docs/phase2/P2-1-verification.md) and [open risks](docs/phase2/P2-1-open-risks.md) before enabling it.
+
+Explicit operator commands are `npm run identity:inspect`, `npm run identity:migrate`, `npm run identity:bootstrap` and `npm run identity:benchmark`. Migrations/bootstrap never run on startup. Supply private DB environment variables and exact target confirmation as documented. `npm run test:mysql` requires a separately provisioned empty `upms_test_<suffix>` schema and fails instead of silently mocking an unavailable database. `node server/tests/verify-identity-browser.mjs` uses a separate fresh test schema, installed Chrome and local TLS certificate. Existing `npm run verify` includes identity unit/UI tests and all public regressions.
+
+The five private business references were moved outside the repository only after owner approval, with matching hashes and overwrite refusal. Unused source logos remain preserved and untracked. Local ZIP packaging includes only exact management build paths alongside the existing public runtime; it does not package operator provisioning tools, secrets or private evidence. No merge, public deployment, live email activation or P2.2 implementation was performed.

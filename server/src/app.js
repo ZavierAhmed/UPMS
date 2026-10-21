@@ -6,6 +6,9 @@ import { createDelivery } from "./inquiries/delivery.js";
 import { createSubmissions } from "./inquiries/submissions.js";
 import { inquiryApi } from "./inquiries/api.js";
 import { website } from "./website/index.js";
+import { identityConfig } from "./identity/config.js";
+import { createDatabase } from "./identity/database.js";
+import { managementRouter } from "./identity/router.js";
 
 export function createApp({
   config = loadConfig(),
@@ -13,12 +16,19 @@ export function createApp({
   log = () => {},
   now,
   shutdownSignal,
+  management = identityConfig(),
+  identityDatabase,
 } = {}) {
   const app = express();
   app.disable("x-powered-by");
   app.disable("etag");
   app.set("trust proxy", false);
   app.use(security(config));
+  if (management) {
+    const db = identityDatabase || createDatabase();
+    app.locals.identityDatabase = db;
+    app.use(managementRouter(db, management));
+  }
   app.use(
     inquiryApi(
       config,
@@ -60,7 +70,6 @@ export function createApp({
       }),
     );
   });
-  // Future application routers belong here, before the public website fallback.
   app.use(website(config));
   app.use((err, req, res, next) => {
     if (res.headersSent) return next(err);
