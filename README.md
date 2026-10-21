@@ -42,6 +42,8 @@ Browser/Lighthouse verification requires installed Chrome and a local TLS certif
 
 [W05 deployment/environment guide](docs/W05-hostinger-deployment.md), [migration audit](docs/W05-migration-audit.md), [parity gate](docs/W05-node-parity.md), and [verification](docs/W05-verification.md) record architecture, commands, security, SMTP, future MySQL guidance, rollback and remaining blockers.
 
+W06 adds [current hosting compatibility](docs/W06-hosting-compatibility.md), a [GitHub/ZIP deployment checklist](docs/W06-deployment-checklist.md), [MySQL foundation planning](docs/W06-mysql-readiness.md) and [regression evidence](docs/W06-verification.md). `npm run build:hosting` installs the frontend build tools explicitly; `npm run package:deployment` creates a private prebuilt ZIP under ignored `artifacts/`. `npm run test:browser:w06` records fresh W06 evidence without replacing W05 results. No running database connection or management feature is added.
+
 **Hostinger Premium is not verified as eligible:** official documentation currently lists managed Node apps on Business/Unlimited and Cloud. Account eligibility, proxy behavior and SMTP connectivity must be resolved before deployment. No external deployment, live credentials or sender activation was performed. Production requires explicit ALLOWED_HOSTS and NODE_ENV=production; consult `.env.example` and the deployment guide.
 
 Historical W01–W04 documents and screenshots remain under `docs`. The complete old backend remains at W04 commit `bfb28d318939b33e1edd2d76613cc2f4353ba8ba` for rollback/reference; those historical .NET setup instructions no longer describe the current application. User-provided brochures and unused logos remain source material and are not publication approval.

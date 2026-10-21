@@ -377,6 +377,7 @@ FodyWeavers.xsd
 # W05 private runtime data and local verification
 /server/.local/
 /tmp/w05/
+/tmp/w06/
 .env
 .env.*
 !.env.example

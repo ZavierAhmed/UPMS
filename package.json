@@ -9,12 +9,16 @@
   "scripts": {
     "install:all": "npm ci && npm ci --prefix upms.client",
     "build": "npm run build --prefix upms.client",
+    "build:hosting": "npm ci --include=dev --prefix upms.client && npm run build",
+    "package:deployment": "npm run build && node scripts/package-deployment.mjs",
     "start": "node server/src/index.js",
     "dev": "node --watch server/src/index.js",
     "test:backend": "node --test server/tests/*.test.js",
     "test:frontend": "npm test --prefix upms.client",
     "test:parity": "node server/tests/parity.mjs",
     "test:browser": "node server/tests/verify-browser.mjs",
+    "test:browser:w06": "node server/tests/verify-browser.mjs --milestone=W06",
+    "test:package": "node server/tests/verify-package.mjs",
     "verify": "npm run build && npm run test:backend && npm run test:frontend && npm run lint --prefix upms.client"
   },
   "dependencies": {

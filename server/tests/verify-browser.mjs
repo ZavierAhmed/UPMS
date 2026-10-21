@@ -7,6 +7,13 @@ import { join } from "node:path";
 import assert from "node:assert/strict";
 import { createApp } from "../src/app.js";
 import { loadConfig } from "../src/config/index.js";
+const milestone =
+  process.argv.find((arg) => arg.startsWith("--milestone="))?.split("=")[1] ||
+  "W05";
+if (!/^W\d{2}$/.test(milestone))
+  throw new Error("Invalid verification milestone.");
+const runDirectory = `tmp/${milestone.toLowerCase()}`;
+const screenshotDirectory = `docs/screenshots/${milestone.toLowerCase()}`;
 const certificateRoot = join(process.env.APPDATA || "", "ASP.NET", "https");
 const tls = {
   cert: await readFile(
@@ -35,14 +42,14 @@ const development = createServer(
         INQUIRY_RATE_LIMIT: "100",
         INQUIRY_PUBLIC_ORIGIN: "https://localhost:7446",
       }),
-      outbox: join(process.cwd(), "tmp/w05/test-outbox"),
+      outbox: join(process.cwd(), runDirectory, "test-outbox"),
     },
   }),
 );
 await new Promise((r) => server.listen(7445, "127.0.0.1", r));
 await new Promise((r) => development.listen(7446, "127.0.0.1", r));
-await mkdir("docs/screenshots/w05", { recursive: true });
-await mkdir("tmp/w05", { recursive: true });
+await mkdir(screenshotDirectory, { recursive: true });
+await mkdir(runDirectory, { recursive: true });
 const browser = await puppeteer.launch({
   executablePath:
     process.env.CHROME_PATH ||
@@ -123,7 +130,7 @@ try {
         (width === 390 && ["/contact", "/products/buckets"].includes(path))
       )
         await page.screenshot({
-          path: `docs/screenshots/w05/${path === "/" ? "home" : path.split("/").at(-1)}-${width}.png`,
+          path: `${screenshotDirectory}/${path === "/" ? "home" : path.split("/").at(-1)}-${width}.png`,
           fullPage: true,
         });
     }
@@ -246,7 +253,7 @@ try {
   assert.deepEqual(errors, []);
   assert.deepEqual(hydration, []);
   await writeFile(
-    "docs/W05-browser-results.json",
+    `docs/${milestone}-browser-results.json`,
     JSON.stringify(
       {
         browser: await browser.version(),
@@ -281,7 +288,7 @@ try {
       onlyCategories: ["performance", "accessibility", "best-practices", "seo"],
       chromeFlags: ["--ignore-certificate-errors"],
     });
-    await writeFile(`tmp/w05/lighthouse-${name}.json`, report.report);
+    await writeFile(`${runDirectory}/lighthouse-${name}.json`, report.report);
     const lhr = report.lhr;
     scores.push({
       page: name,
@@ -313,7 +320,7 @@ try {
     });
     console.log(`Lighthouse ${name}: ${JSON.stringify(scores.at(-1).scores)}`);
     await writeFile(
-      "docs/W05-lighthouse-summary.json",
+      `docs/${milestone}-lighthouse-summary.json`,
       JSON.stringify(scores, null, 2),
     );
   }
