@@ -37,18 +37,20 @@ test('real dedicated SQL-server identity integration (fails rather than mocks wh
     console.info(JSON.stringify({ integrationDatabase: info.database_name, serverVersion: info.version, classification: /MariaDB/.test(info.version) ? 'Owner-approved MariaDB local-development acceptance; not Oracle MySQL evidence' : 'Oracle MySQL', timeZone: info.time_zone, charset: info.charset, engine: info.engine }));
     // This guard must be outside a subtest: a failed subtest does not stop its parent.
     const existing = await db.raw('SELECT COUNT(*) AS n FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE()');
-    assert.equal(Number(existing[0][0].n), 0, 'Provision a fresh schema; never destroy existing test data to retry.');
+    const p22=process.env.UPMS_P22_PREMIGRATED==='true'&&['upms_test_p22_20261021','upms_test_p22_identity_20261021'].includes(process.env.DB_NAME);
+    assert.equal(Number(existing[0][0].n), p22?38:0, 'Use the freshly provisioned approved schema; never reset test data.');
+    if(p22)assert.equal(Number((await db('users').count('* as n'))[0].n),0,'Existing identity fixtures are never reset/reused.');
     let migrationPassed = false;
     await t.test('migration safety, application, tracking and repeat invocation', async () => {
       await assert.rejects(migrate(db, { ...env, NODE_ENV: 'production' }));
       await assert.rejects(migrate(db, { ...env, DB_CONFIRM_NAME: 'unconfirmed_target' }));
-      const first = await migrate(db, env); assert.equal(first.migrations.length, 1);
+      const first = await migrate(db, env); assert.equal(first.migrations.length, p22?0:2);
       const second = await migrate(db, env); assert.equal(second.migrations.length, 0);
       assert.equal((await db('roles')).length, 4);
       migrationPassed = true;
     });
     if (!migrationPassed) throw new Error('Migration acceptance failed; refusing dependent fixture writes.');
-    await grantTestRuntime(db);
+    if(!p22)await grantTestRuntime(db);
     runtimeDb = createDatabase(runtimeEnv);
     const service = createIdentityService(runtimeDb); await service.ready();
     await t.test('concurrent one-time administrator bootstrap and unique users', async () => {
@@ -159,7 +161,7 @@ test('real dedicated SQL-server identity integration (fails rather than mocks wh
       assert.ok(cookies?.length);
       await db.destroy(); await runtimeDb.destroy(); db = createDatabase(ownerEnv); runtimeDb = createDatabase(runtimeEnv);
       const childEnv = { ...env, NODE_ENV: 'development', IDENTITY_DB_PURPOSE: 'runtime' };
-      for (const key of ['UPMS_TEST_OWNER_USER','UPMS_TEST_OWNER_PASSWORD']) delete childEnv[key];
+      for (const key of ['UPMS_TEST_OWNER_USER','UPMS_TEST_OWNER_PASSWORD','UPMS_P22_OWNER_USER','UPMS_P22_OWNER_PASSWORD','UPMS_P22_TEST_PASSWORD']) delete childEnv[key];
       const child = spawn(process.execPath, ['--input-type=module', '-e', `
         import {createApp} from './server/src/app.js';
         import {loadConfig} from './server/src/config/index.js';

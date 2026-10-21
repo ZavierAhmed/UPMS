@@ -1,0 +1,5 @@
+# P2.2 supplemental identity regression plan
+
+The dedicated P2.2 schema has already accumulated synthetic business fixtures and must not be reset. Its attempted child invocation of the legacy identity suite was detected as recursively skipped, so that earlier receipt is invalid and is not acceptance evidence. Preserve the receipt as historical invalid evidence.
+
+Create NEW upms_test_p22_identity_20261021 and NEW upms_runtime_test_p22_identity@localhost, refusing any existing name. Generate a new private DPAPI test password automatically. Apply the original unchanged identity migration and the additive business migration using the owner operator only in this new synthetic schema. Grant the exact current runtime table allowlist scoped solely to that schema. Run the legacy seventeen checks in an independent top-level Node test process, assert actual tests/pass counts and retain the real log. No existing schema/account, owner identity or business fixture is removed, reset or reused. No new main upms privileges or records are needed.

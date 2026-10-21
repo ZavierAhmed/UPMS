@@ -1,13 +1,14 @@
 import { useEffect, useState, useRef } from 'react';
+import { BusinessMasters } from './BusinessMasters.jsx';
 const departments = [['inventory', 'Inventory'], ['sales_dispatch', 'Sales/Dispatch'], ['accounts', 'Accounts'], ['administrator', 'Administrator']];
 export function Management() {
   const [user, setUser] = useState(null), [token, setToken] = useState(''), [ready, setReady] = useState(false);
   const [message, setMessage] = useState(''), [busy, setBusy] = useState(false), [page, setPage] = useState('home');
   const [users, setUsers] = useState([]), [events, setEvents] = useState([]), [editing, setEditing] = useState(null);
   const active = useRef(false);
-  async function api(path, method = 'GET', body, csrf = token) {
+  async function api(path, method = 'GET', body, csrf = token, commandKey) {
     const response = await fetch(`/api/v1/management${path}`, { method, credentials: 'same-origin', cache: 'no-store',
-      headers: { 'Content-Type': 'application/json', ...(method !== 'GET' ? { 'X-CSRF-Token': csrf } : {}) },
+      headers: { 'Content-Type': 'application/json', ...(method !== 'GET' ? { 'X-CSRF-Token': csrf } : {}),...(commandKey?{'Idempotency-Key':commandKey}:{}) },
       ...(body ? { body: JSON.stringify(body) } : {}) });
     const data = response.status === 204 ? {} : await response.json();
     if (!response.ok) {
@@ -15,7 +16,11 @@ export function Management() {
       if (response.status === 401 && user) { setUser(null); setUsers([]); setEvents([]); setToken(''); }
       const labels = { INVALID_CREDENTIALS: 'Unable to sign in. Check your credentials.', ACCESS_DENIED: 'Access denied.',
         LAST_ADMINISTRATOR: 'Keep at least one enabled administrator.', STALE_VERSION: 'This account changed. Refresh before trying again.',
-        IDENTITY_CONFLICT: 'That username is unavailable.', LOGIN_THROTTLED: 'Too many attempts. Please wait a minute.',
+        IDENTITY_CONFLICT: 'That code or canonical variant already exists.', LOGIN_THROTTLED: 'Too many attempts. Please wait a minute.',
+        INVALID_VARIANT_DIMENSIONS:'Finished bottles require all four dimensions; other categories use none.', ITEM_IDENTITY_IMMUTABLE:'Create a replacement item to change its stock identity.', REFERENCED_UNIT_IMMUTABLE:'A referenced unit cannot change its meaning or precision.',
+        CODE_IMMUTABLE:'Codes stay fixed. Edit the name or status instead.',INACTIVE_OR_INVALID_REFERENCE:'Choose active, valid reference records.',IDEMPOTENCY_CONFLICT:'This command key belongs to different inputs. Refresh before retrying.',
+        DUPLICATE_CANONICAL_VALUE:'That canonical bottle value already exists under another code.',PREFIX_ALREADY_ASSIGNED:'That prefix is already assigned to another document type.',
+        OVERLAPPING_PERIOD:'Business periods cannot overlap.',REOPENING_POLICY_UNRESOLVED:'Period reopening is not approved.',ISSUED_PREFIX_IMMUTABLE:'An issued numbering prefix cannot be changed.',
         CSRF_REJECTED: 'Your security token expired. Reload this page.', INVALID_INPUT: 'Check all fields. Passwords need 12–128 characters.',
         PASSWORD_CHANGE_REQUIRED: 'Change your initial password to continue.', PASSWORD_MUST_DIFFER: 'Choose a different new password.', SESSION_EXPIRED: 'Your session ended. Sign in again.', AUTH_REQUIRED: 'Sign in to continue.' };
       throw new Error(labels[data.error?.code] || 'The management service is unavailable. Please try again later.');
@@ -67,7 +72,8 @@ export function Management() {
           <label>Password<input type="password" name="password" autoComplete="current-password" maxLength={128} required /></label>
           <button disabled={busy}>{busy ? 'Signing in…' : 'Sign in'}</button>
         </form><p className="muted">Account access is managed locally. Contact your administrator for recovery.</p></section> : <>
-        <nav aria-label="Management"><button onClick={() => navigate('home')}>Overview</button><button onClick={() => navigate('profile')}>My profile</button>{can('users.read') && <button onClick={() => navigate('users')}>Staff accounts</button>}{can('audit.read') && <button onClick={() => navigate('audit')}>Identity history</button>}</nav>
+        <nav aria-label="Management"><button onClick={() => navigate('home')}>Overview</button><button onClick={() => navigate('profile')}>My profile</button>{can('masters.inventory.read')&&<button onClick={()=>navigate('masters')}>Master data</button>}{can('users.read') && <button onClick={() => navigate('users')}>Staff accounts</button>}{can('audit.read') && <button onClick={() => navigate('audit')}>Identity history</button>}</nav>
+        {page==='masters'&&<BusinessMasters api={api} user={user}/>}
         {page === 'denied' && <section><h1>Access denied</h1><p>Your current department permissions do not allow this action.</p><button onClick={() => navigate('home')}>Return to overview</button></section>}
         {page === 'home' && <section><p className="eyebrow">UNIQUE PLASTIC INDUSTRY</p><h1>Welcome, {user.displayName}</h1><p>Your departments: {user.roles.map(code => departments.find(([key]) => key === code)?.[1]).join(', ')}</p><div className="card"><h2>Management foundation</h2><p>Your staff account and department access are active.</p><p>Inventory, sales and accounts workflows are upcoming milestones.</p></div></section>}
         {page === 'profile' && <section><h1>My profile</h1><p>{user.username} · {user.displayName}</p><h2>Change password</h2>{user.passwordChangeRequired && <p role="alert">Change your temporary password before using staff management.</p>}<p>This signs out all your sessions.</p><form onSubmit={event => { event.preventDefault(); const data = new FormData(event.currentTarget); run(async () => {

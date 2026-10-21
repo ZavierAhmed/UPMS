@@ -8,6 +8,7 @@ import { createIdentityService, identityIncludingDisabled, digest } from './serv
 import { query } from './database.js';
 import { IdentityError } from './passwords.js';
 import { createInput, updateInput, loginInput, passwordInput, idInput } from './validation.js';
+import { businessRouter } from '../business/router.js';
 
 const call = (value, method) => new Promise((resolve, reject) => value[method](err => err ? reject(err) : resolve()));
 export function managementRouter(db, config) {
@@ -54,6 +55,7 @@ export function managementRouter(db, config) {
     next();
   });
   router.use(base, csrfSynchronisedProtection);
+  router.use(`${base}/business`,businessRouter(db));
   router.post(`${base}/session/login`, async (req, res) => {
     const parsed = loginInput.safeParse(req.body);
     if (!parsed.success || !parsed.data.username || !parsed.data.password) throw new IdentityError(401, 'INVALID_CREDENTIALS');
@@ -101,6 +103,7 @@ export function managementRouter(db, config) {
     if (err.type === 'entity.too.large') { status = 413; code = 'REQUEST_TOO_LARGE'; }
     if (err.code === 'EBADCSRFTOKEN') { status = 403; code = 'CSRF_REJECTED'; }
     if (err.code === 'ER_DUP_ENTRY') { status = 409; code = 'IDENTITY_CONFLICT'; }
+    if (['ER_NO_REFERENCED_ROW_2','ER_ROW_IS_REFERENCED_2','ER_CHECK_CONSTRAINT_VIOLATED','ER_CONSTRAINT_FAILED'].includes(err.code)) { status=400;code='INVALID_REFERENCE_OR_CONSTRAINT'; }
     res.status(status).json({ error: { code, reference: req.correlation } });
   });
   return router;

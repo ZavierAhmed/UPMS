@@ -55,7 +55,7 @@ Historical W01–W04 documents and screenshots remain under `docs`. The complete
 
 Management is disabled by default. The separate built React entry is `/management`; protected identity APIs use `/api/v1/management`. No management scripts or records are inserted into the eleven public prerendered pages, and public inquiries retain their existing contract and disabled live-delivery configuration.
 
-**Acceptance is partial:** the supplied local listener is MariaDB 10.4.32, despite Workbench's MySQL 8.0.46 client. Owner-approved MariaDB compatibility tests pass; real MySQL Server acceptance and separate least-privilege account provisioning remain pending. The owner's `upms` database remains empty, and no real owner administrator was created. Do not treat the broad supplied development account or synthetic test accounts as deployment credentials.
+**Local development acceptance:** P2.1A provisioning and owner password rotation are complete. P2.2 adds business masters and shared transaction infrastructure through an explicit backed-up additive migration. MariaDB remains local-development-only; see the current P2.2 records below.
 
 Read [implementation](docs/phase2/P2-1-implementation.md), [local MySQL setup and masked bootstrap](docs/phase2/P2-1-mysql-setup.md), [schema/migration recovery](docs/phase2/P2-1-schema-and-migrations.md), [authentication security](docs/phase2/P2-1-authentication-security.md), [permission/API matrix](docs/phase2/P2-1-authorization-matrix.md), [verification](docs/phase2/P2-1-verification.md) and [open risks](docs/phase2/P2-1-open-risks.md) before enabling it.
 
@@ -64,3 +64,9 @@ Explicit operator commands are `npm run identity:inspect`, `npm run identity:mig
 The five private business references were moved outside the repository only after owner approval, with matching hashes and overwrite refusal. Unused source logos remain preserved and untracked. Local ZIP packaging includes only exact management build paths alongside the existing public runtime; it does not package operator provisioning tools, secrets or private evidence. No merge, public deployment, live email activation or P2.2 implementation was performed.
 
 For the configured local P2.1A workspace, run `.\server\tools\Complete-UPMSLocalSetup.ps1 -ShowCredentials` to reuse setup and open the private initial-credential handoff. See [administrator setup](docs/phase2/P2-1A-administrator-bootstrap.md). The temporary password must be changed at first login.
+
+## P2.2 business foundation
+
+The existing private Master data workspace manages canonical inventory records, customer/vendor contacts, configurable money accounts and expense categories, document-type prefixes, periods and policy proposals with backend department permissions, audit history, optimistic versions and durable command keys. No actual stock/money posting, opening balances, historical import or automatic conversion is enabled. Existing owner credentials and sessions are preserved.
+
+Read [P2.2 summary](docs/phase2/P2-2-executive-summary.md), [schema](docs/phase2/P2-2-business-schema.md), [migration and private backup verification](docs/phase2/P2-2-migration-verification.md), [permissions](docs/phase2/P2-2-permission-matrix.md), [tests](docs/phase2/P2-2-test-results.md) and [open decisions](docs/phase2/P2-2-open-risks.md). Operator commands in server/tools/Invoke-UPMSBusiness.ps1 are explicit and guarded; never rerun completed provisioning or restore over upms. No migration runs on application startup. Independent review is required before P2.3, merge or deployment.
