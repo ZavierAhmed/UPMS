@@ -15,7 +15,7 @@ export function inventoryRouter(db){
   router.patch('/documents/:id',async(req,res)=>res.json(await service.save(req.session,req.body,req.get('Idempotency-Key'),key.parse(req.params.id))));
   for(const action of ['submit','decide','post'])router.post(`/documents/:id/${action}`,async(req,res)=>res.json(await service[action](req.session,key.parse(req.params.id),req.body,req.get('Idempotency-Key'))));
   router.get('/history',async(req,res)=>{
-    const filters=z.object({itemId:key.optional(),type:z.enum(['PRODUCTION','CONSUMPTION','COUNT_ADJUSTMENT','CORRECTION']).optional(),from:z.string().date().optional(),to:z.string().date().optional(),reference:z.string().max(64).optional()}).strict().parse(req.query);
+    const filters=z.object({itemId:key.optional(),type:z.enum(['PRODUCTION','CONSUMPTION','COUNT_ADJUSTMENT','CORRECTION','PURCHASE_RECEIPT']).optional(),from:z.string().date().optional(),to:z.string().date().optional(),reference:z.string().max(64).optional()}).strict().parse(req.query);
     res.json({movements:await service.history(req.session,filters),limit:200});
   });
   router.get('/reconciliation',async(req,res)=>res.json(await service.reconcile(req.session)));

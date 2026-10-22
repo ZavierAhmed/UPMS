@@ -1,0 +1,1 @@
+export function estimateLine(quantity,rate){if(!/^\d+(?:\.\d{1,6})?$/.test(quantity)||!/^\d+(?:\.\d{1,6})?$/.test(rate))return '—';const scaled=s=>{const [i,f='']=s.split('.');return BigInt(i)*1000000n+BigInt(f.padEnd(6,'0'));};const amount=(scaled(quantity)*scaled(rate)+5000000000n)/10000000000n;return `${amount/100n}.${(amount%100n).toString().padStart(2,'0')}`;}

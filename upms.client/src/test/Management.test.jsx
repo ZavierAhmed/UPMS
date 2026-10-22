@@ -38,7 +38,7 @@ describe('private management shell', () => {
     render(<Management />); await screen.findByRole('heading', { name: 'Welcome, Synthetic Staff' });
     expect(screen.queryByRole('button', { name: 'Staff accounts' })).toBeNull();
     expect(screen.queryByRole('button', { name: 'Identity history' })).toBeNull();
-    expect(screen.getByText(/upcoming milestones/)).toBeTruthy();
+    expect(screen.getByText(/explicit owner policy/)).toBeTruthy();
     fireEvent.click(screen.getByRole('button', { name: 'My profile' }));
     await waitFor(() => expect(screen.getByRole('heading', { name: 'My profile' })).toBeTruthy());
   });

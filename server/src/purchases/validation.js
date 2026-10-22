@@ -1,0 +1,12 @@
+import {z} from 'zod';
+import {key} from '../business/validation.js';
+export const reason=z.string().trim().min(3).max(500);
+const text=z.string().trim().max(250);
+const numeric=z.string().regex(/^\d+(?:\.\d+)?$/).max(32);
+export const command=z.object({version:z.number().int().positive(),reason}).strict();
+export const payment=z.object({accountId:key,amount:numeric,instrumentReference:text.min(1)}).strict();
+const line=z.object({itemId:key,quantity:numeric,rate:numeric.nullable(),supplierReference:text,notes:text,expectedItemVersion:z.number().int().positive()}).strict();
+export const draftInput=z.object({kind:z.enum(['PURCHASE','INVOICE','PAYMENT','CORRECTION']),vendorId:key,businessDate:z.string().date(),receiptDate:z.string().date().nullable(),invoiceDate:z.string().date().nullable(),invoiceReference:text.nullable(),receiptId:key.nullable(),originalId:key.nullable(),reference:text,reason,lines:z.array(line).max(30),payment:payment.nullable(),allocations:z.array(z.object({invoiceId:key,amount:numeric})).max(30),version:z.number().int().positive().optional()}).strict();
+const accountType=z.enum(['CASH','BANK','CASH_HOLDER']);
+export const policyInput=z.object({currency:z.string().regex(/^[A-Z]{3}$/),moneyScale:z.literal(2),rateScale:z.literal(6),rounding:z.literal('HALF_UP_PER_LINE'),recognition:z.literal('SEPARATE_RECEIPT_INVOICE'),dateRule:z.literal('CURRENT_PAKISTAN_DATE_ONLY'),invoiceUniqueness:z.literal('VENDOR_REFERENCE_CASE_INSENSITIVE'),taxRule:z.literal('NO_TAX_SUPPORTED'),paymentTypes:z.array(accountType).min(1).max(3),deficitTypes:z.array(accountType).max(3),cutoff:z.string().date(),periodId:key,prefixes:z.object(Object.fromEntries(['PURCHASE','INVOICE','PAYMENT','CORRECTION'].map(k=>[k,z.string().regex(/^[A-Z0-9]{1,12}$/)]))).strict(),confirm:z.literal(true),reason}).strict().refine(p=>p.deficitTypes.every(t=>p.paymentTypes.includes(t))&&new Set(Object.values(p.prefixes)).size===4);
+export const activation=z.object({version:z.number().int().positive(),attestNoPriorHistory:z.literal(true),currency:z.string().regex(/^[A-Z]{3}$/),reason}).strict();

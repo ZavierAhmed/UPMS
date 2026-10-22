@@ -1,3 +1,4 @@
+import {purchaseRuntimePrivileges} from '../purchases/catalog.js';
 import { businessRuntimePrivileges } from '../business/catalog.js';
 import { inventoryRuntimePrivileges } from '../inventory/catalog.js';
 export const identityRuntimePrivileges = Object.freeze({
@@ -6,7 +7,7 @@ export const identityRuntimePrivileges = Object.freeze({
   role_permissions: ['SELECT'], sessions: ['SELECT', 'INSERT', 'UPDATE', 'DELETE'],
   login_attempts: ['SELECT', 'INSERT', 'UPDATE', 'DELETE'], identity_audit_events: ['SELECT', 'INSERT'],
 });
-export const runtimePrivileges = Object.freeze({...identityRuntimePrivileges,...businessRuntimePrivileges,...inventoryRuntimePrivileges});
+export const runtimePrivileges = Object.freeze({...identityRuntimePrivileges,...businessRuntimePrivileges,...inventoryRuntimePrivileges,...purchaseRuntimePrivileges});
 export function summarizeGrant(row) {
   const raw = Object.values(row).join(' ');
   const match = raw.match(/^GRANT (.+?) ON (.+?) TO /i);
@@ -27,7 +28,7 @@ export function verifyRuntimeGrants(rows, database, account) {
       throw new Error('Runtime privileges exceed the reviewed table allowlist.');
     const current = found.get(table) || new Set(); grant.privileges.forEach(p => current.add(p)); found.set(table, current);
   }
-  for (const [table, privileges] of Object.entries(runtimePrivileges))
-    if (!privileges.every(p => found.get(table)?.has(p))) throw new Error('Required runtime privileges are missing.');
+  for (const [table, rights] of Object.entries(runtimePrivileges))
+    if (!rights.every(p => found.get(table)?.has(p))) throw new Error('Required runtime privileges are missing.');
   return { account, database, tables: Object.keys(runtimePrivileges).length, globalPrivileges: false, auditUpdateDelete: false, verified: true };
 }

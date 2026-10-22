@@ -15,7 +15,7 @@ export function approvalPolicy(actor,creator,reason){
   justification(reason);
   if(String(actor.id)===String(creator)&&!actor.roles.includes('administrator'))throw new IdentityError(403,'STAFF_SELF_APPROVAL_FORBIDDEN');
 }
-// Internal foundation services only; no financial-document creation/posting routes.
+// Shared foundation; domain services own authorized creation/posting routes.
 // Caller must use coordinate() and the declared global lock order.
 export async function createDraft(trx,actor,{typeId,businessDate,payload,reason}){
   justification(reason);

@@ -9,6 +9,7 @@ import { query } from './database.js';
 import { IdentityError } from './passwords.js';
 import { createInput, updateInput, loginInput, passwordInput, idInput } from './validation.js';
 import { businessRouter } from '../business/router.js';
+import {purchaseRouter} from '../purchases/router.js';
 import { inventoryRouter } from '../inventory/router.js';
 
 const call = (value, method) => new Promise((resolve, reject) => value[method](err => err ? reject(err) : resolve()));
@@ -58,6 +59,7 @@ export function managementRouter(db, config) {
   router.use(base, csrfSynchronisedProtection);
   router.use(`${base}/business`,businessRouter(db));
   router.use(`${base}/inventory`,inventoryRouter(db));
+  router.use(`${base}/purchases`,purchaseRouter(db));
   router.post(`${base}/session/login`, async (req, res) => {
     const parsed = loginInput.safeParse(req.body);
     if (!parsed.success || !parsed.data.username || !parsed.data.password) throw new IdentityError(401, 'INVALID_CREDENTIALS');

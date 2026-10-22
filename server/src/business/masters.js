@@ -51,6 +51,7 @@ export function masterService(db){
           }
         }
         if(r.kind==='unit'&&before&&(before.scale!==data.scale||before.name!==data.name)&&await query(trx('business_items').where({unit_id:before.id}).first()))throw new IdentityError(409,'REFERENCED_UNIT_IMMUTABLE');
+        if(r.kind==='money'&&before&&before.account_type!==data.account_type&&await query(trx('money_tracking').where({account_id:before.id}).whereNot({state:'UNVERIFIED'}).first()))throw new IdentityError(409,'MONEY_ACCOUNT_TYPE_IMMUTABLE');
         if(r.kind==='documentType'){
           if(data.prefix_approved&&!data.prefix)throw new IdentityError(400,'PREFIX_REQUIRED');
           if(data.prefix){const other=await query(trx(r.table).where({prefix:data.prefix}).first());if(other&&String(other.id)!==String(recordKey))throw new IdentityError(409,'PREFIX_ALREADY_ASSIGNED');}

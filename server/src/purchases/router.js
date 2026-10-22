@@ -1,0 +1,20 @@
+import express from 'express';
+import {key} from '../business/validation.js';
+import {purchaseService} from './service.js';
+export function purchaseRouter(db){const router=express.Router(),service=purchaseService(db),command=req=>req.get('Idempotency-Key');
+  router.get('/configuration',async(req,res)=>res.json(await service.configuration(req.session)));
+  router.post('/configuration/prepare',async(req,res)=>res.json(await service.prepare(req.session,req.body,command(req))));
+  router.post('/configuration/accept',async(req,res)=>res.json(await service.acceptPolicy(req.session,req.body,command(req))));
+  for(const kind of ['vendor','money'])router.post(`/${kind}/:id/activate`,async(req,res)=>res.json(await service.activate(req.session,kind,key.parse(req.params.id),req.body,command(req))));
+  router.get('/documents',async(req,res)=>res.json({documents:await service.list(req.session),limit:100}));
+  router.get('/documents/:id',async(req,res)=>res.json(await service.document(req.session,key.parse(req.params.id))));
+  router.post('/documents',async(req,res)=>res.status(201).json(await service.save(req.session,req.body,command(req))));
+  router.patch('/documents/:id',async(req,res)=>res.json(await service.save(req.session,req.body,command(req),key.parse(req.params.id))));
+  router.post('/documents/:id/post',async(req,res)=>res.json(await service.post(req.session,key.parse(req.params.id),req.body,command(req))));
+  router.post('/documents/:id/deficit-approval',async(req,res)=>res.json(await service.approveDeficit(req.session,key.parse(req.params.id),req.body,command(req))));
+  router.get('/vendors/:id',async(req,res)=>res.json(await service.vendorLedger(req.session,key.parse(req.params.id))));
+  router.get('/money',async(req,res)=>res.json({accounts:await service.accounts(req.session),limit:100}));
+  router.get('/money/:id/journal',async(req,res)=>res.json({journal:await service.moneyHistory(req.session,key.parse(req.params.id)),limit:200}));
+  router.get('/reconciliation',async(req,res)=>res.json(await service.reconcile(req.session)));
+  return router;
+}
