@@ -1,6 +1,7 @@
 import express from 'express';import {key} from '../business/validation.js';import {salesService} from './service.js';
 export function salesRouter(db){const router=express.Router(),service=salesService(db),command=req=>req.get('Idempotency-Key');
  router.get('/configuration',async(req,res)=>res.json(await service.configuration(req.session)));
+ router.post('/configuration/classification',async(req,res)=>res.json(await service.acceptClassificationPolicy(req.session,req.body,command(req))));
  router.post('/configuration/prepare',async(req,res)=>res.json(await service.prepare(req.session,req.body,command(req))));
  router.post('/configuration/accept',async(req,res)=>res.json(await service.acceptPolicy(req.session,req.body,command(req))));
  router.post('/customers/:id/activate',async(req,res)=>res.json(await service.activateCustomer(req.session,key.parse(req.params.id),req.body,command(req))));

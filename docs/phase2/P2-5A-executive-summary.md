@@ -1,0 +1,17 @@
+# P2.5A local development acceptance
+
+The client's revised decision supersedes P2.5's single tax-free customer ledger. GST and NON_GST now have separate authoritative document snapshots, scoped opening states, journal debits, outstanding challans and balance projections. Existing P2.5 structures/data and legacy classification metadata remain preserved; no unclassified amount is copied or silently categorized.
+
+Sales/Dispatch still posts ordinary challans directly without administrator approval. Base amounts reuse P2.4 exact arithmetic. GST adds one explicitly entered and reviewed manual amount to the base subtotal, producing one classified receivable debit and no money-account transaction. NON_GST accepts zero GST only. AVAILABLE finished goods and the selected customer ledger update atomically with official numbering/audit; negative stock remains blocked.
+
+Manual GST treatment remains proposed. Actual SQL database-name checks restrict classification policy/posting to isolated P2.5A synthetic schemas. Real GST activation, statutory treatment, customer-visible legal fields and final print/export remain blocked. GST zero is draft-only. Corrections require exact source/classification/version/hash and Administrator review; all credit/return/classification-conversion posting effects remain disabled. P2.6 receives a single-classification allocation shape only, with no payment implementation or implicit offsets.
+
+Approved starting SHA: `8c948b933b0408f4e2c53a6a1253e15fdb3dba33`. Branch: `feature/upms-p2-5a-gst-ledger-separation`. Commit title: `UPMS-P2.5A: Add GST and NON_GST customer ledger separation`; final handoff records its exact SHA.
+
+Development endpoint: `127.0.0.1:3309/upms`, MariaDB 10.4.32, recovery mode zero. A consistent 68-table backup restored exactly into a new isolated schema before migration006. Main now has 74 physical tables, 72 runtime-visible tables and six migrations. All original rows, one administrator, encrypted credentials and signing secret were preserved. Old financial projections became SELECT-only; six new table scopes use restricted rights. All Sales/classified financial state remains empty and unactivated. Main stock/customer reconciliation matched with no repair. Original XAMPP data/configuration and offline evidence remain unchanged.
+
+Validation includes the original 131 backend/107 frontend tests plus six/three new checks (137/110 passing), the original 17 identity, 16 business, 20 inventory, 29 purchasing and 23 Sales SQL/browser suites, and an expanded 38-check Sales/classification run containing 15 additional classification checks. Actual browser scenarios cover both types for one customer, manual arithmetic, separate histories, stock deductions, permissions, review and mobile with no unexpected errors. See [test results](P2-5A-test-results.md).
+
+Changed areas: additive migration; classified Sales schema/arithmetic/validation/service/API/private UI; scoped customer ledgers/reconciliation; guarded additional permission checks before durable replay; restricted grants/preflight; operator tooling; original/new acceptance and twelve milestone documents. No applied historical migration, dependency or public website source changes. See [migration/rollback](P2-5A-migration-verification.md) and [remaining decisions](P2-5A-open-decisions-and-risks.md).
+
+Locally accepted synthetic functionality is not production readiness. Stop for independent technical/business review. No merge, deployment or P2.6.

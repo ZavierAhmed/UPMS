@@ -12,7 +12,7 @@ export const payloadHash=value=>createHash('sha256').update(canonical(value)).di
 export async function businessAudit(trx,actor,action,resource,recordKey,version,details={}){
   await query(trx('business_audit_events').insert({actor_id:actor.id,action,resource,record_key:String(recordKey),version:version||null,details:JSON.stringify(details),created_at:new Date()}));
 }
-export async function coordinate(db,{session,permission,operation,commandKey,payload,onRetry=()=>{}},work){
+export async function coordinate(db,{session,permission,additionalPermissions=[],operation,commandKey,payload,onRetry=()=>{}},work){
   if(!/^[a-zA-Z0-9._:-]{8,128}$/.test(commandKey||'')||!/^[-a-zA-Z0-9._:]{1,64}$/.test(operation||''))throw new IdentityError(400,'IDEMPOTENCY_KEY_REQUIRED');
   const hash=payloadHash(payload);
   for(let attempt=0;attempt<3;attempt++){
@@ -21,6 +21,7 @@ export async function coordinate(db,{session,permission,operation,commandKey,pay
       // All exposed writes use this guard; future modules must preserve this ordering.
       await guard(trx);
       const actor=await authorize(trx,session,permission);
+      for(const required of additionalPermissions)await authorize(trx,session,required);
       const locked=await query(trx('business_guard').where({id:1}).forUpdate().first());
       if(!locked)throw new IdentityError(503,'BUSINESS_FOUNDATION_UNAVAILABLE');
       const owner={actor_id:actor.id,operation,command_key:commandKey};
