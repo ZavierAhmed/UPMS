@@ -1,0 +1,27 @@
+# Approved main endpoint handoff and rollback
+
+**Proposed target: upms at 127.0.0.1:3309, MariaDB 10.4.32, instance server/.local/p23b/console-probe-03.**
+
+The candidate passed the [recovery verification](P2-3B-recovery-results.md): all 38 tables match both the verified logical checkpoint and readable physical copy; no additional/missing UPMS rows were found. It has normal recovery mode 0, no authentication bypass, a clean restart, 68 successful table checks, 54 validated foreign keys and a verified consistent backup/isolated restore. The original directory is unchanged and remains offline. The owner subsequently approved the conditional handoff; main profiles now explicitly use port 3309. The original files remain untouched.
+
+## One approval covers this forward procedure
+
+1. Recheck candidate PID/config/path/port/version, normal mode, clean logs, exact current fingerprints and dedicated accounts. Recheck Git branch/HEAD and preserve all current source/private evidence. Stop if candidate or source state differs materially.
+2. Stop only the recorded local UPMS development process after verifying its PID/start identity and command. Preserve the private session signing key; do not recreate the administrator or reset/change its password.
+3. Save byte-verified copies of the current Owner/Migrator/Runtime encrypted profiles and connection metadata under new private server/.local/p23b/handoff-rollback. Update only these approved main connection profiles to loopback port 3309/database upms. Migrator and Runtime keep their existing private credentials, matching the verified new localhost accounts. Owner uses the generated encrypted instance-local root operator profile, solely for backup/provisioning; it is never the application runtime account. Preserve old TestRuntime profiles and every old test-schema credential/evidence file.
+4. No original XAMPP data directory or configuration is replaced. No Windows service is installed. The candidate's explicit console-mode configuration remains the only launch configuration for this endpoint. Do not automatically start or repair the original server. Do not redirect other applications/unrelated databases.
+5. Resume the user-requested P2.3 sequence against this exact target: take a fresh consistent backup and validate restore in NEW upms_restore_p23b_resume_20261022, refusing an existing name. Retain new receipts under server/.local/p23b/resumption; do not overwrite previous P2.3 receipts. Inspect/review the unchanged additive 202610220003_inventory_operations.js before applying it as upms_migrator@localhost. Preserve all original rows and both historical migration hashes. Add only the six inventory tables, thirteen permission keys/role grants and exact six-table runtime rights already reviewed in P2.3. No owner stock, cutoff, period or prefix activation.
+6. Use only fresh separately provisioned synthetic test targets from the already approved bounded families. Prefer inventory run 02 and regression run 02, refusing existing names/profiles; retain failed/populated runs and never reset/reuse them. Preserve all original-server test schemas. If those bounded targets become unavailable or partial DDL occurs, stop for reviewed handling rather than inventing/resetting targets.
+7. Run the original 17 identity and 16 business SQL checks, all current inventory SQL checks, real inventory browser acceptance and reconciliation. Refresh backend/frontend/build/lint/public browser/audits/package verification. Report actual failures/skips. Commit and push the requested feature branch only after every required acceptance gate passes. No merge, deployment or P2.4.
+
+## Differences and data risk
+
+The candidate uses a new physical directory, port, system tables and private recovery operator, with only the reviewed dedicated localhost UPMS database accounts. UPMS identity/business data and migration history match the original readable data exactly. No identified UPMS records are lost. Unrelated databases/test schemas are preserved in original/snapshot files and private exports, but are not silently adopted into this candidate. Original corrupt server system tables and broad wildcard accounts are not imported into the candidate.
+
+The historical cause of the tablespace/redo inconsistency and original Aria corruption remains uncertain. All current UPMS tables were readable and compared; unreadable/unreferenced orphan-page contents cannot be ruled out forensically. MariaDB 10.4 remains local development only. This approval is not production acceptance.
+
+## Rollback
+
+Before any rollback, stop the local app and take/preserve a new candidate backup so later identity/session/audit changes are not discarded. Restore the saved encrypted profiles/connection metadata if needed, leaving the app offline because the original port-3306 environment is still unhealthy. Retain the candidate, its backups and all additive migration evidence. Do not downgrade migrations, restore over either directory, discard later records or blindly point a running app at the older database. Any data reconciliation is a separate reviewed forward action.
+
+Section 8 of the P2.3B brief explicitly requires stopping before redirecting the main application and obtaining one owner approval. The owner approved the conditional proposal, and the profile handoff, fresh verified backup, additive migration and acceptance resumption have executed. The supplemental fresh regression target received separate approval. See the final P2.3 executive summary and test results.

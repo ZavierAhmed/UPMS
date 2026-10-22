@@ -7,6 +7,7 @@ import { verifyRuntimeGrants,runtimePrivileges } from '../src/identity/grants.js
 import { businessRuntimePrivileges,businessPermissions,businessRoleGrants } from '../src/business/catalog.js';
 import { verifyIdentitySchema } from './identity-schema.js';
 import { canonical } from '../src/business/transactions.js';
+import { databasePreflight } from '../src/identity/preflight.js';
 const dir='server/.local/p22',restore='upms_restore_p22_20261021',test='upms_test_p22_20261021',testUser='upms_runtime_test_p22';
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 const save=(name,value)=>writeFile(`${dir}/${name}.json`,JSON.stringify(value,null,2),{flag:'wx'});
@@ -34,7 +35,8 @@ export async function verifyBusinessSchema(db,{runtime=false}={}){
   const expected=Object.keys(businessRuntimePrivileges);
   if(!expected.every(name=>objects.some(row=>row.name===name&&row.engine==='InnoDB'&&row.collation.startsWith('utf8mb4_'))))throw new Error('Partial business schema.');
   const history=runtime?null:await db('upms_identity_migrations').orderBy('id').pluck('name');
-  if(!runtime&&JSON.stringify(history)!==JSON.stringify(['202610210001_identity.js','202610210002_business_foundation.js']))throw new Error('Unexpected migration history.');
+  const expectedHistory=['202610210001_identity.js','202610210002_business_foundation.js'];
+  if(!runtime&&JSON.stringify(history)!==JSON.stringify(expectedHistory)&&JSON.stringify(history)!==JSON.stringify([...expectedHistory,'202610220003_inventory_operations.js']))throw new Error('Unexpected migration history.');
   for(const [role,permissions]of Object.entries(businessRoleGrants)){const actual=await db('role_permissions').where({role_code:role}).pluck('permission_code');if(!permissions.every(p=>actual.includes(p)))throw new Error('Missing business permission grants.');}
   return {businessTables:expected.length,totalTables:objects.length,migrations:history,businessPermissions:businessPermissions.length,postingEnabled:false};
 }
@@ -43,6 +45,7 @@ async function main(){
   let db;let stage='connect';
   try{
     const action=process.argv[2];db=createDatabase();
+    await databasePreflight(db);
     const info=await capabilities(db);if(info.database_name!=='upms'||info.version!=='10.4.32-MariaDB')throw new Error('Reviewed endpoint changed.');
     if(action!=='inspect'&&process.env.UPMS_P22_APPROVED!=='P2.2-additive-reviewed')throw new Error('Explicit plan approval required.');
     if(action==='backup'){

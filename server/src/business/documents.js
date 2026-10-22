@@ -58,7 +58,7 @@ export async function validateApproval(trx,session,id){
   if(!user||!grants)throw new IdentityError(409,'APPROVAL_AUTHORITY_REVOKED');
   return approval;
 }
-export async function issueNumber(trx,actor,{documentId,instant=now(),businessDate}){
+export async function issueNumber(trx,actor,{documentId,instant=now(),businessDate,policyId}){
   const row=await document(trx,documentId);
   // Future posting modules must set POSTED in this same outer transaction after
   // validating all effects. There is no posting endpoint/service in P2.2.
@@ -67,7 +67,7 @@ export async function issueNumber(trx,actor,{documentId,instant=now(),businessDa
   const existing=await query(trx('business_number_issues').where({document_id:documentId}).first());if(existing)return {number:existing.official_number};
   const date=pakistanDate(instant),year=Number(date.slice(0,4));
   if(businessDate!==date)throw new IdentityError(409,'BACKDATING_POLICY_UNRESOLVED');
-  const policy=await query(trx('business_policy_versions').orderBy('id','desc').first());
+  const policy=await query(policyId?trx('business_policy_versions').where({id:policyId}).first():trx('business_policy_versions').orderBy('id','desc').first());
   if(!policy||policy.status!=='APPROVED'||!policy.proposed_cutoff)throw new IdentityError(409,'CUTOVER_UNCONFIGURED');
   if(policy.numbering_rule!=='CURRENT_PAKISTAN_DATE_ONLY')throw new IdentityError(409,'NUMBERING_POLICY_UNCONFIRMED');
   if(businessDate<policy.proposed_cutoff)throw new IdentityError(409,'PRE_CUTOFF_FORBIDDEN');

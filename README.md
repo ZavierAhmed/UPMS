@@ -1,6 +1,6 @@
 # Unique Plastic Industry — UPMS
 
-W05 migrates the public website backend to Node.js 24 LTS and Express. The W04 React/Vite design, public routes, approved assets, accessibility and build-time prerendering remain intact. Unique Plastic Industry is the only represented company. P2.1 adds an opt-in private identity foundation; business modules remain unimplemented.
+W05 migrates the public website backend to Node.js 24 LTS and Express. The W04 React/Vite design, public routes, approved assets, accessibility and build-time prerendering remain intact. Unique Plastic Industry is the only represented company. The opt-in private workspace now includes identity, business masters and gated P2.3 inventory workflows.
 
 
 P2.1A adopts the existing XAMPP MariaDB engine for local development. Current restricted-account provisioning and acceptance gates are recorded in [the P2.1A summary](docs/phase2/P2-1A-executive-summary.md).
@@ -32,6 +32,8 @@ npm run test:browser
 ```
 
 Browser/Lighthouse verification requires installed Chrome and a local TLS certificate/key supplied as TEST_TLS_CERT and TEST_TLS_KEY. CHROME_PATH overrides the Windows Chrome default. The harness uses only loopback ports 7445/7446, a reserved synthetic example.test canonical origin and synthetic inquiry data. It never invokes a live sender. It writes summaries under docs and full Lighthouse reports under ignored tmp/w05. The fallback certificate path is the existing developer certificate location; creating/trusting local certificates is a developer setup task, not a production requirement. `test:parity` requires an isolated running W04 baseline, described in the parity report.
+
+Before SQL integration or an explicitly authorized migration, run `npm run database:preflight` with the intended private connection profile in the environment. The SQL suites and migration service also enforce preflight. It rejects unavailable endpoints, nonzero InnoDB recovery mode, read-only servers, unexpected engine/schema/history and invalid runtime grants. It never starts XAMPP, restores a backup or resets database files. Runtime credentials cannot read migration tracking; the separate operator check verifies that history without granting runtime extra rights. See [the preflight workflow](docs/phase2/P2-3A-database-preflight.md). The owner-approved recovered development endpoint is 127.0.0.1:3309/upms; [delivery status](docs/phase2/P2-3-executive-summary.md) and [handoff/rollback](docs/phase2/P2-3B-main-handoff-plan.md). Operational stock/policy activation remains pending.
 
 ## Architecture
 

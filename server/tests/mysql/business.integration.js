@@ -1,3 +1,4 @@
+import {databasePreflight} from '../../src/identity/preflight.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import request from 'supertest';
@@ -19,7 +20,8 @@ import { verifyRuntimeGrants } from '../../src/identity/grants.js';
 import { verifyBusinessSchema } from '../../tools/business-operations.mjs';
 
 test('P2.2 real restricted MariaDB acceptance; no owner-schema fixtures or destructive reset',async t=>{
-  assert.equal(process.env.DB_NAME,'upms_test_p22_20261021');assert.equal(process.env.DB_USER,'upms_runtime_test_p22');
+  if(process.env.UPMS_P23_RUN==='03'&&process.env.UPMS_P23_SUPPLEMENTAL!=='reviewed-fresh-regression-03')throw Error('Supplemental regression approval required.');
+  const p23=process.env.UPMS_P23_STAGE==='true';if(p23){assert.match(process.env.DB_NAME,/^upms_test_p23_regression_20261022_0[123]$/);assert.equal(process.env.DB_USER,'upms_runtime_test_p23r'+process.env.UPMS_P23_RUN);}else{assert.equal(process.env.DB_NAME,'upms_test_p22_20261021');assert.equal(process.env.DB_USER,'upms_runtime_test_p22');}
   const ownerEnv={...process.env,DB_USER:process.env.UPMS_P22_OWNER_USER,DB_PASSWORD:process.env.UPMS_P22_OWNER_PASSWORD,IDENTITY_DB_PURPOSE:'operator'};
   const owner=createDatabase(ownerEnv);let db=createDatabase(process.env),browser,server;
   await mkdir('tmp/w06/p22',{recursive:true});
@@ -52,15 +54,16 @@ test('P2.2 real restricted MariaDB acceptance; no owner-schema fixtures or destr
     return command('synthetic.draft',{nonce:randomUUID()},(trx,actor)=>createDraft(trx,actor,{typeId:type,businessDate,payload:{fixture:randomUUID()},reason:'Synthetic draft'}));
   }
   try{
+    await databasePreflight(owner,ownerEnv);await databasePreflight(db);
     await sub('schema, actual table allowlist and SQL denial proofs',async()=>{
-      const schema=await verifyBusinessSchema(owner);assert.equal(schema.totalTables,38);
-      const [rows]=await db.raw('SHOW GRANTS FOR CURRENT_USER');assert.equal(verifyRuntimeGrants(rows,process.env.DB_NAME,'upms_runtime_test_p22@localhost').verified,true);
+      const schema=await verifyBusinessSchema(owner);assert.equal(schema.totalTables,p23?44:38);
+      const [rows]=await db.raw('SHOW GRANTS FOR CURRENT_USER');assert.equal(verifyRuntimeGrants(rows,process.env.DB_NAME,process.env.DB_USER+'@localhost').verified,true);
       for(const sql of ['DELETE FROM business_customers WHERE 1=0','UPDATE business_audit_events SET action=action WHERE 1=0','DELETE FROM business_master_history WHERE 1=0','UPDATE business_number_issues SET official_number=official_number WHERE 1=0','CREATE TABLE p22_denied_probe (id INT)','SELECT 1 FROM mysql.user LIMIT 0'])await assert.rejects(db.raw(sql),e=>['ER_TABLEACCESS_DENIED_ERROR','ER_DBACCESS_DENIED_ERROR'].includes(e.code));
     });
     await sub('existing 17 identity integration checks on the newly provisioned schema',async()=>{
-      const receipt=JSON.parse(await readFile('server/.local/p22/identity-regression.json','utf8'));
+      const receipt=JSON.parse(await readFile(p23?(process.env.UPMS_P23_RECOVERED==='true'?'server/.local/p23b/resumption/identity-':'server/.local/p23/identity-')+process.env.UPMS_P23_RUN+'.json':'server/.local/p22/identity-regression.json','utf8'));
       assert.equal(receipt.passed,true);assert.equal(receipt.checks,17);assert.equal(receipt.topLevel,true);
-      assert.equal(receipt.database,'upms_test_p22_identity_20261021');
+      assert.equal(receipt.database,p23?process.env.DB_NAME:'upms_test_p22_identity_20261021');
     });
     app=createApp({config:loadConfig({}),management:config,identityDatabase:db});
     const admin=await fixture('administrator');adminSession=admin.session;adminActor=admin.actor;adminAgent=admin.agent;adminToken=admin.token;
@@ -109,7 +112,7 @@ test('P2.2 real restricted MariaDB acceptance; no owner-schema fixtures or destr
       await assert.rejects(coordinate(db,failed,async(trx,actor)=>{await businessAudit(trx,actor,'synthetic.must.rollback','test',tag,1);throw new Error('synthetic rollback');}));
       assert.equal((await db('business_idempotency').where({operation:failed.operation,command_key:failed.commandKey})).length,0);assert.equal((await db('business_audit_events').where({action:'synthetic.must.rollback',record_key:tag})).length,0);
       await coordinate(db,failed,()=>({retry:'passed'}));
-      const childEnv={...process.env,UPMS_P22_REPLAY:JSON.stringify(scope)};delete childEnv.UPMS_P22_OWNER_USER;delete childEnv.UPMS_P22_OWNER_PASSWORD;
+      const childEnv={...process.env,UPMS_P22_REPLAY:JSON.stringify(scope)};delete childEnv.UPMS_P22_OWNER_USER;delete childEnv.UPMS_P22_OWNER_PASSWORD;delete childEnv.UPMS_P23_OWNER_USER;delete childEnv.UPMS_P23_OWNER_PASSWORD;delete childEnv.UPMS_P23_PASSWORD;
       const child=spawn(process.execPath,['--input-type=module','-e',"import {createDatabase} from './server/src/identity/database.js';import {coordinate} from './server/src/business/transactions.js';const db=createDatabase();try{const r=await coordinate(db,JSON.parse(process.env.UPMS_P22_REPLAY),()=>{throw Error('Replay reran effects')});if(!r.receipt)process.exitCode=1;}finally{await db.destroy();}"],{env:childEnv,stdio:'ignore'});
       assert.equal(await new Promise(resolve=>child.once('exit',resolve)),0,'Replay survives a separate process.');
     });

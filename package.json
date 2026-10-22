@@ -24,7 +24,8 @@
     "identity:migrate": "node server/tools/identity.mjs migrate",
     "identity:bootstrap": "node server/tools/identity.mjs bootstrap",
     "test:mysql": "node --test server/tests/mysql/identity.integration.js",
-    "identity:benchmark": "node server/tools/identity.mjs benchmark"
+    "identity:benchmark": "node server/tools/identity.mjs benchmark",
+    "database:preflight": "node server/tools/database-preflight.mjs"
   },
   "dependencies": {
     "argon2": "^0.45.1",
