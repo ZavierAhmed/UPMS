@@ -1,0 +1,9 @@
+# Numbering and explicit policy gates
+
+S25_CHALLAN and S25_CORRECTION are distinct internal type codes, not accepted company prefixes. Preparing the catalogue creates unapproved types only. Each accepted prefix must be explicit, distinct and unique across document types. Shared P2.2 `issueNumber` assigns type/calendar-year counters atomically at posting, preserves issued numbers permanently and issues no draft number. Supported date rule is CURRENT_PAKISTAN_DATE_ONLY; the successful server posting date/year is Asia/Karachi. Backdating stays blocked.
+
+Sales has its own immutable acceptance record linked to a shared approved cutoff/numbering policy. Administrator must explicitly choose currency, supported money2/rate6/per-line-half-up contract, cutoff, existing open operating period, both prefixes and reason/confirmation. UI fields have no inferred currency or preselected precision/rounding. Existing purchasing currency/precision/rounding must agree; both domain acceptance paths reject incompatible contracts and Sales rechecks current purchasing compatibility when posting. This does not silently create a company-wide setting.
+
+Independent inventory acceptance/cutoff and authorized item starting state are still required. Sales acceptance never activates inventory. Customer currency/start authorization is separate; a different currency or unverified opening blocks posting. Period closure, pre-cutoff and unsupported business dates fail atomically without a surviving number/debit.
+
+Owner confirmation of the single-ledger scope overrides P2.0's earlier proposal only in the new operational module. It does not approve money precision, currency, cutoff, openings, prefixes, backdating, returns, financial-credit policy or customer print design. Main acceptance remains empty; all test contracts live solely in fresh synthetic schemas.

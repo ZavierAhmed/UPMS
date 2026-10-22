@@ -1,3 +1,4 @@
+import {salesRouter} from '../sales/router.js';
 import express from 'express';
 import session from 'express-session';
 import { csrfSync } from 'csrf-sync';
@@ -60,6 +61,7 @@ export function managementRouter(db, config) {
   router.use(`${base}/business`,businessRouter(db));
   router.use(`${base}/inventory`,inventoryRouter(db));
   router.use(`${base}/purchases`,purchaseRouter(db));
+  router.use(`${base}/sales`,salesRouter(db));
   router.post(`${base}/session/login`, async (req, res) => {
     const parsed = loginInput.safeParse(req.body);
     if (!parsed.success || !parsed.data.username || !parsed.data.password) throw new IdentityError(401, 'INVALID_CREDENTIALS');

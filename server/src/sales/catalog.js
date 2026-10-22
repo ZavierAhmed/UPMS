@@ -1,0 +1,5 @@
+export const salesPermissions=['sales.challans.read','sales.challans.create','sales.challans.post','sales.challans.correct.request','sales.challans.correct.approve','sales.challans.correct.post','customers.ledger.read','customers.balances.read','sales.reconcile.read','sales.configure','customers.activate'];
+export const salesRoleGrants={administrator:salesPermissions,sales_dispatch:salesPermissions.filter(p=>!['sales.challans.correct.approve','sales.challans.correct.post','sales.configure','customers.activate'].includes(p)),accounts:['sales.challans.read','customers.ledger.read','customers.balances.read','sales.reconcile.read'],inventory:[]};
+const append=['SELECT','INSERT'],mutable=[...append,'UPDATE'];
+export const salesRuntimePrivileges={sales_policies:append,sales_documents:append,sales_lines:append,customer_tracking:mutable,customer_balances:mutable,sales_challan_balances:append,customer_receivable_journal:append,sales_stock_movements:append,sales_correction_claims:append};
+export const typeCodes={CHALLAN:'S25_CHALLAN',CORRECTION:'S25_CORRECTION'};

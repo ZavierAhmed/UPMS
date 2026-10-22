@@ -76,3 +76,7 @@ Read [P2.2 summary](docs/phase2/P2-2-executive-summary.md), [schema](docs/phase2
 ## Purchasing and vendor accounts (P2.4)
 
 The private workspace supports separate receiving/invoice evidence, vendor payables, atomic immediate payments, deferred settlements and exact money-account journals. Main remains unactivated; synthetic acceptance is not company policy approval. Read [the P2.4 summary](docs/phase2/P2-4-executive-summary.md), [migration and rollback](docs/phase2/P2-4-migration-verification.md), [acceptance results](docs/phase2/P2-4-test-results.md) and [owner decisions](docs/phase2/P2-4-open-decisions-and-risks.md). Do not reuse populated acceptance schemas or run migration/activation from startup. Independent review is required before any next milestone, merge or deployment.
+
+## Delivery challans and customer receivables (P2.5)
+
+Sales/Dispatch can directly post tax-free challans without ordinary administrator approval, atomically consuming AVAILABLE finished goods and creating one customer debit. Posted records are immutable. Administrator-reviewed corrections remain effects-blocked pending policy; receipts/returns/openings are deferred. Main remains unactivated. Read [P2.5 summary](docs/phase2/P2-5-executive-summary.md), [acceptance](docs/phase2/P2-5-test-results.md), [migration/rollback](docs/phase2/P2-5-migration-verification.md) and [owner decisions](docs/phase2/P2-5-open-decisions-and-risks.md). No merge, deployment or P2.6; stop for independent review.

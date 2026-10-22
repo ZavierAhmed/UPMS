@@ -1,0 +1,9 @@
+# Administrator-reviewed linked corrections
+
+Sales may create a separate CORRECTION request with original posted challan ID/version/hash, proposed category/summary/exact changes and mandatory reason. The original customer/source identity stays fixed. Proposed categories describe review intent only; they do not authorize return, inspection, stock credit or financial effects.
+
+Submission uses shared P2.2 lifecycle/events. Only Administrator with `sales.challans.correct.approve` and shared approval authority may approve/reject an exact submitted document version/hash with justification. Staff cannot self-approve even if an approval permission is delegated. Shared justified administrator self-approval remains audited. Relevant edits create a new draft revision and invalidate old decisions without deleting them. Posting rechecks original version/hash and current original/approver authority.
+
+**All correction effects remain blocked** because detailed financial-credit/recording-error/physical-return semantics have not been approved. An approved request remains review evidence, without a posting batch, number, stock movement or customer credit. Price-only requests do not return stock. Physical returns need P2.7 receipt/inspection/disposition rules. No return-to-AVAILABLE assumption, customer refund, payment matching, or direct source overwrite is invented.
+
+Exact duplicate proposal hashes for an original are rejected across separate requests; the same durable key replays the existing result. A request may retain its own proposal through reason-only revision without a duplicate claim. New proposals claim new immutable hashes. No cumulative over-credit or repeated stock return is possible while effects are disabled. Future compensating transactions must enforce original-line and cumulative caps and atomic stock/customer effects under a separately approved contract; approval alone will not enable them.

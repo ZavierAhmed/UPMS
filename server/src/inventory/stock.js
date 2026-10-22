@@ -22,7 +22,8 @@ export async function advanceStockBalance(trx,balance,delta,lastMovementId=null)
 }
 export async function stockReconciliation(trx){
   const balances=await query(trx('inventory_balances')),old=await query(trx('inventory_movements').select('item_id','stock_condition').sum('delta as total').groupBy('item_id','stock_condition')),receipts=await query(trx('purchase_stock_movements').select('item_id','stock_condition').sum('delta as total').groupBy('item_id','stock_condition'));
-  const totals=new Map();for(const row of [...old,...receipts])totals.set(stockKey(row),(totals.get(stockKey(row))||0n)+exact(row.total,6,{signed:true}));
+  const dispatch=await query(trx('sales_stock_movements').select('item_id','stock_condition').sum('delta as total').groupBy('item_id','stock_condition'));
+  const totals=new Map();for(const row of [...old,...receipts,...dispatch])totals.set(stockKey(row),(totals.get(stockKey(row))||0n)+exact(row.total,6,{signed:true}));
   const mismatches=[];for(const row of balances){if(exact(row.quantity)!==(totals.get(stockKey(row))||0n))mismatches.push({itemId:String(row.item_id),condition:row.stock_condition,balance:row.quantity,journal:decimal(totals.get(stockKey(row))||0n)});totals.delete(stockKey(row));}
   for(const [key,total]of totals)if(total!==0n)mismatches.push({key,balance:null,journal:decimal(total)});
   return {matched:mismatches.length===0,balances:balances.length,mismatches,repairPerformed:false};

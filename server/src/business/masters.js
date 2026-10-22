@@ -65,7 +65,7 @@ export function masterService(db){
           if(r.kind==='category')throw new IdentityError(409,'FIXED_CATEGORY_CATALOGUE');
           const [inserted]=await query(trx(r.table).insert({...data,created_by:actor.id,created_at:new Date()}));id=String(inserted);
           if(name==='items')await query(trx('inventory_tracking').insert({item_id:id,unit_id:data.unit_id,state:'UNVERIFIED',created_at:new Date()}));
-          if(name==='customers')await query(trx('business_customer_ledgers').insert(['GST','NON_GST'].map(ledger_class=>({customer_id:id,ledger_class}))));
+          // P2.5 uses one operational receivable ledger; historical classifications remain untouched.
         }
         const snapshot={...data,version:next};for(const key of metadata)delete snapshot[key];
         await query(trx('business_master_history').insert({resource:name,record_key:String(id),version:next,actor_id:actor.id,snapshot:JSON.stringify(snapshot),created_at:new Date()}));

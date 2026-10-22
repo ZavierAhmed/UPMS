@@ -1,0 +1,10 @@
+import {z} from 'zod';import {key} from '../business/validation.js';
+export const reason=z.string().trim().min(3).max(500),hash=z.string().regex(/^[a-f0-9]{64}$/);
+const text=z.string().trim().max(500),numeric=z.string().regex(/^\d+(?:\.\d+)?$/).max(32);
+const line=z.object({itemId:key,quantity:numeric,rate:numeric,packing:text,remarks:text,expectedItemVersion:z.number().int().positive()}).strict();
+export const draftInput=z.object({kind:z.enum(['CHALLAN','CORRECTION']),customerId:key,expectedCustomerVersion:z.number().int().positive(),businessDate:z.string().date(),reference:text,remarks:text,reason,lines:z.array(line).max(30),originalId:key.nullable(),originalVersion:z.number().int().positive().nullable(),originalHash:hash.nullable(),proposal:z.object({action:z.enum(['PRICE_ONLY','QUANTITY_RECORDING','VARIANT_RECORDING','PHYSICAL_RETURN','METADATA']),description:text.min(3),changes:z.string().trim().min(3).max(1500)}).strict().nullable(),version:z.number().int().positive().optional()}).strict();
+export const command=z.object({version:z.number().int().positive(),reason}).strict();
+export const decision=command.extend({hash,decision:z.enum(['APPROVED','REJECTED'])}).strict();
+export const policyInput=z.object({currency:z.string().regex(/^[A-Z]{3}$/),moneyScale:z.literal(2),rateScale:z.literal(6),rounding:z.literal('HALF_UP_PER_LINE'),dateRule:z.literal('CURRENT_PAKISTAN_DATE_ONLY'),cutoff:z.string().date(),periodId:key,prefixes:z.object({CHALLAN:z.string().regex(/^[A-Z0-9]{1,12}$/),CORRECTION:z.string().regex(/^[A-Z0-9]{1,12}$/)}).strict(),confirm:z.literal(true),reason}).strict().refine(p=>p.prefixes.CHALLAN!==p.prefixes.CORRECTION);
+export const activation=z.object({version:z.number().int().positive(),currency:z.string().regex(/^[A-Z]{3}$/),attestNoPriorHistory:z.literal(true),reason}).strict();
+export const filters=z.object({cursor:key.optional(),customerId:key.optional(),from:z.string().date().optional(),to:z.string().date().optional(),reference:z.string().max(100).optional(),q:z.string().max(100).optional(),limit:z.coerce.number().int().min(1).max(100).default(50)}).strict().refine(f=>!f.from||!f.to||f.from<=f.to);

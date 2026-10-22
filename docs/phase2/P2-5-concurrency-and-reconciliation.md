@@ -1,0 +1,11 @@
+# Concurrency, durable results and reconciliation
+
+Existing identity/business global guards are retained. Commands claim durable actor/operation/key ownership with canonical hash inside the outer MariaDB transaction. Customer balance resources precede deterministic aggregated stock item/condition locks, then numbering. No process-local lock, separate ledger commit or weakened benchmark lock is added.
+
+Repeated-item dispatch is validated on the total debit. Concurrent Sales posting competes against actual AVAILABLE quantities; independently posted production and purchased finished goods participate in the same versioned projection. Database constraints reject negative stock and inconsistent movement arithmetic; Administrator cannot bypass the checks.
+
+Deadlock/lock timeout rolls back and retries the whole transaction up to the existing three-attempt bound. Connection ambiguity never blindly replays a possibly committed transaction: COMMAND_OUTCOME_UNKNOWN requires the unchanged key, whose completed durable result survives process restart. A changed payload conflicts; another key cannot repost a POSTED source. Unique source batches, line movements and effect claims prevent duplicate stock/customer facts independently of request keys.
+
+Real MariaDB acceptance covers competing dispatch, exact-zero stock, production/dispatch race, purchased-stock dispatch, repeated lines, quarantine/damaged exclusion, stock/journal/audit rejection, actual deadlock and lock timeout, TCP-proxy COMMIT acknowledgement loss, independent-process replay, current permission revocation, source immutability and correction binding. No mocks are substituted for the transaction evidence.
+
+Read-only reconciliation holds the existing identity read guard, which normal posting shares, and compares all three stock journals, customer journal/balance, source line totals, immutable unpaid challan outstanding, batch/document identity and effect claims. It reports discrepancies without repair. Out-of-band database administrator edits are not prevented by application append-only grants; backup/audit review remains necessary. Journal scans currently run in-process and production capacity/aggregate-report scaling remain later review items.
