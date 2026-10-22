@@ -1,0 +1,9 @@
+import {render,screen,fireEvent,cleanup} from '@testing-library/react';
+import {afterEach,it,expect,vi} from 'vitest';
+import {Cheques} from '../../management/src/Cheques.jsx';
+afterEach(cleanup);
+const user={permissions:['cheques.read','cheques.receive','cheques.deposit','cheques.clear','cheques.dishonour.request','cheques.reconcile.read']};
+const api=()=>vi.fn(async p=>p==='/cheques/configuration'?{policy:null}:p==='/cheques/reconciliation'?{matched:true,mismatches:[]}:{records:[]});
+it('distinguishes pending cheque value and live activation gates',async()=>{render(<Cheques api={api()} user={user}/>);await screen.findByText('Customer cheque lifecycle');expect(screen.getByText(/Pending cheques are held separately/)).toBeTruthy();expect(screen.getByText(/Real activation remains blocked/)).toBeTruthy();expect(screen.queryByRole('button',{name:'Approve exact dishonour'})).toBeNull();});
+it('requires explicit customer, class, custody account and instrument metadata before review',async()=>{render(<Cheques api={api()} user={user}/>);await screen.findByText('Customer cheque lifecycle');fireEvent.click(screen.getByRole('button',{name:'Receive customer cheque'}));for(const label of ['Cheque customer','Cheque ledger','Cheque currency','Cheque number','Drawer bank','Pending holding account'])expect(screen.getByLabelText(label).value).toBe('');expect(screen.getByRole('button',{name:'Save cheque for review'}).disabled).toBe(true);});
+it('reports reconciliation without offering automatic repair',async()=>{render(<Cheques api={api()} user={user}/>);await screen.findByText('Customer cheque lifecycle');fireEvent.click(screen.getByRole('button',{name:'Reconcile cheques'}));await screen.findByText('Cheque sources, pending exposure, clearance and compensation reconcile.');expect(screen.queryByRole('button',{name:/repair/i})).toBeNull();});
