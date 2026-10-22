@@ -21,7 +21,8 @@ export async function coordinate(db,{session,permission,additionalPermissions=[]
       // All exposed writes use this guard; future modules must preserve this ordering.
       await guard(trx);
       const actor=await authorize(trx,session,permission);
-      for(const required of additionalPermissions)await authorize(trx,session,required);
+      const requiredPermissions=typeof additionalPermissions==='function'?await additionalPermissions(trx,actor):additionalPermissions;
+      for(const required of requiredPermissions)await authorize(trx,session,required);
       const locked=await query(trx('business_guard').where({id:1}).forUpdate().first());
       if(!locked)throw new IdentityError(503,'BUSINESS_FOUNDATION_UNAVAILABLE');
       const owner={actor_id:actor.id,operation,command_key:commandKey};

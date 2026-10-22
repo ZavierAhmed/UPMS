@@ -1,0 +1,3 @@
+const parse=value=>{const m=/^(\d+)(?:\.(\d{1,2}))?$/.exec(value);if(!m)throw Error('Enter exact amounts with at most two decimal places.');return BigInt(m[1])*100n+BigInt((m[2]||'').padEnd(2,'0'));};
+const money=n=>`${n<0n?'-':''}${(n<0n?-n:n)/100n}.${((n<0n?-n:n)%100n).toString().padStart(2,'0')}`;
+export function receiptPreview(amount,allocations){try{const applied=allocations.reduce((s,a)=>s+parse(a.amount||'0'),0n),received=parse(amount);return {applied:money(applied),unapplied:money(received-applied),valid:received>0n&&applied<=received};}catch{return {applied:'Unconfirmed',unapplied:'Unconfirmed',valid:false};}}

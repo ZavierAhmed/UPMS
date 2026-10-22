@@ -1,3 +1,4 @@
+import {position,receiptHistory} from '../receipts/projections.js';import {receiptReconciliation} from '../receipts/reconciliation.js';
 import {query} from '../identity/database.js';
 import {IdentityError} from '../identity/passwords.js';
 import {businessAudit} from '../business/transactions.js';
@@ -18,16 +19,16 @@ export async function activateLedger(trx,actor,id,input){
 }
 export async function customerLedgers(trx,id){
  const tracking=await query(trx('customer_ledger_tracking').where({customer_id:id})),balances=await query(trx('customer_ledger_balances').where({customer_id:id}));
- return ['GST','NON_GST'].map(ledgerType=>{const state=tracking.find(t=>t.ledger_type===ledgerType),balance=balances.find(b=>b.ledger_type===ledgerType&&b.currency===state?.currency);return {ledgerType,state:state?.state||'UNVERIFIED',trackingVersion:state?.version||1,currency:state?.currency||null,balance:balance?.balance??null};});
+ return Promise.all(['GST','NON_GST'].map(async ledgerType=>{const state=tracking.find(t=>t.ledger_type===ledgerType),balance=balances.find(b=>b.ledger_type===ledgerType&&b.currency===state?.currency);return {ledgerType,state:state?.state||'UNVERIFIED',trackingVersion:state?.version||1,currency:state?.currency||null,balance:balance?(await position(trx,id,ledgerType,balance.currency,balance.balance)).netPosition:null,...(balance?{position:await position(trx,id,ledgerType,balance.currency,balance.balance)}:{})};}));
 }
 export async function ledgerPage(trx,id,f){
  if(!f.ledgerType)throw new IdentityError(400,'LEDGER_CLASSIFICATION_REQUIRED');
  const customer=await query(trx('business_customers').where({id}).first());if(!customer)throw new IdentityError(404,'NOT_FOUND');
  const states=await customerLedgers(trx,id),state=states.find(s=>s.ledgerType===f.ledgerType);
- let q=trx('customer_classified_journal as j').join('business_documents as d','d.id','j.document_id').join('business_number_issues as n','n.document_id','d.id').join('sales_classified_balances as b','b.document_id','d.id').where({'j.customer_id':id,'j.ledger_type':f.ledgerType}).select('j.id','j.document_id','j.customer_id','j.ledger_type','j.delta','j.currency','j.created_at','j.actor_id','d.business_date','n.official_number','b.base_subtotal','b.gst_amount','b.original_amount','b.outstanding');
+ let q=trx('customer_classified_journal as j').join('business_documents as d','d.id','j.document_id').join('business_number_issues as n','n.document_id','d.id').join('sales_classified_balances as b','b.document_id','d.id').join('customer_challan_outstanding as current','current.challan_id','b.document_id').where({'j.customer_id':id,'j.ledger_type':f.ledgerType}).select('j.id','j.document_id','j.customer_id','j.ledger_type','j.delta','j.currency','j.created_at','j.actor_id','d.business_date','n.official_number','b.base_subtotal','b.gst_amount','b.original_amount','current.outstanding');
  if(f.cursor)q=q.where('j.id','<',f.cursor);if(f.from)q=q.where('d.business_date','>=',f.from);if(f.to)q=q.where('d.business_date','<=',f.to);if(f.reference)q=q.where(sub=>sub.where('n.official_number','like',`%${f.reference}%`).orWhere('d.payload','like',`%${f.reference}%`));
  const rows=await query(q.orderBy('j.id','desc').limit(f.limit+1));
- return {customer:{id:String(id),name:customer.name},ledgerType:f.ledgerType,state:state.state,balance:state.balance===null?null:{ledger_type:f.ledgerType,currency:state.currency,balance:state.balance},records:rows.slice(0,f.limit),nextCursor:rows.length>f.limit?String(rows[f.limit-1].id):null,limit:f.limit,receiptsEnabled:false};
+ return {...await receiptHistory(trx,id,f.ledgerType),position:state.position||null,customer:{id:String(id),name:customer.name},ledgerType:f.ledgerType,state:state.state,balance:state.balance===null?null:{ledger_type:f.ledgerType,currency:state.currency,balance:state.balance},records:rows.slice(0,f.limit),nextCursor:rows.length>f.limit?String(rows[f.limit-1].id):null,limit:f.limit,receiptsEnabled:false};
 }
 export async function reconcileLedgers(trx){
  const stock=await stockReconciliation(trx),mismatches=[];
@@ -45,5 +46,5 @@ export async function reconcileLedgers(trx){
  const legacy={};for(const t of ['customer_balances','customer_receivable_journal','sales_challan_balances','customer_tracking']){legacy[t]=Number((await query(trx(t).count('* as n')))[0].n);if(legacy[t])mismatches.push({kind:'legacy-reconciliation-required',table:t});}
  const unclassified=await query(trx('sales_documents as s').join('business_documents as d','d.id','s.document_id').leftJoin('sales_classified_revisions as r',function(){this.on('r.document_id','=','d.id').andOn('r.document_version','=','d.version');}).where({'s.kind':'CHALLAN','d.status':'POSTED'}).whereNull('r.document_id').select('d.id'));
  for(const row of unclassified)mismatches.push({kind:'unclassified-posted',id:String(row.id)});
- return {matched:!mismatches.length,mismatches,stock,legacy,ledgers:['GST','NON_GST'],repairPerformed:false};
+ const receipts=await receiptReconciliation(trx,{includeMoney:false});mismatches.push(...receipts.mismatches);return {matched:!mismatches.length,mismatches,stock,legacy,ledgers:['GST','NON_GST'],repairPerformed:false};
 }

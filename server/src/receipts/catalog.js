@@ -1,0 +1,5 @@
+export const receiptPermissions=['customers.receipts.read','customers.receipts.create','customers.receipts.post','customers.receipts.correct.request','customers.receipts.correct.approve','customers.receipts.correct.post','customers.allocations.read','customers.allocations.create','customers.unapplied.read','customers.reconcile.read','customers.receipts.configure'];
+export const receiptRoleGrants={administrator:receiptPermissions,accounts:receiptPermissions.filter(p=>!['customers.receipts.correct.approve','customers.receipts.correct.post','customers.receipts.configure'].includes(p)),sales_dispatch:[],inventory:[]};
+const append=['SELECT','INSERT'],mutable=[...append,'UPDATE'];
+export const receiptRuntimePrivileges={receipt_policies:append,customer_receipt_documents:append,customer_receipt_posts:append,customer_receipt_credits:append,customer_receipt_allocations:append,customer_receipt_remaining:mutable,customer_receipt_totals:mutable,customer_challan_outstanding:mutable,receipt_correction_claims:append};
+export const receiptTypes={RECEIPT:'C26_RECEIPT',APPLICATION:'C26_APPLICATION',CORRECTION:'C26_CORRECTION'};
