@@ -8,3 +8,5 @@
 .management .return-workspace{overflow-wrap:anywhere}.management .return-workspace select{max-width:100%}
 
 .management .credit-workspace{overflow-wrap:anywhere}.management .credit-workspace select{max-width:100%}
+
+.management .expense-workspace{overflow-wrap:anywhere}.demo-banner{padding:1rem;background:#242326;color:#f6f5f2;border-bottom:4px solid #f58220;font-family:Arial,sans-serif;font-weight:bold}

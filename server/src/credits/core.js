@@ -1,3 +1,4 @@
+import {p27cSynthetic} from '../expenses/isolation.js';
 import {query} from '../identity/database.js';
 import {payloadHash} from '../business/transactions.js';
 import {pakistanDate} from '../business/documents.js';
@@ -9,7 +10,7 @@ import {settlement} from './settlement.js';
 import {policyInput} from './validation.js';
 export {fail,same};
 export const referenceKey=value=>value.trim().replace(/\s+/g,' ').toUpperCase();
-export async function creditTestDatabase(trx){const [r]=await trx.raw('SELECT DATABASE() name');if(!/^upms_test_p27b_(?:credits|returns|cheques|receipts|sales|classification|inventory|purchasing|regression)_20261023_0[1-8]$/.test(r[0].name))fail('REAL_CREDIT_ACTIVATION_PENDING');}
+export async function creditTestDatabase(trx){const [r]=await trx.raw('SELECT DATABASE() name');if(!/^upms_test_p27b_(?:credits|returns|cheques|receipts|sales|classification|inventory|purchasing|regression)_20261023_0[1-8]$/.test(r[0].name)&&!p27cSynthetic(r[0].name))fail('REAL_CREDIT_ACTIVATION_PENDING');}
 export async function accepted(trx,date){await creditTestDatabase(trx);const p=await query(trx('credit_policies').orderBy('id','desc').first());if(!p)fail('CREDIT_POLICY_PENDING');const terms=policyInput.parse(JSON.parse(p.contract));if(payloadHash(terms)!==p.contract_hash)fail('CREDIT_POLICY_EVIDENCE_MISMATCH');if(date){if(date!==pakistanDate(new Date()))fail('BACKDATING_POLICY_UNRESOLVED');if(date<terms.cutoff)fail('PRE_CUTOFF_FORBIDDEN');const periods=await query(trx('business_periods').where('start_date','<=',date).where('end_date','>=',date));if(periods.length!==1||periods[0].status!=='OPEN'||!same(periods[0].id,terms.periodId))fail('PERIOD_NOT_OPEN');}return {...p,terms};}
 export async function load(trx,id){const d=await query(trx('credit_documents as c').join('business_documents as d','d.id','c.document_id').where('d.id',id).select('d.*','c.kind','c.challan_id','c.sales_line_id','c.customer_id','c.ledger_type','c.currency','c.return_disposition_id','c.source_version','c.source_hash').first());if(!d)fail('NOT_FOUND',404);return d;}
 export async function evidence(trx,input,doc=null){

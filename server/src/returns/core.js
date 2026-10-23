@@ -1,3 +1,4 @@
+import {p27cSynthetic} from '../expenses/isolation.js';
 import {query} from '../identity/database.js';
 import {IdentityError} from '../identity/passwords.js';
 import {payloadHash} from '../business/transactions.js';
@@ -5,7 +6,7 @@ import {pakistanDate} from '../business/documents.js';
 import {policyInput} from './validation.js';
 export const fail=(code,status=409)=>{throw new IdentityError(status,code);};
 export const same=(a,b)=>String(a)===String(b);
-export async function returnTestDatabase(trx){const [r]=await trx.raw('SELECT DATABASE() name');if(!/^upms_test_p27[ab]_(?:credits|returns|cheques|receipts|sales|classification|inventory|purchasing|regression)_20261023_0[1-8]$/.test(r[0].name))fail('REAL_RETURN_ACTIVATION_PENDING');}
+export async function returnTestDatabase(trx){const [r]=await trx.raw('SELECT DATABASE() name');if(!/^upms_test_p27[ab]_(?:credits|returns|cheques|receipts|sales|classification|inventory|purchasing|regression)_20261023_0[1-8]$/.test(r[0].name)&&!p27cSynthetic(r[0].name))fail('REAL_RETURN_ACTIVATION_PENDING');}
 export async function accepted(trx,date){await returnTestDatabase(trx);const p=await query(trx('return_policies').orderBy('id','desc').first());if(!p)fail('RETURN_POLICY_PENDING');const terms=policyInput.parse(JSON.parse(p.contract));if(payloadHash(terms)!==p.contract_hash)fail('RETURN_POLICY_EVIDENCE_MISMATCH');if(date){if(date!==pakistanDate(new Date()))fail('BACKDATING_POLICY_UNRESOLVED');if(date<terms.cutoff)fail('PRE_CUTOFF_FORBIDDEN');const periods=await query(trx('business_periods').where('start_date','<=',date).where('end_date','>=',date));if(periods.length!==1||periods[0].status!=='OPEN'||!same(periods[0].id,terms.periodId))fail('PERIOD_NOT_OPEN');}return {...p,terms};}
 export async function source(trx,id){const d=await query(trx('business_documents as d').join('sales_documents as s','s.document_id','d.id').join('sales_classified_revisions as c',function(){this.on('c.document_id','=','d.id').andOn('c.document_version','=','d.version');}).where('d.id',id).select('d.id','d.version','d.status','d.payload','d.payload_hash','s.kind','s.customer_id','c.ledger_type').first());if(!d||d.status!=='POSTED'||d.kind!=='CHALLAN'||payloadHash(JSON.parse(d.payload))!==d.payload_hash)fail('POSTED_CHALLAN_REQUIRED');return d;}
 export async function load(trx,id){const doc=await query(trx('return_documents as r').join('business_documents as d','d.id','r.document_id').where('d.id',id).select('d.*','r.kind','r.challan_id','r.customer_id','r.ledger_type','r.request_id','r.receipt_id','r.source_version','r.source_hash').first());if(!doc)fail('NOT_FOUND',404);return doc;}

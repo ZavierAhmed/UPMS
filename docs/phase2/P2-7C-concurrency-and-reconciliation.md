@@ -1,0 +1,7 @@
+# Expense concurrency and reconciliation
+
+Writes retain identity guard → live permissions → business guard → durable command → source/payable/money locks → number sequence. Expected payable/account/money versions and immutable settlement reconstruction protect competing payments. At most three whole-transaction deadlock/lock-timeout retries retain authorization. COMMIT acknowledgement loss returns unknown outcome; replay with the original durable key resolves one committed result. Changed intent and revoked current authority fail.
+
+Expense reconciliation independently checks source hashes/typed identity, exact lines and historical category audit, obligation amount, policy source, approval, all payments against their original expense, positive bounded settlements, payable projection, one eligible account/method debit with matching batch/amount, exact deficit evidence, numbering/effects/audit and forbidden stock/vendor/customer/cheque effects. Shared money is recomputed from all authoritative journal modules. Sales/receipt combined reconciliation includes expense reconciliation; all prior stock, purchase, cheque, return and credit checks remain available.
+
+No mismatch is auto-repaired. SQL acceptance includes real lock timeout/deadlock, simultaneous settlement, source duplication, trigger failures at obligation/settlement/money/projections/number/audit, separate-process replay, lost COMMIT ACK, staff/CSRF denial and role browsers. Failed schemas/logs remain preserved and fresh full runs never reuse populated targets.

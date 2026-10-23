@@ -1,3 +1,4 @@
+import {expenseRuntimePrivileges} from '../expenses/catalog.js';
 import {creditRuntimePrivileges} from '../credits/catalog.js';
 import {returnRuntimePrivileges} from '../returns/catalog.js';
 import {chequeRuntimePrivileges} from '../cheques/catalog.js';
@@ -12,7 +13,7 @@ export const identityRuntimePrivileges = Object.freeze({
   role_permissions: ['SELECT'], sessions: ['SELECT', 'INSERT', 'UPDATE', 'DELETE'],
   login_attempts: ['SELECT', 'INSERT', 'UPDATE', 'DELETE'], identity_audit_events: ['SELECT', 'INSERT'],
 });
-export const runtimePrivileges = Object.freeze({...identityRuntimePrivileges,...businessRuntimePrivileges,...inventoryRuntimePrivileges,...purchaseRuntimePrivileges,...salesRuntimePrivileges,...receiptRuntimePrivileges,...chequeRuntimePrivileges,...returnRuntimePrivileges,...creditRuntimePrivileges});
+export const runtimePrivileges = Object.freeze({...identityRuntimePrivileges,...businessRuntimePrivileges,...inventoryRuntimePrivileges,...purchaseRuntimePrivileges,...salesRuntimePrivileges,...receiptRuntimePrivileges,...chequeRuntimePrivileges,...returnRuntimePrivileges,...creditRuntimePrivileges,...expenseRuntimePrivileges});
 export function summarizeGrant(row) {
   const raw = Object.values(row).join(' ');
   const match = raw.match(/^GRANT (.+?) ON (.+?) TO /i);

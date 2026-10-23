@@ -1,0 +1,15 @@
+# P2.7C executive summary
+
+Technical acceptance is complete locally; the isolated synthetic demo is ready. Owner manual UAT is NOT YET EXECUTED and sign-off remains blank. Independent review is required. No merge, deployment, production activation or P2.8 is authorized by this completion.
+
+Starting commit: cb8db6903eb485a6bbd44bce8b7f687a1e207f96. Branch: feature/upms-p2-7c-business-expenses. The milestone commit is identified by the Git commit containing this report; the subsequent final deployment manifest binds to that exact SHA, avoiding a self-referential committed hash.
+
+Migration011 adds eight expense tables and12 permissions. Expenses have manual category lines and immutable obligation evidence, independent of vendor/customer/stock/cheque effects. Record-only, full immediate payment and later partial/full settlement are supported. Exact threshold approval is separate from exact shared-money deficit approval. Posted history is immutable; corrections are linked review requests with financial effects blocked. Dashboard totals explicitly exclude unverified historical openings. No tax, payroll, advances or arbitrary journal editor is introduced.
+
+Recovered protected main remains127.0.0.1:3309/upms, MariaDB10.4.32 normal recovery0, now111 physical tables/11 migrations and109 restricted runtime scopes. Consistent backup restored into a new isolated database with exact103-table fingerprints before migration. Original rows, administrator, seven private profiles and both1037-file recovery sources are preserved. Main operational and expense tables remain empty/unactivated.
+
+Final acceptance: backend160, frontend125; original identity17/business16/inventory20/purchasing29/sales23/classification38/receipts48/cheques66/returns86/credits110; final expense pipeline133 (110 retained plus23 new, overlapping prior pipelines). Synthetic full-system E2E23 checks and four-role mobile/desktop browser19 checks pass. Public66 route/viewports and22 interactions pass; Lighthouse performance96/97/97/98 with accessibility/best-practices/SEO100 each. Build/lint pass; both dependency audits report zero vulnerabilities. Fresh extracted113-file production package passes11 routes, asset, seven private probes, disabled SMTP, native Argon and corruption rejection. Final commit-bound archive is verified after commit; receipts are private build artifacts.
+
+Demo: http://127.0.0.1:3108/management, exact schema upms_test_p27c_uat_20261023_02, independent restricted account/session cookie/secret, four fictitious roles and persistent DEMO / SYNTHETIC banner. Owner obtains generated credentials locally through Get-UPMSDemoAccess.ps1; no password is printed or committed. See P2-7C-owner-UAT-guide.md for access, expected seed values,25 manual cases and unsigned sign-off. Real accounting policy decisions remain blocked as listed in P2-7C-open-decisions-and-risks.md.
+
+Rollback preserves all history and uses the private verified pre-migration backup in a new isolated restore, followed by independent handoff review. Do not down-migrate, replace original XAMPP data, restore over a populated schema or reset credentials.

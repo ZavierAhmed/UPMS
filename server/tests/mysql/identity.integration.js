@@ -40,11 +40,11 @@ test('real dedicated SQL-server identity integration (fails rather than mocks wh
     // This guard must be outside a subtest: a failed subtest does not stop its parent.
     const existing = await db.raw('SELECT COUNT(*) AS n FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE()');
     if(process.env.UPMS_P24_STAGE!=='true'&&process.env.UPMS_P23_RUN==='03'&&process.env.UPMS_P23_SUPPLEMENTAL!=='reviewed-fresh-regression-03')throw Error('Supplemental regression approval required.');
-    const p25=process.env.UPMS_P25A_STAGE==='true'&&/^upms_test_p27b_regression_20261023_0[1-8]$/.test(process.env.DB_NAME)&&process.env.DB_USER===('upms_runtime_test_p27br'+process.env.UPMS_P25_RUN);
+    const p25=process.env.UPMS_P25A_STAGE==='true'&&/^upms_test_p27c_regression_20261023_0[1-8]$/.test(process.env.DB_NAME)&&process.env.DB_USER===('upms_runtime_test_p27cr'+process.env.UPMS_P25_RUN);
     const p24=process.env.UPMS_P24_STAGE==='true'&&/^upms_test_p24_regression_20261023_0[1-6]$/.test(process.env.DB_NAME)&&process.env.DB_USER===('upms_runtime_test_p24r'+process.env.UPMS_P24_RUN);
     const p23=process.env.UPMS_P23_STAGE==='true'&&/^upms_test_p23_regression_20261023_0[123]$/.test(process.env.DB_NAME)&&process.env.DB_USER===('upms_runtime_test_p23r'+process.env.UPMS_P23_RUN);
     const p22=process.env.UPMS_P22_PREMIGRATED==='true'&&['upms_test_p22_20261021','upms_test_p22_identity_20261021'].includes(process.env.DB_NAME);
-    assert.equal(Number(existing[0][0].n), p25?103:p24?59:p23?44:p22?38:0, 'Use the freshly provisioned approved schema; never reset test data.');
+    assert.equal(Number(existing[0][0].n), p25?111:p24?59:p23?44:p22?38:0, 'Use the freshly provisioned approved schema; never reset test data.');
     if(p22||p23||p24||p25)assert.equal(Number((await db('users').count('* as n'))[0].n),0,'Existing identity fixtures are never reset/reused.');
     let migrationPassed = false;
     const migrationEnv={...env,DB_USER:ownerEnv.DB_USER,DB_PASSWORD:ownerEnv.DB_PASSWORD,IDENTITY_DB_PURPOSE:'operator'};

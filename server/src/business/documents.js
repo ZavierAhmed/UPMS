@@ -47,8 +47,8 @@ export async function decideApproval(trx,session,{id,version,hash,decision,reaso
   await query(trx('business_documents').where({id}).update({status:decision,updated_at:now()}));
   await event(trx,actor,row,decision,reason);return {id:String(id),version,decision};
 }
-export async function validateApproval(trx,session,id){
-  await authorize(trx,session,'business.approve');
+export async function validateApproval(trx,session,id,{permission='business.approve'}={}){
+  await authorize(trx,session,permission);
   const row=await document(trx,id);
   const approval=await query(trx('business_approvals').where({document_id:id,document_version:row.version,payload_hash:row.payload_hash,valid:true,decision:'APPROVED'}).orderBy('id','desc').first());
   if(!approval||row.status!=='APPROVED')throw new IdentityError(409,'APPROVAL_REQUIRED');

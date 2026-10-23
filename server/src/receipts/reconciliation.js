@@ -1,3 +1,4 @@
+import {expenseReconciliation} from '../expenses/reconciliation.js';
 import {creditReconciliation} from '../credits/reconciliation.js';
 import {settlementValues} from '../credits/settlement.js';
 import {chequeReconciliation} from '../cheques/reconciliation.js';
@@ -21,6 +22,6 @@ export async function receiptReconciliation(trx,{includeMoney=true}={}){
  for(const c of rows('customer_receipt_credits'))if(!rows('customer_receipt_totals').some(t=>scope(t)===scope(c))||!rows('customer_receipt_posts').some(p=>same(p.document_id,c.receipt_id)))issue('missing-credit-projection',c.id);
  for(const r of [...rows('customer_receipt_credits'),...rows('customer_receipt_allocations')]){const documentId=r.document_id||r.receipt_id,doc=rows('business_documents').find(d=>same(d.id,documentId));if(!doc||doc.status!=='POSTED'||!rows('business_posting_batches').some(b=>same(b.id,r.batch_id)&&same(b.document_id,documentId))||!rows('business_effect_claims').some(e=>same(e.batch_id,r.batch_id)&&e.effect_key===r.effect_key)||!rows('business_number_issues').some(n=>same(n.document_id,documentId))||!rows('business_audit_events').some(e=>e.action==='receipt.posted'&&same(e.record_key,documentId)))issue('receipt-source',documentId);}
  if(includeMoney){for(const m of rows('money_journal'))if(m.effect_key==='customer-money-credit'&&!rows('customer_receipt_posts').some(p=>same(p.document_id,m.document_id)))issue('orphan-receipt-money',m.id);const balances=await query(trx('money_balances'));for(const b of balances)if(cents(b.balance,2,{signed:true})!==sum(rows('money_journal').filter(m=>same(m.account_id,b.account_id)),'delta'))issue('combined-money',b.account_id);for(const m of rows('money_journal'))if(!balances.some(b=>same(b.account_id,m.account_id)))issue('missing-money-projection',m.id);}
- const cheques=await chequeReconciliation(trx),credits=await creditReconciliation(trx);mismatches.push(...cheques.mismatches,...credits.mismatches);
+ const cheques=await chequeReconciliation(trx),credits=await creditReconciliation(trx),expenses=await expenseReconciliation(trx);mismatches.push(...cheques.mismatches,...credits.mismatches,...expenses.mismatches);
  return {matched:!mismatches.length,mismatches,repairPerformed:false};
 }

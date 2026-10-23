@@ -1,0 +1,2 @@
+export const expenseMinor=value=>{const [whole,fraction='']=value.split('.');return BigInt(whole)*100n+BigInt(fraction.padEnd(2,'0'));};
+export function expenseTotal(lines){try{let total=0n;for(const l of lines){const m=/^(\d+)(?:\.(\d{1,2}))?$/.exec(l.amount);if(!m)return null;const n=BigInt(m[1])*100n+BigInt((m[2]||'').padEnd(2,'0'));if(n<=0n)return null;total+=n;}if(!lines.length||total>99999999999999999999n)return null;return `${total/100n}.${(total%100n).toString().padStart(2,'0')}`;}catch{return null;}}

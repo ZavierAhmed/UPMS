@@ -1,3 +1,5 @@
+import {readFile} from 'node:fs/promises';
+import {expenseRouter} from '../expenses/router.js';
 import {creditRouter} from '../credits/router.js';
 import {returnRouter} from '../returns/router.js';
 import {chequeRouter} from '../cheques/router.js';
@@ -34,7 +36,7 @@ export function managementRouter(db, config) {
   });
   // Static JS contains no private state. All records come from authorized no-store APIs.
   router.use('/management/assets', express.static(resolve(config.root, 'assets'), { index: false, dotfiles: 'deny', fallthrough: false }));
-  router.get(/^\/management(?:\/.*)?$/, (req, res) => res.sendFile(resolve(config.root, 'index.html')));
+  router.get(/^\/management(?:\/.*)?$/, async(req,res)=>{if(!config.syntheticDemo)return res.sendFile(resolve(config.root,'index.html'));const html=await readFile(resolve(config.root,'index.html'),'utf8');res.type('html').send(html.replace(/<body[^>]*>/,'$&<div class="demo-banner" role="status">DEMO / SYNTHETIC — P2.7C UAT — No real company data</div>'));});
   router.use(base, express.json({ limit: '12kb', strict: true }));
   router.use(base, (req, res, next) => {
     const unsafe = !['GET', 'HEAD', 'OPTIONS'].includes(req.method);
@@ -65,7 +67,7 @@ export function managementRouter(db, config) {
   router.use(`${base}/business`,businessRouter(db));
   router.use(`${base}/inventory`,inventoryRouter(db));
   router.use(`${base}/purchases`,purchaseRouter(db));
-  router.use(`${base}/sales`,salesRouter(db));router.use(`${base}/receipts`,receiptRouter(db));router.use(`${base}/cheques`,chequeRouter(db));router.use(`${base}/returns`,returnRouter(db));router.use(`${base}/credits`,creditRouter(db));
+  router.use(`${base}/sales`,salesRouter(db));router.use(`${base}/receipts`,receiptRouter(db));router.use(`${base}/cheques`,chequeRouter(db));router.use(`${base}/returns`,returnRouter(db));router.use(`${base}/credits`,creditRouter(db));router.use(`${base}/expenses`,expenseRouter(db));
   router.post(`${base}/session/login`, async (req, res) => {
     const parsed = loginInput.safeParse(req.body);
     if (!parsed.success || !parsed.data.username || !parsed.data.password) throw new IdentityError(401, 'INVALID_CREDENTIALS');

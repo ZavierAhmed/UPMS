@@ -1,0 +1,7 @@
+# Expense obligations and settlements
+
+expense_obligations is the append-only source ledger, one row per recorded expense. expense_payments is the append-only settlement ledger, with source expense, posted payment document/version, account/method, currency, reference, amount, policy, approval, deficit approval and batch/effect evidence. expense_balances is the existing-style versioned projection: outstanding = original obligation − all valid settlements. Negative payables and excess advances are rejected.
+
+Recording12000 yields paid0/outstanding12000. Paying5000 yields paid5000/outstanding7000; a second7000 yields paid12000/outstanding0. A unique normalized payee/reference claim prevents repeat recognition under another durable key. A unique source-expense/payment-reference pair prevents repeating a settlement reference. Concurrent competing payments serialize and revalidate payable and authoritative money versions.
+
+The ledger is independent of P2.4 vendor payable and customer receivables. Dashboard totals expressly cover recorded expense documents only; historical openings remain UNVERIFIED_NO_IMPORT. Brand-new fictitious demo masters use explicit no-prior-history attestations, never inferred historical zero. Category versions/names/codes are snapshotted and checked against immutable audit history; deactivation prevents new recognition but preserves recorded expense identity and legitimate later settlement.

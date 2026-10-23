@@ -1,3 +1,4 @@
+import {p27cSynthetic} from '../expenses/isolation.js';
 import {settlement} from '../credits/settlement.js';
 import {validateReceive,receive,assertApplicable} from '../cheques/core.js';
 import {query} from '../identity/database.js';
@@ -13,7 +14,7 @@ import {receiptReconciliation} from './reconciliation.js';
 const now=()=>new Date(),fail=(code,status=409)=>{throw new IdentityError(status,code);};
 const admin=a=>{if(!a.roles.includes('administrator'))fail('ADMINISTRATOR_REQUIRED',403);};
 const scopeOf=d=>receiptScope(d.customer_id,d.ledger_type,d.currency);
-export async function receiptTestDatabase(trx){const [r]=await trx.raw('SELECT DATABASE() name');if(!/(?:^upms_test_p(?:26a|26b)_(?:receipts|cheques|sales|classification|inventory|purchasing|regression)_20261022_0[1-8]$|^upms_test_p27[ab]_(?:credits|returns|cheques|receipts|sales|classification|inventory|purchasing|regression)_20261023_0[1-8]$)/.test(r[0].name))fail('REAL_RECEIPT_ACTIVATION_PENDING');}
+export async function receiptTestDatabase(trx){const [r]=await trx.raw('SELECT DATABASE() name');if(!/(?:^upms_test_p(?:26a|26b)_(?:receipts|cheques|sales|classification|inventory|purchasing|regression)_20261022_0[1-8]$|^upms_test_p27[ab]_(?:credits|returns|cheques|receipts|sales|classification|inventory|purchasing|regression)_20261023_0[1-8]$)/.test(r[0].name)&&!p27cSynthetic(r[0].name))fail('REAL_RECEIPT_ACTIVATION_PENDING');}
 async function master(trx,table,id){const r=await query(trx(table).where({id}).first());if(!r?.active)fail('INACTIVE_OR_INVALID_REFERENCE',400);return r;}
 async function load(trx,id){const r=await query(trx('business_documents as d').join('customer_receipt_documents as r','r.document_id','d.id').where('d.id',id).select('d.*','r.kind','r.customer_id','r.ledger_type','r.currency','r.source_receipt_id','r.original_id','r.original_version','r.original_hash').first());if(!r)fail('NOT_FOUND',404);return r;}
 async function original(trx,doc){const r=await load(trx,doc.original_id);if(r.status!=='POSTED'||r.kind==='CORRECTION'||r.version!==doc.original_version||r.payload_hash!==doc.original_hash||String(r.customer_id)!==String(doc.customer_id)||r.ledger_type!==doc.ledger_type||r.currency!==doc.currency)fail('STALE_ORIGINAL_REFERENCE');return r;}
