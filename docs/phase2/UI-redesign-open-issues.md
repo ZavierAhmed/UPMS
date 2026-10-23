@@ -1,0 +1,11 @@
+# Open issues and boundaries
+
+Owner visual review and manual UAT are pending. Automated UI/SQL/browser success is not owner acceptance. No merge, deployment, real-data activation or additional business functionality is authorized.
+
+Dashboard summaries deliberately use existing verified endpoints. Stock shows loaded item count, not an invalid sum of unlike units. Purchase and cheque counts disclose loaded/latest-record scope; they are not global authoritative financial totals. Expense obligations are recorded-only and historical openings unverified. GST/NON_GST customer positions remain in separately selected ledgers; no combined global balance or invented available bank total is displayed. There is no fake universal search/calendar/approval inbox.
+
+Quick cards open actual workspaces and preserve existing drafts. Existing backend date, category, currency, numbering, approval, deficit, immutable-posting, historical-opening, tax/refund and real-activation gates remain unchanged. Only synthetic demo policies are active. Correction effects remain blocked as before.
+
+A cheque-request review initially used the wrong receipt-detail route: corrected in the UI with the actual selected request snapshot; failed expense run04 preserved. Run05 exposed old browser navigation assuming simultaneous list/detail visibility; explicit Back navigation now follows the new dedicated panels, with assertions retained. Run06 encountered a temporary management HTML503 correlated with a concurrent build replacing dist; that is the inferred cause. Evidence is preserved and final run08 passed with build assets frozen. Run07 exposed a linked-expense button that became clickable before a payment refresh finished; it now respects the same in-flight disabled state as the posting action. No database recovery/reset was required. All failed/populated schemas remain retained; no targets reused. Fresh run08 passed all133 cross-module checks, including every financial browser workflow and reconciliation.
+
+Reference-directed styling applies only to private management; public Unique Plastic Industry identity and graphite/orange/warm-white design remain unchanged. User-provided unused/conflicting logo source assets are preserved and excluded from this change.

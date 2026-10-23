@@ -1,0 +1,11 @@
+# Management UI redesign executive summary
+
+Private management is redesigned for owner visual review before manual UAT. Source branch feature/upms-p2-7c-business-expenses, verified local/remote source SHA9a7458bf562957da6d5a9da74fd3be37ae802087. Dedicated delivery branch feature/upms-management-ui-redesign. The delivery commit containing this report is the final source SHA; the separately verified package manifest binds to it after commit.
+
+Shared sidebar, role-aware read-only dashboard, pastel cards, readable typography, responsive labelled tables, record/status cards, structured forms, dedicated financial detail views, audit timelines, explicit posting review, loading/empty/error states and retained in-progress workspaces replace the plain admin layout. Accounts/Inventory/Sales restrictions, GST/NON_GST separation, pending cheque/settled-fund distinctions and physical-return/financial-credit distinctions remain intact. Backend services, migrations and accounting contracts are unchanged.
+
+The existing synthetic demo remains http://127.0.0.1:3108/management on upms_test_p27c_uat_20261023_02. No reseeding/reset or financial posting occurred during visual capture. Generated encrypted credentials remain accessed through Get-UPMSDemoAccess.ps1 -RunId02 -Role Admin/Accounts/Inventory/Sales, with local clipboard handoff only. See P2-7C-UI-redesign-UAT-checklist.md and updated P2-7C-owner-UAT-guide.md.
+
+Main127.0.0.1:3309/upms, its administrator and100 business tables are preserved; all expense tables remain empty/unactivated. Seven profiles and both1037-file original/offline recovery sets match. Public identity/assets/site are unchanged. Automated results and local screenshot paths are in UI-redesign-test-results.md and UI-redesign-visual-acceptance.md. Owner visual approval and manual UAT remain pending. No merge, deployment, activation or P2.8.
+
+Acceptance: backend160/frontend136, original identity17/business16, stock20, purchasing29, separate GST/NON_GST classification38 and full cross-module133 passed. All business modules exercised actual SQL-backed browser workflows. Original UAT browser19 and visual52 checks/58 screenshots passed. Build/lint and public66 route/viewports plus22 interactions passed. Final demo business fingerprints remain unchanged. Owner visual review/manual UAT remain the only pending acceptance steps.

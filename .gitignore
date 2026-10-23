@@ -381,3 +381,6 @@ FodyWeavers.xsd
 .env
 .env.*
 !.env.example
+
+# Private management redesign screenshots and verification evidence
+/tmp/ui-redesign/

@@ -35,7 +35,7 @@ describe('private management shell', () => {
   });
   it('Inventory sees own profile and upcoming modules without administration navigation', async () => {
     fetch.mockImplementation(async url => url.endsWith('/csrf') ? response(200, { csrfToken: 'fixture-token' }) : response(200, { csrfToken: 'fixture-token', user: { id: '1', username: 'fixture', displayName: 'Synthetic Staff', roles: ['inventory'], permissions: ['portal.access', 'profile.read'] } }));
-    render(<Management />); await screen.findByRole('heading', { name: 'Welcome, Synthetic Staff' });
+    render(<Management />); await screen.findByRole('heading', { name: 'Welcome back, Synthetic' });
     expect(screen.queryByRole('button', { name: 'Staff accounts' })).toBeNull();
     expect(screen.queryByRole('button', { name: 'Identity history' })).toBeNull();
     expect(screen.getByText(/explicit owner policy/)).toBeTruthy();
@@ -48,7 +48,7 @@ describe('private management shell', () => {
   });
   it('clears authenticated UI when a protected action reports an expired session', async () => {
     fetch.mockImplementation(async url => url.endsWith('/csrf') ? response(200, { csrfToken: 'fixture-token' }) : response(200, { csrfToken: 'fixture-token', user: { id: '1', username: 'fixture', displayName: 'Synthetic Admin', roles: ['administrator'], permissions: ['portal.access', 'profile.read', 'users.read'] } }));
-    render(<Management />); await screen.findByRole('heading', { name: 'Welcome, Synthetic Admin' });
+    render(<Management />); await screen.findByRole('heading', { name: 'Welcome back, Synthetic' });
     fetch.mockResolvedValue(response(401, { error: { code: 'SESSION_EXPIRED' } }));
     fireEvent.click(screen.getByRole('button', { name: 'Staff accounts' }));
     await screen.findByRole('heading', { name: 'Staff sign in' });

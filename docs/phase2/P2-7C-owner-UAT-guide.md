@@ -2,6 +2,14 @@
 
 **Status: automated E2E and browser checks passed; owner manual UAT NOT YET EXECUTED.** Do not treat this guide or prefilled synthetic data as owner sign-off.
 
+## Redesigned navigation before manual UAT
+
+Owner visual review of the redesign is pending. Use the left sidebar: Operations contains Inventory, Purchases and accounts, Sales / Delivery Challans and Customer Returns; Accounts contains Customer Receipts, Cheque Management, Customer credit notes and Business expenses. Administration contains permitted Master data, Staff accounts, Identity history and My profile. At tablet/mobile widths choose Open navigation. Empty/unauthorized groups are hidden. Vendor accounts stay under Purchases; customer ledgers stay under Sales → Customer ledger. Actual module policy/approval/reconciliation controls remain in those modules; no fake global pages were added.
+
+Quick cards open the relevant workspace and retain an existing draft. Expense/credit forms and detail panels have Back to expense documents / Back to credit notes. Before a financial post, review the explicit confirmation dialog, then Confirm posting or Back to review. Cancellation performs no financial mutation. Success appears only after the server confirms. The synthetic banner stays visible, including inside confirmation.
+
+See P2-7C-UI-redesign-UAT-checklist.md for18 visual/navigation cases before the25 original business cases below. Keep all Actual/PASS/FAIL/sign-off fields blank until the owner performs them. No demo rebuild/reset is part of this UI milestone.
+
 ## Safe environment and access
 
 Use **http://127.0.0.1:3108/management**. The page must display **DEMO / SYNTHETIC — P2.7C UAT — No real company data**, including before sign-in. This is isolated schema `upms_test_p27c_uat_20261023_02`, restricted account `upms_runtime_test_p27cu02`, four fictitious application users and an independent session cookie/secret. Main `http://127.0.0.1:3000/management` / `127.0.0.1:3309/upms` is protected and is NOT a test-run target. Do not enter actual customer, supplier, bank, cheque or financial-history data.

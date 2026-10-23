@@ -1,0 +1,11 @@
+# Visual acceptance evidence
+
+Owner reference image inspected directly on2026-10-23. Compared large heading hierarchy, mint/blush/yellow/lavender grouping, rounded white surfaces, circular actions, sidebar and two-column desktop proportions. Business-specific content replaces the reference's education content. This is implementation visual QA, not owner visual approval.
+
+Actual Chrome screenshots are saved privately under tmp/ui-redesign/after at1440,768 and390px. The matrix includes Administrator and Accounts dashboards, Inventory, Purchases, Sales, Receipts, Cheques, Returns, Credits, Expenses, Master data, profile/users/history, plus financial form/detail and posting-review cancellation.58 screenshots are available;52 role/view/viewport/drawer checks pass. No page errors or document horizontal overflow. Reduced-motion mode makes resized screenshots deterministic; ordinary interactions still respect user motion preference.
+
+Viewed desktop overview, tablet overview, mobile financial form and posting review directly; all module captures were produced from actual populated demo screens and reviewed as desktop/tablet contact sheets plus individual mobile screens. Dense tablet tables use the same labelled card treatment as mobile. Corrected discovered issues: banner/brand overlap, transient drawer-slide screenshots, excessive record lists above expense forms, dedicated credit/expense list navigation and mobile table readability. Banner remains visible while scrolling and drawer use; a synthetic marker also appears inside posting review.
+
+The screenshot runner queries the actual schema, runs only existing role logins/read/navigation, opens a financial review then cancels, and fingerprints100 business tables before/after. Exact match proves no UAT business posting/reset occurred. Identity session/login audit naturally changes through authentication. Main preservation is independently verified. Before images remain under tmp/ui-redesign/before. Screenshots contain fictitious data and no entered passwords; ignored local evidence is not deployed or committed.
+
+Owner visual acceptance: PENDING. The source image itself remains untouched in the owner's Downloads; it is not copied into the product or deployment package.
