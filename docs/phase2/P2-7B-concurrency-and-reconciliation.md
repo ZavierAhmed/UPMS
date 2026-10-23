@@ -1,0 +1,7 @@
+# Concurrency and reconciliation
+
+Use the established coordinator: identity guard, current authorization, business guard, durable command claim, original challan settlement lock, then numbering. Guard serialization makes document component, per-line value and per-disposition quantity checks atomic across both credit kinds. Expected settlement versions and exact source snapshots stop stale approvals. Whole-transaction deadlock/lock-timeout retries retain authorization. Lost COMMIT acknowledgement returns unknown outcome; the same durable key resolves to one committed result. Changed intent and revoked permissions cannot replay effects.
+
+Read-only credit reconciliation verifies source/header/hash, duplicate reference claim, posted/manual values, exact shared approval, original scope, component/line caps, physical disposition quantity, reconstructed settlement, batch/effect, numbering/audit and forbidden stock/money/receipt/vendor effects. Receipt reconciliation includes credit adjustments and cheque compensation. Existing Sales reconciliation independently verifies original issued debits/cache; stock/purchase/cheque services remain authoritative for their own journals. Mismatches never cause automatic repair.
+
+Acceptance includes real MariaDB fault triggers, separate-process replay, network ACK loss, concurrent credit capacity and competing settlement/dishonour writes. Failed isolated runs are retained; fresh targets are required for new complete runs.

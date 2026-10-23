@@ -1,3 +1,4 @@
+import {creditRouter} from '../credits/router.js';
 import {returnRouter} from '../returns/router.js';
 import {chequeRouter} from '../cheques/router.js';
 import {receiptRouter} from '../receipts/router.js';
@@ -64,7 +65,7 @@ export function managementRouter(db, config) {
   router.use(`${base}/business`,businessRouter(db));
   router.use(`${base}/inventory`,inventoryRouter(db));
   router.use(`${base}/purchases`,purchaseRouter(db));
-  router.use(`${base}/sales`,salesRouter(db));router.use(`${base}/receipts`,receiptRouter(db));router.use(`${base}/cheques`,chequeRouter(db));router.use(`${base}/returns`,returnRouter(db));
+  router.use(`${base}/sales`,salesRouter(db));router.use(`${base}/receipts`,receiptRouter(db));router.use(`${base}/cheques`,chequeRouter(db));router.use(`${base}/returns`,returnRouter(db));router.use(`${base}/credits`,creditRouter(db));
   router.post(`${base}/session/login`, async (req, res) => {
     const parsed = loginInput.safeParse(req.body);
     if (!parsed.success || !parsed.data.username || !parsed.data.password) throw new IdentityError(401, 'INVALID_CREDENTIALS');

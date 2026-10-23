@@ -1,3 +1,5 @@
+import {settlement} from '../credits/settlement.js';
+import {formatExact as money} from '../purchases/amounts.js';
 import {position,receiptHistory} from '../receipts/projections.js';import {receiptReconciliation} from '../receipts/reconciliation.js';
 import {query} from '../identity/database.js';
 import {IdentityError} from '../identity/passwords.js';
@@ -28,7 +30,7 @@ export async function ledgerPage(trx,id,f){
  let q=trx('customer_classified_journal as j').join('business_documents as d','d.id','j.document_id').join('business_number_issues as n','n.document_id','d.id').join('sales_classified_balances as b','b.document_id','d.id').join('customer_challan_outstanding as current','current.challan_id','b.document_id').where({'j.customer_id':id,'j.ledger_type':f.ledgerType}).select('j.id','j.document_id','j.customer_id','j.ledger_type','j.delta','j.currency','j.created_at','j.actor_id','d.business_date','n.official_number','b.base_subtotal','b.gst_amount','b.original_amount','current.outstanding');
  if(f.cursor)q=q.where('j.id','<',f.cursor);if(f.from)q=q.where('d.business_date','>=',f.from);if(f.to)q=q.where('d.business_date','<=',f.to);if(f.reference)q=q.where(sub=>sub.where('n.official_number','like',`%${f.reference}%`).orWhere('d.payload','like',`%${f.reference}%`));
  const rows=await query(q.orderBy('j.id','desc').limit(f.limit+1));
- return {...await receiptHistory(trx,id,f.ledgerType),position:state.position||null,customer:{id:String(id),name:customer.name},ledgerType:f.ledgerType,state:state.state,balance:state.balance===null?null:{ledger_type:f.ledgerType,currency:state.currency,balance:state.balance},records:rows.slice(0,f.limit),nextCursor:rows.length>f.limit?String(rows[f.limit-1].id):null,limit:f.limit,receiptsEnabled:false};
+ return {...await receiptHistory(trx,id,f.ledgerType),position:state.position||null,customer:{id:String(id),name:customer.name},ledgerType:f.ledgerType,state:state.state,balance:state.balance===null?null:{ledger_type:f.ledgerType,currency:state.currency,balance:state.balance},records:await Promise.all(rows.slice(0,f.limit).map(async r=>{const s=await settlement(trx,r.document_id);return {...r,approved_credit:money(s.credit),retained_surplus:money(s.surplus)};})),nextCursor:rows.length>f.limit?String(rows[f.limit-1].id):null,limit:f.limit,receiptsEnabled:false};
 }
 export async function reconcileLedgers(trx){
  const stock=await stockReconciliation(trx),mismatches=[];

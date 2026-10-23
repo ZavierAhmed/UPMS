@@ -1,7 +1,7 @@
 import { validateEngine } from './engine.js';
 import { verifyRuntimeGrants,runtimePrivileges } from './grants.js';
 
-export const knownMigrations=Object.freeze(['202610210001_identity.js','202610210002_business_foundation.js','202610220003_inventory_operations.js','202610220004_purchasing_accounts.js','202610220005_sales_challans.js','202610220006_classified_receivables.js','202610220007_customer_receipts.js','202610220008_customer_cheques.js','202610230009_customer_returns.js']);
+export const knownMigrations=Object.freeze(['202610210001_identity.js','202610210002_business_foundation.js','202610220003_inventory_operations.js','202610220004_purchasing_accounts.js','202610220005_sales_challans.js','202610220006_classified_receivables.js','202610220007_customer_receipts.js','202610220008_customer_cheques.js','202610230009_customer_returns.js','202610230010_customer_credit_notes.js']);
 function stop(code){const error=new Error(code);error.code=code;throw error;}
 export function validatePreflightState(state,env=process.env){
   if(state.database_name!==env.DB_NAME||Number(state.port)!==Number(env.DB_PORT)||!state.account?.startsWith(`${env.DB_USER}@`))stop('DB_PREFLIGHT_WRONG_ENDPOINT');
@@ -29,7 +29,7 @@ export async function databasePreflight(db,env=process.env,{expectedMigrations,e
     if(tracking!==locking||tables.length&&!tracking)stop('DB_PREFLIGHT_PARTIAL_SCHEMA');
     migrations=tracking?await db('upms_identity_migrations').orderBy('id').pluck('name'):[];
     if(migrations.length>knownMigrations.length||migrations.some((name,index)=>name!==knownMigrations[index]))stop('DB_PREFLIGHT_MIGRATION_HISTORY');
-    if(tables.length!==[0,11,38,44,59,68,74,83,90,98][migrations.length])stop('DB_PREFLIGHT_PARTIAL_SCHEMA');
+    if(tables.length!==[0,11,38,44,59,68,74,83,90,98,103][migrations.length])stop('DB_PREFLIGHT_PARTIAL_SCHEMA');
     if(expectedMigrations&&JSON.stringify(migrations)!==JSON.stringify(expectedMigrations))stop('DB_PREFLIGHT_MIGRATION_HISTORY');
     if(locking&&(await db('upms_identity_migrations_lock').where({is_locked:1}).first()))stop('DB_PREFLIGHT_MIGRATION_LOCKED');
   }

@@ -1,0 +1,7 @@
+# Physical evidence for financial return credits
+
+A return request, unposted receipt, draft inspection or quarantined remainder creates no entitlement. RETURN_BASED_CREDIT names an immutable posted return_dispositions line, its posted inspection, original physical receipt line and exact original sales line/customer/class. Before approval/posting, the independent physical-return reconciliation verifies the posted receipt, source dispatch, exact approval and paired condition movements.
+
+The synthetic policy explicitly chooses REUSABLE_ONLY or REUSABLE_AND_DAMAGED. Quarantined goods are always ineligible. Cumulative credit quantity for each disposition cannot exceed that policy's eligible inspected quantity; prior immutable credit journals, not an editable counter, determine usage. Quantity respects original unit precision. Monetary value remains manually entered and independently capped; it is never calculated from returned quantity times original rate. Price credits have zero quantity and no physical-disposition link.
+
+Credit posting does not call stock posting or change return lines, receipt balances, allowances, dispositions or movements. Physical-return APIs continue to exclude sales rates and credit valuations from Inventory. Their existing “financial credit not processed” marker describes the physical operation's lack of financial effects; financial status is reviewed through the separately authorized credit-note section.

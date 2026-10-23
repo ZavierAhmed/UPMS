@@ -1,0 +1,7 @@
+# Credit-note lifecycle
+
+One credit note references one posted challan line, its customer, GST/NON_GST class and currency. It is either RETURN_BASED_CREDIT or PRICE_ONLY_CREDIT. Draft → submitted → administrator approved/rejected → posted. Revisions increment the shared document version and invalidate previous approvals. The source challan version/hash, policy, prior component usage, current settlement version, physical evidence and explicit manual valuation are part of the exact approval hash.
+
+Accounts and Sales/Dispatch may prepare and submit. Only an administrator with current action authority may approve and post. Posting revalidates the approver, original source, capacities and all snapshot evidence, then writes the credit post, one immutable journal, effect claim, existing challan projection, official number, events, audit and durable result in one coordinator transaction. Posted notes cannot be edited, deleted, reversed or refunded by this milestone. Rejection retains the request/reference history. A stale request must be refreshed, revised and approved again.
+
+The correction reference is canonicalized by trimming/collapsing whitespace and uppercasing. An append-only claim reserves it per original challan across both correction types. It cannot be reused for another draft. Distinct partial agreements require distinct evidence/reference and still share cumulative quantity and monetary caps. No unrestricted journal editor or additional-charge path exists.

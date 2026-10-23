@@ -21,10 +21,10 @@ import { verifyBusinessSchema } from '../../tools/business-operations.mjs';
 
 test('P2.2 real restricted MariaDB acceptance; no owner-schema fixtures or destructive reset',async t=>{
   if(process.env.UPMS_P24_STAGE!=='true'&&process.env.UPMS_P23_RUN==='03'&&process.env.UPMS_P23_SUPPLEMENTAL!=='reviewed-fresh-regression-03')throw Error('Supplemental regression approval required.');
-  const p25=process.env.UPMS_P25A_STAGE==='true';const p24=process.env.UPMS_P24_STAGE==='true';const p23=process.env.UPMS_P23_STAGE==='true';if(p25){assert.match(process.env.DB_NAME,/^upms_test_p27a_regression_20261023_0[1-8]$/);assert.equal(process.env.DB_USER,'upms_runtime_test_p27ar'+process.env.UPMS_P25_RUN);}else if(p24){assert.match(process.env.DB_NAME,/^upms_test_p24_regression_20261023_0[1-6]$/);assert.equal(process.env.DB_USER,'upms_runtime_test_p24r'+process.env.UPMS_P24_RUN);}else if(p23){assert.match(process.env.DB_NAME,/^upms_test_p23_regression_20261023_0[123]$/);assert.equal(process.env.DB_USER,'upms_runtime_test_p23r'+process.env.UPMS_P23_RUN);}else{assert.equal(process.env.DB_NAME,'upms_test_p22_20261021');assert.equal(process.env.DB_USER,'upms_runtime_test_p22');}
+  const p25=process.env.UPMS_P25A_STAGE==='true';const p24=process.env.UPMS_P24_STAGE==='true';const p23=process.env.UPMS_P23_STAGE==='true';if(p25){assert.match(process.env.DB_NAME,/^upms_test_p27b_regression_20261023_0[1-8]$/);assert.equal(process.env.DB_USER,'upms_runtime_test_p27br'+process.env.UPMS_P25_RUN);}else if(p24){assert.match(process.env.DB_NAME,/^upms_test_p24_regression_20261023_0[1-6]$/);assert.equal(process.env.DB_USER,'upms_runtime_test_p24r'+process.env.UPMS_P24_RUN);}else if(p23){assert.match(process.env.DB_NAME,/^upms_test_p23_regression_20261023_0[123]$/);assert.equal(process.env.DB_USER,'upms_runtime_test_p23r'+process.env.UPMS_P23_RUN);}else{assert.equal(process.env.DB_NAME,'upms_test_p22_20261021');assert.equal(process.env.DB_USER,'upms_runtime_test_p22');}
   const ownerEnv={...process.env,DB_USER:process.env.UPMS_P22_OWNER_USER,DB_PASSWORD:process.env.UPMS_P22_OWNER_PASSWORD,IDENTITY_DB_PURPOSE:'operator'};
   const owner=createDatabase(ownerEnv);let db=createDatabase(process.env),browser,server;
-  await mkdir('tmp/w06/p27a/legacy-business',{recursive:true});
+  await mkdir('tmp/w06/p27b/legacy-business',{recursive:true});
   const tag=randomBytes(5).toString('hex'),password=randomBytes(24).toString('hex'),hash=await hashPassword(password),results=[];
   const common=(code,name=`${tag} ${code}`)=>({code:`${tag}_${code}`,name,active:true,reason:'Synthetic P2.2 fixture'});
   const [lastPeriod]=await owner('business_periods').max('end_date as last');
@@ -56,12 +56,12 @@ test('P2.2 real restricted MariaDB acceptance; no owner-schema fixtures or destr
   try{
     await databasePreflight(owner,ownerEnv);await databasePreflight(db);
     await sub('schema, actual table allowlist and SQL denial proofs',async()=>{
-      const schema=await verifyBusinessSchema(owner);assert.equal(schema.totalTables,p25?98:p24?59:p23?44:38);
+      const schema=await verifyBusinessSchema(owner);assert.equal(schema.totalTables,p25?103:p24?59:p23?44:38);
       const [rows]=await db.raw('SHOW GRANTS FOR CURRENT_USER');assert.equal(verifyRuntimeGrants(rows,process.env.DB_NAME,process.env.DB_USER+'@localhost').verified,true);
       for(const sql of ['DELETE FROM business_customers WHERE 1=0','UPDATE business_audit_events SET action=action WHERE 1=0','DELETE FROM business_master_history WHERE 1=0','UPDATE business_number_issues SET official_number=official_number WHERE 1=0','CREATE TABLE p22_denied_probe (id INT)','SELECT 1 FROM mysql.user LIMIT 0'])await assert.rejects(db.raw(sql),e=>['ER_TABLEACCESS_DENIED_ERROR','ER_DBACCESS_DENIED_ERROR'].includes(e.code));
     });
     await sub('existing 17 identity integration checks on the newly provisioned schema',async()=>{
-      const receipt=JSON.parse(await readFile(p25?'server/.local/p27a/identity-'+process.env.UPMS_P25_RUN+'.json':p24?'server/.local/p24/identity-'+process.env.UPMS_P24_RUN+'.json':p23?(process.env.UPMS_P23_RECOVERED==='true'?'server/.local/p23b/resumption/identity-':'server/.local/p23/identity-')+process.env.UPMS_P23_RUN+'.json':'server/.local/p22/identity-regression.json','utf8'));
+      const receipt=JSON.parse(await readFile(p25?'server/.local/p27b/identity-'+process.env.UPMS_P25_RUN+'.json':p24?'server/.local/p24/identity-'+process.env.UPMS_P24_RUN+'.json':p23?(process.env.UPMS_P23_RECOVERED==='true'?'server/.local/p23b/resumption/identity-':'server/.local/p23/identity-')+process.env.UPMS_P23_RUN+'.json':'server/.local/p22/identity-regression.json','utf8'));
       assert.equal(receipt.passed,true);assert.equal(receipt.checks,17);assert.equal(receipt.topLevel,true);
       assert.equal(receipt.database,p23?process.env.DB_NAME:'upms_test_p22_identity_20261021');
     });
@@ -250,8 +250,8 @@ test('P2.2 real restricted MariaDB acceptance; no owner-schema fixtures or destr
       await page.waitForFunction(code=>[...document.querySelectorAll('td')].some(td=>td.textContent===code),{},code);
       await page.type('input[name="code"]',code);await page.type('input[name="name"]','Duplicate synthetic unit');await page.type('input[name="reason"]','Synthetic duplicate check');await page.click('form button');await page.waitForFunction(()=>document.body.textContent.includes('already exists'));
       await page.setViewport({width:390,height:844});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth),true);assert.deepEqual(errors,[]);
-      await writeFile(`tmp/w06/p27a/legacy-business/browser-${tag}.json`,JSON.stringify({masterCreate:true,duplicateFeedback:true,mobile:true,pageErrors:errors}));
+      await writeFile(`tmp/w06/p27b/legacy-business/browser-${tag}.json`,JSON.stringify({masterCreate:true,duplicateFeedback:true,mobile:true,pageErrors:errors}));
     });
-    await writeFile(`tmp/w06/p27a/legacy-business/results-${tag}.json`,JSON.stringify({database:process.env.DB_NAME,checks:results,identityRegression:17,ownerSchemaUntouched:true},null,2));
+    await writeFile(`tmp/w06/p27b/legacy-business/results-${tag}.json`,JSON.stringify({database:process.env.DB_NAME,checks:results,identityRegression:17,ownerSchemaUntouched:true},null,2));
   }finally{await browser?.close();if(server)await new Promise(resolve=>{server.close(resolve);server.closeIdleConnections();});await db.destroy();await owner.destroy();}
 });
