@@ -1,3 +1,4 @@
+import {clearManagementMemory} from '../../management/src/managementRouting.js';
 import {postingSummary} from '../../management/src/managementPresentation.js';
 import {render,screen,fireEvent,waitFor} from '@testing-library/react';
 import {describe,it,expect,vi,beforeEach} from 'vitest';
@@ -5,7 +6,7 @@ import {Sidebar,RecordList,ReviewDialog,WorkspaceBoundary} from '../../managemen
 import {Management} from '../../management/src/Management.jsx';
 import {Dashboard} from '../../management/src/Dashboard.jsx';
 const user={displayName:'Synthetic Staff',roles:['inventory'],permissions:['inventory.read']};
-beforeEach(()=>{window.innerWidth=1440;HTMLDialogElement.prototype.showModal=vi.fn(function(){this.setAttribute('open','');});HTMLDialogElement.prototype.close=vi.fn();});
+beforeEach(()=>{window.history.replaceState({},'', '/management');window.dispatchEvent(new PopStateEvent('popstate'));clearManagementMemory();window.innerWidth=1440;HTMLDialogElement.prototype.showModal=vi.fn(function(){this.setAttribute('open','');});HTMLDialogElement.prototype.close=vi.fn();});
 describe('management redesign',()=>{
  it('shows genuine role menus and marks active page',()=>{render(<Sidebar user={user} page="inventory" can={p=>user.permissions.includes(p)} navigate={vi.fn()} signOut={vi.fn()}/>);expect(screen.getByRole('button',{name:'Inventory'}).getAttribute('aria-current')).toBe('page');expect(screen.queryByRole('button',{name:'Business expenses'})).toBeNull();expect(screen.queryByRole('button',{name:'Customer Receipts'})).toBeNull();});
  it('supports a mobile drawer with Escape and expanded state',()=>{window.innerWidth=390;render(<Sidebar user={user} page="home" can={()=>false} navigate={vi.fn()} signOut={vi.fn()}/>);const toggle=screen.getByRole('button',{name:'Open navigation'});expect(toggle.getAttribute('aria-expanded')).toBe('false');fireEvent.click(toggle);expect(screen.getByRole('button',{name:'Close navigation'}).getAttribute('aria-expanded')).toBe('true');fireEvent.keyDown(document,{key:'Escape'});expect(screen.getByRole('button',{name:'Open navigation'}).getAttribute('aria-expanded')).toBe('false');});

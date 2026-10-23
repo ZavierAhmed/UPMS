@@ -1,9 +1,10 @@
+import {clearManagementMemory} from '../../management/src/managementRouting.js';
 import { render, screen, fireEvent, waitFor, cleanup } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { Management } from '../../management/src/Management.jsx';
 const response = (status, data) => ({ ok: status < 400, status, json: async () => data });
 afterEach(() => { cleanup(); vi.unstubAllGlobals(); });
-beforeEach(() => {
+beforeEach(() => {window.history.replaceState({},'', '/management');window.dispatchEvent(new PopStateEvent('popstate'));clearManagementMemory();
   vi.stubGlobal('fetch', vi.fn(async url => url.endsWith('/csrf') ? response(200, { csrfToken: 'fixture-token' }) : response(401, { error: { code: 'AUTH_REQUIRED' } })));
 });
 describe('private management shell', () => {

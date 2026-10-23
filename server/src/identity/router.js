@@ -36,7 +36,8 @@ export function managementRouter(db, config) {
   });
   // Static JS contains no private state. All records come from authorized no-store APIs.
   router.use('/management/assets', express.static(resolve(config.root, 'assets'), { index: false, dotfiles: 'deny', fallthrough: false }));
-  router.get(/^\/management(?:\/.*)?$/, async(req,res)=>{if(!config.syntheticDemo)return res.sendFile(resolve(config.root,'index.html'));const html=await readFile(resolve(config.root,'index.html'),'utf8');res.type('html').send(html.replace(/<body[^>]*>/,'$&<div class="demo-banner" role="status">DEMO / SYNTHETIC — P2.7C UAT — No real company data</div>'));});
+  router.use('/management/assets',(error,req,res,next)=>{if(error.status===404||error.code==='ENOENT')return res.status(404).json({error:{code:'NOT_FOUND'}});next(error);});
+  router.get(/^\/management(?:\/.*)?$/, async(req,res)=>{if(/(?:^|\/)\.|\.[a-z0-9]{1,12}(?:\/|$)/i.test(req.path))return res.status(404).json({error:{code:'NOT_FOUND'}});if(!config.syntheticDemo)return res.sendFile(resolve(config.root,'index.html'));const html=await readFile(resolve(config.root,'index.html'),'utf8');res.type('html').send(html.replace(/<body[^>]*>/,'$&<div class="demo-banner" role="status">DEMO / SYNTHETIC — P2.7C UAT — No real company data</div>'));});
   router.use(base, express.json({ limit: '12kb', strict: true }));
   router.use(base, (req, res, next) => {
     const unsafe = !['GET', 'HEAD', 'OPTIONS'].includes(req.method);

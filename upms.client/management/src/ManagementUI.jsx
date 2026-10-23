@@ -1,4 +1,4 @@
-import {titleCase,navigation} from './managementPresentation.js';
+import {titleCase,navigation,displayValue} from './managementPresentation.js';
 import {Children,Component,cloneElement,isValidElement,useEffect,useRef,useState} from 'react';
 
 export function Icon({name='grid'}) {
@@ -6,7 +6,7 @@ export function Icon({name='grid'}) {
  return <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={paths[name]||paths.file}/></svg>;
 }
 const statuses=/\b(PARTIALLY_PAID|PENDING_CLEARANCE|SUBMITTED|APPROVED|REJECTED|POSTED|DRAFT|PAID|CLEARED|DISHONOURED|QUARANTINED|AVAILABLE|DAMAGED|NON_GST|GST)\b/g;
-export function Present({children}){return Children.map(children,c=>{if(typeof c==='string')return c.split(statuses).map((s,i)=>/^(PARTIALLY_PAID|PENDING_CLEARANCE|SUBMITTED|APPROVED|REJECTED|POSTED|DRAFT|PAID|CLEARED|DISHONOURED|QUARANTINED|AVAILABLE|DAMAGED|NON_GST|GST)$/.test(s)?<span key={i} className={'status status-'+s.toLowerCase()}>{s==='GST'||s==='NON_GST'?s:titleCase(s)}</span>:s);return c;});}
+export function Present({children}){return Children.map(children,c=>{if(typeof c==='string'){if(c.startsWith('{')){try{const value=JSON.parse(c),names=Object.values(value).map(v=>v&&typeof v==='object'?v.name:null).filter(Boolean);if(names.length)return <span className="variant-snapshot"><span>{names.join(' · ')}</span><details><summary>Recorded variant details</summary><pre>{c}</pre></details></span>;}catch{/* Non-JSON business text is displayed unchanged. */}}return c.split(statuses).map((s,i)=>/^(PARTIALLY_PAID|PENDING_CLEARANCE|SUBMITTED|APPROVED|REJECTED|POSTED|DRAFT|PAID|CLEARED|DISHONOURED|QUARANTINED|AVAILABLE|DAMAGED|NON_GST|GST)$/.test(s)?<span key={i} className={'status status-'+s.toLowerCase()}>{s==='GST'||s==='NON_GST'?s:titleCase(s)}</span>:displayValue(s));}return c;});}
 // Keep business actions and accessible list semantics; present each record as a card.
 export function RecordList({children,className='',...props}){const records=Children.toArray(children);return records.length?<ul {...props} className={'record-list '+className}>{records.map((r,i)=>isValidElement(r)?cloneElement(r,{key:r.key||i,className:'record-card '+(r.props.className||'')},<div className="record-content">{Children.map(r.props.children,(c,n)=>typeof c==='string'?c.split(/ \/ | · /).map((part,j)=><span className="record-field" key={n+'-'+j}><Present>{part}</Present></span>):c)}</div>):r)}</ul>:<div className="empty-state" role="status"><Icon name="file"/><strong>No records to show</strong><p>New records will appear here after an authorized action.</p></div>;}
 export function WorkspaceBoundary({children}){return <Boundary>{children}</Boundary>;}

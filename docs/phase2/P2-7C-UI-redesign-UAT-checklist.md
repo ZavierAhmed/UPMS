@@ -36,3 +36,25 @@ Owner/reviewer ____ Date ____ Source commit ____ Findings ____
 Signature ____ Independent reviewer ____
 
 No selection here authorizes production activation, merge, deployment or additional business milestones.
+
+
+## Browser navigation corrective acceptance — owner must execute
+
+Automated navigation17 and visual85 passed; these owner fields remain blank. See UI-navigation-routing.md and UI-navigation-test-results.md for exact scope and retained failure evidence.
+
+| Case | Owner action | Expected | Actual / PASS-FAIL / evidence |
+|---|---|---|---|
+| NAV01 | Overview→Purchases→Sales; Back then Forward | Purchases then Sales; matching URL | ____ [ ]PASS [ ]FAIL ____ |
+| NAV02 | Deep link /management/expenses/documents/30; refresh | Same authorized document; no duplicate effect | ____ [ ]PASS [ ]FAIL ____ |
+| NAV03 | All documents; Back/Forward | Detail/list restored with real URLs | ____ [ ]PASS [ ]FAIL ____ |
+| NAV04 | Filter Sales, review a challan, Back | Relevant filter value retained | ____ [ ]PASS [ ]FAIL ____ |
+| NAV05 | Enter unsaved fictitious form; change section; Back | Draft retained; no save/post | ____ [ ]PASS [ ]FAIL ____ |
+| NAV06 | Attempt full reload with unsaved form; Cancel | Native warning; current values retained | ____ [ ]PASS [ ]FAIL ____ |
+| NAV07 | Sign out; Back; sign in as Inventory | No previous financial/draft content; Expenses denied | ____ [ ]PASS [ ]FAIL ____ |
+| NAV08 | Open /management/unknown-page | Internal not-found; safe navigation available | ____ [ ]PASS [ ]FAIL ____ |
+| NAV09 | Repeat active sidebar item | No duplicate history entry | ____ [ ]PASS [ ]FAIL ____ |
+| NAV10 | At390px open drawer; choose Sales; Escape when reopened | Selection closes; Escape returns focus | ____ [ ]PASS [ ]FAIL ____ |
+| NAV11 | Review new forms and inspection24 at1440/768/390 | Readable groups, mandatory fields, summaries, complete expandable evidence | ____ [ ]PASS [ ]FAIL ____ |
+
+Owner visual decision: ____ Date: ____ Evidence: ____
+Manual UAT sign-off: ____ Date: ____ Remaining issues: ____

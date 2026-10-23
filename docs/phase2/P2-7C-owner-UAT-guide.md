@@ -2,6 +2,14 @@
 
 **Status: automated E2E and browser checks passed; owner manual UAT NOT YET EXECUTED.** Do not treat this guide or prefilled synthetic data as owner sign-off.
 
+## Navigation correction before owner review
+
+Use the same preserved demo at **http://127.0.0.1:3108/management**. URL-backed workspaces, Back/Forward, direct links and nested review/history are now available. Customer ledgers also has its own sidebar entry at /management/customers. See [routing map](UI-navigation-routing.md), [test results](UI-navigation-test-results.md) and [visual review](UI-navigation-UX-and-visual-review.md). Owner visual approval and manual UAT remain pending.
+
+Reproduce: sign in, choose Purchases, then Sales; Back returns Purchases and Forward returns Sales. Open /management/expenses/documents/30, refresh, then All documents; Back returns the same detail. Enter a fictitious unsaved expense value, switch to another section, then Back: the value stays in memory. A full-page exit warns; Cancel retains it. Successful saves do not warn unnecessarily. Sign out and press Back: only sign-in appears. Never save extra records merely to test navigation.
+
+Forms now use named sections, visible required indicators and nearby validation; source/audit JSON expands on demand. Screenshot examples are in ignored tmp/ui-navigation/screenshots (dashboard, seven forms, posted inspection24, details/history, drawer;1440/768/390). Preserve all existing demo fixtures. Continue using the masked/clipboard credential commands below; do not paste passwords into chat or documents.
+
 ## Redesigned navigation before manual UAT
 
 Owner visual review of the redesign is pending. Use the left sidebar: Operations contains Inventory, Purchases and accounts, Sales / Delivery Challans and Customer Returns; Accounts contains Customer Receipts, Cheque Management, Customer credit notes and Business expenses. Administration contains permitted Master data, Staff accounts, Identity history and My profile. At tablet/mobile widths choose Open navigation. Empty/unauthorized groups are hidden. Vendor accounts stay under Purchases; customer ledgers stay under Sales → Customer ledger. Actual module policy/approval/reconciliation controls remain in those modules; no fake global pages were added.

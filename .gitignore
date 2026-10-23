@@ -384,3 +384,6 @@ FodyWeavers.xsd
 
 # Private management redesign screenshots and verification evidence
 /tmp/ui-redesign/
+
+# Private navigation correction verification and screenshots
+/tmp/ui-navigation/
