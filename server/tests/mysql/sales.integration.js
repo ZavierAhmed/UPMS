@@ -1,3 +1,4 @@
+import {round3Browser} from './ui-r3.browser.js';
 import {expenseAcceptance} from './expenses.cases.js';
 import {creditAcceptance} from './credits.cases.js';
 import {returnAcceptance} from './returns.cases.js';
@@ -71,10 +72,11 @@ test('P2.5 isolated real MariaDB delivery challan and customer receivable accept
  }
 
  await sub('real browser draft/edit/direct dispatch, customer ledger, administrator correction review and mobile',()=>salesBrowser({db,admin,sales,accounts,inventory,password,customer,finished,tag}));
+ if(process.env.UPMS_UI_R3_PLAN==='fresh-isolated-business-usability-v1'&&process.env.UPMS_P25A_SCOPE==='classification')await sub('Round3 populated master, challan and classified ledger browser acceptance',()=>round3Browser({db,admin,accounts,sales,inventory,svc,stock,password,tag,customer,finished,produce}));
  if(['receipts','cheques','returns','credits','expenses'].includes(process.env.UPMS_P25A_SCOPE))await receiptAcceptance({sub,db,owner,admin,accounts,sales,inventory,svc,stock,purchases,save,common,line,body,day,year,period,reason,tag,password,finished});
  if(['cheques','returns','credits','expenses'].includes(process.env.UPMS_P25A_SCOPE))await chequeAcceptance({sub,db,owner,admin,accounts,sales,inventory,svc,stock,purchases,save,common,line,body,day,year,period,reason,tag,password,finished});
  if(['returns','credits','expenses'].includes(process.env.UPMS_P25A_SCOPE))await returnAcceptance({sub,db,owner,admin,accounts,sales,inventory,svc,stock,purchases,save,common,line,body,day,year,period,reason,tag,password,finished});
  if(['credits','expenses'].includes(process.env.UPMS_P25A_SCOPE))await creditAcceptance({sub,db,owner,admin,accounts,sales,inventory,svc,stock,purchases,save,common,line,body,day,year,period,reason,tag,password,finished});
- if(process.env.UPMS_P25A_SCOPE==='expenses')await expenseAcceptance({sub,db,owner,admin,accounts,sales,inventory,svc,stock,purchases,save,common,line,body,day,year,period,reason,tag,password,finished});
+ if(process.env.UPMS_P25A_SCOPE==='expenses')await expenseAcceptance({customer,produce,sub,db,owner,admin,accounts,sales,inventory,svc,stock,purchases,save,common,line,body,day,year,period,reason,tag,password,finished});
  }finally{await mkdir('tmp/w06/p27c',{recursive:true});await writeFile(`tmp/w06/p27c/${process.env.UPMS_P25A_SCOPE}-${process.env.UPMS_P25_RUN}.json`,JSON.stringify({database:process.env.DB_NAME,results},null,2));await db.destroy();await owner.destroy();}
 });

@@ -1,4 +1,9 @@
-import {RoutingContext,useManagementRoute,routePermission,navigatePath,workspacePath,clearManagementMemory,hasUnsavedDrafts} from './managementRouting.js';
+import {MasterWorkspace} from './MasterWorkspace.jsx';
+import {CustomerLedger} from './CustomerLedger.jsx';
+import {BusinessUserContext,BusinessReadContext} from './managementContext.js';
+import {AuditTimeline} from './DocumentDetailLayout.jsx';
+import {ActionButton} from './ActionUI.jsx';
+import {RoutingContext,useManagementRoute,routePermission,routePermissions,navigatePath,workspacePath,clearManagementMemory,hasUnsavedDrafts} from './managementRouting.js';
 import {BusinessTable} from './ManagementUI.jsx';
 import {postingSummary,navigation} from './managementPresentation.js';
 import {Sidebar,ReviewDialog,WorkspaceBoundary} from './ManagementUI.jsx';
@@ -19,13 +24,14 @@ export function Management() {
   const [message, setMessage] = useState(''), [busy, setBusy] = useState(false), [routeError,setRouteError]=useState('');
   const [users, setUsers] = useState([]), [events, setEvents] = useState([]), [editing, setEditing] = useState(null);
   const route=useManagementRoute();
-  const requested=route.workspace==='customers'?'sales':route.workspace;
-  const allowed=route.workspace==='notfound'||!routePermission(route)||user?.permissions.includes(routePermission(route));
+  useEffect(()=>{if(user&&!user.passwordChangeRequired&&route.alias)navigatePath(route.alias,{replace:true});},[user,route.alias]);
+  const requested=route.workspace;
+  const allowed=route.workspace==='notfound'||(!routePermissions[route.workspace]||user?.permissions.includes(routePermissions[route.workspace]))&&(!routePermission(route)||user?.permissions.includes(routePermission(route)));
   const page=user?.passwordChangeRequired?'profile':routeError||(!allowed?'denied':requested);
   const active = useRef(false), reviewResolve=useRef(null),readCache=useRef(new Map());
   const [reading,setReading]=useState(0);
   const [review,setReview]=useState(null),[visited,setVisited]=useState([]);
-  if(user&&!user.passwordChangeRequired&&['masters','sales','expenses','credits','returns','cheques','receipts','purchases','inventory'].includes(page)&&!visited.includes(page))setVisited(v=>[...v,page]);
+  if(user&&!user.passwordChangeRequired&&['customers','vendors','products','customer-ledgers','masters','sales','expenses','credits','returns','cheques','receipts','purchases','inventory'].includes(page)&&!visited.includes(page))setVisited(v=>[...v,page]);
   function decideReview(accepted){setReview(null);reviewResolve.current?.(accepted);reviewResolve.current=null;}
   useEffect(()=>()=>{reviewResolve.current?.(false);},[]);
   async function api(path, method = 'GET', body, csrf = token, commandKey, reviewSource) {
@@ -87,12 +93,12 @@ export function Management() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[route.path,user?.id]);
   const can = permission => !user?.passwordChangeRequired && user?.permissions.includes(permission);
-  const activePage=route.workspace==='customers'||route.view==='customers'?'customers':page;
+  const activePage=route.view==='customers'?'customer-ledgers':page;
   const pageLabel=navigation.flatMap(g=>g.items).find(i=>i[0]===activePage)?.[1]||'Workspace';
   const logout=()=>run(async()=>{if(hasUnsavedDrafts()&&!window.confirm('Sign out and discard your unsaved drafts? Cancel keeps your work open.'))return;await api('/session/logout','POST',{});setUser(null);setUsers([]);setEvents([]);setVisited([]);readCache.current.clear();setToken('');clearManagementMemory();decideReview(false);navigatePath('/management',{replace:true});});
   return <div className={'management '+(user?'authenticated':'signed-out')}><a className="skip-link" href="#workspace-main">Skip to workspace</a>
     {user?<Sidebar user={user} page={activePage} can={can} navigate={navigate} signOut={logout} busy={busy}/>:<header className="login-brand"><a className="brand" href="/management"><span className="brand-mark">U</span><span>Unique Plastic<small>INDUSTRY · MANAGEMENT</small></span></a></header>}
-    <RoutingContext.Provider value={allowed&&!user?.passwordChangeRequired}><main id="workspace-main">{user&&<div className="workspace-topbar"><span>Workspace <span aria-hidden="true">/</span> <strong>{pageLabel}</strong>{route.documentId&&<span> / Document {route.documentId}</span>}{(route.view==='new'||route.draftId)&&<span> / Draft {route.draftId||''}</span>}</span><span className="staff-chip">{user.displayName}</span></div>}{reading>0&&<div className="read-progress" role="status">Loading records…</div>}{message && <p className="notice" role="alert">{message}</p>}
+    <BusinessUserContext.Provider value={user}><BusinessReadContext.Provider value={reading>0}><RoutingContext.Provider value={allowed&&!user?.passwordChangeRequired}><main id="workspace-main">{user&&<div className="workspace-topbar"><span>Workspace <span aria-hidden="true">/</span> <strong>{pageLabel}</strong>{route.documentId&&<span> / Document {route.documentId}</span>}{(route.view==='new'||route.draftId)&&<span> / Draft {route.draftId||''}</span>}</span><span className="staff-chip">{user.displayName}</span></div>}{reading>0&&<div className="read-progress" role="status">Loading records…</div>}{message && <p className="notice" role="alert">{message}</p>}
       {!ready ? <p role="status">Connecting securely…</p> : !user ? <section className="login"><p className="eyebrow">PRIVATE WORKSPACE</p><h1>Staff sign in</h1><p>Use the account provided by your administrator.</p>
         <form onSubmit={event => { event.preventDefault(); const form = event.currentTarget; const data = new FormData(form); run(async () => {
           let csrf = token;
@@ -102,8 +108,10 @@ export function Management() {
         }); }}>
           <label>Username<input name="username" autoComplete="username" maxLength={64} required /></label>
           <label>Password<input type="password" name="password" autoComplete="current-password" maxLength={128} required /></label>
-          <button disabled={busy}>{busy ? 'Signing in…' : 'Sign in'}</button>
+          <ActionButton disabled={busy}>{busy ? 'Signing in…' : 'Sign in'}</ActionButton>
         </form><p className="muted">Account access is managed locally. Contact your administrator for recovery.</p></section> : <>
+        {['customers','vendors','products'].map(workspace=>(page===workspace||visited.includes(workspace))&&<div key={workspace} hidden={page!==workspace} className="module-view"><WorkspaceBoundary><MasterWorkspace workspace={workspace} api={api} user={user}/></WorkspaceBoundary></div>)}
+        {(page==='customer-ledgers'||visited.includes('customer-ledgers'))&&<div hidden={page!=='customer-ledgers'} className="module-view"><WorkspaceBoundary><CustomerLedger api={api} user={user}/></WorkspaceBoundary></div>}
         {(page==='masters'||visited.includes('masters'))&&<div hidden={page!=='masters'} className="module-view"><WorkspaceBoundary><BusinessMasters api={api} user={user}/></WorkspaceBoundary></div>}
         {(page==='sales'||visited.includes('sales'))&&<div hidden={page!=='sales'} className="module-view"><WorkspaceBoundary><Sales api={api} user={user}/></WorkspaceBoundary></div>}
         {(page==='expenses'||visited.includes('expenses'))&&<div hidden={page!=='expenses'} className="module-view"><WorkspaceBoundary><Expenses api={api} user={user}/></WorkspaceBoundary></div>}
@@ -113,14 +121,14 @@ export function Management() {
         {(page==='receipts'||visited.includes('receipts'))&&<div hidden={page!=='receipts'} className="module-view"><WorkspaceBoundary><Receipts api={api} user={user}/></WorkspaceBoundary></div>}
         {(page==='purchases'||visited.includes('purchases'))&&<div hidden={page!=='purchases'} className="module-view"><WorkspaceBoundary><Purchases api={api} user={user}/></WorkspaceBoundary></div>}
         {(page==='inventory'||visited.includes('inventory'))&&<div hidden={page!=='inventory'} className="module-view"><WorkspaceBoundary><Inventory api={api} user={user}/></WorkspaceBoundary></div>}
-        {page === 'notfound'&&<section><h1>Page not found</h1><p>This management address does not match a supported workspace or document view.</p><button onClick={()=>navigate('home')}>Open dashboard</button></section>}
-        {page === 'denied' && <section><h1>Access denied</h1><p>Your current department permissions do not allow this action.</p><button onClick={() => navigate('home')}>Return to overview</button></section>}
+        {page === 'notfound'&&<section><h1>Page not found</h1><p>This management address does not match a supported workspace or document view.</p><ActionButton onClick={()=>navigate('home')}>Open dashboard</ActionButton></section>}
+        {page === 'denied' && <section><h1>Access denied</h1><p>Your current department permissions do not allow this action.</p><ActionButton onClick={() => navigate('home')}>Return to overview</ActionButton></section>}
         {page === 'home' && <Dashboard user={user} api={api} navigate={navigate}/>}
         {page === 'profile' && <section><h1>My profile</h1><p>{user.username} · {user.displayName}</p><h2>Change password</h2>{user.passwordChangeRequired && <p role="alert">Change your temporary password before using staff management.</p>}<p>This signs out all your sessions.</p><form onSubmit={event => { event.preventDefault(); const data = new FormData(event.currentTarget); run(async () => {
           await api('/profile/password', 'POST', { currentPassword: data.get('current'), newPassword: data.get('new') }); window.location.assign('/management');
-        }); }}><label>Current password<input type="password" name="current" autoComplete="current-password" maxLength={128} required /></label><label>New password<input type="password" name="new" autoComplete="new-password" minLength={12} maxLength={128} required /></label><button disabled={busy}>Change password and sign out</button></form><button disabled={busy} onClick={() => run(async () => { await api(`/users/${user.id}/revoke-sessions`, 'POST', {}); window.location.assign('/management'); })}>Revoke all my sessions</button></section>}
+        }); }}><label>Current password<input type="password" name="current" autoComplete="current-password" maxLength={128} required /></label><label>New password<input type="password" name="new" autoComplete="new-password" minLength={12} maxLength={128} required /></label><ActionButton disabled={busy}>Change password and sign out</ActionButton></form><ActionButton disabled={busy} onClick={() => run(async () => { await api(`/users/${user.id}/revoke-sessions`, 'POST', {}); window.location.assign('/management'); })}>Revoke all my sessions</ActionButton></section>}
         {page === 'users' && (!can('users.read') ? <h1>Access denied</h1> : <section><h1>Staff accounts</h1><p>Up to 100 accounts. Changes take effect immediately and are recorded.</p>
-          <button disabled={busy} onClick={() => run(refreshUsers)}>Refresh accounts</button><div className="table-wrap"><BusinessTable><thead><tr><th>Name</th><th>Username</th><th>Departments</th><th>Status</th><th>Actions</th></tr></thead><tbody>{users.map(person => <tr key={person.id}><td>{person.displayName}</td><td>{person.username}</td><td>{person.roles.join(', ')}</td><td>{person.enabled ? 'Enabled' : 'Disabled'}</td><td><button disabled={busy} onClick={() => setEditing(person)}>Edit access</button><button disabled={busy} onClick={() => run(async () => { await api(`/users/${person.id}/revoke-sessions`, 'POST', {}); setMessage('Sessions revoked.'); })}>Revoke sessions</button></td></tr>)}</tbody></BusinessTable></div>
+          <ActionButton disabled={busy} onClick={() => run(refreshUsers)}>Refresh accounts</ActionButton><div className="table-wrap"><BusinessTable><thead><tr><th>Name</th><th>Username</th><th>Departments</th><th>Status</th><th>Actions</th></tr></thead><tbody>{users.map(person => <tr key={person.id}><td>{person.displayName}</td><td>{person.username}</td><td>{person.roles.join(', ')}</td><td>{person.enabled ? 'Enabled' : 'Disabled'}</td><td><ActionButton disabled={busy} onClick={() => setEditing(person)}>Edit access</ActionButton><ActionButton disabled={busy} onClick={() => run(async () => { await api(`/users/${person.id}/revoke-sessions`, 'POST', {}); setMessage('Sessions revoked.'); })}>Revoke sessions</ActionButton></td></tr>)}</tbody></BusinessTable></div>
           <AccountForm key={editing?.id || 'new'} person={editing} busy={busy} cancel={() => setEditing(null)} submit={data => run(async () => {
             if (editing) await api(`/users/${editing.id}`, 'PATCH', { ...data, version: editing.version });
             else await api('/users', 'POST', data);
@@ -128,9 +136,9 @@ export function Management() {
             setEditing(null); await refreshUsers(); setMessage('Account saved.');
           })} />
         </section>)}
-        {page === 'audit' && (!can('audit.read') ? <h1>Access denied</h1> : <section><h1>Identity history</h1><p>Latest 100 identity events; times shown in UTC.</p><ol className="history">{events.map(event => <li key={event.id}><strong>{event.action}</strong><span>{event.created_at} UTC · Actor {event.actor_id || 'local bootstrap'} · Target {event.target_id || '—'}</span><pre>{event.details}</pre></li>)}</ol></section>)}
+        {page === 'audit' && (!can('audit.read') ? <h1>Access denied</h1> : <section><h1>Identity history</h1><p>Latest 100 identity events; times shown in UTC.</p><AuditTimeline events={events}/></section>)}
       </>}
-    </main></RoutingContext.Provider><ReviewDialog review={review} onDecision={decideReview}/><footer>Unique Plastic Industry · Authorized staff only</footer></div>;
+    </main></RoutingContext.Provider></BusinessReadContext.Provider></BusinessUserContext.Provider><ReviewDialog review={review} onDecision={decideReview}/><footer>Unique Plastic Industry · Authorized staff only</footer></div>;
 }
 function AccountForm({ person, busy, submit, cancel }) {
   return <form className="card" onSubmit={event => { event.preventDefault(); const form = event.currentTarget; const data = new FormData(form);
@@ -141,6 +149,6 @@ function AccountForm({ person, busy, submit, cancel }) {
     {!person && <><label>Display name<input name="displayName" maxLength={100} required /></label><label>Username<input name="username" minLength={3} maxLength={64} pattern="[a-zA-Z0-9._-]+" required autoComplete="off" /></label><label>Initial password<input name="password" type="password" autoComplete="new-password" minLength={12} maxLength={128} required /></label></>}
     <fieldset><legend>Departments</legend>{departments.map(([code, name]) => <label className="check" key={code}><input type="checkbox" name="roles" value={code} defaultChecked={person?.roles.includes(code)} />{name}</label>)}</fieldset>
     {person && <label className="check"><input type="checkbox" name="enabled" defaultChecked={person.enabled} />Account enabled</label>}
-    <label>Reason for this change<input name="reason" minLength={3} maxLength={250} required /></label><button disabled={busy}>Save account</button>{person && <button type="button" onClick={cancel}>Cancel</button>}
+    <label>Reason for this change<input name="reason" minLength={3} maxLength={250} required /></label><ActionButton disabled={busy}>Save account</ActionButton>{person && <ActionButton type="button" onClick={cancel}>Cancel</ActionButton>}
   </form>;
 }

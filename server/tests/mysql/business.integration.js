@@ -252,6 +252,19 @@ test('P2.2 real restricted MariaDB acceptance; no owner-schema fixtures or destr
       await page.setViewport({width:390,height:844});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth),true);assert.deepEqual(errors,[]);
       await writeFile(`tmp/w06/p27c/legacy-business/browser-${tag}.json`,JSON.stringify({masterCreate:true,duplicateFeedback:true,mobile:true,pageErrors:errors}));
     });
+    await sub('Round3 master detail reads are resource-scoped, explicit and nonfinancial',async()=>{
+      // Earlier restart assertions intentionally destroy the initial app pool; bind this additive read proof to the current live pool.
+      app=createApp({config:loadConfig({}),management:config,identityDatabase:db});const freshAdmin=await fixture('administrator');
+      const customerResponse=await freshAdmin.agent.get(base+'/business/masters/customers/'+customer);
+      assert.equal(customerResponse.status,200);assert.equal(String(customerResponse.body.record.id),String(customer));
+      assert.equal(Object.hasOwn(customerResponse.body.record,'balance'),false);assert.equal(Object.hasOwn(customerResponse.body.record,'created_by'),false);
+      const itemResponse=await freshAdmin.agent.get(base+'/business/masters/items/'+item);assert.equal(itemResponse.status,200);assert.ok(itemResponse.body.record.category_code);
+      const inv=await fixture('inventory');assert.equal((await inv.agent.get(base+'/business/masters/customers/'+customer)).status,403);assert.equal((await inv.agent.get(base+'/business/masters/items/'+item)).status,200);
+      const salesUser=await fixture('sales_dispatch');const vendor=await save('vendors',common('R3_VENDOR'));assert.equal((await salesUser.agent.get(base+'/business/masters/vendors/'+vendor.key)).status,403);
+      assert.equal((await freshAdmin.agent.get(base+'/business/masters/vendors/'+vendor.key)).status,200);
+      assert.equal((await freshAdmin.agent.get(base+'/business/masters/items/999999999')).status,404);
+      assert.equal((await freshAdmin.agent.get(base+'/business/masters/units/'+units[0])).status,404);
+    });
     await writeFile(`tmp/w06/p27c/legacy-business/results-${tag}.json`,JSON.stringify({database:process.env.DB_NAME,checks:results,identityRegression:17,ownerSchemaUntouched:true},null,2));
   }finally{await browser?.close();if(server)await new Promise(resolve=>{server.close(resolve);server.closeIdleConnections();});await db.destroy();await owner.destroy();}
 });

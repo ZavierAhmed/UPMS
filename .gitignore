@@ -387,3 +387,6 @@ FodyWeavers.xsd
 
 # Private navigation correction verification and screenshots
 /tmp/ui-navigation/
+
+# Private Round 3 UI evidence
+/tmp/ui-r3/

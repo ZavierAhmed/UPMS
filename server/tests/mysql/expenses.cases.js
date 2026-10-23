@@ -1,3 +1,4 @@
+import {round3Browser} from './ui-r3.browser.js';
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {spawn} from 'node:child_process';
@@ -39,4 +40,5 @@ export async function expenseAcceptance(c){
  await sub('read-only expense and combined financial reconciliation detect tampering without repair',async()=>{assert.deepEqual((await s.reconcile(accounts.session)).mismatches,[]);await assert.rejects(owner.transaction(async trx=>{await trx('expense_balances').where({expense_id:high.id}).update({outstanding:'1'});assert.equal((await expenseService(trx).reconcile(accounts.session)).matched,false);throw Error('rollback expense probe');}),/rollback expense probe/);assert.equal((await purchases.reconcile(admin.session)).matched,true);assert.equal((await svc.reconcile(accounts.session)).matched,true);assert.equal((await stock.reconcile(inventory.session)).matched,true);});
  await sub('independent role browsers record, partially settle, approve threshold, manage categories and retain mobile privacy',()=>expensesBrowser({db,admin,accounts,sales,inventory,password,utility,cash,tag,reason}));
  await sub('final expense browser obligations, shared money and all preceding modules reconcile',async()=>{assert.deepEqual((await s.reconcile(admin.session)).mismatches,[]);assert.equal((await svc.reconcile(accounts.session)).matched,true);assert.equal((await purchases.reconcile(admin.session)).matched,true);assert.equal((await stock.reconcile(inventory.session)).matched,true);});
+ if(process.env.UPMS_UI_R3_PLAN==='fresh-isolated-business-usability-v1')await sub('Round3 populated business directories, challan and ledger browser acceptance',()=>round3Browser(c));
 }

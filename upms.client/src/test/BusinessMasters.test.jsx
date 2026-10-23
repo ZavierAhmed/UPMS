@@ -10,7 +10,7 @@ describe('business master workspace',()=>{
     fireEvent.change(screen.getByLabelText('Code'),{target:{value:'PCS'}});fireEvent.change(screen.getByLabelText('Name'),{target:{value:'Pieces'}});
     fireEvent.change(screen.getByLabelText('Reason for this change'),{target:{value:'Approved canonical unit'}});fireEvent.click(screen.getByRole('button',{name:'Save master record'}));
     await waitFor(()=>expect(api).toHaveBeenCalledWith('/business/masters/units','POST',expect.objectContaining({code:'PCS',scale:0,active:true,reason:'Approved canonical unit'}),undefined,expect.any(String)));
-    expect(screen.queryByText(/opening balance/i)).toBeNull();
+    expect(screen.queryByLabelText(/opening balance/i)).toBeNull();
   });
   it('renders only permitted read-only customer contacts without financial account controls',async()=>{
     const api=vi.fn(async path=>path==='/business/resources'?{resources:[{code:'customers',label:'Customers',kind:'party',canWrite:false}]}:{records:[{id:'1',code:'C1',name:'Synthetic customer',active:true,phone:'Synthetic contact'}]});

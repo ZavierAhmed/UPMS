@@ -26,6 +26,16 @@ export function masterService(db){
         return rows.map(row=>({...row,...(row.id?{id:String(row.id)}:{}),active:Boolean(row.active),...(r.kind==='documentType'?{prefix_approved:Boolean(row.prefix_approved)}:{})}));
       });
     },
+    async detail(session,name,id){
+      if(!['customers','vendors','items'].includes(name))throw new IdentityError(404,'NOT_FOUND');
+      const r=resource(name);
+      return identity.read(session,r.read,async trx=>{
+        const fields=['id','code','name','active','version',...(r.kind==='party'?['contact_name','email','phone','address','remarks']:['category_code','unit_id','bottle_type_id','size_id','quality_id','colour_id'])];
+        const row=await query(trx(r.table).select(fields).where({id}).first());
+        if(!row)throw new IdentityError(404,'NOT_FOUND');
+        return {...row,id:String(row.id),active:Boolean(row.active)};
+      });
+    },
     async save(session,name,recordKey,input,commandKey){
       const r=resource(name),parsed=masterInput(name).parse(input);
       if(recordKey&&!parsed.version)throw new IdentityError(400,'VERSION_REQUIRED');

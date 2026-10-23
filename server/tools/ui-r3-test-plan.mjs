@@ -1,0 +1,21 @@
+export const uiR3TestPlan=Object.freeze({
+full06:{schema:'upms_test_p27c_receipts_20261023_05',run:'r3f06',scope:'expenses',suffix:'x'},
+full07:{schema:'upms_test_p27c_receipts_20261023_04',run:'r3f07',scope:'expenses',suffix:'x'},
+full04:{schema:'upms_test_p27c_receipts_20261023_07',run:'r3f04',scope:'expenses',suffix:'x'},
+full05:{schema:'upms_test_p27c_receipts_20261023_06',run:'r3f05',scope:'expenses',suffix:'x'},
+full01:{schema:'upms_test_p27c_sales_20261023_05',run:'r3f01',scope:'expenses',suffix:'x'},
+full02:{schema:'upms_test_p27c_sales_20261023_06',run:'r3f02',scope:'expenses',suffix:'x'},
+full03:{schema:'upms_test_p27c_sales_20261023_07',run:'r3f03',scope:'expenses',suffix:'x'},
+regression02:{schema:'upms_test_p27c_regression_20261023_08',run:'r3r02',scope:'regression',suffix:'r'},
+purchasing02:{schema:'upms_test_p27c_purchasing_20261023_08',run:'r3p02',scope:'purchasing',suffix:'p'},
+classification06:{schema:'upms_test_p27c_returns_20261023_08',run:'r3c06',scope:'classification',suffix:'c'},
+classification05:{schema:'upms_test_p27c_receipts_20261023_08',run:'r3c05',scope:'classification',suffix:'c'},
+classification04:{schema:'upms_test_p27c_sales_20261023_08',run:'r3c04',scope:'classification',suffix:'c'},
+classification03:{schema:'upms_test_p27c_classification_20261023_08',run:'r3c03',scope:'classification',suffix:'c'},
+classification02:{schema:'upms_test_p27c_classification_20261023_07',run:'r3c02',scope:'classification',suffix:'c'},
+regression:{schema:'upms_test_p27c_regression_20261023_07',run:'r3r01',scope:'regression',suffix:'r'},
+inventory:{schema:'upms_test_p27c_inventory_20261023_07',run:'r3i01',scope:'inventory',suffix:'i'},
+purchasing:{schema:'upms_test_p27c_purchasing_20261023_07',run:'r3p01',scope:'purchasing',suffix:'p'},
+classification:{schema:'upms_test_p27c_classification_20261023_06',run:'r3c01',scope:'classification',suffix:'c'}
+});
+export function r3TestTarget(key){const p=uiR3TestPlan[key];if(!p)throw Error('Unknown reviewed Round3 target');return {...p,user:'upms_runtime_test_p27c'+p.suffix+p.run,migrator:'upms_migrator_test_uir3_'+key};}

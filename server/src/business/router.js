@@ -12,6 +12,7 @@ export function businessRouter(db){
     const search=String(req.query.q||'').trim();if(search.length>100)throw new IdentityError(400,'INVALID_INPUT');
     res.json({records:await masters.list(req.session,req.params.resource,search),limit:100});
   });
+  router.get('/masters/:resource/:key',async(req,res)=>res.json({record:await masters.detail(req.session,req.params.resource,key.parse(req.params.key))}));
   router.post('/masters/:resource',async(req,res)=>res.status(201).json(await masters.save(req.session,req.params.resource,null,req.body,req.get('Idempotency-Key'))));
   router.patch('/masters/:resource/:key',async(req,res)=>{
     const recordKey=req.params.resource==='categories'?req.params.key:key.parse(req.params.key);

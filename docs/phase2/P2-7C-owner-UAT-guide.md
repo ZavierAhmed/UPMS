@@ -4,15 +4,15 @@
 
 ## Navigation correction before owner review
 
-Use the same preserved demo at **http://127.0.0.1:3108/management**. URL-backed workspaces, Back/Forward, direct links and nested review/history are now available. Customer ledgers also has its own sidebar entry at /management/customers. See [routing map](UI-navigation-routing.md), [test results](UI-navigation-test-results.md) and [visual review](UI-navigation-UX-and-visual-review.md). Owner visual approval and manual UAT remain pending.
+Use the same preserved demo at **http://127.0.0.1:3108/management**. URL-backed workspaces, Back/Forward, direct links and nested review/history are now available. Customer ledgers has its own sidebar entry at /management/customer-ledgers; /management/customers is now the customer registry. See [routing map](UI-navigation-routing.md), [test results](UI-navigation-test-results.md) and [visual review](UI-navigation-UX-and-visual-review.md). Owner visual approval and manual UAT remain pending.
 
 Reproduce: sign in, choose Purchases, then Sales; Back returns Purchases and Forward returns Sales. Open /management/expenses/documents/30, refresh, then All documents; Back returns the same detail. Enter a fictitious unsaved expense value, switch to another section, then Back: the value stays in memory. A full-page exit warns; Cancel retains it. Successful saves do not warn unnecessarily. Sign out and press Back: only sign-in appears. Never save extra records merely to test navigation.
 
-Forms now use named sections, visible required indicators and nearby validation; source/audit JSON expands on demand. Screenshot examples are in ignored tmp/ui-navigation/screenshots (dashboard, seven forms, posted inspection24, details/history, drawer;1440/768/390). Preserve all existing demo fixtures. Continue using the masked/clipboard credential commands below; do not paste passwords into chat or documents.
+Forms now use named sections, visible required indicators and nearby validation; business activity expands on demand; raw technical JSON is available only in closed administrator diagnostics. Screenshot examples are in ignored tmp/ui-navigation/screenshots (dashboard, seven forms, posted inspection24, details/history, drawer;1440/768/390). Preserve all existing demo fixtures. Continue using the masked/clipboard credential commands below; do not paste passwords into chat or documents.
 
 ## Redesigned navigation before manual UAT
 
-Owner visual review of the redesign is pending. Use the left sidebar: Operations contains Inventory, Purchases and accounts, Sales / Delivery Challans and Customer Returns; Accounts contains Customer Receipts, Cheque Management, Customer credit notes and Business expenses. Administration contains permitted Master data, Staff accounts, Identity history and My profile. At tablet/mobile widths choose Open navigation. Empty/unauthorized groups are hidden. Vendor accounts stay under Purchases; customer ledgers stay under Sales → Customer ledger. Actual module policy/approval/reconciliation controls remain in those modules; no fake global pages were added.
+Owner visual review of the redesign is pending. Use the left sidebar: Operations contains Inventory, Purchases and accounts, Sales / Delivery Challans and Customer Returns; Accounts contains Customer Receipts, Cheque Management, Customer credit notes and Business expenses. Administration contains permitted Master data, Staff accounts, Identity history and My profile. At tablet/mobile widths choose Open navigation. Empty/unauthorized groups are hidden. Vendor accounts stay under Purchases; customer ledgers use the Accounts sidebar entry (also accessible from Sales → Customer ledger). Actual module policy/approval/reconciliation controls remain in those modules; no fake global pages were added.
 
 Quick cards open the relevant workspace and retain an existing draft. Expense/credit forms and detail panels have Back to expense documents / Back to credit notes. Before a financial post, review the explicit confirmation dialog, then Confirm posting or Back to review. Cancellation performs no financial mutation. Success appears only after the server confirms. The synthetic banner stays visible, including inside confirmation.
 
@@ -130,3 +130,13 @@ Findings and required changes: ____
 Owner signature: ____  Independent technical reviewer: ____
 
 This sign-off does not authorize merge, deployment, real company activation or P2.8; each requires a separate instruction.
+
+## Round 3 owner review — pending
+
+Business directories: /management/customers, /management/vendors and /management/products. Each supports /new, /records/:id and /records/:id/edit with existing permissions. Product canonical identity is locked and stock is read-only. Do not save extra demo records for navigation review.
+
+Accounts → Customer ledgers opens /management/customer-ledgers. The old /management/sales/customers link redirects. Select one customer and GST or NON_GST, inspect authoritative summary cards, transaction tabs and date/reference filters, open a source then Back to Ledger. Check per-challan outstanding and per-receipt remaining unapplied amounts; no running balance is inferred.
+
+Sales → New Challan is the primary header action. Review the form without posting extra demo transactions. Inspect a posted detail: business summary and lines first, activity collapsed, administrator diagnostics closed; ordinary roles cannot mount raw JSON. Review mobile drawer, Back/Forward, refresh and unsaved draft warnings.
+
+Synthetic screenshots: tmp/ui-r3/screenshots/customer-ledger-gst-1440.png, customers-detail-1440.png, sales-list-new-challan-390.png and products-add-390.png. Full inventory: UI-R3-visual-acceptance.md. Automated results do not fill owner Actual/PASS/FAIL/sign-off fields. Owner visual approval and full manual UAT remain pending.

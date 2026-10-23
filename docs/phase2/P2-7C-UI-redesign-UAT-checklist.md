@@ -58,3 +58,16 @@ Automated navigation17 and visual85 passed; these owner fields remain blank. See
 
 Owner visual decision: ____ Date: ____ Evidence: ____
 Manual UAT sign-off: ____ Date: ____ Remaining issues: ____
+
+## Round 3 additional owner checks — not executed
+
+| Case | Role/navigation/action | Expected result | Actual / PASS-FAIL / evidence |
+|---|---|---|---|
+| R301 | Authorized role → Customers / Vendors / Products | Dedicated directory/search/filter/add/detail/edit routes; product identity locked, quantities read-only | ____ [ ]PASS [ ]FAIL ____ |
+| R302 | Sales → New Challan | Prominent primary action at desktop/mobile; original labelled form; no posting for visual-only review | ____ [ ]PASS [ ]FAIL ____ |
+| R303 | Accounts → Customer ledgers | Explicit customer and GST/NON_GST, authoritative cards, outstanding/unapplied facts and typed debit/credit rows | ____ [ ]PASS [ ]FAIL ____ |
+| R304 | Ledger → source → Back to Ledger | Selected customer/classification retained; Back/Forward and refresh correct | ____ [ ]PASS [ ]FAIL ____ |
+| R305 | Posted document details in each workflow | Readable summary/lines/source links; activity collapsed; administrator diagnostics closed; ordinary roles no raw JSON | ____ [ ]PASS [ ]FAIL ____ |
+| R306 | Form → other workspace → Back; then sign out | Draft retained internally, exit warning; signed-out Back exposes no protected content | ____ [ ]PASS [ ]FAIL ____ |
+
+See UI-R3-visual-acceptance.md for the61 synthetic screenshot inventory. Current customer registry is /management/customers; financial ledger is /management/customer-ledgers. Legacy /management/sales/customers redirects. Keep every result/signature blank until performed by the owner.
