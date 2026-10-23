@@ -1,0 +1,9 @@
+import {z} from 'zod';
+import {key} from '../business/validation.js';
+export const reason=z.string().trim().min(3).max(500),quantity=z.string().regex(/^\d{1,14}(?:\.\d{1,6})?$/);
+export const lineInput=z.object({salesLineId:key,itemId:key,unitId:key,quantity,requestLineId:key.nullable(),receiptLineId:key.nullable(),expectedVersion:z.number().int().positive().nullable(),reusable:quantity,damaged:quantity,remaining:quantity}).strict();
+export const draftInput=z.object({kind:z.enum(['REQUEST','RECEIPT','INSPECTION']),challanId:key,customerId:key,ledgerType:z.enum(['GST','NON_GST']),requestId:key.nullable(),receiptId:key.nullable(),businessDate:z.string().date(),customerReference:z.string().trim().max(150),evidenceReference:z.string().trim().min(3).max(200),notes:z.string().trim().min(3).max(1000),reason,lines:z.array(lineInput).min(1).max(30),version:z.number().int().positive().optional()}).strict();
+export const command=z.object({version:z.number().int().positive(),reason}).strict();
+export const decision=command.extend({hash:z.string().regex(/^[a-f0-9]{64}$/),decision:z.enum(['APPROVED','REJECTED'])}).strict();
+export const policyInput=z.object({scope:z.literal('SYNTHETIC_ONLY'),receipt:z.literal('DIRECT_INVENTORY_TO_QUARANTINED'),disposition:z.literal('EXACT_ADMINISTRATOR_APPROVAL'),inspection:z.literal('PARTIAL_WITH_EXACT_REMAINDER'),financialEffects:z.literal('NONE'),cutoff:z.string().date(),periodId:key,prefixes:z.object({REQUEST:z.string().regex(/^[A-Z0-9]{1,12}$/),RECEIPT:z.string().regex(/^[A-Z0-9]{1,12}$/),INSPECTION:z.string().regex(/^[A-Z0-9]{1,12}$/)}).strict(),confirm:z.literal(true),reason}).strict().refine(p=>new Set(Object.values(p.prefixes)).size===3);
+export const filters=z.object({cursor:key.optional(),kind:z.enum(['REQUEST','RECEIPT','INSPECTION']).optional(),challanId:key.optional(),customerId:key.optional(),limit:z.coerce.number().int().min(1).max(100).default(50)}).strict();
