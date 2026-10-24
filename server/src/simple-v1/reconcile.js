@@ -1,3 +1,4 @@
+import {discount} from './entry.js';
 import {canonical} from '../business/transactions.js';
 import {cents,integer,money,dcNumber} from './exact.js';
 export async function reconcileV1(t){
@@ -11,7 +12,7 @@ export async function reconcileV1(t){
    if(ss.length!==expectedStock.size||ss.some(j=>expectedStock.get(String(j.item_id))!==BigInt(j.delta)))mismatches.push('Stock source '+d.id);
   }else if(ss.length||ls.length)mismatches.push('Unexpected stock effects '+d.id);
   if(['CLIENT_OPENING','VENDOR_OPENING'].includes(d.kind)){total=cents(p.amount,{zero:true});if(p.direction==='OWED_TO_COMPANY')debit=total;else credit=total;}
-  else if(d.kind==='CHALLAN'){debit=total;if(d.official_number!==dcNumber(d.sequence))mismatches.push('Number '+d.id);}
+  else if(d.kind==='CHALLAN'){if(p.entryVersion===2){try{const computed=discount(total,p.discountMode,p.discountValue);if(canonical(computed)!==canonical(p.discountSummary)||d.sale_subtotal!==computed.subtotal||d.discount_mode!==computed.mode||d.discount_value!==computed.value||d.discount_amount!==computed.amount)mismatches.push('Discount evidence '+d.id);total=cents(computed.total);}catch{mismatches.push('Invalid discount '+d.id);}}debit=total;if(d.official_number!==dcNumber(d.sequence))mismatches.push('Number '+d.id);}
   else if(d.kind==='PURCHASE'){credit=total;if(p.paidImmediately)debit=total;}
   else if(d.kind==='CLIENT_PAYMENT'){total=cents(p.amount);credit=total;}
   else if(d.kind==='VENDOR_PAYMENT'){total=cents(p.amount);debit=total;}

@@ -1,3 +1,4 @@
+import {entryErrorResponse} from './errors.js';
 import express from 'express';
 import {z} from 'zod';
 import {simpleV1Service} from './service.js';
@@ -20,5 +21,6 @@ export function simpleV1Router(db){const r=express.Router(),s=simpleV1Service(db
  r.get('/overview',async(req,res)=>res.json(await s.overview(req.session)));
  r.get('/movements',async(req,res)=>res.json({records:await s.movements(req.session)}));
  r.get('/reconciliation',async(req,res)=>res.json(await s.reconcile(req.session)));
+ r.use((err,req,res,next)=>{if(err.name!=='ZodError'&&![400,409].includes(err.status))return next(err);const error=entryErrorResponse(err,req.correlation);if(err.name==='ZodError')error.code='INVALID_INPUT';console.warn(JSON.stringify({event:'simple-entry.validation',reference:req.correlation,code:error.code,fields:Object.keys(error.fieldErrors||{})}));res.status(err.name==='ZodError'?400:err.status).json({error});});
  return r;
 }

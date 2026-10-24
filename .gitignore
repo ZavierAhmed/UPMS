@@ -397,3 +397,6 @@ FodyWeavers.xsd
 # V1.1 private verification, baseline builds and source screenshots
 /tmp/v11*
 /tmp/simple-v11-before/
+
+# V1.2 isolated diagnostics and baseline snapshot
+/tmp/v12*

@@ -1,0 +1,49 @@
+import {createServer} from 'node:http';
+import {randomUUID} from 'node:crypto';
+import {mkdir,writeFile} from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import puppeteer from 'puppeteer-core';
+import {createDatabase} from '../src/identity/database.js';
+import {identityConfig} from '../src/identity/config.js';
+import {today} from '../src/simple-v1/exact.js';
+import {createApp as currentApp} from '../src/app.js';
+import {v12Browser} from './simple-v12-browser.mjs';
+import {snapshots} from './business-operations.mjs';
+const action=process.argv[2],db=createDatabase();let app;
+const server=createServer((req,res)=>app(req,res));await new Promise(r=>server.listen(action==='serve'?3112:0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port;
+try{
+ if(['reproduce','reproduce-readonly'].includes(action)){
+  assert.equal(process.env.DB_NAME,'upms_test_simplev12_20261024_01');
+  const {createApp}=await import('../../tmp/v12-baseline/server/src/app.js');app=createApp({identityDatabase:db,management:{...identityConfig(),origin,root:'server/.local/simple-v12/v11-ui'}});
+  let cookie='',csrf;async function call(path,body){const r=await fetch(origin+'/api/v1/management'+path,{method:body?'POST':'GET',headers:{Origin:origin,Cookie:cookie,...(body?{'Content-Type':'application/json','X-CSRF-Token':csrf||'','Idempotency-Key':randomUUID()}:{})},...(body?{body:JSON.stringify(body)}:{})});if(r.headers.get('set-cookie'))cookie=r.headers.get('set-cookie').split(';')[0];assert.ok(r.ok);return r.json();}
+  csrf=(await call('/session/csrf')).csrfToken;csrf=(await call('/session/login',{username:'v1_operator',password:process.env.V1_OPERATOR_PASSWORD})).csrfToken;
+  const cmd=(p,b)=>call('/simple-v1'+p,b),date=today(),reason='Synthetic baseline reproduction fixture';const items=[];
+  if(action==='reproduce')for(const [code,colour]of [['REPRO-B','Black'],['REPRO-W','White']])items.push((await cmd('/items',{code,description:'Test Bottle',quality:'Recycle',colour,packing:'DT2',reason})).id);
+  if(action==='reproduce-readonly'){assert.equal((await db('v1_documents')).length,0);for(const code of ['REPRO-B','REPRO-W'])items.push(String((await db('v1_items').where({code}).first()).id));}
+  const client=action==='reproduce'?(await cmd('/parties',{kind:'CLIENT',name:'Synthetic Reproduction Client',reason})).id:String((await db('v1_parties').where({name:'Synthetic Reproduction Client'}).first()).id);
+  const browser=await puppeteer.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true,env:Object.fromEntries(Object.entries(process.env).filter(([k])=>!/PASSWORD|SECRET|OWNER|MIGRATOR/.test(k))),args:['--disable-extensions','--proxy-server=direct://','--proxy-bypass-list=*']});
+  try{const page=await browser.newPage(),evidence=[];page.on('dialog',d=>d.accept());await mkdir('tmp/v12-reproduction',{recursive:true});await page.setViewport({width:1440,height:1000});await page.goto(origin+'/management');await page.waitForSelector('[name=username]');await page.type('[name=username]','v1_operator');await page.type('[name=password]',process.env.V1_OPERATOR_PASSWORD);await page.click('button');await page.waitForFunction(()=>document.body.innerText.includes('Available bottle stock'));
+   async function fill(label,value){const h=await page.evaluateHandle(label=>{const l=[...document.querySelectorAll('label')].find(l=>l.childNodes[0]?.textContent.replace(/ \*$/,'')===label);return l?.htmlFor?document.getElementById(l.htmlFor):l?.querySelector('input,select');},label);assert.ok(h.asElement(),label);const el=h.asElement();if(await el.evaluate(e=>e.getAttribute('role')==='combobox')){await el.click();await page.click('[role=option][data-entity-id="'+value+'"]');}else await el.type(value);await h.dispose();}
+   async function click(text){const h=await page.evaluateHandle(text=>[...document.querySelectorAll('button')].find(b=>b.textContent.trim()===text),text);await h.asElement().click();await h.dispose();}
+   async function rejected(name,path,setup,button){await page.goto(origin+'/management'+path);await page.waitForSelector('.v1-form');await setup();const before=await snapshots(db),response=page.waitForResponse(r=>r.request().method()==='POST'&&r.url().includes('/simple-v1/'));await click(button);const r=await response,body=JSON.parse(r.request().postData()),result=await r.json();assert.equal(r.status(),400);assert.equal(result.error.code,'INVALID_INPUT');const after=await snapshots(db);for(const [table,fingerprint]of Object.entries(before))if(table.startsWith('v1_'))assert.deepEqual(after[table],fingerprint);const schemas=await import('../../tmp/v12-baseline/server/src/simple-v1/service.js'),parsed=(name==='add-item'?schemas.itemInput:schemas.documentInput).safeParse(body);assert.equal(parsed.success,false);assert.deepEqual(parsed.error.issues.map(i=>i.path),[['reason']]);evidence.push({case:name,rejectedFields:parsed.error.issues.map(i=>({path:i.path,code:i.code})),request:body,status:r.status(),response:result,noPartialEffects:true});await page.screenshot({path:'tmp/v12-reproduction/'+name+'.png',fullPage:true});}
+   await rejected('add-item','/items/new',async()=>{for(const [l,v]of [['Item code','0022'],['Description','Test Bottle'],['Quality','Recycle'],['Colour','black'],['Packing','DT2']])await fill(l,v);},'Save Item');
+   await rejected('production','/stock-in/new',async()=>{await fill('Bottle item 1',items[0]);await fill('Quantity 1','100');await click('Add bottle line');await fill('Bottle item 2',items[1]);await fill('Quantity 2','200');},'Save draft');
+   await rejected('challan','/challans/new',async()=>{await fill('Client / M/s',client);await fill('Bottle item 1',items[0]);await fill('Quantity 1','10');await fill('Rate PKR 1','25');await fill('Address','Synthetic address');await fill('Vehicle No.','DEMO');await fill('Driver Name','Synthetic driver');},'Save draft');
+   await writeFile('tmp/v12-reproduction/requests.json',JSON.stringify({frontend:'16dbac8 shared V1.1 build',backend:'435eee0 original V1 service retained by3110 process',evidence},null,2));console.info(JSON.stringify({reproduced:3,allRejectedForEmptyReason:true,noPartialEffects:true,date}));
+  }finally{await browser.close();}
+ }else{
+  app=currentApp({identityDatabase:db,management:{...identityConfig(),origin}});
+  if(action==='browser-continue'){assert.equal(process.env.DB_NAME,'upms_test_simplev12_20261024_04');assert.equal((await db('v1_items')).length,0);assert.equal((await db('v1_documents')).length,0);await v12Browser({db,origin});}
+  else if(action==='browser'||action==='review')await v12Browser({db,origin,readonly:action==='review'});
+  else if(action==='seed'){
+   assert.equal(process.env.DB_NAME,'upms_test_simplev12_demo_20261024_01');assert.equal((await db('v1_items')).length,0);assert.equal((await db('v1_documents')).length,0);let cookie='',csrf;
+   async function call(path,body){const r=await fetch(origin+'/api/v1/management'+path,{method:body?'POST':'GET',headers:{Origin:origin,Cookie:cookie,...(body?{'Content-Type':'application/json','X-CSRF-Token':csrf||'','Idempotency-Key':randomUUID()}:{})},...(body?{body:JSON.stringify(body)}:{})});if(r.headers.get('set-cookie'))cookie=r.headers.get('set-cookie').split(';')[0];assert.ok(r.ok);return r.json();}
+   csrf=(await call('/session/csrf')).csrfToken;csrf=(await call('/session/login',{username:'v1_operator',password:process.env.V1_OPERATOR_PASSWORD})).csrfToken;const cmd=(p,b)=>call('/simple-v1'+p,b),date=today(),post=async b=>{const d=await cmd('/documents',{date,...b});return cmd('/documents/'+d.id+'/post',{version:1});},items=[];
+   for(const [description,colour,sellingPrice]of [['DEMO Test Bottle','Black','25'],['DEMO Test Bottle White','White','30']]){const i=await cmd('/items',{description,quality:'Recycle',colour,packing:'DT2',sellingPrice});items.push(i.id);await post({kind:'STOCK_OPENING',lines:[{itemId:i.id,quantity:'0'}]});}
+   const client=(await cmd('/parties',{kind:'CLIENT',name:'DEMO V1.2 Client'})).id,vendor=(await cmd('/parties',{kind:'VENDOR',name:'DEMO V1.2 Vendor'})).id;for(const [kind,id,direction]of [['CLIENT',client,'OWED_TO_COMPANY'],['VENDOR',vendor,'OWED_BY_COMPANY']])await post({kind:kind+'_OPENING',partyId:id,amount:'0',direction});await post({kind:'PRODUCTION',lines:[{itemId:items[0],quantity:'500'}]});await post({kind:'CHALLAN',partyId:client,discountMode:'PERCENT',discountValue:'10',lines:[{itemId:items[0],quantity:'200',rate:'25'}]});await writeFile('server/.local/simple-v12/demo-seeded.json',JSON.stringify({items,client,vendor,stock:'300',clientReceivable:'4500.00',synthetic:true}),{flag:'wx'});console.info(JSON.stringify({seeded:true,stock:300,clientReceivable:'4500.00'}));
+  }else if(action==='serve'){
+   assert.equal(process.env.DB_NAME,'upms_test_simplev12_demo_20261024_01');const {cp,access,readFile}=await import('node:fs/promises'),{createHash}=await import('node:crypto'),buildHash=createHash('sha256').update(await readFile('upms.client/dist/management/index.html')).digest('hex');let root='server/.local/simple-v12/ui-'+buildHash.slice(0,12);try{await access(root+'/index.html');}catch(e){if(e.code!=='ENOENT')throw e;await cp('upms.client/dist/management',root,{recursive:true,errorOnExist:true,force:false});}app=currentApp({identityDatabase:db,management:{...identityConfig(),origin,root}});await writeFile('server/.local/simple-v12/demo-server.json',JSON.stringify({pid:process.pid,port:3112,schema:process.env.DB_NAME,uiRoot:root,buildHash,synthetic:true}),{flag:'wx'});console.info('Synthetic V1.2 UAT http://127.0.0.1:3112/management');await new Promise(resolve=>{process.on('SIGTERM',resolve);process.on('SIGINT',resolve);});
+  }else throw Error('Unknown action');
+ }
+
+}finally{await new Promise(r=>{server.close(r);server.closeIdleConnections();});await db.destroy();}
