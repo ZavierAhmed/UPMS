@@ -20,10 +20,17 @@ export function createApp({
   identityDatabase,
 } = {}) {
   const app = express();
+  if(management?.productionV1&&!management.productionStage&&(config.origin!==management.origin||config.hosts.length!==1||config.hosts[0]!=='app.unique-plastic.com'||config.mode!=='Disabled'))throw Error('Private management host/origin isolation required');
   app.disable("x-powered-by");
   app.disable("etag");
   app.set("trust proxy", false);
   app.use(security(config));
+  if(management?.productionV1)app.use((req,res,next)=>{
+    if(req.path==='/')return res.redirect(303,'/management');
+    if(req.path==='/healthz'&&['GET','HEAD'].includes(req.method))return res.set('Cache-Control','no-store').json({status:'ok'});
+    if(!/^\/(management|api\/v1\/management)(\/|$)/.test(req.path)&&req.path!=='/favicon.svg')return res.status(404).end();
+    next();
+  });
   if (management) {
     const db = identityDatabase || createDatabase({ ...process.env, IDENTITY_DB_PURPOSE: 'runtime' });
     app.locals.identityDatabase = db;

@@ -1,12 +1,14 @@
 // Local smoke test of an independently extracted ZIP with npm ci --omit=dev completed.
 import { readFile, writeFile, mkdir, access } from "node:fs/promises";
-import { resolve } from "node:path";
+import { resolve,dirname } from "node:path";
 import { spawn, execFileSync } from "node:child_process";
 import { createServer } from "node:net";
 import { once } from "node:events";
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 const directory = resolve(process.argv[2] || "tmp/w06/package-check");
+const archivePath=resolve(process.argv[3]||'artifacts/upms-node-deployment.zip');
+const reportPath=resolve(process.argv[4]||'docs/W06-package-results.json');
 execFileSync(process.execPath, ["scripts/check-deployment.mjs"], {
   cwd: directory,
   stdio: "pipe",
@@ -15,11 +17,11 @@ const release = JSON.parse(
   await readFile(resolve(directory, "deployment-manifest.json"), "utf8"),
 );
 const expectedArchiveHash = (
-  await readFile("artifacts/upms-node-deployment.zip.sha256", "utf8")
+  await readFile(archivePath+'.sha256', "utf8")
 ).split(" ")[0];
 assert.equal(
   createHash("sha256")
-    .update(await readFile("artifacts/upms-node-deployment.zip"))
+    .update(await readFile(archivePath))
     .digest("hex"),
   expectedArchiveHash,
 );
@@ -63,6 +65,7 @@ const child = spawn(process.execPath, ["server/src/index.js"], {
   env: {
     ...process.env,
     NODE_ENV: "production",
+    MANAGEMENT_ENABLED: "false",
     PORT: String(port),
     ALLOWED_HOSTS: "127.0.0.1",
     PUBLIC_ORIGIN: "",
@@ -151,9 +154,9 @@ try {
     smtp: "Disabled; synthetic inquiry returned delivery_unavailable",
     passed: true,
   };
-  await mkdir("docs", { recursive: true });
+  await mkdir(dirname(reportPath), { recursive: true });
   await writeFile(
-    "docs/W06-package-results.json",
+    reportPath,
     JSON.stringify(summary, null, 2),
   );
   console.log(JSON.stringify(summary, null, 2));

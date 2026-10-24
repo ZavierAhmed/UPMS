@@ -6,6 +6,9 @@ import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
 
 const root = process.cwd();
+const nodeMajor=process.argv.find(a=>a.startsWith('--node-major='))?.split('=')[1];
+const management=process.argv.includes('--management-release');
+if(nodeMajor&&!['22','24'].includes(nodeMajor))throw Error('Only reviewed runtime lines are supported');
 const files = new Map();
 const put = (name, data) =>
   files.set(name, Buffer.isBuffer(data) ? data : Buffer.from(data));
@@ -23,6 +26,11 @@ async function collect(directory, accept) {
   }
 }
 await collect("server/src", (name) => name.endsWith(".js"));
+if(management){
+ put('PRODUCTION-HOSTING-READINESS.md',await readFile('docs/PRODUCTION-HOSTING-READINESS.md'));
+ await collect('server/production-migrations',name=>name.endsWith('.js'));
+ for(const name of ['server/migrations/202610210001_identity.js','server/simple-v1-migrations/202610240001_simple_v1.js','server/simple-v1-migrations/202610240002_entry_fixes.js','server/tools/production.mjs'])put(name,await readFile(name));
+}
 await collect("upms.client/dist", (name) =>
   /^upms\.client\/dist\/(?:assets\/[^/]+\.(?:js|css|svg|jpg|jpeg|png|webp|avif|woff2)|management\/(?:index\.html|assets\/[^/]+\.(?:js|css))|licenses\/[A-Za-z0-9-]+\.txt|_pages\/[A-Za-z0-9-]+\.html|index\.html|public-routes\.json|icons\.svg|favicon\.svg)$/.test(
     name,
@@ -34,6 +42,7 @@ put(
 );
 const pkg = JSON.parse(await readFile("package.json", "utf8"));
 pkg.main = "server/src/index.js";
+if(nodeMajor)pkg.engines={node:nodeMajor==='22'?'^22.23.4':'^24.22.0'};
 // npm ci --omit=dev uses the unchanged root lockfile; scripts are not part of lock resolution.
 pkg.scripts = {
   build: "node scripts/check-deployment.mjs",
@@ -41,7 +50,7 @@ pkg.scripts = {
 };
 put("package.json", JSON.stringify(pkg, null, 2) + "\n");
 put("package-lock.json", await readFile("package-lock.json"));
-put(".nvmrc", await readFile(".nvmrc"));
+put(".nvmrc", nodeMajor?(nodeMajor==='22'?'22.23.4\n':'24.22.0\n'):await readFile(".nvmrc"));
 const routes = JSON.parse(
   files.get("upms.client/dist/public-routes.json").toString("utf8"),
 );

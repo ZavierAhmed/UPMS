@@ -1,10 +1,13 @@
 import knex from 'knex';
 import { databaseConfig } from './config.js';
 import { validateEngine } from './engine.js';
-import { verifyRuntimeGrants,simpleV1RuntimePrivileges } from './grants.js';
+import { verifyRuntimeGrants,simpleV1RuntimePrivileges,productionRuntimePrivileges } from './grants.js';
+import {productionProfile} from '../production/profile.js';
+import {verifyProductionConnection,verifyProductionEndpoint} from '../production/connection.js';
 import {syntheticV1} from '../simple-v1/catalog.js';
 
 export function createDatabase(env = process.env) {
+  const profile=productionProfile(env);
   const db = knex({ client: 'mysql2', connection: databaseConfig(env), acquireConnectionTimeout: 3000,
     pool: { min: 0, max: 5, acquireTimeoutMillis: 3000, createTimeoutMillis: 3500,
       afterCreate(connection, done) {
@@ -23,16 +26,18 @@ export function createDatabase(env = process.env) {
           if (error) return fail(error);
           try { validateEngine(rows[0].version, env); } catch (invalid) { return fail(invalid); }
           const initialize = () => connection.query("SET SESSION time_zone = '+00:00', innodb_lock_wait_timeout = 3, sql_mode = 'STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION'", err => err ? fail(err) : done(null, connection));
-          if (env.IDENTITY_DB_PURPOSE !== 'runtime') return initialize();
+          if (env.IDENTITY_DB_PURPOSE !== 'runtime') {if(profile)verifyProductionEndpoint(connection,profile,env.DB_USER).then(()=>{initialize();},fail);else initialize();return;}
           connection.query('SHOW GRANTS FOR CURRENT_USER', (grantError, grants) => {
             if (grantError) return fail(grantError);
-            try { verifyRuntimeGrants(grants, env.DB_NAME, rows[0].account,syntheticV1(env)?simpleV1RuntimePrivileges:undefined); } catch (invalid) { return fail(invalid); }
-            initialize();
+            const expected=profile?productionRuntimePrivileges:syntheticV1(env)?simpleV1RuntimePrivileges:undefined;
+            try { verifyRuntimeGrants(grants, env.DB_NAME, rows[0].account,expected); } catch (invalid) { return fail(invalid); }
+            if(profile)verifyProductionConnection(connection,profile,expected).then(()=>{initialize();},fail);else initialize();
           });
         });
       } },
     log: { warn() {}, error() {}, deprecate() {}, debug() {} },
   });
+  Object.defineProperty(db,'upmsProduction',{value:profile});
   const acquire = db.client.acquireConnection.bind(db.client);
   db.client.acquireConnection = async () => {
     if (db.client.pool?.numPendingAcquires() >= 20) throw new Error('Identity database queue full.');

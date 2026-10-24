@@ -1,7 +1,9 @@
 import { createApp } from "./app.js";
+import {assertSupportedRuntime} from './production/runtime.js';
 const stopping = new AbortController();
 let startupDatabase;
 try {
+  assertSupportedRuntime();
   const port = Number(process.env.PORT || 3000);
   if (!Number.isInteger(port) || port < 1 || port > 65535)
     throw new Error("Invalid PORT.");

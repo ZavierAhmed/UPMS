@@ -1,0 +1,82 @@
+[
+  {
+    "page": "home",
+    "url": "https://localhost:7445/",
+    "version": "13.5.0",
+    "fetchTime": "2026-10-24T19:12:25.639Z",
+    "formFactor": "mobile",
+    "runWarnings": [],
+    "scores": {
+      "performance": 94,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "largest-contentful-paint": 2994.1678,
+      "total-blocking-time": 52.5,
+      "cumulative-layout-shift": 0
+    },
+    "accessibilityFailures": []
+  },
+  {
+    "page": "catalog",
+    "url": "https://localhost:7445/products",
+    "version": "13.5.0",
+    "fetchTime": "2026-10-24T19:12:32.848Z",
+    "formFactor": "mobile",
+    "runWarnings": [],
+    "scores": {
+      "performance": 96,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "largest-contentful-paint": 2612.2868,
+      "total-blocking-time": 42.5,
+      "cumulative-layout-shift": 0
+    },
+    "accessibilityFailures": []
+  },
+  {
+    "page": "detail",
+    "url": "https://localhost:7445/products/buckets",
+    "version": "13.5.0",
+    "fetchTime": "2026-10-24T19:12:39.584Z",
+    "formFactor": "mobile",
+    "runWarnings": [],
+    "scores": {
+      "performance": 94,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "largest-contentful-paint": 2935.5198,
+      "total-blocking-time": 5,
+      "cumulative-layout-shift": 0
+    },
+    "accessibilityFailures": []
+  },
+  {
+    "page": "contact",
+    "url": "https://localhost:7445/contact",
+    "version": "13.5.0",
+    "fetchTime": "2026-10-24T19:12:46.407Z",
+    "formFactor": "mobile",
+    "runWarnings": [],
+    "scores": {
+      "performance": 98,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "largest-contentful-paint": 2186.709,
+      "total-blocking-time": 2,
+      "cumulative-layout-shift": 0
+    },
+    "accessibilityFailures": []
+  }
+]

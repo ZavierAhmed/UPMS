@@ -10,7 +10,7 @@ import { loadConfig } from "../src/config/index.js";
 const milestone =
   process.argv.find((arg) => arg.startsWith("--milestone="))?.split("=")[1] ||
   "W05";
-if (!/^W\d{2}(?:-\d)?$/.test(milestone))
+if (!/^(?:W\d{2}(?:-\d)?|PRODUCTION)$/.test(milestone))
   throw new Error("Invalid verification milestone.");
 const runDirectory = `tmp/${milestone.toLowerCase()}`;
 const screenshotDirectory = `docs/screenshots/${milestone.toLowerCase()}`;
