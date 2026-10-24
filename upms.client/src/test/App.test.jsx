@@ -98,8 +98,11 @@ describe("catalog and product detail", () => {
           .getAttribute("href"),
       ).toBe(`/contact?category=${product.id}`);
       if (product.id === "buckets") {
-        for (const capacity of ["8L", "10L", "14L", "20L"])
+        for (const capacity of ["8L", "10L", "16L", "20L"])
           expect(screen.getByText(capacity)).toBeTruthy();
+      } else if(product.id === "containers") {
+        expect(screen.getByText("20L")).toBeTruthy();
+        expect(screen.getByText("30L")).toBeTruthy();
       } else {
         expect(screen.queryByText("20L")).toBeNull();
       }
@@ -121,7 +124,9 @@ describe("catalog and product detail", () => {
     fireEvent.change(screen.getByLabelText("Search packaging"), {
       target: { value: "20L" },
     });
-    expect(screen.getByRole("status").textContent).toBe("1 category");
+    expect(screen.getByRole("status").textContent).toBe("2 categories");
+    expect(screen.getByRole("heading",{name:"Plastic Buckets"})).toBeTruthy();
+    expect(screen.getByRole("heading",{name:"Industrial Containers"})).toBeTruthy();
     expect(
       screen.queryByRole("heading", { name: "Lubricant Cans" }),
     ).toBeNull();

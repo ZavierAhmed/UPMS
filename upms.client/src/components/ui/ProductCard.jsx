@@ -1,7 +1,8 @@
+import CatalogImage from "./CatalogImage";
 import { Link } from "react-router";
 import Icon from "./Icon";
 export function ProductVisual({ product, priority = false }) {
-  return product.image ? (
+  return product.catalogImage ? <CatalogImage image={product.catalogImage} priority={priority} sizes="(max-width: 650px) 90vw, (max-width: 1000px) 45vw, 400px"/> : product.image ? (
     <img
       src={product.image}
       alt={product.alt}
@@ -33,6 +34,8 @@ export default function ProductCard({ product, index = 0 }) {
         <span aria-hidden="true">↗</span>
       </div>
       <p>{product.text}</p>
+      {product.capacities.length>0&&<div className="product-capacities">Catalog sizes: {product.capacities.join(" · ")}</div>}
+      <span className="product-details-link">View Details →</span>
     </Link>
   );
 }

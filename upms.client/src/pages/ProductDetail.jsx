@@ -3,7 +3,8 @@ import { buildWhatsAppLink, productWhatsAppMessage } from "../utils/whatsapp";
 import { Link, useParams } from "react-router";
 import { products } from "../data/company";
 import PageHero from "../components/ui/PageHero";
-import ProductCard, { ProductVisual } from "../components/ui/ProductCard";
+import ProductCard from "../components/ui/ProductCard";
+import ProductGallery from "../components/ui/ProductGallery";
 import Contact from "../components/sections/Contact";
 import NotFound from "./NotFound";
 export default function ProductDetail() {
@@ -19,14 +20,7 @@ export default function ProductDetail() {
         crumbs={[["Products", "/products"], [product.title]]}
       />
       <section className="section container detail-grid">
-        <figure className="detail-visual">
-          <ProductVisual product={product} priority />
-          <figcaption>
-            {product.image
-              ? "Product imagery from the supplied company brochure."
-              : "Illustrative design treatment; no custom product photograph is claimed."}
-          </figcaption>
-        </figure>
+        <ProductGallery key={product.id} product={product}/>
         <div className="detail-copy">
           <p className="eyebrow">THE CATEGORY</p>
           <h2>

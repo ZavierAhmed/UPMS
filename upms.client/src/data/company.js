@@ -1,7 +1,5 @@
-import buckets from "../assets/products/buckets.jpg";
-import cans from "../assets/products/cans.jpg";
 import jars from "../assets/products/jars.jpg";
-import containers from "../assets/products/containers.jpg";
+import {catalogGalleries} from "./catalog";
 export const company = {
   name: "Unique Plastic Industry",
   email: "uniqueplastic56@gmail.com",
@@ -34,10 +32,10 @@ export const products = [
     id: "buckets",
     title: "Plastic Buckets",
     group: "Containers",
-    text: "Plastic buckets for industrial and commercial packaging, with brochure sizes of 8L, 10L, 14L and 20L.",
-    image: buckets,
+    text: "Plastic buckets for industrial and commercial packaging, with brochure sizes of 8L, 10L, 16L and 20L.",
+    image: catalogGalleries.buckets[0].src,
     alt: "Orange and black plastic buckets with lids, from the company brochure",
-    capacities: ["8L", "10L", "14L", "20L"],
+    capacities: ["8L", "10L", "16L", "20L"],
     capacityNote:
       "Sizes illustrated in the brochure. Confirm the current options with our team.",
     description:
@@ -49,18 +47,18 @@ export const products = [
       "Lid and design requirements",
       "Delivery destination",
     ],
-    source: "Brochure pages 2–3",
+    source: "Bucket.pdf pages 1–2",
   },
   {
     id: "cans",
     title: "Lubricant Cans",
     group: "Containers",
     text: "Plastic can designs for lubricant packaging. Discuss the shape and packaging requirements of your product.",
-    image: cans,
+    image: catalogGalleries.cans[0].src,
     alt: "A range of unbranded plastic lubricant cans shown in the company brochure",
-    capacities: [],
+    capacities: ["700ml", "1L", "3L", "4L", "5L"],
     capacityNote:
-      "Capacity specifications are available by inquiry; no verified capacity list is published for this category.",
+      "Designs and capacities shown in our company catalog. Contact us to confirm current sizes, colors and specifications.",
     description:
       "The brochure shows a variety of plastic cans for lubricant packaging. We work with businesses to understand their product and packaging requirements before discussing an appropriate container.",
     uses: ["Lubricant packaging", "Oil packaging"],
@@ -70,7 +68,7 @@ export const products = [
       "Required quantity",
       "Sampling and delivery needs",
     ],
-    source: "Brochure page 3",
+    source: "Company_Profile_New_HD_Bottles (1).pdf pages 2–25",
   },
   {
     id: "jars",
@@ -97,14 +95,14 @@ export const products = [
     id: "containers",
     title: "Industrial Containers",
     group: "Containers",
-    text: "Plastic containers for industrial and commercial applications, selected around your packaging needs.",
-    image: containers,
+    text: "Jerrycan-style plastic containers in 20L and 30L designs shown in our company catalog.",
+    image: catalogGalleries.containers[0].src,
     alt: "Grey, yellow and black buckets pictured together in the company brochure",
-    capacities: [],
+    capacities: ["20L", "30L"],
     capacityNote:
       "Dimensions and capacities depend on the selected design. Contact the team to confirm an appropriate format.",
     description:
-      "Industrial packaging starts with understanding the product and its practical requirements. Our container capabilities include plastic buckets and other packaging formats shown in the brochure.",
+      "Industrial packaging starts with understanding the product and its practical requirements. The new bucket catalog illustrates 20L and 30L jerrycan-style containers as a distinct packaging format.",
     uses: ["Industrial applications", "Commercial packaging"],
     discussion: [
       "Application and contents",
@@ -112,7 +110,7 @@ export const products = [
       "Quantity and sampling",
       "Delivery arrangements",
     ],
-    source: "Brochure page 5",
+    source: "Bucket.pdf page 3",
   },
   {
     id: "custom",
@@ -135,7 +133,10 @@ export const products = [
     ],
     source: "Brochure pages 3–4",
   },
-];
+].map(product=>{
+ const gallery=product.id==='jars'?[{id:'legacy-jars',categoryId:'jars',src:jars,thumbnail:jars,width:355,height:175,alt:product.alt,caption:'Small containers from our previously approved company brochure. Contact us to confirm sizing.',sourcePdf:'UNIQUE COMPANY MOCKUP.pdf',sourcePage:3}]:catalogGalleries[product.id]||[];
+ return {...product,gallery,catalogImage:gallery[0]||null,image:gallery[0]?.src||product.image,alt:gallery[0]?.alt||product.alt};
+});
 export const features = [
   [
     "◇",

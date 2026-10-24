@@ -4,7 +4,8 @@ import Contact from "../components/sections/Contact";
 import Icon from "../components/ui/Icon";
 import { values } from "../data/pages";
 import { company, products } from "../data/company";
-import hero from "../assets/products/hero.jpg";
+import CatalogImage from "../components/ui/CatalogImage";
+import {catalogHero} from "../data/catalog";
 export default function About() {
   return (
     <>
@@ -57,13 +58,7 @@ export default function About() {
       <section className="products-section section">
         <div className="container split-content reveal">
           <div className="editorial-image">
-            <img
-              src={hero}
-              alt="Cans and a bucket from the Unique Plastic Industry brochure"
-              width="630"
-              height="550"
-              loading="lazy"
-            />
+            <CatalogImage className="catalog-hero" image={catalogHero} sizes="(max-width: 900px) 90vw, 560px"/>
             <small>Packaging illustrated in our company brochure.</small>
           </div>
           <div>

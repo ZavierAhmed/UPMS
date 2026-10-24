@@ -400,3 +400,6 @@ FodyWeavers.xsd
 
 # V1.2 isolated diagnostics and baseline snapshot
 /tmp/v12*
+
+# Private W07 catalog inspection, source extracts and browser evidence
+/tmp/w07/

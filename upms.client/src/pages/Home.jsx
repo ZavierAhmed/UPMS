@@ -1,7 +1,8 @@
 import ProductCard from "../components/ui/ProductCard";
 import { Link } from "react-router";
 import Icon from "../components/ui/Icon";
-import hero from "../assets/products/hero.jpg";
+import CatalogImage from "../components/ui/CatalogImage";
+import {catalogHero} from "../data/catalog";
 import machine from "../assets/products/manufacturing.jpg";
 import { products, features, industries } from "../data/company";
 import Contact from "../components/sections/Contact";
@@ -44,13 +45,7 @@ export default function Home() {
             <div className="visual-top">
               <span>THE UNIQUE STANDARD</span>
             </div>
-            <img
-              src={hero}
-              width="630"
-              height="550"
-              alt="Plastic cans and bucket pictured in the Unique Plastic Industry brochure"
-              fetchPriority="high"
-            />
+            <CatalogImage className="catalog-hero" image={catalogHero} priority sizes="(max-width: 900px) 90vw, 560px"/>
             <div className="visual-bottom">
               <span>
                 Purposeful design.
