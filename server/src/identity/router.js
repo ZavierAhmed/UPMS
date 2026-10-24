@@ -1,4 +1,5 @@
 import {readFile} from 'node:fs/promises';
+import {simpleV1Router} from '../simple-v1/router.js';
 import {expenseRouter} from '../expenses/router.js';
 import {creditRouter} from '../credits/router.js';
 import {returnRouter} from '../returns/router.js';
@@ -37,7 +38,7 @@ export function managementRouter(db, config) {
   // Static JS contains no private state. All records come from authorized no-store APIs.
   router.use('/management/assets', express.static(resolve(config.root, 'assets'), { index: false, dotfiles: 'deny', fallthrough: false }));
   router.use('/management/assets',(error,req,res,next)=>{if(error.status===404||error.code==='ENOENT')return res.status(404).json({error:{code:'NOT_FOUND'}});next(error);});
-  router.get(/^\/management(?:\/.*)?$/, async(req,res)=>{if(/(?:^|\/)\.|\.[a-z0-9]{1,12}(?:\/|$)/i.test(req.path))return res.status(404).json({error:{code:'NOT_FOUND'}});if(!config.syntheticDemo)return res.sendFile(resolve(config.root,'index.html'));const html=await readFile(resolve(config.root,'index.html'),'utf8');res.type('html').send(html.replace(/<body[^>]*>/,'$&<div class="demo-banner" role="status">DEMO / SYNTHETIC — P2.7C UAT — No real company data</div>'));});
+  router.get(/^\/management(?:\/.*)?$/, async(req,res)=>{if(/(?:^|\/)\.|\.[a-z0-9]{1,12}(?:\/|$)/i.test(req.path))return res.status(404).json({error:{code:'NOT_FOUND'}});if(!config.syntheticDemo&&!config.simpleV1)return res.sendFile(resolve(config.root,'index.html'));let html=await readFile(resolve(config.root,'index.html'),'utf8');if(config.simpleV1)html=html.replace('<html','<html data-upms-mode="simple-v1"');res.type('html').send(html.replace(/<body[^>]*>/,'$&<div class="demo-banner" role="status">DEMO / SYNTHETIC — '+(config.simpleV1?'Simple V1':'P2.7C UAT')+' — No real company data</div>'));});
   router.use(base, express.json({ limit: '12kb', strict: true }));
   router.use(base, (req, res, next) => {
     const unsafe = !['GET', 'HEAD', 'OPTIONS'].includes(req.method);
@@ -65,6 +66,10 @@ export function managementRouter(db, config) {
     next();
   });
   router.use(base, csrfSynchronisedProtection);
+  if(config.simpleV1){
+    router.use(`${base}/simple-v1`,simpleV1Router(db));
+    router.use(base,(req,res,next)=>/^\/(?:session\/(?:login|logout|current)|profile\/password)$/.test(req.path)?next():next(new IdentityError(403,'LEGACY_DISABLED_IN_V1')));
+  }else router.use(`${base}/simple-v1`,(req,res)=>res.status(404).json({error:{code:'V1_DISABLED'}}));
   router.use(`${base}/business`,businessRouter(db));
   router.use(`${base}/inventory`,inventoryRouter(db));
   router.use(`${base}/purchases`,purchaseRouter(db));
@@ -113,6 +118,7 @@ export function managementRouter(db, config) {
     let status = err instanceof IdentityError ? err.status : 503;
     let code = err instanceof IdentityError ? err.code : 'IDENTITY_UNAVAILABLE';
     if (err.name === 'ZodError' || err.type === 'entity.parse.failed') { status = 400; code = 'INVALID_INPUT'; }
+    if (err.status === 400 && ['Z_DATA_ERROR','Z_BUF_ERROR'].includes(err.code)) { status=400;code='INVALID_INPUT'; }
     if (err.type === 'entity.too.large') { status = 413; code = 'REQUEST_TOO_LARGE'; }
     if (err.code === 'EBADCSRFTOKEN') { status = 403; code = 'CSRF_REJECTED'; }
     if (err.code === 'ER_DUP_ENTRY') { status = 409; code = 'IDENTITY_CONFLICT'; }

@@ -390,3 +390,6 @@ FodyWeavers.xsd
 
 # Private Round 3 UI evidence
 /tmp/ui-r3/
+
+# Synthetic Simple V1 verification files
+/tmp/simple-v1/

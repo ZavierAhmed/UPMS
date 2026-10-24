@@ -1,4 +1,5 @@
 import { resolve } from 'node:path';
+import {syntheticV1} from '../simple-v1/catalog.js';
 
 export function identityConfig(env = process.env) {
   if (env.MANAGEMENT_ENABLED !== 'true') return null;
@@ -11,9 +12,10 @@ export function identityConfig(env = process.env) {
     throw new Error('Invalid isolated management origin.');
   if (!env.SESSION_SECRET || Buffer.byteLength(env.SESSION_SECRET) < 32)
     throw new Error('SESSION_SECRET requires at least 32 private random bytes.');
+  if(env.UPMS_SIMPLE_V1&&!syntheticV1(env))throw new Error('V1 requires an explicitly isolated synthetic database; live cutover is pending.');
   return { origin: origin.origin, secure: origin.protocol === 'https:', secret: env.SESSION_SECRET,
-    cookieName: origin.protocol === 'https:' ? '__Host-upms' : 'upms-local',
-    root: resolve('upms.client/dist/management'), idleMs: 30 * 60_000, absoluteMs: 8 * 3600_000 };
+    cookieName: syntheticV1(env)?(origin.protocol==='https:'?'__Host-upms-simple-v1':'upms-simple-v1-local'):(origin.protocol === 'https:' ? '__Host-upms' : 'upms-local'),
+    simpleV1:syntheticV1(env),root: resolve('upms.client/dist/management'), idleMs: 30 * 60_000, absoluteMs: 8 * 3600_000 };
 }
 
 export function databaseConfig(env = process.env) {

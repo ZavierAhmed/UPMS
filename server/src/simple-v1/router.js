@@ -1,0 +1,23 @@
+import express from 'express';
+import {z} from 'zod';
+import {simpleV1Service} from './service.js';
+export function simpleV1Router(db){const r=express.Router(),s=simpleV1Service(db),id=z.string().regex(/^[1-9][0-9]*$/),key=req=>req.get('idempotency-key');
+ r.get('/state',async(req,res)=>res.json(await s.state(req.session)));
+ r.get('/items',async(req,res)=>res.json({records:await s.items(req.session)}));
+ r.post('/items',async(req,res)=>res.status(201).json(await s.saveItem(req.session,key(req),req.body)));
+ r.patch('/items/:id',async(req,res)=>res.json(await s.saveItem(req.session,key(req),req.body,id.parse(req.params.id))));
+ r.get('/parties',async(req,res)=>res.json({records:await s.parties(req.session,req.query.kind)}));
+ r.post('/parties',async(req,res)=>res.status(201).json(await s.saveParty(req.session,key(req),req.body)));
+ r.patch('/parties/:id',async(req,res)=>res.json(await s.saveParty(req.session,key(req),req.body,id.parse(req.params.id))));
+ r.get('/documents',async(req,res)=>res.json({records:await s.documents(req.session,req.query.kind)}));
+ r.get('/documents/:id',async(req,res)=>res.json(await s.detail(req.session,id.parse(req.params.id))));
+ r.post('/documents',async(req,res)=>res.status(201).json(await s.draft(req.session,key(req),req.body)));
+ r.patch('/documents/:id',async(req,res)=>res.json(await s.draft(req.session,key(req),req.body,id.parse(req.params.id))));
+ r.post('/documents/:id/post',async(req,res)=>res.json(await s.post(req.session,key(req),id.parse(req.params.id),req.body)));
+ r.post('/documents/:id/cancel',async(req,res)=>res.json(await s.cancel(req.session,key(req),id.parse(req.params.id),req.body)));
+ r.get('/ledgers/:id',async(req,res)=>res.json(await s.ledger(req.session,id.parse(req.params.id),req.query)));
+ r.get('/overview',async(req,res)=>res.json(await s.overview(req.session)));
+ r.get('/movements',async(req,res)=>res.json({records:await s.movements(req.session)}));
+ r.get('/reconciliation',async(req,res)=>res.json(await s.reconcile(req.session)));
+ return r;
+}

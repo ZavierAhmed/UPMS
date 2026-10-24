@@ -1,4 +1,9 @@
 export const uiR3TestPlan=Object.freeze({
+purchasingV1b:{schema:'upms_test_p27c_purchasing_20261023_03',run:'v1p02',scope:'purchasing',suffix:'p'},
+inventoryV1b:{schema:'upms_test_p27c_inventory_20261023_02',run:'v1i02',scope:'inventory',suffix:'i'},
+regressionV1:{schema:'upms_test_p27c_regression_20261023_02',run:'v1r01',scope:'regression',suffix:'r'},
+inventoryV1:{schema:'upms_test_p27c_inventory_20261023_08',run:'v1i01',scope:'inventory',suffix:'i'},
+purchasingV1:{schema:'upms_test_p27c_purchasing_20261023_02',run:'v1p01',scope:'purchasing',suffix:'p'},
 full06:{schema:'upms_test_p27c_receipts_20261023_05',run:'r3f06',scope:'expenses',suffix:'x'},
 full07:{schema:'upms_test_p27c_receipts_20261023_04',run:'r3f07',scope:'expenses',suffix:'x'},
 full04:{schema:'upms_test_p27c_receipts_20261023_07',run:'r3f04',scope:'expenses',suffix:'x'},

@@ -1,7 +1,8 @@
 import knex from 'knex';
 import { databaseConfig } from './config.js';
 import { validateEngine } from './engine.js';
-import { verifyRuntimeGrants } from './grants.js';
+import { verifyRuntimeGrants,simpleV1RuntimePrivileges } from './grants.js';
+import {syntheticV1} from '../simple-v1/catalog.js';
 
 export function createDatabase(env = process.env) {
   const db = knex({ client: 'mysql2', connection: databaseConfig(env), acquireConnectionTimeout: 3000,
@@ -25,7 +26,7 @@ export function createDatabase(env = process.env) {
           if (env.IDENTITY_DB_PURPOSE !== 'runtime') return initialize();
           connection.query('SHOW GRANTS FOR CURRENT_USER', (grantError, grants) => {
             if (grantError) return fail(grantError);
-            try { verifyRuntimeGrants(grants, env.DB_NAME, rows[0].account); } catch (invalid) { return fail(invalid); }
+            try { verifyRuntimeGrants(grants, env.DB_NAME, rows[0].account,syntheticV1(env)?simpleV1RuntimePrivileges:undefined); } catch (invalid) { return fail(invalid); }
             initialize();
           });
         });
