@@ -34,9 +34,9 @@ describe("prerender activation and SPA SEO", () => {
     expect(html).toContain('<fieldset disabled=""');
     expect(html).toContain('action="/api/v1/public/inquiries"');
   });
-  it("registers exactly the eleven supported public paths", () => {
-    expect(new Set(publicPages.map(page => page.path)).size).toBe(11);
-    expect(publicPages.filter(page => page.path.startsWith("/products/")).length).toBe(5);
+  it("registers exactly the ten supported public paths", () => {
+    expect(new Set(publicPages.map(page => page.path)).size).toBe(10);
+    expect(publicPages.filter(page => page.path.startsWith("/products/")).length).toBe(4);
     expect(publicPages.some(page => page.path.startsWith("/management"))).toBe(false);
   });
 });

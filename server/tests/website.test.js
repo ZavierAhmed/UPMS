@@ -115,7 +115,11 @@ test("static asset types caching compression, license accessibility and HEAD", a
 test("sitemap and robots registry; unconfigured origin indexing safety", async () => {
   const f = fixture({ env });
   const sitemap = await f.api.get("/sitemap.xml").set("Host", "localhost");
-  assert.equal((sitemap.text.match(/<loc>/g) || []).length, 11);
+  assert.equal((sitemap.text.match(/<loc>/g) || []).length, 10);
+  assert.ok(!sitemap.text.includes('/products/jars'));
+  const retired=await f.api.get('/products/jars').set('Host','localhost');
+  assert.equal(retired.status,404);
+  assert.match(retired.text,/404 \/ PAGE NOT FOUND/);
   for (const p of manifest.pages)
     assert.ok(sitemap.text.includes(`https://www.example.test${p.path}</loc>`));
   assert.match(

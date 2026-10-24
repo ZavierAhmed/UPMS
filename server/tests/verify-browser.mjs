@@ -10,7 +10,7 @@ import { loadConfig } from "../src/config/index.js";
 const milestone =
   process.argv.find((arg) => arg.startsWith("--milestone="))?.split("=")[1] ||
   "W05";
-if (!/^W\d{2}$/.test(milestone))
+if (!/^W\d{2}(?:-\d)?$/.test(milestone))
   throw new Error("Invalid verification milestone.");
 const runDirectory = `tmp/${milestone.toLowerCase()}`;
 const screenshotDirectory = `docs/screenshots/${milestone.toLowerCase()}`;
@@ -91,7 +91,8 @@ try {
           await new Promise((r) => setTimeout(r, 15));
         }
         await Promise.all(
-          [...document.images].map((i) => i.decode().catch(() => {})),
+          // Decode the full page, including offscreen lazy thumbnail strips.
+          [...document.images].map((i) => { i.loading = "eager"; return i.decode().catch(() => {}); }),
         );
         window.scrollTo(0, 0);
       });
@@ -134,7 +135,7 @@ try {
           fullPage: true,
         });
     }
-    console.log(`Browser matrix: 11 routes passed at ${width}px`);
+    console.log(`Browser matrix: 10 routes passed at ${width}px`);
   }
   await page.setViewport({ width: 390, height: 900 });
   await goto("/");
@@ -177,9 +178,9 @@ try {
   );
   await page.waitForFunction(
     () =>
-      document.querySelector('[role="status"]').textContent === "5 categories",
+      document.querySelector('[role="status"]').textContent === "4 categories",
   );
-  interactions.push("Clear restores five categories");
+  interactions.push("Clear restores four categories");
   await page.select("#product-filter", "Custom solutions");
   await page.waitForFunction(
     () =>
@@ -193,7 +194,7 @@ try {
     await page.$eval("h1", (h) => h.textContent === "Custom Packaging"),
     "Direct detail refresh",
   );
-  for (const category of ["buckets", "cans", "jars", "containers", "custom"]) {
+  for (const category of ["buckets", "cans", "containers", "custom"]) {
     await goto(`/products/${category}`);
     await check(
       await page.$$eval('main a[href^="https://wa.me/"]', (links) =>

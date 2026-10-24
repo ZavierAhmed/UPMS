@@ -40,7 +40,7 @@ export default function About() {
           <p>
             Unique Plastic Industry was established in 2018 to manufacture
             plastic containers and packaging for industrial and commercial
-            needs. Our range includes buckets, lubricant cans, jars and other
+            needs. Our range includes buckets, lubricant cans, plastic cans and other
             plastic packaging products.
           </p>
           <p>

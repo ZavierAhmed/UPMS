@@ -10,7 +10,6 @@ export async function runBrowserSmoke({ tab, viewport, baseURL }) {
     "/contact",
     "/products/buckets",
     "/products/cans",
-    "/products/jars",
     "/products/containers",
     "/products/custom",
   ];
@@ -107,9 +106,9 @@ export async function runBrowserInteractions({ tab, viewport, baseURL }) {
   await tab.playwright
     .getByRole("button", { name: "Clear search and filters" })
     .click();
-  await tab.playwright.getByText("5 categories", { exact: true }).waitFor({ state: "visible" });
+  await tab.playwright.getByText("4 categories", { exact: true }).waitFor({ state: "visible" });
   assert(
-    (await tab.playwright.getByRole("status").innerText()) === "5 categories",
+    (await tab.playwright.getByRole("status").innerText()) === "4 categories",
     "Clear filters restores catalog",
   );
   await tab.playwright

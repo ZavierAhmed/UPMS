@@ -4,7 +4,7 @@ export const pageMeta = {
   "/": {
     title: "Plastic Packaging Manufacturer in Karachi",
     description:
-      "Unique Plastic Industry manufactures plastic buckets, jars, lubricant cans and custom packaging in Karachi, Pakistan. Established in 2018.",
+      "Unique Plastic Industry manufactures plastic buckets, lubricant cans, plastic cans and custom packaging in Karachi, Pakistan. Established in 2018.",
   },
   "/about": {
     title: "About Us",
@@ -14,7 +14,7 @@ export const pageMeta = {
   "/products": {
     title: "Plastic Packaging Products",
     description:
-      "Explore plastic buckets, lubricant cans, jars, industrial containers and custom packaging. Find a category and discuss your requirements.",
+      "Explore plastic buckets, lubricant cans, plastic cans and custom packaging. Find a category and discuss your requirements.",
   },
   "/manufacturing": {
     title: "Plastic Molding & Manufacturing",
@@ -58,7 +58,7 @@ export const process = [
   },
   {
     title: "Discuss design & molding",
-    text: "Our capabilities cover plastic molding for buckets, jars, lubricant cans and other containers, with tailored solutions discussed for each project.",
+    text: "Our capabilities cover plastic molding for buckets, lubricant cans, plastic cans and other containers, with tailored solutions discussed for each project.",
   },
   {
     title: "Check raw materials",
@@ -101,7 +101,7 @@ export const industryDetails = [
     title: "Industrial & commercial applications",
     intro: "Flexible packaging conversations for different business needs.",
     text: "Buckets, smaller containers and tailored packaging offer options to explore for commercial and industrial products. We work with your brief rather than assuming a single format fits every application.",
-    ids: ["jars", "containers", "custom"],
+    ids: ["buckets", "containers", "custom"],
     questions:
       "Share your product, packaging brief, target quantity and delivery requirements.",
   },

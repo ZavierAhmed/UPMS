@@ -1,0 +1,343 @@
+{
+  "baseline": "c1f42f31ded1e697336d7ae3fcc39c546487c5cd",
+  "backendPassed": 179,
+  "frontendPassed": 181,
+  "polish": {
+    "count": 60,
+    "checks": [
+      "1920: exactly four approved cards",
+      "1920: no overflow",
+      "1920: column count",
+      "1920: secondary photos absent before intent",
+      "1920 buckets: hover crossfade",
+      "1920 buckets: stable dimensions",
+      "1920 buckets: decoded secondary",
+      "1920 buckets: leave restores primary",
+      "1920 cans: hover crossfade",
+      "1920 cans: stable dimensions",
+      "1920 cans: decoded secondary",
+      "1920 cans: leave restores primary",
+      "1920 containers: hover crossfade",
+      "1920 containers: stable dimensions",
+      "1920 containers: decoded secondary",
+      "1920 containers: leave restores primary",
+      "1920: renamed detail title",
+      "1920: 20L primary",
+      "1440: exactly four approved cards",
+      "1440: no overflow",
+      "1440: column count",
+      "1440: secondary photos absent before intent",
+      "1440 buckets: hover crossfade",
+      "1440 buckets: stable dimensions",
+      "1440 buckets: decoded secondary",
+      "1440 buckets: leave restores primary",
+      "1440 cans: hover crossfade",
+      "1440 cans: stable dimensions",
+      "1440 cans: decoded secondary",
+      "1440 cans: leave restores primary",
+      "1440 containers: hover crossfade",
+      "1440 containers: stable dimensions",
+      "1440 containers: decoded secondary",
+      "1440 containers: leave restores primary",
+      "1440: renamed detail title",
+      "1440: 20L primary",
+      "768: exactly four approved cards",
+      "768: no overflow",
+      "768: column count",
+      "768: secondary photos absent before intent",
+      "768: renamed detail title",
+      "768: 20L primary",
+      "390: exactly four approved cards",
+      "390: no overflow",
+      "390: column count",
+      "390: secondary photos absent before intent",
+      "390: renamed detail title",
+      "390: 20L primary",
+      "keyboard focus visible",
+      "Back restores listing",
+      "Forward restores detail",
+      "retired jars is HTTP 404",
+      "retired route noindex",
+      "sitemap excludes jars",
+      "reduced motion disables movement",
+      "content visible without IntersectionObserver",
+      "all four cards present without JavaScript",
+      "SSR content remains visible",
+      "no JavaScript errors",
+      "no failed network requests"
+    ],
+    "errors": [],
+    "failed": [],
+    "resources": [
+      {
+        "width": 1920,
+        "initialCatalog": [
+          {
+            "url": "http://127.0.0.1:3116/assets/catalog-w07-bucket-20l-front-640.webp",
+            "bytes": 34098
+          },
+          {
+            "url": "http://127.0.0.1:3116/assets/catalog-w07-blow-design-02-640.webp",
+            "bytes": 10194
+          },
+          {
+            "url": "http://127.0.0.1:3116/assets/catalog-w07-jerrycan-20l-640.webp",
+            "bytes": 18976
+          }
+        ]
+      },
+      {
+        "width": 1440,
+        "initialCatalog": [
+          {
+            "url": "http://127.0.0.1:3116/assets/catalog-w07-bucket-20l-front-640.webp",
+            "bytes": 34098
+          },
+          {
+            "url": "http://127.0.0.1:3116/assets/catalog-w07-blow-design-02-640.webp",
+            "bytes": 10194
+          },
+          {
+            "url": "http://127.0.0.1:3116/assets/catalog-w07-jerrycan-20l-640.webp",
+            "bytes": 18976
+          }
+        ]
+      },
+      {
+        "width": 768,
+        "initialCatalog": [
+          {
+            "url": "http://127.0.0.1:3116/assets/catalog-w07-bucket-20l-front-640.webp",
+            "bytes": 34098
+          },
+          {
+            "url": "http://127.0.0.1:3116/assets/catalog-w07-blow-design-02-640.webp",
+            "bytes": 10194
+          },
+          {
+            "url": "http://127.0.0.1:3116/assets/catalog-w07-jerrycan-20l-960.webp",
+            "bytes": 42542
+          }
+        ]
+      },
+      {
+        "width": 390,
+        "initialCatalog": [
+          {
+            "url": "http://127.0.0.1:3116/assets/catalog-w07-bucket-20l-front-640.webp",
+            "bytes": 34098
+          },
+          {
+            "url": "http://127.0.0.1:3116/assets/catalog-w07-blow-design-02-640.webp",
+            "bytes": 10194
+          },
+          {
+            "url": "http://127.0.0.1:3116/assets/catalog-w07-jerrycan-20l-960.webp",
+            "bytes": 42542
+          }
+        ]
+      }
+    ]
+  },
+  "gallery": {
+    "checks": 55,
+    "passed": [
+      "home 1440: no horizontal overflow",
+      "home 1440: visible images decode",
+      "products 1440: no horizontal overflow",
+      "products 1440: visible images decode",
+      "cans 1440: no horizontal overflow",
+      "cans 1440: visible images decode",
+      "buckets 1440: no horizontal overflow",
+      "buckets 1440: visible images decode",
+      "containers 1440: no horizontal overflow",
+      "containers 1440: visible images decode",
+      "custom 1440: no horizontal overflow",
+      "custom 1440: visible images decode",
+      "about 1440: no horizontal overflow",
+      "about 1440: visible images decode",
+      "home 768: no horizontal overflow",
+      "home 768: visible images decode",
+      "products 768: no horizontal overflow",
+      "products 768: visible images decode",
+      "cans 768: no horizontal overflow",
+      "cans 768: visible images decode",
+      "buckets 768: no horizontal overflow",
+      "buckets 768: visible images decode",
+      "containers 768: no horizontal overflow",
+      "containers 768: visible images decode",
+      "custom 768: no horizontal overflow",
+      "custom 768: visible images decode",
+      "about 768: no horizontal overflow",
+      "about 768: visible images decode",
+      "home 390: no horizontal overflow",
+      "home 390: visible images decode",
+      "products 390: no horizontal overflow",
+      "products 390: visible images decode",
+      "cans 390: no horizontal overflow",
+      "cans 390: visible images decode",
+      "buckets 390: no horizontal overflow",
+      "buckets 390: visible images decode",
+      "containers 390: no horizontal overflow",
+      "containers 390: visible images decode",
+      "custom 390: no horizontal overflow",
+      "custom 390: visible images decode",
+      "about 390: no horizontal overflow",
+      "about 390: visible images decode",
+      "initial count",
+      "next",
+      "previous",
+      "wrap",
+      "thumbnail",
+      "active thumbnail",
+      "keyboard",
+      "resize retains selection",
+      "real mobile touch swipe",
+      "retired jars route returns normal 404",
+      "custom illustration has no fabricated photo gallery",
+      "broken image displays fallback",
+      "no browser JavaScript errors"
+    ],
+    "errors": []
+  },
+  "lighthouse": [
+    {
+      "page": "home",
+      "url": "https://localhost:7445/",
+      "version": "13.5.0",
+      "fetchTime": "2026-10-24T16:54:10.647Z",
+      "formFactor": "mobile",
+      "runWarnings": [],
+      "scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "largest-contentful-paint": 2934.1282,
+        "total-blocking-time": 1.5,
+        "cumulative-layout-shift": 0
+      },
+      "accessibilityFailures": []
+    },
+    {
+      "page": "catalog",
+      "url": "https://localhost:7445/products",
+      "version": "13.5.0",
+      "fetchTime": "2026-10-24T16:54:17.586Z",
+      "formFactor": "mobile",
+      "runWarnings": [],
+      "scores": {
+        "performance": 96,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "largest-contentful-paint": 2630.5645999999997,
+        "total-blocking-time": 6.5,
+        "cumulative-layout-shift": 0
+      },
+      "accessibilityFailures": []
+    },
+    {
+      "page": "detail",
+      "url": "https://localhost:7445/products/buckets",
+      "version": "13.5.0",
+      "fetchTime": "2026-10-24T16:54:24.092Z",
+      "formFactor": "mobile",
+      "runWarnings": [],
+      "scores": {
+        "performance": 96,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "largest-contentful-paint": 2716.4632,
+        "total-blocking-time": 24.5,
+        "cumulative-layout-shift": 0
+      },
+      "accessibilityFailures": []
+    },
+    {
+      "page": "contact",
+      "url": "https://localhost:7445/contact",
+      "version": "13.5.0",
+      "fetchTime": "2026-10-24T16:54:31.228Z",
+      "formFactor": "mobile",
+      "runWarnings": [],
+      "scores": {
+        "performance": 98,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "largest-contentful-paint": 2184.6232,
+        "total-blocking-time": 6.5,
+        "cumulative-layout-shift": 0
+      },
+      "accessibilityFailures": []
+    }
+  ],
+  "managementChanges": false,
+  "databaseAccess": false,
+  "precommitPackage": {
+    "node": "v24.22.0",
+    "packagedFiles": 200,
+    "archiveSha256": "4c40d4539874169e398c9c82e096d64a9d19f03dc013d6cf6a20aefeb3baac68",
+    "corruptionRejected": true,
+    "productionOnlyInstall": true,
+    "routes": [
+      {
+        "path": "/",
+        "status": 200
+      },
+      {
+        "path": "/about",
+        "status": 200
+      },
+      {
+        "path": "/products",
+        "status": 200
+      },
+      {
+        "path": "/manufacturing",
+        "status": 200
+      },
+      {
+        "path": "/industries",
+        "status": 200
+      },
+      {
+        "path": "/contact",
+        "status": 200
+      },
+      {
+        "path": "/products/buckets",
+        "status": 200
+      },
+      {
+        "path": "/products/cans",
+        "status": 200
+      },
+      {
+        "path": "/products/containers",
+        "status": 200
+      },
+      {
+        "path": "/products/custom",
+        "status": 200
+      }
+    ],
+    "asset": {
+      "path": "/assets/index-BmA9E3X6.js",
+      "status": 200
+    },
+    "privateProbes": 7,
+    "smtp": "Disabled; synthetic inquiry returned delivery_unavailable",
+    "passed": true
+  }
+}

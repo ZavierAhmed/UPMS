@@ -14,6 +14,7 @@ import { notFoundMeta } from "./data/pages";
 import { publicPage } from "./data/publicRoutes";
 import "./styles/site.css";
 import "./styles/pages.css";
+import "./styles/polish.css";
 function RouteEffects() {
   const { pathname } = useLocation();
   useEffect(() => {
@@ -63,7 +64,10 @@ function RouteEffects() {
               }),
             { threshold: 0.08 },
           );
-    document.querySelectorAll(".reveal").forEach((el) => observer?.observe(el));
+    document.querySelectorAll(".reveal, .section-heading, .page-hero h1").forEach((el) => {
+      el.classList.add('reveal');
+      observer?.observe(el);
+    });
     return () => observer?.disconnect();
   }, [pathname]);
   return null;

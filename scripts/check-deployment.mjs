@@ -19,11 +19,10 @@ for (const [file, expected] of Object.entries(release.files)) {
 const routes = JSON.parse(
   await readFile(resolve(root, "upms.client/dist/public-routes.json"), "utf8"),
 );
-if (
-  routes.pages.length !== 11 ||
-  new Set(routes.pages.map((p) => p.path)).size !== 11
-)
-  throw new Error("Expected eleven public routes.");
+const expectedPaths = ['/', '/about', '/products', '/manufacturing', '/industries', '/contact', '/products/buckets', '/products/cans', '/products/containers', '/products/custom'];
+if (routes.pages.length !== expectedPaths.length ||
+    JSON.stringify(routes.pages.map(p=>p.path).sort()) !== JSON.stringify(expectedPaths.sort()))
+  throw new Error("Expected the ten approved public routes.");
 console.log(
-  `Verified ${Object.keys(release.files).length} release files and eleven prerendered routes.`,
+  `Verified ${Object.keys(release.files).length} release files and ten prerendered routes.`,
 );

@@ -44,11 +44,10 @@ put(".nvmrc", await readFile(".nvmrc"));
 const routes = JSON.parse(
   files.get("upms.client/dist/public-routes.json").toString("utf8"),
 );
-if (
-  routes.pages.length !== 11 ||
-  new Set(routes.pages.map((p) => p.path)).size !== 11
-)
-  throw new Error("Expected eleven public routes.");
+const expectedPaths = ['/', '/about', '/products', '/manufacturing', '/industries', '/contact', '/products/buckets', '/products/cans', '/products/containers', '/products/custom'];
+if (routes.pages.length !== expectedPaths.length ||
+    JSON.stringify(routes.pages.map(p=>p.path).sort()) !== JSON.stringify(expectedPaths.sort()))
+  throw new Error("Expected the ten approved public routes.");
 for (const file of [...routes.pages.map((p) => p.file), routes.notFoundFile]) {
   if (!files.has(`upms.client/dist/${file}`))
     throw new Error("A prerendered document is missing.");

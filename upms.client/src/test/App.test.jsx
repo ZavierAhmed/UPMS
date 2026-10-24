@@ -126,7 +126,7 @@ describe("catalog and product detail", () => {
     });
     expect(screen.getByRole("status").textContent).toBe("2 categories");
     expect(screen.getByRole("heading",{name:"Plastic Buckets"})).toBeTruthy();
-    expect(screen.getByRole("heading",{name:"Industrial Containers"})).toBeTruthy();
+    expect(screen.getByRole("heading",{name:"Plastic Cans"})).toBeTruthy();
     expect(
       screen.queryByRole("heading", { name: "Lubricant Cans" }),
     ).toBeNull();
@@ -137,7 +137,7 @@ describe("catalog and product detail", () => {
     fireEvent.click(
       screen.getByRole("button", { name: "Clear search and filters" }),
     );
-    expect(screen.getByRole("status").textContent).toBe("5 categories");
+    expect(screen.getByRole("status").textContent).toBe("4 categories");
     expect(screen.getByLabelText("Search packaging").value).toBe("");
   });
   it("restores filters from a shared URL", () => {

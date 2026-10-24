@@ -39,7 +39,7 @@ export default function Products() {
         crumbs={[["Products"]]}
       >
         <div className="hero-caption">
-          <span className="eyebrow">FIVE CATEGORIES. ONE CONVERSATION.</span>
+          <span className="eyebrow">FOUR CATEGORIES. ONE CONVERSATION.</span>
           <p>
             Standard formats and tailored ideas, brought together around your
             packaging brief.

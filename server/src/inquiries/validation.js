@@ -1,8 +1,7 @@
 export const categories = Object.freeze({
   buckets: "Plastic Buckets",
   cans: "Lubricant Cans",
-  jars: "Plastic Jars",
-  containers: "Industrial Containers",
+  containers: "Plastic Cans",
   custom: "Custom Packaging",
 });
 export const fields = [

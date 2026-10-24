@@ -14,7 +14,7 @@ const count=()=>page.$eval('.gallery-controls [aria-live]',e=>e.textContent);
 try{
  for(const width of [1440,768,390]){
   await page.setViewport({width,height:900,isMobile:width===390,hasTouch:width===390});
-  for(const [name,path] of [['home','/'],['products','/products'],['cans','/products/cans'],['buckets','/products/buckets'],['containers','/products/containers'],['jars','/products/jars'],['custom','/products/custom'],['about','/about']]){
+  for(const [name,path] of [['home','/'],['products','/products'],['cans','/products/cans'],['buckets','/products/buckets'],['containers','/products/containers'],['custom','/products/custom'],['about','/about']]){
    await page.goto(base+path,{waitUntil:'networkidle0'});
    check(`${name} ${width}: no horizontal overflow`,await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
    check(`${name} ${width}: visible images decode`,await page.evaluate(()=>[...document.images].filter(i=>{const r=i.getBoundingClientRect();return r.top<innerHeight&&r.bottom>0;}).every(i=>i.complete&&i.naturalWidth>0)));
@@ -42,7 +42,7 @@ try{
  await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:box.x+box.width*.2,y}]});
  await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
  check('real mobile touch swipe',await count()==='2 of 13');
- await page.goto(base+'/products/jars',{waitUntil:'networkidle0'});check('single image disables navigation',await page.$$eval('.gallery-controls button',els=>els.every(e=>e.disabled)));
+ const retired=await page.goto(base+'/products/jars',{waitUntil:'networkidle0'});check('retired jars route returns normal 404',retired.status()===404);
  await page.goto(base+'/products/custom',{waitUntil:'networkidle0'});check('custom illustration has no fabricated photo gallery',await page.$('.product-gallery')===null);
  await page.setRequestInterception(true);page.on('request',r=>r.url().includes('catalog-w07-blow')?r.respond({status:404,body:'Missing test image'}):r.continue());
  await page.setCacheEnabled(false);await page.goto(base+'/products/cans',{waitUntil:'networkidle0'});

@@ -45,7 +45,7 @@ export default function Manufacturing() {
             attention to detail.
           </p>
           <p>
-            We manufacture buckets, jars, lubricant cans and containers, and
+            We manufacture buckets, lubricant cans, plastic cans and containers, and
             discuss customized plastic molding for individual requirements. The
             right starting point depends on your product and application.
           </p>

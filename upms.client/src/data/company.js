@@ -1,4 +1,3 @@
-import jars from "../assets/products/jars.jpg";
 import {catalogGalleries} from "./catalog";
 export const company = {
   name: "Unique Plastic Industry",
@@ -71,29 +70,8 @@ export const products = [
     source: "Company_Profile_New_HD_Bottles (1).pdf pages 2–25",
   },
   {
-    id: "jars",
-    title: "Plastic Jars",
-    group: "Containers",
-    text: "Smaller plastic packaging for commercial needs. Ask about the format that fits your application.",
-    image: jars,
-    alt: "Three small grey plastic containers pictured in the company brochure",
-    capacities: [],
-    capacityNote:
-      "The brochure uses weight labels for the small containers. These are not treated as liquid capacities; confirm sizing with our team.",
-    description:
-      "Our smaller plastic containers provide another starting point for packaging discussions. Share your intended contents and size requirements so the team can help identify an appropriate option.",
-    uses: ["Smaller-format packaging", "Commercial applications"],
-    discussion: [
-      "Contents and required volume",
-      "Closure requirements",
-      "Order quantity",
-      "Sample requirements",
-    ],
-    source: "Brochure page 2",
-  },
-  {
     id: "containers",
-    title: "Industrial Containers",
+    title: "Plastic Cans",
     group: "Containers",
     text: "Jerrycan-style plastic containers in 20L and 30L designs shown in our company catalog.",
     image: catalogGalleries.containers[0].src,
@@ -134,8 +112,8 @@ export const products = [
     source: "Brochure pages 3–4",
   },
 ].map(product=>{
- const gallery=product.id==='jars'?[{id:'legacy-jars',categoryId:'jars',src:jars,thumbnail:jars,width:355,height:175,alt:product.alt,caption:'Small containers from our previously approved company brochure. Contact us to confirm sizing.',sourcePdf:'UNIQUE COMPANY MOCKUP.pdf',sourcePage:3}]:catalogGalleries[product.id]||[];
- return {...product,gallery,catalogImage:gallery[0]||null,image:gallery[0]?.src||product.image,alt:gallery[0]?.alt||product.alt};
+ const gallery=product.id==='containers'?[...catalogGalleries.containers].reverse():catalogGalleries[product.id]||[];
+ return {...product,gallery,catalogImage:gallery[0]||null,hoverImage:gallery[1]||null,image:gallery[0]?.src||product.image,alt:gallery[0]?.alt||product.alt};
 });
 export const features = [
   [

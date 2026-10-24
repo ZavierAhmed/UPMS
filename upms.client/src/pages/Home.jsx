@@ -21,7 +21,7 @@ export default function Home() {
               <em>Quality in every detail.</em>
             </h1>
             <p className="lead">
-              Plastic packaging with a purpose. We manufacture buckets, jars,
+              Plastic packaging with a purpose. We manufacture buckets, plastic cans,
               lubricant cans and containers for the demands of your business.
             </p>
             <div className="actions">

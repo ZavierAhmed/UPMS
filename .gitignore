@@ -403,3 +403,9 @@ FodyWeavers.xsd
 
 # Private W07 catalog inspection, source extracts and browser evidence
 /tmp/w07/
+
+# Private W07.1 acceptance evidence
+/tmp/w071/
+/tmp/w07-1/
+/docs/screenshots/w07-1/
+/docs/screenshots/w071/gallery/

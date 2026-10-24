@@ -51,7 +51,12 @@ for (const [field, value] of [
     assert.equal(f.calls.length, 0);
   });
 }
-for (const category of ["buckets", "cans", "jars", "containers", "custom"])
+test("retired jars category is rejected without delivery", async () => {
+  const f=fixture();
+  assert.equal((await f.send({...valid,productCategory:'jars'})).status,400);
+  assert.equal(f.calls.length,0);
+});
+for (const category of ["buckets", "cans", "containers", "custom"])
   test(`accept category ${category}`, async () =>
     assert.equal(
       (await fixture().send({ ...valid, productCategory: category })).status,
