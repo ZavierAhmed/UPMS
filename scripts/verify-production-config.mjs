@@ -1,0 +1,19 @@
+// Read-only configuration checks. Does not connect to any database or provider.
+import assert from 'node:assert/strict';
+import {loadConfig} from '../server/src/config/index.js';
+import {identityConfig,databaseConfig} from '../server/src/identity/config.js';
+import {validateEngine} from '../server/src/identity/engine.js';
+import {peerInfo} from '../server/src/middleware/security.js';
+assert.equal(process.versions.node.split('.')[0],'24');
+const env={NODE_ENV:'production',PUBLIC_ORIGIN:'https://unique-plastic.com',ALLOWED_HOSTS:'unique-plastic.com;www.unique-plastic.com',INQUIRY_PUBLIC_ORIGIN:'https://unique-plastic.com',INQUIRY_MODE:'Disabled',MANAGEMENT_ENABLED:'false'};
+const config=loadConfig(env);assert.equal(config.origin,env.PUBLIC_ORIGIN);assert.equal(config.mode,'Disabled');assert.equal(identityConfig(env),null);
+assert.throws(()=>loadConfig({...env,ALLOWED_HOSTS:'*'}));assert.throws(()=>loadConfig({...env,TRUST_PROXY:'true'}));
+const req={socket:{remoteAddress:'192.0.2.10'},headers:{'x-forwarded-proto':'https'}};
+assert.equal(peerInfo(req,config).secure,false);
+assert.equal(peerInfo(req,{...config,proxies:['192.0.2.10']}).secure,true);
+assert.throws(()=>identityConfig({...env,MANAGEMENT_ENABLED:'true',MANAGEMENT_ORIGIN:'http://unique-plastic.com',SESSION_SECRET:'synthetic-fixture-only-not-a-real-production-secret'}));
+assert.throws(()=>validateEngine('10.4.32-MariaDB',{...env,DB_ALLOW_MARIADB_COMPATIBILITY:'true'}));
+assert.equal(validateEngine('8.0.16',env).product,'Oracle MySQL');
+assert.throws(()=>databaseConfig({...env,DB_HOST:'remote.example.test'}));
+assert.throws(()=>identityConfig({...env,MANAGEMENT_ENABLED:'true',MANAGEMENT_ORIGIN:env.PUBLIC_ORIGIN,SESSION_SECRET:'synthetic-fixture-only-not-a-real-production-secret',UPMS_SIMPLE_V1:'synthetic-v1',DB_NAME:'upms',DB_PORT:'3306'}));
+console.log(JSON.stringify({node:process.version,domain:'unique-plastic.com',checks:13,managementEnabled:false,inquiryMode:'Disabled',trustedProxy:'Exact-IP only; example uses documentation-only test address',productionMariaDB:'rejected',remoteDatabase:'rejected',simpleV1Live:'rejected',passed:true},null,2));

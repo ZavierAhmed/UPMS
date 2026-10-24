@@ -14,6 +14,17 @@ import {
   validateInquiry,
 } from "../components/inquiries/validation";
 const originalFetch = globalThis.fetch;
+it('keeps static-only releases disabled without attempting inquiry delivery',()=>{
+ const marker=document.createElement('meta');marker.name='public-static-release';marker.content='true';document.head.append(marker);
+ try{
+  globalThis.fetch=vi.fn();
+  const {container}=render(<InquiryForm/>);
+  expect(screen.getByRole('note').textContent).toContain('Online inquiry delivery is not enabled');
+  expect(container.querySelector('fieldset').disabled).toBe(true);
+  fireEvent.submit(container.querySelector('form'));
+  expect(globalThis.fetch).not.toHaveBeenCalled();
+ }finally{marker.remove();}
+});
 afterEach(() => {
   globalThis.fetch = originalFetch;
   vi.useRealTimers();

@@ -1,0 +1,273 @@
+{
+  "baseline": "604c78afc1c16f9ce8df26299201f8bb08b4d192",
+  "backendPassed": 179,
+  "frontendPassed": 182,
+  "gallery": {
+    "checks": 55,
+    "passed": [
+      "home 1440: no horizontal overflow",
+      "home 1440: visible images decode",
+      "products 1440: no horizontal overflow",
+      "products 1440: visible images decode",
+      "cans 1440: no horizontal overflow",
+      "cans 1440: visible images decode",
+      "buckets 1440: no horizontal overflow",
+      "buckets 1440: visible images decode",
+      "containers 1440: no horizontal overflow",
+      "containers 1440: visible images decode",
+      "custom 1440: no horizontal overflow",
+      "custom 1440: visible images decode",
+      "about 1440: no horizontal overflow",
+      "about 1440: visible images decode",
+      "home 768: no horizontal overflow",
+      "home 768: visible images decode",
+      "products 768: no horizontal overflow",
+      "products 768: visible images decode",
+      "cans 768: no horizontal overflow",
+      "cans 768: visible images decode",
+      "buckets 768: no horizontal overflow",
+      "buckets 768: visible images decode",
+      "containers 768: no horizontal overflow",
+      "containers 768: visible images decode",
+      "custom 768: no horizontal overflow",
+      "custom 768: visible images decode",
+      "about 768: no horizontal overflow",
+      "about 768: visible images decode",
+      "home 390: no horizontal overflow",
+      "home 390: visible images decode",
+      "products 390: no horizontal overflow",
+      "products 390: visible images decode",
+      "cans 390: no horizontal overflow",
+      "cans 390: visible images decode",
+      "buckets 390: no horizontal overflow",
+      "buckets 390: visible images decode",
+      "containers 390: no horizontal overflow",
+      "containers 390: visible images decode",
+      "custom 390: no horizontal overflow",
+      "custom 390: visible images decode",
+      "about 390: no horizontal overflow",
+      "about 390: visible images decode",
+      "initial count",
+      "next",
+      "previous",
+      "wrap",
+      "thumbnail",
+      "active thumbnail",
+      "keyboard",
+      "resize retains selection",
+      "real mobile touch swipe",
+      "retired jars route returns normal 404",
+      "custom illustration has no fabricated photo gallery",
+      "broken image displays fallback",
+      "no browser JavaScript errors"
+    ],
+    "errors": []
+  },
+  "static": {
+    "manifestFiles": 113,
+    "checksumFiles": 112,
+    "routes": [
+      {
+        "path": "/",
+        "status": 200
+      },
+      {
+        "path": "/about",
+        "status": 200
+      },
+      {
+        "path": "/products",
+        "status": 200
+      },
+      {
+        "path": "/manufacturing",
+        "status": 200
+      },
+      {
+        "path": "/industries",
+        "status": 200
+      },
+      {
+        "path": "/contact",
+        "status": 200
+      },
+      {
+        "path": "/products/buckets",
+        "status": 200
+      },
+      {
+        "path": "/products/cans",
+        "status": 200
+      },
+      {
+        "path": "/products/containers",
+        "status": 200
+      },
+      {
+        "path": "/products/custom",
+        "status": 200
+      }
+    ],
+    "privateProbes": 8,
+    "retired404": true,
+    "post405": true,
+    "gallery": true,
+    "staticInquiryDisabled": true,
+    "browserErrors": [],
+    "passed": true
+  },
+  "fullstackPrecommit": {
+    "node": "v24.22.0",
+    "packagedFiles": 203,
+    "archiveSha256": "23300612a53455e496cd5cabc8eeb76bb6658c34d750b0e9c3b0460d56a31334",
+    "corruptionRejected": true,
+    "productionOnlyInstall": true,
+    "routes": [
+      {
+        "path": "/",
+        "status": 200
+      },
+      {
+        "path": "/about",
+        "status": 200
+      },
+      {
+        "path": "/products",
+        "status": 200
+      },
+      {
+        "path": "/manufacturing",
+        "status": 200
+      },
+      {
+        "path": "/industries",
+        "status": 200
+      },
+      {
+        "path": "/contact",
+        "status": 200
+      },
+      {
+        "path": "/products/buckets",
+        "status": 200
+      },
+      {
+        "path": "/products/cans",
+        "status": 200
+      },
+      {
+        "path": "/products/containers",
+        "status": 200
+      },
+      {
+        "path": "/products/custom",
+        "status": 200
+      }
+    ],
+    "asset": {
+      "path": "/assets/index-BJ38zxzG.js",
+      "status": 200
+    },
+    "privateProbes": 7,
+    "smtp": "Disabled; synthetic inquiry returned delivery_unavailable",
+    "passed": true
+  },
+  "productionConfig": {
+    "node": "v24.22.0",
+    "domain": "unique-plastic.com",
+    "checks": 13,
+    "managementEnabled": false,
+    "inquiryMode": "Disabled",
+    "trustedProxy": "Exact-IP only; example uses documentation-only test address",
+    "productionMariaDB": "rejected",
+    "remoteDatabase": "rejected",
+    "simpleV1Live": "rejected",
+    "passed": true
+  },
+  "lighthouse": [
+    {
+      "page": "home",
+      "url": "https://localhost:7445/",
+      "version": "13.5.0",
+      "fetchTime": "2026-10-24T17:41:44.318Z",
+      "formFactor": "mobile",
+      "runWarnings": [],
+      "scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "largest-contentful-paint": 2935.1578,
+        "total-blocking-time": 0,
+        "cumulative-layout-shift": 0
+      },
+      "accessibilityFailures": []
+    },
+    {
+      "page": "catalog",
+      "url": "https://localhost:7445/products",
+      "version": "13.5.0",
+      "fetchTime": "2026-10-24T17:41:51.425Z",
+      "formFactor": "mobile",
+      "runWarnings": [],
+      "scores": {
+        "performance": 97,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "largest-contentful-paint": 2341.724,
+        "total-blocking-time": 6.5,
+        "cumulative-layout-shift": 0
+      },
+      "accessibilityFailures": []
+    },
+    {
+      "page": "detail",
+      "url": "https://localhost:7445/products/buckets",
+      "version": "13.5.0",
+      "fetchTime": "2026-10-24T17:41:57.906Z",
+      "formFactor": "mobile",
+      "runWarnings": [],
+      "scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "largest-contentful-paint": 2933.7965999999997,
+        "total-blocking-time": 7,
+        "cumulative-layout-shift": 0
+      },
+      "accessibilityFailures": []
+    },
+    {
+      "page": "contact",
+      "url": "https://localhost:7445/contact",
+      "version": "13.5.0",
+      "fetchTime": "2026-10-24T17:42:04.771Z",
+      "formFactor": "mobile",
+      "runWarnings": [],
+      "scores": {
+        "performance": 98,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "largest-contentful-paint": 2181.2916,
+        "total-blocking-time": 14.5,
+        "cumulative-layout-shift": 0
+      },
+      "accessibilityFailures": []
+    }
+  ],
+  "productionDeployment": false,
+  "databaseAccess": false,
+  "ownerHostingResponse": "Web Hosting/",
+  "actualAccountRuntimeVerified": false
+}

@@ -5,9 +5,11 @@ import "./inquiry.css";
 const subscribe = () => () => {};
 const clientReady = () => true;
 const serverReady = () => false;
+const staticRelease = () => document.querySelector('meta[name="public-static-release"]')?.content === 'true';
 
 export default function InquiryForm({ initialCategory = "" }) {
   const ready = useSyncExternalStore(subscribe, clientReady, serverReady);
+  const staticOnly = useSyncExternalStore(subscribe, staticRelease, serverReady);
   const [values, setValues] = useState({
     ...emptyInquiry,
     productCategory: initialCategory,
@@ -33,7 +35,7 @@ export default function InquiryForm({ initialCategory = "" }) {
   }
   async function submit(event) {
     event.preventDefault();
-    if (busy.current || receipt) return;
+    if (staticOnly || busy.current || receipt) return;
     const invalid = validateInquiry(values);
     setErrors(invalid);
     if (Object.keys(invalid).length) {
@@ -238,6 +240,7 @@ export default function InquiryForm({ initialCategory = "" }) {
   }
   return (
     <div className="inquiry-panel inquiry-form-panel">
+      {staticOnly&&<p role="note">Online inquiry delivery is not enabled. Please call, email, or contact us on WhatsApp using the contact links on this page.</p>}
       <p className="eyebrow">REQUEST A QUOTE</p>
       <h2>Tell us what you need.</h2>
       <p>
@@ -286,7 +289,7 @@ export default function InquiryForm({ initialCategory = "" }) {
           aria-label="Packaging inquiry"
           aria-busy={pending}
         >
-          <fieldset disabled={!ready || pending}>
+          <fieldset disabled={staticOnly || !ready || pending}>
             <legend className="visually-hidden">
               Your contact details and packaging requirements
             </legend>
@@ -335,7 +338,7 @@ export default function InquiryForm({ initialCategory = "" }) {
             <button
               className="button dark-button inquiry-submit"
               type="submit"
-              disabled={!ready || pending}
+              disabled={staticOnly || !ready || pending}
             >
               {pending ? "Sending inquiry…" : "Send inquiry ↗"}
             </button>

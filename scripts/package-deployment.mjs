@@ -1,7 +1,7 @@
 // Deterministic ZIP32 artifact. Node standard library only; never reads .env or private outboxes.
 import { readFile, readdir, mkdir, writeFile, lstat } from "node:fs/promises";
 import { resolve, relative, dirname } from "node:path";
-import { deflateRawSync, crc32 } from "node:zlib";
+import { deterministicZip } from "./lib/deterministic-zip.mjs";
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
 
@@ -33,6 +33,7 @@ put(
   await readFile("scripts/check-deployment.mjs"),
 );
 const pkg = JSON.parse(await readFile("package.json", "utf8"));
+pkg.main = "server/src/index.js";
 // npm ci --omit=dev uses the unchanged root lockfile; scripts are not part of lock resolution.
 pkg.scripts = {
   build: "node scripts/check-deployment.mjs",
@@ -67,7 +68,7 @@ put(
       sourceCommit: execFileSync("git", ["rev-parse", "HEAD"], {
         encoding: "utf8",
       }).trim(),
-      note: "Checksums describe packaged bytes, including any local W06 edits; commit is the checkout base until committed.",
+      note: "Checksums describe packaged bytes; sourceCommit identifies the checkout base. Regenerate after the release commit.",
       files: checksums,
     },
     null,
@@ -75,44 +76,7 @@ put(
   ) + "\n",
 );
 
-const local = [],
-  central = [];
-let offset = 0;
-for (const [name, raw] of [...files].sort(([a], [b]) =>
-  a.localeCompare(b, "en"),
-)) {
-  const filename = Buffer.from(name);
-  const data = deflateRawSync(raw, { level: 9 });
-  if (raw.length > 0xffffffff || offset + data.length > 0xffffffff)
-    throw new Error("ZIP64 would be required.");
-  const header = Buffer.alloc(30);
-  header.writeUInt32LE(0x04034b50);
-  header.writeUInt16LE(20, 4);
-  header.writeUInt16LE(0x800, 6);
-  header.writeUInt16LE(8, 8);
-  header.writeUInt16LE(33, 12); // fixed 1980-01-01
-  header.writeUInt32LE(crc32(raw), 14);
-  header.writeUInt32LE(data.length, 18);
-  header.writeUInt32LE(raw.length, 22);
-  header.writeUInt16LE(filename.length, 26);
-  const directory = Buffer.alloc(46);
-  directory.writeUInt32LE(0x02014b50);
-  directory.writeUInt16LE(20, 4);
-  header.copy(directory, 6, 4, 30);
-  directory.writeUInt32LE(offset, 42);
-  local.push(header, filename, data);
-  central.push(directory, filename);
-  offset += header.length + filename.length + data.length;
-}
-if (files.size > 65535) throw new Error("ZIP64 would be required.");
-const directoryBytes = Buffer.concat(central);
-const end = Buffer.alloc(22);
-end.writeUInt32LE(0x06054b50);
-end.writeUInt16LE(files.size, 8);
-end.writeUInt16LE(files.size, 10);
-end.writeUInt32LE(directoryBytes.length, 12);
-end.writeUInt32LE(offset, 16);
-const zip = Buffer.concat([...local, directoryBytes, end]);
+const zip = deterministicZip(files);
 const output = resolve("artifacts/upms-node-deployment.zip");
 if (relative(root, output).startsWith(".."))
   throw new Error("Output must remain in the workspace.");

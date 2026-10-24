@@ -5,7 +5,7 @@ import Icon from "../components/ui/Icon";
 import { values } from "../data/pages";
 import { company, products } from "../data/company";
 import CatalogImage from "../components/ui/CatalogImage";
-import {catalogHero} from "../data/catalog";
+import {capabilitiesImage} from "../data/capabilities";
 export default function About() {
   return (
     <>
@@ -58,7 +58,7 @@ export default function About() {
       <section className="products-section section">
         <div className="container split-content reveal">
           <div className="editorial-image">
-            <CatalogImage className="catalog-hero" image={catalogHero} sizes="(max-width: 900px) 90vw, 560px"/>
+            <CatalogImage className="catalog-hero" image={capabilitiesImage} sizes="(max-width: 900px) 90vw, 560px"/>
             <small>Packaging illustrated in our company brochure.</small>
           </div>
           <div>
