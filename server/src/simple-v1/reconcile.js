@@ -15,6 +15,7 @@ export async function reconcileV1(t){
   else if(d.kind==='PURCHASE'){credit=total;if(p.paidImmediately)debit=total;}
   else if(d.kind==='CLIENT_PAYMENT'){total=cents(p.amount);credit=total;}
   else if(d.kind==='VENDOR_PAYMENT'){total=cents(p.amount);debit=total;}
+  else if(d.kind==='EXPENSE'){total=cents(p.amount);if(p.paymentStatus!=='PAID'||!p.category||!p.description||!p.payee||!p.reference||!['CASH','BANK_TRANSFER'].includes(p.method)||d.party_id)mismatches.push('Paid expense evidence '+d.id);}
   else if(d.kind==='PAYMENT_REVERSAL'){const source=docs.find(x=>String(x.id)===p.correctsId&&x.status==='POSTED');if(!source)mismatches.push('Missing reversal source '+d.id);else{total=cents(source.total);if(source.kind==='CLIENT_PAYMENT')debit=total;else credit=total;}}
   else if(d.kind==='OPENING_CORRECTION'){total=cents(p.amount,{zero:true});const desired=p.direction==='OWED_TO_COMPANY'?total:-total,delta=desired-(partyBalances.get(String(d.party_id))||0n);if(delta>0n)debit=delta;else credit=-delta;}
   if(d.total!==money(total))mismatches.push('Document total '+d.id);

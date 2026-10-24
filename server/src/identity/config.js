@@ -14,7 +14,7 @@ export function identityConfig(env = process.env) {
     throw new Error('SESSION_SECRET requires at least 32 private random bytes.');
   if(env.UPMS_SIMPLE_V1&&!syntheticV1(env))throw new Error('V1 requires an explicitly isolated synthetic database; live cutover is pending.');
   return { origin: origin.origin, secure: origin.protocol === 'https:', secret: env.SESSION_SECRET,
-    cookieName: syntheticV1(env)?(origin.protocol==='https:'?'__Host-upms-simple-v1':'upms-simple-v1-local'):(origin.protocol === 'https:' ? '__Host-upms' : 'upms-local'),
+    cookieName: syntheticV1(env)&&env.DB_NAME.startsWith('upms_test_simplev11_')?(origin.protocol==='https:'?'__Host-upms-simple-v11':'upms-simple-v11-local'):syntheticV1(env)?(origin.protocol==='https:'?'__Host-upms-simple-v1':'upms-simple-v1-local'):(origin.protocol === 'https:' ? '__Host-upms' : 'upms-local'),
     simpleV1:syntheticV1(env),root: resolve('upms.client/dist/management'), idleMs: 30 * 60_000, absoluteMs: 8 * 3600_000 };
 }
 

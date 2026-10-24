@@ -393,3 +393,7 @@ FodyWeavers.xsd
 
 # Synthetic Simple V1 verification files
 /tmp/simple-v1/
+
+# V1.1 private verification, baseline builds and source screenshots
+/tmp/v11*
+/tmp/simple-v11-before/

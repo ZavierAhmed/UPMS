@@ -24,7 +24,8 @@ export function summarizeGrant(row) {
 }
 export function verifyRuntimeGrants(rows, database, account, expected=runtimePrivileges) {
   const parts = account.split('@');
-  if (!/^upms_runtime(?:_test_[a-z0-9_]+)?$/.test(parts[0]) || !['localhost','127.0.0.1','::1'].includes(parts[1]))
+  const v11=expected===simpleV1RuntimePrivileges&&((/^upms_test_simplev11_20261024_0[1-4]$/.test(database)&&parts[0]==='upms_runtime_v11_'+database.slice(-2))||(database==='upms_test_simplev11_demo_20261024_01'&&parts[0]==='upms_runtime_v11_demo'));
+  if ((!v11&&!/^upms_runtime(?:_test_[a-z0-9_]+)?$/.test(parts[0])) || !['localhost','127.0.0.1','::1'].includes(parts[1]))
     throw new Error('A dedicated loopback-only runtime account is required.');
   const found = new Map();
   for (const row of rows) {

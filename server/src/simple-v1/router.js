@@ -2,6 +2,7 @@ import express from 'express';
 import {z} from 'zod';
 import {simpleV1Service} from './service.js';
 export function simpleV1Router(db){const r=express.Router(),s=simpleV1Service(db),id=z.string().regex(/^[1-9][0-9]*$/),key=req=>req.get('idempotency-key');
+ r.get('/register',async(req,res)=>res.json(await s.register(req.session,req.query)));
  r.get('/state',async(req,res)=>res.json(await s.state(req.session)));
  r.get('/items',async(req,res)=>res.json({records:await s.items(req.session)}));
  r.post('/items',async(req,res)=>res.status(201).json(await s.saveItem(req.session,key(req),req.body)));
