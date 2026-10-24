@@ -1,3 +1,4 @@
+import {financialBrowserRegression} from './simple-v12-regression-browser.mjs';
 import {createServer} from 'node:http';
 import {randomUUID} from 'node:crypto';
 import {mkdir,writeFile} from 'node:fs/promises';
@@ -33,7 +34,8 @@ try{
   }finally{await browser.close();}
  }else{
   app=currentApp({identityDatabase:db,management:{...identityConfig(),origin}});
-  if(action==='browser-continue'){assert.equal(process.env.DB_NAME,'upms_test_simplev12_20261024_04');assert.equal((await db('v1_items')).length,0);assert.equal((await db('v1_documents')).length,0);await v12Browser({db,origin});}
+  if(action==='regression')await financialBrowserRegression({db,origin});
+  else if(action==='browser-continue'){assert.equal(process.env.DB_NAME,'upms_test_simplev12_20261024_04');assert.equal((await db('v1_items')).length,0);assert.equal((await db('v1_documents')).length,0);await v12Browser({db,origin});}
   else if(action==='browser'||action==='review')await v12Browser({db,origin,readonly:action==='review'});
   else if(action==='seed'){
    assert.equal(process.env.DB_NAME,'upms_test_simplev12_demo_20261024_01');assert.equal((await db('v1_items')).length,0);assert.equal((await db('v1_documents')).length,0);let cookie='',csrf;
