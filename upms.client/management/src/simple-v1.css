@@ -41,3 +41,23 @@
 .simple-v1 .bottle-row .remove-line{width:44px;min-width:44px;height:44px;padding:10px;margin:0;white-space:nowrap;justify-self:start}.simple-v1 .bottle-row .remove-line>span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}.simple-v1 .bottle-row label:before{display:none!important}
 
 .simple-v1 .v1-form label{position:relative}.simple-v1 .v1-form label:has([required])::before{content:"*";position:absolute;right:0;top:0;color:#8c3340;font-size:13px;line-height:20px;letter-spacing:0}
+/* V1.2A: shared screen layout; print rules above remain independent. */
+@media screen{
+ .simple-v1.authenticated main{max-width:none;margin-right:0;min-width:0}
+ .simple-v1 .v1-form{width:100%;max-width:none;box-sizing:border-box}
+ .simple-v1 .v1-form>*,.simple-v1 .v1-form fieldset>*{min-width:0}
+ .simple-v1 .v1-form>.v1-actions{grid-column:1/-1;width:100%;margin:0;box-sizing:border-box;gap:12px;flex-wrap:wrap}
+ .simple-v1 .available-stock{display:flex;flex-direction:column;gap:7px;overflow-wrap:normal;line-height:1.5}
+ .simple-v1 .available-stock small{font-weight:400;color:#657184}
+ .simple-v1 .available-stock a{font-size:12px;line-height:1.5;text-underline-offset:3px}
+ .simple-v1 .line-amount{font-variant-numeric:tabular-nums;text-align:right}
+ .simple-v1 .bottle-row input[readonly]{font-variant-numeric:tabular-nums}
+}
+@media screen and (min-width:1101px){
+ .simple-v1 .bottle-head.sale,.simple-v1 .bottle-row.sale{grid-template-columns:20px minmax(210px,3fr) minmax(160px,1.6fr) minmax(80px,.8fr) minmax(100px,1fr) minmax(100px,1fr) 44px;gap:12px}
+ .simple-v1 .bottle-head.sale span:nth-child(6){text-align:right}
+}
+@media screen and (max-width:600px){
+ .simple-v1 .v1-form>.v1-actions>*{width:100%}
+ .simple-v1 .line-amount{text-align:left}
+}

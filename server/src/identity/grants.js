@@ -26,7 +26,8 @@ export function verifyRuntimeGrants(rows, database, account, expected=runtimePri
   const parts = account.split('@');
   const v11=expected===simpleV1RuntimePrivileges&&((/^upms_test_simplev11_20261024_0[1-4]$/.test(database)&&parts[0]==='upms_runtime_v11_'+database.slice(-2))||(database==='upms_test_simplev11_demo_20261024_01'&&parts[0]==='upms_runtime_v11_demo'));
   const v12=expected===simpleV1RuntimePrivileges&&((/^upms_test_simplev12_20261024_0[1-6]$/.test(database)&&parts[0]==='upms_runtime_v12_'+database.slice(-2))||(database==='upms_test_simplev12_demo_20261024_01'&&parts[0]==='upms_runtime_v12_demo'));
-  if ((!v11&&!v12&&!/^upms_runtime(?:_test_[a-z0-9_]+)?$/.test(parts[0])) || !['localhost','127.0.0.1','::1'].includes(parts[1]))
+  const v12a=expected===simpleV1RuntimePrivileges&&((/^upms_test_simplev12a_20261024_0[1-6]$/.test(database)&&parts[0]==='upms_runtime_v12a_'+database.slice(-2))||(database==='upms_test_simplev12a_demo_20261024_01'&&parts[0]==='upms_runtime_v12a_demo'));
+  if ((!v11&&!v12&&!v12a&&!/^upms_runtime(?:_test_[a-z0-9_]+)?$/.test(parts[0])) || !['localhost','127.0.0.1','::1'].includes(parts[1]))
     throw new Error('A dedicated loopback-only runtime account is required.');
   const found = new Map();
   for (const row of rows) {
