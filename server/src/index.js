@@ -1,13 +1,17 @@
 import { createApp } from "./app.js";
 import {assertSupportedRuntime} from './production/runtime.js';
+import {createBlockedPreview} from './godaddy/preview.js';
+import {assertDatabaseProfile} from './godaddy/policy.js';
 const stopping = new AbortController();
 let startupDatabase;
 try {
   assertSupportedRuntime();
+  if(process.env.UPMS_HOSTING_PROFILE&&process.env.UPMS_HOSTING_PROFILE!=='godaddy-preview-blocked')throw new Error('Unknown hosting profile');
+  if(process.env.UPMS_HOSTING_PROFILE!=='godaddy-preview-blocked')assertDatabaseProfile();
   const port = Number(process.env.PORT || 3000);
   if (!Number.isInteger(port) || port < 1 || port > 65535)
     throw new Error("Invalid PORT.");
-  const app = createApp({
+  const app = process.env.UPMS_HOSTING_PROFILE==='godaddy-preview-blocked'?createBlockedPreview():createApp({
     shutdownSignal: stopping.signal,
     log: (event) => console.info(JSON.stringify(event)),
   });

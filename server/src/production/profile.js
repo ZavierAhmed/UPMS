@@ -1,5 +1,7 @@
 // Separate, explicit deployment identities. Never reinterpret a legacy/demo database as live.
+import {assertDatabaseProfile} from '../godaddy/policy.js';
 export function productionProfile(env=process.env){
+ assertDatabaseProfile(env);
  if(env.UPMS_SIMPLE_V1!=='production-v1')return null;
  const staging=env.UPMS_PRODUCTION_PURPOSE==='synthetic-staging';
  const schema=staging?'upms_test_production_20261024_01':'upms_live_v1';

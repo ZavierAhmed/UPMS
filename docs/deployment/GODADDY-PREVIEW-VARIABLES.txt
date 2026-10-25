@@ -1,0 +1,17 @@
+# PLACEHOLDERS ONLY. Do not load unchanged. Configure Preview only, never Publish.
+# This optional diagnostic mode has no database or administrator and cannot sign in.
+NODE_ENV=<production>
+UPMS_HOSTING_PROFILE=<godaddy-preview-blocked>
+UPMS_DATABASE_PROFILE=<godaddy-managed>
+MANAGEMENT_ENABLED=<true>
+PUBLIC_ORIGIN=<https://2idp3wfsef.preview.c35.airoapp.ai>
+MANAGEMENT_ORIGIN=<https://2idp3wfsef.preview.c35.airoapp.ai>
+ALLOWED_HOSTS=<2idp3wfsef.preview.c35.airoapp.ai>
+TRUSTED_PROXY_IPS=<verified exact immediate peer IP list; no wildcard>
+INQUIRY_MODE=<Disabled>
+# PORT is supplied by the platform. Do not hardcode or copy another app's port.
+# No DB_PASSWORD, DB_OWNER_PASSWORD, UPMS_ADMIN_PASSWORD or SESSION_SECRET in this mode.
+# UPMS_PRODUCTION_POSTING must be absent. No preview share token is required or permitted.
+# Future operational configuration remains blocked: DB_HOST, DB_PORT, DB_NAME,
+# DB_USER, DB_PASSWORD, CA/certificate settings and server identity must first be
+# independently verified and reviewed. No operational placeholder bypass is provided.

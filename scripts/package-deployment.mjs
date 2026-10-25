@@ -8,6 +8,8 @@ import { execFileSync } from "node:child_process";
 const root = process.cwd();
 const nodeMajor=process.argv.find(a=>a.startsWith('--node-major='))?.split('=')[1];
 const management=process.argv.includes('--management-release');
+const godaddy=process.argv.includes('--godaddy-preview');
+if(godaddy&&(!management||nodeMajor!=='22'))throw Error('GoDaddy preview requires the reviewed management Node 22 package');
 if(nodeMajor&&!['22','24'].includes(nodeMajor))throw Error('Only reviewed runtime lines are supported');
 const files = new Map();
 const put = (name, data) =>
@@ -31,6 +33,10 @@ if(management){
  await collect('server/production-migrations',name=>name.endsWith('.js'));
  for(const name of ['server/migrations/202610210001_identity.js','server/simple-v1-migrations/202610240001_simple_v1.js','server/simple-v1-migrations/202610240002_entry_fixes.js','server/tools/production.mjs'])put(name,await readFile(name));
 }
+if(godaddy){
+ for(const name of ['GODADDY-MANAGED-DB-COMPATIBILITY.md','GODADDY-PREVIEW-ENVIRONMENT.md','GODADDY-STAGING-TEST-RESULTS.md','GODADDY-PRODUCTION-BLOCKERS.md','GODADDY-BACKUP-RESTORE.md','GODADDY-PREVIEW-VARIABLES.txt'])put(name,await readFile('docs/deployment/'+name));
+ put('.npmrc','registry=https://registry.npmjs.org/\n');
+}
 await collect("upms.client/dist", (name) =>
   /^upms\.client\/dist\/(?:assets\/[^/]+\.(?:js|css|svg|jpg|jpeg|png|webp|avif|woff2)|management\/(?:index\.html|assets\/[^/]+\.(?:js|css))|licenses\/[A-Za-z0-9-]+\.txt|_pages\/[A-Za-z0-9-]+\.html|index\.html|public-routes\.json|icons\.svg|favicon\.svg)$/.test(
     name,
@@ -42,12 +48,14 @@ put(
 );
 const pkg = JSON.parse(await readFile("package.json", "utf8"));
 pkg.main = "server/src/index.js";
+if(godaddy)pkg.main='server/src/godaddy/index.js';
 if(nodeMajor)pkg.engines={node:nodeMajor==='22'?'^22.23.4':'^24.22.0'};
 // npm ci --omit=dev uses the unchanged root lockfile; scripts are not part of lock resolution.
 pkg.scripts = {
   build: "node scripts/check-deployment.mjs",
   start: "node server/src/index.js",
 };
+if(godaddy)pkg.scripts.start='node server/src/godaddy/index.js';
 put("package.json", JSON.stringify(pkg, null, 2) + "\n");
 put("package-lock.json", await readFile("package-lock.json"));
 put(".nvmrc", nodeMajor?(nodeMajor==='22'?'22.23.4\n':'24.22.0\n'):await readFile(".nvmrc"));
@@ -77,6 +85,7 @@ put(
       sourceCommit: execFileSync("git", ["rev-parse", "HEAD"], {
         encoding: "utf8",
       }).trim(),
+      ...(godaddy?{kind:'godaddy-private-preview-blocked',providerAccepted:false,databaseOperationsEnabled:false}:{}),
       note: "Checksums describe packaged bytes; sourceCommit identifies the checkout base. Regenerate after the release commit.",
       files: checksums,
     },

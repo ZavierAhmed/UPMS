@@ -1,6 +1,7 @@
 import { resolve } from 'node:path';
 import {syntheticV1} from '../simple-v1/catalog.js';
 import {productionProfile} from '../production/profile.js';
+import {assertDatabaseProfile} from '../godaddy/policy.js';
 
 export function identityConfig(env = process.env) {
   if (env.MANAGEMENT_ENABLED !== 'true') return null;
@@ -22,6 +23,7 @@ export function identityConfig(env = process.env) {
 }
 
 export function databaseConfig(env = process.env) {
+  assertDatabaseProfile(env);
   if (!['127.0.0.1', 'localhost', '::1'].includes(env.DB_HOST))
     throw new Error('P2.1 requires an explicit local DB_HOST.');
   if ((!/^upms(?:_dev|_test_[a-z0-9_]+)?$/.test(env.DB_NAME || '') && !productionProfile(env)) || !env.DB_USER || !env.DB_PASSWORD)
