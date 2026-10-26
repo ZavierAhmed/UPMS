@@ -1,0 +1,15 @@
+# Review-only placeholders. Preview only; no database connection or sign-in.
+NODE_ENV=<production>
+UPMS_HOSTING_PROFILE=<godaddy-preview-blocked>
+UPMS_DATABASE_PROFILE=<godaddy-cpanel>
+MANAGEMENT_ENABLED=<true>
+PUBLIC_ORIGIN=<https://2idp3wfsef.preview.c35.airoapp.ai>
+MANAGEMENT_ORIGIN=<https://2idp3wfsef.preview.c35.airoapp.ai>
+ALLOWED_HOSTS=<2idp3wfsef.preview.c35.airoapp.ai>
+TRUSTED_PROXY_IPS=<independently verified exact immediate proxy peer IPs>
+INQUIRY_MODE=<Disabled>
+# PORT is assigned by hosting. Do not guess/copy a port.
+# Leave DB_PASSWORD, DB_OWNER_PASSWORD, UPMS_ADMIN_PASSWORD, SESSION_SECRET,
+# and UPMS_PRODUCTION_POSTING absent. Never put private credentials in this file.
+# Endpoint, CA, server UUID/ID, schema/account and Publish isolation are unverified.
+# This package cannot enable operational database access through environment changes.

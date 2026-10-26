@@ -416,3 +416,9 @@ FodyWeavers.xsd
 /tmp/production/
 /tmp/godaddy-managed/
 /docs/screenshots/production/
+
+# Challan return synthetic test runtime and logs
+/tmp/dcr*/
+/tmp/dcr*.log
+/tmp/dcr*.json
+/tmp/node-compile-cache/

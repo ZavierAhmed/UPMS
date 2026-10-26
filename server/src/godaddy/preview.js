@@ -8,7 +8,7 @@ import {previewHostname,compatibilityBlockers,blocked} from './policy.js';
 // Explicit non-operational preview. No database import, pool, cookie or administrator exists here.
 export function createBlockedPreview(env=process.env){
   const origin='https://'+previewHostname;
-  if(env.UPMS_HOSTING_PROFILE!=='godaddy-preview-blocked'||env.UPMS_DATABASE_PROFILE!=='godaddy-managed'||
+  if(env.UPMS_HOSTING_PROFILE!=='godaddy-preview-blocked'||!['godaddy-managed','godaddy-cpanel'].includes(env.UPMS_DATABASE_PROFILE)||
     env.NODE_ENV!=='production'||env.PUBLIC_ORIGIN!==origin||env.MANAGEMENT_ORIGIN!==origin||
     env.ALLOWED_HOSTS!==previewHostname||env.MANAGEMENT_ENABLED!=='true'||
     env.MANAGEMENT_LOCAL_HTTP==='true'||env.UPMS_PRODUCTION_POSTING||env.UPMS_SIMPLE_V1_SYNTHETIC||

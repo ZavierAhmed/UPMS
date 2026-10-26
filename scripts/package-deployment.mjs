@@ -8,7 +8,8 @@ import { execFileSync } from "node:child_process";
 const root = process.cwd();
 const nodeMajor=process.argv.find(a=>a.startsWith('--node-major='))?.split('=')[1];
 const management=process.argv.includes('--management-release');
-const godaddy=process.argv.includes('--godaddy-preview');
+const cpanel=process.argv.includes('--godaddy-cpanel');
+const godaddy=process.argv.includes('--godaddy-preview')||cpanel;
 if(godaddy&&(!management||nodeMajor!=='22'))throw Error('GoDaddy preview requires the reviewed management Node 22 package');
 if(nodeMajor&&!['22','24'].includes(nodeMajor))throw Error('Only reviewed runtime lines are supported');
 const files = new Map();
@@ -37,6 +38,7 @@ if(godaddy){
  for(const name of ['GODADDY-MANAGED-DB-COMPATIBILITY.md','GODADDY-PREVIEW-ENVIRONMENT.md','GODADDY-STAGING-TEST-RESULTS.md','GODADDY-PRODUCTION-BLOCKERS.md','GODADDY-BACKUP-RESTORE.md','GODADDY-PREVIEW-VARIABLES.txt'])put(name,await readFile('docs/deployment/'+name));
  put('.npmrc','registry=https://registry.npmjs.org/\n');
 }
+if(cpanel)for(const name of ['GODADDY-CPANEL-DATABASE.md','GODADDY-CPANEL-COMPATIBILITY.md','UPMS-RETURN-DEPLOYMENT-PLAN.md','GODADDY-CPANEL-PREVIEW-VARIABLES.txt'])put(name,await readFile('docs/deployment/'+name));
 await collect("upms.client/dist", (name) =>
   /^upms\.client\/dist\/(?:assets\/[^/]+\.(?:js|css|svg|jpg|jpeg|png|webp|avif|woff2)|management\/(?:index\.html|assets\/[^/]+\.(?:js|css))|licenses\/[A-Za-z0-9-]+\.txt|_pages\/[A-Za-z0-9-]+\.html|index\.html|public-routes\.json|icons\.svg|favicon\.svg)$/.test(
     name,
@@ -85,7 +87,7 @@ put(
       sourceCommit: execFileSync("git", ["rev-parse", "HEAD"], {
         encoding: "utf8",
       }).trim(),
-      ...(godaddy?{kind:'godaddy-private-preview-blocked',providerAccepted:false,databaseOperationsEnabled:false}:{}),
+      ...(godaddy?{kind:cpanel?'godaddy-cpanel-private-preview-blocked':'godaddy-private-preview-blocked',providerAccepted:false,databaseOperationsEnabled:false}:{}),
       note: "Checksums describe packaged bytes; sourceCommit identifies the checkout base. Regenerate after the release commit.",
       files: checksums,
     },

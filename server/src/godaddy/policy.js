@@ -14,7 +14,7 @@ export function blocked(){const error=new Error('GoDaddy managed database compat
 // No provider endpoint has been approved. Environment variables are not acceptance evidence.
 export function assertDatabaseProfile(env=process.env){
   if(env.UPMS_DATABASE_PROFILE&&env.UPMS_DATABASE_PROFILE!=='local-mysql'){
-    if(env.UPMS_DATABASE_PROFILE==='godaddy-managed')throw blocked();
+    if(['godaddy-managed','godaddy-cpanel'].includes(env.UPMS_DATABASE_PROFILE))throw blocked();
     throw new Error('Unknown database profile');
   }
 }

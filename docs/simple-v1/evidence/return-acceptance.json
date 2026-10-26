@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "schema": "upms_test_dcr_20261026_06",
+  "engine": "8.4.13",
+  "productionMySQLVerified": false,
+  "mysqlEngineVerified": true,
+  "checks": [
+    "Restricted runtime rejects journal mutation, runtime DDL and global data access",
+    "Unposted challans, wrong client, foreign lines, changed rates, invalid quantity and reason rejected",
+    "Save draft is unnumbered and changes neither stock nor client ledger",
+    "Partial return posts stock and credit exactly once; same-key lost response retry replays",
+    "Concurrent returns revalidate remaining balance within transaction",
+    "Multiple selected-item returns fully reverse discounted net debit without rounding drift",
+    "Already-paid client gains a credit balance without any refund transaction",
+    "Rollback after stock writes leaves draft, stock, ledger and command unchanged",
+    "Original challan and its historical lines remain immutable",
+    "Stock, ledger, discount and return journal reconciliation; register search and summaries",
+    "Browser reports and actual XLSX exports: return report, stock movement, client ledger and company transactions retain DCR/original DC and return labels",
+    "Browser: posted challan → Create Return → Save Draft → Finalize → original summary; refresh cannot repost; desktop/mobile screenshots; print acknowledgment has no amounts",
+    "Drafts finalized out of creation order reconcile discounted partial credits",
+    "Concurrent same-document finalization posts stock and client credit once",
+    "Lost COMMIT acknowledgement and separate restarted process replay durable return exactly once"
+  ],
+  "ownerDatabaseTouched": false
+}
