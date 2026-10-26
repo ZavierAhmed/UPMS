@@ -1,0 +1,13 @@
+{
+  "name": "upms-godaddy-readonly-diagnostic",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {"node": "^22.23.4"},
+  "scripts": {
+    "diagnose": "node cli.mjs",
+    "start": "node no-server.mjs",
+    "build": "node --check diagnostic.mjs && node --check cli.mjs && node --check no-server.mjs"
+  },
+  "dependencies": {"mysql2": "3.24.6"}
+}
