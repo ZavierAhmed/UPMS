@@ -1,5 +1,37 @@
 # Remote MariaDB results — 2026-10-26
 
+## Current follow-up: full Simple V1 trial enabled
+
+The owner explicitly requested enabling stock, items and all remaining features for a
+run against the remote database, extending the earlier authentication-only approval.
+The existing plaintext exception remains development-only and is explicitly selected
+by `dev:remote:management`. No hosting or production deployment was changed.
+
+- Actual activation succeeded: state `READY`, operator `1`, entry version `2`, next
+  challan counter preserved at `1`. The administrator had already changed the temporary
+  password; activation reported `passwordChangeRequired:false` and did not reset it.
+- The full service replaced the login-only process on `127.0.0.1:3000`. Health reports
+  `remote-simple-v1-development`, `businessWrites:true`.
+- The port-5173 frontend returns 200 and now selects Simple V1 rather than the legacy
+  management component. Remote-development metadata/copy does not claim synthetic mode.
+- Actual queued parallel reads of seven business tables passed (approximately 16 seconds
+  including startup/other checks). All counts were zero at verification; no sample item,
+  stock, party, document, journal or command was created on the owner database.
+- An unauthenticated item POST returned 401, confirming the full route is now available
+  while authentication remains required. Business writes were tested in isolation only;
+  the owner can now perform the requested manual trial against the real database.
+- Backend suite: **290 passed**. Frontend suite: **188 passed**; lint and management
+  build passed. Existing full Simple V1 SQL regressions: **16 + 20 passed** on a fresh
+  standalone MariaDB 10.11.19 instance with the new management SQL allowlist applied to
+  runtime queries. Challan-return SQL/browser acceptance: **15 checks passed** on a second
+  fresh isolated MariaDB 10.11.19 instance under the same allowlist, including rollback,
+  concurrent finalization, lost-commit acknowledgement and restarted-process replay.
+- Synthetic test data and evidence remained private and separate from the remote owner
+  database. No reset, legacy migration, additional schema initialization, account creation,
+  public-site change or deployment ZIP was performed for activation.
+
+The authentication-only results and earlier approvals below are historical.
+
 ## Latest follow-up: approved sign-in service
 
 After the prior blocked attempts, the owner explicitly answered yes to enabling

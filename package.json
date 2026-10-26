@@ -28,7 +28,8 @@
     "database:preflight": "node server/tools/database-preflight.mjs",
     "dev:remote": "node server/tools/remote-development.mjs start",
     "database:remote:preflight": "node server/tools/remote-development.mjs preflight",
-    "dev:remote:login": "node server/tools/remote-login.mjs --allow-plaintext-auth-only"
+    "dev:remote:login": "node server/tools/remote-login.mjs --allow-plaintext-auth-only",
+    "dev:remote:management": "node server/tools/remote-management.mjs start --allow-plaintext-management"
   },
   "dependencies": {
     "argon2": "^0.45.1",

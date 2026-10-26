@@ -1,10 +1,53 @@
 # Remote MariaDB local development
 
-Current status: **schema initialized, administrator created and localhost
-authentication enabled after explicit owner approval; business operations remain blocked**. The owner also
-explicitly allowed plaintext for the approved setup. TLS is still unavailable, and
+Current status: **full Simple V1 remote development enabled after the owner's
+explicit request for items, stock and all other management features**. The owner
+previously approved the plaintext connection. TLS is still unavailable, and
 the default preflight/runtime security gates remain unchanged. See the follow-up in
 [REMOTE-MARIADB-RESULTS.md](REMOTE-MARIADB-RESULTS.md).
+
+## Full Simple V1 management — current workflow
+
+```powershell
+npm run dev:remote:management
+```
+
+This starts the full management backend on `127.0.0.1:3000`, using the fixed remote
+`upms` database and the private environment file. Keep the management Vite frontend
+running on `127.0.0.1:5173` and open `http://127.0.0.1:5173/management/`. Refresh the
+page to load the Simple V1 interface. Use the existing admin password; it is not reset
+by activation. If the initial temporary password has been changed, the private
+initial-password file is no longer the current password.
+
+The owner-approved activation assigned existing administrator 1 as operator and set
+`v1_control.state=READY` in one transaction, recording an activation audit entry.
+No stock, items, parties, opening balances or business documents were seeded, and
+numbering counters were not reset. Existing data must be preserved. Activation is
+idempotent and refuses a different operator or unknown state; it is a separate command,
+never automatic on startup:
+
+```powershell
+node server/tools/remote-management.mjs activate --allow-plaintext-management --confirm-target=184.168.100.110:3306/upms
+```
+
+Enabled features are items, clients/vendors, stock openings and stock-in, challans and
+returns, ledgers, client/vendor payments, expenses, company transactions, reconciliation,
+printing/PDF through browser print and Excel exports. Existing Simple V1 validations,
+single-operator authorization, idempotency keys, numbering and immutable journals apply.
+Saves and posts persist in the real remote development database. No production profile
+or synthetic identity is selected. The default TLS diagnostic and production gates remain.
+
+The management SQL allowlist permits only the existing Simple V1 table privileges plus
+authentication maintenance. It continues to block DDL, all business-table DELETEs,
+updates to append-only journals/audit/command records, user creation and role changes.
+The HTTP boundary exposes only authentication and existing Simple V1 routes. One pooled
+connection serializes the single operator's remote transactions without lock contention;
+the bounded 30-second acquire queue accommodates parallel page reads over the network.
+The initial page may take longer to load than a local database. Pool reuse, timeouts,
+rollback, UTF-8, strict SQL mode and reconnect identity checks remain in effect.
+
+The following sections retain earlier sign-in-only and initialization checkpoints as
+historical procedures. The running service has been replaced by full management mode.
 
 ## Approved localhost sign-in
 
