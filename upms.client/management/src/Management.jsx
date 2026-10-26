@@ -1,4 +1,5 @@
 import {MasterWorkspace} from './MasterWorkspace.jsx';
+import {managementResponse} from './managementResponse.js';
 import {CustomerLedger} from './CustomerLedger.jsx';
 import {BusinessUserContext,BusinessReadContext} from './managementContext.js';
 import {AuditTimeline} from './DocumentDetailLayout.jsx';
@@ -46,7 +47,7 @@ export function Management() {
     const response = await fetch(`/api/v1/management${path}`, { method, credentials: 'same-origin', cache: 'no-store',
       headers: { 'Content-Type': 'application/json', ...(method !== 'GET' ? { 'X-CSRF-Token': csrf } : {}),...(commandKey?{'Idempotency-Key':commandKey}:{}) },
       ...(body ? { body: JSON.stringify(body) } : {}) }).finally(()=>{if(method==='GET')setReading(n=>Math.max(0,n-1));});
-    const data = response.status === 204 ? {} : await response.json();
+    const data = await managementResponse(response);
     if (!response.ok) {
       if (response.status === 403 && data.error?.code === 'ACCESS_DENIED') setRouteError('denied');
       if (response.status === 401 && user) { setUser(null); setUsers([]); setEvents([]); setToken('');setVisited([]);readCache.current.clear(); }
@@ -70,10 +71,10 @@ export function Management() {
       try {
         const csrf = await fetch('/api/v1/management/session/csrf', { credentials: 'same-origin', cache: 'no-store' });
         if (!csrf.ok) throw new Error('The management service is unavailable.');
-        const data = await csrf.json();
+        const data = await managementResponse(csrf);
         if (mounted) setToken(data.csrfToken);
         const current = await fetch('/api/v1/management/session/current', { credentials: 'same-origin', cache: 'no-store' });
-        if (current.ok && mounted) { const result = await current.json(); setUser(result.user); setToken(result.csrfToken); if(result.user.passwordChangeRequired)navigatePath('/management/profile',{replace:true}); }
+        if (current.ok && mounted) { const result = await managementResponse(current); setUser(result.user); setToken(result.csrfToken); if(result.user.passwordChangeRequired)navigatePath('/management/profile',{replace:true}); }
       } catch (error) { if (mounted) setMessage(error.message); }
       finally { if (mounted) setReady(true); }
     })();
