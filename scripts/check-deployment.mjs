@@ -16,6 +16,12 @@ for (const [file, expected] of Object.entries(release.files)) {
   if (actual !== expected)
     throw new Error(`Release checksum mismatch: ${file}`);
 }
+if(release.kind==='godaddy-management-disabled-preview'){
+  if(release.managementOnly!==true||release.databaseOperationsEnabled!==false||release.operationalReady!==false||!release.files['upms.client/dist/management/index.html']||Object.keys(release.files).some(name=>name.startsWith('upms.client/dist/')&&!name.startsWith('upms.client/dist/management/')))throw Error('Invalid management-only release');
+  const pkg=JSON.parse(await readFile(resolve(root,'package.json'),'utf8'));
+  if(pkg.main!=='server/src/godaddy/management-index.js'||pkg.scripts.start!=='node server/src/godaddy/management-index.js'||pkg.scripts.build!=='node scripts/check-deployment.mjs')throw Error('Invalid disabled management entry');
+  console.log(`Verified ${Object.keys(release.files).length} files; built management only; operational database blocked.`);
+}else{
 const routes = JSON.parse(
   await readFile(resolve(root, "upms.client/dist/public-routes.json"), "utf8"),
 );
@@ -26,3 +32,5 @@ if (routes.pages.length !== expectedPaths.length ||
 console.log(
   `Verified ${Object.keys(release.files).length} release files and ten prerendered routes.`,
 );
+
+}
