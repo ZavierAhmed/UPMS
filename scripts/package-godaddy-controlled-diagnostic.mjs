@@ -1,0 +1,20 @@
+// Offline only. Separately packaged exiting startup, never general app deployment.
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+import {deterministicZip} from './lib/deterministic-zip.mjs';
+import {assertSupportedRuntime} from '../server/src/production/runtime.js';
+if(assertSupportedRuntime()!==22)throw Error('Build with the reviewed Node 22 runtime');
+const hash=b=>createHash('sha256').update(b).digest('hex'),sourceCommit=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),files=new Map();
+const add=(name,text)=>files.set(name,Buffer.from(text.replaceAll('\r\n','\n')));
+for(const name of ['startup.mjs','deployment-runner.mjs','run-state.mjs','verify-release.mjs','diagnostic.mjs'])add(name,await readFile('diagnostics/godaddy-db/'+name,'utf8'));
+const pkg=JSON.parse(await readFile('diagnostics/godaddy-db/package.json','utf8'));pkg.name='upms-godaddy-controlled-diagnostic';pkg.scripts={build:'node verify-release.mjs --verify-only',start:'node startup.mjs'};add('package.json',JSON.stringify(pkg,null,2)+'\n');
+const lock=JSON.parse(await readFile('diagnostics/godaddy-db/package-lock.json','utf8'));lock.name=pkg.name;lock.packages[''].name=pkg.name;add('package-lock.json',JSON.stringify(lock,null,2)+'\n');
+add('README.md',(await readFile('docs/deployment/GODADDY-CONTROLLED-DIAGNOSTIC.md','utf8')).replace('(GODADDY-STAGING-HOSTED-OBSERVATIONS.md)','(https://github.com/ZavierAhmed/UPMS/blob/'+sourceCommit+'/docs/deployment/GODADDY-STAGING-HOSTED-OBSERVATIONS.md)'));
+add('ENVIRONMENT.template.txt',(await readFile('docs/deployment/GODADDY-CONTROLLED-DIAGNOSTIC-ENVIRONMENT.txt','utf8')).replace('__SOURCE_COMMIT__',sourceCommit));add('.nvmrc','22.23.4\n');
+const manifest={sourceCommit,kind:'CONTROLLED_READ_ONLY_ONE_SHOT',operationalManagementEnabled:false,httpListener:false,databaseWrites:false,providerExecutionContractVerified:false,hostedResultsIncluded:false,files:Object.fromEntries([...files].sort(([a],[b])=>a.localeCompare(b,'en')).map(([n,b])=>[n,hash(b)]))};
+add('diagnostic-deployment-manifest.json',JSON.stringify(manifest,null,2)+'\n');
+const bytes=deterministicZip(files),sha256=hash(bytes),name='upms-godaddy-controlled-diagnostic-node22.zip',path='artifacts/'+name;
+await mkdir('artifacts',{recursive:true});await writeFile(path,bytes);await writeFile(path+'.sha256',sha256+'  '+name+'\n');
+const receipt={sourceCommit,path,sha256,bytes:bytes.length,files:files.size,mode:manifest.kind,providerExecutionContractVerified:false,hostedExecutionPerformed:false,deployed:false,operationalManagementEnabled:false};
+await writeFile('artifacts/upms-godaddy-controlled-diagnostic-receipt.json',JSON.stringify(receipt,null,2)+'\n');console.info(JSON.stringify(receipt));

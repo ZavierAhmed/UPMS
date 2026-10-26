@@ -423,3 +423,4 @@ FodyWeavers.xsd
 /tmp/dcr*.json
 /tmp/node-compile-cache/
 /tmp/godaddy-diagnostic/
+/tmp/godaddy-staging-runtime/

@@ -1,0 +1,27 @@
+# Template for the separately packaged one-shot diagnostic ONLY.
+# Do not load this template unchanged or attach it to operational management.
+# Configure in private GoDaddy runtime settings after lifecycle/storage review.
+NODE_ENV=production
+UPMS_DIAGNOSTIC_MODE=read-only-once
+UPMS_DIAGNOSTIC_LIFECYCLE=provider-confirmed-one-shot-no-restart
+UPMS_DIAGNOSTIC_PERSISTENCE=private-persistent-exclusive
+UPMS_DIAGNOSTIC_SHARED_DATABASE_ACK=same-app-preview-publish-share-database
+UPMS_DIAGNOSTIC_RELEASE_SHA=__SOURCE_COMMIT__
+UPMS_DIAGNOSTIC_RUN_ID=<one-reviewed-UUID-per-intended-assessment>
+UPMS_DIAGNOSTIC_APP_ID=<exact-reviewed-GoDaddy-app-id>
+UPMS_DIAGNOSTIC_PURPOSE=existing-readonly-assessment
+UPMS_DIAGNOSTIC_REVIEW_REFERENCE=<private-review-reference-no-secrets>
+UPMS_DIAGNOSTIC_STATE_DIR=<precreated-absolute-private-persistent-directory-outside-package>
+UPMS_DIAGNOSTIC_EXPECTED_HOST=<independently-confirmed-assigned-DNS-hostname>
+UPMS_DIAGNOSTIC_EXPECTED_PORT=<independently-confirmed-assigned-port>
+# Optional only if provider supplies an independently verified private CA bundle:
+# UPMS_DIAGNOSTIC_CA_FILE=<absolute-private-CA-file-path>
+# For a NEW independent staging app, change PURPOSE to isolated-synthetic-staging.
+# This declares purpose; it does not establish production/staging isolation.
+# DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD: injected by GoDaddy, never copy
+# values here, into a ZIP, source, build command, log or connection-string URL.
+# PORT may be injected by hosting. The diagnostic intentionally never listens.
+# Keep all operational flags, SESSION_SECRET, owner/admin credentials,
+# DATABASE_URL, MYSQL_URL, MYSQL_PWD and additional DB_* variables ABSENT.
+# MODE/LIFECYCLE/PERSISTENCE confirmations must correspond to reviewed provider
+# evidence; changing these strings does not prove that the platform supports them.
