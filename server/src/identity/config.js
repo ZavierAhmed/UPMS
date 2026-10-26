@@ -8,7 +8,7 @@ export function identityConfig(env = process.env) {
   if (env.MANAGEMENT_ENABLED !== 'true') return null;
   const profile=productionProfile(env);
   const remote=env.UPMS_DATABASE_PROFILE===remoteProfile;
-  if(remote){remoteTarget(env);if(env.MANAGEMENT_ORIGIN!=='http://127.0.0.1:3000'||env.MANAGEMENT_LOCAL_HTTP!=='true')throw failure('REMOTE_TARGET_REJECTED');}
+  if(remote){remoteTarget(env);if(!['http://127.0.0.1:3000','http://127.0.0.1:5173'].includes(env.MANAGEMENT_ORIGIN)||env.MANAGEMENT_LOCAL_HTTP!=='true')throw failure('REMOTE_TARGET_REJECTED');}
   const production = env.NODE_ENV === 'production';
   if(production&&syntheticV1(env))throw new Error('Legacy synthetic mode is restricted to local development.');
   const origin = new URL(env.MANAGEMENT_ORIGIN || '');

@@ -1,10 +1,37 @@
 # Remote MariaDB local development
 
-Current status: **schema initialized and administrator created after explicit owner
-approval; persistent operational application access remains blocked**. The owner also
+Current status: **schema initialized, administrator created and localhost
+authentication enabled after explicit owner approval; business operations remain blocked**. The owner also
 explicitly allowed plaintext for the approved setup. TLS is still unavailable, and
 the default preflight/runtime security gates remain unchanged. See the follow-up in
 [REMOTE-MARIADB-RESULTS.md](REMOTE-MARIADB-RESULTS.md).
+
+## Approved localhost sign-in
+
+The owner subsequently explicitly approved persistent plaintext **sign-in, sessions and
+password changes only**, with business writes disabled. The supported separate service is:
+
+```powershell
+npm run dev:remote:login
+```
+
+Run it with supported Node 22/24 from the repository root. It loads the private file
+and listens only on `127.0.0.1:3000`. The management Vite server on port 5173 proxies
+`/api` to that address. Set the private `MANAGEMENT_ORIGIN` to exactly
+`http://127.0.0.1:5173`; this checkout has been updated. Start the frontend with
+`npm exec --prefix upms.client -- vite --config vite.management.config.js`.
+Open `http://127.0.0.1:5173/management/` and use `admin` with the temporary password
+in the private login file. First login requires password change.
+
+The separate pool checks the fixed endpoint, engine, schema, account, server ID,
+recovery/read-only state, grants and migration history on every new connection.
+HTTP allows only session CSRF/current/login/logout and the signed-in user's password
+change. An independent SQL allowlist rejects business mutations and DDL, user creation,
+role/enabled changes and audit modification. Allowed writes are session/throttle
+maintenance, append-only identity audit and password/authorization-version updates.
+Production and the original generic database factory remain unchanged. This is an
+explicit plaintext exception, not verified TLS or full management activation.
+The existing `dev:remote` command retains its TLS checkpoint.
 
 The original TLS assessment below predates that approval.
 The 2026-10-26 check of the owner-approved endpoint did not advertise TLS. A successful

@@ -1,5 +1,25 @@
 # Remote MariaDB results — 2026-10-26
 
+## Latest follow-up: approved sign-in service
+
+After the prior blocked attempts, the owner explicitly answered yes to enabling
+localhost sign-in, sessions and password changes over plaintext while retaining the
+business-write block. A separate restricted authentication service is now enabled;
+the rejected broad operational-pool implementation was not applied.
+
+- Management URL: `http://127.0.0.1:5173/management/`; backend bound only to `127.0.0.1:3000`.
+- Actual private-password verification through the browser-facing proxy: CSRF 200,
+  administrator sign-in 200, current session 200, logout 204.
+- An attempted business POST returned 403 `REMOTE_AUTH_ONLY`; an unapproved-Origin
+  login returned 403. No business document was created by verification.
+- Temporary administrator password remained unchanged, with first-login password
+  rotation still required. Verification logged no password, cookie or CSRF token.
+- Backend regression suite: **285 passed**, including SQL mutation and HTTP route
+  allowlist tests. Earlier frontend proxy/error fixes passed all 188 frontend tests,
+  lint and the management build.
+- The generic operational app remains disabled. Authentication is the sole approved
+  plaintext exception, enforced at both the HTTP and SQL boundaries.
+
 ## Follow-up after explicit owner approval
 
 The owner supplied credentials privately to local settings, explicitly requested ignoring

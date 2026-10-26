@@ -27,7 +27,8 @@
     "identity:benchmark": "node server/tools/identity.mjs benchmark",
     "database:preflight": "node server/tools/database-preflight.mjs",
     "dev:remote": "node server/tools/remote-development.mjs start",
-    "database:remote:preflight": "node server/tools/remote-development.mjs preflight"
+    "database:remote:preflight": "node server/tools/remote-development.mjs preflight",
+    "dev:remote:login": "node server/tools/remote-login.mjs --allow-plaintext-auth-only"
   },
   "dependencies": {
     "argon2": "^0.45.1",
