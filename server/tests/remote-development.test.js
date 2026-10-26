@@ -7,7 +7,7 @@ import {databaseConfig,identityConfig} from '../src/identity/config.js';
 import {createDatabase} from '../src/identity/database.js';
 import {productionProfile} from '../src/production/profile.js';
 import {syntheticV1} from '../src/simple-v1/catalog.js';
-import {initializeIsolated,migrationPlan} from '../src/development/initialize.js';
+import {initializeIsolated,initializeReviewedRemote,migrationPlan} from '../src/development/initialize.js';
 
 const env={NODE_ENV:'development',UPMS_DATABASE_PROFILE:remoteProfile,UPMS_SIMPLE_V1:'remote-development-v1',
   DB_HOST:'184.168.100.110',DB_PORT:'3306',DB_NAME:'upms',DB_USER:'upms_user',DB_PASSWORD:'never-log-this-password',
@@ -93,6 +93,13 @@ test('initializer rejects real remote target before SQL or migrations',async()=>
   const db={client:{connectionSettings:{host:env.DB_HOST,port:3306,database:'upms'}},raw(){assert.fail('must not query');}};
   await assert.rejects(initializeIsolated(db,{...env,DB_CONFIRM_NAME:'upms'}),/REMOTE_WRITES_AWAIT_OWNER_REVIEW/);
   assert.equal(migrationPlan.length,3);
+});
+test('one-time remote initialization requires exact explicit endpoint and account confirmations',async()=>{
+  const db={client:{connectionSettings:{host:env.DB_HOST,port:3306,database:'upms',user:'upms_user'}},raw(){assert.fail('must reject before SQL');}};
+  const confirmation={target:'184.168.100.110:3306/upms',serverId:'1',account:'upms_user@103.244.178.33',plaintext:true};
+  for(const changed of [{target:'localhost:3306/upms'},{serverId:'2'},{account:'root@host'},{plaintext:false}])
+    await assert.rejects(initializeReviewedRemote(db,env,{...confirmation,...changed}),/REMOTE_TARGET_REJECTED/);
+  await assert.rejects(initializeReviewedRemote(db,env),/REMOTE_TARGET_REJECTED/);
 });
 test('actual TCP greeting parser handles fragmented packets and timeout without client writes',async()=>{
   let bytes=0;

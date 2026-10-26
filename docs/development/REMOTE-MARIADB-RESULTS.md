@@ -1,5 +1,31 @@
 # Remote MariaDB results — 2026-10-26
 
+## Follow-up after explicit owner approval
+
+The owner supplied credentials privately to local settings, explicitly requested ignoring
+TLS, then approved the documented three Simple V1 migrations and initial administrator.
+The following supersedes the original empty-schema/no-remote-write status recorded below:
+
+- Plaintext read-only authentication verified MariaDB `10.11.19-MariaDB-cll-lve`, schema
+  `upms`, account `upms_user@103.244.178.33`, port 3306, server ID 1, recovery 0,
+  read-only 0, InnoDB available, and **zero tables before initialization**.
+- The three recorded migrations were then applied to that exact target. Read-only
+  post-verification found **20 tables**, three migration records, exactly one user and
+  one administrator, zero documents, zero items and zero parties.
+- Application username: `admin`. Its generated password was saved privately to
+  `server/.local/remote-cpanel-dev/administrator-login.txt` and verified against the
+  stored Argon2 hash without printing either. Password rotation is required on first login.
+- No operational app pool or server was activated. `v1_control` remains `PENDING`,
+  `operator_id` is null, and no business transaction was created.
+- Backend tests after the one-shot initializer change: **281 passed**, zero failed/skipped.
+  Existing production, default TLS and operational write gates were retained.
+- Automatic approval review rejected the broader persistent plaintext app-pool change
+  as exceeding the migrations/initial-admin approval. That rejected patch was not applied.
+  The approved one-time initialization was completed separately. Persistent plaintext
+  login/session/management access requires a separate explicit owner decision.
+
+The original assessment and isolated-test evidence follow as historical records.
+
 Starting commit: `8757fd6984f399037caf18dc56721b75e2d51c61`.
 Working/delivery branch: `feature/upms-remote-cpanel-dev`.
 The final commit is the branch's pushed HEAD; use `git rev-parse HEAD` to retrieve it.

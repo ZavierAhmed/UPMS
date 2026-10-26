@@ -1,6 +1,12 @@
 # Remote MariaDB local development
 
-Status: **blocked before authentication and before the first real remote write**.
+Current status: **schema initialized and administrator created after explicit owner
+approval; persistent operational application access remains blocked**. The owner also
+explicitly allowed plaintext for the approved setup. TLS is still unavailable, and
+the default preflight/runtime security gates remain unchanged. See the follow-up in
+[REMOTE-MARIADB-RESULTS.md](REMOTE-MARIADB-RESULTS.md).
+
+The original TLS assessment below predates that approval.
 The 2026-10-26 check of the owner-approved endpoint did not advertise TLS. A successful
 Workbench plaintext connection is not evidence of authenticated TLS. No remote schema,
 account, table count, migration history, InnoDB state or grants have been verified.
@@ -137,8 +143,28 @@ test instance with these loopback identities, never XAMPP's original data direct
 node server/tools/remote-initialization-rehearsal.mjs
 ```
 
-There is intentionally no remote initialization command in this milestone. Before a
-separately approved real initialization: obtain authenticated TLS diagnostics, verify
+The initial milestone had no remote initialization command. After explicit owner
+approval, a separate one-shot command was added and executed for the three migrations
+and initial administrator only:
+
+```powershell
+node server/tools/remote-initialize-reviewed.mjs --confirm-target=184.168.100.110:3306/upms --confirm-server-id=1 --confirm-account=upms_user@103.244.178.33 --allow-plaintext
+```
+
+This command loads private credentials, verifies the exact endpoint/account/engine,
+checks InnoDB and recovery state, refuses an unknown or partial existing schema,
+and never resets an existing administrator. It creates no listener or operational
+pool. A generated application password is saved only to the Git-ignored
+`server/.local/remote-cpanel-dev/administrator-login.txt`, and its hash is verified.
+First login requires password rotation. Preserve that private file; do not commit it.
+The completed schema has 19 application tables plus migration tracking, one administrator,
+zero items/parties/documents, and `v1_control` remains `PENDING` with no operator assigned.
+There has been no business activation. Further initialization repeats preserve the
+existing administrator and never reset its password. Any future target/setup changes
+require fresh owner review; the flags confirm the target and do not themselves supply
+authorization.
+
+For any separately approved future initialization: obtain authenticated TLS diagnostics where possible, verify
 empty `upms` rather than assuming it, review the exact account/grants/server identity,
 take an approved backup/checkpoint, approve this migration set and a dedicated
 least-privilege runtime account, and implement a reviewed explicit endpoint/schema/

@@ -1,7 +1,7 @@
 import {up as identity} from '../../migrations/202610210001_identity.js';
 import {up as simple} from '../../simple-v1-migrations/202610240001_simple_v1.js';
 import {up as entry} from '../../simple-v1-migrations/202610240002_entry_fixes.js';
-import {failure} from './remote.js';
+import {failure,remoteTarget,remoteEngine} from './remote.js';
 
 export const migrationPlan=Object.freeze([
   '202610210001_identity.js','202610240001_simple_v1.js','202610240002_entry_fixes.js',
@@ -10,7 +10,7 @@ export const schemaTables=Object.freeze(['identity_guard','users','roles','permi
   'sessions','identity_audit_events','login_attempts','v1_control','v1_items','v1_parties','v1_stock',
   'v1_documents','v1_lines','v1_stock_journal','v1_party_journal','v1_audit','v1_commands']);
 
-// Rehearsal only. There is deliberately no remote initialization entry point this milestone.
+// Rehearsal keeps its independent synthetic endpoint restrictions.
 export async function initializeIsolated(db,env){
   const c=db.client.connectionSettings;
   if(env.NODE_ENV!=='development'||env.DB_CONFIRM_NAME!=='upms_test_remote_rehearsal_20261026' ||
@@ -19,6 +19,28 @@ export async function initializeIsolated(db,env){
   const [[state]]=await db.raw('SELECT DATABASE() AS schema_name,@@server_id AS server_id,@@innodb_force_recovery AS recovery,VERSION() AS version');
   if(state.schema_name!==c.database||Number(state.server_id)!==331726||Number(state.recovery)!==0||!/MariaDB/.test(state.version))
     throw failure('REMOTE_WRITES_AWAIT_OWNER_REVIEW');
+  return initializeSchema(db);
+}
+
+// One-time migrations only, following the owner's explicit approval in this session.
+// This does not open or activate an operational application database pool.
+export async function initializeReviewedRemote(db,env,confirmation){
+  remoteTarget(env);
+  const c=db.client.connectionSettings;
+  if(confirmation?.target!=='184.168.100.110:3306/upms'||confirmation?.serverId!=='1'||
+    confirmation?.account!=='upms_user@103.244.178.33'||confirmation?.plaintext!==true||
+    c.host!==env.DB_HOST||Number(c.port)!==3306||c.database!=='upms'||c.user!=='upms_user')
+    throw failure('REMOTE_TARGET_REJECTED');
+  const [[row]]=await db.raw('SELECT VERSION() AS version,DATABASE() AS schema_name,CURRENT_USER() AS account,@@server_id AS server_id,@@port AS port,@@read_only AS read_only,@@innodb_force_recovery AS force_recovery');
+  remoteEngine(row.version);
+  if(row.schema_name!=='upms'||row.account!==confirmation.account||String(row.server_id)!=='1'||
+    Number(row.port)!==3306||Number(row.read_only)!==0||Number(row.force_recovery)!==0)throw failure('REMOTE_SCHEMA_REJECTED');
+  const [engines]=await db.raw("SELECT SUPPORT,TRANSACTIONS FROM information_schema.ENGINES WHERE ENGINE='InnoDB'");
+  if(!engines.some(e=>['YES','DEFAULT'].includes(e.SUPPORT)&&e.TRANSACTIONS==='YES'))throw failure('REMOTE_SCHEMA_REJECTED');
+  return initializeSchema(db);
+}
+
+async function initializeSchema(db){
   // Advisory lock serializes rehearsals, but never automatically repairs partial MySQL DDL.
   const conn=await db.client.acquireConnection();
   const run=sql=>new Promise((resolve,reject)=>conn.query({sql,timeout:3000},(e,r)=>e?reject(e):resolve(r)));
