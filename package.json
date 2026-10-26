@@ -25,7 +25,9 @@
     "identity:bootstrap": "node server/tools/identity.mjs bootstrap",
     "test:mysql": "node --test server/tests/mysql/identity.integration.js",
     "identity:benchmark": "node server/tools/identity.mjs benchmark",
-    "database:preflight": "node server/tools/database-preflight.mjs"
+    "database:preflight": "node server/tools/database-preflight.mjs",
+    "dev:remote": "node server/tools/remote-development.mjs start",
+    "database:remote:preflight": "node server/tools/remote-development.mjs preflight"
   },
   "dependencies": {
     "argon2": "^0.45.1",

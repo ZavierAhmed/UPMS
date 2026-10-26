@@ -6,6 +6,7 @@ const stopping = new AbortController();
 let startupDatabase;
 try {
   assertSupportedRuntime();
+  if(process.env.UPMS_DATABASE_PROFILE==='remote-cpanel-development')throw new Error('Use the private dev:remote checkpoint');
   if(process.env.UPMS_HOSTING_PROFILE&&process.env.UPMS_HOSTING_PROFILE!=='godaddy-preview-blocked')throw new Error('Unknown hosting profile');
   if(process.env.UPMS_HOSTING_PROFILE!=='godaddy-preview-blocked')assertDatabaseProfile();
   const port = Number(process.env.PORT || 3000);

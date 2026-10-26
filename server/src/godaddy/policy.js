@@ -2,6 +2,7 @@ import {checkServerIdentity} from 'node:tls';
 import {isIP} from 'node:net';
 import {validateEngine} from '../identity/engine.js';
 import {productionRuntimePrivileges,summarizeGrant} from '../identity/grants.js';
+import {remoteProfile,remoteTarget} from '../development/remote.js';
 
 export const previewHostname='2idp3wfsef.preview.c35.airoapp.ai';
 export const compatibilityBlockers=Object.freeze([
@@ -13,6 +14,7 @@ export const compatibilityBlockers=Object.freeze([
 export function blocked(){const error=new Error('GoDaddy managed database compatibility is unverified; database operations are blocked.');error.code='GODADDY_COMPATIBILITY_BLOCKED';return error;}
 // No provider endpoint has been approved. Environment variables are not acceptance evidence.
 export function assertDatabaseProfile(env=process.env){
+  if(env.UPMS_DATABASE_PROFILE===remoteProfile){remoteTarget(env);return;}
   if(env.UPMS_DATABASE_PROFILE&&env.UPMS_DATABASE_PROFILE!=='local-mysql'){
     if(['godaddy-managed','godaddy-cpanel'].includes(env.UPMS_DATABASE_PROFILE))throw blocked();
     throw new Error('Unknown database profile');
