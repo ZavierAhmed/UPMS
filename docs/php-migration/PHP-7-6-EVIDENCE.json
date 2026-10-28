@@ -1,0 +1,419 @@
+{
+  "startSha": "2ad31e4f0e5ca4cf7abab0fca74b20b7d4ce0ab6",
+  "branch": "feature/upms-php-7-6-uat-corrections",
+  "executedKarachi": "2026-10-29",
+  "phpunit": [
+    {
+      "php": "8.3.36",
+      "tests": 73,
+      "assertions": 1316
+    },
+    {
+      "php": "8.4.27",
+      "tests": 73,
+      "assertions": 1316
+    }
+  ],
+  "management": [
+    {
+      "php": "8.3",
+      "milestone": 2,
+      "httpComparisons": 144,
+      "sqlStateComparisons": 13,
+      "corruptionProbes": 0
+    },
+    {
+      "php": "8.3",
+      "milestone": 3,
+      "httpComparisons": 223,
+      "sqlStateComparisons": 12,
+      "corruptionProbes": 0
+    },
+    {
+      "php": "8.3",
+      "milestone": 4,
+      "httpComparisons": 265,
+      "sqlStateComparisons": 14,
+      "corruptionProbes": 0
+    },
+    {
+      "php": "8.3",
+      "milestone": 5,
+      "httpComparisons": 276,
+      "sqlStateComparisons": 13,
+      "corruptionProbes": 0
+    },
+    {
+      "php": "8.3",
+      "milestone": 6,
+      "httpComparisons": 427,
+      "sqlStateComparisons": 14,
+      "corruptionProbes": 126,
+      "privilegesDenied": 26,
+      "allowedNoopsRolledBack": 4
+    },
+    {
+      "php": "8.4",
+      "milestone": 2,
+      "httpComparisons": 144,
+      "sqlStateComparisons": 13,
+      "corruptionProbes": 0
+    },
+    {
+      "php": "8.4",
+      "milestone": 3,
+      "httpComparisons": 223,
+      "sqlStateComparisons": 12,
+      "corruptionProbes": 0
+    },
+    {
+      "php": "8.4",
+      "milestone": 4,
+      "httpComparisons": 265,
+      "sqlStateComparisons": 14,
+      "corruptionProbes": 0
+    },
+    {
+      "php": "8.4",
+      "milestone": 5,
+      "httpComparisons": 276,
+      "sqlStateComparisons": 13,
+      "corruptionProbes": 0
+    },
+    {
+      "php": "8.4",
+      "milestone": 6,
+      "httpComparisons": 427,
+      "sqlStateComparisons": 14,
+      "corruptionProbes": 126,
+      "privilegesDenied": 26,
+      "allowedNoopsRolledBack": 4
+    }
+  ],
+  "focusedPricing": [
+    {
+      "php": "83",
+      "httpComparisons": 83,
+      "sqlStateComparisons": 4
+    },
+    {
+      "php": "84",
+      "httpComparisons": 83,
+      "sqlStateComparisons": 4
+    }
+  ],
+  "inquiries": [
+    {
+      "php": "8.3",
+      "httpComparisons": 66,
+      "checks": 78
+    },
+    {
+      "php": "8.4",
+      "httpComparisons": 66,
+      "checks": 78
+    }
+  ],
+  "express": {
+    "tests": 290,
+    "failed": 0
+  },
+  "react": {
+    "tests": 195,
+    "files": 27,
+    "failed": 0,
+    "workers": 2
+  },
+  "productionBuild": "PASS",
+  "privatePrintBuild": "PASS",
+  "eslint": "PASS",
+  "pint": {
+    "changedPhpFiles": "PASS",
+    "fullTree": "FAIL seven unrelated existing files"
+  },
+  "composer": {
+    "platformBoth": "PASS",
+    "normalValidate": "PASS with exact-pin warnings",
+    "strictValidate": "FAIL existing exact-pin warnings",
+    "audit": "FAIL Symfony Mime PKSA-wtxr-p26d-nn42 / CVE-2026-45070, locked 7.4.19"
+  },
+  "baseline": {
+    "schema": "upms_test_php_6_browser_1793223331976",
+    "kinds": 13,
+    "documents": 16,
+    "checkpoints": 16,
+    "final": {
+      "stock": "123",
+      "A": "200.00",
+      "B": "80.00",
+      "V": "-185.00",
+      "expenses": "18.00"
+    },
+    "xlsx": 4,
+    "pdfs": 6
+  },
+  "browser": {
+    "php84Checks": 8,
+    "php83Checks": 9,
+    "javascriptErrors": [],
+    "ids": {
+      "low": "9",
+      "high": "10",
+      "item": "5",
+      "lowSale": "36",
+      "highSale": "37",
+      "stale": "38",
+      "centSale": "41",
+      "ownerBottle": "6"
+    }
+  },
+  "publicBrowser": {
+    "php": "8.4",
+    "checks": 28,
+    "javascriptErrors": []
+  },
+  "formats": {
+    "passed": true,
+    "pdfPages": 1,
+    "pdfChosenRate": "45.00",
+    "pdfNetAmount": "4500.00",
+    "xlsxFiles": [
+      "UPMS-CLIENT-ledger.xlsx",
+      "UPMS-Company-Transactions.xlsx"
+    ],
+    "nativeExcel": "PENDING OWNER",
+    "windowsPrint": "PENDING OWNER",
+    "discountPdf": {
+      "pages": 1,
+      "rate": "0.02",
+      "subtotal": "0.06",
+      "discount": "0.01",
+      "net": "0.05"
+    },
+    "visualInspection": {
+      "renderedPagesReviewed": 2,
+      "rateAndAmountsVisible": true,
+      "clippingOrOverlapObserved": false
+    }
+  },
+  "health": {
+    "passed": true,
+    "checkedAt": "2026-10-28T22:02:06.393Z",
+    "browserVersion": "Chrome/156.0.8078.48",
+    "engine": {
+      "version": "10.11.19-MariaDB",
+      "port": 3330,
+      "binding": "127.0.0.1",
+      "dataDirectoryVerified": true
+    },
+    "publicStatus": 200,
+    "managementStatus": 200,
+    "actualBrowserLogin": true,
+    "database": "upms_test_php_6_browser_1793223331976",
+    "worksheetVerified": false,
+    "ownerSignoff": "PENDING OWNER"
+  },
+  "ownerPreservation": {
+    "database": "upms_test_php_6_browser_1793216012369",
+    "hashes": {
+      "v1_control": {
+        "rows": 1,
+        "sha256": "467c9e7f751aeb60e6d631699a570c86f7c32fcec8f0c7af4455fa8a6a319c65"
+      },
+      "v1_items": {
+        "rows": 1,
+        "sha256": "ff07ba3184e309e29af9e6abef01cecdef5f9fcda7f3fcfd279401008487e5ff"
+      },
+      "v1_stock": {
+        "rows": 1,
+        "sha256": "d25e812d192c61b0b4eb42aa22fe62d3b2186effe86d026a89fdf032dd7aaebe"
+      },
+      "v1_parties": {
+        "rows": 3,
+        "sha256": "187564d7ac702fe54e005debac228cbaa62f7de2bd9c8f55855f6a22ff17154e"
+      },
+      "v1_documents": {
+        "rows": 18,
+        "sha256": "1ba7ecd47c60a447822c16a6c11c6da05f9e46f144da1d01674b72fff7be578d"
+      },
+      "v1_lines": {
+        "rows": 8,
+        "sha256": "3a0fd498bb1cb9f0a2d3beed72f9378f9e11fda100fbac534165eb4100435636"
+      },
+      "v1_stock_journal": {
+        "rows": 8,
+        "sha256": "dceb347b01aa4c975a766ca530e0a830a919f5fa5f3331ba11234162a9930205"
+      },
+      "v1_party_journal": {
+        "rows": 13,
+        "sha256": "cffae3a396676ad1dc4551f251a367b7165634def02d4d0dfe1d85c040694a7d"
+      },
+      "v1_audit": {
+        "rows": 40,
+        "sha256": "2391839d5099bf56950d2ec69f111cf1986f658a5de8ebc951c2c4ede9002147"
+      },
+      "v1_commands": {
+        "rows": 40,
+        "sha256": "e9d8712e7ef651bcd44b0981e2fc991e118ee5b444ab8721afeca500c051a3a8"
+      }
+    },
+    "stock": [
+      {
+        "item_id": "1",
+        "quantity": "23"
+      }
+    ],
+    "documents": 18,
+    "unchangedAllTenBusinessTables": true,
+    "originalServicesPids": {
+      "apache": 28936,
+      "cgi": 5096
+    },
+    "servicesStopped": false,
+    "frozenBackend": true
+  },
+  "ownerAcceptance": "PENDING OWNER",
+  "production": "NO-GO",
+  "sources": [
+    {
+      "path": "tmp/php-runtime/php2_1793223176109/evidence.json",
+      "sha256": "0e1bfa22392dbf568bc7e8aa481aa2b44bae52874f248c926b917bca246111af"
+    },
+    {
+      "path": "tmp/php-runtime/php3_1793223254440/evidence.json",
+      "sha256": "103666798b87e5554b0f46f794f679a2eb3198d2e4be667d93fb171bbfff5822"
+    },
+    {
+      "path": "tmp/php-runtime/php4_1793223405098/evidence.json",
+      "sha256": "3fcad1970aa185a8b34d0ebbc79c174cd02289b054b8dc0e621e2669883f0c5c"
+    },
+    {
+      "path": "tmp/php-runtime/php5_1793223603668/evidence.json",
+      "sha256": "bccf68846fe9a36f2657631c751f645b68c89ef37eba24f6a509d979cae729ef"
+    },
+    {
+      "path": "tmp/php-runtime/php6_1793224754492/evidence.json",
+      "sha256": "19d787a3713506c61dc41d6f58dd167d3cd146b7df40a7e7516b52c0f1eafda4"
+    },
+    {
+      "path": "tmp/php-runtime/php2_1793224310488/evidence.json",
+      "sha256": "f11527989765e79c23d4d543b0176c6e9539cfe5c95fe8e2c24d64d1a7812454"
+    },
+    {
+      "path": "tmp/php-runtime/php3_1793224400298/evidence.json",
+      "sha256": "c78b6623744b159c7ca9236dcf20f6d41bff1ca3138c481dfdef4e443ad46287"
+    },
+    {
+      "path": "tmp/php-runtime/php4_1793224518740/evidence.json",
+      "sha256": "f6b51d57352321695889901414b1799a2d5c474ebfd0479d88de58af29442a94"
+    },
+    {
+      "path": "tmp/php-runtime/php5_1793224638342/evidence.json",
+      "sha256": "1da1f02822955cc066dce42f68b31f4fcc6365a0eb5754620258caea06269bac"
+    },
+    {
+      "path": "tmp/php-runtime/php6_1793224778583/evidence.json",
+      "sha256": "b4f6f54fb028de4bd257d248ddf0c63a1a5eeac488e6a1fb781f87c0273f7c57"
+    },
+    {
+      "path": "tmp/php-runtime/php76-pricing_1793224245811/evidence.json",
+      "sha256": "4cbccfdd6ef4f02a8627e43397211bc253a5e8861c6709df901cc1f4a7f59e94"
+    },
+    {
+      "path": "tmp/php-runtime/php76-pricing_1793224298594/evidence.json",
+      "sha256": "e9869474202b5bdcfb27da0a9d6a1151858e79cd3139bd596f40ba5e63edf773"
+    },
+    {
+      "path": "tmp/php-runtime/php7-inquiries-1793223265037/evidence.json",
+      "sha256": "f779fcd4ae3974ada33d94a2e0dad91a9f1d7aad5f231bd4782cf95d1b70601d"
+    },
+    {
+      "path": "tmp/php-runtime/php7-inquiries-1793223670232/evidence.json",
+      "sha256": "0840c1e86e820afc5a9ebc8bcbbf368b1d85c6346093b27fa4e7300305763a62"
+    },
+    {
+      "path": "tmp/php-runtime/php75-automated-1793223208498/phpunit-83.log",
+      "sha256": "87a2a2f9a631b88e7bbd77f226a50b661aa1d1781c3123dc68fd798ed9a7e8d4"
+    },
+    {
+      "path": "tmp/php-runtime/php75-automated-1793223208498/phpunit-84.log",
+      "sha256": "4b81ed448d5bd773ab8a85e7240b8cd3d2f309c33021c2baf8b596d12bca861a"
+    },
+    {
+      "path": "tmp/php-runtime/php75-automated-1793223208498/platform-83.log",
+      "sha256": "c6622ec7724a16ad0a23672362462e284810590e444120a31e64d388bcba4c39"
+    },
+    {
+      "path": "tmp/php-runtime/php75-automated-1793223208498/platform-84.log",
+      "sha256": "66f11ae1f1ed2f499344e064a7ae48eaa7f6824982f9b3c0092b2660f39e2860"
+    },
+    {
+      "path": "tmp/php-runtime/php75-automated-1793223208498/composer-validate.log",
+      "sha256": "155be9dc188cd841e15a872bb88b1438130de1071ead68a0eebabe9099e78059"
+    },
+    {
+      "path": "tmp/php-runtime/php75-automated-1793223208498/composer-strict.log",
+      "sha256": "155be9dc188cd841e15a872bb88b1438130de1071ead68a0eebabe9099e78059"
+    },
+    {
+      "path": "tmp/php-runtime/php75-automated-1793223208498/composer-audit.log",
+      "sha256": "fa34254a67f3ea454806d613872ba4bf4ef41ce385fecb4110bf7a42c8c89a50"
+    },
+    {
+      "path": "tmp/php-runtime/php75-automated-1793223208498/pint.log",
+      "sha256": "97c839f8e9a576191e67d04b907401f1830eed038bcfa55eae89ecd58ac53044"
+    },
+    {
+      "path": "tmp/php-runtime/php76-express-final.log",
+      "sha256": "0eda90571b46e8182d34c0a8f9b217099489db2ba604211c3d1efd91d9a7f52a"
+    },
+    {
+      "path": "tmp/php-runtime/php76-react-final.log",
+      "sha256": "1a7debce5fb9dd94b3c6cd2b7c223ae466f431dbc0828f83f6b77f7c62ccc44b"
+    },
+    {
+      "path": "tmp/php-runtime/php76-build-final.log",
+      "sha256": "63e8a3f882ea246dc91cebcfdd6049a46438ce25b73a71e8d1318c39d59a5197"
+    },
+    {
+      "path": "tmp/php-runtime/php76-private-print-build-final.log",
+      "sha256": "572a1b0a1d218d49400b07118e18b2c90cd5794ae27ea698dba9f2a25367c805"
+    },
+    {
+      "path": "tmp/php-runtime/php76-lint-final.log",
+      "sha256": "bf700095aa3bc0fe2dea8cd3cc9e91ddfdc7dfe58f5dc7c440d8aa0a738e6a76"
+    },
+    {
+      "path": "tmp/php-runtime/php76-owner-initial.json",
+      "sha256": "c195b8c9c853d598bacb391ec527cde8b3ae048664867690e98ed4dae4cfbd53"
+    },
+    {
+      "path": "tmp/php-runtime/php76-owner-after.json",
+      "sha256": "c195b8c9c853d598bacb391ec527cde8b3ae048664867690e98ed4dae4cfbd53"
+    },
+    {
+      "path": "tmp/php-runtime/php6-browser-1793223331976/worksheet-results.json",
+      "sha256": "c7979495b3cf0bfb169b24b7d949b96b7d491a19c4e6f6aeba768076555cf39e"
+    },
+    {
+      "path": "tmp/php-runtime/php6-browser-1793223331976/php76-browser-results.json",
+      "sha256": "b91003e6377bcd53a51fb258086caf3e927211b383a61f7aebe2a972b1986f65"
+    },
+    {
+      "path": "tmp/php-runtime/php6-browser-1793223331976/php7-public-8.4-php76.json",
+      "sha256": "0766ab9dafde227a9b56e44b9a754ac84171ae6684175f21ae42c694d8eccefe"
+    },
+    {
+      "path": "tmp/php-runtime/php6-browser-1793223331976/php76-file-format-results.json",
+      "sha256": "b8bae6b0607c02bcf4569afdde0d4772843fdcaa5e8b644c3fc3397c0aad0ae7"
+    },
+    {
+      "path": "tmp/php-runtime/php6-browser-1793223331976/php76-print-results.json",
+      "sha256": "dcde0b70936a035137a615af6bd659efdba7a9a78eeddbb2a9032575120f0ecc"
+    },
+    {
+      "path": "tmp/php-runtime/php6-browser-1793223331976/health-results.json",
+      "sha256": "be935a7cf20b1aaeb53c21cd9fc111478e9be611e1000844e2ac3f9427ad0013"
+    }
+  ]
+}

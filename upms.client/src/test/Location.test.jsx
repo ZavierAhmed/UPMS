@@ -9,17 +9,17 @@ const open = (path) => render(<MemoryRouter initialEntries={[path]}><App /></Mem
 const paths = ["/", "/about", "/products", "/manufacturing", "/industries", "/contact", ...products.map(p => `/products/${p.id}`), "/missing"];
 describe("company location", () => {
   it("uses the owner-confirmed address and preserves the supplied destination", () => {
-    expect(company.address).toBe("Wali Road, Metroville, S.I.T.E., Karachi 75700, Pakistan");
+    expect(company.address).toBe("F-260/A, Wali Road, Metroville, S.I.T.E., Karachi 75700, Pakistan");
     expect(company.map).toBe("https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6");
     const directions = new URL(company.directions);
     expect(directions.origin + directions.pathname).toBe("https://www.google.com/maps/dir/");
     expect(directions.searchParams.get("api")).toBe("1");
     expect(directions.searchParams.get("destination")).toBe("24.9054755,66.9876346");
   });
-  it.each(paths)("removes outdated public address and secures location links at %s", path => {
+  it.each(paths)("uses the corrected premises address and secures location links at %s", path => {
     const { container } = open(path);
-    expect(container.textContent).not.toMatch(/F-260|Z\.A\s*KHAN/i);
-    expect(document.querySelector('meta[name="description"]').content).not.toMatch(/F-260/);
+    expect(container.textContent).not.toMatch(/Z\.A\s*KHAN/i);
+    expect(container.textContent).toContain(company.address);
     const footer = within(screen.getByRole("contentinfo"));
     expect(footer.getByText(company.address)).toBeTruthy();
     for (const address of container.querySelectorAll("address")) {

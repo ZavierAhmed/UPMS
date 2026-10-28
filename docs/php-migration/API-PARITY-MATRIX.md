@@ -1,5 +1,15 @@
 # API parity matrix
 
+PHP-7.6 starts at `2ad31e4f0e5ca4cf7abab0fca74b20b7d4ce0ab6` and deliberately
+coordinates the active CHALLAN rate policy in both implementations. Positive
+string `lines[].rate` may differ from the item default. Optional positive integer
+`reviewedItemVersion` checks explicit editor review; the existing payload stores
+server-derived `pricingVersion`, `expectedVersion`, `defaultRateSnapshot` and
+`rateSource`. Posting stale item versions remains blocked. No route, permission,
+schema or transaction boundary changes. Historical rates/returns remain original.
+See PHP-7-6-PRICING-PARITY.md for precise compatibility and changed expectations.
+The 153-route source inventory is refreshed against the PHP-7.6 starting SHA.
+
 Corrective baseline: `91549079beedc4cee8f04199865ec5ad0dc41132`. The 153 method/URL contracts retain their inventory; PHP-7.1 intentionally updates both Express and Laravel. Source bodies/hashes in API-CONTRACT-INVENTORY.json are refreshed with `php-api-inventory.mjs --json-only` so reviewed milestone status and decisions are preserved.
 
 This matrix inventories legacy routes as well as the active Simple V1 profile. Legacy management modules are deliberately blocked by Express with 403 LEGACY_DISABLED_IN_V1 in that profile; their presence is not permission to activate them. PHP-6 completes paid-only EXPENSE posting. All thirteen active Simple V1 document kinds support draft creation, editing, posting and cancellation. Integrated register, ledger, inventory and observational reconciliation parity is independently verified.

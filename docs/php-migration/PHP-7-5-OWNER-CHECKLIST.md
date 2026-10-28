@@ -1,5 +1,14 @@
 # PHP-7.5 owner acceptance checklist
 
+PHP-7.6 follow-up: use PHP-7-6-UAT-CORRECTIONS.md for the revised address/custom-rate
+acceptance on separate URLs 9453/9454. At PHP-7.6 start the owner had already added
+entries to the original fixture (18 documents, 23 bottles); those are retained,
+not reset to the historical baseline below. Its running wrappers now use a private
+frozen PHP-7.5 backend. Full baseline health assertions are inappropriate after
+intentional owner postings; use health --basic for connectivity. Do not stop the
+original services to test the revised fixture. All new owner acceptance remains
+PENDING OWNER; the old worksheet remains historical evidence, not current live totals.
+
 **All manual items are PENDING OWNER.** Record your name, date/time (Asia/Karachi),
 tested Git SHA, runtime/browser, expected/actual result, evidence path and decision.
 Automation is review evidence, not your sign-off.

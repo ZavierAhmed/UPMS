@@ -165,7 +165,7 @@ final class V1Input
                                 $aborted = true;
                                 continue;
                             }
-                            $lines[] = self::parse($line, ['itemId' => ['id'], 'originalLineId' => ['id', 'optional'], 'quantity' => ['string'], 'rate' => ['string', 'default', '0']], $path.'.'.$i.'.', false, $errors, $aborted);
+                            $lines[] = self::parse($line, ['itemId' => ['id'], 'originalLineId' => ['id', 'optional'], 'quantity' => ['string'], 'rate' => ['string', 'default', '0'], 'reviewedItemVersion' => ['version', 'optional']], $path.'.'.$i.'.', false, $errors, $aborted);
                         }
                         $v = $lines;
                     }

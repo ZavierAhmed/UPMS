@@ -1,3 +1,4 @@
+import {editablePricingProbes} from './php-7-6-pricing-probes.mjs';
 import {lostCommitProxy} from './php-test-commit-proxy.mjs';
 import {integrityProbes} from './php-7-1-probes.mjs';
 import {integrityPrivileges} from './php-7-1-privileges.mjs';
@@ -63,7 +64,7 @@ async function same(name,method,path,body,opts={}){
  return a.body;
 }
 async function both(work){for(const db of databases)await work(db);}
-async function snapshot(db){const result={};for(const table of ['v1_control','v1_items','v1_stock','v1_parties','v1_documents','v1_lines','v1_stock_journal','v1_party_journal','v1_audit','v1_commands']){const order=table==='v1_commands'?'key':table==='v1_stock'?'item_id':'id';result[table]=normalize(await db(table).orderBy(order));if(table==='v1_commands'){result[table]=result[table].map(row=>({...row,key:raceKeys.has(row.key)?'<concurrent-winner>':row.key})).sort((a,b)=>a.key.localeCompare(b.key));}}return result;}
+async function snapshot(db){const result={};for(const table of ['v1_control','v1_items','v1_stock','v1_parties','v1_documents','v1_lines','v1_stock_journal','v1_party_journal','v1_audit','v1_commands']){const order=table==='v1_commands'?'key':table==='v1_stock'?'item_id':'id';result[table]=normalize(await db(table).orderBy(order));if(table==='v1_commands'){result[table]=result[table].map(row=>({...row,key:raceKeys.has(row.key)?'<concurrent-winner:'+row.fingerprint+'>':row.key})).sort((a,b)=>a.key.localeCompare(b.key));}}return result;}
 async function tables(name){const a=await snapshot(databases[0]),b=await snapshot(databases[1]);try{assert.deepEqual(b,a);}catch(error){await writeFile(directory+'/table-failure.json',JSON.stringify({name,reference:a,php:b},null,2));throw Error(name+' database parity failed: '+error.message.slice(0,500));}checks.push({name,tables:10,sha256:createHash('sha256').update(JSON.stringify(a)).digest('hex')});}
 async function login(a,b,user='php-admin'){await a.call('GET',base+'/session/csrf');await b.call('GET',base+'/session/csrf');const [x,y]=await Promise.all([a.call('POST',base+'/session/login',{username:user,password}),b.call('POST',base+'/session/login',{username:user,password})]);assert.equal(x.status,200);assert.equal(y.status,200);assert.deepEqual(y.body.user,x.body.user);}
 try{
@@ -148,5 +149,14 @@ try{
  await integrityProbes({corrupt,db:databases[1]});
  const privileges=await integrityPrivileges({envFile,db:databases[1],snapshot});checks.push({name:'PHP71 runtime privilege audit',...privileges});
  const finalRecon=await same('restored full reconciliation','GET',prefix+'reconciliation');assert.equal(finalRecon.matched,true);await tables('all corruption restored and observational');
+ await editablePricingProbes({same,post,draft,tables,databases,snapshot,date,ref,appDriver,raceKeys});
+ {
+ const uncertain=await draft('PHP76 unknown custom challan',{kind:'CHALLAN',partyId:client.id,lines:[{itemId:items[0].id,quantity:'1',rate:'7.77'}]}),uncertainKey=randomUUID(),proxies=[];let faultDb;
+ try{
+  for(let side=0;side<2;side++)proxies.push(await lostCommitProxy({host,port}));
+  faultDb=knex({client:'mysql2',connection:{...adminConnection,database:databases[0].client.connectionSettings.database,port:proxies[0].port,timezone:'Z'},pool:{min:0,max:3}});const faultApp=express();faultApp.use((req,res,next)=>{req.peer={secure:true};next();});faultApp.use(managementRouter(faultDb,{origin,secure:true,secret:randomBytes(40).toString('hex'),cookieName:'__Host-php6-uncertain',idleMs:1800000,absoluteMs:28800000,simpleV1:true,root:'upms.client/dist/management'}));const faultEnv=directory+'/uncertain.env';await writeFile(faultEnv,(await readFile(envFile,'utf8')).replace('UPMS_DB_PORT=3330','UPMS_DB_PORT='+proxies[1].port));const faultRef=refDriver(faultApp),faultPhp=phpDriver(faultEnv);await login(faultRef,faultPhp);const outcomes=await Promise.all([faultRef.call('POST',prefix+'documents/'+uncertain.id+'/post',{version:1},{key:uncertainKey}),faultPhp.call('POST',prefix+'documents/'+uncertain.id+'/post',{version:1},{key:uncertainKey})]);assert.deepEqual(outcomes.map(r=>r.status),[503,503]);assert.ok(proxies.every(p=>p.dropped()));
+ }finally{await faultDb?.destroy();for(const p of proxies){for(const socket of p.sockets)socket.destroy();await new Promise(r=>p.proxy.close(r));}}
+ const committed=await snapshot(databases[1]);assert.equal((await databases[1]('v1_documents').where({id:uncertain.id}).first()).status,'POSTED');await same('replay after real lost COMMIT acknowledgement','POST',prefix+'documents/'+uncertain.id+'/post',{version:1},{key:uncertainKey});assert.deepEqual(await snapshot(databases[1]),committed);await tables('unknown COMMIT result replays one durable custom challan outcome');checks.push({name:'PHP76 custom-rate lost COMMIT acknowledgements',dropped:2,serverCommitted:true,replayWithoutDuplicates:true});
+ }
  const report={run,phpBinary:php,engine:engine.version,schemas:databases.map(d=>d.client.connectionSettings.database),httpComparisons:evidence.length,snapshotComparisons:checks.filter(c=>c.tables).length,evidence,checks,ownerDatabaseContacted:false,migrationsModified:false};await writeFile(directory+'/evidence.json',JSON.stringify(report,null,2));console.log(JSON.stringify({passed:true,httpComparisons:evidence.length,snapshots:report.snapshotComparisons,evidence:directory+'/evidence.json'}));
 }finally{for(const db of databases)await db.destroy();await admin.destroy();}

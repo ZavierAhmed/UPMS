@@ -2,8 +2,8 @@ import assert from 'node:assert/strict';
 import {readFile,writeFile,readdir} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import puppeteer from 'puppeteer-core';
-const setup=JSON.parse(await readFile('tmp/php-runtime/php7-browser-latest.json','utf8'));
-const origin='https://127.0.0.1:9443',checks=[],errors=[],requests=[];
+const setup=JSON.parse(await readFile(process.env.PHP_PUBLIC_SETUP||'tmp/php-runtime/php7-browser-latest.json','utf8'));
+const origin=process.env.PHP_PUBLIC_ORIGIN||'https://127.0.0.1:9443',checks=[],errors=[],requests=[];
 const browser=await puppeteer.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true,acceptInsecureCerts:true,args:['--no-first-run','--no-default-browser-check']});
 const page=await browser.newPage();page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>{if(r.url().includes('/api/'))requests.push({url:r.url(),method:r.method(),headers:r.headers(),body:r.postData()});});
 try{
@@ -14,6 +14,7 @@ try{
    await page.waitForSelector('main h1');
    const state=await page.evaluate(()=>({title:document.title,text:document.body.innerText,description:document.querySelector('meta[name=description]')?.content,canonical:document.querySelector('link[rel=canonical]')?.href,siteOrigin:document.querySelector('meta[name=site-origin]')?.content,images:[...document.images].filter(i=>i.getBoundingClientRect().top<innerHeight).map(i=>({src:i.src,loaded:i.complete&&i.naturalWidth>0,alt:i.alt})),overflow:document.documentElement.scrollWidth>innerWidth+1,whatsapp:[...document.querySelectorAll('a[href*="wa.me"]')].map(a=>a.href)}));
    assert.match(state.title,/Unique Plastic Industry/);assert.ok(state.description);assert.doesNotMatch(state.text,/Z\.?A\.?\s*Khan|Unique Lubricants/i);assert.equal(state.overflow,false,path+' mobile overflow');assert.ok(state.images.every(i=>i.loaded),path+' visible approved images');assert.ok(state.whatsapp.every(h=>h.startsWith('https://wa.me/923142113472')));if(state.siteOrigin)assert.equal(state.canonical,state.siteOrigin+path);else assert.equal(state.canonical,undefined);
+   if(process.env.PHP76_ADDRESS==='1')assert.ok(state.text.includes('F-260/A, Wali Road, Metroville, S.I.T.E., Karachi 75700, Pakistan'),path+' corrected address');
    checks.push(width+' '+path+' route/content/metadata/images/overflow');
   }
  }
@@ -28,7 +29,7 @@ try{
  const replay=await page.evaluate(async req=>{const r=await fetch('/api/v1/public/inquiries',{method:'POST',headers:{'Content-Type':'application/json','Idempotency-Key':req.headers['idempotency-key']},body:req.body});return {status:r.status,body:await r.json()};},requests[0]);assert.equal(replay.status,200);assert.equal(replay.body.reference,body.reference);assert.equal((await readdir(outbox)).length,1);checks.push('HTTPS idempotent replay retains one private outbox message');
  const security=await page.evaluate(async()=>{const result={};for(const path of ['/management/','/api/v1/management/session/csrf']){const r=await fetch(path);result[path]=r.status;}return result;});assert.equal(security['/management/'],404);assert.equal(security['/api/v1/management/session/csrf'],403);checks.push('Public origin blocks private management UI and API');
  await page.screenshot({path:setup.directory+'/php7-public-mobile.png',fullPage:true});assert.deepEqual(errors,[]);
- const baseline=JSON.parse(await readFile('docs/php-migration/PHP-6-PUBLIC-ASSETS.json','utf8'));const hashes={};for(const path of Object.keys(baseline.hashes))hashes[path]=createHash('sha256').update(await readFile(path)).digest('hex');assert.deepEqual(hashes,baseline.hashes);
- await writeFile('docs/php-migration/PHP-7-PUBLIC-ASSETS.json',JSON.stringify({files:Object.keys(hashes).length,sha256Identical:true,publicSourceChanges:false,baseline:'PHP-6-PUBLIC-ASSETS.json',hashes},null,2)+'\n');checks.push('111 approved public asset hashes unchanged');
+ const baselinePath=process.env.PHP_PUBLIC_ASSETS_BASELINE||'docs/php-migration/PHP-6-PUBLIC-ASSETS.json';const baseline=JSON.parse(await readFile(baselinePath,'utf8'));const hashes={};for(const path of Object.keys(baseline.hashes))hashes[path]=createHash('sha256').update(await readFile(path)).digest('hex');assert.deepEqual(hashes,baseline.hashes);
+ await writeFile(process.env.PHP_PUBLIC_ASSETS_BASELINE?setup.directory+'/public-assets-verified.json':'docs/php-migration/PHP-7-PUBLIC-ASSETS.json',JSON.stringify({files:Object.keys(hashes).length,sha256Identical:true,publicSourceChanges:Boolean(process.env.PHP_PUBLIC_ASSETS_BASELINE),baseline:baselinePath,hashes},null,2)+'\n');checks.push(process.env.PHP_PUBLIC_ASSETS_BASELINE?'Authorized revised public asset manifest verified':'111 approved public asset hashes unchanged');
  const result={passed:true,php:process.env.PHP_BROWSER_VERSION,checks:checks.length,evidence:checks,javascriptErrors:errors,publicApiCalls:requests.length,ownerDatabaseContacted:false};await writeFile(setup.directory+'/php7-public-'+process.env.PHP_BROWSER_VERSION+'.json',JSON.stringify(result,null,2));console.log(JSON.stringify(result));
 }catch(e){await page.screenshot({path:setup.directory+'/php7-public-failure.png',fullPage:true});await writeFile(setup.directory+'/php7-public-failure.txt',await page.$eval('body',e=>e.innerText));throw e;}finally{await browser.close();}

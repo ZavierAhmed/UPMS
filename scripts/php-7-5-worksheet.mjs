@@ -3,11 +3,11 @@ import assert from 'node:assert/strict';
 import {readFile,writeFile,mkdir,readdir} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import puppeteer from 'puppeteer-core';
-const setup=JSON.parse(await readFile('tmp/php-runtime/php7-uat-latest.json','utf8'));
+const setup=JSON.parse(await readFile(process.env.PHP_UAT_SETUP||'tmp/php-runtime/php7-uat-latest.json','utf8'));
 assert.match(setup.database,/^upms_test_php_6_browser_\d+$/);
 const credentials=JSON.parse(await readFile(setup.directory+'/credentials.json','utf8'));
 const browser=await puppeteer.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true,acceptInsecureCerts:true});
-const page=await browser.newPage(),origin='https://127.0.0.1:9444',steps=[],errors=[],ids={};
+const page=await browser.newPage(),origin=process.env.PHP_UAT_ORIGIN||'https://127.0.0.1:9444',steps=[],errors=[],ids={};
 page.setDefaultTimeout(20000);page.on('dialog',d=>d.accept());page.on('pageerror',e=>errors.push(e.message));
 async function fill(name,value){const s='[name="'+name+'"]';await page.waitForSelector(s);await page.focus(s);await page.keyboard.down('Control');await page.keyboard.press('A');await page.keyboard.up('Control');await page.type(s,value);}
 async function button(text){await page.waitForFunction(t=>[...document.querySelectorAll('button')].some(b=>b.textContent.trim()===t&&!b.disabled),{},text);for(const b of await page.$$('button'))if(await b.evaluate((el,t)=>el.textContent.trim()===t,text)){await b.click();return;}throw Error('Missing button '+text);}

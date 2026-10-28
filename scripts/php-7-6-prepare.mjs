@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import {spawn} from 'node:child_process';
+import {readFile,writeFile} from 'node:fs/promises';
+import {randomBytes} from 'node:crypto';
+import net from 'node:net';
+import {verifyUatEngine} from './php-7-5-engine-guard.mjs';
+await verifyUatEngine();
+for(const port of [9184,9453,9454])await new Promise((done,fail)=>{const s=net.connect({host:'127.0.0.1',port});s.on('connect',()=>{s.destroy();fail(Error('Revised UAT port occupied; preserve existing services'));});s.on('error',done);});
+const engine=JSON.parse(await readFile('tmp/php-runtime/php2-engine.json','utf8'));
+const password=randomBytes(24).toString('base64url')+'!7aA';
+const env={...process.env,PHP_TEST_ADMIN_USER:'php2_test_admin',PHP_TEST_ADMIN_PASSWORD:engine.password,PHP_BROWSER_ADMIN_PASSWORD:password,PHP_BROWSER_PRIVATE:'1'};
+for(const script of ['scripts/php-6-browser-setup.mjs','scripts/php-7-browser-prepare.mjs'])await new Promise((done,fail)=>{const child=spawn(process.execPath,[script],{env,windowsHide:true,stdio:'ignore'});child.on('error',()=>fail(Error('Revised fixture preparation could not start')));child.on('close',code=>code===0?done():fail(Error('Revised fixture preparation failed; credentials withheld')));});
+const setup=JSON.parse(await readFile('tmp/php-runtime/php7-browser-latest.json','utf8'));assert.match(setup.database,/^upms_test_php_6_browser_\d+$/);
+const ports=s=>s.replaceAll('9443','9453').replaceAll('9444','9454').replaceAll('9084','9184');
+await writeFile(setup.env,ports(await readFile(setup.env,'utf8')));await writeFile(setup.config,ports(await readFile(setup.config,'utf8')));
+await writeFile(setup.directory+'/credentials.json',JSON.stringify({username:'php-admin',password},null,2),{mode:0o600,flag:'wx'});
+await writeFile('tmp/php-runtime/php76-uat-latest.json',JSON.stringify({...setup,publicOrigin:'https://127.0.0.1:9453',managementOrigin:'https://127.0.0.1:9454'},null,2));
+console.log(JSON.stringify({prepared:true,database:setup.database,directory:setup.directory,credentialsFile:setup.directory+'/credentials.json',ownerUatChanged:false,servicesStarted:false}));

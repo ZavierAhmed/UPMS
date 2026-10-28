@@ -1,5 +1,12 @@
 # PHP-7.5 defects
 
+PHP-7.6 disposition: the address and editable challan pricing correction does not
+resolve UAT-SEC-01, UAT-SEC-02 or UAT-VALIDATE-01, nor the pending SQL/authenticity
+decisions. Modified Documents.php was formatted with project Pint, removing its
+existing formatting finding; seven unrelated full-tree Pint findings remain.
+No dependency, hosting-header or schema/grant change is included. Production stays
+NO-GO; all manual acceptance remains PENDING OWNER.
+
 | ID | Status | Finding and disposition |
 | --- | --- | --- |
 | UAT-SEC-01 | FAIL | Locked Composer audit reports medium PKSA-wtxr-p26d-nn42 / CVE-2026-45070 in symfony/mime 7.4.19, reported 28 October 2026. Resolve through a reviewed dependency change and rerun SMTP/inquiry/platform/audit checks before release. No lockfile was silently changed. |

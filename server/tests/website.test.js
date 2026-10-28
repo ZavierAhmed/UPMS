@@ -34,13 +34,13 @@ for (const page of manifest.pages)
     );
     assert.match(
       r.text,
-      /Wali Road, Metroville, S.I.T.E., Karachi 75700, Pakistan/,
+      /F-260\/A, Wali Road, Metroville, S.I.T.E., Karachi 75700, Pakistan/,
     );
     assert.match(r.text, /https:\/\/wa.me\/923142113472\?text=/);
     assert.match(r.text, /https:\/\/maps.app.goo.gl\/KJGy7zo7cQhsFwsF6/);
     assert.doesNotMatch(
       r.text,
-      /Z\.A|Unique Lubricants|F-260|<!--prerender-->|\/src\//,
+      /Z\.A|Unique Lubricants|<!--prerender-->|\/src\//,
     );
     assert.equal(r.headers["cache-control"], "no-cache");
   });

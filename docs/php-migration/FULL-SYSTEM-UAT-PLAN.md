@@ -1,5 +1,20 @@
 # PHP-7.5 — separate owner-operated full-system acceptance plan
 
+## PHP-7.6 correction addendum
+
+Manual CHALLAN rates are approved. The item price initializes the line and remains
+a reference; a different positive chosen rate is valid. Check per-line Use default
+price, persisted custom draft rates and explicit stale-item review that preserves
+custom rates. Rejection solely for differing from the master is superseded.
+Keep the original default-rate worksheet numbers below unchanged. Add a separate
+item at default 50.00 and separate clients: 100 at 45.00 = 4,500.00 and 100 at
+55.00 = 5,500.00. Verify unchanged master price/version and quantity-based stock.
+Test discounts, original-rate partial/full/final-cent returns after a master change,
+print output and exact ledger/reconciliation. Address acceptance now requires
+F-260/A; map/coordinates/identity stay unchanged. Revised UAT uses 9453/9454/9184;
+the existing owner's 9443/9444 services and posted entries must be preserved.
+See PHP-7-6-UAT-CORRECTIONS.md. Manual sign-off remains PENDING OWNER.
+
 **Prepared by PHP-7; not executed as PHP-7.5 and not production approval.** Stop after
 reviewing PHP-7. PHP-7.1 source findings need separate review before deciding whether
 PHP-7.5 can proceed. The owner records the tested Git SHA, browser/runtime versions,

@@ -46,7 +46,7 @@ final class StockPosting
                 if (!BusinessCommand::truthy($item['selling_price'])) {
                     V1Input::field('lines.'.$index.'.itemId', 'Price not set. Set an approved selling price in Item Management before posting.', 'PRICE_NOT_SET');
                 }
-                if (empty($line['pricingVersion']) || $line['pricingVersion'] !== $item['version'] || V1Input::cents($line['rate'], 'lines.'.$index.'.rate')->compareTo(V1Input::cents($item['selling_price'], 'lines.'.$index.'.rate')) !== 0) {
+                if (empty($line['pricingVersion']) || $line['pricingVersion'] !== $item['version']) {
                     V1Input::field('lines.'.$index.'.rate', 'Price changed. Edit the draft and explicitly refresh pricing.', 'PRICE_CHANGED');
                 }
             }

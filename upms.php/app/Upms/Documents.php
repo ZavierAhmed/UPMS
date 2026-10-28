@@ -10,7 +10,9 @@ final class Documents
 {
     public const KINDS = ['STOCK_OPENING', 'CLIENT_OPENING', 'VENDOR_OPENING', 'PRODUCTION', 'PURCHASE', 'CHALLAN', 'CHALLAN_RETURN', 'CLIENT_PAYMENT', 'VENDOR_PAYMENT', 'PAYMENT_REVERSAL', 'STOCK_CORRECTION', 'OPENING_CORRECTION', 'EXPENSE'];
 
-    public function __construct(private readonly Database $db, private readonly BusinessRecords $records, private readonly BusinessCommand $commands) {}
+    public function __construct(private readonly Database $db, private readonly BusinessRecords $records, private readonly BusinessCommand $commands)
+    {
+    }
 
     public static function supported(mixed $kind): void
     {
@@ -67,10 +69,12 @@ final class Documents
                         V1Input::field('lines.'.$i.'.itemId', 'Price not set. Set an approved selling price in Item Management.', 'PRICE_NOT_SET');
                     }
                     $rate = V1Input::cents($line['rate'], 'lines.'.$i.'.rate');
-                    if ($rate->compareTo(V1Input::cents($item['selling_price'], 'lines.'.$i.'.rate')) !== 0) {
-                        V1Input::field('lines.'.$i.'.rate', 'Use the saved item selling price. Refresh pricing explicitly.', 'PRICE_CHANGED');
+                    if (isset($line['reviewedItemVersion']) && $line['reviewedItemVersion'] !== $item['version']) {
+                        V1Input::field('lines.'.$i.'.rate', 'Item details changed. Review current item details and save again.', 'PRICE_CHANGED');
                     }
                     $line['pricingVersion'] = $item['version'];
+                    $line['defaultRateSnapshot'] = $item['selling_price'];
+                    $line['rateSource'] = $rate->compareTo(V1Input::cents($item['selling_price'], 'lines.'.$i.'.rate')) === 0 ? 'ITEM_DEFAULT' : 'CUSTOM';
                     $subtotal = $subtotal->plus(Exact::integer($line['quantity'])->multipliedBy($rate));
                 }
             }

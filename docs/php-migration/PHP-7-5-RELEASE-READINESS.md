@@ -1,5 +1,12 @@
 # PHP-7.5 release readiness
 
+PHP-7.6 follow-up: owner-requested website address and per-challan selling rates
+are implemented/tested separately; see PHP-7-6-TEST-RESULTS.md. The original running
+owner fixture and all owner-added postings are preserved. New review uses separate
+9453/9454 URLs and private credentials. This correction clears none of the security,
+strict-validation, SQL/authenticity, hosting or owner-approval gates below. Full
+Pint still fails on seven unrelated files after formatting modified Documents.php.
+
 **Production: BLOCKED. Local UAT: available for owner review.** Stop for feedback
 before PHP-8. Financial and restore test success is not production authorization.
 
