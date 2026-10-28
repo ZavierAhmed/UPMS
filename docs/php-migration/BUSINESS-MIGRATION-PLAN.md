@@ -13,10 +13,24 @@ review before implementing the remaining write modules below.
 | PHP-4 (complete; isolated acceptance) | Challan return draft/edit/post/cancel and original return context | Original posted challan/client/line identities, remaining units across partial returns, ordered net-credit allocation with telescoping floors, immutable historical snapshots, appended stock/party journals and global-document DCR identities. Node vectors cover all 96 small partitions and large values; independent differential and actual HTTPS browser tests pass on both PHP versions. |
 | PHP-5 (complete; isolated acceptance) | Client/vendor payments, receipts, supported reversals, opening/stock corrections | CR/VP shared-ID numbering, reference normalization/duplicate detection, exact balances/advances, traceable compensations, unchanged journals. Independent parity, rollback, real lost-COMMIT-acknowledgement recovery and actual HTTPS browser acceptance on both PHP runtimes. See PHP-5 results and reversal review. |
 | PHP-6 (complete; isolated acceptance) | Paid expenses, Company Transactions, ledgers/inventory and observational reconciliation | All thirteen active kinds; paid-only expense posting; exact event/as-of balances; string-zero/Unicode filter compatibility; all-kind corruption probes and preserved source blind spots; real lost-COMMIT recovery; actual HTTPS print and XLSX acceptance. See PHP-6 results, report acceptance and findings. |
-| PHP-7 | Public inquiry/contact delivery and report/download integration | Preserve current validation, same-origin rules, anti-abuse/idempotency, mail acceptance vs unknown-delivery states. Audit the existing React print/Excel behavior and preserve visible/downloaded fields and approved identity. Do not introduce a false-success contact stub or invent a backend PDF API. |
+| PHP-7 (isolated acceptance) | Public inquiry/contact delivery and report/download integration | Preserve current validation, same-origin rules, anti-abuse/idempotency, mail acceptance vs unknown-delivery states. Audit the existing React print/Excel behavior and preserve visible/downloaded fields and approved identity. Do not introduce a false-success contact stub or invent a backend PDF API. |
 | PHP-8 | Linux packaging, cPanel validation and reviewed cutover | Matching production vendor tree, verified account limits/extensions/hostname/roots, least-privilege runtime grants, same-origin HTTP/browser tests, backup and rollback review; no automatic migrations. Separate approval before actual release. |
 
 ## Transaction invariants for every write milestone
+
+PHP-7 isolated integration is complete for review: public inquiries use independent
+origin/security routing, bounded cross-worker rate/replay state and verified-TLS
+Symfony SMTP; both PHP runtimes pass inquiry, management, React/Express and actual
+HTTPS browser/export regressions. The public asset manifest is unchanged. The only
+React change corrects the posted expense print/detail heading with specific tests.
+See [PHP-7 results](PHP-7-TEST-RESULTS.md) and [inquiry operating differences](PHP-7-INQUIRY-PARITY.md).
+
+Next are separately reviewed PHP-7.1 (preserved reversal snapshot and reconciliation
+findings) and owner-operated PHP-7.5 [full-system UAT](FULL-SYSTEM-UAT-PLAN.md).
+Neither is executed by PHP-7. The owner database gate, legacy-module exclusions and
+hosting/release restrictions remain unchanged. Native Excel/printer checks, backup
+restore, owner signoff and shared-host process/filesystem/resource preflight remain
+prerequisites; automatic tests alone do not establish production readiness.
 
 1. Validate/authenticate before work; reauthorize inside the identity_guard transaction.
 2. Preserve canonical fingerprints, UUID Idempotency-Key validation, actor binding,
@@ -39,8 +53,7 @@ PRODUCTION, PURCHASE, CHALLAN, CHALLAN_RETURN, CLIENT_PAYMENT, VENDOR_PAYMENT,
 PAYMENT_REVERSAL, STOCK_CORRECTION, OPENING_CORRECTION and EXPENSE draft creation/editing/posting
 are implemented. Draft cancellation supports all thirteen active Simple V1 kinds.
 No active Simple V1 document kind remains pending.
-Public inquiry delivery,
-production database configuration, cPanel Apache verification, hosted load/resource
+Production database configuration, cPanel Apache verification, hosted load/resource
 checks and broader report/export acceptance remain pending. Local Apache HTTPS/FastCGI
 browser transaction and delivery-note print acceptance is covered by PHP-3. PHP-4 adds
 actual partial-return, excess-return rejection, stock/ledger reconciliation, original

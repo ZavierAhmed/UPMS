@@ -1,7 +1,7 @@
 # Unique Plastic Industry PHP API
 
 Laravel **13.39.0**, PHP **8.3+**, MariaDB **10.11**, native PDO prepared statements.
-PHP-1 through PHP-6 are for isolated testing and review. The backend cannot connect to the
+PHP-1 through PHP-7 are for isolated testing and review. The backend cannot connect to the
 owner schema. PHP-6 completes all thirteen active document kinds with paid expenses,
 integrated financial/inventory report validation and observational reconciliation.
 No hosting release or other financial-write cutover is authorized here.
@@ -13,6 +13,36 @@ default database connections are disabled. UPMS accesses existing tables only th
 `App\Upms\Database` and the explicit `Schema` mapping.
 
 ## Local tests
+
+PHP-7 adds `POST /api/v1/public/inquiries` independently of management sessions/CSRF
+and SQL. Configure INQUIRY_ORIGIN separately from UPMS_ORIGIN. Its default private
+storage is `storage/app/private/inquiries`; all workers must share this single-host
+directory outside every web root, with private permissions and reliable flock/atomic
+replacement. It bounds rate windows and pending/completed replay receipts, fails
+closed on unavailable/corrupt storage, and never retries an uncertain handoff itself.
+
+INQUIRY_MODE defaults to Disabled. Smtp requires the INQUIRY_SMTP_* settings in
+.env.example, verified TLS 1.2+ with required STARTTLS or TLS-on-connect, a trusted CA
+bundle, and locked Symfony Mailer 7.4.19. Total delivery timeout defaults to 15 seconds.
+The supervised mail worker needs proc_open/process termination and a matching PHP CLI;
+set INQUIRY_PHP_BINARY explicitly for FPM installations without a sibling CLI. Secrets
+pass via stdin. No plaintext/TLS-verification fallback exists. DevelopmentFile is only
+allowed for local/testing environments and saves personal details to a private outbox;
+operators must set disk/retention limits. A successful SMTP handoff never confirms inbox receipt.
+
+Run `scripts/php-7-inquiries.mjs` with PHP7_BINARY and optional JSON PHP7_ARGS; it needs
+no database and tests independent workers plus isolated authenticated TLS SMTP. Run
+`scripts/php-7-management-regressions.mjs` against the existing private loopback test
+engine to repeat PHP-2–6 on both runtimes. The browser preparation helpers create
+separate public/private loopback HTTPS roots. The owner-only `php-7-uat-prepare.mjs`
+workflow generates private random credentials for a new synthetic schema and starts
+no services; do not run it until the separate PHP-7.5 UAT is authorized.
+
+Read [PHP-7 inquiry parity and differences](../docs/php-migration/PHP-7-INQUIRY-PARITY.md),
+[public acceptance](../docs/php-migration/PHP-7-PUBLIC-WEBSITE-ACCEPTANCE.md),
+[results](../docs/php-migration/PHP-7-TEST-RESULTS.md), and
+[owner UAT plan](../docs/php-migration/FULL-SYSTEM-UAT-PLAN.md).
+No owner database, production profile, hosting/DNS, migration or release package is enabled.
 
 1. Provision a **fresh standalone MariaDB 10.11.19 instance**, bound to loopback port
    `3328`, with its own data directory. Never reuse the owner's instance or data.

@@ -16,7 +16,7 @@ try{
  const [[engine]]=await admin.raw('SELECT VERSION() AS v,@@port AS p');assert.match(engine.v,/^10\.11\.19-MariaDB/);assert.equal(Number(engine.p),3330);
  const run=Date.now().toString(),database='upms_test_php_6_browser_'+run,user='php6_browser_'+run,password=randomBytes(32).toString('hex');
  await admin.raw('CREATE DATABASE ?? CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci',[database]);db=knex({client:'mysql2',connection:{...connection,database},pool:{min:0,max:1}});
- await identitySchema(db);await v1Schema(db);await entrySchema(db);await createIdentityService(db).bootstrap({username:'php-admin',displayName:'Synthetic browser administrator',password:'Synthetic-PHP2-Only-2026!'});
+ await identitySchema(db);await v1Schema(db);await entrySchema(db);await createIdentityService(db).bootstrap({username:'php-admin',displayName:'Synthetic browser administrator',password:process.env.PHP_BROWSER_ADMIN_PASSWORD||'Synthetic-PHP2-Only-2026!'});
  await db('v1_control').where({id:1}).update({operator_id:'1',state:'READY',cutover_evidence:'Isolated PHP-6 browser acceptance'});await grantPhp6(admin,database,user,password);
  const directory=resolve('tmp/php-runtime/php6-browser-'+run),root=directory+'/public';await mkdir(root,{recursive:true});
  await cp('upms.client/dist/management',root+'/management',{recursive:true});

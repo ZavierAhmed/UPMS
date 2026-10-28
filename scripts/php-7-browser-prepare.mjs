@@ -1,0 +1,17 @@
+import {readFile,writeFile,cp,mkdir} from 'node:fs/promises';
+import {resolve} from 'node:path';
+import {execFileSync} from 'node:child_process';
+const setup=JSON.parse(await readFile('tmp/php-runtime/php6-browser-latest.json','utf8'));
+const root=setup.directory+'/website';await mkdir(root,{recursive:true});
+await cp('upms.client/dist',root,{recursive:true,filter:p=>!p.replaceAll('\\','/').includes('/dist/management')});
+await cp(setup.root+'/backend.php',root+'/backend.php');
+await writeFile(setup.env,(await readFile(setup.env,'utf8'))+'INQUIRY_ORIGIN=https://127.0.0.1:9443\nINQUIRY_MODE=DevelopmentFile\nINQUIRY_RATE_LIMIT=100\nINQUIRY_STORAGE="'+setup.directory.replaceAll('\\','/')+'/inquiries"\n');
+const r=root.replaceAll('\\','/'),d=setup.directory.replaceAll('\\','/');
+let conf=await readFile(setup.config,'utf8');
+conf=conf.replace('LoadModule ssl_module','LoadModule headers_module modules/mod_headers.so\nLoadModule ssl_module');
+conf+='\nListen 127.0.0.1:9443 https\n<VirtualHost 127.0.0.1:9443>\nServerName 127.0.0.1\nDocumentRoot "'+r+'"\nSSLEngine on\nSSLCertificateFile "'+d+'/server.crt"\nSSLCertificateKeyFile "'+d+'/server.key"\nHeader always set X-Content-Type-Options "nosniff"\nHeader always set X-Frame-Options "DENY"\nHeader always set Referrer-Policy "strict-origin-when-cross-origin"\nHeader always set Permissions-Policy "camera=(), microphone=(), geolocation=()"\nHeader always set Content-Security-Policy "default-src \'self\'; script-src \'self\'; style-src \'self\'; img-src \'self\' data:; connect-src \'self\'; font-src \'self\'; object-src \'none\'; base-uri \'self\'; frame-ancestors \'none\'; form-action \'self\'"\n<Directory "'+r+'">\nRequire all granted\nAllowOverride None\nOptions -Indexes -MultiViews\nDirectoryIndex index.html\nRewriteEngine On\nRewriteRule ^management(?:/|$) - [R=404,END]\nRewriteRule ^api(?:/|$) "'+setup.root.replaceAll('\\','/')+'/backend.php" [END]\nRewriteCond %{REQUEST_FILENAME} !-f\nRewriteCond %{REQUEST_FILENAME} !-d\nRewriteRule ^ index.html [END]\n</Directory>\n</VirtualHost>\n';
+conf=conf.replace('RewriteRule ^api(?:/|$) "'+setup.root.replaceAll('\\','/')+'/backend.php" [END]', 'RewriteRule ^api(?:/|$) backend.php [END]');
+await writeFile(setup.config,conf);
+execFileSync('C:/xampp/apache/bin/openssl.exe',['req','-x509','-newkey','rsa:2048','-sha256','-nodes','-keyout',setup.directory+'/server.key','-out',setup.directory+'/server.crt','-days','1','-subj','/CN=127.0.0.1','-addext','subjectAltName=IP:127.0.0.1','-config','C:/xampp/apache/conf/openssl.cnf'],{stdio:'ignore',windowsHide:true});
+await writeFile('tmp/php-runtime/php7-browser-latest.json',JSON.stringify({...setup,publicRoot:root},null,2));
+console.log(JSON.stringify({prepared:true,directory:setup.directory,publicOrigin:'https://127.0.0.1:9443',privateOrigin:'https://127.0.0.1:9444'}));

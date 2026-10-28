@@ -14,6 +14,8 @@
     RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
 
     # Redirect Trailing Slashes If Not A Folder...
+    # API POSTs must retain their body and the public endpoint accepts one slash.
+    RewriteCond %{REQUEST_URI} !^/api(?:/|$) [NC]
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [L,R=301]

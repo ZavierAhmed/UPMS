@@ -4,10 +4,25 @@ DirectoryIndex index.html
     Require all denied
 </FilesMatch>
 RewriteEngine On
-# Inquiry API remains pending; deploy neither this entry nor routing until parity.
-RewriteRule ^api(?:/|$) backend.php [END]
+# Review template only. Replace PUBLIC_HOST with the approved public hostname.
+# Do not infer a hosting approval from local PHP-7 acceptance.
+RewriteCond %{HTTP_HOST} !^PUBLIC_HOST(?::443)?$ [NC]
+RewriteRule ^ - [R=400,END]
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://PUBLIC_HOST%{REQUEST_URI} [R=307,END]
+RewriteRule ^management(?:/|$) - [R=404,END,NC]
+RewriteRule ^api(?:/|$) backend.php [END,NC]
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [END]
 RewriteRule \.[^/]+$ - [R=404,END]
 RewriteRule ^ index.html [END]
+
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "DENY"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+    Header always set Strict-Transport-Security "max-age=15552000" "expr=%{HTTPS} == 'on'"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
+</IfModule>

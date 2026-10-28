@@ -1,0 +1,534 @@
+{
+  "baseline": "e5fa64a50ddca96d621a5a0a53f6559f860c52e0",
+  "ownerDatabaseContacted": false,
+  "productionApproved": false,
+  "runtimes": [
+    {
+      "version": "8.3.36",
+      "inquiry": {
+        "passed": true,
+        "comparisons": 66,
+        "checks": [
+          "development saved",
+          "Exact authoritative plain-text body and reference",
+          "UTF8 BOM",
+          "Public ignores private session cookie",
+          "ECMAScript phone whitespace",
+          "ECMAScript email whitespace",
+          "UTF16 code units \"\\ud800\"",
+          "UTF16 code units \"\\udfff\"",
+          "UTF16 code units \"𐀀\"",
+          "UTF16 code units \"\"",
+          "UTF16 code units \"d800;\"",
+          "UTF16 code units \"Quoted \\\" \\\\ literal\"",
+          "Lone UTF16 surrogate identity remains distinct from replacement character on replay",
+          "customerName exact maximum error",
+          "companyName exact maximum error",
+          "email exact maximum error",
+          "phone exact maximum error",
+          "productCategory exact maximum error",
+          "quantity exact maximum error",
+          "capacity exact maximum error",
+          "message exact maximum error",
+          "empty",
+          "null",
+          "array",
+          "scalar",
+          "syntax",
+          "wrong field type",
+          "honeypot",
+          "case and trim",
+          "unknown nested depth",
+          "utf16 limit",
+          "short message",
+          "control characters",
+          "email quirks",
+          "invalid category",
+          "max lengths",
+          "category buckets",
+          "category containers",
+          "category custom",
+          "cross site",
+          "foreign origin",
+          "invalid origin",
+          "origin default port",
+          "wrong type",
+          "compressed",
+          "bad key",
+          "nil key",
+          "all Fs key",
+          "GET /api/v1/public/inquiries",
+          "POST /api/unknown",
+          "POST /API/V1/PUBLIC/INQUIRIES/",
+          "body byte limit",
+          "rate persisted worker 0",
+          "rate persisted worker 1",
+          "rate persisted worker 2",
+          "rate persisted worker 3",
+          "8 independent workers: one handoff, same reference, case insensitive replay, conflict",
+          "storage failure closed",
+          "SslOnConnect accepted",
+          "SslOnConnect rejected",
+          "SslOnConnect unknown",
+          "SslOnConnect timeout",
+          "SslOnConnect auth",
+          "SslOnConnect slow",
+          "StartTls accepted",
+          "StartTls rejected",
+          "StartTls unknown",
+          "StartTls timeout",
+          "StartTls auth",
+          "StartTls slow",
+          "Connection loss after DATA is conservatively unknown; documented Nodemailer ECONNECTION classification difference",
+          "untrusted SMTP certificate rejected",
+          "8 concurrent independent PHP workers produce exactly one SMTP message",
+          "SMTP Reply-To and plain text headers",
+          "Abandoned reservation returns unknown without redelivery",
+          "1000-entry idempotency capacity fails closed",
+          "Expired rate windows and completed reservations cleaned up",
+          "Corrupted private journal fails closed"
+        ]
+      },
+      "management": {
+        "passed": true,
+        "php": "8.3.36",
+        "transport": "Actual Apache HTTPS / PHP FastCGI / unchanged React",
+        "database": "upms_test_php_6_browser_1793172003257",
+        "checks": 26,
+        "evidence": [
+          "HTTPS FastCGI sign-in",
+          "Client/vendor and correction-party verified openings",
+          "Item and explicit stock opening",
+          "Challan establishes client receivable",
+          "Partial client receipt, official CR and running balance",
+          "Return and partial receipt combine in client running balance",
+          "Cheque received credits client",
+          "Eligible cheque reversal restores receivable and preserves original",
+          "Credit bottle purchase establishes vendor payable",
+          "Vendor bank payment, official VP and reduced payable",
+          "CASH paid-only expense posting",
+          "BANK_TRANSFER paid-only expense posting",
+          "Expense posting leaves inventory and client/vendor ledgers unchanged",
+          "Zero paid amount error and justified draft cancellation",
+          "Native required-reference validation and paid-only method options",
+          "Company Transactions expense totals and payable coverage",
+          "Expense type filter",
+          "Reference filtering preserves selected expense total",
+          "Date/type/reference filters through existing controls",
+          "Actual filtered Company Transactions XLSX download and exact values",
+          "Existing register print action and actual A4 PDF",
+          "Posted expense detail and print rendering",
+          "Client ledger navigation and actual XLSX export",
+          "Vendor ledger report",
+          "Stock report and actual XLSX export",
+          "Integrated inventory and financial reconciliation"
+        ],
+        "exports": [
+          {
+            "name": "UPMS-Company-Transactions.xlsx",
+            "bytes": 8382
+          },
+          {
+            "name": "UPMS-CLIENT-ledger.xlsx",
+            "bytes": 5176
+          },
+          {
+            "name": "UPMS-stock.xlsx",
+            "bytes": 3087
+          }
+        ],
+        "apiRequests": 487,
+        "javascriptErrors": 0,
+        "ownerDatabaseContacted": false
+      },
+      "website": {
+        "passed": true,
+        "php": "8.3.36",
+        "checks": 28,
+        "evidence": [
+          "1440 / route/content/metadata/images/overflow",
+          "1440 /about route/content/metadata/images/overflow",
+          "1440 /products route/content/metadata/images/overflow",
+          "1440 /products/buckets route/content/metadata/images/overflow",
+          "1440 /products/cans route/content/metadata/images/overflow",
+          "1440 /products/containers route/content/metadata/images/overflow",
+          "1440 /products/custom route/content/metadata/images/overflow",
+          "1440 /manufacturing route/content/metadata/images/overflow",
+          "1440 /industries route/content/metadata/images/overflow",
+          "1440 /contact route/content/metadata/images/overflow",
+          "390 / route/content/metadata/images/overflow",
+          "390 /about route/content/metadata/images/overflow",
+          "390 /products route/content/metadata/images/overflow",
+          "390 /products/buckets route/content/metadata/images/overflow",
+          "390 /products/cans route/content/metadata/images/overflow",
+          "390 /products/containers route/content/metadata/images/overflow",
+          "390 /products/custom route/content/metadata/images/overflow",
+          "390 /manufacturing route/content/metadata/images/overflow",
+          "390 /industries route/content/metadata/images/overflow",
+          "390 /contact route/content/metadata/images/overflow",
+          "Mobile navigation expands and routes",
+          "All four product inquiry preselection links",
+          "Approved address, map and directions",
+          "Client validation blocks empty submission",
+          "Actual public React POST through Apache TLS/FastCGI without login/cookie/CSRF",
+          "HTTPS idempotent replay retains one private outbox message",
+          "Public origin blocks private management UI and API",
+          "111 approved public asset hashes unchanged"
+        ],
+        "javascriptErrors": [],
+        "publicApiCalls": 3,
+        "ownerDatabaseContacted": false
+      },
+      "artifacts": [
+        {
+          "file": "expense-print.pdf",
+          "bytes": 39801,
+          "sha256": "af8657bab7bfc6190c8a66042bc1d574500156a4e9af642239000807195ce003"
+        },
+        {
+          "file": "register-print.pdf",
+          "bytes": 59852,
+          "sha256": "7908d09b0333d3ccd82e0fc9ca7546f343eac424e47b392ce62cdcad4ff60746"
+        },
+        {
+          "file": "downloads/UPMS-CLIENT-ledger.xlsx",
+          "bytes": 5176,
+          "sha256": "2fb7183eb9c6fbcab4809339d88a1b2f0da17ed4e0ed0c0a03a9fc18e26d190e"
+        },
+        {
+          "file": "downloads/UPMS-Company-Transactions.xlsx",
+          "bytes": 8382,
+          "sha256": "99e4d5c943fccfef18add583f6d96f0d18611f5cbfc8ac123a3268729920cd78"
+        },
+        {
+          "file": "downloads/UPMS-stock.xlsx",
+          "bytes": 3087,
+          "sha256": "f667661223f2c0ddf554e1577e0bad688ff5c17617f87e1cdfe937f724d865eb"
+        }
+      ],
+      "phpunit": {
+        "tests": 73,
+        "assertions": 1304
+      }
+    },
+    {
+      "version": "8.4.27",
+      "inquiry": {
+        "passed": true,
+        "comparisons": 66,
+        "checks": [
+          "development saved",
+          "Exact authoritative plain-text body and reference",
+          "UTF8 BOM",
+          "Public ignores private session cookie",
+          "ECMAScript phone whitespace",
+          "ECMAScript email whitespace",
+          "UTF16 code units \"\\ud800\"",
+          "UTF16 code units \"\\udfff\"",
+          "UTF16 code units \"𐀀\"",
+          "UTF16 code units \"\"",
+          "UTF16 code units \"d800;\"",
+          "UTF16 code units \"Quoted \\\" \\\\ literal\"",
+          "Lone UTF16 surrogate identity remains distinct from replacement character on replay",
+          "customerName exact maximum error",
+          "companyName exact maximum error",
+          "email exact maximum error",
+          "phone exact maximum error",
+          "productCategory exact maximum error",
+          "quantity exact maximum error",
+          "capacity exact maximum error",
+          "message exact maximum error",
+          "empty",
+          "null",
+          "array",
+          "scalar",
+          "syntax",
+          "wrong field type",
+          "honeypot",
+          "case and trim",
+          "unknown nested depth",
+          "utf16 limit",
+          "short message",
+          "control characters",
+          "email quirks",
+          "invalid category",
+          "max lengths",
+          "category buckets",
+          "category containers",
+          "category custom",
+          "cross site",
+          "foreign origin",
+          "invalid origin",
+          "origin default port",
+          "wrong type",
+          "compressed",
+          "bad key",
+          "nil key",
+          "all Fs key",
+          "GET /api/v1/public/inquiries",
+          "POST /api/unknown",
+          "POST /API/V1/PUBLIC/INQUIRIES/",
+          "body byte limit",
+          "rate persisted worker 0",
+          "rate persisted worker 1",
+          "rate persisted worker 2",
+          "rate persisted worker 3",
+          "8 independent workers: one handoff, same reference, case insensitive replay, conflict",
+          "storage failure closed",
+          "SslOnConnect accepted",
+          "SslOnConnect rejected",
+          "SslOnConnect unknown",
+          "SslOnConnect timeout",
+          "SslOnConnect auth",
+          "SslOnConnect slow",
+          "StartTls accepted",
+          "StartTls rejected",
+          "StartTls unknown",
+          "StartTls timeout",
+          "StartTls auth",
+          "StartTls slow",
+          "Connection loss after DATA is conservatively unknown; documented Nodemailer ECONNECTION classification difference",
+          "untrusted SMTP certificate rejected",
+          "8 concurrent independent PHP workers produce exactly one SMTP message",
+          "SMTP Reply-To and plain text headers",
+          "Abandoned reservation returns unknown without redelivery",
+          "1000-entry idempotency capacity fails closed",
+          "Expired rate windows and completed reservations cleaned up",
+          "Corrupted private journal fails closed"
+        ]
+      },
+      "management": {
+        "passed": true,
+        "php": "8.4.27",
+        "transport": "Actual Apache HTTPS / PHP FastCGI / unchanged React",
+        "database": "upms_test_php_6_browser_1793171339467",
+        "checks": 26,
+        "evidence": [
+          "HTTPS FastCGI sign-in",
+          "Client/vendor and correction-party verified openings",
+          "Item and explicit stock opening",
+          "Challan establishes client receivable",
+          "Partial client receipt, official CR and running balance",
+          "Return and partial receipt combine in client running balance",
+          "Cheque received credits client",
+          "Eligible cheque reversal restores receivable and preserves original",
+          "Credit bottle purchase establishes vendor payable",
+          "Vendor bank payment, official VP and reduced payable",
+          "CASH paid-only expense posting",
+          "BANK_TRANSFER paid-only expense posting",
+          "Expense posting leaves inventory and client/vendor ledgers unchanged",
+          "Zero paid amount error and justified draft cancellation",
+          "Native required-reference validation and paid-only method options",
+          "Company Transactions expense totals and payable coverage",
+          "Expense type filter",
+          "Reference filtering preserves selected expense total",
+          "Date/type/reference filters through existing controls",
+          "Actual filtered Company Transactions XLSX download and exact values",
+          "Existing register print action and actual A4 PDF",
+          "Posted expense detail and print rendering",
+          "Client ledger navigation and actual XLSX export",
+          "Vendor ledger report",
+          "Stock report and actual XLSX export",
+          "Integrated inventory and financial reconciliation"
+        ],
+        "exports": [
+          {
+            "name": "UPMS-Company-Transactions.xlsx",
+            "bytes": 8382
+          },
+          {
+            "name": "UPMS-CLIENT-ledger.xlsx",
+            "bytes": 5176
+          },
+          {
+            "name": "UPMS-stock.xlsx",
+            "bytes": 3087
+          }
+        ],
+        "apiRequests": 487,
+        "javascriptErrors": 0,
+        "ownerDatabaseContacted": false
+      },
+      "website": {
+        "passed": true,
+        "php": "8.4.27",
+        "checks": 28,
+        "evidence": [
+          "1440 / route/content/metadata/images/overflow",
+          "1440 /about route/content/metadata/images/overflow",
+          "1440 /products route/content/metadata/images/overflow",
+          "1440 /products/buckets route/content/metadata/images/overflow",
+          "1440 /products/cans route/content/metadata/images/overflow",
+          "1440 /products/containers route/content/metadata/images/overflow",
+          "1440 /products/custom route/content/metadata/images/overflow",
+          "1440 /manufacturing route/content/metadata/images/overflow",
+          "1440 /industries route/content/metadata/images/overflow",
+          "1440 /contact route/content/metadata/images/overflow",
+          "390 / route/content/metadata/images/overflow",
+          "390 /about route/content/metadata/images/overflow",
+          "390 /products route/content/metadata/images/overflow",
+          "390 /products/buckets route/content/metadata/images/overflow",
+          "390 /products/cans route/content/metadata/images/overflow",
+          "390 /products/containers route/content/metadata/images/overflow",
+          "390 /products/custom route/content/metadata/images/overflow",
+          "390 /manufacturing route/content/metadata/images/overflow",
+          "390 /industries route/content/metadata/images/overflow",
+          "390 /contact route/content/metadata/images/overflow",
+          "Mobile navigation expands and routes",
+          "All four product inquiry preselection links",
+          "Approved address, map and directions",
+          "Client validation blocks empty submission",
+          "Actual public React POST through Apache TLS/FastCGI without login/cookie/CSRF",
+          "HTTPS idempotent replay retains one private outbox message",
+          "Public origin blocks private management UI and API",
+          "111 approved public asset hashes unchanged"
+        ],
+        "javascriptErrors": [],
+        "publicApiCalls": 3,
+        "ownerDatabaseContacted": false
+      },
+      "artifacts": [
+        {
+          "file": "expense-print.pdf",
+          "bytes": 39801,
+          "sha256": "54680ec9dbb75183addc7c357a7a18f75f1bb7b8e34c5d3d26fd07791dd0f7ee"
+        },
+        {
+          "file": "register-print.pdf",
+          "bytes": 59852,
+          "sha256": "3bbe333ce61747fd25fe8b4187f1ce175d611d5e88dce9bb8eeacf1e726d85f7"
+        },
+        {
+          "file": "downloads/UPMS-CLIENT-ledger.xlsx",
+          "bytes": 5176,
+          "sha256": "2fb7183eb9c6fbcab4809339d88a1b2f0da17ed4e0ed0c0a03a9fc18e26d190e"
+        },
+        {
+          "file": "downloads/UPMS-Company-Transactions.xlsx",
+          "bytes": 8382,
+          "sha256": "99e4d5c943fccfef18add583f6d96f0d18611f5cbfc8ac123a3268729920cd78"
+        },
+        {
+          "file": "downloads/UPMS-stock.xlsx",
+          "bytes": 3087,
+          "sha256": "f667661223f2c0ddf554e1577e0bad688ff5c17617f87e1cdfe937f724d865eb"
+        }
+      ],
+      "phpunit": {
+        "tests": 73,
+        "assertions": 1304
+      }
+    }
+  ],
+  "managementDifferential": [
+    {
+      "version": "8.3",
+      "milestone": 2,
+      "passed": true,
+      "httpComparisons": 144,
+      "checks": 18,
+      "schemas": [
+        "upms_test_php_2_ref_1793171103928",
+        "upms_test_php_2_app_1793171103928"
+      ],
+      "evidence": "C:\\Users\\zasah\\source\\repos\\UPMS\\tmp\\php-runtime\\php2_1793171103928/evidence.json",
+      "ownerDatabaseContacted": false
+    },
+    {
+      "version": "8.3",
+      "milestone": 3,
+      "passed": true,
+      "httpComparisons": 223,
+      "snapshots": 12,
+      "checks": 18,
+      "evidence": "C:\\Users\\zasah\\source\\repos\\UPMS\\tmp\\php-runtime\\php3_1793171175659/evidence.json",
+      "ownerDatabaseContacted": false
+    },
+    {
+      "version": "8.3",
+      "milestone": 4,
+      "passed": true,
+      "httpComparisons": 265,
+      "snapshots": 14,
+      "checks": 22,
+      "evidence": "C:\\Users\\zasah\\source\\repos\\UPMS\\tmp\\php-runtime\\php4_1793171282138/evidence.json"
+    },
+    {
+      "version": "8.3",
+      "milestone": 5,
+      "passed": true,
+      "httpComparisons": 270,
+      "snapshots": 13,
+      "evidence": "C:\\Users\\zasah\\source\\repos\\UPMS\\tmp\\php-runtime\\php5_1793171401176/evidence.json"
+    },
+    {
+      "version": "8.3",
+      "milestone": 6,
+      "passed": true,
+      "httpComparisons": 250,
+      "snapshots": 11,
+      "evidence": "C:\\Users\\zasah\\source\\repos\\UPMS\\tmp\\php-runtime\\php6_1793171532417/evidence.json"
+    },
+    {
+      "version": "8.4",
+      "milestone": 2,
+      "passed": true,
+      "httpComparisons": 144,
+      "checks": 18,
+      "schemas": [
+        "upms_test_php_2_ref_1793171644955",
+        "upms_test_php_2_app_1793171644955"
+      ],
+      "evidence": "C:\\Users\\zasah\\source\\repos\\UPMS\\tmp\\php-runtime\\php2_1793171644955/evidence.json",
+      "ownerDatabaseContacted": false
+    },
+    {
+      "version": "8.4",
+      "milestone": 3,
+      "passed": true,
+      "httpComparisons": 223,
+      "snapshots": 12,
+      "checks": 18,
+      "evidence": "C:\\Users\\zasah\\source\\repos\\UPMS\\tmp\\php-runtime\\php3_1793171707145/evidence.json",
+      "ownerDatabaseContacted": false
+    },
+    {
+      "version": "8.4",
+      "milestone": 4,
+      "passed": true,
+      "httpComparisons": 265,
+      "snapshots": 14,
+      "checks": 22,
+      "evidence": "C:\\Users\\zasah\\source\\repos\\UPMS\\tmp\\php-runtime\\php4_1793171803679/evidence.json"
+    },
+    {
+      "version": "8.4",
+      "milestone": 5,
+      "passed": true,
+      "httpComparisons": 270,
+      "snapshots": 13,
+      "evidence": "C:\\Users\\zasah\\source\\repos\\UPMS\\tmp\\php-runtime\\php5_1793171924509/evidence.json"
+    },
+    {
+      "version": "8.4",
+      "milestone": 6,
+      "passed": true,
+      "httpComparisons": 250,
+      "snapshots": 11,
+      "evidence": "C:\\Users\\zasah\\source\\repos\\UPMS\\tmp\\php-runtime\\php6_1793172050395/evidence.json"
+    }
+  ],
+  "regressions": {
+    "express": {
+      "passed": 290,
+      "failed": 0
+    },
+    "react": {
+      "passed": 190,
+      "files": 26
+    },
+    "build": true,
+    "eslint": true,
+    "publicFilesUnchanged": 111
+  }
+}
