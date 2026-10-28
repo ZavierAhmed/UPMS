@@ -1,0 +1,27 @@
+import assert from 'node:assert/strict';
+import {readFile,writeFile} from 'node:fs/promises';
+import puppeteer from 'puppeteer-core';
+const setup=JSON.parse(await readFile('tmp/php-runtime/php7-uat-latest.json','utf8'));
+const credentials=JSON.parse(await readFile(setup.directory+'/credentials.json','utf8'));
+const browser=await puppeteer.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true,acceptInsecureCerts:true});
+const page=await browser.newPage(),checks=[],findings=[];
+await page.setViewport({width:1440,height:1000});
+try{
+ const response=await page.goto('https://127.0.0.1:9444/management/',{waitUntil:'networkidle0'});assert.equal(response.status(),200);
+ async function call(path,method='GET',headers={},body){return page.evaluate(async({path,method,headers,body})=>{const r=await fetch('/api/v1/management/'+path,{method,headers:{...headers,...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{})});return{status:r.status,body:await r.json(),headers:Object.fromEntries(r.headers.entries())};},{path,method,headers,body});}
+ assert.equal((await call('simple-v1/items')).status,401);checks.push('Unauthenticated business read denied');
+ const csrf=await call('session/csrf');assert.equal(csrf.status,200);assert.equal(csrf.headers['x-content-type-options'],'nosniff');assert.match(csrf.headers['cache-control'],/(?:^|,\s*)no-store(?:,|$)/);for(const header of ['x-frame-options','content-security-policy'])if(!csrf.headers[header])findings.push('Local management HTTPS fixture lacks '+header);checks.push('Actual management API nosniff and no-store headers');
+ await page.type('[name=username]',credentials.username);await page.type('[name=password]',credentials.password);for(const b of await page.$$('button'))if(await b.evaluate(e=>e.textContent.trim()==='Sign in')){await b.click();break;}await page.waitForFunction(()=>document.querySelector('h1')?.textContent==='Dashboard');
+ const cookies=(await browser.cookies()).filter(c=>c.name.startsWith('__Host-'));assert.equal(cookies.length,1);for(const cookie of cookies){assert.equal(cookie.secure,true);assert.equal(cookie.httpOnly,true);assert.equal(cookie.sameSite,'Strict');assert.equal(cookie.path,'/');}checks.push('HTTPS host session cookie Secure HttpOnly SameSite Strict');
+ const before=(await call('simple-v1/documents')).body;
+ for(const token of [null,'invalid']){const r=await call('simple-v1/documents','POST',token?{'X-CSRF-Token':token}:{},{kind:'PRODUCTION'});assert.equal(r.status,403);}
+ assert.deepEqual((await call('simple-v1/documents')).body,before);checks.push('Missing and invalid CSRF rejected with unchanged documents');
+ const current=await call('session/current');await page.setRequestInterception(true);const intercept=request=>request.continue({headers:{...request.headers(),origin:'https://untrusted.invalid','sec-fetch-site':'cross-site'}});page.on('request',intercept);const cross=await call('simple-v1/documents','POST',{'X-CSRF-Token':current.body.csrfToken},{kind:'PRODUCTION'});page.off('request',intercept);await page.setRequestInterception(false);assert.equal(cross.status,403);assert.equal(cross.body.error.code,'ORIGIN_REJECTED');assert.deepEqual((await call('simple-v1/documents')).body,before);checks.push('Actual intercepted cross-site Origin denied despite valid CSRF');
+ for(const path of ['.env','storage/logs/laravel.log','tmp/php-runtime/php2-engine.json','uat-private.sql','server.key']){const r=await page.goto('https://127.0.0.1:9444/'+path);const text=await r.text();assert.ok(!text.includes('APP_KEY=')&&!text.includes('UPMS_DB_PASSWORD=')&&!text.includes('PRIVATE KEY')&&!text.includes(credentials.password));assert.ok([200,403,404].includes(r.status()));}
+ checks.push('Private configuration, logs, keys and backup paths disclose no secret');
+ for(const route of ['', 'items','stock-in','challans','challan-returns','reports','company-transactions']){await page.goto('https://127.0.0.1:9444/management/'+route,{waitUntil:'networkidle0'});await page.waitForSelector('main h1');assert.ok(!(await page.$eval('main',e=>e.innerText)).includes('Page not available'));checks.push('Actual report/history screen /management/'+route);}
+ const legacy=await call('sales/challans');assert.ok([403,404].includes(legacy.status));checks.push('Legacy ERP API unavailable');
+ await page.goto('https://127.0.0.1:9444/management/',{waitUntil:'networkidle0'});for(const b of await page.$$('button'))if(await b.evaluate(e=>e.textContent.trim()==='Sign out')){await b.click();break;}await page.waitForSelector('[name=username]');assert.equal((await call('simple-v1/items')).status,401);checks.push('Actual browser logout revokes session');
+ const publicPage=await browser.newPage();const publicResponse=await publicPage.goto('https://127.0.0.1:9443/',{waitUntil:'networkidle0'});assert.equal(publicResponse.status(),200);assert.equal(publicResponse.headers()['x-content-type-options'],'nosniff');assert.equal(publicResponse.headers()['x-frame-options'],'DENY');checks.push('Public HTTPS security headers');
+ const result={passed:findings.length===0,checks:checks.length,evidence:checks,findings,disabledRolesAndExpiry:'Covered in fresh PHPUnit/security differential fixtures',ownerDatabaseContacted:false};await writeFile(setup.directory+'/security-results.json',JSON.stringify(result,null,2));console.log(JSON.stringify(result));process.exitCode=result.passed?0:1;
+}finally{await browser.close();}

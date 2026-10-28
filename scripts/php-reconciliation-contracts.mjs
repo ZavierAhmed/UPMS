@@ -8,9 +8,11 @@ import {simpleV1Service} from '../server/src/simple-v1/service.js';
 
 const env=parseEnv(await readFile('upms.php/.env.testing','utf8'));
 assert.match(env.UPMS_DB_DATABASE,/^upms_test_php_[0-9]+$/);
-assert.equal(env.UPMS_DB_HOST,'127.0.0.1');assert.equal(env.UPMS_DB_PORT,'3328');
+const port=Number(process.env.PHP_TEST_ADMIN_PORT||3328);assert.ok([3328,3330].includes(port));
+if(port===3330)await (await import('./php-7-5-engine-guard.mjs')).verifyUatEngine();
+assert.equal(env.UPMS_DB_HOST,'127.0.0.1');assert.equal(env.UPMS_DB_PORT,String(port));
 assert.ok(process.env.PHP_TEST_ADMIN_PASSWORD);
-const db=knex({client:'mysql2',connection:{host:'127.0.0.1',port:3328,user:'root',password:process.env.PHP_TEST_ADMIN_PASSWORD,database:env.UPMS_DB_DATABASE,dateStrings:true,supportBigNumbers:true,bigNumberStrings:true},pool:{min:0,max:1}});
+const db=knex({client:'mysql2',connection:{host:'127.0.0.1',port,user:process.env.PHP_TEST_ADMIN_USER||'root',password:process.env.PHP_TEST_ADMIN_PASSWORD,database:env.UPMS_DB_DATABASE,dateStrings:true,supportBigNumbers:true,bigNumberStrings:true},pool:{min:0,max:1}});
 try{
  const fixture=JSON.parse(await readFile('tmp/php-runtime/contracts.json','utf8'));assert.equal(fixture.database,env.UPMS_DB_DATABASE);
  const session={userId:'1',authVersion:1,issuedAt:Date.now(),recordHash:digest(randomUUID())};

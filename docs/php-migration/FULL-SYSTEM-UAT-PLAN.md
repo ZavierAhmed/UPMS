@@ -216,7 +216,7 @@ Use the bundled `mariadb-dump.exe --defaults-extra-file=<private options> --sing
 --routines --triggers --result-file=<private UTF-8 dump> <exact UAT schema>`. The defaults
 option must come first. Check exit status and nonempty output. Hash the dump and privately
 back up the matching application configuration and inquiry journal/outbox. Do not commit
-them. Create a new empty `upms_test_php_uat_restore_<timestamp>` schema on the same isolated
+them. Create a new empty `upms_test_php_6_restore_<timestamp>` schema on the same isolated
 engine, import using the MariaDB client/administration tool into that clone, and never
 overwrite the worksheet schema. Verify table counts, X 123, A +200.00, B +80.00, V -185.00,
 18.00 expenses, original posted rows, counters, receipt identities and reconciliation.

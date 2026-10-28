@@ -1,0 +1,827 @@
+{
+  "startingSha": "49f680f9c97e03fb38f7ac30fcf43b8a789a756e",
+  "branch": "feature/upms-php-7-5-full-system-uat",
+  "datesKarachi": [
+    "2026-10-28",
+    "2026-10-29"
+  ],
+  "phpunit": [
+    {
+      "php": "8.3.36",
+      "tests": 73,
+      "assertions": 1316
+    },
+    {
+      "php": "8.4.27",
+      "tests": 73,
+      "assertions": 1316
+    }
+  ],
+  "management": [
+    {
+      "php": "8.3",
+      "milestone": 2,
+      "httpComparisons": 144,
+      "sqlStateComparisons": 13,
+      "corruptionProbes": 0,
+      "evidence": "tmp/php-runtime/php2_1793183945576/evidence.json"
+    },
+    {
+      "php": "8.3",
+      "milestone": 3,
+      "httpComparisons": 223,
+      "sqlStateComparisons": 12,
+      "corruptionProbes": 0,
+      "evidence": "tmp/php-runtime/php3_1793184009497/evidence.json"
+    },
+    {
+      "php": "8.3",
+      "milestone": 4,
+      "httpComparisons": 265,
+      "sqlStateComparisons": 14,
+      "corruptionProbes": 0,
+      "evidence": "tmp/php-runtime/php4_1793184093324/evidence.json"
+    },
+    {
+      "php": "8.3",
+      "milestone": 5,
+      "httpComparisons": 276,
+      "sqlStateComparisons": 13,
+      "corruptionProbes": 0,
+      "evidence": "tmp/php-runtime/php5_1793184196999/evidence.json"
+    },
+    {
+      "php": "8.3",
+      "milestone": 6,
+      "httpComparisons": 345,
+      "sqlStateComparisons": 11,
+      "corruptionProbes": 126,
+      "privilegesDenied": 26,
+      "allowedRolledBack": 4,
+      "evidence": "tmp/php-runtime/php6_1793184297981/evidence.json"
+    },
+    {
+      "php": "8.4",
+      "milestone": 2,
+      "httpComparisons": 144,
+      "sqlStateComparisons": 13,
+      "corruptionProbes": 0,
+      "evidence": "tmp/php-runtime/php2_1793184430509/evidence.json"
+    },
+    {
+      "php": "8.4",
+      "milestone": 3,
+      "httpComparisons": 223,
+      "sqlStateComparisons": 12,
+      "corruptionProbes": 0,
+      "evidence": "tmp/php-runtime/php3_1793184487700/evidence.json"
+    },
+    {
+      "php": "8.4",
+      "milestone": 4,
+      "httpComparisons": 265,
+      "sqlStateComparisons": 14,
+      "corruptionProbes": 0,
+      "evidence": "tmp/php-runtime/php4_1793184575530/evidence.json"
+    },
+    {
+      "php": "8.4",
+      "milestone": 5,
+      "httpComparisons": 276,
+      "sqlStateComparisons": 13,
+      "corruptionProbes": 0,
+      "evidence": "tmp/php-runtime/php5_1793184677849/evidence.json"
+    },
+    {
+      "php": "8.4",
+      "milestone": 6,
+      "httpComparisons": 345,
+      "sqlStateComparisons": 11,
+      "corruptionProbes": 126,
+      "privilegesDenied": 26,
+      "allowedRolledBack": 4,
+      "evidence": "tmp/php-runtime/php6_1793184785539/evidence.json"
+    }
+  ],
+  "inquiries": [
+    {
+      "php": "83",
+      "comparisons": 66,
+      "checks": 78
+    },
+    {
+      "php": "84",
+      "comparisons": 66,
+      "checks": 78
+    }
+  ],
+  "browsers": [
+    {
+      "php": "8.3",
+      "managementChecks": 35,
+      "publicChecks": 28,
+      "xlsx": 3,
+      "pdf": 2,
+      "javascriptErrors": 0
+    },
+    {
+      "php": "8.4",
+      "managementChecks": 35,
+      "publicChecks": 28,
+      "xlsx": 3,
+      "pdf": 2,
+      "javascriptErrors": 0
+    }
+  ],
+  "express": {
+    "passed": 290,
+    "failed": 0
+  },
+  "react": {
+    "passed": 192,
+    "files": 27,
+    "workers": 2,
+    "initialUnbounded": {
+      "passed": 191,
+      "failed": 1
+    },
+    "completeBoundedRerunPassed": true
+  },
+  "build": "PASS",
+  "eslint": "PASS",
+  "assets": {
+    "files": 111,
+    "sha256Identical": true
+  },
+  "composer": {
+    "platformBoth": "PASS",
+    "validate": "PASS with exact-pin warnings",
+    "strictValidate": "FAIL existing exact-pin warnings",
+    "audit": "FAIL",
+    "advisory": {
+      "package": "symfony/mime",
+      "version": "7.4.19",
+      "severity": "medium",
+      "id": "PKSA-wtxr-p26d-nn42",
+      "cve": "CVE-2026-45070"
+    }
+  },
+  "pint": {
+    "fullTree": "FAIL eight existing files",
+    "changedSecurityTest": "PASS"
+  },
+  "worksheet": {
+    "passed": true,
+    "database": "upms_test_php_6_browser_1793216012369",
+    "ids": {
+      "A": "1",
+      "clientOpening": "1",
+      "V": "2",
+      "vendorOpening": "2",
+      "item": "1",
+      "stockOpening": "3",
+      "production": "4",
+      "purchase": "5",
+      "challan": "6",
+      "return": "7",
+      "receipt": "8",
+      "vendorPayment": "9",
+      "cheque": "10",
+      "reversal": "11",
+      "stockCorrection": "12",
+      "B": "3",
+      "bOpening": "13",
+      "openingCorrection": "14",
+      "expenses": [
+        "15",
+        "16"
+      ]
+    },
+    "steps": [
+      {
+        "label": "1 Client A opening",
+        "actual": {
+          "stock": null,
+          "A": "100.00",
+          "B": null,
+          "V": null,
+          "expenses": "0.00"
+        },
+        "reconciliationMatched": true
+      },
+      {
+        "label": "2 Vendor V opening",
+        "actual": {
+          "stock": null,
+          "A": "100.00",
+          "B": null,
+          "V": "-200.00",
+          "expenses": "0.00"
+        },
+        "reconciliationMatched": true
+      },
+      {
+        "label": "3 Stock opening",
+        "actual": {
+          "stock": "100",
+          "A": "100.00",
+          "B": null,
+          "V": "-200.00",
+          "expenses": "0.00"
+        },
+        "reconciliationMatched": true
+      },
+      {
+        "label": "4 Production",
+        "actual": {
+          "stock": "120",
+          "A": "100.00",
+          "B": null,
+          "V": "-200.00",
+          "expenses": "0.00"
+        },
+        "reconciliationMatched": true
+      },
+      {
+        "label": "5 Credit purchase",
+        "actual": {
+          "stock": "150",
+          "A": "100.00",
+          "B": null,
+          "V": "-260.00",
+          "expenses": "0.00"
+        },
+        "reconciliationMatched": true
+      },
+      {
+        "label": "6 Challan",
+        "actual": {
+          "stock": "110",
+          "A": "300.00",
+          "B": null,
+          "V": "-260.00",
+          "expenses": "0.00"
+        },
+        "reconciliationMatched": true
+      },
+      {
+        "label": "7 Partial return",
+        "actual": {
+          "stock": "120",
+          "A": "250.00",
+          "B": null,
+          "V": "-260.00",
+          "expenses": "0.00"
+        },
+        "reconciliationMatched": true
+      },
+      {
+        "label": "8 Cash receipt",
+        "actual": {
+          "stock": "120",
+          "A": "200.00",
+          "B": null,
+          "V": "-260.00",
+          "expenses": "0.00"
+        },
+        "reconciliationMatched": true
+      },
+      {
+        "label": "9 Vendor payment",
+        "actual": {
+          "stock": "120",
+          "A": "200.00",
+          "B": null,
+          "V": "-185.00",
+          "expenses": "0.00"
+        },
+        "reconciliationMatched": true
+      },
+      {
+        "label": "10a Cheque receipt",
+        "actual": {
+          "stock": "120",
+          "A": "180.00",
+          "B": null,
+          "V": "-185.00",
+          "expenses": "0.00"
+        },
+        "reconciliationMatched": true
+      },
+      {
+        "label": "10b Cheque reversal",
+        "actual": {
+          "stock": "120",
+          "A": "200.00",
+          "B": null,
+          "V": "-185.00",
+          "expenses": "0.00"
+        },
+        "reconciliationMatched": true
+      },
+      {
+        "label": "11 Stock correction",
+        "actual": {
+          "stock": "123",
+          "A": "200.00",
+          "B": null,
+          "V": "-185.00",
+          "expenses": "0.00"
+        },
+        "reconciliationMatched": true
+      },
+      {
+        "label": "12a B opening",
+        "actual": {
+          "stock": "123",
+          "A": "200.00",
+          "B": "100.00",
+          "V": "-185.00",
+          "expenses": "0.00"
+        },
+        "reconciliationMatched": true
+      },
+      {
+        "label": "12b B corrected target",
+        "actual": {
+          "stock": "123",
+          "A": "200.00",
+          "B": "80.00",
+          "V": "-185.00",
+          "expenses": "0.00"
+        },
+        "reconciliationMatched": true
+      },
+      {
+        "label": "13 CASH expense",
+        "actual": {
+          "stock": "123",
+          "A": "200.00",
+          "B": "80.00",
+          "V": "-185.00",
+          "expenses": "12.34"
+        },
+        "reconciliationMatched": true
+      },
+      {
+        "label": "13 BANK_TRANSFER expense",
+        "actual": {
+          "stock": "123",
+          "A": "200.00",
+          "B": "80.00",
+          "V": "-185.00",
+          "expenses": "18.00"
+        },
+        "reconciliationMatched": true
+      },
+      {
+        "label": "Reports-only final-state verification",
+        "actual": {
+          "stock": "123",
+          "A": "200.00",
+          "B": "80.00",
+          "V": "-185.00",
+          "expenses": "18.00"
+        },
+        "reconciliationMatched": true
+      }
+    ],
+    "kinds": 13,
+    "documents": 16,
+    "downloadDirectory": "tmp/php-runtime/php6-browser-1793216012369/worksheet-downloads-1793216169200",
+    "exports": [
+      {
+        "label": "register",
+        "name": "UPMS-Company-Transactions.xlsx",
+        "bytes": 16447,
+        "values": [
+          "Unique Plastic Industry",
+          "PHP75-EXP-CASH",
+          "12.34",
+          "5.66",
+          "18.00"
+        ]
+      },
+      {
+        "label": "client",
+        "name": "UPMS-CLIENT-ledger.xlsx",
+        "bytes": 5187,
+        "values": [
+          "200.00",
+          "50.00"
+        ]
+      },
+      {
+        "label": "vendor",
+        "name": "UPMS-VENDOR-ledger.xlsx",
+        "bytes": 4312,
+        "values": [
+          "185.00",
+          "75.00"
+        ]
+      },
+      {
+        "label": "stock",
+        "name": "UPMS-stock.xlsx",
+        "bytes": 3080,
+        "values": [
+          "PHP75 Item X",
+          "123"
+        ]
+      }
+    ],
+    "prints": [
+      "register",
+      "challan",
+      "return",
+      "receipt",
+      "payment",
+      "expense"
+    ],
+    "javascriptErrors": [],
+    "manualOwnerAcceptance": "PENDING OWNER",
+    "nativeExcel": "PENDING OWNER",
+    "physicalPrint": "PENDING OWNER"
+  },
+  "formats": {
+    "passed": true,
+    "pdfs": [
+      {
+        "label": "register",
+        "pages": 2,
+        "textNonempty": true
+      },
+      {
+        "label": "challan",
+        "pages": 1,
+        "textNonempty": true
+      },
+      {
+        "label": "return",
+        "pages": 1,
+        "textNonempty": true
+      },
+      {
+        "label": "receipt",
+        "pages": 1,
+        "textNonempty": true
+      },
+      {
+        "label": "payment",
+        "pages": 1,
+        "textNonempty": true
+      },
+      {
+        "label": "expense",
+        "pages": 1,
+        "textNonempty": true
+      }
+    ],
+    "exports": [
+      {
+        "label": "register",
+        "zipCRCValid": true,
+        "worksheetXMLValid": true,
+        "valuesVerified": [
+          "Unique Plastic Industry",
+          "PHP75-EXP-CASH",
+          "12.34",
+          "5.66",
+          "18.00"
+        ]
+      },
+      {
+        "label": "client",
+        "zipCRCValid": true,
+        "worksheetXMLValid": true,
+        "valuesVerified": [
+          "200.00",
+          "50.00"
+        ]
+      },
+      {
+        "label": "vendor",
+        "zipCRCValid": true,
+        "worksheetXMLValid": true,
+        "valuesVerified": [
+          "185.00",
+          "75.00"
+        ]
+      },
+      {
+        "label": "stock",
+        "zipCRCValid": true,
+        "worksheetXMLValid": true,
+        "valuesVerified": [
+          "PHP75 Item X",
+          "123"
+        ]
+      }
+    ],
+    "visualReview": {
+      "tool": "Poppler PNG rendering",
+      "pagesReviewed": 7,
+      "clippingOrOverlapObserved": false,
+      "ownerPrintAcceptance": "PENDING OWNER"
+    }
+  },
+  "security": {
+    "passed": false,
+    "checks": 16,
+    "evidence": [
+      "Unauthenticated business read denied",
+      "Actual management API nosniff and no-store headers",
+      "HTTPS host session cookie Secure HttpOnly SameSite Strict",
+      "Missing and invalid CSRF rejected with unchanged documents",
+      "Actual intercepted cross-site Origin denied despite valid CSRF",
+      "Private configuration, logs, keys and backup paths disclose no secret",
+      "Actual report/history screen /management/",
+      "Actual report/history screen /management/items",
+      "Actual report/history screen /management/stock-in",
+      "Actual report/history screen /management/challans",
+      "Actual report/history screen /management/challan-returns",
+      "Actual report/history screen /management/reports",
+      "Actual report/history screen /management/company-transactions",
+      "Legacy ERP API unavailable",
+      "Actual browser logout revokes session",
+      "Public HTTPS security headers"
+    ],
+    "findings": [
+      "Local management HTTPS fixture lacks x-frame-options",
+      "Local management HTTPS fixture lacks content-security-policy"
+    ],
+    "disabledRolesAndExpiry": "Covered in fresh PHPUnit/security differential fixtures",
+    "ownerDatabaseContacted": false
+  },
+  "restore": {
+    "passed": true,
+    "source": "upms_test_php_6_browser_1793216012369",
+    "clone": "upms_test_php_6_restore_1793216492976",
+    "dumpSha256": "2a8e5db893817d5354dc4ed9ddcb1a08f44445966aaa1b1e43f63a9dd23a5e08",
+    "dumpBytes": 46063,
+    "timings": {
+      "dumpMilliseconds": 187,
+      "importMilliseconds": 831,
+      "backupRestoreAndComparisonMilliseconds": 1258
+    },
+    "tables": {
+      "identity_audit_events": {
+        "rows": 6,
+        "sha256": "a5211a303f8c9e64d8176278da88c347e5dc6866ceb7f607854cd1f332d8b4be"
+      },
+      "identity_guard": {
+        "rows": 1,
+        "sha256": "2382d8ae2c7ad46b1e01f82007505427d4485cb5b825bcd9a73bb9c85996a807"
+      },
+      "login_attempts": {
+        "rows": 2,
+        "sha256": "6d7cdf3565122cf8c082e79b99bdeb259220842f43145a663d7a6b74d93884b5"
+      },
+      "permissions": {
+        "rows": 11,
+        "sha256": "300df923f9a071faaa916e657eefaefe792574b6d889f4e10d3601caf3ad2e99"
+      },
+      "role_permissions": {
+        "rows": 23,
+        "sha256": "69578ec7e6b029055901d1f6134f508dbb801d9d614059b65dfef53d2673c4e1"
+      },
+      "roles": {
+        "rows": 4,
+        "sha256": "9e400f6d27ba18cfb9e9b43de9403e56e471f335dc9f3f6dad43f9ad779e1973"
+      },
+      "sessions": {
+        "rows": 10,
+        "sha256": "20834d22de4bc38fd5c0a34949bcd1bdd8c811b212a50ca686839e6eccb011e5"
+      },
+      "user_roles": {
+        "rows": 1,
+        "sha256": "af088a786e6e4cc7742e68a4bbde75b1a6d0665d6d0478524d64fe88acce98a2"
+      },
+      "users": {
+        "rows": 1,
+        "sha256": "043038efc91dc15c714a6d1bac14e8f26225dfdfec87c18b5c2214a9fe01bfa9"
+      },
+      "v1_audit": {
+        "rows": 36,
+        "sha256": "596fa5ccc8b0678dde29b5ed1e348cedb5ada32f4a07cfac3e5dd68d82b9b307"
+      },
+      "v1_commands": {
+        "rows": 36,
+        "sha256": "4e788e497fec730ace9fef164ad48a85cd4ebf3172e6535765fd0484e7be3634"
+      },
+      "v1_control": {
+        "rows": 1,
+        "sha256": "876813e7977b04c781d4fbae7acc8d86da7f046deccf783d944d99f9ec0766ac"
+      },
+      "v1_documents": {
+        "rows": 16,
+        "sha256": "80a0fdc174c6ba1f7754711fb50a38e459d1ca05047a5cc312ba8e16d81dda6e"
+      },
+      "v1_items": {
+        "rows": 1,
+        "sha256": "337fd061fc6705aaa8f66ebc1b57f73d4bb2d24e55b65db44027e4228af251a2"
+      },
+      "v1_lines": {
+        "rows": 6,
+        "sha256": "52448e73da85eb7aa6d2f64b0a4f164c8e9acfc1389ea5e153319a1730e4d77e"
+      },
+      "v1_parties": {
+        "rows": 3,
+        "sha256": "3890a61b3df5b655fe46415a54b29ead167c7babad0254132eb7c33d0ed7594c"
+      },
+      "v1_party_journal": {
+        "rows": 11,
+        "sha256": "924a491c588845b8d187444ac155ba641c18f94cb86a2e02467441e70aa4aa8c"
+      },
+      "v1_stock": {
+        "rows": 1,
+        "sha256": "b9d7475814dc908508b8ed35fa78bd906d307978c21d2a8d143f601c319c21ff"
+      },
+      "v1_stock_journal": {
+        "rows": 6,
+        "sha256": "cdddd223e712dc085f681a1df8897f0893e99ce99ef879d8be9ec56513255dda"
+      }
+    },
+    "inquiryFiles": {
+      "outbox/3cd116e02324bb526e44f4ecf67e2f09.txt": "2cb8acbf80a0bb76a25ad6a89a954f445ff542f3fb8830a6187b1585cf51fd88",
+      "state.json": "b797e7492db0d09f5de825ca0d8939f83082fd0a728172c89862d763c905e36f",
+      "state.lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "inquiryFilesIdentical": true,
+    "allRowsIdentical": true,
+    "originalUnchanged": true,
+    "quiescedPorts": [
+      9084,
+      9443,
+      9444
+    ],
+    "applicationVerification": "PASS",
+    "directory": "tmp/php-runtime/php75-restore-1793216492976",
+    "cloneSetupFile": "tmp/php-runtime/php75-restore-1793216492976/setup.json",
+    "applicationChecks": {
+      "login": true,
+      "balances": true,
+      "expenses": true,
+      "documentCount": true,
+      "reconciliation": true,
+      "authenticityVerified": false,
+      "restrictedAccountDraftAndCancel": true,
+      "cloneOnlyCancelledDraft": "17",
+      "sqlConfirmedCloneWrite": true,
+      "sourceAllTablesStillUnchanged": true
+    }
+  },
+  "health": {
+    "passed": true,
+    "checkedAt": "2026-10-28T19:47:43.250Z",
+    "browserVersion": "Chrome/156.0.8078.48",
+    "engine": {
+      "version": "10.11.19-MariaDB",
+      "port": 3330,
+      "binding": "127.0.0.1",
+      "dataDirectoryVerified": true
+    },
+    "publicStatus": 200,
+    "managementStatus": 200,
+    "actualBrowserLogin": true,
+    "database": "upms_test_php_6_browser_1793216012369",
+    "worksheetVerified": true,
+    "ownerSignoff": "PENDING OWNER"
+  },
+  "ownerAcceptance": "PENDING OWNER",
+  "production": "BLOCKED",
+  "sources": [
+    {
+      "path": "tmp/php-runtime/php2_1793183945576/evidence.json",
+      "sha256": "99ca56366f54e93118f11f7ad23901e376fd04aaf0a2e8e57c9986a7f6ffc7c5"
+    },
+    {
+      "path": "tmp/php-runtime/php3_1793184009497/evidence.json",
+      "sha256": "7662347abf6fa3c706546b21a10219cdcda839ecb62140dc31f40c7c60808e49"
+    },
+    {
+      "path": "tmp/php-runtime/php4_1793184093324/evidence.json",
+      "sha256": "14c129f4fd31baf8a7d29225af5a03ed29480ed4047a6f3a6849e6530eaf514e"
+    },
+    {
+      "path": "tmp/php-runtime/php5_1793184196999/evidence.json",
+      "sha256": "273bbbe358f6df010c3f084b3c9a4cdd479fb1edd64eb01c19985082dc91b6f7"
+    },
+    {
+      "path": "tmp/php-runtime/php6_1793184297981/evidence.json",
+      "sha256": "c4ed1f9fca91a5cac65c85b26271201706fc1d361f60a7710c8931c079d869cf"
+    },
+    {
+      "path": "tmp/php-runtime/php2_1793184430509/evidence.json",
+      "sha256": "a200fbaf577777f1c469f42edb2bbe49b5d8a5d1197e6fd5bcd43ee148391740"
+    },
+    {
+      "path": "tmp/php-runtime/php3_1793184487700/evidence.json",
+      "sha256": "c992523bbb8c4338c5eb839e686bd49904dc08d8090e4a717b62c1c432f9f5d8"
+    },
+    {
+      "path": "tmp/php-runtime/php4_1793184575530/evidence.json",
+      "sha256": "903597f54b4b9f6a2b70a2125bcfdddf3cef5cbc275dbaa30420714c84e659b9"
+    },
+    {
+      "path": "tmp/php-runtime/php5_1793184677849/evidence.json",
+      "sha256": "e9f366458ea6e70907ae27ae5e6784247c2aa8c7d431da3f59e5669da570b755"
+    },
+    {
+      "path": "tmp/php-runtime/php6_1793184785539/evidence.json",
+      "sha256": "c8f7486cb78145a7743edd479ffaa7585c4519dae94e2b3848b88d53de172992"
+    },
+    {
+      "path": "tmp/php-runtime/php7-inquiries-1793215425388/evidence.json",
+      "sha256": "f779fcd4ae3974ada33d94a2e0dad91a9f1d7aad5f231bd4782cf95d1b70601d"
+    },
+    {
+      "path": "tmp/php-runtime/php75-automated-1793215414432/phpunit-83.log",
+      "sha256": "55d5a1ecdd459e90bf80a9505152a7ac4a5c60c515265eb439b15de793d1e6f2"
+    },
+    {
+      "path": "tmp/php-runtime/php7-inquiries-1793215494604/evidence.json",
+      "sha256": "0840c1e86e820afc5a9ebc8bcbbf368b1d85c6346093b27fa4e7300305763a62"
+    },
+    {
+      "path": "tmp/php-runtime/php75-automated-1793215414432/phpunit-84.log",
+      "sha256": "64ccdfe28f642dc998dd956b3adfca45cf4d2e266bb5cb5136503749cb577146"
+    },
+    {
+      "path": "tmp/php-runtime/php6-browser-1793215470793/browser-results.json",
+      "sha256": "ff834fd649c7145529879eb4941c35d3ac56ee2f15b94bafde3d9fbf41c80629"
+    },
+    {
+      "path": "tmp/php-runtime/php6-browser-1793215470793/php71-browser-results.json",
+      "sha256": "4a2d1773e974f7e1eec5d75fd759d6fe34e47996f343ee237c5425b7554e7b39"
+    },
+    {
+      "path": "tmp/php-runtime/php6-browser-1793215470793/php7-public-8.3-php75.json",
+      "sha256": "9f471539e0918fc12e68aee80bf6da6e20ec9f5a04a09af0a72b69c4f87e726d"
+    },
+    {
+      "path": "tmp/php-runtime/php6-browser-1793215742422/browser-results.json",
+      "sha256": "f33e2e327dbafdc6e1b13b49c9d48102d0550b5199f721bb13c409580b8de59c"
+    },
+    {
+      "path": "tmp/php-runtime/php6-browser-1793215742422/php71-browser-results.json",
+      "sha256": "814d882a89a4ffa02d01afc176069b6383fdbda6e7ed5fd550f392302266b7c9"
+    },
+    {
+      "path": "tmp/php-runtime/php6-browser-1793215742422/php7-public-8.4-php75.json",
+      "sha256": "41295a812d6ab8700c227dbe73064fedba84dc72648493ce90c2de347a3c4b29"
+    },
+    {
+      "path": "tmp/php-runtime/php6-browser-1793216012369/worksheet-results.json",
+      "sha256": "be1d4c3ab7254f7963ad3bed70c46bf698b4b9bebbb4bf8570af694d6148942a"
+    },
+    {
+      "path": "tmp/php-runtime/php6-browser-1793216012369/security-results.json",
+      "sha256": "d7c3e3871c30b9e19787ebe3d7003b397f1774d614990ce53b8f1e51d18acaf8"
+    },
+    {
+      "path": "tmp/php-runtime/php6-browser-1793216012369/file-format-results.json",
+      "sha256": "d933e4498ac5a77857c13a9fa39e72642967f4ee9017caa7715c07daa97c0412"
+    },
+    {
+      "path": "tmp/php-runtime/php6-browser-1793216012369/health-results.json",
+      "sha256": "28a53fdc3afb6ab49d5f7b9fdc4945e2241b7541cf372eb275a0e1b6cba7274d"
+    },
+    {
+      "path": "tmp/php-runtime/php6-browser-1793216012369/php7-public-8.4-owner-php75.json",
+      "sha256": "ed60de444ad3bdf6f52f36c887d87232cd15073b94e651fa397d006943fe3ebd"
+    },
+    {
+      "path": "tmp/php-runtime/php75-restore-1793216492976/results.json",
+      "sha256": "f31e82fc797578113f42d76015253c281337341be610cd476cac85927d65f269"
+    },
+    {
+      "path": "tmp/php-runtime/php75-express.log",
+      "sha256": "5e6f03bf7a1b0a4ce5d0854f808eb228d94aacceeaedf13ab189c3322899e3bf"
+    },
+    {
+      "path": "tmp/php-runtime/php75-react-bounded.log",
+      "sha256": "60aaa4d8d3ad7c5dac41a122f8656f49c1b122030027af7c3148ba8618c86a83"
+    },
+    {
+      "path": "tmp/php-runtime/php75-automated-1793215414432/results.json",
+      "sha256": "053728876af0c803593323ef59064c44c81e1fa1f1060ca232e5945a70fdf18f"
+    },
+    {
+      "path": "tmp/php-runtime/php75-automated-1793215414432/composer-audit.log",
+      "sha256": "fa34254a67f3ea454806d613872ba4bf4ef41ce385fecb4110bf7a42c8c89a50"
+    },
+    {
+      "path": "tmp/php-runtime/php75-automated-1793215414432/pint.log",
+      "sha256": "a53688fa7eccde7adb9d389410b364a647ee9b7bd1c59ded41b0fe206ba7bab5"
+    },
+    {
+      "path": "tmp/php-runtime/php75-automated-1793215414432/react-build.log",
+      "sha256": "8d2f25adc0d7e04d68e7f9b930c086c76a22b51d98587bab6fb37ae24e83871b"
+    },
+    {
+      "path": "tmp/php-runtime/php75-automated-1793215414432/react-lint.log",
+      "sha256": "33f27cdf78f7e264e86cddfac3c584b9ea433c1992e5f0a0058db9e306e004cb"
+    }
+  ]
+}

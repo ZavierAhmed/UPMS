@@ -8,6 +8,7 @@ import {up as v1Schema} from '../server/simple-v1-migrations/202610240001_simple
 import {up as entrySchema} from '../server/simple-v1-migrations/202610240002_entry_fixes.js';
 import {createIdentityService} from '../server/src/identity/service.js';
 import {grantPhp6} from './php-2-runtime-grants.mjs';
+import {protectPrivateDirectory} from './php-7-5-private-directory.mjs';
 
 assert.ok(process.env.PHP_TEST_ADMIN_PASSWORD);
 const connection={host:'127.0.0.1',port:3330,user:process.env.PHP_TEST_ADMIN_USER||'root',password:process.env.PHP_TEST_ADMIN_PASSWORD};
@@ -19,6 +20,7 @@ try{
  await identitySchema(db);await v1Schema(db);await entrySchema(db);await createIdentityService(db).bootstrap({username:'php-admin',displayName:'Synthetic browser administrator',password:process.env.PHP_BROWSER_ADMIN_PASSWORD||'Synthetic-PHP2-Only-2026!'});
  await db('v1_control').where({id:1}).update({operator_id:'1',state:'READY',cutover_evidence:'Isolated PHP-6 browser acceptance'});await grantPhp6(admin,database,user,password);
  const directory=resolve('tmp/php-runtime/php6-browser-'+run),root=directory+'/public';await mkdir(root,{recursive:true});
+ if(process.env.PHP_BROWSER_PRIVATE==='1')await protectPrivateDirectory(directory);
  await cp('upms.client/dist/management',root+'/management',{recursive:true});
  const html=await readFile(root+'/management/index.html','utf8');await writeFile(root+'/management/index.html',html.replace('<html','<html data-upms-mode="simple-v1"'));
  const env=directory+'/php.env';await writeFile(env,`APP_ENV=testing\nAPP_DEBUG=false\nAPP_KEY=base64:${randomBytes(32).toString('base64')}\nCACHE_STORE=array\nSESSION_DRIVER=array\nUPMS_ENABLED=true\nUPMS_ORIGIN=https://127.0.0.1:9444\nUPMS_DB_HOST=127.0.0.1\nUPMS_DB_PORT=3330\nUPMS_DB_DATABASE=${database}\nUPMS_DB_USERNAME=${user}\nUPMS_DB_PASSWORD=${password}\n`);

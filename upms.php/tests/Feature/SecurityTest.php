@@ -22,10 +22,12 @@ final class SecurityTest extends TestCase
         parent::setUp();
         $name = config('upms.database');
         self::assertMatchesRegularExpression('/^upms_test_php_[0-9]+$/', $name);
-        self::assertSame('3328', (string) config('upms.port'));
+        $port = getenv('PHP_TEST_ADMIN_PORT') ?: '3328';
+        self::assertContains($port, ['3328', '3330']);
+        self::assertSame($port, (string) config('upms.port'));
         $password = getenv('PHP_TEST_ADMIN_PASSWORD');
         self::assertNotFalse($password, 'Explicit isolated-instance test password required');
-        $this->admin = new PDO('mysql:host=127.0.0.1;port=3328;dbname='.$name, 'root', $password, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+        $this->admin = new PDO('mysql:host=127.0.0.1;port='.$port.';dbname='.$name, getenv('PHP_TEST_ADMIN_USER') ?: 'root', $password, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
         $this->baseline = $this->admin->query('SELECT * FROM users WHERE id=1')->fetch(PDO::FETCH_ASSOC);
         $this->bootstrap = $this->admin->query("SELECT id,details FROM identity_audit_events WHERE target_id=1 AND action='administrator.bootstrap' LIMIT 1")->fetch(PDO::FETCH_ASSOC);
         $this->admin->exec('DELETE FROM login_attempts');

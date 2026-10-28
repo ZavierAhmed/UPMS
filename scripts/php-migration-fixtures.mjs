@@ -13,9 +13,11 @@ import {managementRouter} from '../server/src/identity/router.js';
 import {simpleV1Service} from '../server/src/simple-v1/service.js';
 import {today} from '../server/src/simple-v1/exact.js';
 
-const host='127.0.0.1',port=3328;
+const host='127.0.0.1',port=Number(process.env.PHP_TEST_ADMIN_PORT||3328);
+assert.ok([3328,3330].includes(port));
+if(port===3330)await (await import('./php-7-5-engine-guard.mjs')).verifyUatEngine();
 assert.equal(process.env.PHP_TEST_ADMIN_PASSWORD?.length>0,true,'Explicit isolated instance password required');
-const connection={host,port,user:'root',password:process.env.PHP_TEST_ADMIN_PASSWORD,timezone:'Z',dateStrings:true,supportBigNumbers:true,bigNumberStrings:true,multipleStatements:false};
+const connection={host,port,user:process.env.PHP_TEST_ADMIN_USER||'root',password:process.env.PHP_TEST_ADMIN_PASSWORD,timezone:'Z',dateStrings:true,supportBigNumbers:true,bigNumberStrings:true,multipleStatements:false};
 const admin=knex({client:'mysql2',connection,pool:{min:0,max:1}});
 let db;
 try {
