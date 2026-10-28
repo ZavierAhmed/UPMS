@@ -1,0 +1,573 @@
+[
+  {
+    "operation": "filters",
+    "input": {},
+    "result": {}
+  },
+  {
+    "operation": "filters",
+    "input": {
+      "from": "",
+      "extra": ""
+    },
+    "result": {}
+  },
+  {
+    "operation": "filters",
+    "input": {
+      "from": "0"
+    },
+    "fields": {
+      "from": "Field is missing or invalid. Please check this field."
+    }
+  },
+  {
+    "operation": "filters",
+    "input": {
+      "from": "2020-02-30"
+    },
+    "fields": {
+      "from": "Field is missing or invalid. Please check this field."
+    }
+  },
+  {
+    "operation": "filters",
+    "input": {
+      "type": "EXPENSE"
+    },
+    "result": {
+      "type": "EXPENSE"
+    }
+  },
+  {
+    "operation": "filters",
+    "input": {
+      "type": "INVALID"
+    },
+    "fields": {
+      "type": "Field is missing or invalid. Please check this field."
+    }
+  },
+  {
+    "operation": "filters",
+    "input": {
+      "party": "0"
+    },
+    "result": {
+      "party": "0"
+    }
+  },
+  {
+    "operation": "filters",
+    "input": {
+      "reference": "0"
+    },
+    "result": {
+      "reference": "0"
+    }
+  },
+  {
+    "operation": "filters",
+    "input": {
+      "party": " power "
+    },
+    "result": {
+      "party": "power"
+    }
+  },
+  {
+    "operation": "filters",
+    "input": {
+      "reference": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    "fields": {
+      "reference": "Field is missing or invalid. Please check this field."
+    }
+  },
+  {
+    "operation": "filters",
+    "input": {
+      "party": [
+        "x"
+      ]
+    },
+    "fields": {
+      "party": "Field is missing or invalid. Please check this field."
+    }
+  },
+  {
+    "operation": "filters",
+    "input": {
+      "extra": "x"
+    },
+    "fields": {
+      "form": "Some submitted fields are not supported. Refresh this page and try again."
+    }
+  },
+  {
+    "operation": "expense",
+    "input": {
+      "kind": "EXPENSE",
+      "date": "2020-01-03",
+      "category": "Utilities",
+      "description": "Synthetic test",
+      "payee": "Synthetic payee",
+      "reference": "EXP-1",
+      "amount": "12.34",
+      "paymentStatus": "PAID",
+      "method": "CASH"
+    },
+    "result": {
+      "kind": "EXPENSE",
+      "date": "2020-01-03",
+      "partyId": null,
+      "reference": "EXP-1",
+      "remarks": "",
+      "reason": "",
+      "amount": "12.34",
+      "discountMode": "NONE",
+      "discountValue": "0",
+      "category": "Utilities",
+      "description": "Synthetic test",
+      "payee": "Synthetic payee",
+      "paymentStatus": "PAID",
+      "method": "CASH",
+      "chequeReference": "",
+      "vehicle": "",
+      "driver": "",
+      "time": "",
+      "address": "",
+      "paidImmediately": false,
+      "lines": []
+    }
+  },
+  {
+    "operation": "expense",
+    "input": {
+      "kind": "EXPENSE",
+      "date": "2020-01-03",
+      "category": "Utilities",
+      "description": "Synthetic test",
+      "payee": "Synthetic payee",
+      "reference": "EXP-1",
+      "amount": "12.34",
+      "paymentStatus": "UNPAID",
+      "method": "CASH"
+    },
+    "fields": {
+      "paymentStatus": "Field is missing or invalid. Please check this field."
+    }
+  },
+  {
+    "operation": "expense",
+    "input": {
+      "kind": "EXPENSE",
+      "date": "2020-01-03",
+      "category": "Utilities",
+      "description": "Synthetic test",
+      "payee": "Synthetic payee",
+      "reference": "EXP-1",
+      "amount": "12.34",
+      "method": "CASH"
+    },
+    "result": {
+      "kind": "EXPENSE",
+      "date": "2020-01-03",
+      "partyId": null,
+      "reference": "EXP-1",
+      "remarks": "",
+      "reason": "",
+      "amount": "12.34",
+      "discountMode": "NONE",
+      "discountValue": "0",
+      "category": "Utilities",
+      "description": "Synthetic test",
+      "payee": "Synthetic payee",
+      "method": "CASH",
+      "chequeReference": "",
+      "vehicle": "",
+      "driver": "",
+      "time": "",
+      "address": "",
+      "paidImmediately": false,
+      "lines": []
+    }
+  },
+  {
+    "operation": "expense",
+    "input": {
+      "kind": "EXPENSE",
+      "date": "2020-01-03",
+      "category": "Utilities",
+      "description": "Synthetic test",
+      "payee": "Synthetic payee",
+      "reference": "EXP-1",
+      "amount": "12.34",
+      "paymentStatus": "PAID",
+      "method": "CHEQUE_RECEIVED"
+    },
+    "result": {
+      "kind": "EXPENSE",
+      "date": "2020-01-03",
+      "partyId": null,
+      "reference": "EXP-1",
+      "remarks": "",
+      "reason": "",
+      "amount": "12.34",
+      "discountMode": "NONE",
+      "discountValue": "0",
+      "category": "Utilities",
+      "description": "Synthetic test",
+      "payee": "Synthetic payee",
+      "paymentStatus": "PAID",
+      "method": "CHEQUE_RECEIVED",
+      "chequeReference": "",
+      "vehicle": "",
+      "driver": "",
+      "time": "",
+      "address": "",
+      "paidImmediately": false,
+      "lines": []
+    }
+  },
+  {
+    "operation": "expense",
+    "input": {
+      "kind": "EXPENSE",
+      "date": "2020-01-03",
+      "category": "Utilities",
+      "description": "Synthetic test",
+      "payee": "Synthetic payee",
+      "reference": "EXP-1",
+      "amount": "12.34",
+      "paymentStatus": "PAID",
+      "method": "CARD"
+    },
+    "fields": {
+      "method": "Field is missing or invalid. Please check this field."
+    }
+  },
+  {
+    "operation": "expense",
+    "input": {
+      "kind": "EXPENSE",
+      "date": "2020-01-03",
+      "category": "Utilities",
+      "description": "Synthetic test",
+      "payee": "Synthetic payee",
+      "reference": "EXP-1",
+      "amount": "0",
+      "paymentStatus": "PAID",
+      "method": "CASH"
+    },
+    "result": {
+      "kind": "EXPENSE",
+      "date": "2020-01-03",
+      "partyId": null,
+      "reference": "EXP-1",
+      "remarks": "",
+      "reason": "",
+      "amount": "0",
+      "discountMode": "NONE",
+      "discountValue": "0",
+      "category": "Utilities",
+      "description": "Synthetic test",
+      "payee": "Synthetic payee",
+      "paymentStatus": "PAID",
+      "method": "CASH",
+      "chequeReference": "",
+      "vehicle": "",
+      "driver": "",
+      "time": "",
+      "address": "",
+      "paidImmediately": false,
+      "lines": []
+    }
+  },
+  {
+    "operation": "expense",
+    "input": {
+      "kind": "EXPENSE",
+      "date": "2020-01-03",
+      "category": "Utilities",
+      "description": "Synthetic test",
+      "payee": "Synthetic payee",
+      "reference": "EXP-1",
+      "amount": 12,
+      "paymentStatus": "PAID",
+      "method": "CASH"
+    },
+    "fields": {
+      "amount": "Amount is missing or invalid. Please check this field."
+    }
+  },
+  {
+    "operation": "expense",
+    "input": {
+      "kind": "EXPENSE",
+      "date": "2020-01-03",
+      "category": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "description": "Synthetic test",
+      "payee": "Synthetic payee",
+      "reference": "EXP-1",
+      "amount": "12.34",
+      "paymentStatus": "PAID",
+      "method": "CASH"
+    },
+    "result": {
+      "kind": "EXPENSE",
+      "date": "2020-01-03",
+      "partyId": null,
+      "reference": "EXP-1",
+      "remarks": "",
+      "reason": "",
+      "amount": "12.34",
+      "discountMode": "NONE",
+      "discountValue": "0",
+      "category": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "description": "Synthetic test",
+      "payee": "Synthetic payee",
+      "paymentStatus": "PAID",
+      "method": "CASH",
+      "chequeReference": "",
+      "vehicle": "",
+      "driver": "",
+      "time": "",
+      "address": "",
+      "paidImmediately": false,
+      "lines": []
+    }
+  },
+  {
+    "operation": "expense",
+    "input": {
+      "kind": "EXPENSE",
+      "date": "2020-01-03",
+      "category": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "description": "Synthetic test",
+      "payee": "Synthetic payee",
+      "reference": "EXP-1",
+      "amount": "12.34",
+      "paymentStatus": "PAID",
+      "method": "CASH"
+    },
+    "fields": {
+      "category": "Field is missing or invalid. Please check this field."
+    }
+  },
+  {
+    "operation": "expense",
+    "input": {
+      "kind": "EXPENSE",
+      "date": "2020-01-03",
+      "category": "Utilities",
+      "description": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "payee": "Synthetic payee",
+      "reference": "EXP-1",
+      "amount": "12.34",
+      "paymentStatus": "PAID",
+      "method": "CASH"
+    },
+    "result": {
+      "kind": "EXPENSE",
+      "date": "2020-01-03",
+      "partyId": null,
+      "reference": "EXP-1",
+      "remarks": "",
+      "reason": "",
+      "amount": "12.34",
+      "discountMode": "NONE",
+      "discountValue": "0",
+      "category": "Utilities",
+      "description": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "payee": "Synthetic payee",
+      "paymentStatus": "PAID",
+      "method": "CASH",
+      "chequeReference": "",
+      "vehicle": "",
+      "driver": "",
+      "time": "",
+      "address": "",
+      "paidImmediately": false,
+      "lines": []
+    }
+  },
+  {
+    "operation": "expense",
+    "input": {
+      "kind": "EXPENSE",
+      "date": "2020-01-03",
+      "category": "Utilities",
+      "description": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "payee": "Synthetic payee",
+      "reference": "EXP-1",
+      "amount": "12.34",
+      "paymentStatus": "PAID",
+      "method": "CASH"
+    },
+    "fields": {
+      "description": "Item description is missing or invalid. Please check this field."
+    }
+  },
+  {
+    "operation": "expense",
+    "input": {
+      "kind": "EXPENSE",
+      "date": "2020-01-03",
+      "category": "Utilities",
+      "description": "Synthetic test",
+      "payee": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "reference": "EXP-1",
+      "amount": "12.34",
+      "paymentStatus": "PAID",
+      "method": "CASH"
+    },
+    "fields": {
+      "payee": "Field is missing or invalid. Please check this field."
+    }
+  },
+  {
+    "operation": "expense",
+    "input": {
+      "kind": "EXPENSE",
+      "date": "2020-01-03",
+      "category": "Utilities",
+      "description": "Synthetic test",
+      "payee": "Synthetic payee",
+      "reference": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "amount": "12.34",
+      "paymentStatus": "PAID",
+      "method": "CASH"
+    },
+    "fields": {
+      "reference": "Field is missing or invalid. Please check this field."
+    }
+  },
+  {
+    "operation": "expense",
+    "input": {
+      "kind": "EXPENSE",
+      "date": "2020-01-03",
+      "category": "Utilities",
+      "description": "Synthetic test",
+      "payee": "Synthetic payee",
+      "reference": "EXP-1",
+      "amount": "12.34",
+      "paymentStatus": "PAID",
+      "method": "CASH",
+      "remarks": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    "fields": {
+      "remarks": "Field is missing or invalid. Please check this field."
+    }
+  },
+  {
+    "operation": "expense",
+    "input": {
+      "kind": "EXPENSE",
+      "date": "2020-01-03",
+      "category": "   ",
+      "description": "Synthetic test",
+      "payee": "Synthetic payee",
+      "reference": "EXP-1",
+      "amount": "12.34",
+      "paymentStatus": "PAID",
+      "method": "CASH"
+    },
+    "result": {
+      "kind": "EXPENSE",
+      "date": "2020-01-03",
+      "partyId": null,
+      "reference": "EXP-1",
+      "remarks": "",
+      "reason": "",
+      "amount": "12.34",
+      "discountMode": "NONE",
+      "discountValue": "0",
+      "category": "",
+      "description": "Synthetic test",
+      "payee": "Synthetic payee",
+      "paymentStatus": "PAID",
+      "method": "CASH",
+      "chequeReference": "",
+      "vehicle": "",
+      "driver": "",
+      "time": "",
+      "address": "",
+      "paidImmediately": false,
+      "lines": []
+    }
+  },
+  {
+    "operation": "expense",
+    "input": {
+      "kind": "EXPENSE",
+      "date": "2020-01-03",
+      "category": "Utilities",
+      "description": "Synthetic test",
+      "payee": "Synthetic payee",
+      "reference": "EXP-1",
+      "amount": "12.34",
+      "paymentStatus": "PAID",
+      "method": "CASH",
+      "extra": true
+    },
+    "fields": {
+      "form": "Some submitted fields are not supported. Refresh this page and try again."
+    }
+  },
+  {
+    "operation": "expense",
+    "input": {
+      "kind": "EXPENSE",
+      "date": "2020-02-29",
+      "category": "Utilities",
+      "description": "Synthetic test",
+      "payee": "Synthetic payee",
+      "reference": "EXP-1",
+      "amount": "12.34",
+      "paymentStatus": "PAID",
+      "method": "CASH"
+    },
+    "result": {
+      "kind": "EXPENSE",
+      "date": "2020-02-29",
+      "partyId": null,
+      "reference": "EXP-1",
+      "remarks": "",
+      "reason": "",
+      "amount": "12.34",
+      "discountMode": "NONE",
+      "discountValue": "0",
+      "category": "Utilities",
+      "description": "Synthetic test",
+      "payee": "Synthetic payee",
+      "paymentStatus": "PAID",
+      "method": "CASH",
+      "chequeReference": "",
+      "vehicle": "",
+      "driver": "",
+      "time": "",
+      "address": "",
+      "paidImmediately": false,
+      "lines": []
+    }
+  },
+  {
+    "operation": "expense",
+    "input": {
+      "kind": "EXPENSE",
+      "date": "2020-02-30",
+      "category": "Utilities",
+      "description": "Synthetic test",
+      "payee": "Synthetic payee",
+      "reference": "EXP-1",
+      "amount": "12.34",
+      "paymentStatus": "PAID",
+      "method": "CASH"
+    },
+    "fields": {
+      "date": "Date is missing or invalid. Please check this field."
+    }
+  }
+]

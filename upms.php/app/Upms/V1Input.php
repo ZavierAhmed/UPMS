@@ -60,6 +60,14 @@ final class V1Input
         return $parsed;
     }
 
+    public static function reportFilters(array $input): array
+    {
+        return self::parse((object) $input, [
+            'from' => ['date', 'optional'], 'to' => ['date', 'optional'], 'type' => ['enum', array_keys(SimpleV1::EVENTS), 'optional'],
+            'party' => ['text', 150, 0, 'optional'], 'reference' => ['text', 150, 0, 'optional'],
+        ]);
+    }
+
     public static function posting(object $input): array
     {
         return self::parse($input, ['version' => ['version']]);

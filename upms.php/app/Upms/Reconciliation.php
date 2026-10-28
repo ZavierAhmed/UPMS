@@ -13,9 +13,22 @@ final class Reconciliation
     {
     }
 
-    private static function cents(string $s): N
+    private static function evidenceString(mixed $value): string
     {
-        return Exact::cents($s, zero: true);
+        if (is_object($value)) {
+            return '[object Object]';
+        }
+        if (is_array($value)) {
+            return implode(',', array_map(fn ($v) => $v === null ? '' : self::evidenceString($v), $value));
+        }
+        return is_string($value) ? $value : BusinessCommand::json($value);
+    }
+
+    private static function cents(mixed $s, bool $zero = true): N
+    {
+        // The reference exact utility applies String(value), even to corrupt JSON.
+        // This is serialization only; all arithmetic still uses integer cents.
+        return Exact::cents(self::evidenceString($s), zero: $zero);
     }
 
     private static function same(mixed $a, mixed $b): bool
@@ -264,15 +277,15 @@ final class Reconciliation
                     $debit = $total;
                 }
             } elseif (in_array($d['kind'], ['CLIENT_PAYMENT', 'VENDOR_PAYMENT'], true)) {
-                $total = self::cents($p['amount']);
+                $total = self::cents(json_decode($d['payload'], false, flags: JSON_THROW_ON_ERROR)->amount ?? null, zero: false);
                 if ($d['kind'] === 'CLIENT_PAYMENT') {
                     $credit = $total;
                 } else {
                     $debit = $total;
                 }
             } elseif ($d['kind'] === 'EXPENSE') {
-                $total = self::cents($p['amount']);
-                if (($p['paymentStatus'] ?? null) !== 'PAID' || empty($p['category']) || empty($p['description']) || empty($p['payee']) || empty($p['reference']) || !in_array($p['method'] ?? '', ['CASH', 'BANK_TRANSFER'], true) || $d['party_id']) {
+                $total = self::cents(json_decode($d['payload'], false, flags: JSON_THROW_ON_ERROR)->amount ?? null, zero: false);
+                if (($p['paymentStatus'] ?? null) !== 'PAID' || !BusinessCommand::truthy($p['category'] ?? null) || !BusinessCommand::truthy($p['description'] ?? null) || !BusinessCommand::truthy($p['payee'] ?? null) || !BusinessCommand::truthy($p['reference'] ?? null) || !in_array($p['method'] ?? '', ['CASH', 'BANK_TRANSFER'], true) || $d['party_id']) {
                     $mismatches[] = 'Paid expense evidence '.$d['id'];
                 }
             } elseif ($d['kind'] === 'PAYMENT_REVERSAL') {
@@ -285,7 +298,7 @@ final class Reconciliation
                 if (!$source) {
                     $mismatches[] = 'Missing reversal source '.$d['id'];
                 } else {
-                    $total = self::cents($source['total']);
+                    $total = Exact::cents($source['total']);
                     if ($source['kind'] === 'CLIENT_PAYMENT') {
                         $debit = $total;
                     } else {

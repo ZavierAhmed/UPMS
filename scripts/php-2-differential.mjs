@@ -1,3 +1,4 @@
+import {expenseScopeRegression} from './php-6-scope-regression.mjs';
 import assert from 'node:assert/strict';
 import {randomBytes,randomUUID,createHash} from 'node:crypto';
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
@@ -199,19 +200,7 @@ try{
  const runtime=knex({client:'mysql2',connection:{host,port,database:runtimeEnv.UPMS_DB_DATABASE,user:runtimeEnv.UPMS_DB_USERNAME,password:runtimeEnv.UPMS_DB_PASSWORD},pool:{min:0,max:1}});
  const denied=["UPDATE v1_stock_journal SET delta='0' WHERE id=1","DELETE FROM v1_stock_journal WHERE id=1","UPDATE v1_party_journal SET debit='0' WHERE id=1","DELETE FROM v1_party_journal WHERE id=1","UPDATE v1_lines SET amount='0' WHERE id=1","UPDATE v1_audit SET reason='rewrite' WHERE id=1","DELETE FROM v1_commands","UPDATE v1_commands SET fingerprint='rewrite'","UPDATE v1_documents SET actor_id=3 WHERE id=1","UPDATE v1_documents SET created_at=UTC_TIMESTAMP() WHERE id=1","UPDATE v1_control SET next_dc=99 WHERE id=1","UPDATE v1_items SET code='REPLACED' WHERE id=1","UPDATE v1_parties SET kind='VENDOR' WHERE id=1","INSERT INTO users(login_key) VALUES('intruder')","DELETE FROM user_roles WHERE user_id=1","UPDATE users SET enabled=0 WHERE id=1"];
  try{for(const sql of denied)await assert.rejects(runtime.raw(sql),e=>['ER_TABLEACCESS_DENIED_ERROR','ER_COLUMNACCESS_DENIED_ERROR'].includes(e.code));}finally{await runtime.destroy();}checks.push({name:'narrow runtime privilege denials',denied:denied.length});
- // Unsupported kinds remain PHP-only 501, including stored later-milestone drafts.
- for(const kind of ['EXPENSE']){const r=await appDriver.call('POST',prefix+'documents',{kind,date},{key:randomUUID()});assert.equal(r.status,501);assert.equal(r.body.error.code,'PHP_WRITE_MODULE_PENDING_REVIEW');}
- const noWriteBefore=await snapshot(databases[1]);await appDriver.call('POST',prefix+'documents/1/cancel',{version:1},{key:randomUUID()});assert.deepEqual(await snapshot(databases[1]),noWriteBefore);
- const unsupportedInput={kind:'EXPENSE',date},unsupportedKey=randomUUID();let unsupportedId;
- await both(async db=>{
-  const [id]=await db('v1_documents').insert({kind:'EXPENSE',date,party_id:null,status:'DRAFT',version:1,payload:JSON.stringify({...documentInput.parse(unsupportedInput),entryVersion:2}),actor_id:'1',created_at:new Date()});
-  unsupportedId=String(id);await db('v1_commands').insert({key:unsupportedKey,actor_id:'1',fingerprint:createHash('sha256').update(canonical({operation:'document.draft:undefined',input:unsupportedInput})).digest('hex'),result:JSON.stringify({id:String(id)})});
- });
- const beforeUnsupported=await snapshot(databases[1]);
- for(const [method,path,body,key]of [['POST','documents/'+unsupportedId+'/post',{version:1},randomUUID()],['PATCH','documents/'+unsupportedId,{...stockBody,version:1},randomUUID()],['POST','documents',unsupportedInput,unsupportedKey]]){
-  const r=await appDriver.call(method,prefix+path,body,{key});assert.equal(r.status,501);assert.equal(r.body.error.code,'PHP_WRITE_MODULE_PENDING_REVIEW');
- }
- assert.deepEqual(await snapshot(databases[1]),beforeUnsupported);checks.push({name:'unsupported stored draft and receipt replay blocked',attempts:3});
+ await expenseScopeRegression({same,prefix,date,snapshot,databases,checks});
  const recon=await same('final reconciliation','GET',prefix+'reconciliation');assert.equal(recon.matched,true);await tables('final business state');
  const report={run,phpBinary:php,phpArgs,engine:engine.version,schemas:databases.map(d=>d.client.connectionSettings.database),httpComparisons:evidence.length,snapshotComparisons:checks.filter(c=>c.tables).length,evidence,checks,ownerDatabaseContacted:false,migrationsModified:false};
  await writeFile(directory+'/evidence.json',JSON.stringify(report,null,2));await writeFile('tmp/php-runtime/php2-latest.json',JSON.stringify({directory,envFile,report:directory+'/evidence.json'}));

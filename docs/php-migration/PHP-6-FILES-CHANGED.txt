@@ -1,0 +1,36 @@
+PHP-6 changes against bb1cce051f7bef253f826c37e3a51584ee32df8c
+Branch: feature/upms-php-6-expenses-reports
+
+Status and repository-relative path:
+M	docs/php-migration/API-CONTRACT-INVENTORY.json
+M	docs/php-migration/API-PARITY-MATRIX.md
+M	docs/php-migration/BUSINESS-MIGRATION-PLAN.md
+A	docs/php-migration/PHP-6-DIFFERENTIAL-EVIDENCE.md
+A	docs/php-migration/PHP-6-EVIDENCE.json
+A	docs/php-migration/PHP-6-PUBLIC-ASSETS.json
+A	docs/php-migration/PHP-6-RECONCILIATION-FINDINGS.md
+A	docs/php-migration/PHP-6-REPORT-ACCEPTANCE.md
+A	docs/php-migration/PHP-6-TEST-RESULTS.md
+M	scripts/php-2-differential.mjs
+M	scripts/php-2-runtime-grants.mjs
+M	scripts/php-3-differential.mjs
+M	scripts/php-4-differential.mjs
+M	scripts/php-5-differential.mjs
+A	scripts/php-6-browser-setup.mjs
+A	scripts/php-6-browser.mjs
+A	scripts/php-6-differential.mjs
+A	scripts/php-6-evidence.mjs
+A	scripts/php-6-input-fixtures.mjs
+A	scripts/php-6-public-assets.mjs
+A	scripts/php-6-scope-regression.mjs
+M	scripts/php-api-inventory.mjs
+A	scripts/php-test-commit-proxy.mjs
+M	upms.php/README.md
+M	upms.php/app/Upms/Documents.php
+M	upms.php/app/Upms/Reconciliation.php
+M	upms.php/app/Upms/SimpleV1.php
+M	upms.php/app/Upms/V1Input.php
+M	upms.php/tests/Feature/SecurityTest.php
+A	upms.php/tests/Unit/ExpenseInputTest.php
+A	upms.php/tests/php6-input-fixtures.json
+A	docs/php-migration/PHP-6-FILES-CHANGED.txt

@@ -8,7 +8,7 @@ use Brick\Math\BigInteger;
 
 final class Documents
 {
-    public const KINDS = ['STOCK_OPENING', 'CLIENT_OPENING', 'VENDOR_OPENING', 'PRODUCTION', 'PURCHASE', 'CHALLAN', 'CHALLAN_RETURN', 'CLIENT_PAYMENT', 'VENDOR_PAYMENT', 'PAYMENT_REVERSAL', 'STOCK_CORRECTION', 'OPENING_CORRECTION'];
+    public const KINDS = ['STOCK_OPENING', 'CLIENT_OPENING', 'VENDOR_OPENING', 'PRODUCTION', 'PURCHASE', 'CHALLAN', 'CHALLAN_RETURN', 'CLIENT_PAYMENT', 'VENDOR_PAYMENT', 'PAYMENT_REVERSAL', 'STOCK_CORRECTION', 'OPENING_CORRECTION', 'EXPENSE'];
 
     public function __construct(private readonly Database $db, private readonly BusinessRecords $records, private readonly BusinessCommand $commands)
     {
@@ -227,6 +227,11 @@ final class Documents
                 }
                 $this->journal($d, $party, $p['kind'] === 'VENDOR_PAYMENT' ? Exact::money($total) : '0.00', $p['kind'] === 'CLIENT_PAYMENT' ? Exact::money($total) : '0.00', ($p['kind'] === 'CLIENT_PAYMENT' ? 'Amount received · ' : 'Amount paid · ').$p['method']);
             }
+        } elseif ($p['kind'] === 'EXPENSE') {
+            if ($p['category'] === '' || $p['description'] === '' || $p['payee'] === '' || $p['reference'] === '' || ($p['paymentStatus'] ?? null) !== 'PAID' || !in_array($p['method'] ?? null, ['CASH', 'BANK_TRANSFER'], true) || $p['partyId'] !== null) {
+                throw new ApiError(400, 'PAID_EXPENSE_DETAILS_REQUIRED');
+            }
+            $total = Exact::cents($p['amount']);
         } elseif ($p['kind'] === 'PAYMENT_REVERSAL') {
             $source = $this->db->one("SELECT * FROM v1_documents WHERE id=? AND status='POSTED'", [$p['correctsId'] ?? null]);
             if (!$source || !in_array($source['kind'], ['CLIENT_PAYMENT', 'VENDOR_PAYMENT'], true) || $p['date'] < $source['date']) {

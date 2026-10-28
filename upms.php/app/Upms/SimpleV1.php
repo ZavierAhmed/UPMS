@@ -129,7 +129,7 @@ final class SimpleV1
     private static function dates(array $f): void
     {
         foreach (['from', 'to'] as $key) {
-            if (!empty($f[$key])) {
+            if (isset($f[$key]) && $f[$key] !== '') {
                 $s = $f[$key];
                 $date = is_string($s) ? \DateTimeImmutable::createFromFormat('!Y-m-d', $s) : false;
                 if (!$date || $date->format('Y-m-d') !== $s) {
@@ -166,15 +166,15 @@ final class SimpleV1
             $debit = $debit->plus($dr);
             $credit = $credit->plus($cr);
             $p = self::payload($r);
-            $reference = $r['official_number'] ?: ($p['reference'] ?: 'Entry '.$r['document_id']);
+            $reference = $r['official_number'] ?: (BusinessCommand::truthy($p['reference'] ?? '') ? $p['reference'] : 'Entry '.$r['document_id']);
             $entry = ['date' => $r['date'], 'particulars' => $r['particulars'], 'reference' => $reference, 'originalReference' => $p['originalReference'] ?? '', 'externalReference' => $p['reference'] ?? '', 'chequeReference' => $p['chequeReference'] ?? '', 'debit' => $r['debit'], 'credit' => $r['credit'], 'balance' => Exact::money($balance), 'documentId' => (string) $r['document_id']];
-            if (empty($f['reference']) || str_contains(mb_strtolower(implode(' ', [$entry['reference'], $entry['originalReference'], $entry['externalReference'], $entry['chequeReference']])), mb_strtolower((string) $f['reference']))) {
+            if (!isset($f['reference']) || $f['reference'] === '' || str_contains(mb_strtolower(implode(' ', [$entry['reference'], $entry['originalReference'], $entry['externalReference'], $entry['chequeReference']])), mb_strtolower((string) $f['reference']))) {
                 $records[] = $entry;
             }
         }
         return ['party' => $party, 'verified' => (bool) $party['opening_verified'], 'convention' => 'Debit: owed to company / company advance. Credit: owed by company / client advance. Vendor payments debit and reduce a payable credit balance.',
             'opening' => Exact::money($brought), 'debit' => Exact::money($debit), 'credit' => Exact::money($credit), 'closing' => Exact::money($brought->plus($debit)->minus($credit)), 'records' => $records,
-            'referenceFiltered' => !empty($f['reference']), 'totalsCoverage' => 'Whole selected date range; reference search hides rows without restarting balances.'];
+            'referenceFiltered' => isset($f['reference']) && $f['reference'] !== '', 'totalsCoverage' => 'Whole selected date range; reference search hides rows without restarting balances.'];
     }
 
     public function overview(): array
@@ -213,22 +213,8 @@ final class SimpleV1
 
     public function register(array $f): array
     {
-        $f = array_filter($f, fn ($v) => $v !== '');
-        if (array_diff(array_keys($f), ['from', 'to', 'type', 'party', 'reference'])) {
-            throw new ApiError(400, 'INVALID_INPUT', ['form' => 'Some submitted fields are not supported. Refresh this page and try again.']);
-        }
+        $f = V1Input::reportFilters(array_filter($f, fn ($v) => $v !== ''));
         self::dates($f);
-        if (isset($f['type']) && (!is_string($f['type']) || !isset(self::EVENTS[$f['type']]))) {
-            throw new ApiError(400, 'INVALID_INPUT');
-        }
-        foreach (['party', 'reference'] as $key) {
-            if (isset($f[$key])) {
-                if (!is_string($f[$key]) || mb_strlen(trim($f[$key])) > 150) {
-                    throw new ApiError(400, 'INVALID_INPUT');
-                }
-                $f[$key] = trim($f[$key]);
-            }
-        }
         $parties = $this->db->rows('SELECT * FROM v1_parties');
         $journals = $this->db->rows('SELECT j.*,d.date FROM v1_party_journal j JOIN v1_documents d ON d.id=j.document_id');
         $records = [];
@@ -251,11 +237,11 @@ final class SimpleV1
             foreach ($p['lines'] ?? [] as $line) {
                 $quantity = $quantity->plus($line['quantity']);
             }
-            $r = ['id' => (string) $d['id'], 'date' => $d['date'], 'reference' => $d['official_number'] ?: (($p['reference'] ?? '') ?: 'Entry '.$d['id']), 'originalReference' => $p['originalReference'] ?? '', 'externalReference' => $p['reference'] ?? '', 'chequeReference' => $p['chequeReference'] ?? '', 'kind' => $d['kind'], 'type' => $type, 'party' => $party, 'partyId' => $d['party_id'] ? (string) $d['party_id'] : '', 'particulars' => $d['kind'] === 'CHALLAN_RETURN' ? $type.' / '.$p['originalReference'] : (($p['description'] ?? '') ?: (($p['remarks'] ?? '') ?: $type)), 'amount' => $d['total'], 'effect' => $d['kind'] === 'PURCHASE' && ($p['paidImmediately'] ?? false) ? 'Purchase recorded and paid' : $effect, 'method' => $d['kind'] === 'PURCHASE' && !($p['paidImmediately'] ?? false) ? '' : ($p['method'] ?? ''), 'quantity' => (string) $quantity];
-            if ((!empty($f['from']) && $r['date'] < $f['from']) || (!empty($f['to']) && $r['date'] > $f['to']) || (!empty($f['type']) && $r['kind'] !== $f['type']) || (!empty($f['party']) && !str_contains(mb_strtolower($r['party']), mb_strtolower($f['party'])))) {
+            $r = ['id' => (string) $d['id'], 'date' => $d['date'], 'reference' => $d['official_number'] ?: (BusinessCommand::truthy($p['reference'] ?? '') ? $p['reference'] : 'Entry '.$d['id']), 'originalReference' => $p['originalReference'] ?? '', 'externalReference' => $p['reference'] ?? '', 'chequeReference' => $p['chequeReference'] ?? '', 'kind' => $d['kind'], 'type' => $type, 'party' => $party, 'partyId' => $d['party_id'] ? (string) $d['party_id'] : '', 'particulars' => $d['kind'] === 'CHALLAN_RETURN' ? $type.' / '.$p['originalReference'] : (BusinessCommand::truthy($p['description'] ?? '') ? $p['description'] : (BusinessCommand::truthy($p['remarks'] ?? '') ? $p['remarks'] : $type)), 'amount' => $d['total'], 'effect' => $d['kind'] === 'PURCHASE' && ($p['paidImmediately'] ?? false) ? 'Purchase recorded and paid' : $effect, 'method' => $d['kind'] === 'PURCHASE' && !($p['paidImmediately'] ?? false) ? '' : ($p['method'] ?? ''), 'quantity' => (string) $quantity];
+            if ((!empty($f['from']) && $r['date'] < $f['from']) || (!empty($f['to']) && $r['date'] > $f['to']) || (!empty($f['type']) && $r['kind'] !== $f['type']) || (isset($f['party']) && !str_contains(mb_strtolower($r['party']), mb_strtolower($f['party'])))) {
                 continue;
             }
-            if (!empty($f['reference']) && !str_contains(mb_strtolower(implode(' ', [$r['reference'], $r['originalReference'], $r['externalReference'], $r['chequeReference']])), mb_strtolower($f['reference']))) {
+            if (isset($f['reference']) && !str_contains(mb_strtolower(implode(' ', [$r['reference'], $r['originalReference'], $r['externalReference'], $r['chequeReference']])), mb_strtolower($f['reference']))) {
                 continue;
             }
             $records[] = $r;

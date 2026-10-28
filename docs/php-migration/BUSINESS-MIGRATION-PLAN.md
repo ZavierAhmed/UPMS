@@ -12,7 +12,7 @@ review before implementing the remaining write modules below.
 | PHP-3 (complete; isolated acceptance) | Production/purchase stock-in, drafts/cancellation, delivery challans, fixed/percentage discounts, numbering | Exact cents/whole-bottle limits, saved pricingVersion and party/item snapshots, stale draft rejection, numeric stock locks, transactional journal/projection/number/audit/command writes. Verified DC rollover block, rollback, lost acknowledgement and concurrency against Express on both PHP versions. See PHP-3 results and differential evidence. |
 | PHP-4 (complete; isolated acceptance) | Challan return draft/edit/post/cancel and original return context | Original posted challan/client/line identities, remaining units across partial returns, ordered net-credit allocation with telescoping floors, immutable historical snapshots, appended stock/party journals and global-document DCR identities. Node vectors cover all 96 small partitions and large values; independent differential and actual HTTPS browser tests pass on both PHP versions. |
 | PHP-5 (complete; isolated acceptance) | Client/vendor payments, receipts, supported reversals, opening/stock corrections | CR/VP shared-ID numbering, reference normalization/duplicate detection, exact balances/advances, traceable compensations, unchanged journals. Independent parity, rollback, real lost-COMMIT-acknowledgement recovery and actual HTTPS browser acceptance on both PHP runtimes. See PHP-5 results and reversal review. |
-| PHP-6 | Expenses, Company Transactions register and reconciliation hardening | Paid-only expense evidence, account-level payment semantics, date/range/reference-filter totals, running balances independent of reference visibility, client/vendor advance exclusions, audit and no repair side effects. Read implementations exist; write parity remains pending. |
+| PHP-6 (complete; isolated acceptance) | Paid expenses, Company Transactions, ledgers/inventory and observational reconciliation | All thirteen active kinds; paid-only expense posting; exact event/as-of balances; string-zero/Unicode filter compatibility; all-kind corruption probes and preserved source blind spots; real lost-COMMIT recovery; actual HTTPS print and XLSX acceptance. See PHP-6 results, report acceptance and findings. |
 | PHP-7 | Public inquiry/contact delivery and report/download integration | Preserve current validation, same-origin rules, anti-abuse/idempotency, mail acceptance vs unknown-delivery states. Audit the existing React print/Excel behavior and preserve visible/downloaded fields and approved identity. Do not introduce a false-success contact stub or invent a backend PDF API. |
 | PHP-8 | Linux packaging, cPanel validation and reviewed cutover | Matching production vendor tree, verified account limits/extensions/hostname/roots, least-privilege runtime grants, same-origin HTTP/browser tests, backup and rollback review; no automatic migrations. Separate approval before actual release. |
 
@@ -36,23 +36,28 @@ review before implementing the remaining write modules below.
 
 Item/party creation and editing plus STOCK_OPENING, CLIENT_OPENING, VENDOR_OPENING,
 PRODUCTION, PURCHASE, CHALLAN, CHALLAN_RETURN, CLIENT_PAYMENT, VENDOR_PAYMENT,
-PAYMENT_REVERSAL, STOCK_CORRECTION and OPENING_CORRECTION draft creation/editing/posting
-are implemented. Draft cancellation supports these twelve kinds. EXPENSE remains
-pending, including stored drafts and saved receipts.
+PAYMENT_REVERSAL, STOCK_CORRECTION, OPENING_CORRECTION and EXPENSE draft creation/editing/posting
+are implemented. Draft cancellation supports all thirteen active Simple V1 kinds.
+No active Simple V1 document kind remains pending.
 Public inquiry delivery,
 production database configuration, cPanel Apache verification, hosted load/resource
 checks and broader report/export acceptance remain pending. Local Apache HTTPS/FastCGI
 browser transaction and delivery-note print acceptance is covered by PHP-3. PHP-4 adds
 actual partial-return, excess-return rejection, stock/ledger reconciliation, original
 return history and return-acknowledgment print acceptance on both PHP versions. PHP-5
-adds receipt/payment/reversal/correction browser workflows and payment printing. Legacy
+adds receipt/payment/reversal/correction browser workflows and payment printing. PHP-6
+adds expenses, date/type/reference filters, real XLSX register/ledger/stock downloads
+and register/expense printing on both runtimes. Legacy
 business/inventory/purchase/sales/receipt/cheque/return/credit/expense routes are
 inventoried but remain profile-disabled; do not silently enable them during migration.
 
-PHP-5 is not hosting or production approval. The loopback/test-schema database gate
-is unchanged. Review [PHP-5-TEST-RESULTS.md](PHP-5-TEST-RESULTS.md),
-[PHP-5-DIFFERENTIAL-EVIDENCE.md](PHP-5-DIFFERENTIAL-EVIDENCE.md) and
-[PHP-5-REVERSAL-REVIEW.md](PHP-5-REVERSAL-REVIEW.md) before PHP-6.
+PHP-6 is not hosting or production approval. The loopback/test-schema database gate
+is unchanged. Review [PHP-6-TEST-RESULTS.md](PHP-6-TEST-RESULTS.md),
+[PHP-6-REPORT-ACCEPTANCE.md](PHP-6-REPORT-ACCEPTANCE.md),
+[PHP-6-RECONCILIATION-FINDINGS.md](PHP-6-RECONCILIATION-FINDINGS.md) and the preserved
+[PHP-5-REVERSAL-REVIEW.md](PHP-5-REVERSAL-REVIEW.md) before PHP-7.
+Any proposed source reconciliation hardening is a separate owner-reviewed change to
+both backends, not a silent alteration of this parity milestone.
 
 The separate PHP session cookie requires signing in again when switching backends;
 it does not require a password reset. Existing Node sessions/hashes remain preserved.

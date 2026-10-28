@@ -1,3 +1,4 @@
+import {expenseScopeRegression} from './php-6-scope-regression.mjs';
 import assert from 'node:assert/strict';
 import {randomBytes,randomUUID,createHash} from 'node:crypto';
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
@@ -191,12 +192,7 @@ try{
  const runtime=knex({client:'mysql2',connection:{host,port,database:runtimeEnv.UPMS_DB_DATABASE,user:runtimeEnv.UPMS_DB_USERNAME,password:runtimeEnv.UPMS_DB_PASSWORD},pool:{min:0,max:1}});
  const denied=["UPDATE v1_stock_journal SET delta='0' WHERE id=1","DELETE FROM v1_stock_journal WHERE id=1","UPDATE v1_party_journal SET debit='0' WHERE id=1","DELETE FROM v1_party_journal WHERE id=1","UPDATE v1_lines SET amount='0' WHERE id=1","UPDATE v1_audit SET reason='rewrite' WHERE id=1","DELETE FROM v1_commands","UPDATE v1_commands SET fingerprint='rewrite'","UPDATE v1_documents SET actor_id=3 WHERE id=1","UPDATE v1_documents SET created_at=UTC_TIMESTAMP() WHERE id=1","UPDATE v1_items SET code='REPLACED' WHERE id=1","UPDATE v1_parties SET kind='VENDOR' WHERE id=1","INSERT INTO users(login_key) VALUES('intruder')","DELETE FROM user_roles WHERE user_id=1","UPDATE users SET enabled=0 WHERE id=1","CREATE TABLE php3_forbidden(id INT)","SELECT * FROM mysql.user"];
  try{for(const sql of denied)await assert.rejects(runtime.raw(sql),e=>['ER_TABLEACCESS_DENIED_ERROR','ER_COLUMNACCESS_DENIED_ERROR','ER_DBACCESS_DENIED_ERROR'].includes(e.code));}finally{await runtime.destroy();}checks.push({name:'SQL least-privilege denials',denied:denied.length});
- for(const kind of ['EXPENSE']){
-  const before=await snapshot(databases[1]);const r=await appDriver.call('POST',prefix+'documents',{kind,date},{key:randomUUID()});assert.equal(r.status,501);
-  const raw={kind,date},key=randomUUID();let id;
-  await both(async db=>{const [saved]=await db('v1_documents').insert({kind,date,party_id:null,status:'DRAFT',version:1,payload:JSON.stringify({...documentInput.parse({...raw,...(['STOCK_CORRECTION','OPENING_CORRECTION','PAYMENT_REVERSAL'].includes(kind)?{reason:'Synthetic blocked fixture'}:{})}),entryVersion:2}),actor_id:'1',created_at:new Date()});id=String(saved);await db('v1_commands').insert({key,actor_id:'1',fingerprint:createHash('sha256').update(canonical({operation:'document.draft:undefined',input:raw})).digest('hex'),result:JSON.stringify({id})});});
-  const seeded=await snapshot(databases[1]);for(const [method,path,body,k]of [['POST','documents/'+id+'/post',{version:1},randomUUID()],['POST','documents/'+id+'/cancel',{version:1,reason:'Blocked unsupported'},randomUUID()],['PATCH','documents/'+id,{date,kind:'PRODUCTION',lines:[multi[2]],version:1},randomUUID()],['POST','documents',raw,key]]){const denied=await appDriver.call(method,prefix+path,body,{key:k});assert.equal(denied.status,501);}assert.deepEqual(await snapshot(databases[1]),seeded);
- }
+ await expenseScopeRegression({same,prefix,date,snapshot,databases,checks});
  const protectedDraft=await draft('protected cancellation',{kind:'PRODUCTION',lines:[multi[1]]});
  const cancelPath=prefix+'documents/'+protectedDraft.id+'/cancel',cancelBody={version:1,reason:'Synthetic authorized cancellation'},cancelKey=randomUUID();
  for(const [name,opts]of [['missing UUID',{key:undefined}],['invalid UUID',{key:'not-a-uuid'}],['missing CSRF',{noCsrf:true}],['untrusted origin',{headers:{origin:'https://attacker.test'}}]])await same('cancel '+name,'POST',cancelPath,cancelBody,opts);

@@ -1,9 +1,9 @@
 # Unique Plastic Industry PHP API
 
 Laravel **13.39.0**, PHP **8.3+**, MariaDB **10.11**, native PDO prepared statements.
-PHP-1 through PHP-5 are for isolated testing and review. The backend cannot connect to the
-owner schema. PHP-5 adds client/vendor payments, eligible payment reversals and
-stock/opening corrections to the accepted master, opening, stock-in, challan and return workflows.
+PHP-1 through PHP-6 are for isolated testing and review. The backend cannot connect to the
+owner schema. PHP-6 completes all thirteen active document kinds with paid expenses,
+integrated financial/inventory report validation and observational reconciliation.
 No hosting release or other financial-write cutover is authorized here.
 
 Install the exact dependency tree with `composer install --no-interaction`. The lockfile
@@ -39,8 +39,8 @@ Tokens are random and stored only as SHA256 digests. CSRF tokens are protected w
 Laravel application key in session JSON. Keep APP_KEY private and stable.
 
 The public inquiry endpoint is inventoried but not converted. The React website and
-dashboard remain unchanged. Expenses return an
-explicit pending-review error. See [the migration reports](../docs/php-migration/).
+dashboard remain unchanged. Public inquiry delivery remains pending; legacy ERP routes
+remain disabled. See [the migration reports](../docs/php-migration/).
 
 ## PHP-2 differential acceptance
 
@@ -64,6 +64,16 @@ config and an ephemeral localhost certificate. Then run `node scripts/php-2-brow
 No installed Apache/PHP settings, certificates or live website files need changing.
 
 ## Deployment review
+
+PHP-6 uses `scripts/php-6-differential.mjs` with `PHP6_BINARY` / optional `PHP6_ARGS`.
+It validates expenses, all-kind reports/corruption, concurrency and real lost-COMMIT
+acknowledgements. Existing PHP-2/3/4/5 regressions now exercise the converted expense
+lifecycle via `php-6-scope-regression.mjs`, replacing obsolete 501 assertions.
+`php-test-commit-proxy.mjs` frames MySQL packets across TCP chunks for reliable test
+fault injection. `php-6-browser-setup.mjs` / `php-6-browser.mjs` cover actual HTTPS,
+printing and three native XLSX downloads. No new runtime grants are needed.
+See [PHP-6 results](../docs/php-migration/PHP-6-TEST-RESULTS.md) and
+[reconciliation findings](../docs/php-migration/PHP-6-RECONCILIATION-FINDINGS.md).
 
 PHP-5 uses `scripts/php-5-differential.mjs` with `PHP5_BINARY` / optional `PHP5_ARGS`.
 It checks payment/reversal/correction parity, concurrent posting, rollback and actual

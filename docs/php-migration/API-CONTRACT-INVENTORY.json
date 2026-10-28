@@ -584,8 +584,8 @@
         "req.body"
       ],
       "successStatus": 201,
-      "phpMilestone": "PHP-5",
-      "conversionScope": "twelve-supported-document-kinds",
+      "phpMilestone": "PHP-6",
+      "conversionScope": "all-thirteen-document-kinds",
       "convertedKinds": [
         "STOCK_OPENING",
         "CLIENT_OPENING",
@@ -598,7 +598,8 @@
         "VENDOR_PAYMENT",
         "PAYMENT_REVERSAL",
         "STOCK_CORRECTION",
-        "OPENING_CORRECTION"
+        "OPENING_CORRECTION",
+        "EXPENSE"
       ]
     },
     {
@@ -627,8 +628,8 @@
         "req.params.id"
       ],
       "successStatus": 200,
-      "phpMilestone": "PHP-5",
-      "conversionScope": "twelve-supported-document-kinds",
+      "phpMilestone": "PHP-6",
+      "conversionScope": "all-thirteen-document-kinds",
       "convertedKinds": [
         "STOCK_OPENING",
         "CLIENT_OPENING",
@@ -641,7 +642,8 @@
         "VENDOR_PAYMENT",
         "PAYMENT_REVERSAL",
         "STOCK_CORRECTION",
-        "OPENING_CORRECTION"
+        "OPENING_CORRECTION",
+        "EXPENSE"
       ]
     },
     {
@@ -675,8 +677,8 @@
         "req.body"
       ],
       "successStatus": 200,
-      "phpMilestone": "PHP-5",
-      "conversionScope": "twelve-supported-document-kinds",
+      "phpMilestone": "PHP-6",
+      "conversionScope": "all-thirteen-document-kinds",
       "convertedKinds": [
         "STOCK_OPENING",
         "CLIENT_OPENING",
@@ -689,7 +691,8 @@
         "VENDOR_PAYMENT",
         "PAYMENT_REVERSAL",
         "STOCK_CORRECTION",
-        "OPENING_CORRECTION"
+        "OPENING_CORRECTION",
+        "EXPENSE"
       ]
     },
     {
@@ -718,8 +721,8 @@
         "req.body"
       ],
       "successStatus": 200,
-      "phpMilestone": "PHP-5",
-      "conversionScope": "twelve-supported-document-kinds",
+      "phpMilestone": "PHP-6",
+      "conversionScope": "all-thirteen-document-kinds",
       "convertedKinds": [
         "STOCK_OPENING",
         "CLIENT_OPENING",
@@ -732,7 +735,8 @@
         "VENDOR_PAYMENT",
         "PAYMENT_REVERSAL",
         "STOCK_CORRECTION",
-        "OPENING_CORRECTION"
+        "OPENING_CORRECTION",
+        "EXPENSE"
       ]
     },
     {
