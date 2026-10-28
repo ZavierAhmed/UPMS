@@ -1,5 +1,8 @@
 # PHP-5 source reversal eligibility review
 
+Historical baseline report. [PHP-7.1](PHP-7-1-INTEGRITY-REVIEW.md) implements the
+coordinated draft/posting snapshot correction; the original observations below are retained.
+
 Authority: unchanged `server/src/simple-v1/service.js` and
 `server/simple-v1-migrations/202610240001_simple_v1.js` at
 `ee70789a7240d5cf076ad110d8d599bb2e55155d`.

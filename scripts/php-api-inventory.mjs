@@ -5,6 +5,8 @@ import {parse} from '../upms.client/node_modules/@babel/parser/lib/index.js';
 // Static AST expansion, including loop-generated Express routes; never executes application code.
 const modules=['identity','simple-v1','business','inventory','purchases','sales','receipts','cheques','returns','credits','expenses'];
 const base='/api/v1/management';
+const reference=process.env.PHP_API_REFERENCE||'bf749544a322715348966b75ceec49ffc5923468';
+if(!/^[a-f0-9]{40}$/.test(reference))throw Error('Exact reference SHA required');
 const definitions=new Map(),routes=[];
 function value(n,env){
  if(!n)return undefined;
@@ -53,7 +55,7 @@ for(const module of modules){
  }
  walk(ast);
 }
-routes.push({method:'POST',url:'/api/v1/public/inquiries',module:'inquiries',source:'server/src/inquiries/api.js',line:1,converted:false,enabledInSimpleV1:true,request:['JSON inquiry fields; validation.js'],successStatus:200,idempotency:'Submission key/fingerprint and delivery uncertainty; see submissions.js',permissions:[],handler:'inquiryApi(config, createSubmissions(config, delivery, options), now)',contracts:[],serviceMethods:[]});
+routes.push({method:'POST',url:'/api/v1/public/inquiries',module:'inquiries',source:'server/src/inquiries/api.js',line:1,converted:true,enabledInSimpleV1:true,request:['JSON inquiry fields; validation.js'],successStatus:200,idempotency:'Submission key/fingerprint and delivery uncertainty; see submissions.js',permissions:[],handler:'inquiryApi(config, createSubmissions(config, delivery, options), now)',contracts:[],serviceMethods:[]});
 routes.push({method:'GET',url:'/weatherforecast',module:'template',source:'server/src/app.js',line:53,converted:false,enabledInSimpleV1:false,request:[],successStatus:200,idempotency:'None; nondeterministic template compatibility endpoint',permissions:[],handler:'Five random forecast records {date,temperatureC,temperatureF,summary}',contracts:[],serviceMethods:[]});
 for(const method of ['GET','HEAD'])routes.push({method,url:'/healthz',module:'health',source:'server/src/app.js',line:32,converted:true,enabledInSimpleV1:true,request:[],successStatus:200,idempotency:'Read-only liveness; no database connection',permissions:[],handler:"Production profile: {status:'ok'}; HEAD has no body. Blocked GoDaddy preview returns {status:'blocked',code:'GODADDY_COMPATIBILITY_BLOCKED',...}; remote dev tool adds mode/businessWrites. These diagnostic profiles are not PHP deployment profiles.",contracts:[],serviceMethods:[]});
 const unique=new Map(routes.map(r=>[r.method+' '+r.url,r]));
@@ -79,6 +81,7 @@ for(const path of files){const source=texts[path]??await readFile(path,'utf8');c
 md+=`- **${module}**: `+files.map(f=>link(f,1)).join(', ')+'.\n';
 }
 md+='\n## Explicit differences and pending work\n\nPHP uses a separate __Host-upms-php cookie with opaque random tokens hashed in the same sessions table. Node cookie signatures are not imported; existing sessions remain untouched, and existing credentials work at the PHP login. CSRF material is encrypted in session data. Node Argon2id PHC parameter order is normalized in memory for PHP verification; stored hashes are unchanged. PHP remains restricted to isolated local test schemas. No production database connection profile is enabled.\n\nPHP-6: POST/PATCH items and parties plus POST/PATCH documents, POST documents/:id/post and POST documents/:id/cancel are converted. Document writes support STOCK_OPENING, CLIENT_OPENING, VENDOR_OPENING, PRODUCTION, PURCHASE, CHALLAN, CHALLAN_RETURN, CLIENT_PAYMENT, VENDOR_PAYMENT, PAYMENT_REVERSAL, STOCK_CORRECTION, OPENING_CORRECTION and EXPENSE, including stored-draft and saved-receipt scope checks. Public inquiry delivery, legacy modules and compatibility weatherforecast remain pending; legacy ERP paths retain their disabled profile. No active Simple V1 document kind remains pending. Unknown Simple V1 routes return 404. Public inquiry must not be redirected to a false-success stub. React PDF/Excel exports are client-side artifacts and require browser/download regression before write cutover.\n';
-await writeFile('docs/php-migration/API-PARITY-MATRIX.md',md);
-await writeFile('docs/php-migration/API-CONTRACT-INVENTORY.json',JSON.stringify({reference:'bf749544a322715348966b75ceec49ffc5923468',routes:result,modules:manifests},null,2)+'\n');
+// Preserve the separately reviewed milestone matrix when refreshing source evidence.
+if(!process.argv.includes('--json-only'))await writeFile('docs/php-migration/API-PARITY-MATRIX.md',md);
+await writeFile('docs/php-migration/API-CONTRACT-INVENTORY.json',JSON.stringify({reference,routes:result,modules:manifests},null,2)+'\n');
 console.log(JSON.stringify({endpoints:result.length,converted:result.filter(r=>r.converted).length,modules:Object.keys(manifests).length}));

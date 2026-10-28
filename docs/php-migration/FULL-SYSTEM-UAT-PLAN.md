@@ -122,13 +122,36 @@ dishonour/payment reversal. The separate B party avoids the intentional prohibit
 on opening correction after normal business activity.
 
 Add negative cases without altering the worksheet totals: insufficient stock, excess
-return, return of someone else's line, duplicate payment reference, reversal of cash
-or vendor payment, second reversal, stale version and opening correction after A's
+return, return of someone else's line, duplicate payment reference, client Cash/Bank
+Transfer reversal through the cheque-dishonour path, second reversal, reversal of a
+reversal, stale version and opening correction after A's
 activity. Confirm rejected operations leave documents/journals/audit unchanged except
 permitted draft history. Cancel reviewed drafts with a reason. For discounts, save a
 separate 40×5.00 draft with FIXED 20.00 (review 180.00), then PERCENT 10 (review 180.00);
 cancel it to preserve worksheet balances. Check boundary/rounding values using the
 existing PHP-3 fixtures rather than mental floating-point calculations.
+
+The reversal policy is explicit: eligible client Cheque Received reversal is allowed;
+client Cash and Bank Transfer reversal through that path is rejected; eligible vendor
+Cash and Bank Transfer reversal is allowed; reversing the same original twice or
+reversing a reversal is rejected. Vendor reversal is not a vendor-cheque dishonour
+feature. Use a separate side vendor with zero opening: pay 9.87, reverse 9.87 and
+confirm its signed balance returns to zero, original payment stays posted, and the
+reversal snapshot identifies that source vendor. Repeat with both permitted methods.
+Attempt the duplicate and reversal-of-reversal cases and verify zero extra journal
+effects. Check Cash/Bank client negatives on a separate throwaway worksheet/fixture
+so additional test receipts do not alter the thirteen-kind worksheet above. Its X 123,
+A +200.00, B +80.00, V -185.00 and 18.00 expenses remain the required outcomes.
+
+Reconciliation now returns structured `integrityFindings` as well as legacy mismatch
+strings. On separate synthetic copies exercise expense party/type corruption, all-kind
+SQL/payload date disagreement, numeric money values, malformed command evidence and
+contradictory reversal snapshots. Each must be visible and read-only. Test historical
+dates and pre-entry-version challans separately. Consistent future posted dates and
+missing post receipts raise provenance-review warnings without asserting that valid
+historical/imported mathematics is corrupt. `matched: true` with `reviewRequired: true`
+does not pass acceptance until provenance is reviewed. `authenticityVerified` is false:
+no retained canonical operation/input exists to authenticate a command fingerprint.
 
 ## Reports, exports and printing
 
@@ -207,16 +230,19 @@ restore rehearsal. This owner-run rehearsal is pending after PHP-7.
 
 ## Known findings and decision
 
-PHP-7.1 must retain/review PHP-5-REVERSAL-REVIEW.md: a crafted reversal payload may
-preserve an inappropriate raw partySnapshot even though the posted party and journal
-are correct. Normal UI sends null for that extra party field. The second-reversal
-UNIQUE conflict is intentional source behavior; it must not duplicate journal effects.
+PHP-7.1 dispositions are in PHP-7-1-INTEGRITY-REVIEW.md and PHP-7-1-RELEASE-RISKS.md.
+New reversal drafts and posting derive party identity/snapshot from the source payment,
+including an old contradictory draft. Historical posted rows are not rewritten;
+contradictory retained evidence is reported for investigation. A legitimate historical
+reversal without a snapshot remains compatible. The second-reversal UNIQUE conflict
+is preserved; it must not duplicate journal effects.
 
-PHP-6-RECONCILIATION-FINDINGS.md documents four source-matching blind spots: expense
-payload partyId with SQL party_id null, SQL date differing from payload/future date,
-invalid saved-command fingerprint, and numeric amount evidence retaining the same value.
+PHP-6-RECONCILIATION-FINDINGS.md retains the original baseline evidence. PHP-7.1 now
+detects expense party evidence, SQL/payload date discrepancies, malformed saved-command
+fingerprints and invalid JSON money types in both backends. Valid-looking fingerprints
+are not authenticated; id-only receipts cannot identify their original operation.
 Do not inject these into the owner database or silently repair historical evidence.
-The 33 reversible corruption probes are automated in independent synthetic schemas.
+The original 33 probes plus corrective cases are automated in independent synthetic schemas.
 Review document/counter column grants as well: app-level posted immutability is not a
 row-level database privilege guarantee.
 

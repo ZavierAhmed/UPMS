@@ -1,5 +1,8 @@
 # PHP-6 source reconciliation findings — separate review
 
+Historical baseline evidence. Current [PHP-7.1 dispositions](PHP-7-1-INTEGRITY-REVIEW.md)
+supersede the pending-work statements below without removing the original observations.
+
 Authority: unchanged `server/src/simple-v1/reconcile.js` at baseline
 `bb1cce051f7bef253f826c37e3a51584ee32df8c`. Independent fresh Express/PHP synthetic
 schemas reproduce every observation on PHP 8.3.36 and 8.4.27. No owner data was used.

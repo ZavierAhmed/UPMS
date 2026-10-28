@@ -18,6 +18,21 @@ review before implementing the remaining write modules below.
 
 ## Transaction invariants for every write milestone
 
+PHP-7.1 is the controlled, coordinated Express/Laravel integrity correction described
+in [PHP-7-1-INTEGRITY-REVIEW.md](PHP-7-1-INTEGRITY-REVIEW.md). Expense party/date/money
+evidence, limited command consistency checks and source-derived reversal snapshots
+are covered without schema/grant changes or automatic repair. Reconciliation exposes
+structured errors and historical/provenance warnings; a valid-looking hash is not
+authenticated. SQL document/password column grants remain an application trust boundary.
+The [release-risk decisions](PHP-7-1-RELEASE-RISKS.md) explicitly retain those limits
+and a forward-only evidence/architecture proposal for separate approval.
+
+After PHP-7.1 review, the separate owner-operated PHP-7.5 UAT may use the corrected
+plan and fresh synthetic worksheet. It must not group eligible vendor reversals with
+rejected client Cash/Bank cheque-path reversals. Production remains blocked pending
+owner risk disposition, UAT/restore/native-tool acceptance and hosting/profile approval.
+No production access, release packaging or new accounting model is introduced.
+
 PHP-7 isolated integration is complete for review: public inquiries use independent
 origin/security routing, bounded cross-worker rate/replay state and verified-TLS
 Symfony SMTP; both PHP runtimes pass inquiry, management, React/Express and actual
@@ -25,9 +40,9 @@ HTTPS browser/export regressions. The public asset manifest is unchanged. The on
 React change corrects the posted expense print/detail heading with specific tests.
 See [PHP-7 results](PHP-7-TEST-RESULTS.md) and [inquiry operating differences](PHP-7-INQUIRY-PARITY.md).
 
-Next are separately reviewed PHP-7.1 (preserved reversal snapshot and reconciliation
-findings) and owner-operated PHP-7.5 [full-system UAT](FULL-SYSTEM-UAT-PLAN.md).
-Neither is executed by PHP-7. The owner database gate, legacy-module exclusions and
+PHP-7.1 now supplies the coordinated corrective review described above. The next
+owner-operated stage remains PHP-7.5 [full-system UAT](FULL-SYSTEM-UAT-PLAN.md).
+PHP-7 did not execute those later stages; PHP-7.5 remains unexecuted here. The owner database gate, legacy-module exclusions and
 hosting/release restrictions remain unchanged. Native Excel/printer checks, backup
 restore, owner signoff and shared-host process/filesystem/resource preflight remain
 prerequisites; automatic tests alone do not establish production readiness.
@@ -68,7 +83,7 @@ PHP-6 is not hosting or production approval. The loopback/test-schema database g
 is unchanged. Review [PHP-6-TEST-RESULTS.md](PHP-6-TEST-RESULTS.md),
 [PHP-6-REPORT-ACCEPTANCE.md](PHP-6-REPORT-ACCEPTANCE.md),
 [PHP-6-RECONCILIATION-FINDINGS.md](PHP-6-RECONCILIATION-FINDINGS.md) and the preserved
-[PHP-5-REVERSAL-REVIEW.md](PHP-5-REVERSAL-REVIEW.md) before PHP-7.
+[PHP-5-REVERSAL-REVIEW.md](PHP-5-REVERSAL-REVIEW.md) as retained baseline evidence for PHP-7.1.
 Any proposed source reconciliation hardening is a separate owner-reviewed change to
 both backends, not a silent alteration of this parity milestone.
 

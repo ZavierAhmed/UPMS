@@ -14,6 +14,27 @@ default database connections are disabled. UPMS accesses existing tables only th
 
 ## Local tests
 
+PHP-7.1 keeps all thirteen kinds and inquiry behavior, with coordinated changes to the
+Express reference: structured observational reconciliation findings, typed financial
+evidence and all-kind SQL/payload dates, limited command receipt/actor consistency,
+and reversal snapshots derived from the original payment when saving/posting a draft.
+No posted historical record, schema or grant is changed automatically. The existing
+PHP-6 differential runner retains its original 33 probes and invokes the additional
+`php-7-1-probes.mjs` and actual restricted-account `php-7-1-privileges.mjs` checks.
+`php-7-1-browser.mjs` runs existing management/export acceptance plus reversal policies
+through actual Apache HTTPS/FastCGI.
+
+Reconciliation `matched` describes observed consistency, not original-input authenticity.
+`integrityFindings` provides codes/entities/ids/fields/messages/severities. Errors make
+matched false; `reviewRequired` flags additional historical/import provenance warnings.
+`authenticityVerified` remains false because original command operation/input is not
+retained. Consistent future posted dates and missing receipts require review, not guessed
+repairs. A separate forward-only design is documented; no migration is applied.
+Read [integrity review](../docs/php-migration/PHP-7-1-INTEGRITY-REVIEW.md),
+[evidence](../docs/php-migration/PHP-7-1-CORRECTIVE-EVIDENCE.md),
+[test results](../docs/php-migration/PHP-7-1-TEST-RESULTS.md), and
+[release risks/inquiry uncertainty procedure](../docs/php-migration/PHP-7-1-RELEASE-RISKS.md).
+
 PHP-7 adds `POST /api/v1/public/inquiries` independently of management sessions/CSRF
 and SQL. Configure INQUIRY_ORIGIN separately from UPMS_ORIGIN. Its default private
 storage is `storage/app/private/inquiries`; all workers must share this single-host

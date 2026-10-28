@@ -10,13 +10,11 @@ final class Documents
 {
     public const KINDS = ['STOCK_OPENING', 'CLIENT_OPENING', 'VENDOR_OPENING', 'PRODUCTION', 'PURCHASE', 'CHALLAN', 'CHALLAN_RETURN', 'CLIENT_PAYMENT', 'VENDOR_PAYMENT', 'PAYMENT_REVERSAL', 'STOCK_CORRECTION', 'OPENING_CORRECTION', 'EXPENSE'];
 
-    public function __construct(private readonly Database $db, private readonly BusinessRecords $records, private readonly BusinessCommand $commands)
-    {
-    }
+    public function __construct(private readonly Database $db, private readonly BusinessRecords $records, private readonly BusinessCommand $commands) {}
 
     public static function supported(mixed $kind): void
     {
-        if (!in_array($kind, self::KINDS, true)) {
+        if (! in_array($kind, self::KINDS, true)) {
             throw new ApiError(501, 'PHP_WRITE_MODULE_PENDING_REVIEW');
         }
     }
@@ -55,7 +53,7 @@ final class Documents
                 continue;
             }
             $item = $this->db->one('SELECT * FROM v1_items WHERE id=?', [$line['itemId']]);
-            if (!$item) {
+            if (! $item) {
                 throw new ApiError(400, 'ACTIVE_BOTTLE_REQUIRED');
             }
             if ($control['entry_version'] === 2) {
@@ -65,7 +63,7 @@ final class Documents
                     V1Input::field('lines.'.$i.'.quantity', 'Please enter a valid whole-bottle quantity.');
                 }
                 if ($p['kind'] === 'CHALLAN') {
-                    if (!BusinessCommand::truthy($item['selling_price'])) {
+                    if (! BusinessCommand::truthy($item['selling_price'])) {
                         V1Input::field('lines.'.$i.'.itemId', 'Price not set. Set an approved selling price in Item Management.', 'PRICE_NOT_SET');
                     }
                     $rate = V1Input::cents($line['rate'], 'lines.'.$i.'.rate');
@@ -86,9 +84,10 @@ final class Documents
                 $p['discountSummary'] = Pricing::discount($subtotal, $p['discountMode'], $p['discountValue'], allowZero: true);
             }
         }
-        if ($p['partyId'] && $p['kind'] !== 'CHALLAN_RETURN') {
+        $p = ReversalIdentity::derive($this->db, $p);
+        if ($p['partyId'] && ! in_array($p['kind'], ['CHALLAN_RETURN', 'PAYMENT_REVERSAL'], true)) {
             $party = $this->db->one('SELECT * FROM v1_parties WHERE id=?', [$p['partyId']]);
-            if (!$party) {
+            if (! $party) {
                 V1Input::field('partyId', 'Please select an active client or vendor.', 'ACTIVE_PARTY_REQUIRED');
             }
             $p['partySnapshot'] = ['id' => (string) $party['id'], 'name' => $party['name'], 'address' => $party['address'], 'kind' => $party['kind'], 'version' => $party['version']];
@@ -99,7 +98,7 @@ final class Documents
         $editing = $id !== null;
         if ($editing) {
             $old = $this->db->one('SELECT * FROM v1_documents WHERE id=?', [$id]);
-            if (!$old || $old['status'] !== 'DRAFT') {
+            if (! $old || $old['status'] !== 'DRAFT') {
                 throw new ApiError(409, 'IMMUTABLE_DOCUMENT');
             }
             self::supported($old['kind']); // Never convert a stored later-milestone draft.
@@ -114,6 +113,7 @@ final class Documents
         $before = self::jsString($truthy ? $version : 0);
         $after = $truthy ? (is_string($version) ? $version.'1' : (is_int($version) || is_float($version) || is_bool($version) ? self::jsString($version + 1) : self::jsString($version).'1')) : '1';
         $this->commands->audit($user, 'draft.saved', $id, 'Draft saved; version '.$before.' → '.$after.($p['reason'] !== '' ? '; operator note: '.$p['reason'] : ''));
+
         return ['id' => $id];
     }
 
@@ -130,7 +130,7 @@ final class Documents
     {
         $parsed = V1Input::posting($input);
         $d = $this->db->one('SELECT * FROM v1_documents WHERE id=?', [$id]);
-        if (!$d) {
+        if (! $d) {
             throw new ApiError(404, 'NOT_FOUND');
         }
         if ($d['version'] !== $parsed['version']) {
@@ -147,7 +147,7 @@ final class Documents
         if ($p['kind'] === 'CHALLAN_RETURN') {
             return (new ChallanReturns($this->db, $this->records))->post($user, $d, $p);
         }
-        if ($p['kind'] === 'CHALLAN' && !($p['time'] === '' || preg_match('/^(?:[01]\d|2[0-3]):[0-5]\d$/D', $p['time']))) {
+        if ($p['kind'] === 'CHALLAN' && ! ($p['time'] === '' || preg_match('/^(?:[01]\d|2[0-3]):[0-5]\d$/D', $p['time']))) {
             V1Input::field('time', 'Choose a valid local time in HH:mm format.', 'INVALID_LOCAL_TIME');
         }
         V1Input::uniqueLines($p['lines']);
@@ -156,7 +156,7 @@ final class Documents
         $discount = null;
         if (in_array($p['kind'], ['PURCHASE', 'CHALLAN', 'CLIENT_OPENING', 'VENDOR_OPENING', 'CLIENT_PAYMENT', 'VENDOR_PAYMENT', 'OPENING_CORRECTION'], true)) {
             $party = $this->db->one('SELECT * FROM v1_parties WHERE id=? AND active=1', [$p['partyId']]);
-            if (!$party) {
+            if (! $party) {
                 V1Input::field('partyId', 'Please select an active client or vendor.', 'ACTIVE_PARTY_REQUIRED');
             }
             if ($party['kind'] !== (in_array($p['kind'], ['CHALLAN', 'CLIENT_OPENING', 'CLIENT_PAYMENT'], true) ? 'CLIENT' : ($p['kind'] === 'OPENING_CORRECTION' ? $party['kind'] : 'VENDOR'))) {
@@ -195,11 +195,11 @@ final class Documents
             $this->records->insert('v1_party_journal', ['document_id' => $d['id'], 'party_id' => $party['id'], 'debit' => $p['direction'] === 'OWED_TO_COMPANY' ? Exact::money($total) : '0.00', 'credit' => $p['direction'] === 'OWED_BY_COMPANY' ? Exact::money($total) : '0.00', 'particulars' => 'Explicit '.strtolower($party['kind']).' opening']);
             $this->records->update('v1_parties', ['opening_verified' => true], ['id' => $party['id']]);
         } elseif (in_array($p['kind'], ['CHALLAN', 'PURCHASE', 'CLIENT_PAYMENT', 'VENDOR_PAYMENT'], true)) {
-            if (!$party['opening_verified']) {
+            if (! $party['opening_verified']) {
                 throw new ApiError(409, 'PARTY_OPENING_UNVERIFIED');
             }
             $opening = $this->db->one("SELECT date FROM v1_documents WHERE party_id=? AND status='POSTED' AND kind IN ('CLIENT_OPENING','VENDOR_OPENING') LIMIT 1", [$party['id']]);
-            if (!$opening || $p['date'] < $opening['date']) {
+            if (! $opening || $p['date'] < $opening['date']) {
                 throw new ApiError(400, 'DATE_PRECEDES_OPENING');
             }
             if ($p['kind'] === 'CHALLAN') {
@@ -213,7 +213,7 @@ final class Documents
                 $this->journal($d, $party, Exact::money($total), '0.00', 'Delivery challan sale');
             } elseif ($p['kind'] === 'PURCHASE') {
                 $this->journal($d, $party, $p['paidImmediately'] ? Exact::money($total) : '0.00', Exact::money($total), $p['paidImmediately'] ? 'Bottle purchase paid immediately; method reference only' : 'Bottle purchase payable');
-                if ($p['paidImmediately'] && (!isset($p['method']) || $p['method'] === 'CHEQUE_RECEIVED' || $p['reference'] === '')) {
+                if ($p['paidImmediately'] && (! isset($p['method']) || $p['method'] === 'CHEQUE_RECEIVED' || $p['reference'] === '')) {
                     throw new ApiError(400, 'IMMEDIATE_PAYMENT_METHOD_AND_REFERENCE_REQUIRED');
                 }
             }
@@ -228,13 +228,14 @@ final class Documents
                 $this->journal($d, $party, $p['kind'] === 'VENDOR_PAYMENT' ? Exact::money($total) : '0.00', $p['kind'] === 'CLIENT_PAYMENT' ? Exact::money($total) : '0.00', ($p['kind'] === 'CLIENT_PAYMENT' ? 'Amount received · ' : 'Amount paid · ').$p['method']);
             }
         } elseif ($p['kind'] === 'EXPENSE') {
-            if ($p['category'] === '' || $p['description'] === '' || $p['payee'] === '' || $p['reference'] === '' || ($p['paymentStatus'] ?? null) !== 'PAID' || !in_array($p['method'] ?? null, ['CASH', 'BANK_TRANSFER'], true) || $p['partyId'] !== null) {
+            if ($p['category'] === '' || $p['description'] === '' || $p['payee'] === '' || $p['reference'] === '' || ($p['paymentStatus'] ?? null) !== 'PAID' || ! in_array($p['method'] ?? null, ['CASH', 'BANK_TRANSFER'], true) || $p['partyId'] !== null) {
                 throw new ApiError(400, 'PAID_EXPENSE_DETAILS_REQUIRED');
             }
             $total = Exact::cents($p['amount']);
         } elseif ($p['kind'] === 'PAYMENT_REVERSAL') {
+            $p = ReversalIdentity::derive($this->db, $p);
             $source = $this->db->one("SELECT * FROM v1_documents WHERE id=? AND status='POSTED'", [$p['correctsId'] ?? null]);
-            if (!$source || !in_array($source['kind'], ['CLIENT_PAYMENT', 'VENDOR_PAYMENT'], true) || $p['date'] < $source['date']) {
+            if (! $source || ! in_array($source['kind'], ['CLIENT_PAYMENT', 'VENDOR_PAYMENT'], true) || $p['date'] < $source['date']) {
                 throw new ApiError(400, 'INVALID_PAYMENT_REVERSAL');
             }
             if ($source['kind'] === 'CLIENT_PAYMENT' && (SimpleV1::payload($source)['method'] ?? null) !== 'CHEQUE_RECEIVED') {
@@ -245,18 +246,18 @@ final class Documents
             $this->journal($d, $party, $source['kind'] === 'CLIENT_PAYMENT' ? Exact::money($total) : '0.00', $source['kind'] === 'VENDOR_PAYMENT' ? Exact::money($total) : '0.00', 'Traceable payment reversal');
         } elseif ($p['kind'] === 'STOCK_CORRECTION') {
             $source = $this->db->one("SELECT * FROM v1_documents WHERE id=? AND status='POSTED'", [$p['correctsId'] ?? null]);
-            if (!$source || !in_array($source['kind'], ['STOCK_OPENING', 'PRODUCTION', 'STOCK_CORRECTION'], true) || $p['date'] < $source['date']) {
+            if (! $source || ! in_array($source['kind'], ['STOCK_OPENING', 'PRODUCTION', 'STOCK_CORRECTION'], true) || $p['date'] < $source['date']) {
                 throw new ApiError(400, 'ONLY_NONFINANCIAL_STOCK_CORRECTION_SUPPORTED');
             }
             $allowed = array_column($this->db->rows('SELECT item_id FROM v1_lines WHERE document_id=?', [$source['id']]), 'item_id');
             foreach ($p['lines'] as $line) {
-                if (!in_array($line['itemId'], $allowed, true)) {
+                if (! in_array($line['itemId'], $allowed, true)) {
                     throw new ApiError(400, 'CORRECTION_ITEM_MISMATCH');
                 }
             }
         } elseif ($p['kind'] === 'OPENING_CORRECTION') {
             $source = $this->db->one("SELECT * FROM v1_documents WHERE id=? AND party_id=? AND status='POSTED'", [$p['correctsId'] ?? null, $party['id']]);
-            if (!$source || !in_array($source['kind'], ['CLIENT_OPENING', 'VENDOR_OPENING', 'OPENING_CORRECTION'], true) || empty($p['direction']) || $p['date'] < $source['date']) {
+            if (! $source || ! in_array($source['kind'], ['CLIENT_OPENING', 'VENDOR_OPENING', 'OPENING_CORRECTION'], true) || empty($p['direction']) || $p['date'] < $source['date']) {
                 throw new ApiError(400, 'INVALID_OPENING_CORRECTION');
             }
             if ($this->db->one("SELECT id FROM v1_documents WHERE party_id=? AND status='POSTED' AND kind NOT IN ('CLIENT_OPENING','VENDOR_OPENING','OPENING_CORRECTION') LIMIT 1", [$party['id']])) {
@@ -281,8 +282,9 @@ final class Documents
             $this->records->update('v1_control', ['next_dc' => $control['next_dc'] + 1], ['id' => 1]);
         }
         $discountFields = $discount === null ? [] : ['sale_subtotal' => $discount['subtotal'], 'discount_mode' => $discount['mode'], 'discount_value' => $discount['value'], 'discount_amount' => $discount['amount']];
-        $this->records->update('v1_documents', ['status' => 'POSTED', 'total' => Exact::money($total), ...$discountFields, 'party_id' => $party['id'] ?? null, ...$numbering, 'corrects_id' => $p['correctsId'] ?? null], ['id' => $d['id'], 'version' => $d['version'], 'status' => 'DRAFT']);
+        $this->records->update('v1_documents', ['status' => 'POSTED', 'total' => Exact::money($total), ...($p['kind'] === 'PAYMENT_REVERSAL' ? ['payload' => BusinessCommand::json($p)] : []), ...$discountFields, 'party_id' => $party['id'] ?? null, ...$numbering, 'corrects_id' => $p['correctsId'] ?? null], ['id' => $d['id'], 'version' => $d['version'], 'status' => 'DRAFT']);
         $this->commands->audit($user, 'document.posted', $number ?? (string) $d['id'], $p['reason']);
+
         return ['id' => (string) $d['id'], 'status' => 'POSTED', 'official_number' => $number, 'total' => Exact::money($total)];
     }
 
@@ -295,12 +297,13 @@ final class Documents
     {
         $p = V1Input::cancellation($input);
         $d = $this->db->one('SELECT * FROM v1_documents WHERE id=?', [$id]);
-        if (!$d || $d['status'] !== 'DRAFT' || $d['version'] !== $p['version']) {
+        if (! $d || $d['status'] !== 'DRAFT' || $d['version'] !== $p['version']) {
             throw new ApiError(409, 'IMMUTABLE_OR_STALE_DOCUMENT');
         }
         self::supported($d['kind']);
         $this->records->update('v1_documents', ['status' => 'CANCELLED'], ['id' => $id, 'status' => 'DRAFT']);
         $this->commands->audit($user, 'draft.cancelled', $id, $p['reason']);
+
         return ['id' => $id, 'status' => 'CANCELLED'];
     }
 }
