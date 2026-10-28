@@ -9,9 +9,9 @@ final class V1Input
 {
     private const LABELS = ['description' => 'Item description', 'quality' => 'Quality', 'colour' => 'Colour', 'packing' => 'Packing', 'date' => 'Date', 'partyId' => 'Client or vendor', 'sellingPrice' => 'Selling price', 'reason' => 'Justification', 'code' => 'Item code', 'discountMode' => 'Discount mode', 'discountValue' => 'Discount value', 'quantity' => 'Quantity', 'rate' => 'Rate', 'itemId' => 'Bottle', 'amount' => 'Amount', 'time' => 'Time', 'name' => 'Name'];
 
-    public static function field(string $field, string $message, string $code = 'ENTRY_VALIDATION'): never
+    public static function field(string $field, string $message, string $code = 'ENTRY_VALIDATION', ?array $details = null): never
     {
-        throw new ApiError(400, $code, [$field => $message], $message);
+        throw new ApiError($code === 'INSUFFICIENT_STOCK' ? 409 : 400, $code, [$field => $message], $message, details: $details);
     }
 
     public static function trim(string $value): string
@@ -54,6 +54,11 @@ final class V1Input
     public static function posting(object $input): array
     {
         return self::parse($input, ['version' => ['version']]);
+    }
+
+    public static function cancellation(object $input): array
+    {
+        return self::parse($input, ['version' => ['integer'], 'reason' => ['text', 500, 3]]);
     }
 
     private static function issue(array &$errors, string $path): void
@@ -114,7 +119,8 @@ final class V1Input
                     $valid = is_string($v) && (bool) preg_match('/^[1-9][0-9]*$/D', $v);
                     break;
                 case 'version':
-                    $valid = (is_int($v) || is_float($v)) && $v >= 1 && $v <= 9007199254740991 && floor($v) === (float) $v;
+                case 'integer':
+                    $valid = (is_int($v) || is_float($v)) && ($rule[0] === 'integer' || $v >= 1) && $v <= 9007199254740991 && $v >= -9007199254740991 && floor($v) === (float) $v;
                     if ($valid) {
                         $v = (int) $v;
                     }
@@ -167,10 +173,15 @@ final class V1Input
 
     public static function price(string $value, string $field): string
     {
+        return Exact::money(self::cents($value, $field));
+    }
+
+    public static function cents(string $value, string $field, bool $zero = false): \Brick\Math\BigInteger
+    {
         try {
-            return Exact::money(Exact::cents($value));
+            return Exact::cents($value, zero: $zero);
         } catch (ApiError) {
-            self::field($field, 'Enter a price greater than zero with up to two decimal places.');
+            self::field($field, $zero ? 'Enter a valid amount with up to two decimal places.' : 'Enter a price greater than zero with up to two decimal places.');
         }
     }
 }

@@ -40,10 +40,18 @@ final class ErrorResponse
                 'IMMUTABLE_DOCUMENT' => 'This entry was already posted or cancelled. Refresh its status before continuing.',
                 'STALE_DOCUMENT' => 'This draft has changed. Refresh and review before finalizing.',
                 'STALE_RECORD' => 'This record changed. Reload before saving.',
+                'STOCK_OPENING_UNVERIFIED' => 'Confirm this bottle’s explicit opening stock before posting.',
+                'PARTY_OPENING_UNVERIFIED' => 'Verify this client or vendor’s opening balance before posting a payment.',
+                'DATE_PRECEDES_OPENING' => 'The payment date cannot be earlier than the verified opening balance.',
+                'TRANSACTION_REFERENCE_REQUIRED' => 'Enter the vendor invoice or reference before posting this purchase.',
+                'DUPLICATE_TRANSACTION_REFERENCE' => 'This external reference was already posted for the selected party. Review the existing payment before continuing.',
             ];
             $body['message'] = $error->publicMessage ?? $messages[$error->apiCode] ?? ($fields ? 'Please correct the highlighted fields.' : 'This entry cannot be saved. Review the values and try again.');
             if ($fields) {
                 $body['fieldErrors'] = $fields;
+            }
+            if ($error->details !== null) {
+                $body['details'] = $error->details;
             }
         }
         $body['reference'] = $reference;

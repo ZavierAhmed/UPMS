@@ -1,0 +1,34 @@
+PHP-3 changes against dd43e65bd8e34d8e6e67218b7534cc5bf64120ed
+Branch: feature/upms-php-3-stock-challans
+
+Status and repository-relative path:
+M	docs/php-migration/API-CONTRACT-INVENTORY.json
+M	docs/php-migration/API-PARITY-MATRIX.md
+M	docs/php-migration/BUSINESS-MIGRATION-PLAN.md
+A	docs/php-migration/PHP-3-DIFFERENTIAL-EVIDENCE.md
+A	docs/php-migration/PHP-3-EVIDENCE.json
+A	docs/php-migration/PHP-3-PUBLIC-ASSETS.json
+A	docs/php-migration/PHP-3-TEST-RESULTS.md
+M	scripts/php-2-differential.mjs
+M	scripts/php-2-runtime-grants.mjs
+A	scripts/php-3-browser-setup.mjs
+A	scripts/php-3-browser.mjs
+A	scripts/php-3-differential.mjs
+A	scripts/php-3-evidence.mjs
+A	scripts/php-3-pricing-fixtures.mjs
+A	scripts/php-3-public-assets.mjs
+M	scripts/php-api-inventory.mjs
+M	upms.php/README.md
+M	upms.php/app/Http/Controllers/SimpleV1WriteController.php
+M	upms.php/app/Upms/ApiError.php
+M	upms.php/app/Upms/BusinessRecords.php
+R051	upms.php/app/Upms/Openings.php	upms.php/app/Upms/Documents.php
+M	upms.php/app/Upms/ErrorResponse.php
+A	upms.php/app/Upms/Pricing.php
+A	upms.php/app/Upms/StockPosting.php
+M	upms.php/app/Upms/V1Input.php
+M	upms.php/routes/api.php
+M	upms.php/tests/Feature/SecurityTest.php
+A	upms.php/tests/Unit/TransactionMathTest.php
+A	upms.php/tests/php3-pricing-fixtures.json
+A	docs/php-migration/PHP-3-FILES-CHANGED.txt

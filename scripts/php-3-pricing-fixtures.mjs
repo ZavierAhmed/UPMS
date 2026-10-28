@@ -1,0 +1,5 @@
+import {writeFile} from 'node:fs/promises';
+import {discount} from '../server/src/simple-v1/entry.js';
+const cases=[['7007','NONE','0'],['7007','FIXED','0.01'],['7007','PERCENT','12.50'],['1','PERCENT','50'],['1','PERCENT','49.99'],['3','PERCENT','50'],['9999999999999999','PERCENT','0.01'],['9007199254740991','PERCENT','99.99'],['7007','PERCENT','100',true],['7007','FIXED','70.07',true],['7007','PERCENT','100'],['7007','FIXED','70.07'],['1','FIXED','0.02'],['1','PERCENT','100.01'],['1','NONE','1'],['1','INVALID','0'],['1','FIXED','-1'],['1','FIXED','1e2'],['1','FIXED','0.001'],['0','NONE','0',true]];
+const fixtures=cases.map(([subtotal,mode,value,allowZero=false])=>{const input={subtotal,mode,value,allowZero};try{return{...input,result:discount(BigInt(subtotal),mode,value,{allowZero})};}catch(e){return{...input,error:{status:e.status,code:e.code,message:e.publicMessage,fields:e.fieldErrors}};}});
+await writeFile('upms.php/tests/php3-pricing-fixtures.json',JSON.stringify(fixtures,null,2)+'\n');

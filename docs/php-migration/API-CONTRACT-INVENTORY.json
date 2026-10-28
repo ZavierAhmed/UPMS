@@ -584,12 +584,15 @@
         "req.body"
       ],
       "successStatus": 201,
-      "phpMilestone": "PHP-2",
-      "conversionScope": "opening-documents-only",
+      "phpMilestone": "PHP-3",
+      "conversionScope": "six-supported-document-kinds",
       "convertedKinds": [
         "STOCK_OPENING",
         "CLIENT_OPENING",
-        "VENDOR_OPENING"
+        "VENDOR_OPENING",
+        "PRODUCTION",
+        "PURCHASE",
+        "CHALLAN"
       ]
     },
     {
@@ -618,12 +621,15 @@
         "req.params.id"
       ],
       "successStatus": 200,
-      "phpMilestone": "PHP-2",
-      "conversionScope": "opening-documents-only",
+      "phpMilestone": "PHP-3",
+      "conversionScope": "six-supported-document-kinds",
       "convertedKinds": [
         "STOCK_OPENING",
         "CLIENT_OPENING",
-        "VENDOR_OPENING"
+        "VENDOR_OPENING",
+        "PRODUCTION",
+        "PURCHASE",
+        "CHALLAN"
       ]
     },
     {
@@ -657,12 +663,15 @@
         "req.body"
       ],
       "successStatus": 200,
-      "phpMilestone": "PHP-2",
-      "conversionScope": "opening-documents-only",
+      "phpMilestone": "PHP-3",
+      "conversionScope": "six-supported-document-kinds",
       "convertedKinds": [
         "STOCK_OPENING",
         "CLIENT_OPENING",
-        "VENDOR_OPENING"
+        "VENDOR_OPENING",
+        "PRODUCTION",
+        "PURCHASE",
+        "CHALLAN"
       ]
     },
     {
@@ -684,13 +693,23 @@
       ],
       "permissions": [],
       "enabledInSimpleV1": true,
-      "converted": false,
+      "converted": true,
       "idempotency": "UUID Idempotency-Key; actor and canonical operation/input SHA256; saved result replay or 409 IDEMPOTENCY_CONFLICT",
       "request": [
         "req.params.id",
         "req.body"
       ],
-      "successStatus": 200
+      "successStatus": 200,
+      "phpMilestone": "PHP-3",
+      "conversionScope": "six-supported-document-kinds",
+      "convertedKinds": [
+        "STOCK_OPENING",
+        "CLIENT_OPENING",
+        "VENDOR_OPENING",
+        "PRODUCTION",
+        "PURCHASE",
+        "CHALLAN"
+      ]
     },
     {
       "method": "GET",

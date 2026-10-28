@@ -28,10 +28,9 @@ Route::prefix('/api/v1/management')->middleware(UpmsBoundary::class)->group(func
     foreach (['state', 'items', 'parties', 'documents', 'documents/{id}', 'ledgers/{id}', 'overview', 'movements', 'register', 'reconciliation'] as $path) {
         Route::get('/simple-v1/'.$path, SimpleV1Controller::class);
     }
-    foreach (['items', 'parties', 'documents', 'documents/{id}/post'] as $path) {
+    foreach (['items', 'parties', 'documents', 'documents/{id}/post', 'documents/{id}/cancel'] as $path) {
         Route::post('/simple-v1/'.$path, SimpleV1WriteController::class);
     }
-    Route::post('/simple-v1/documents/{id}/cancel', fn () => throw new \App\Upms\ApiError(501, 'PHP_WRITE_MODULE_PENDING_REVIEW'));
     foreach (['items/{id}', 'parties/{id}', 'documents/{id}'] as $path) {
         Route::patch('/simple-v1/'.$path, SimpleV1WriteController::class);
     }

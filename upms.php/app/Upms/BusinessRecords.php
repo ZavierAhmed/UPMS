@@ -36,4 +36,22 @@ final class BusinessRecords
         $predicate = implode(' AND ', array_map(fn ($key) => '`'.$key.'`=?', array_keys($where)));
         $this->db->execute('UPDATE `'.$table.'` SET '.$assignments.' WHERE '.$predicate, [...array_values($record), ...array_values($where)]);
     }
+
+    public function insertMany(string $table, array $records): void
+    {
+        if (!$records) {
+            return;
+        }
+        $keys = array_keys($records[0]);
+        $columns = $this->columns($table, $keys);
+        $bindings = [];
+        foreach ($records as $record) {
+            if (array_keys($record) !== $keys) {
+                throw new \LogicException('Consistent insert mapping required');
+            }
+            array_push($bindings, ...array_values($record));
+        }
+        $group = '('.implode(',', array_fill(0, count($keys), '?')).')';
+        $this->db->execute('INSERT INTO `'.$table.'` ('.$columns.') VALUES '.implode(',', array_fill(0, count($records), $group)), $bindings);
+    }
 }

@@ -9,7 +9,7 @@ review before implementing the remaining write modules below.
 | --- | --- | --- |
 | PHP-1 (complete) | Guarded Laravel/PDO foundation, exact schema mapping, authentication, all ten Simple V1 read routes, API inventory and deployment design | Read/status/JSON types, existing Argon2id identities, CSRF/session expiry/rotation/revocation, no real DB writes, immutable business tables during reads. |
 | PHP-2 (complete; isolated acceptance) | Item masters, generated immutable ITM codes, saved selling prices, clients/vendors, explicit stock and party openings | Shared command protocol, exact versions, immutable codes/kinds, column-scoped grants, explicit opening verification, independent Express/PHP schema comparison, rollback/concurrency/lost-acknowledgement tests. See PHP-2 results and differential evidence. |
-| PHP-3 | Production/purchase stock-in, drafts/cancellation, delivery challans, fixed/percentage discounts, numbering | Exact cents/whole-bottle limits, saved pricingVersion and party/item snapshots, stale draft rejection, deterministic stock locks, no negative stock, transactional journal/projection/number/audit/command writes. Preserve DC rollover block and current Pakistan business date. |
+| PHP-3 (complete; isolated acceptance) | Production/purchase stock-in, drafts/cancellation, delivery challans, fixed/percentage discounts, numbering | Exact cents/whole-bottle limits, saved pricingVersion and party/item snapshots, stale draft rejection, numeric stock locks, transactional journal/projection/number/audit/command writes. Verified DC rollover block, rollback, lost acknowledgement and concurrency against Express on both PHP versions. See PHP-3 results and differential evidence. |
 | PHP-4 | Challan returns | Original posted challan/client/line identities, remaining units across partial returns, ordered proportional net-credit allocation with telescoping floors, immutable snapshots, append-only stock/party journals and DCR identities. Test every partial-return partition against Node. |
 | PHP-5 | Client/vendor payments, receipts, cheque dishonour/reversals, opening/stock corrections | CR/VP shared-ID numbering, reference normalization/duplicate detection, party opening/date rules, balances including advances, traceable compensations, no journal rewrite and no cash/bank balance invented for Simple V1. |
 | PHP-6 | Expenses, Company Transactions register and reconciliation hardening | Paid-only expense evidence, account-level payment semantics, date/range/reference-filter totals, running balances independent of reference visibility, client/vendor advance exclusions, audit and no repair side effects. Read implementations exist; write parity remains pending. |
@@ -34,17 +34,20 @@ review before implementing the remaining write modules below.
 
 ## Explicitly unfinished modules
 
-Item/party creation and editing plus STOCK_OPENING, CLIENT_OPENING and VENDOR_OPENING
-draft creation/editing/posting are implemented. All non-opening document writes and
-draft cancellation remain pending. Public inquiry delivery,
+Item/party creation and editing plus STOCK_OPENING, CLIENT_OPENING, VENDOR_OPENING,
+PRODUCTION, PURCHASE and CHALLAN draft creation/editing/posting are implemented.
+Draft cancellation supports these six kinds. Returns, standalone payments, expenses
+and compensating corrections remain pending, including stored drafts and saved receipts.
+Public inquiry delivery,
 production database configuration, cPanel Apache verification, hosted load/resource
-checks, browser-based PHP integration and export acceptance remain pending. Legacy
+checks and broader report/export acceptance remain pending. Local Apache HTTPS/FastCGI
+browser transaction and delivery-note print acceptance is covered by PHP-3. Legacy
 business/inventory/purchase/sales/receipt/cheque/return/credit/expense routes are
 inventoried but remain profile-disabled; do not silently enable them during migration.
 
-PHP-2 is not hosting or production approval. The loopback/test-schema database gate
-is unchanged. Review [PHP-2-TEST-RESULTS.md](PHP-2-TEST-RESULTS.md) and
-[PHP-2-DIFFERENTIAL-EVIDENCE.md](PHP-2-DIFFERENTIAL-EVIDENCE.md) before PHP-3.
+PHP-3 is not hosting or production approval. The loopback/test-schema database gate
+is unchanged. Review [PHP-3-TEST-RESULTS.md](PHP-3-TEST-RESULTS.md) and
+[PHP-3-DIFFERENTIAL-EVIDENCE.md](PHP-3-DIFFERENTIAL-EVIDENCE.md) before PHP-4.
 
 The separate PHP session cookie requires signing in again when switching backends;
 it does not require a password reset. Existing Node sessions/hashes remain preserved.

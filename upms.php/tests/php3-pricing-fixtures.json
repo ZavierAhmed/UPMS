@@ -1,0 +1,272 @@
+[
+  {
+    "subtotal": "7007",
+    "mode": "NONE",
+    "value": "0",
+    "allowZero": false,
+    "result": {
+      "mode": "NONE",
+      "value": "0.00",
+      "subtotal": "70.07",
+      "amount": "0.00",
+      "total": "70.07"
+    }
+  },
+  {
+    "subtotal": "7007",
+    "mode": "FIXED",
+    "value": "0.01",
+    "allowZero": false,
+    "result": {
+      "mode": "FIXED",
+      "value": "0.01",
+      "subtotal": "70.07",
+      "amount": "0.01",
+      "total": "70.06"
+    }
+  },
+  {
+    "subtotal": "7007",
+    "mode": "PERCENT",
+    "value": "12.50",
+    "allowZero": false,
+    "result": {
+      "mode": "PERCENT",
+      "value": "12.50",
+      "subtotal": "70.07",
+      "amount": "8.76",
+      "total": "61.31"
+    }
+  },
+  {
+    "subtotal": "1",
+    "mode": "PERCENT",
+    "value": "50",
+    "allowZero": false,
+    "error": {
+      "status": 400,
+      "code": "ZERO_TOTAL_BLOCKED",
+      "message": "A zero-total challan cannot be posted. Owner approval is required.",
+      "fields": {
+        "discountValue": "A zero-total challan cannot be posted. Owner approval is required."
+      }
+    }
+  },
+  {
+    "subtotal": "1",
+    "mode": "PERCENT",
+    "value": "49.99",
+    "allowZero": false,
+    "result": {
+      "mode": "PERCENT",
+      "value": "49.99",
+      "subtotal": "0.01",
+      "amount": "0.00",
+      "total": "0.01"
+    }
+  },
+  {
+    "subtotal": "3",
+    "mode": "PERCENT",
+    "value": "50",
+    "allowZero": false,
+    "result": {
+      "mode": "PERCENT",
+      "value": "50.00",
+      "subtotal": "0.03",
+      "amount": "0.02",
+      "total": "0.01"
+    }
+  },
+  {
+    "subtotal": "9999999999999999",
+    "mode": "PERCENT",
+    "value": "0.01",
+    "allowZero": false,
+    "result": {
+      "mode": "PERCENT",
+      "value": "0.01",
+      "subtotal": "99999999999999.99",
+      "amount": "10000000000.00",
+      "total": "99989999999999.99"
+    }
+  },
+  {
+    "subtotal": "9007199254740991",
+    "mode": "PERCENT",
+    "value": "99.99",
+    "allowZero": false,
+    "result": {
+      "mode": "PERCENT",
+      "value": "99.99",
+      "subtotal": "90071992547409.91",
+      "amount": "90062985348155.17",
+      "total": "9007199254.74"
+    }
+  },
+  {
+    "subtotal": "7007",
+    "mode": "PERCENT",
+    "value": "100",
+    "allowZero": true,
+    "result": {
+      "mode": "PERCENT",
+      "value": "100.00",
+      "subtotal": "70.07",
+      "amount": "70.07",
+      "total": "0.00"
+    }
+  },
+  {
+    "subtotal": "7007",
+    "mode": "FIXED",
+    "value": "70.07",
+    "allowZero": true,
+    "result": {
+      "mode": "FIXED",
+      "value": "70.07",
+      "subtotal": "70.07",
+      "amount": "70.07",
+      "total": "0.00"
+    }
+  },
+  {
+    "subtotal": "7007",
+    "mode": "PERCENT",
+    "value": "100",
+    "allowZero": false,
+    "error": {
+      "status": 400,
+      "code": "ZERO_TOTAL_BLOCKED",
+      "message": "A zero-total challan cannot be posted. Owner approval is required.",
+      "fields": {
+        "discountValue": "A zero-total challan cannot be posted. Owner approval is required."
+      }
+    }
+  },
+  {
+    "subtotal": "7007",
+    "mode": "FIXED",
+    "value": "70.07",
+    "allowZero": false,
+    "error": {
+      "status": 400,
+      "code": "ZERO_TOTAL_BLOCKED",
+      "message": "A zero-total challan cannot be posted. Owner approval is required.",
+      "fields": {
+        "discountValue": "A zero-total challan cannot be posted. Owner approval is required."
+      }
+    }
+  },
+  {
+    "subtotal": "1",
+    "mode": "FIXED",
+    "value": "0.02",
+    "allowZero": false,
+    "error": {
+      "status": 400,
+      "code": "ENTRY_VALIDATION",
+      "message": "Discount cannot exceed the subtotal.",
+      "fields": {
+        "discountValue": "Discount cannot exceed the subtotal."
+      }
+    }
+  },
+  {
+    "subtotal": "1",
+    "mode": "PERCENT",
+    "value": "100.01",
+    "allowZero": false,
+    "error": {
+      "status": 400,
+      "code": "ENTRY_VALIDATION",
+      "message": "Percentage discount cannot exceed100%.",
+      "fields": {
+        "discountValue": "Percentage discount cannot exceed100%."
+      }
+    }
+  },
+  {
+    "subtotal": "1",
+    "mode": "NONE",
+    "value": "1",
+    "allowZero": false,
+    "error": {
+      "status": 400,
+      "code": "ENTRY_VALIDATION",
+      "message": "Choose a discount mode before entering a discount.",
+      "fields": {
+        "discountValue": "Choose a discount mode before entering a discount."
+      }
+    }
+  },
+  {
+    "subtotal": "1",
+    "mode": "INVALID",
+    "value": "0",
+    "allowZero": false,
+    "error": {
+      "status": 400,
+      "code": "ENTRY_VALIDATION",
+      "message": "Choose no discount, fixed PKR or percentage.",
+      "fields": {
+        "discountMode": "Choose no discount, fixed PKR or percentage."
+      }
+    }
+  },
+  {
+    "subtotal": "1",
+    "mode": "FIXED",
+    "value": "-1",
+    "allowZero": false,
+    "error": {
+      "status": 400,
+      "code": "ENTRY_VALIDATION",
+      "message": "Enter a valid amount with up to two decimal places.",
+      "fields": {
+        "discountValue": "Enter a valid amount with up to two decimal places."
+      }
+    }
+  },
+  {
+    "subtotal": "1",
+    "mode": "FIXED",
+    "value": "1e2",
+    "allowZero": false,
+    "error": {
+      "status": 400,
+      "code": "ENTRY_VALIDATION",
+      "message": "Enter a valid amount with up to two decimal places.",
+      "fields": {
+        "discountValue": "Enter a valid amount with up to two decimal places."
+      }
+    }
+  },
+  {
+    "subtotal": "1",
+    "mode": "FIXED",
+    "value": "0.001",
+    "allowZero": false,
+    "error": {
+      "status": 400,
+      "code": "ENTRY_VALIDATION",
+      "message": "Enter a valid amount with up to two decimal places.",
+      "fields": {
+        "discountValue": "Enter a valid amount with up to two decimal places."
+      }
+    }
+  },
+  {
+    "subtotal": "0",
+    "mode": "NONE",
+    "value": "0",
+    "allowZero": true,
+    "result": {
+      "mode": "NONE",
+      "value": "0.00",
+      "subtotal": "0.00",
+      "amount": "0.00",
+      "total": "0.00"
+    }
+  }
+]
