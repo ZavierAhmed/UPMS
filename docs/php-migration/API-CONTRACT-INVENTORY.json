@@ -386,12 +386,14 @@
       ],
       "permissions": [],
       "enabledInSimpleV1": true,
-      "converted": false,
+      "converted": true,
       "idempotency": "UUID Idempotency-Key; actor and canonical operation/input SHA256; saved result replay or 409 IDEMPOTENCY_CONFLICT",
       "request": [
         "req.body"
       ],
-      "successStatus": 201
+      "successStatus": 201,
+      "phpMilestone": "PHP-2",
+      "conversionScope": "master-data"
     },
     {
       "method": "PATCH",
@@ -412,13 +414,15 @@
       ],
       "permissions": [],
       "enabledInSimpleV1": true,
-      "converted": false,
+      "converted": true,
       "idempotency": "UUID Idempotency-Key; actor and canonical operation/input SHA256; saved result replay or 409 IDEMPOTENCY_CONFLICT",
       "request": [
         "req.body",
         "req.params.id"
       ],
-      "successStatus": 200
+      "successStatus": 200,
+      "phpMilestone": "PHP-2",
+      "conversionScope": "master-data"
     },
     {
       "method": "GET",
@@ -465,12 +469,14 @@
       ],
       "permissions": [],
       "enabledInSimpleV1": true,
-      "converted": false,
+      "converted": true,
       "idempotency": "UUID Idempotency-Key; actor and canonical operation/input SHA256; saved result replay or 409 IDEMPOTENCY_CONFLICT",
       "request": [
         "req.body"
       ],
-      "successStatus": 201
+      "successStatus": 201,
+      "phpMilestone": "PHP-2",
+      "conversionScope": "master-data"
     },
     {
       "method": "PATCH",
@@ -491,13 +497,15 @@
       ],
       "permissions": [],
       "enabledInSimpleV1": true,
-      "converted": false,
+      "converted": true,
       "idempotency": "UUID Idempotency-Key; actor and canonical operation/input SHA256; saved result replay or 409 IDEMPOTENCY_CONFLICT",
       "request": [
         "req.body",
         "req.params.id"
       ],
-      "successStatus": 200
+      "successStatus": 200,
+      "phpMilestone": "PHP-2",
+      "conversionScope": "master-data"
     },
     {
       "method": "GET",
@@ -570,12 +578,19 @@
       ],
       "permissions": [],
       "enabledInSimpleV1": true,
-      "converted": false,
+      "converted": true,
       "idempotency": "UUID Idempotency-Key; actor and canonical operation/input SHA256; saved result replay or 409 IDEMPOTENCY_CONFLICT",
       "request": [
         "req.body"
       ],
-      "successStatus": 201
+      "successStatus": 201,
+      "phpMilestone": "PHP-2",
+      "conversionScope": "opening-documents-only",
+      "convertedKinds": [
+        "STOCK_OPENING",
+        "CLIENT_OPENING",
+        "VENDOR_OPENING"
+      ]
     },
     {
       "method": "PATCH",
@@ -596,13 +611,20 @@
       ],
       "permissions": [],
       "enabledInSimpleV1": true,
-      "converted": false,
+      "converted": true,
       "idempotency": "UUID Idempotency-Key; actor and canonical operation/input SHA256; saved result replay or 409 IDEMPOTENCY_CONFLICT",
       "request": [
         "req.body",
         "req.params.id"
       ],
-      "successStatus": 200
+      "successStatus": 200,
+      "phpMilestone": "PHP-2",
+      "conversionScope": "opening-documents-only",
+      "convertedKinds": [
+        "STOCK_OPENING",
+        "CLIENT_OPENING",
+        "VENDOR_OPENING"
+      ]
     },
     {
       "method": "POST",
@@ -628,13 +650,20 @@
       ],
       "permissions": [],
       "enabledInSimpleV1": true,
-      "converted": false,
+      "converted": true,
       "idempotency": "UUID Idempotency-Key; actor and canonical operation/input SHA256; saved result replay or 409 IDEMPOTENCY_CONFLICT",
       "request": [
         "req.params.id",
         "req.body"
       ],
-      "successStatus": 200
+      "successStatus": 200,
+      "phpMilestone": "PHP-2",
+      "conversionScope": "opening-documents-only",
+      "convertedKinds": [
+        "STOCK_OPENING",
+        "CLIENT_OPENING",
+        "VENDOR_OPENING"
+      ]
     },
     {
       "method": "POST",

@@ -1,0 +1,48 @@
+[
+  {
+    "name": "nested order",
+    "raw": "{\"operation\":\"item.save:undefined\",\"input\":{\"z\":[],\"a\":{\"z\":1,\"a\":\"0\"},\"b\":{}}}",
+    "canonical": "{\"input\":{\"a\":{\"a\":\"0\",\"z\":1},\"b\":{},\"z\":[]},\"operation\":\"item.save:undefined\"}",
+    "fingerprint": "adb2a9f1d1a65e4dd2a1f7199d8cc809fa910cd074ce69dc6408fb6c70dece0e"
+  },
+  {
+    "name": "Unicode keys",
+    "raw": "{\"operation\":\"item.save:undefined\",\"input\":{\"🔒\":\"quote\\\" and slash/\",\"�\":\"line separator\",\"name\":\"پاکستان\"}}",
+    "canonical": "{\"input\":{\"name\":\"پاکستان\",\"🔒\":\"quote\\\" and slash/\",\"�\":\"line separator\"},\"operation\":\"item.save:undefined\"}",
+    "fingerprint": "1d54c052fee9cb41bd2360705becd71581818a451333033b108930626f6b4b59"
+  },
+  {
+    "name": "safe metadata",
+    "raw": "{\"operation\":\"item.save:undefined\",\"input\":{\"version\":9007199254740991,\"negative\":-9007199254740991,\"amount\":\"9999999999999.99\",\"id\":\"18446744073709551615\"}}",
+    "canonical": "{\"input\":{\"amount\":\"9999999999999.99\",\"id\":\"18446744073709551615\",\"negative\":-9007199254740991,\"version\":9007199254740991},\"operation\":\"item.save:undefined\"}",
+    "fingerprint": "4d4b4078439771955a30448f72fcfa6e53acee26927783683eca8ee8e8b540af"
+  },
+  {
+    "name": "booleans and null",
+    "raw": "{\"operation\":\"item.save:undefined\",\"input\":{\"active\":false,\"partyId\":null,\"lines\":[{\"quantity\":\"0000\",\"itemId\":\"1\",\"rate\":\"0\"}]}}",
+    "canonical": "{\"input\":{\"active\":false,\"lines\":[{\"itemId\":\"1\",\"quantity\":\"0000\",\"rate\":\"0\"}],\"partyId\":null},\"operation\":\"item.save:undefined\"}",
+    "fingerprint": "412187b6ffcec33c8cbf8741ae905ed5950781f0bd68db84e87f9796cf07d769"
+  },
+  {
+    "name": "zero metadata",
+    "raw": "{\"operation\":\"item.save:undefined\",\"input\":{\"version\":0,\"code\":\"0\"}}",
+    "canonical": "{\"input\":{\"code\":\"0\",\"version\":0},\"operation\":\"item.save:undefined\"}",
+    "fingerprint": "050b48a1dc262ba370aa5c56873b13e15113ed2309c15dd06ec873fd858c2761"
+  },
+  {
+    "name": "empty arrays differ from objects",
+    "raw": "{\"operation\":\"item.save:undefined\",\"input\":{\"object\":{},\"array\":[]}}",
+    "canonical": "{\"input\":{\"array\":[],\"object\":{}},\"operation\":\"item.save:undefined\"}",
+    "fingerprint": "08067a6e71a1f0a010861018ca39fb11d390dbd68e2f25c9a317d0bd3c98f5af"
+  },
+  {
+    "name": "fraction forbidden",
+    "raw": "{\"operation\":\"item.save:undefined\",\"input\":{\"amount\":0.01}}",
+    "error": "INVALID_EXACT_VALUE"
+  },
+  {
+    "name": "unsafe integer forbidden",
+    "raw": "{\"operation\":\"item.save:undefined\",\"input\":{\"version\":9007199254740992}}",
+    "error": "INVALID_EXACT_VALUE"
+  }
+]

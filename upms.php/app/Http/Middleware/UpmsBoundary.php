@@ -38,11 +38,11 @@ final class UpmsBoundary
             if ($unsafe) {
                 try {
                     $input = json_decode($request->getContent(), false, 512, JSON_THROW_ON_ERROR);
-                    if (!is_object($input)) {
+                    if (!is_object($input) && !(is_array($input) && $request->is('api/v1/management/simple-v1/*'))) {
                         throw new \JsonException();
                     }
                 } catch (\JsonException) {
-                    throw new ApiError(400, 'INVALID_INPUT');
+                    throw new ApiError(400, 'INVALID_INPUT', entry: false);
                 }
             }
             $db = app(Database::class);

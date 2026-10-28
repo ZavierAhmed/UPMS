@@ -1,8 +1,9 @@
 # Unique Plastic Industry PHP API
 
 Laravel **13.39.0**, PHP **8.3+**, MariaDB **10.11**, native PDO prepared statements.
-This first migration milestone is for isolated testing and review. It cannot connect
-to the owner schema. No hosting release or financial-write cutover is authorized here.
+PHP-1/PHP-2 are for isolated testing and review. The backend cannot connect to the
+owner schema. PHP-2 enables item/party writes and explicit opening drafts/posting only.
+No hosting release or other financial-write cutover is authorized here.
 
 Install the exact dependency tree with `composer install --no-interaction`. The lockfile
 is committed. There are no npm scripts, Node server, default Laravel migrations,
@@ -37,8 +38,29 @@ Tokens are random and stored only as SHA256 digests. CSRF tokens are protected w
 Laravel application key in session JSON. Keep APP_KEY private and stable.
 
 The public inquiry endpoint is inventoried but not converted. The React website and
-dashboard remain unchanged. Simple V1 financial/master-data write routes return an
+dashboard remain unchanged. Non-opening financial writes and cancellation return an
 explicit pending-review error. See [the migration reports](../docs/php-migration/).
+
+## PHP-2 differential acceptance
+
+Use a separate local MariaDB 10.11.19 test instance on port **3330**, with a new data
+directory. Set `PHP_TEST_ADMIN_USER`, `PHP_TEST_ADMIN_PASSWORD` and `PHP2_BINARY` for
+that isolated instance/runtime. Optional `PHP2_ARGS` is a JSON array of CLI flags
+(for example `["-d","extension=sodium"]`). From the repository root run
+`node scripts/php-2-differential.mjs`. Every run creates two new synthetic schemas,
+uses the original migrations unchanged, grants a narrowly scoped PHP runtime account,
+and executes equivalent Express/Laravel HTTP operations. It never reads owner env files.
+
+The CLI-only `tests/Support/http-bridge.php` executes the actual Laravel HTTP kernel;
+it is not a public route or deployment entry point. Fresh PHP processes exercise
+restart/replay behavior and concurrency. Fault-injection triggers exist only in the
+synthetic schemas and are not application migrations or production requirements.
+
+Browser acceptance uses `scripts/php-2-browser-setup.mjs` to create another fresh schema
+and private test config. Start PHP FastCGI on loopback 9084 with its generated env path
+in `UPMS_PHP2_ENV`, and a separate Apache TLS listener on loopback 9444 using that test
+config and an ephemeral localhost certificate. Then run `node scripts/php-2-browser.mjs`.
+No installed Apache/PHP settings, certificates or live website files need changing.
 
 ## Deployment review
 

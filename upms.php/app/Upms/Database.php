@@ -41,7 +41,7 @@ final class Database
     public function rows(string $sql, array $bindings = []): array
     {
         $q = $this->pdo()->prepare($sql);
-        $q->execute($bindings);
+        $q->execute(array_map(fn ($v) => is_bool($v) ? (int) $v : $v, $bindings));
         $rows = $q->fetchAll(PDO::FETCH_ASSOC);
         // mysql2's bigNumberStrings=true contract: BIGINT identifiers are strings,
         // while INTEGER versions/flags remain numbers and DECIMAL stays a string.
@@ -67,7 +67,7 @@ final class Database
     public function execute(string $sql, array $bindings = []): void
     {
         $q = $this->pdo()->prepare($sql);
-        $q->execute($bindings);
+        $q->execute(array_map(fn ($v) => is_bool($v) ? (int) $v : $v, $bindings));
     }
 
     public function transaction(callable $action): mixed

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\SimpleV1Controller;
+use App\Http\Controllers\SimpleV1WriteController;
 use App\Http\Middleware\UpmsBoundary;
 use App\Upms\Database;
 use App\Upms\Schema;
@@ -27,11 +28,12 @@ Route::prefix('/api/v1/management')->middleware(UpmsBoundary::class)->group(func
     foreach (['state', 'items', 'parties', 'documents', 'documents/{id}', 'ledgers/{id}', 'overview', 'movements', 'register', 'reconciliation'] as $path) {
         Route::get('/simple-v1/'.$path, SimpleV1Controller::class);
     }
-    foreach (['items', 'parties', 'documents', 'documents/{id}/post', 'documents/{id}/cancel'] as $path) {
-        Route::post('/simple-v1/'.$path, fn () => throw new \App\Upms\ApiError(501, 'PHP_WRITE_MODULE_PENDING_REVIEW'));
+    foreach (['items', 'parties', 'documents', 'documents/{id}/post'] as $path) {
+        Route::post('/simple-v1/'.$path, SimpleV1WriteController::class);
     }
+    Route::post('/simple-v1/documents/{id}/cancel', fn () => throw new \App\Upms\ApiError(501, 'PHP_WRITE_MODULE_PENDING_REVIEW'));
     foreach (['items/{id}', 'parties/{id}', 'documents/{id}'] as $path) {
-        Route::patch('/simple-v1/'.$path, fn () => throw new \App\Upms\ApiError(501, 'PHP_WRITE_MODULE_PENDING_REVIEW'));
+        Route::patch('/simple-v1/'.$path, SimpleV1WriteController::class);
     }
     Route::any('/simple-v1/{path?}', fn () => throw new \App\Upms\ApiError(404, 'NOT_FOUND'))->where('path', '.*');
     Route::any('/{path?}', fn () => throw new \App\Upms\ApiError(403, 'LEGACY_DISABLED_IN_V1'))->where('path', '.*');

@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "php": "8.4.27 FastCGI",
+  "transport": "Local Apache HTTPS; unchanged compiled React management",
+  "database": "upms_test_php_2_browser_1793149706321",
+  "checks": 21,
+  "evidence": [
+    "HTTPS sign-in and existing dashboard",
+    "Native required-field validation prevents empty save",
+    "Laravel fieldErrors render in unchanged React form",
+    "Item creation and automatic unverified zero stock",
+    "Item editing preserves generated identity",
+    "Stock opening draft has no stock effect",
+    "Opening posting verifies stock and appends evidence",
+    "Client creation with posted nonzero opening",
+    "Client editing preserves verified opening and journal",
+    "Client ledger navigation",
+    "Vendor creation with posted zero opening",
+    "Vendor editing preserves verified opening and journal",
+    "Vendor ledger navigation",
+    "Deep-link navigation /management/items",
+    "Deep-link navigation /management/clients",
+    "Deep-link navigation /management/vendors",
+    "Deep-link navigation /management/reports",
+    "Deep-link navigation /management/company-transactions",
+    "Deep-link navigation /management/settings",
+    "Browser-triggered read-only reconciliation",
+    "Secure logout returns to sign-in"
+  ],
+  "apiRequests": 224,
+  "javascriptErrors": 0,
+  "ownerDatabaseContacted": false
+}

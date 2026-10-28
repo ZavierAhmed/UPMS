@@ -1,0 +1,2243 @@
+{
+  "baseline": "b992770d3a127b966580201b8ff6c4225ad6405d",
+  "reports": [
+    {
+      "php": "8.3.36",
+      "engine": "10.11.19-MariaDB",
+      "schemas": [
+        "upms_test_php_2_ref_1793150015337",
+        "upms_test_php_2_app_1793150015337"
+      ],
+      "httpComparisons": 135,
+      "snapshotComparisons": 13,
+      "checks": [
+        {
+          "name": "item writes and validation",
+          "tables": 10,
+          "sha256": "0428a076849b5b8020c4d4714c5553ac1cb973fd5d307cffd038c9a1b7caf15e"
+        },
+        {
+          "name": "party writes and validation",
+          "tables": 10,
+          "sha256": "e7701fb697e89b2e4e4e08ca91c0a20876b54336fae237134d0367a4f85f32db"
+        },
+        {
+          "name": "stock openings and immutable evidence",
+          "tables": 10,
+          "sha256": "930e693080341764088fb73a8bf852f89b002d7ed046cdce88ba9434a08fcb84"
+        },
+        {
+          "name": "party openings and read contracts",
+          "tables": 10,
+          "sha256": "c3aef47f39b5e47cf98e85e846a1f5b363b566f7d16768a0b39d419262e6f812"
+        },
+        {
+          "name": "authorization and command replay",
+          "tables": 10,
+          "sha256": "c3aef47f39b5e47cf98e85e846a1f5b363b566f7d16768a0b39d419262e6f812"
+        },
+        {
+          "name": "concurrent identical submission",
+          "responses": 2,
+          "committedCommands": 1
+        },
+        {
+          "name": "concurrent same-key atomicity",
+          "tables": 10,
+          "sha256": "45650d989c16d8f4814f11b984d77c2ca596da06b5cd18d0e55b37ce320ec940"
+        },
+        {
+          "name": "concurrent optimistic-version race",
+          "perSide": {
+            "successes": 1,
+            "staleConflicts": 1
+          },
+          "winnerKeys": [
+            "7e66d805-ee4a-447f-bfaa-081244de42ea",
+            "92ed82d2-c035-456e-be9a-da93248ff0fe"
+          ]
+        },
+        {
+          "name": "concurrent stale-version atomicity",
+          "tables": 10,
+          "sha256": "209dfa18bc9ad71a5281338c7986af6e728d0ade4738983e5ab5dfac02161a0a"
+        },
+        {
+          "name": "rollback after audit before receipt",
+          "tables": 10,
+          "sha256": "209dfa18bc9ad71a5281338c7986af6e728d0ade4738983e5ab5dfac02161a0a"
+        },
+        {
+          "name": "lost acknowledgement recovery",
+          "tables": 10,
+          "sha256": "68f283353f7962ab8469bf04ed0c909a00988f64bba4c14b49df7fd89cb7c29f"
+        },
+        {
+          "name": "STOCK_OPENING journal and verification rollback",
+          "tables": 10,
+          "sha256": "038af935d6694106eba8de6c86dbbc30ad1d0ce23be2d9754756e67df78518c0"
+        },
+        {
+          "name": "CLIENT_OPENING journal and verification rollback",
+          "tables": 10,
+          "sha256": "63b0b7055b14fe85b59683fce9082ee6a2fb5b3bba068943e012352485391bed"
+        },
+        {
+          "name": "server-killed transaction rollback",
+          "tables": 10,
+          "sha256": "88004956054d3774bb7ad08d67db515534cd9d6947b0b0d5b389c8ddcd791be9"
+        },
+        {
+          "name": "server-side interrupted transactions",
+          "connectionsKilled": 2,
+          "atomicRollback": true
+        },
+        {
+          "name": "narrow runtime privilege denials",
+          "denied": 16
+        },
+        {
+          "name": "unsupported stored draft and receipt replay blocked",
+          "attempts": 3
+        },
+        {
+          "name": "final business state",
+          "tables": 10,
+          "sha256": "05feb5476335b6ec5c73f916c3ad918aed354277f4f883de75c9f585db78be55"
+        }
+      ],
+      "evidence": [
+        {
+          "name": "create item",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 201,
+          "key": "18f60279-b35a-4a6e-b3bb-5b08e14052ce"
+        },
+        {
+          "name": "replay reordered request",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 201,
+          "key": "18f60279-b35a-4a6e-b3bb-5b08e14052ce"
+        },
+        {
+          "name": "different input conflicts",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 409,
+          "error": "IDEMPOTENCY_CONFLICT",
+          "key": "18f60279-b35a-4a6e-b3bb-5b08e14052ce"
+        },
+        {
+          "name": "missing fields",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "286fd63f-6b02-4d0e-abb9-0998852f4af2"
+        },
+        {
+          "name": "invalid types",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "36b81bd5-1d98-4157-96f2-6b514b61c7ae"
+        },
+        {
+          "name": "unknown field",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "b770c329-6837-408b-8506-021f2002e5c2"
+        },
+        {
+          "name": "zero selling price",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "ENTRY_VALIDATION",
+          "key": "a835e6b4-bb05-4609-9d8a-5276cd71438a"
+        },
+        {
+          "name": "negative selling price",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "ENTRY_VALIDATION",
+          "key": "863a904c-378d-493a-bf29-794984809f7c"
+        },
+        {
+          "name": "overprecision price",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "ENTRY_VALIDATION",
+          "key": "573ca0b5-f3f5-4466-9020-f889c67ac039"
+        },
+        {
+          "name": "scientific price",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "ENTRY_VALIDATION",
+          "key": "968d30e9-5a8f-41fa-94f8-cff76de30242"
+        },
+        {
+          "name": "manual item code",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "ITEM_CODE_READ_ONLY",
+          "key": "a91b3fc6-fe5b-47f1-b6d0-61ecc4cf5fd9"
+        },
+        {
+          "name": "invalid code",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "164657b0-c9fa-4102-8461-dd1855f29023"
+        },
+        {
+          "name": "invalid version",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "111004bb-89ec-49ad-b402-0f4ab52ee4fa"
+        },
+        {
+          "name": "noninteger numeric JSON",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "INVALID_EXACT_VALUE",
+          "key": "721d3936-1dbb-4ff2-823e-5e80102b718e"
+        },
+        {
+          "name": "unsafe exact value",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "INVALID_EXACT_VALUE",
+          "key": "b1234c62-b20d-4e64-950e-73d36c7cd230"
+        },
+        {
+          "name": "Unicode length",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 201,
+          "key": "d4428301-ef71-4931-a35e-9e1e378d0f8f"
+        },
+        {
+          "name": "invalid UUID bad",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "IDEMPOTENCY_KEY_REQUIRED",
+          "key": "bad"
+        },
+        {
+          "name": "invalid UUID 12345678-1234-0234-8234-123456789abc",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "IDEMPOTENCY_KEY_REQUIRED",
+          "key": "12345678-1234-0234-8234-123456789abc"
+        },
+        {
+          "name": "invalid UUID FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "IDEMPOTENCY_KEY_REQUIRED",
+          "key": "FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF"
+        },
+        {
+          "name": "missing UUID",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "IDEMPOTENCY_KEY_REQUIRED",
+          "key": null
+        },
+        {
+          "name": "array input validation",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "33101767-2f31-43e6-8df7-ac688e97fa65"
+        },
+        {
+          "name": "array invalid key precedence",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "IDEMPOTENCY_KEY_REQUIRED",
+          "key": "bad"
+        },
+        {
+          "name": "invalid JSON transport error",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "16a3165e-7800-436e-9e7b-21d5d7160316"
+        },
+        {
+          "name": "nil UUID",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 201,
+          "key": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "name": "max UUID",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 201,
+          "key": "ffffffff-ffff-ffff-ffff-ffffffffffff"
+        },
+        {
+          "name": "inactive item update",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/items/1",
+          "status": 200,
+          "key": "2c5a7535-e104-4953-9c27-5cbbcb357ab9"
+        },
+        {
+          "name": "stale item update",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/items/1",
+          "status": 409,
+          "error": "STALE_RECORD",
+          "key": "eafd6058-b2e9-4526-8e2c-03ad4cfc51ae"
+        },
+        {
+          "name": "immutable item code",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/items/1",
+          "status": 400,
+          "error": "ITEM_CODE_IMMUTABLE",
+          "key": "05467183-985a-481a-9fb0-439aa5433bba"
+        },
+        {
+          "name": "immutable code same value",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/items/1",
+          "status": 200,
+          "key": "98a70107-ebda-4b63-9445-cf3281b22c27"
+        },
+        {
+          "name": "invalid route ID",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/items/0",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "8b035ad4-c793-45ce-96ad-b5f01447b7ff"
+        },
+        {
+          "name": "missing item",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/items/99999",
+          "status": 409,
+          "error": "STALE_RECORD",
+          "key": "aee1ce40-f658-42ac-9dfb-9ce19c6db7cc"
+        },
+        {
+          "name": "create client",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/parties",
+          "status": 201,
+          "key": "a8e50eb5-53fc-4f82-90ef-0a65eae27e90"
+        },
+        {
+          "name": "create vendor",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/parties",
+          "status": 201,
+          "key": "a60c719d-ad41-491f-a194-2a23b62b5548"
+        },
+        {
+          "name": "duplicate party",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/parties",
+          "status": 409,
+          "error": "IDENTITY_CONFLICT",
+          "key": "d761113f-e0a0-4234-9f63-f0117c8e6be5"
+        },
+        {
+          "name": "party missing fields",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/parties",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "1ac8fc0c-b691-45c3-b93b-9e54bb024060"
+        },
+        {
+          "name": "party invalid fields",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/parties",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "0185d118-618f-4714-9f37-1146f352a303"
+        },
+        {
+          "name": "party extra",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/parties",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "4bec96bf-630f-4a01-b4a7-7608bc456596"
+        },
+        {
+          "name": "edit client",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/parties/1",
+          "status": 200,
+          "key": "095d9012-3f83-4c2e-a7f0-e4fe401be547"
+        },
+        {
+          "name": "stale party",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/parties/1",
+          "status": 409,
+          "error": "STALE_RECORD",
+          "key": "699b1975-043c-459e-acbb-89f9a5516166"
+        },
+        {
+          "name": "immutable party type",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/parties/1",
+          "status": 400,
+          "error": "PARTY_KIND_IMMUTABLE",
+          "key": "2ca740cb-0f65-4a49-81a1-7f6d2ccb6ec1"
+        },
+        {
+          "name": "draft stock opening",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "824572e5-64dd-4adb-b0a2-d2a19408fa4f"
+        },
+        {
+          "name": "draft has no effects",
+          "method": "GET",
+          "path": "/api/v1/management/simple-v1/documents/1",
+          "status": 200,
+          "key": null
+        },
+        {
+          "name": "update item after draft",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/items/1",
+          "status": 200,
+          "key": "eef0ba27-af0d-4dfe-a8c3-a0602f302beb"
+        },
+        {
+          "name": "reject stale item snapshot",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/1/post",
+          "status": 409,
+          "error": "BOTTLE_CHANGED_REVIEW_DRAFT",
+          "key": "fd1ed96c-12bc-44cc-99ed-31571604a538"
+        },
+        {
+          "name": "edit stock draft",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/documents/1",
+          "status": 200,
+          "key": "e3f3341d-1b9a-42f5-9f69-b5b9ad924b48"
+        },
+        {
+          "name": "stale draft edit",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/documents/1",
+          "status": 409,
+          "error": "STALE_DOCUMENT",
+          "key": "00917a9a-bdd4-4a91-9c17-347114b17e02"
+        },
+        {
+          "name": "stale posting version",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/1/post",
+          "status": 409,
+          "error": "STALE_DOCUMENT",
+          "key": "52ecf08e-7499-4537-8976-9c00a9218273"
+        },
+        {
+          "name": "invalid posting body",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/1/post",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "2e573ed8-9194-4a44-9e10-5b6d32040471"
+        },
+        {
+          "name": "post stock opening",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/1/post",
+          "status": 200,
+          "key": "934c89d7-6b67-4f39-9f8d-10a0ff74bf4a"
+        },
+        {
+          "name": "replay posting after lost acknowledgement",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/1/post",
+          "status": 200,
+          "key": "934c89d7-6b67-4f39-9f8d-10a0ff74bf4a"
+        },
+        {
+          "name": "posted opening immutable",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/documents/1",
+          "status": 409,
+          "error": "IMMUTABLE_DOCUMENT",
+          "key": "5e002bbf-515e-49d6-b2bf-4db7e3639cd3"
+        },
+        {
+          "name": "posted opening cannot repost",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/1/post",
+          "status": 409,
+          "error": "IMMUTABLE_DOCUMENT",
+          "key": "3d84bc93-62a2-4628-b549-d9d74bc1ecf8"
+        },
+        {
+          "name": "duplicate stock opening draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "f86f1c8f-b143-4a2a-a801-1c3937ad64c1"
+        },
+        {
+          "name": "duplicate stock opening blocked",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/2/post",
+          "status": 409,
+          "error": "DUPLICATE_STOCK_OPENING",
+          "key": "cb4ee577-2893-47b7-a52d-2a2fa879a77b"
+        },
+        {
+          "name": "zero stock item",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 201,
+          "key": "39d549fb-dee1-486a-9f03-b2522e591a58"
+        },
+        {
+          "name": "zero stock draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "78b4715f-b863-4863-8a79-965ae5e7245a"
+        },
+        {
+          "name": "post zero stock opening",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/3/post",
+          "status": 200,
+          "key": "ee9bf19b-a463-4d50-966a-88d493da7505"
+        },
+        {
+          "name": "invalid document date",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "d7831bf0-7af9-4a8b-9ceb-75cfaa5ef3ff"
+        },
+        {
+          "name": "future date",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 400,
+          "error": "FUTURE_DATE_NOT_ALLOWED",
+          "key": "6aa5d379-2743-4b20-b66e-b2c5db2919f3"
+        },
+        {
+          "name": "unknown document field",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "32047569-ba8d-440d-bd39-746785bacac2"
+        },
+        {
+          "name": "bad line identifiers",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "72f25390-93ab-48c9-9bd9-83a041c5cfad"
+        },
+        {
+          "name": "fractional quantity",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 400,
+          "error": "ENTRY_VALIDATION",
+          "key": "79b3b738-3e9d-4e34-92ea-24d0122a8c86"
+        },
+        {
+          "name": "negative opening quantity",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 400,
+          "error": "ENTRY_VALIDATION",
+          "key": "90725820-b4e8-4ef1-9caa-60e7b5c38050"
+        },
+        {
+          "name": "too large quantity",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 400,
+          "error": "ENTRY_VALIDATION",
+          "key": "f0385d80-96e3-49e3-8ea3-63e110f0a88b"
+        },
+        {
+          "name": "duplicate lines",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 400,
+          "error": "DUPLICATE_BOTTLE",
+          "key": "80e8617c-7b8e-458a-9a82-260d8ec26fe8"
+        },
+        {
+          "name": "missing item reference",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 400,
+          "error": "ACTIVE_BOTTLE_REQUIRED",
+          "key": "059a39a5-c41a-4b79-8dc1-d93e40e75ba7"
+        },
+        {
+          "name": "invalid optional reference",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "bc64a060-c504-44f9-a6e5-f88285515ac7"
+        },
+        {
+          "name": "invalid date fields",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "a78a67e7-9db1-46c2-9350-2572179f3a22"
+        },
+        {
+          "name": "no bottle lines draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "8e532abb-3be2-428d-b14c-7fc6b006ab5d"
+        },
+        {
+          "name": "no bottle lines posting rejected",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/4/post",
+          "status": 400,
+          "error": "BOTTLE_LINES_REQUIRED",
+          "key": "39122795-bd9c-47d5-87e7-728a971a8b00"
+        },
+        {
+          "name": "multiple opening lines draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "8ddfa428-4433-4bfb-8d1a-cd9373bcd849"
+        },
+        {
+          "name": "multiple opening lines posting rejected",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/5/post",
+          "status": 400,
+          "error": "ONE_ITEM_OPENING_REQUIRED",
+          "key": "446d2ed1-13f9-41f9-9c10-fd1bb268949d"
+        },
+        {
+          "name": "draft client opening",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "64d09ed4-b17a-4d22-a986-112b738317b6"
+        },
+        {
+          "name": "edit party after draft",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/parties/1",
+          "status": 200,
+          "key": "02305a52-3422-4652-aa75-53a3b8e4e8c3"
+        },
+        {
+          "name": "reject stale party snapshot",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/6/post",
+          "status": 409,
+          "error": "PARTY_CHANGED_REVIEW_DRAFT",
+          "key": "8e749b5d-a564-476b-9ea5-8b0a6811fb1b"
+        },
+        {
+          "name": "refresh client opening",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/documents/6",
+          "status": 200,
+          "key": "c94bdaa3-2115-4df3-ba9d-873b22d03b34"
+        },
+        {
+          "name": "post exact large debit opening",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/6/post",
+          "status": 200,
+          "key": "0cbd29cc-36f1-4d8e-a6fc-9ecce22c221a"
+        },
+        {
+          "name": "second party opening draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "ee231eed-a63c-4063-aae7-8f915b18c0d0"
+        },
+        {
+          "name": "duplicate party opening blocked",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/7/post",
+          "status": 409,
+          "error": "DUPLICATE_PARTY_OPENING",
+          "key": "bdac2a07-5fb7-47d0-888d-b5d4f2788b1e"
+        },
+        {
+          "name": "party edit preserves opening",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/parties/1",
+          "status": 200,
+          "key": "c4e271f2-a4c7-4e62-b59b-8c686d969d1a"
+        },
+        {
+          "name": "draft vendor credit opening",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "e3e8d693-c72a-425e-9f92-f562ffe3cd4f"
+        },
+        {
+          "name": "post vendor credit opening",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/8/post",
+          "status": 200,
+          "key": "c9f384f8-ac2f-4dc2-9145-1f9d50c0b496"
+        },
+        {
+          "name": "Zero client credit party",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/parties",
+          "status": 201,
+          "key": "d8621f65-03cf-4dfb-94ec-01013879e988"
+        },
+        {
+          "name": "Zero client credit draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "eee036fd-6eb0-4967-9c83-c4607410972c"
+        },
+        {
+          "name": "Zero client credit posting",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/9/post",
+          "status": 200,
+          "key": "c9c6f79b-d7eb-4042-9d10-503e1ab9c8ff"
+        },
+        {
+          "name": "Zero vendor debit party",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/parties",
+          "status": 201,
+          "key": "1ff102ad-651c-43bb-a1fc-1f0dd9041bd1"
+        },
+        {
+          "name": "Zero vendor debit draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "eb7424c1-a257-4872-b2d6-d78b956778fd"
+        },
+        {
+          "name": "Zero vendor debit posting",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/10/post",
+          "status": 200,
+          "key": "cbfdfd1a-7cd1-45df-bd00-12deca5df3bc"
+        },
+        {
+          "name": "Client advance party",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/parties",
+          "status": 201,
+          "key": "c0ef7efa-c8ca-4b5b-8b74-4d6145af9f1c"
+        },
+        {
+          "name": "Client advance draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "ba19a02e-b8f4-40d7-8863-cab074388d6c"
+        },
+        {
+          "name": "Client advance posting",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/11/post",
+          "status": 200,
+          "key": "96fd164c-afd7-4186-9fa6-506f9d44f6a9"
+        },
+        {
+          "name": "Vendor advance party",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/parties",
+          "status": 201,
+          "key": "3baebe0a-bb8a-4b6a-af5d-f4e162b1e354"
+        },
+        {
+          "name": "Vendor advance draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "5e8d41d2-ef76-4bab-ab77-e33cbe8c094c"
+        },
+        {
+          "name": "Vendor advance posting",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/12/post",
+          "status": 200,
+          "key": "d2c348a1-d030-4dc6-a890-7378ce0c176b"
+        },
+        {
+          "name": "unverified client",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/parties",
+          "status": 201,
+          "key": "87b744a7-9c48-4e2e-ae85-fb3f34032310"
+        },
+        {
+          "name": "missing direction draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "fd688a80-cb3f-4808-9ca6-f88af485a671"
+        },
+        {
+          "name": "missing direction posting rejected",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/13/post",
+          "status": 400,
+          "error": "OPENING_DIRECTION_REQUIRED",
+          "key": "3974b4af-999a-495b-b730-2501e68b6244"
+        },
+        {
+          "name": "invalid amount draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "5af5ffb1-7973-4bd4-82d7-240f0e2006da"
+        },
+        {
+          "name": "invalid amount posting rejected",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/14/post",
+          "status": 400,
+          "error": "INVALID_AMOUNT",
+          "key": "d588cd0e-2dff-491c-a950-e240b850ade9"
+        },
+        {
+          "name": "negative amount draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "2fb1a8ff-5b78-4f04-80d8-786f3e60aabf"
+        },
+        {
+          "name": "negative amount posting rejected",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/15/post",
+          "status": 400,
+          "error": "INVALID_AMOUNT",
+          "key": "ceefc39f-e26c-45ff-ba2d-f8a7906e69e9"
+        },
+        {
+          "name": "wrong party classification draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "b003058a-c856-4b57-b14b-c8d05458db9a"
+        },
+        {
+          "name": "wrong party classification posting rejected",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/16/post",
+          "status": 400,
+          "error": "PARTY_KIND_MISMATCH",
+          "key": "007b2607-6423-440c-b8fb-53c64135a260"
+        },
+        {
+          "name": "unexpected bottle lines draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "7dd2ceec-e67e-4c5d-871e-dbad99f402e8"
+        },
+        {
+          "name": "unexpected bottle lines posting rejected",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/17/post",
+          "status": 400,
+          "error": "UNEXPECTED_BOTTLE_LINES",
+          "key": "e1569945-7987-40fc-abdb-7030d91f723f"
+        },
+        {
+          "name": "nonexistent posting",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/999999/post",
+          "status": 404,
+          "error": "NOT_FOUND",
+          "key": "efbf75a4-70b2-4093-9390-b68efaff67b6"
+        },
+        {
+          "name": "read after writes items",
+          "method": "GET",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 200,
+          "key": null
+        },
+        {
+          "name": "read after writes parties?kind=CLIENT",
+          "method": "GET",
+          "path": "/api/v1/management/simple-v1/parties?kind=CLIENT",
+          "status": 200,
+          "key": null
+        },
+        {
+          "name": "read after writes parties?kind=VENDOR",
+          "method": "GET",
+          "path": "/api/v1/management/simple-v1/parties?kind=VENDOR",
+          "status": 200,
+          "key": null
+        },
+        {
+          "name": "read after writes documents",
+          "method": "GET",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 200,
+          "key": null
+        },
+        {
+          "name": "read after writes overview",
+          "method": "GET",
+          "path": "/api/v1/management/simple-v1/overview",
+          "status": 200,
+          "key": null
+        },
+        {
+          "name": "read after writes movements",
+          "method": "GET",
+          "path": "/api/v1/management/simple-v1/movements",
+          "status": 200,
+          "key": null
+        },
+        {
+          "name": "read after writes register",
+          "method": "GET",
+          "path": "/api/v1/management/simple-v1/register",
+          "status": 200,
+          "key": null
+        },
+        {
+          "name": "read after writes reconciliation",
+          "method": "GET",
+          "path": "/api/v1/management/simple-v1/reconciliation",
+          "status": 200,
+          "key": null
+        },
+        {
+          "name": "read after writes ledgers/1",
+          "method": "GET",
+          "path": "/api/v1/management/simple-v1/ledgers/1",
+          "status": 200,
+          "key": null
+        },
+        {
+          "name": "read after writes ledgers/2",
+          "method": "GET",
+          "path": "/api/v1/management/simple-v1/ledgers/2",
+          "status": 200,
+          "key": null
+        },
+        {
+          "name": "READY gate",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 409,
+          "error": "V1_CUTOVER_PENDING",
+          "key": "c941fe03-2a80-48da-83bd-33869b003d85"
+        },
+        {
+          "name": "replay precedes READY gate",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 201,
+          "key": "18f60279-b35a-4a6e-b3bb-5b08e14052ce"
+        },
+        {
+          "name": "actor-bound replay",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 409,
+          "error": "IDEMPOTENCY_CONFLICT",
+          "key": "18f60279-b35a-4a6e-b3bb-5b08e14052ce"
+        },
+        {
+          "name": "non-operator business write",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 403,
+          "error": "V1_OPERATOR_ONLY",
+          "key": "bb879c7f-4cec-4d64-9acf-5ec9ec6f505f"
+        },
+        {
+          "name": "CSRF protects writes",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 403,
+          "error": "CSRF_REJECTED",
+          "key": "5862533f-4f81-412a-a005-bf47d54c9555"
+        },
+        {
+          "name": "origin protects writes",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 403,
+          "error": "ORIGIN_REJECTED",
+          "key": "5c4e9270-51b2-435f-a1cc-06af834c7930"
+        },
+        {
+          "name": "interrupted command rolls back",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 503,
+          "error": "IDENTITY_UNAVAILABLE",
+          "key": "318ccb40-b304-4690-8934-2c23ef7bfee7"
+        },
+        {
+          "name": "retry rolled-back key",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 201,
+          "key": "318ccb40-b304-4690-8934-2c23ef7bfee7"
+        },
+        {
+          "name": "lost acknowledgement replay",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/parties",
+          "status": 201,
+          "key": "34cc3af8-d9e2-4221-b894-c4257de875f6"
+        },
+        {
+          "name": "rollback stock item",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 201,
+          "key": "ee941926-d06e-4589-a7ad-bf2bfeb7f71c"
+        },
+        {
+          "name": "STOCK_OPENING rollback draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "092c914d-24b3-4e8e-836d-6a376cfda073"
+        },
+        {
+          "name": "STOCK_OPENING atomic posting rollback",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/18/post",
+          "status": 503,
+          "error": "IDENTITY_UNAVAILABLE",
+          "key": "a53175ed-5733-4345-89eb-b4c554f0ba9a"
+        },
+        {
+          "name": "STOCK_OPENING retry posting",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/18/post",
+          "status": 200,
+          "key": "a53175ed-5733-4345-89eb-b4c554f0ba9a"
+        },
+        {
+          "name": "rollback client",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/parties",
+          "status": 201,
+          "key": "edab2834-c8a3-4ffb-90d4-4400d1239116"
+        },
+        {
+          "name": "CLIENT_OPENING rollback draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "c913f0e8-be88-48a9-b605-ded4ed8bca6d"
+        },
+        {
+          "name": "CLIENT_OPENING atomic posting rollback",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/19/post",
+          "status": 503,
+          "error": "IDENTITY_UNAVAILABLE",
+          "key": "80015346-68f1-4b8f-b5a1-0f8aca23c1d6"
+        },
+        {
+          "name": "CLIENT_OPENING retry posting",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/19/post",
+          "status": 200,
+          "key": "80015346-68f1-4b8f-b5a1-0f8aca23c1d6"
+        },
+        {
+          "name": "retry server-killed command",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 201,
+          "key": "2b90ada8-9856-4242-bb92-3591f1b33268"
+        },
+        {
+          "name": "final reconciliation",
+          "method": "GET",
+          "path": "/api/v1/management/simple-v1/reconciliation",
+          "status": 200,
+          "key": null
+        }
+      ]
+    },
+    {
+      "php": "8.4.27",
+      "engine": "10.11.19-MariaDB",
+      "schemas": [
+        "upms_test_php_2_ref_1793149953498",
+        "upms_test_php_2_app_1793149953498"
+      ],
+      "httpComparisons": 135,
+      "snapshotComparisons": 13,
+      "checks": [
+        {
+          "name": "item writes and validation",
+          "tables": 10,
+          "sha256": "393b877added0934f86ab40ec178603accf692761417cf4abfa68e3d951a90cb"
+        },
+        {
+          "name": "party writes and validation",
+          "tables": 10,
+          "sha256": "ae60392172fa1967b4f944ea75b261aea3b0ca134df66ee10f85737a0c885522"
+        },
+        {
+          "name": "stock openings and immutable evidence",
+          "tables": 10,
+          "sha256": "af177fa79f18c081458bcb3ced06676d47b8a770f538f1124560a45f60b9fe7d"
+        },
+        {
+          "name": "party openings and read contracts",
+          "tables": 10,
+          "sha256": "149937012a1e152f46229f3a63abbcdc49343e9c9c16fbe9b920e81bf5e2d1a0"
+        },
+        {
+          "name": "authorization and command replay",
+          "tables": 10,
+          "sha256": "149937012a1e152f46229f3a63abbcdc49343e9c9c16fbe9b920e81bf5e2d1a0"
+        },
+        {
+          "name": "concurrent identical submission",
+          "responses": 2,
+          "committedCommands": 1
+        },
+        {
+          "name": "concurrent same-key atomicity",
+          "tables": 10,
+          "sha256": "65e48e971f1f64fe61608a104f28111d70d49e19e7d66e1e77b276378e19deb7"
+        },
+        {
+          "name": "concurrent optimistic-version race",
+          "perSide": {
+            "successes": 1,
+            "staleConflicts": 1
+          },
+          "winnerKeys": [
+            "4d9dbd8c-1e4f-4bae-b80a-54d894e584e0",
+            "4d9dbd8c-1e4f-4bae-b80a-54d894e584e0"
+          ]
+        },
+        {
+          "name": "concurrent stale-version atomicity",
+          "tables": 10,
+          "sha256": "4ea3e83150106fc087f861fea52137e3090ca9d5ae7ff460a2c5b6116f4db82b"
+        },
+        {
+          "name": "rollback after audit before receipt",
+          "tables": 10,
+          "sha256": "4ea3e83150106fc087f861fea52137e3090ca9d5ae7ff460a2c5b6116f4db82b"
+        },
+        {
+          "name": "lost acknowledgement recovery",
+          "tables": 10,
+          "sha256": "3197f13b10ccc6d5ceb481a3c0a89287ca4a1df0614d8f8b86e26ced2da1cdab"
+        },
+        {
+          "name": "STOCK_OPENING journal and verification rollback",
+          "tables": 10,
+          "sha256": "a139f4871d390e4a4dbb6ddb10a2be1d65ac8cef621bef2319a15fcd3cf4a9cc"
+        },
+        {
+          "name": "CLIENT_OPENING journal and verification rollback",
+          "tables": 10,
+          "sha256": "6d5214b066a5797b2a2e662f309a7f1eff94e0ab133707fe43ea50b64ad7ab36"
+        },
+        {
+          "name": "server-killed transaction rollback",
+          "tables": 10,
+          "sha256": "12b9042feaa53f7d7e271315b2216d737a4c31662a97443bd78923193bddbaac"
+        },
+        {
+          "name": "server-side interrupted transactions",
+          "connectionsKilled": 2,
+          "atomicRollback": true
+        },
+        {
+          "name": "narrow runtime privilege denials",
+          "denied": 16
+        },
+        {
+          "name": "unsupported stored draft and receipt replay blocked",
+          "attempts": 3
+        },
+        {
+          "name": "final business state",
+          "tables": 10,
+          "sha256": "7fb69d660e68f9b318c24eea8f653b1caf536160e9234829140b39bf47dd77da"
+        }
+      ],
+      "evidence": [
+        {
+          "name": "create item",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 201,
+          "key": "644df4c0-b1c9-424a-89e4-ee272ef9b50d"
+        },
+        {
+          "name": "replay reordered request",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 201,
+          "key": "644df4c0-b1c9-424a-89e4-ee272ef9b50d"
+        },
+        {
+          "name": "different input conflicts",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 409,
+          "error": "IDEMPOTENCY_CONFLICT",
+          "key": "644df4c0-b1c9-424a-89e4-ee272ef9b50d"
+        },
+        {
+          "name": "missing fields",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "2eb3e211-3581-4b3a-b71a-a0df80de6b93"
+        },
+        {
+          "name": "invalid types",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "218eb98b-13ff-4c16-9967-9bd54ded9494"
+        },
+        {
+          "name": "unknown field",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "0cd9b166-ad6a-4abb-b086-42f3d44430a2"
+        },
+        {
+          "name": "zero selling price",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "ENTRY_VALIDATION",
+          "key": "463961d5-e512-49e3-b7df-3c367682542f"
+        },
+        {
+          "name": "negative selling price",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "ENTRY_VALIDATION",
+          "key": "c165d9d1-94a9-4f3b-b99b-3cb179d4bd78"
+        },
+        {
+          "name": "overprecision price",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "ENTRY_VALIDATION",
+          "key": "aa206b49-c569-4f96-a01c-bb6e11993d22"
+        },
+        {
+          "name": "scientific price",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "ENTRY_VALIDATION",
+          "key": "1ebcc736-69dd-4211-b89b-0f53aa196592"
+        },
+        {
+          "name": "manual item code",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "ITEM_CODE_READ_ONLY",
+          "key": "cd896aaa-4d30-4754-8937-ec465383ef1d"
+        },
+        {
+          "name": "invalid code",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "8f837d38-1e2c-43dc-a967-2dee57a1aa80"
+        },
+        {
+          "name": "invalid version",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "b9f83aba-8bef-443c-bdee-de0cf0a15caf"
+        },
+        {
+          "name": "noninteger numeric JSON",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "INVALID_EXACT_VALUE",
+          "key": "b62620b0-042e-44ff-8566-e4468607a61b"
+        },
+        {
+          "name": "unsafe exact value",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "INVALID_EXACT_VALUE",
+          "key": "a5493c3c-ef02-4738-bc62-afdd98fa50e9"
+        },
+        {
+          "name": "Unicode length",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 201,
+          "key": "5382cca2-0b9c-484f-9b7a-8191f57d5f58"
+        },
+        {
+          "name": "invalid UUID bad",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "IDEMPOTENCY_KEY_REQUIRED",
+          "key": "bad"
+        },
+        {
+          "name": "invalid UUID 12345678-1234-0234-8234-123456789abc",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "IDEMPOTENCY_KEY_REQUIRED",
+          "key": "12345678-1234-0234-8234-123456789abc"
+        },
+        {
+          "name": "invalid UUID FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "IDEMPOTENCY_KEY_REQUIRED",
+          "key": "FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF"
+        },
+        {
+          "name": "missing UUID",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "IDEMPOTENCY_KEY_REQUIRED",
+          "key": null
+        },
+        {
+          "name": "array input validation",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "63cfb654-fe4b-49b9-acbb-3389ac2d6606"
+        },
+        {
+          "name": "array invalid key precedence",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "IDEMPOTENCY_KEY_REQUIRED",
+          "key": "bad"
+        },
+        {
+          "name": "invalid JSON transport error",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "d8ecfef4-12cf-44eb-a408-b31a21184262"
+        },
+        {
+          "name": "nil UUID",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 201,
+          "key": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "name": "max UUID",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 201,
+          "key": "ffffffff-ffff-ffff-ffff-ffffffffffff"
+        },
+        {
+          "name": "inactive item update",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/items/1",
+          "status": 200,
+          "key": "8b0fb972-390f-4ecf-ae9e-9acc5e38e2e5"
+        },
+        {
+          "name": "stale item update",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/items/1",
+          "status": 409,
+          "error": "STALE_RECORD",
+          "key": "9e9c947a-6645-4414-a8e3-a66c8473804b"
+        },
+        {
+          "name": "immutable item code",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/items/1",
+          "status": 400,
+          "error": "ITEM_CODE_IMMUTABLE",
+          "key": "2bfce609-186d-4506-8754-7461adb8b419"
+        },
+        {
+          "name": "immutable code same value",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/items/1",
+          "status": 200,
+          "key": "5b0726c4-52fb-4372-83c8-d3b779d27195"
+        },
+        {
+          "name": "invalid route ID",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/items/0",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "9b96277a-7000-451d-9507-16d19a1ac474"
+        },
+        {
+          "name": "missing item",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/items/99999",
+          "status": 409,
+          "error": "STALE_RECORD",
+          "key": "b38cd7cb-008f-416f-8e44-9a6946977e6e"
+        },
+        {
+          "name": "create client",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/parties",
+          "status": 201,
+          "key": "7dc423bf-5894-4770-a47b-d9db71716c4e"
+        },
+        {
+          "name": "create vendor",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/parties",
+          "status": 201,
+          "key": "3566f6e4-0340-4d2f-95ca-baf26488e8e4"
+        },
+        {
+          "name": "duplicate party",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/parties",
+          "status": 409,
+          "error": "IDENTITY_CONFLICT",
+          "key": "e04d8511-e1e0-46a0-987d-b3572b1dc454"
+        },
+        {
+          "name": "party missing fields",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/parties",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "3ab96da8-ae67-440a-9b37-ca28df3c1b31"
+        },
+        {
+          "name": "party invalid fields",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/parties",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "0dff33a3-52a0-4d7b-bb90-6a2fc37e8904"
+        },
+        {
+          "name": "party extra",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/parties",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "87b8fee7-5dff-4f8f-89f2-cbd9893c2138"
+        },
+        {
+          "name": "edit client",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/parties/1",
+          "status": 200,
+          "key": "db5814ba-5d33-4d55-b37f-6ff4df73d2bd"
+        },
+        {
+          "name": "stale party",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/parties/1",
+          "status": 409,
+          "error": "STALE_RECORD",
+          "key": "0974c8a9-4e4f-4da7-bd4a-0d6ad9e3a073"
+        },
+        {
+          "name": "immutable party type",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/parties/1",
+          "status": 400,
+          "error": "PARTY_KIND_IMMUTABLE",
+          "key": "5d00626c-f895-4e3a-89d6-6629c186c7eb"
+        },
+        {
+          "name": "draft stock opening",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "5c648b77-07d3-46c1-b176-2da081e95b02"
+        },
+        {
+          "name": "draft has no effects",
+          "method": "GET",
+          "path": "/api/v1/management/simple-v1/documents/1",
+          "status": 200,
+          "key": null
+        },
+        {
+          "name": "update item after draft",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/items/1",
+          "status": 200,
+          "key": "abdfa7b5-f174-48e2-aa64-c4e3be37ad23"
+        },
+        {
+          "name": "reject stale item snapshot",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/1/post",
+          "status": 409,
+          "error": "BOTTLE_CHANGED_REVIEW_DRAFT",
+          "key": "f551312f-0a4f-4b86-86be-76cc42c2f328"
+        },
+        {
+          "name": "edit stock draft",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/documents/1",
+          "status": 200,
+          "key": "8e13f219-61d7-49ec-9652-47d4d5a67f24"
+        },
+        {
+          "name": "stale draft edit",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/documents/1",
+          "status": 409,
+          "error": "STALE_DOCUMENT",
+          "key": "3defbc2e-ff60-4939-8089-7be9d9ffb443"
+        },
+        {
+          "name": "stale posting version",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/1/post",
+          "status": 409,
+          "error": "STALE_DOCUMENT",
+          "key": "be616623-fd65-4c66-9c85-b2a7b02cce05"
+        },
+        {
+          "name": "invalid posting body",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/1/post",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "7bd99327-c176-46d2-84ef-00cb27fb2b2e"
+        },
+        {
+          "name": "post stock opening",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/1/post",
+          "status": 200,
+          "key": "cc7a30e6-8423-47f3-94c6-8c84db326532"
+        },
+        {
+          "name": "replay posting after lost acknowledgement",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/1/post",
+          "status": 200,
+          "key": "cc7a30e6-8423-47f3-94c6-8c84db326532"
+        },
+        {
+          "name": "posted opening immutable",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/documents/1",
+          "status": 409,
+          "error": "IMMUTABLE_DOCUMENT",
+          "key": "5175642a-ccf5-4b6e-9b5a-dff8d0f00a1a"
+        },
+        {
+          "name": "posted opening cannot repost",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/1/post",
+          "status": 409,
+          "error": "IMMUTABLE_DOCUMENT",
+          "key": "e03c75ee-fb0f-4bf7-8563-b1eb87507afb"
+        },
+        {
+          "name": "duplicate stock opening draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "93a52413-ea81-4052-8be7-733a8b01a82b"
+        },
+        {
+          "name": "duplicate stock opening blocked",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/2/post",
+          "status": 409,
+          "error": "DUPLICATE_STOCK_OPENING",
+          "key": "b34913c0-853c-4c40-a687-075ce5ba8712"
+        },
+        {
+          "name": "zero stock item",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 201,
+          "key": "a68b17f4-1353-4d4b-904c-ce4c1f5ef92a"
+        },
+        {
+          "name": "zero stock draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "69b27aba-37a5-41cd-8e14-7ea7c2410b3f"
+        },
+        {
+          "name": "post zero stock opening",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/3/post",
+          "status": 200,
+          "key": "01c5beeb-38c3-42e8-95f9-820b1a520267"
+        },
+        {
+          "name": "invalid document date",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "0c557fe4-52eb-4459-85bf-6da7286c3dd1"
+        },
+        {
+          "name": "future date",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 400,
+          "error": "FUTURE_DATE_NOT_ALLOWED",
+          "key": "b236fe9b-b8c1-4e9a-9a15-831a14587b9b"
+        },
+        {
+          "name": "unknown document field",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "c0d0754a-0c1d-4669-b243-03eb99ab7404"
+        },
+        {
+          "name": "bad line identifiers",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "cdccccc3-adf9-4c27-9d0f-fec23da2b311"
+        },
+        {
+          "name": "fractional quantity",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 400,
+          "error": "ENTRY_VALIDATION",
+          "key": "63186987-5c55-4fb2-871a-8f674d795d9f"
+        },
+        {
+          "name": "negative opening quantity",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 400,
+          "error": "ENTRY_VALIDATION",
+          "key": "62b162c6-d21a-41cf-a12d-7c09464df02c"
+        },
+        {
+          "name": "too large quantity",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 400,
+          "error": "ENTRY_VALIDATION",
+          "key": "03b83a7f-532f-4978-9a0a-477be1aadc45"
+        },
+        {
+          "name": "duplicate lines",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 400,
+          "error": "DUPLICATE_BOTTLE",
+          "key": "f3639413-ee5f-4e6a-b589-0aa840a5ec3c"
+        },
+        {
+          "name": "missing item reference",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 400,
+          "error": "ACTIVE_BOTTLE_REQUIRED",
+          "key": "c550cc07-4267-4863-bc95-be831c9ae4da"
+        },
+        {
+          "name": "invalid optional reference",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "b0a8171f-30b5-4f0b-b6f1-116f043aa8d1"
+        },
+        {
+          "name": "invalid date fields",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 400,
+          "error": "INVALID_INPUT",
+          "key": "a6dd3cb7-efc0-4681-80b1-c533dabae482"
+        },
+        {
+          "name": "no bottle lines draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "6ab9f3a6-1cd6-4fec-b9d5-10483eb4d566"
+        },
+        {
+          "name": "no bottle lines posting rejected",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/4/post",
+          "status": 400,
+          "error": "BOTTLE_LINES_REQUIRED",
+          "key": "5882e743-0e74-4a0d-81e0-62a2afb55105"
+        },
+        {
+          "name": "multiple opening lines draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "ab90bcf4-1eec-404e-b73e-5087253b8032"
+        },
+        {
+          "name": "multiple opening lines posting rejected",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/5/post",
+          "status": 400,
+          "error": "ONE_ITEM_OPENING_REQUIRED",
+          "key": "87346d80-027c-443a-9759-1ebf380d21b9"
+        },
+        {
+          "name": "draft client opening",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "750a9a61-3e3d-471c-9936-78f5ea7f2828"
+        },
+        {
+          "name": "edit party after draft",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/parties/1",
+          "status": 200,
+          "key": "421eb5bb-c0df-464e-8cce-cbaf2f77a346"
+        },
+        {
+          "name": "reject stale party snapshot",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/6/post",
+          "status": 409,
+          "error": "PARTY_CHANGED_REVIEW_DRAFT",
+          "key": "56f3229a-c7b4-4cbf-80c8-4ba84b6f92ca"
+        },
+        {
+          "name": "refresh client opening",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/documents/6",
+          "status": 200,
+          "key": "47c12a50-5574-4577-adbf-a1c36d5c7b7c"
+        },
+        {
+          "name": "post exact large debit opening",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/6/post",
+          "status": 200,
+          "key": "d5cb4baf-ab71-41db-8698-f1ded89b21cf"
+        },
+        {
+          "name": "second party opening draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "a08c080f-a89e-43df-b1b6-51f15161b75d"
+        },
+        {
+          "name": "duplicate party opening blocked",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/7/post",
+          "status": 409,
+          "error": "DUPLICATE_PARTY_OPENING",
+          "key": "ccaf864f-fc8d-4760-806b-5a74c16103a5"
+        },
+        {
+          "name": "party edit preserves opening",
+          "method": "PATCH",
+          "path": "/api/v1/management/simple-v1/parties/1",
+          "status": 200,
+          "key": "8804797c-4d1e-481f-b2b8-17f986d2ae03"
+        },
+        {
+          "name": "draft vendor credit opening",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "4aa3f896-593d-4fe2-8291-ff6c12189a25"
+        },
+        {
+          "name": "post vendor credit opening",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/8/post",
+          "status": 200,
+          "key": "8495fd31-313b-4d63-a0f2-75619417c456"
+        },
+        {
+          "name": "Zero client credit party",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/parties",
+          "status": 201,
+          "key": "f5d9d38c-ed38-4861-af62-73010cbc1745"
+        },
+        {
+          "name": "Zero client credit draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "b618d266-b3ca-4cef-86a4-4642cd838334"
+        },
+        {
+          "name": "Zero client credit posting",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/9/post",
+          "status": 200,
+          "key": "ec9b6bb3-c5e8-4479-8905-520a5580c0b7"
+        },
+        {
+          "name": "Zero vendor debit party",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/parties",
+          "status": 201,
+          "key": "91ee1a60-3236-4cac-af8f-39a36e610e51"
+        },
+        {
+          "name": "Zero vendor debit draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "d572d93d-7dd4-4f2d-833e-5c800b244ded"
+        },
+        {
+          "name": "Zero vendor debit posting",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/10/post",
+          "status": 200,
+          "key": "0eb261a5-f036-444e-9932-764c06b703cf"
+        },
+        {
+          "name": "Client advance party",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/parties",
+          "status": 201,
+          "key": "50e5e84b-9e33-4b21-9c3e-c3446746cafe"
+        },
+        {
+          "name": "Client advance draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "17afc253-76cd-4528-b415-bb57b6047ca7"
+        },
+        {
+          "name": "Client advance posting",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/11/post",
+          "status": 200,
+          "key": "4d53e32d-54f6-44d5-9536-07fea7faf9ee"
+        },
+        {
+          "name": "Vendor advance party",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/parties",
+          "status": 201,
+          "key": "51404685-f7ac-49e5-a378-5dcec3be5873"
+        },
+        {
+          "name": "Vendor advance draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "dc05098b-d34c-48c6-9a53-27758714be5c"
+        },
+        {
+          "name": "Vendor advance posting",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/12/post",
+          "status": 200,
+          "key": "f3a047c0-ee9b-4d1d-920f-f4d6cb5350e2"
+        },
+        {
+          "name": "unverified client",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/parties",
+          "status": 201,
+          "key": "dea52956-dffb-401c-b7cb-cace55b246a3"
+        },
+        {
+          "name": "missing direction draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "d48c607e-b4e4-45e3-ae4c-6d5fbf18539c"
+        },
+        {
+          "name": "missing direction posting rejected",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/13/post",
+          "status": 400,
+          "error": "OPENING_DIRECTION_REQUIRED",
+          "key": "6425fcf0-5004-4981-94f6-f220ef05abef"
+        },
+        {
+          "name": "invalid amount draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "0af9be0a-594e-427a-9e83-655dd542eda3"
+        },
+        {
+          "name": "invalid amount posting rejected",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/14/post",
+          "status": 400,
+          "error": "INVALID_AMOUNT",
+          "key": "cc11c3d8-b51c-4ad5-bd89-4309101989c2"
+        },
+        {
+          "name": "negative amount draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "dd56c5f2-fce3-44c2-abd5-6019caeccced"
+        },
+        {
+          "name": "negative amount posting rejected",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/15/post",
+          "status": 400,
+          "error": "INVALID_AMOUNT",
+          "key": "8073254d-169c-4c3f-9f30-50be511bc2cf"
+        },
+        {
+          "name": "wrong party classification draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "302357bb-303e-490e-bb14-be983a72e604"
+        },
+        {
+          "name": "wrong party classification posting rejected",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/16/post",
+          "status": 400,
+          "error": "PARTY_KIND_MISMATCH",
+          "key": "02f14671-2aa7-4d5b-8bad-55588aee0688"
+        },
+        {
+          "name": "unexpected bottle lines draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "7be59680-58b5-4bee-aae6-bf7133afa1ec"
+        },
+        {
+          "name": "unexpected bottle lines posting rejected",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/17/post",
+          "status": 400,
+          "error": "UNEXPECTED_BOTTLE_LINES",
+          "key": "cdd45f6e-5357-4f86-addb-e6e3f2399f0a"
+        },
+        {
+          "name": "nonexistent posting",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/999999/post",
+          "status": 404,
+          "error": "NOT_FOUND",
+          "key": "c1e33c3d-0141-4f12-a248-a1ee44762cf6"
+        },
+        {
+          "name": "read after writes items",
+          "method": "GET",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 200,
+          "key": null
+        },
+        {
+          "name": "read after writes parties?kind=CLIENT",
+          "method": "GET",
+          "path": "/api/v1/management/simple-v1/parties?kind=CLIENT",
+          "status": 200,
+          "key": null
+        },
+        {
+          "name": "read after writes parties?kind=VENDOR",
+          "method": "GET",
+          "path": "/api/v1/management/simple-v1/parties?kind=VENDOR",
+          "status": 200,
+          "key": null
+        },
+        {
+          "name": "read after writes documents",
+          "method": "GET",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 200,
+          "key": null
+        },
+        {
+          "name": "read after writes overview",
+          "method": "GET",
+          "path": "/api/v1/management/simple-v1/overview",
+          "status": 200,
+          "key": null
+        },
+        {
+          "name": "read after writes movements",
+          "method": "GET",
+          "path": "/api/v1/management/simple-v1/movements",
+          "status": 200,
+          "key": null
+        },
+        {
+          "name": "read after writes register",
+          "method": "GET",
+          "path": "/api/v1/management/simple-v1/register",
+          "status": 200,
+          "key": null
+        },
+        {
+          "name": "read after writes reconciliation",
+          "method": "GET",
+          "path": "/api/v1/management/simple-v1/reconciliation",
+          "status": 200,
+          "key": null
+        },
+        {
+          "name": "read after writes ledgers/1",
+          "method": "GET",
+          "path": "/api/v1/management/simple-v1/ledgers/1",
+          "status": 200,
+          "key": null
+        },
+        {
+          "name": "read after writes ledgers/2",
+          "method": "GET",
+          "path": "/api/v1/management/simple-v1/ledgers/2",
+          "status": 200,
+          "key": null
+        },
+        {
+          "name": "READY gate",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 409,
+          "error": "V1_CUTOVER_PENDING",
+          "key": "493692e6-09ab-4ff0-94ff-e9c471ff2408"
+        },
+        {
+          "name": "replay precedes READY gate",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 201,
+          "key": "644df4c0-b1c9-424a-89e4-ee272ef9b50d"
+        },
+        {
+          "name": "actor-bound replay",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 409,
+          "error": "IDEMPOTENCY_CONFLICT",
+          "key": "644df4c0-b1c9-424a-89e4-ee272ef9b50d"
+        },
+        {
+          "name": "non-operator business write",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 403,
+          "error": "V1_OPERATOR_ONLY",
+          "key": "0d5c99b9-4586-418a-9448-d0a21cbe64b3"
+        },
+        {
+          "name": "CSRF protects writes",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 403,
+          "error": "CSRF_REJECTED",
+          "key": "564efe37-8715-4de8-80e5-0511658d50fd"
+        },
+        {
+          "name": "origin protects writes",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 403,
+          "error": "ORIGIN_REJECTED",
+          "key": "91450ede-9802-49d0-9559-c1e945e790b9"
+        },
+        {
+          "name": "interrupted command rolls back",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 503,
+          "error": "IDENTITY_UNAVAILABLE",
+          "key": "6425729a-20c5-4296-9e39-697521dc41f4"
+        },
+        {
+          "name": "retry rolled-back key",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 201,
+          "key": "6425729a-20c5-4296-9e39-697521dc41f4"
+        },
+        {
+          "name": "lost acknowledgement replay",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/parties",
+          "status": 201,
+          "key": "2aa61d4b-305a-4d9d-accd-9f395dc40579"
+        },
+        {
+          "name": "rollback stock item",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 201,
+          "key": "e9479068-94b7-4402-8a56-1ee02f122b19"
+        },
+        {
+          "name": "STOCK_OPENING rollback draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "95beebbd-38c8-4843-9d47-356dde468a73"
+        },
+        {
+          "name": "STOCK_OPENING atomic posting rollback",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/18/post",
+          "status": 503,
+          "error": "IDENTITY_UNAVAILABLE",
+          "key": "eebe0bca-eed0-40ed-8f39-208b9bedcf49"
+        },
+        {
+          "name": "STOCK_OPENING retry posting",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/18/post",
+          "status": 200,
+          "key": "eebe0bca-eed0-40ed-8f39-208b9bedcf49"
+        },
+        {
+          "name": "rollback client",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/parties",
+          "status": 201,
+          "key": "b459d898-d06f-4953-bbce-dc531d6dd702"
+        },
+        {
+          "name": "CLIENT_OPENING rollback draft",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents",
+          "status": 201,
+          "key": "67ac985f-70a1-418f-9c66-331cd44e1ce0"
+        },
+        {
+          "name": "CLIENT_OPENING atomic posting rollback",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/19/post",
+          "status": 503,
+          "error": "IDENTITY_UNAVAILABLE",
+          "key": "6a704cea-d96a-467c-9ee0-eae05df64540"
+        },
+        {
+          "name": "CLIENT_OPENING retry posting",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/documents/19/post",
+          "status": 200,
+          "key": "6a704cea-d96a-467c-9ee0-eae05df64540"
+        },
+        {
+          "name": "retry server-killed command",
+          "method": "POST",
+          "path": "/api/v1/management/simple-v1/items",
+          "status": 201,
+          "key": "01059cd5-1424-4b13-b599-bcefb48d1e57"
+        },
+        {
+          "name": "final reconciliation",
+          "method": "GET",
+          "path": "/api/v1/management/simple-v1/reconciliation",
+          "status": 200,
+          "key": null
+        }
+      ]
+    }
+  ]
+}

@@ -187,7 +187,7 @@ final class SecurityTest extends TestCase
             self::assertSame('42000', $e->getCode());
         }
         [$token, $csrf] = $this->login();
-        $this->http('POST', 'simple-v1/documents', $token, $csrf, (object) [])->assertStatus(501)->assertJsonPath('error.code', 'PHP_WRITE_MODULE_PENDING_REVIEW');
+        $this->http('POST', 'simple-v1/documents/1/cancel', $token, $csrf, (object) [])->assertStatus(501)->assertJsonPath('error.code', 'PHP_WRITE_MODULE_PENDING_REVIEW');
         $this->http('GET', 'users', $token)->assertForbidden()->assertJsonPath('error.code', 'LEGACY_DISABLED_IN_V1');
     }
 

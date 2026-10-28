@@ -7,8 +7,8 @@ review before implementing the remaining write modules below.
 
 | Milestone | Scope | Required parity and acceptance |
 | --- | --- | --- |
-| PHP-1 (this change) | Guarded Laravel/PDO foundation, exact schema mapping, authentication, all ten Simple V1 read routes, API inventory and deployment design | Read/status/JSON types, existing Argon2id identities, CSRF/session expiry/rotation/revocation, no real DB writes, immutable business tables during reads. |
-| PHP-2 | Item masters, generated immutable ITM codes, saved selling prices, clients/vendors, explicit stock and party openings | Exact version checks, immutable codes/kinds, active references, explicit verification, no inferred balances, unchanged next_item_code. Port saveItem/saveParty and opening validation with their existing tests. |
+| PHP-1 (complete) | Guarded Laravel/PDO foundation, exact schema mapping, authentication, all ten Simple V1 read routes, API inventory and deployment design | Read/status/JSON types, existing Argon2id identities, CSRF/session expiry/rotation/revocation, no real DB writes, immutable business tables during reads. |
+| PHP-2 (complete; isolated acceptance) | Item masters, generated immutable ITM codes, saved selling prices, clients/vendors, explicit stock and party openings | Shared command protocol, exact versions, immutable codes/kinds, column-scoped grants, explicit opening verification, independent Express/PHP schema comparison, rollback/concurrency/lost-acknowledgement tests. See PHP-2 results and differential evidence. |
 | PHP-3 | Production/purchase stock-in, drafts/cancellation, delivery challans, fixed/percentage discounts, numbering | Exact cents/whole-bottle limits, saved pricingVersion and party/item snapshots, stale draft rejection, deterministic stock locks, no negative stock, transactional journal/projection/number/audit/command writes. Preserve DC rollover block and current Pakistan business date. |
 | PHP-4 | Challan returns | Original posted challan/client/line identities, remaining units across partial returns, ordered proportional net-credit allocation with telescoping floors, immutable snapshots, append-only stock/party journals and DCR identities. Test every partial-return partition against Node. |
 | PHP-5 | Client/vendor payments, receipts, cheque dishonour/reversals, opening/stock corrections | CR/VP shared-ID numbering, reference normalization/duplicate detection, party opening/date rules, balances including advances, traceable compensations, no journal rewrite and no cash/bank balance invented for Simple V1. |
@@ -34,11 +34,17 @@ review before implementing the remaining write modules below.
 
 ## Explicitly unfinished modules
 
-All Simple V1 item/party/document mutations remain pending. Public inquiry delivery,
+Item/party creation and editing plus STOCK_OPENING, CLIENT_OPENING and VENDOR_OPENING
+draft creation/editing/posting are implemented. All non-opening document writes and
+draft cancellation remain pending. Public inquiry delivery,
 production database configuration, cPanel Apache verification, hosted load/resource
 checks, browser-based PHP integration and export acceptance remain pending. Legacy
 business/inventory/purchase/sales/receipt/cheque/return/credit/expense routes are
 inventoried but remain profile-disabled; do not silently enable them during migration.
+
+PHP-2 is not hosting or production approval. The loopback/test-schema database gate
+is unchanged. Review [PHP-2-TEST-RESULTS.md](PHP-2-TEST-RESULTS.md) and
+[PHP-2-DIFFERENTIAL-EVIDENCE.md](PHP-2-DIFFERENTIAL-EVIDENCE.md) before PHP-3.
 
 The separate PHP session cookie requires signing in again when switching backends;
 it does not require a password reset. Existing Node sessions/hashes remain preserved.
