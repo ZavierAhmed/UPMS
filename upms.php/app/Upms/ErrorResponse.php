@@ -45,6 +45,9 @@ final class ErrorResponse
                 'DATE_PRECEDES_OPENING' => 'The payment date cannot be earlier than the verified opening balance.',
                 'TRANSACTION_REFERENCE_REQUIRED' => 'Enter the vendor invoice or reference before posting this purchase.',
                 'DUPLICATE_TRANSACTION_REFERENCE' => 'This external reference was already posted for the selected party. Review the existing payment before continuing.',
+                'RETURN_POSTED_CHALLAN_REQUIRED' => 'Returns require an existing posted delivery challan.',
+                'RETURN_SOURCE_INVALID' => 'Original challan valuation requires review.',
+                'RETURN_DUPLICATE_LINE' => 'Select each original challan line once.',
             ];
             $body['message'] = $error->publicMessage ?? $messages[$error->apiCode] ?? ($fields ? 'Please correct the highlighted fields.' : 'This entry cannot be saved. Review the values and try again.');
             if ($fields) {

@@ -1,9 +1,9 @@
 # Unique Plastic Industry PHP API
 
 Laravel **13.39.0**, PHP **8.3+**, MariaDB **10.11**, native PDO prepared statements.
-PHP-1 through PHP-3 are for isolated testing and review. The backend cannot connect to the
-owner schema. PHP-3 adds production, purchases, challans and supported draft cancellation
-to the item/party writes and explicit openings.
+PHP-1 through PHP-4 are for isolated testing and review. The backend cannot connect to the
+owner schema. PHP-4 adds historical delivery challan returns to the item/party writes,
+explicit openings, production, purchases, challans and supported draft cancellation.
 No hosting release or other financial-write cutover is authorized here.
 
 Install the exact dependency tree with `composer install --no-interaction`. The lockfile
@@ -39,7 +39,7 @@ Tokens are random and stored only as SHA256 digests. CSRF tokens are protected w
 Laravel application key in session JSON. Keep APP_KEY private and stable.
 
 The public inquiry endpoint is inventoried but not converted. The React website and
-dashboard remain unchanged. Returns, standalone payments, expenses and corrections return an
+dashboard remain unchanged. Standalone payments, expenses and corrections return an
 explicit pending-review error. See [the migration reports](../docs/php-migration/).
 
 ## PHP-2 differential acceptance
@@ -64,6 +64,13 @@ config and an ephemeral localhost certificate. Then run `node scripts/php-2-brow
 No installed Apache/PHP settings, certificates or live website files need changing.
 
 ## Deployment review
+
+PHP-4 uses `scripts/php-4-differential.mjs` with `PHP4_BINARY` / optional `PHP4_ARGS`.
+Its seven supported kinds share the same BusinessCommand; returns need no wider
+business grants than PHP-3. `php-4-return-fixtures.mjs` captures Node credit and uint64
+numbering vectors. `php-4-browser-setup.mjs` / `php-4-browser.mjs` rehearse partial
+returns, historical credits and printing through actual HTTPS/FastCGI. Set
+`PHP_BROWSER_VERSION` for its runtime label. See [PHP-4 results](../docs/php-migration/PHP-4-TEST-RESULTS.md).
 
 PHP-3 uses `scripts/php-3-differential.mjs` with `PHP3_BINARY` and optional `PHP3_ARGS`
 on the same isolated port 3330. Each run provisions independent Express/PHP schemas.

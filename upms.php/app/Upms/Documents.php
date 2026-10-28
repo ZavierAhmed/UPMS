@@ -8,7 +8,7 @@ use Brick\Math\BigInteger;
 
 final class Documents
 {
-    public const KINDS = ['STOCK_OPENING', 'CLIENT_OPENING', 'VENDOR_OPENING', 'PRODUCTION', 'PURCHASE', 'CHALLAN'];
+    public const KINDS = ['STOCK_OPENING', 'CLIENT_OPENING', 'VENDOR_OPENING', 'PRODUCTION', 'PURCHASE', 'CHALLAN', 'CHALLAN_RETURN'];
 
     public function __construct(private readonly Database $db, private readonly BusinessRecords $records, private readonly BusinessCommand $commands)
     {
@@ -46,8 +46,14 @@ final class Documents
         $p = V1Input::document($raw);
         self::supported($p['kind']);
         V1Input::uniqueLines($p['lines']);
+        if ($p['kind'] === 'CHALLAN_RETURN') {
+            $p = (new ChallanReturns($this->db, $this->records))->prepare($p);
+        }
         $subtotal = BigInteger::zero();
         foreach ($p['lines'] as $i => &$line) {
+            if ($p['kind'] === 'CHALLAN_RETURN') {
+                continue;
+            }
             $item = $this->db->one('SELECT * FROM v1_items WHERE id=?', [$line['itemId']]);
             if (!$item) {
                 throw new ApiError(400, 'ACTIVE_BOTTLE_REQUIRED');
@@ -80,7 +86,7 @@ final class Documents
                 $p['discountSummary'] = Pricing::discount($subtotal, $p['discountMode'], $p['discountValue'], allowZero: true);
             }
         }
-        if ($p['partyId']) {
+        if ($p['partyId'] && $p['kind'] !== 'CHALLAN_RETURN') {
             $party = $this->db->one('SELECT * FROM v1_parties WHERE id=?', [$p['partyId']]);
             if (!$party) {
                 V1Input::field('partyId', 'Please select an active client or vendor.', 'ACTIVE_PARTY_REQUIRED');
@@ -137,6 +143,9 @@ final class Documents
         $p = SimpleV1::payload($d);
         if ($p['date'] > SimpleV1::today()) {
             throw new ApiError(400, 'FUTURE_DATE_NOT_ALLOWED');
+        }
+        if ($p['kind'] === 'CHALLAN_RETURN') {
+            return (new ChallanReturns($this->db, $this->records))->post($user, $d, $p);
         }
         if ($p['kind'] === 'CHALLAN' && !($p['time'] === '' || preg_match('/^(?:[01]\d|2[0-3]):[0-5]\d$/D', $p['time']))) {
             V1Input::field('time', 'Choose a valid local time in HH:mm format.', 'INVALID_LOCAL_TIME');

@@ -584,15 +584,16 @@
         "req.body"
       ],
       "successStatus": 201,
-      "phpMilestone": "PHP-3",
-      "conversionScope": "six-supported-document-kinds",
+      "phpMilestone": "PHP-4",
+      "conversionScope": "seven-supported-document-kinds",
       "convertedKinds": [
         "STOCK_OPENING",
         "CLIENT_OPENING",
         "VENDOR_OPENING",
         "PRODUCTION",
         "PURCHASE",
-        "CHALLAN"
+        "CHALLAN",
+        "CHALLAN_RETURN"
       ]
     },
     {
@@ -621,15 +622,16 @@
         "req.params.id"
       ],
       "successStatus": 200,
-      "phpMilestone": "PHP-3",
-      "conversionScope": "six-supported-document-kinds",
+      "phpMilestone": "PHP-4",
+      "conversionScope": "seven-supported-document-kinds",
       "convertedKinds": [
         "STOCK_OPENING",
         "CLIENT_OPENING",
         "VENDOR_OPENING",
         "PRODUCTION",
         "PURCHASE",
-        "CHALLAN"
+        "CHALLAN",
+        "CHALLAN_RETURN"
       ]
     },
     {
@@ -663,15 +665,16 @@
         "req.body"
       ],
       "successStatus": 200,
-      "phpMilestone": "PHP-3",
-      "conversionScope": "six-supported-document-kinds",
+      "phpMilestone": "PHP-4",
+      "conversionScope": "seven-supported-document-kinds",
       "convertedKinds": [
         "STOCK_OPENING",
         "CLIENT_OPENING",
         "VENDOR_OPENING",
         "PRODUCTION",
         "PURCHASE",
-        "CHALLAN"
+        "CHALLAN",
+        "CHALLAN_RETURN"
       ]
     },
     {
@@ -700,15 +703,16 @@
         "req.body"
       ],
       "successStatus": 200,
-      "phpMilestone": "PHP-3",
-      "conversionScope": "six-supported-document-kinds",
+      "phpMilestone": "PHP-4",
+      "conversionScope": "seven-supported-document-kinds",
       "convertedKinds": [
         "STOCK_OPENING",
         "CLIENT_OPENING",
         "VENDOR_OPENING",
         "PRODUCTION",
         "PURCHASE",
-        "CHALLAN"
+        "CHALLAN",
+        "CHALLAN_RETURN"
       ]
     },
     {

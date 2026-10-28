@@ -1,0 +1,28 @@
+PHP-4 changes against 7f3004b312b852d0b35b5406f000e1939778dda0
+Branch: feature/upms-php-4-challan-returns
+
+Status and repository-relative path:
+M	docs/php-migration/API-CONTRACT-INVENTORY.json
+M	docs/php-migration/API-PARITY-MATRIX.md
+M	docs/php-migration/BUSINESS-MIGRATION-PLAN.md
+A	docs/php-migration/PHP-4-DIFFERENTIAL-EVIDENCE.md
+A	docs/php-migration/PHP-4-EVIDENCE.json
+A	docs/php-migration/PHP-4-PUBLIC-ASSETS.json
+A	docs/php-migration/PHP-4-TEST-RESULTS.md
+M	scripts/php-2-differential.mjs
+M	scripts/php-2-runtime-grants.mjs
+M	scripts/php-3-differential.mjs
+A	scripts/php-4-browser-setup.mjs
+A	scripts/php-4-browser.mjs
+A	scripts/php-4-differential.mjs
+A	scripts/php-4-evidence.mjs
+A	scripts/php-4-public-assets.mjs
+A	scripts/php-4-return-fixtures.mjs
+M	scripts/php-api-inventory.mjs
+M	upms.php/README.md
+A	upms.php/app/Upms/ChallanReturns.php
+M	upms.php/app/Upms/Documents.php
+M	upms.php/app/Upms/ErrorResponse.php
+A	upms.php/tests/Unit/ChallanReturnsTest.php
+A	upms.php/tests/php4-return-fixtures.json
+A	docs/php-migration/PHP-4-FILES-CHANGED.txt
