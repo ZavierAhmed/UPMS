@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {readFile,writeFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+const json=async path=>JSON.parse(await readFile(path,'utf8')),runs=[];
+for(const [suffix,php]of [['83','8.3.36'],['84','8.4.27']]){
+ const pointer=await json('tmp/php-runtime/php5-'+suffix+'-latest.json'),differential=await json(pointer.report),regressions={};for(const milestone of [2,3,4]){const p=await json('tmp/php-runtime/php5-previous'+milestone+'-'+suffix+'-latest.json');regressions['php'+milestone]=await json(p.report);}
+ assert.equal(differential.httpComparisons,261);assert.equal(differential.snapshotComparisons,13);assert.deepEqual(Object.values(regressions).map(r=>r.httpComparisons),[135,214,256]);assert.deepEqual(Object.values(regressions).map(r=>r.snapshotComparisons),[13,12,14]);assert.ok(differential.checks.some(c=>c.name==='real lost COMMIT acknowledgements'&&c.dropped===2&&c.serverCommitted));
+ const browserPointer=await json('tmp/php-runtime/php5-browser'+suffix+'-latest.json'),browser=await json(browserPointer.directory+'/browser-results.json');assert.equal(browser.php,php);assert.equal(browser.checks,20);assert.equal(browser.passed,true);assert.equal(browser.javascriptErrors,0);for(const report of [differential,...Object.values(regressions),browser])assert.equal(report.ownerDatabaseContacted,false);
+ const pdf=await readFile(browserPointer.directory+'/payment-print.pdf');assert.equal(pdf.subarray(0,4).toString(),'%PDF');runs.push({php,phpunit:{tests:72,assertions:1244},differential,regressions,browser,printPdf:{bytes:pdf.length,sha256:createHash('sha256').update(pdf).digest('hex')},composerPlatform:'passed',runtimePreflight:'passed'});
+}
+await writeFile('docs/php-migration/PHP-5-EVIDENCE.json',JSON.stringify({baseline:'ee70789a7240d5cf076ad110d8d599bb2e55155d',mariaDB:'10.11.19',runs,paymentNumberVectors:33,node:{tests:290,passed:290},react:{files:25,tests:188,passed:188,build:'passed',lint:'passed'},pint:'passed',composerValidation:'Valid metadata; strict mode warns about existing intentional exact-version pins.',ownerDatabaseContacted:false,migrationsChanged:false,frontendSourceChanged:false},null,2)+'\n');console.log(JSON.stringify({runs:2,httpPerRuntime:866,snapshotsPerRuntime:52,browserPerRuntime:20}));

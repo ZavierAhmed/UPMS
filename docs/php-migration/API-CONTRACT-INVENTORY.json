@@ -584,8 +584,8 @@
         "req.body"
       ],
       "successStatus": 201,
-      "phpMilestone": "PHP-4",
-      "conversionScope": "seven-supported-document-kinds",
+      "phpMilestone": "PHP-5",
+      "conversionScope": "twelve-supported-document-kinds",
       "convertedKinds": [
         "STOCK_OPENING",
         "CLIENT_OPENING",
@@ -593,7 +593,12 @@
         "PRODUCTION",
         "PURCHASE",
         "CHALLAN",
-        "CHALLAN_RETURN"
+        "CHALLAN_RETURN",
+        "CLIENT_PAYMENT",
+        "VENDOR_PAYMENT",
+        "PAYMENT_REVERSAL",
+        "STOCK_CORRECTION",
+        "OPENING_CORRECTION"
       ]
     },
     {
@@ -622,8 +627,8 @@
         "req.params.id"
       ],
       "successStatus": 200,
-      "phpMilestone": "PHP-4",
-      "conversionScope": "seven-supported-document-kinds",
+      "phpMilestone": "PHP-5",
+      "conversionScope": "twelve-supported-document-kinds",
       "convertedKinds": [
         "STOCK_OPENING",
         "CLIENT_OPENING",
@@ -631,7 +636,12 @@
         "PRODUCTION",
         "PURCHASE",
         "CHALLAN",
-        "CHALLAN_RETURN"
+        "CHALLAN_RETURN",
+        "CLIENT_PAYMENT",
+        "VENDOR_PAYMENT",
+        "PAYMENT_REVERSAL",
+        "STOCK_CORRECTION",
+        "OPENING_CORRECTION"
       ]
     },
     {
@@ -665,8 +675,8 @@
         "req.body"
       ],
       "successStatus": 200,
-      "phpMilestone": "PHP-4",
-      "conversionScope": "seven-supported-document-kinds",
+      "phpMilestone": "PHP-5",
+      "conversionScope": "twelve-supported-document-kinds",
       "convertedKinds": [
         "STOCK_OPENING",
         "CLIENT_OPENING",
@@ -674,7 +684,12 @@
         "PRODUCTION",
         "PURCHASE",
         "CHALLAN",
-        "CHALLAN_RETURN"
+        "CHALLAN_RETURN",
+        "CLIENT_PAYMENT",
+        "VENDOR_PAYMENT",
+        "PAYMENT_REVERSAL",
+        "STOCK_CORRECTION",
+        "OPENING_CORRECTION"
       ]
     },
     {
@@ -703,8 +718,8 @@
         "req.body"
       ],
       "successStatus": 200,
-      "phpMilestone": "PHP-4",
-      "conversionScope": "seven-supported-document-kinds",
+      "phpMilestone": "PHP-5",
+      "conversionScope": "twelve-supported-document-kinds",
       "convertedKinds": [
         "STOCK_OPENING",
         "CLIENT_OPENING",
@@ -712,7 +727,12 @@
         "PRODUCTION",
         "PURCHASE",
         "CHALLAN",
-        "CHALLAN_RETURN"
+        "CHALLAN_RETURN",
+        "CLIENT_PAYMENT",
+        "VENDOR_PAYMENT",
+        "PAYMENT_REVERSAL",
+        "STOCK_CORRECTION",
+        "OPENING_CORRECTION"
       ]
     },
     {

@@ -1,0 +1,32 @@
+PHP-5 changes against ee70789a7240d5cf076ad110d8d599bb2e55155d
+Branch: feature/upms-php-5-payments-corrections
+
+Status and repository-relative path:
+M	docs/php-migration/API-CONTRACT-INVENTORY.json
+M	docs/php-migration/API-PARITY-MATRIX.md
+M	docs/php-migration/BUSINESS-MIGRATION-PLAN.md
+A	docs/php-migration/PHP-5-DIFFERENTIAL-EVIDENCE.md
+A	docs/php-migration/PHP-5-EVIDENCE.json
+A	docs/php-migration/PHP-5-PUBLIC-ASSETS.json
+A	docs/php-migration/PHP-5-REVERSAL-REVIEW.md
+A	docs/php-migration/PHP-5-TEST-RESULTS.md
+M	scripts/php-2-differential.mjs
+M	scripts/php-2-runtime-grants.mjs
+M	scripts/php-3-differential.mjs
+M	scripts/php-4-differential.mjs
+A	scripts/php-5-browser-setup.mjs
+A	scripts/php-5-browser.mjs
+A	scripts/php-5-differential.mjs
+A	scripts/php-5-evidence.mjs
+A	scripts/php-5-number-fixtures.mjs
+A	scripts/php-5-public-assets.mjs
+M	scripts/php-api-inventory.mjs
+M	upms.php/README.md
+M	upms.php/app/Upms/Documents.php
+M	upms.php/app/Upms/ErrorResponse.php
+M	upms.php/app/Upms/SimpleV1.php
+M	upms.php/app/Upms/StockPosting.php
+M	upms.php/app/Upms/V1Input.php
+A	upms.php/tests/Unit/PaymentNumberTest.php
+A	upms.php/tests/php5-number-fixtures.json
+A	docs/php-migration/PHP-5-FILES-CHANGED.txt

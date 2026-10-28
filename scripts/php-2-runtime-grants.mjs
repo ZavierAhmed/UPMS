@@ -9,6 +9,9 @@ export async function grantPhp3(admin,database,user,password){
 export async function grantPhp4(admin,database,user,password){
  return grantRuntime(admin,database,user,password,4);
 }
+export async function grantPhp5(admin,database,user,password){
+ return grantRuntime(admin,database,user,password,5);
+}
 async function grantRuntime(admin,database,user,password,milestone){
  assert.match(database,new RegExp('^upms_test_php_'+milestone+'_[a-z0-9_]+$'));assert.match(user,new RegExp('^php'+milestone+'_[a-z0-9_]+$'));
  await admin.raw('CREATE USER ?@? IDENTIFIED BY ?',[user,'127.0.0.1',password]);

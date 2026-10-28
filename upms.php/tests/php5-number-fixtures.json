@@ -1,0 +1,230 @@
+[
+  {
+    "kind": "CLIENT_PAYMENT",
+    "id": "1",
+    "result": "CR-0001"
+  },
+  {
+    "kind": "CLIENT_PAYMENT",
+    "id": "9",
+    "result": "CR-0009"
+  },
+  {
+    "kind": "CLIENT_PAYMENT",
+    "id": "0009",
+    "result": "CR-0009"
+  },
+  {
+    "kind": "CLIENT_PAYMENT",
+    "id": "10001",
+    "result": "CR-10001"
+  },
+  {
+    "kind": "CLIENT_PAYMENT",
+    "id": "9007199254740993",
+    "result": "CR-9007199254740993"
+  },
+  {
+    "kind": "CLIENT_PAYMENT",
+    "id": "18446744073709551615",
+    "result": "CR-18446744073709551615"
+  },
+  {
+    "kind": "CLIENT_PAYMENT",
+    "id": "0",
+    "error": {
+      "status": 409,
+      "code": "INVALID_PAYMENT_IDENTITY"
+    }
+  },
+  {
+    "kind": "CLIENT_PAYMENT",
+    "id": "-1",
+    "error": {
+      "status": 409,
+      "code": "INVALID_PAYMENT_IDENTITY"
+    }
+  },
+  {
+    "kind": "CLIENT_PAYMENT",
+    "id": "1.5",
+    "error": {
+      "status": 409,
+      "code": "INVALID_PAYMENT_IDENTITY"
+    }
+  },
+  {
+    "kind": "CLIENT_PAYMENT",
+    "id": "18446744073709551616",
+    "error": {
+      "status": 409,
+      "code": "INVALID_PAYMENT_IDENTITY"
+    }
+  },
+  {
+    "kind": "CLIENT_PAYMENT",
+    "id": "000000000000000000001",
+    "error": {
+      "status": 409,
+      "code": "INVALID_PAYMENT_IDENTITY"
+    }
+  },
+  {
+    "kind": "VENDOR_PAYMENT",
+    "id": "1",
+    "result": "VP-0001"
+  },
+  {
+    "kind": "VENDOR_PAYMENT",
+    "id": "9",
+    "result": "VP-0009"
+  },
+  {
+    "kind": "VENDOR_PAYMENT",
+    "id": "0009",
+    "result": "VP-0009"
+  },
+  {
+    "kind": "VENDOR_PAYMENT",
+    "id": "10001",
+    "result": "VP-10001"
+  },
+  {
+    "kind": "VENDOR_PAYMENT",
+    "id": "9007199254740993",
+    "result": "VP-9007199254740993"
+  },
+  {
+    "kind": "VENDOR_PAYMENT",
+    "id": "18446744073709551615",
+    "result": "VP-18446744073709551615"
+  },
+  {
+    "kind": "VENDOR_PAYMENT",
+    "id": "0",
+    "error": {
+      "status": 409,
+      "code": "INVALID_PAYMENT_IDENTITY"
+    }
+  },
+  {
+    "kind": "VENDOR_PAYMENT",
+    "id": "-1",
+    "error": {
+      "status": 409,
+      "code": "INVALID_PAYMENT_IDENTITY"
+    }
+  },
+  {
+    "kind": "VENDOR_PAYMENT",
+    "id": "1.5",
+    "error": {
+      "status": 409,
+      "code": "INVALID_PAYMENT_IDENTITY"
+    }
+  },
+  {
+    "kind": "VENDOR_PAYMENT",
+    "id": "18446744073709551616",
+    "error": {
+      "status": 409,
+      "code": "INVALID_PAYMENT_IDENTITY"
+    }
+  },
+  {
+    "kind": "VENDOR_PAYMENT",
+    "id": "000000000000000000001",
+    "error": {
+      "status": 409,
+      "code": "INVALID_PAYMENT_IDENTITY"
+    }
+  },
+  {
+    "kind": "CHALLAN",
+    "id": "1",
+    "error": {
+      "status": 409,
+      "code": "INVALID_PAYMENT_IDENTITY"
+    }
+  },
+  {
+    "kind": "CHALLAN",
+    "id": "9",
+    "error": {
+      "status": 409,
+      "code": "INVALID_PAYMENT_IDENTITY"
+    }
+  },
+  {
+    "kind": "CHALLAN",
+    "id": "0009",
+    "error": {
+      "status": 409,
+      "code": "INVALID_PAYMENT_IDENTITY"
+    }
+  },
+  {
+    "kind": "CHALLAN",
+    "id": "10001",
+    "error": {
+      "status": 409,
+      "code": "INVALID_PAYMENT_IDENTITY"
+    }
+  },
+  {
+    "kind": "CHALLAN",
+    "id": "9007199254740993",
+    "error": {
+      "status": 409,
+      "code": "INVALID_PAYMENT_IDENTITY"
+    }
+  },
+  {
+    "kind": "CHALLAN",
+    "id": "18446744073709551615",
+    "error": {
+      "status": 409,
+      "code": "INVALID_PAYMENT_IDENTITY"
+    }
+  },
+  {
+    "kind": "CHALLAN",
+    "id": "0",
+    "error": {
+      "status": 409,
+      "code": "INVALID_PAYMENT_IDENTITY"
+    }
+  },
+  {
+    "kind": "CHALLAN",
+    "id": "-1",
+    "error": {
+      "status": 409,
+      "code": "INVALID_PAYMENT_IDENTITY"
+    }
+  },
+  {
+    "kind": "CHALLAN",
+    "id": "1.5",
+    "error": {
+      "status": 409,
+      "code": "INVALID_PAYMENT_IDENTITY"
+    }
+  },
+  {
+    "kind": "CHALLAN",
+    "id": "18446744073709551616",
+    "error": {
+      "status": 409,
+      "code": "INVALID_PAYMENT_IDENTITY"
+    }
+  },
+  {
+    "kind": "CHALLAN",
+    "id": "000000000000000000001",
+    "error": {
+      "status": 409,
+      "code": "INVALID_PAYMENT_IDENTITY"
+    }
+  }
+]

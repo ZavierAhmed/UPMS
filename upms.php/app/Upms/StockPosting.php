@@ -38,7 +38,10 @@ final class StockPosting
             if (!empty($line['expectedVersion']) && $item['version'] !== $line['expectedVersion']) {
                 throw new ApiError(409, 'BOTTLE_CHANGED_REVIEW_DRAFT');
             }
-            $quantity = Exact::integer($line['quantity'], zero: $kind === 'STOCK_OPENING');
+            $quantity = Exact::integer($line['quantity'], signed: $kind === 'STOCK_CORRECTION', zero: $kind === 'STOCK_OPENING');
+            if ($kind === 'STOCK_CORRECTION' && $quantity->isZero()) {
+                throw new ApiError(400, 'NONZERO_CORRECTION_REQUIRED');
+            }
             if ($control['entry_version'] === 2 && $kind === 'CHALLAN') {
                 if (!BusinessCommand::truthy($item['selling_price'])) {
                     V1Input::field('lines.'.$index.'.itemId', 'Price not set. Set an approved selling price in Item Management before posting.', 'PRICE_NOT_SET');

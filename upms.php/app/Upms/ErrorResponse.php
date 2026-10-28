@@ -48,6 +48,8 @@ final class ErrorResponse
                 'RETURN_POSTED_CHALLAN_REQUIRED' => 'Returns require an existing posted delivery challan.',
                 'RETURN_SOURCE_INVALID' => 'Original challan valuation requires review.',
                 'RETURN_DUPLICATE_LINE' => 'Select each original challan line once.',
+                'CHEQUE_REFERENCE_REQUIRED' => 'Cheque reference is required for cheque payments.',
+                'PAYMENT_METHOD_REQUIRED' => 'Choose a valid payment method for this party.',
             ];
             $body['message'] = $error->publicMessage ?? $messages[$error->apiCode] ?? ($fields ? 'Please correct the highlighted fields.' : 'This entry cannot be saved. Review the values and try again.');
             if ($fields) {

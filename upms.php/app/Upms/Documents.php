@@ -8,7 +8,7 @@ use Brick\Math\BigInteger;
 
 final class Documents
 {
-    public const KINDS = ['STOCK_OPENING', 'CLIENT_OPENING', 'VENDOR_OPENING', 'PRODUCTION', 'PURCHASE', 'CHALLAN', 'CHALLAN_RETURN'];
+    public const KINDS = ['STOCK_OPENING', 'CLIENT_OPENING', 'VENDOR_OPENING', 'PRODUCTION', 'PURCHASE', 'CHALLAN', 'CHALLAN_RETURN', 'CLIENT_PAYMENT', 'VENDOR_PAYMENT', 'PAYMENT_REVERSAL', 'STOCK_CORRECTION', 'OPENING_CORRECTION'];
 
     public function __construct(private readonly Database $db, private readonly BusinessRecords $records, private readonly BusinessCommand $commands)
     {
@@ -60,7 +60,7 @@ final class Documents
             }
             if ($control['entry_version'] === 2) {
                 try {
-                    Exact::integer($line['quantity'], zero: $p['kind'] === 'STOCK_OPENING');
+                    Exact::integer($line['quantity'], signed: $p['kind'] === 'STOCK_CORRECTION', zero: $p['kind'] === 'STOCK_OPENING');
                 } catch (ApiError) {
                     V1Input::field('lines.'.$i.'.quantity', 'Please enter a valid whole-bottle quantity.');
                 }
@@ -154,32 +154,32 @@ final class Documents
         $party = null;
         $total = BigInteger::zero();
         $discount = null;
-        if (in_array($p['kind'], ['PURCHASE', 'CHALLAN', 'CLIENT_OPENING', 'VENDOR_OPENING'], true)) {
+        if (in_array($p['kind'], ['PURCHASE', 'CHALLAN', 'CLIENT_OPENING', 'VENDOR_OPENING', 'CLIENT_PAYMENT', 'VENDOR_PAYMENT', 'OPENING_CORRECTION'], true)) {
             $party = $this->db->one('SELECT * FROM v1_parties WHERE id=? AND active=1', [$p['partyId']]);
             if (!$party) {
                 V1Input::field('partyId', 'Please select an active client or vendor.', 'ACTIVE_PARTY_REQUIRED');
             }
-            if ($party['kind'] !== (in_array($p['kind'], ['CHALLAN', 'CLIENT_OPENING'], true) ? 'CLIENT' : 'VENDOR')) {
+            if ($party['kind'] !== (in_array($p['kind'], ['CHALLAN', 'CLIENT_OPENING', 'CLIENT_PAYMENT'], true) ? 'CLIENT' : ($p['kind'] === 'OPENING_CORRECTION' ? $party['kind'] : 'VENDOR'))) {
                 throw new ApiError(400, 'PARTY_KIND_MISMATCH');
             }
             if (isset($p['partySnapshot']) && $party['version'] !== $p['partySnapshot']['version']) {
                 throw new ApiError(409, 'PARTY_CHANGED_REVIEW_DRAFT');
             }
         }
-        if ($p['kind'] === 'PURCHASE') {
+        if (in_array($p['kind'], ['PURCHASE', 'CLIENT_PAYMENT', 'VENDOR_PAYMENT'], true)) {
             $reference = mb_strtolower(V1Input::trim($p['reference'] !== '' ? $p['reference'] : $p['chequeReference']));
-            if ($reference === '') {
+            if ($reference === '' && $p['kind'] === 'PURCHASE') {
                 throw new ApiError(400, 'TRANSACTION_REFERENCE_REQUIRED');
             }
-            foreach ($this->db->rows("SELECT payload FROM v1_documents WHERE kind='PURCHASE' AND party_id=? AND status='POSTED'", [$p['partyId']]) as $row) {
+            foreach ($this->db->rows("SELECT payload FROM v1_documents WHERE kind=? AND party_id=? AND status='POSTED'", [$p['kind'], $p['partyId']]) as $row) {
                 $old = SimpleV1::payload($row);
                 $oldReference = BusinessCommand::truthy($old['reference'] ?? '') ? $old['reference'] : ($old['chequeReference'] ?? '');
-                if (mb_strtolower(V1Input::trim($oldReference)) === $reference || (($p['method'] ?? '') === 'CHEQUE_RECEIVED' && BusinessCommand::truthy($p['chequeReference']) && ($old['method'] ?? '') === 'CHEQUE_RECEIVED' && mb_strtolower(V1Input::trim($old['chequeReference'])) === mb_strtolower(V1Input::trim($p['chequeReference'])))) {
+                if (($reference !== '' && mb_strtolower(V1Input::trim($oldReference)) === $reference) || (($p['method'] ?? '') === 'CHEQUE_RECEIVED' && BusinessCommand::truthy($p['chequeReference']) && ($old['method'] ?? '') === 'CHEQUE_RECEIVED' && mb_strtolower(V1Input::trim($old['chequeReference'])) === mb_strtolower(V1Input::trim($p['chequeReference'])))) {
                     throw new ApiError(409, 'DUPLICATE_TRANSACTION_REFERENCE');
                 }
             }
         }
-        if (in_array($p['kind'], ['STOCK_OPENING', 'PRODUCTION', 'PURCHASE', 'CHALLAN'], true)) {
+        if (in_array($p['kind'], ['STOCK_OPENING', 'PRODUCTION', 'PURCHASE', 'CHALLAN', 'STOCK_CORRECTION'], true)) {
             $total = (new StockPosting($this->db, $this->records))->apply($d, $p, $control);
         } elseif ($p['lines']) {
             throw new ApiError(400, 'UNEXPECTED_BOTTLE_LINES');
@@ -194,7 +194,7 @@ final class Documents
             $total = Exact::cents($p['amount'], zero: true);
             $this->records->insert('v1_party_journal', ['document_id' => $d['id'], 'party_id' => $party['id'], 'debit' => $p['direction'] === 'OWED_TO_COMPANY' ? Exact::money($total) : '0.00', 'credit' => $p['direction'] === 'OWED_BY_COMPANY' ? Exact::money($total) : '0.00', 'particulars' => 'Explicit '.strtolower($party['kind']).' opening']);
             $this->records->update('v1_parties', ['opening_verified' => true], ['id' => $party['id']]);
-        } elseif (in_array($p['kind'], ['CHALLAN', 'PURCHASE'], true)) {
+        } elseif (in_array($p['kind'], ['CHALLAN', 'PURCHASE', 'CLIENT_PAYMENT', 'VENDOR_PAYMENT'], true)) {
             if (!$party['opening_verified']) {
                 throw new ApiError(409, 'PARTY_OPENING_UNVERIFIED');
             }
@@ -211,15 +211,65 @@ final class Documents
                     $total = Exact::cents($discount['total']);
                 }
                 $this->journal($d, $party, Exact::money($total), '0.00', 'Delivery challan sale');
-            } else {
+            } elseif ($p['kind'] === 'PURCHASE') {
                 $this->journal($d, $party, $p['paidImmediately'] ? Exact::money($total) : '0.00', Exact::money($total), $p['paidImmediately'] ? 'Bottle purchase paid immediately; method reference only' : 'Bottle purchase payable');
                 if ($p['paidImmediately'] && (!isset($p['method']) || $p['method'] === 'CHEQUE_RECEIVED' || $p['reference'] === '')) {
                     throw new ApiError(400, 'IMMEDIATE_PAYMENT_METHOD_AND_REFERENCE_REQUIRED');
                 }
             }
+            if (in_array($p['kind'], ['CLIENT_PAYMENT', 'VENDOR_PAYMENT'], true)) {
+                $total = Exact::cents($p['amount']);
+                if (empty($p['method']) || ($p['kind'] === 'VENDOR_PAYMENT' && $p['method'] === 'CHEQUE_RECEIVED')) {
+                    throw new ApiError(400, 'PAYMENT_METHOD_REQUIRED');
+                }
+                if ($p['method'] === 'CHEQUE_RECEIVED' && $p['chequeReference'] === '') {
+                    throw new ApiError(400, 'CHEQUE_REFERENCE_REQUIRED');
+                }
+                $this->journal($d, $party, $p['kind'] === 'VENDOR_PAYMENT' ? Exact::money($total) : '0.00', $p['kind'] === 'CLIENT_PAYMENT' ? Exact::money($total) : '0.00', ($p['kind'] === 'CLIENT_PAYMENT' ? 'Amount received · ' : 'Amount paid · ').$p['method']);
+            }
+        } elseif ($p['kind'] === 'PAYMENT_REVERSAL') {
+            $source = $this->db->one("SELECT * FROM v1_documents WHERE id=? AND status='POSTED'", [$p['correctsId'] ?? null]);
+            if (!$source || !in_array($source['kind'], ['CLIENT_PAYMENT', 'VENDOR_PAYMENT'], true) || $p['date'] < $source['date']) {
+                throw new ApiError(400, 'INVALID_PAYMENT_REVERSAL');
+            }
+            if ($source['kind'] === 'CLIENT_PAYMENT' && (SimpleV1::payload($source)['method'] ?? null) !== 'CHEQUE_RECEIVED') {
+                throw new ApiError(400, 'ONLY_CHEQUE_DISHONOUR_SUPPORTED');
+            }
+            $party = $this->db->one('SELECT * FROM v1_parties WHERE id=?', [$source['party_id']]);
+            $total = Exact::cents($source['total']);
+            $this->journal($d, $party, $source['kind'] === 'CLIENT_PAYMENT' ? Exact::money($total) : '0.00', $source['kind'] === 'VENDOR_PAYMENT' ? Exact::money($total) : '0.00', 'Traceable payment reversal');
+        } elseif ($p['kind'] === 'STOCK_CORRECTION') {
+            $source = $this->db->one("SELECT * FROM v1_documents WHERE id=? AND status='POSTED'", [$p['correctsId'] ?? null]);
+            if (!$source || !in_array($source['kind'], ['STOCK_OPENING', 'PRODUCTION', 'STOCK_CORRECTION'], true) || $p['date'] < $source['date']) {
+                throw new ApiError(400, 'ONLY_NONFINANCIAL_STOCK_CORRECTION_SUPPORTED');
+            }
+            $allowed = array_column($this->db->rows('SELECT item_id FROM v1_lines WHERE document_id=?', [$source['id']]), 'item_id');
+            foreach ($p['lines'] as $line) {
+                if (!in_array($line['itemId'], $allowed, true)) {
+                    throw new ApiError(400, 'CORRECTION_ITEM_MISMATCH');
+                }
+            }
+        } elseif ($p['kind'] === 'OPENING_CORRECTION') {
+            $source = $this->db->one("SELECT * FROM v1_documents WHERE id=? AND party_id=? AND status='POSTED'", [$p['correctsId'] ?? null, $party['id']]);
+            if (!$source || !in_array($source['kind'], ['CLIENT_OPENING', 'VENDOR_OPENING', 'OPENING_CORRECTION'], true) || empty($p['direction']) || $p['date'] < $source['date']) {
+                throw new ApiError(400, 'INVALID_OPENING_CORRECTION');
+            }
+            if ($this->db->one("SELECT id FROM v1_documents WHERE party_id=? AND status='POSTED' AND kind NOT IN ('CLIENT_OPENING','VENDOR_OPENING','OPENING_CORRECTION') LIMIT 1", [$party['id']])) {
+                throw new ApiError(409, 'OPENING_CORRECTION_AFTER_ACTIVITY_BLOCKED');
+            }
+            $balance = BigInteger::zero();
+            foreach ($this->db->rows('SELECT debit,credit FROM v1_party_journal WHERE party_id=?', [$party['id']]) as $row) {
+                $balance = $balance->plus(Exact::cents($row['debit'], zero: true))->minus(Exact::cents($row['credit'], zero: true));
+            }
+            $total = Exact::cents($p['amount'], zero: true);
+            $delta = ($p['direction'] === 'OWED_TO_COMPANY' ? $total : $total->negated())->minus($balance);
+            $this->journal($d, $party, $delta->isPositive() ? Exact::money($delta) : '0.00', $delta->isNegative() ? Exact::money($delta->negated()) : '0.00', 'Reviewed replacement opening; prior evidence retained');
         }
-        $number = null;
+        $number = in_array($p['kind'], ['CLIENT_PAYMENT', 'VENDOR_PAYMENT'], true) ? SimpleV1::paymentNumber($p['kind'], (string) $d['id']) : null;
         $numbering = [];
+        if ($number !== null) {
+            $numbering = ['official_number' => $number];
+        }
         if ($p['kind'] === 'CHALLAN') {
             $number = SimpleV1::dcNumber($control['next_dc']);
             $numbering = ['official_number' => $number, 'sequence' => $control['next_dc']];

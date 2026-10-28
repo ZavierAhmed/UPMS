@@ -40,7 +40,9 @@ final class V1Input
 
     public static function document(object $input): array
     {
-        return self::parse($input, [
+        $errors = [];
+        $aborted = false;
+        $parsed = self::parse($input, [
             'kind' => ['enum', array_keys(SimpleV1::EVENTS)], 'date' => ['date'], 'partyId' => ['id', 'nullable', 'default', null], 'originalId' => ['id', 'optional'],
             'reference' => ['text', 150, 0, 'default', ''], 'remarks' => ['text', 1000, 0, 'default', ''], 'reason' => ['text', 500, 0, 'default', ''],
             'amount' => ['string', 'default', '0'], 'discountMode' => ['enum', ['NONE', 'FIXED', 'PERCENT'], 'default', 'NONE'], 'discountValue' => ['string', 'default', '0'],
@@ -48,7 +50,14 @@ final class V1Input
             'paymentStatus' => ['enum', ['PAID'], 'optional'], 'direction' => ['enum', ['OWED_TO_COMPANY', 'OWED_BY_COMPANY'], 'optional'], 'method' => ['enum', ['CASH', 'BANK_TRANSFER', 'CHEQUE_RECEIVED'], 'optional'],
             'chequeReference' => ['text', 150, 0, 'default', ''], 'correctsId' => ['id', 'optional'], 'vehicle' => ['text', 100, 0, 'default', ''], 'driver' => ['text', 100, 0, 'default', ''],
             'time' => ['time', 5, 0, 'default', ''], 'address' => ['text', 1000, 0, 'default', ''], 'paidImmediately' => ['bool', 'default', false], 'lines' => ['lines', 'default', []],
-        ]);
+        ], parentErrors: $errors, aborted: $aborted);
+        if (!$aborted && in_array($parsed['kind'], ['STOCK_CORRECTION', 'PAYMENT_REVERSAL', 'OPENING_CORRECTION'], true) && strlen(mb_convert_encoding($parsed['reason'], 'UTF-16LE', 'UTF-8')) / 2 < 3) {
+            self::issue($errors, 'reason');
+        }
+        if ($errors) {
+            throw new ApiError(400, 'INVALID_INPUT', $errors);
+        }
+        return $parsed;
     }
 
     public static function posting(object $input): array
@@ -67,8 +76,9 @@ final class V1Input
         $errors[$path ?: 'form'] = (self::LABELS[$last] ?? 'Field').' is missing or invalid. Please check this field.';
     }
 
-    private static function parse(object $input, array $schema, string $prefix = '', bool $strict = true, ?array &$parentErrors = null): array
+    private static function parse(object $input, array $schema, string $prefix = '', bool $strict = true, ?array &$parentErrors = null, ?bool &$aborted = null): array
     {
+        $aborted ??= false;
         $errors = [];
         $output = [];
         foreach ($schema as $key => $rule) {
@@ -79,6 +89,7 @@ final class V1Input
                     $output[$key] = $rule[$default + 1];
                 } elseif (!in_array('optional', $rule, true)) {
                     self::issue($errors, $path);
+                    $aborted = true;
                 }
                 continue;
             }
@@ -93,6 +104,7 @@ final class V1Input
                 case 'time':
                     if (!is_string($v)) {
                         $valid = false;
+                        $aborted = true;
                         break;
                     }
                     $v = self::trim($v);
@@ -108,15 +120,19 @@ final class V1Input
                     break;
                 case 'string':
                     $valid = is_string($v);
+                    $aborted = $aborted || !$valid;
                     break;
                 case 'bool':
                     $valid = is_bool($v);
+                    $aborted = $aborted || !$valid;
                     break;
                 case 'enum':
                     $valid = in_array($v, $rule[1], true);
+                    $aborted = $aborted || !$valid;
                     break;
                 case 'id':
                     $valid = is_string($v) && (bool) preg_match('/^[1-9][0-9]*$/D', $v);
+                    $aborted = $aborted || !is_string($v);
                     break;
                 case 'version':
                 case 'integer':
@@ -126,19 +142,22 @@ final class V1Input
                     }
                     break;
                 case 'date':
+                    $aborted = $aborted || !is_string($v);
                     $d = is_string($v) && preg_match('/^\d{4}-\d{2}-\d{2}$/D', $v) ? \DateTimeImmutable::createFromFormat('!Y-m-d', $v) : false;
                     $valid = $d && $d->format('Y-m-d') === $v;
                     break;
                 case 'lines':
+                    $aborted = $aborted || !is_array($v);
                     $valid = is_array($v) && count($v) <= 100;
                     if (is_array($v)) {
                         $lines = [];
                         foreach ($v as $i => $line) {
                             if (!is_object($line)) {
                                 self::issue($errors, $path.'.'.$i);
+                                $aborted = true;
                                 continue;
                             }
-                            $lines[] = self::parse($line, ['itemId' => ['id'], 'originalLineId' => ['id', 'optional'], 'quantity' => ['string'], 'rate' => ['string', 'default', '0']], $path.'.'.$i.'.', false, $errors);
+                            $lines[] = self::parse($line, ['itemId' => ['id'], 'originalLineId' => ['id', 'optional'], 'quantity' => ['string'], 'rate' => ['string', 'default', '0']], $path.'.'.$i.'.', false, $errors, $aborted);
                         }
                         $v = $lines;
                     }

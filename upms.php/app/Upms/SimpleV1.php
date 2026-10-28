@@ -42,6 +42,15 @@ final class SimpleV1
         return $sequence <= 1000 ? 'DC-'.str_pad((string) $sequence, 4, '0', STR_PAD_LEFT) : 'DC-A'.str_pad((string) ($sequence - 1000), 4, '0', STR_PAD_LEFT);
     }
 
+    public static function paymentNumber(string $kind, string $id): string
+    {
+        $prefix = ['CLIENT_PAYMENT' => 'CR', 'VENDOR_PAYMENT' => 'VP'][$kind] ?? null;
+        if (!$prefix || !preg_match('/^\d{1,20}$/D', $id) || IntMath::of($id)->compareTo(1) < 0 || IntMath::of($id)->compareTo('18446744073709551615') > 0) {
+            throw new ApiError(409, 'INVALID_PAYMENT_IDENTITY');
+        }
+        return $prefix.'-'.str_pad((string) IntMath::of($id), 4, '0', STR_PAD_LEFT);
+    }
+
     public function state(array $control, array $user): array
     {
         return ['mode' => 'SIMPLE_V1', 'deploymentPurpose' => 'legacy-synthetic', 'interfaceVersion' => $control['entry_version'] === 2 ? 'simple-v1.2' : 'simple-v1.1',
