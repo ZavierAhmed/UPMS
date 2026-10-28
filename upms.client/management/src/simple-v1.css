@@ -70,3 +70,4 @@
 .simple-v1.management .status.status-draft{background:#fff0c9;color:#715218}
 
 @media print{.simple-v1.management .v1-challan .business-table th:nth-child(7){width:14%!important}.simple-v1.management .v1-challan .business-table th:nth-child(8){width:15%!important}}
+.simple-v1 .bottle-row .line-field>small{display:block;margin-top:4px}

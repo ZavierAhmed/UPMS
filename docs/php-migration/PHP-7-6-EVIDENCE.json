@@ -414,6 +414,21 @@
     {
       "path": "tmp/php-runtime/php6-browser-1793223331976/health-results.json",
       "sha256": "be935a7cf20b1aaeb53c21cd9fc111478e9be611e1000844e2ac3f9427ad0013"
+    },
+    {
+      "path": "tmp/php-runtime/php76-private-reference-build.log",
+      "sha256": "80dc690c7ade25d58be9f30559d6d5c359b3f77e36fe4dfd258dd021ec9d8628"
+    },
+    {
+      "path": "tmp/php-runtime/php6-browser-1793223331976/php76-mobile-results.json",
+      "sha256": "3069752fc87b4e487a575f198f43148a39b5774b878b585545d295e36ad4bfcf"
     }
-  ]
+  ],
+  "mobileVisual": {
+    "passed": true,
+    "viewport": 390,
+    "priceLabelsSeparate": true,
+    "overflow": false,
+    "financialWrites": 0
+  }
 }

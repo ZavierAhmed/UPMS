@@ -1,6 +1,6 @@
 # PHP-7.6 test results
 
-Starting SHA: 2ad31e4f0e5ca4cf7abab0fca74b20b7d4ce0ab6. Branch: feature/upms-php-7-6-uat-corrections. Executed 29 October 2026 (Asia/Karachi). Final SHA is reported in the delivery message. Raw results remain private; PHP-7-6-EVIDENCE.json records sanitized counts and 35 raw-evidence SHA-256 digests.
+Starting SHA: 2ad31e4f0e5ca4cf7abab0fca74b20b7d4ce0ab6. Branch: feature/upms-php-7-6-uat-corrections. Executed 29 October 2026 (Asia/Karachi). Final SHA is reported in the delivery message. Raw results remain private; PHP-7-6-EVIDENCE.json records sanitized counts and 37 raw-evidence SHA-256 digests.
 
 ## Final management matrix
 
@@ -27,6 +27,7 @@ Final selected matrix: **2670 HTTP / 132 SQL-state comparisons**. Both final PHP
 | Express | PASS 290 / zero failures |
 | React | PASS 195 tests / 27 files, two workers |
 | Production React build / ESLint | PASS / PASS |
+| Mobile price reference layout | PASS separate default/custom labels, 390px, no overflow or financial writes |
 | Final private print build | PASS; existing >500 kB chunk warning remains |
 | Canonical page-driven worksheet | PASS 13 kinds, 16 postings; 123 / 200.00 / 80.00 / signed vendor -185.00 / expenses 18.00 |
 | Baseline XLSX / print artifacts | PASS 4 / 6 |
@@ -58,3 +59,5 @@ Browser harness corrections cleared searchable selection text and used unique si
 Use scripts/php-7-management-regressions.mjs for the full ten-run matrix (PHP_REGRESSION_START supports explicit resumption). Use scripts/php-7-6-pricing-differential.mjs with PHP76_BINARY/PHP76_ARGS and private PHP_TEST_ADMIN_USER/PASSWORD for the separate focused matrix. Private engine is always MariaDB 10.11.19 on loopback 3330 with fresh independent schemas; no owner or remote database profile is used. Existing transaction rollback/lost-COMMIT/concurrency checks remain and custom-rate lost-COMMIT coverage is additional.
 
 No schema, dependency, grant, legacy Sales activation, deployment or production financial change. Existing security/header/SQL/authenticity and manual owner blockers remain. See PHP-7-6-UAT-CORRECTIONS.md for separate-profile owner testing and restart instructions.
+
+The final mobile visual check found adjacent default/custom reference labels. A targeted private CSS block-display rule separates them; the revised bundle was rebuilt and the actual 390px browser layout rechecked with zero business writes. Public assets and financial logic are unaffected.
