@@ -1,6 +1,8 @@
 # Unique Plastic Industry — UPMS
 
-W05 migrates the public website backend to Node.js 24 LTS and Express. The W04 React/Vite design, public routes, approved assets, accessibility and build-time prerendering remain intact. Unique Plastic Industry is the only represented company. The opt-in private workspace now includes identity, business masters and gated inventory, purchasing and vendor-account workflows.
+The intended hosting backend is now PHP/Laravel, with React/Vite retained for the public website and management dashboard. The first migration milestone is in [upms.php](upms.php/README.md), with [API parity and review reports](docs/php-migration/MILESTONE-RESULTS.md). GoDaddy must require no Node.js server runtime; frontend assets are compiled locally. Unique Plastic Industry remains the only represented company.
+
+The existing Node.js/Express backend is preserved as the authoritative implementation and test reference until PHP feature parity and deployment have been reviewed. The commands below describe that existing reference workflow; they are not PHP hosting instructions.
 
 
 P2.1A adopts the existing XAMPP MariaDB engine for local development. Current restricted-account provisioning and acceptance gates are recorded in [the P2.1A summary](docs/phase2/P2-1A-executive-summary.md).

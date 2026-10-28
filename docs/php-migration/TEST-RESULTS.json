@@ -1,0 +1,13 @@
+{
+  "php": "8.3.36",
+  "laravel": "13.39.0",
+  "mariaDB": "10.11.19",
+  "phpunit": {"tests": 59, "assertions": 436, "failures": 0, "skipped": 0},
+  "expressHttpReadContracts": 39,
+  "reconciliationCorruptionContracts": 6,
+  "argon2idFixtures": 2,
+  "expressRegression": {"runtime": "22.23.4", "passed": 290, "failed": 0, "concurrency": 1},
+  "react": {"tests": 188, "files": 25, "build": "pass", "lint": "pass", "publicAssetsSha256Identical": 111},
+  "ownerDatabaseWrites": 0,
+  "hostingDeployment": false
+}

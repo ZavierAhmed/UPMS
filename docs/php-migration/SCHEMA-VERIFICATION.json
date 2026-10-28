@@ -1,0 +1,10 @@
+{
+  "checkedAt": "2026-10-28T00:21:40.350Z",
+  "ownerEngine": "10.11.19-MariaDB-cll-lve",
+  "ownerReadOnlyTransaction": true,
+  "applicationTables": 19,
+  "applicationColumns": 107,
+  "trackingTable": "upms_remote_initialization preserved; not managed by Laravel",
+  "exactColumnTypeAndNullabilityMatch": true,
+  "ownerDatabaseAccessedByComparison": false
+}

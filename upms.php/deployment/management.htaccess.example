@@ -1,0 +1,16 @@
+Options -Indexes -MultiViews
+DirectoryIndex disabled
+<FilesMatch "(^\.|^(?!backend\.php$).*\.php$)">
+    Require all denied
+</FilesMatch>
+RewriteEngine On
+RewriteRule ^(?:api(?:/|$)|healthz$|readyz$) backend.php [END]
+RewriteRule ^$ /management/ [R=303,L]
+RewriteRule ^management/?$ management/index.html [END]
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [END]
+RewriteRule ^management/assets/ - [R=404,END]
+RewriteRule \.[^/]+$ - [R=404,END]
+RewriteRule ^management(?:/.*)?$ management/index.html [END]
+RewriteRule ^ - [R=404,END]

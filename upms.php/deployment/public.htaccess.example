@@ -1,0 +1,13 @@
+Options -Indexes -MultiViews
+DirectoryIndex index.html
+<FilesMatch "(^\.|^(?!backend\.php$).*\.php$)">
+    Require all denied
+</FilesMatch>
+RewriteEngine On
+# Inquiry API remains pending; deploy neither this entry nor routing until parity.
+RewriteRule ^api(?:/|$) backend.php [END]
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [END]
+RewriteRule \.[^/]+$ - [R=404,END]
+RewriteRule ^ index.html [END]

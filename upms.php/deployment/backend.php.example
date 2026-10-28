@@ -1,0 +1,12 @@
+<?php
+
+// Review and replace ACCOUNT/current before any deployment. This file alone is
+// web facing; the Laravel source, .env, vendor, storage and reports stay private.
+define('LARAVEL_START', microtime(true));
+$private = '/home/ACCOUNT/upms_private/current';
+if (file_exists($maintenance = $private.'/storage/framework/maintenance.php')) {
+    require $maintenance;
+}
+require $private.'/vendor/autoload.php';
+$app = require $private.'/bootstrap/app.php';
+$app->handleRequest(\Illuminate\Http\Request::capture());

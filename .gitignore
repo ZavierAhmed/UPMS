@@ -425,3 +425,6 @@ FodyWeavers.xsd
 /tmp/godaddy-diagnostic/
 /tmp/godaddy-staging-runtime/
 /tmp/godaddy-compliance/
+
+# Private PHP migration runtimes, synthetic databases, credentials and test evidence
+/tmp/php-runtime/
