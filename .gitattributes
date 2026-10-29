@@ -68,3 +68,7 @@ deployment/*.sh text eol=lf
 # Immutable PHP-8.2 artifact hashes must survive Windows/Linux checkout.
 deployment/phpmyadmin/* text eol=lf
 deployment/manual/upms-pdo-check.php text eol=lf
+
+# Private staging transport tools retain their reviewed bytes.
+deployment/staging/* text eol=lf
+scripts/php-8-3-*.py text eol=lf

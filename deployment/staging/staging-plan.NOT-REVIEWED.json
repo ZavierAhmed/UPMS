@@ -1,0 +1,11 @@
+{
+  "destinationReviewed": false,
+  "accountQuotaReviewed": false,
+  "runtimeEnabled": false,
+  "schema": "upms_v1",
+  "home": "/home/tsn6az96j3v7",
+  "publicRoot": "/home/tsn6az96j3v7/public_html",
+  "managementRoot": "/home/tsn6az96j3v7/public_html/dashboard",
+  "diagnosticRoot": "/home/tsn6az96j3v7/upms-php8-preflight",
+  "stagingRoot": "/home/tsn6az96j3v7/upms-php83-staging"
+}
