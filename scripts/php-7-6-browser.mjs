@@ -2,8 +2,8 @@ import assert from 'node:assert/strict';
 import {readFile,writeFile,mkdir,readdir} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import puppeteer from 'puppeteer-core';
-const setup=JSON.parse(await readFile('tmp/php-runtime/php76-uat-latest.json','utf8')),credentials=JSON.parse(await readFile(setup.directory+'/credentials.json','utf8'));
-const origin='https://127.0.0.1:9454',run=Date.now(),checks=[],errors=[],ids={};
+const setup=JSON.parse(await readFile(process.env.PHP_PRICING_SETUP||'tmp/php-runtime/php76-uat-latest.json','utf8')),credentials=JSON.parse(await readFile(setup.directory+'/credentials.json','utf8'));
+const origin=process.env.PHP_PRICING_ORIGIN||'https://127.0.0.1:9454',run=Date.now(),checks=[],errors=[],ids={};
 const browser=await puppeteer.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true,acceptInsecureCerts:true});const page=await browser.newPage();await page.setViewport({width:1440,height:1000});page.setDefaultTimeout(20000);page.on('dialog',d=>d.accept());page.on('pageerror',e=>errors.push(e.message));
 async function go(path){await page.goto(origin+'/management/'+path,{waitUntil:'networkidle0'});}
 async function fill(name,value){const s='[name="'+name+'"]';await page.waitForSelector(s);await page.focus(s);await page.keyboard.down('Control');await page.keyboard.press('A');await page.keyboard.up('Control');await page.type(s,value);}

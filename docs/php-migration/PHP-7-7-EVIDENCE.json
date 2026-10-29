@@ -1,0 +1,415 @@
+{
+  "milestone": "PHP-7.7",
+  "startingSha": "07a45ec5d3d5b91d49ce514bf84bd1aaa57c51b1",
+  "branch": "feature/upms-php-7-7-design-enhancements",
+  "ownerTableHashesIdentical": true,
+  "production": "NO-GO",
+  "ownerReview": "PENDING OWNER",
+  "tests": {
+    "managementRuntimes": 2,
+    "managementHttpAssertions": 2670,
+    "managementSqlAssertions": 132,
+    "focusedPricingHttpAssertions": 166,
+    "focusedPricingSqlAssertions": 8,
+    "phpunitPerRuntime": {
+      "tests": 73,
+      "assertions": 1316
+    },
+    "react": {
+      "tests": 201,
+      "files": 29
+    },
+    "express": 290,
+    "publicResponsiveViews": 80,
+    "dashboardWidths": 8,
+    "dashboardRanges": 3,
+    "managementRoutes": 13,
+    "mobileFormViews": 27,
+    "publicInquiryChecks": 28,
+    "pricingUiChecks": 9,
+    "pdfs": 7,
+    "pdfPages": 8,
+    "xlsx": 6,
+    "inquiriesPerRuntime": {
+      "comparisons": 66,
+      "checks": 78
+    }
+  },
+  "performance": {
+    "documents": 10000,
+    "rangeDays": 90,
+    "samplesMilliseconds": [
+      34.69579999999999,
+      14.863599999999991,
+      13.490800000000007,
+      12.0351,
+      13.08359999999999
+    ],
+    "medianMilliseconds": 13.490800000000007,
+    "newApiRequests": 0,
+    "chartPointsPerSeries": 90,
+    "recentRows": 8,
+    "inventoryRows": 8,
+    "note": "Synthetic benchmark only; actual dashboard always uses authorized API records. Existing complete-record read limitation remains."
+  },
+  "artifacts": [
+    {
+      "path": "tmp/php-runtime/php77-assets-final.log",
+      "sha256": "57ef1a6fe9f87c8c944842bab87b2a19cd593c24d93d33db6fa5cec318868c27"
+    },
+    {
+      "path": "tmp/php-runtime/php77-automated.log",
+      "sha256": "52a1c8b4c1f1d57ebea13c0141807e5418b43aef3ea1b0cdc489557825a01c05"
+    },
+    {
+      "path": "tmp/php-runtime/php77-baseline-browser.log",
+      "sha256": "2eea904371bdeb51603fe8c2f972cac00a945b211bce30ee723679a2f233924d"
+    },
+    {
+      "path": "tmp/php-runtime/php77-build-final.log",
+      "sha256": "1d862fb4fd045aaa2d7cac02df1237135a3e53f1d475e95c11b27f8b7bd06b2a"
+    },
+    {
+      "path": "tmp/php-runtime/php77-build-verified.log",
+      "sha256": "61b31454c31b47977e8f6c690eebdaa0e717f3680cc392d7976e28f61364a8e6"
+    },
+    {
+      "path": "tmp/php-runtime/php77-build.log",
+      "sha256": "4d64dbf5564bfffcc135051417142d254198f36641ee87983381c44676606ec7"
+    },
+    {
+      "path": "tmp/php-runtime/php77-dashboard-browser-final.log",
+      "sha256": "1d43e1ac8197cddf17c4145b930a4957f665e10b879dde4a365a9cf68671ecdc"
+    },
+    {
+      "path": "tmp/php-runtime/php77-dashboard-browser.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tmp/php-runtime/php77-express.log",
+      "sha256": "ea8cc2a786fc99c166635a948856e025aa4735d4cbd9829c336bd9067e162aee"
+    },
+    {
+      "path": "tmp/php-runtime/php77-health.log",
+      "sha256": "d788f27cffe8300ee55c1deace0e92718ff8d6d30709aa324d93e697d86af849"
+    },
+    {
+      "path": "tmp/php-runtime/php77-inquiries83-rerun.log",
+      "sha256": "eea5db738ca5c68209c1329e781f820cc7ed33cc19d0ea299dfa64ff1ea2defb"
+    },
+    {
+      "path": "tmp/php-runtime/php77-lint-final.log",
+      "sha256": "bf700095aa3bc0fe2dea8cd3cc9e91ddfdc7dfe58f5dc7c440d8aa0a738e6a76"
+    },
+    {
+      "path": "tmp/php-runtime/php77-lint.log",
+      "sha256": "35e2d075fc8bae142bf93839e05b86cda6a9dcfc78b749becae9eee2461edfbc"
+    },
+    {
+      "path": "tmp/php-runtime/php77-login-build-initial.log",
+      "sha256": "f0daf44645f8ebfaf886232e387f3bc8d4b5ed5c785b872b6ee81aa10852746e"
+    },
+    {
+      "path": "tmp/php-runtime/php77-management.log",
+      "sha256": "d3ec76f9c0a463229e812ba19eb89a9ecbab765b5f5b2a8c94adab540da67b4f"
+    },
+    {
+      "path": "tmp/php-runtime/php77-mobile-forms.log",
+      "sha256": "333e58aed8b2ca5ea158011eea50d46cf6b9d293842ce1c91b4670a8dc29f638"
+    },
+    {
+      "path": "tmp/php-runtime/php77-pricing-ui.log",
+      "sha256": "20f0ee38619c9bc83685a7f317f3b918f1cf01c2000d9008d0d6e8d6e4346eca"
+    },
+    {
+      "path": "tmp/php-runtime/php77-pricing83.log",
+      "sha256": "b52608ddf54b2b9e26d7ab281254df032ab3be31c6fc44be1a1d5831551bdf92"
+    },
+    {
+      "path": "tmp/php-runtime/php77-pricing84.log",
+      "sha256": "2c8473397de15df56e08d7947cb4307070783d264016f9620ba30d1aff23e85b"
+    },
+    {
+      "path": "tmp/php-runtime/php77-print-export-final.log",
+      "sha256": "e795fed8956c8bc47ab6d4484bc6942df32f326987351608b3c0d61b9e820792"
+    },
+    {
+      "path": "tmp/php-runtime/php77-private-final-build.log",
+      "sha256": "b2c9495e155cff5273d73957abd16ff985a13694fe4c30112f2daed7753f2b38"
+    },
+    {
+      "path": "tmp/php-runtime/php77-public-inquiry-browser.log",
+      "sha256": "643429709e93d24d8d99ef6d3b04cc5e7679b1ebf23ceef0d0688c8a187fff8b"
+    },
+    {
+      "path": "tmp/php-runtime/php77-public-responsive-final.log",
+      "sha256": "3017ff128360c77bd9f23dd960bf21b268170b71a3237ee452c8ec6e9e94c3cd"
+    },
+    {
+      "path": "tmp/php-runtime/php77-public-responsive.log",
+      "sha256": "3017ff128360c77bd9f23dd960bf21b268170b71a3237ee452c8ec6e9e94c3cd"
+    },
+    {
+      "path": "tmp/php-runtime/php77-react-final.log",
+      "sha256": "377e8e8d729eb145b2600a2f448d9de6ee44edca8056a83df4f816e16e15783b"
+    },
+    {
+      "path": "tmp/php-runtime/php77-react.log",
+      "sha256": "1eb5d9c475381123eb102763b7866c7d9ab1d6ccbedb4836765e2bd8b520ebb8"
+    },
+    {
+      "path": "tmp/php-runtime/php77/after/1440-_.png",
+      "sha256": "42ee41015550981051602413c415f05cca3f64fcc8385ac0c8b679f77f5adcb9"
+    },
+    {
+      "path": "tmp/php-runtime/php77/after/1440-_about.png",
+      "sha256": "75137b2edda2daf201d8820ef0d77919d7dabb5fad5d58301f63b23c5c370151"
+    },
+    {
+      "path": "tmp/php-runtime/php77/after/1440-_products.png",
+      "sha256": "8d3694ec49b577e26d6c76d31fbfc02907204152a54c84be37e7d119d869ca18"
+    },
+    {
+      "path": "tmp/php-runtime/php77/after/1440-_products_custom.png",
+      "sha256": "bf2095698267b7a02c92bf1ba4f2b0f19ed859f4e66a9accb695d6fbabc7a1c4"
+    },
+    {
+      "path": "tmp/php-runtime/php77/after/1440-capabilities.png",
+      "sha256": "cb2a5143c344c69b7ac415fe85476cbfff977fb3eff2ca4babe7dc83bdeb2e72"
+    },
+    {
+      "path": "tmp/php-runtime/php77/after/1440-custom-card.png",
+      "sha256": "8552b3d8f6c1a2f84d7723cfd9de85f274325647df934109e4a38f28c2e6dc99"
+    },
+    {
+      "path": "tmp/php-runtime/php77/after/1440-dashboard.png",
+      "sha256": "4c76c790585f5282bbcf175f01b416110db763a081ae235b7a37efd224402231"
+    },
+    {
+      "path": "tmp/php-runtime/php77/after/320-_.png",
+      "sha256": "1db8fe669d544cd768f8b8cada7d928b86fd25579b6f2889302575cc351af802"
+    },
+    {
+      "path": "tmp/php-runtime/php77/after/320-_about.png",
+      "sha256": "aa119d685d33fd9c57678398be308db44183ce5576f62e25634f74a70a83c906"
+    },
+    {
+      "path": "tmp/php-runtime/php77/after/320-_products.png",
+      "sha256": "7d7e443e67b357e4ddd6e2d803a2e615dc628e2a297a99bf308328339a75bc82"
+    },
+    {
+      "path": "tmp/php-runtime/php77/after/320-_products_custom.png",
+      "sha256": "54b91035ebc515aa4b9adb689a6c914a077cab3a952ea0fd83dc088ee15d54cb"
+    },
+    {
+      "path": "tmp/php-runtime/php77/after/320-capabilities.png",
+      "sha256": "b240b2651ae9bf975d4acbebe07d3c9a736cc9fa8e3a5efaca359095d7a93df2"
+    },
+    {
+      "path": "tmp/php-runtime/php77/after/320-custom-card.png",
+      "sha256": "53533e067484887c4708db59f21901592d8c4d396bdcaef9ec4328f559e07dc2"
+    },
+    {
+      "path": "tmp/php-runtime/php77/after/390-_.png",
+      "sha256": "040f5ff5fac449b573d1493b1f4d1461d2ec4ba6c9e761ecadf16729c5fca3ad"
+    },
+    {
+      "path": "tmp/php-runtime/php77/after/390-_about.png",
+      "sha256": "0675e0d35f6bfa6a42916608bc2fe7df9bdb1bc17939b911e47f09628758255f"
+    },
+    {
+      "path": "tmp/php-runtime/php77/after/390-_products.png",
+      "sha256": "a7da90f894b35604701df4019375e81d75f80c5e2964c8b3f54a0fa5c9b64e0d"
+    },
+    {
+      "path": "tmp/php-runtime/php77/after/390-_products_custom.png",
+      "sha256": "ecb49bb692680d9cb7fd20b1a4b78e916cc3b3a5f5c3551665211e48351c518e"
+    },
+    {
+      "path": "tmp/php-runtime/php77/after/390-capabilities.png",
+      "sha256": "8066dab9cec0262700f95e08c289b25b3d0bc1a490dd5c3931d9f248f040a4a3"
+    },
+    {
+      "path": "tmp/php-runtime/php77/after/390-custom-card.png",
+      "sha256": "560d2b300487cf74f4f49e0585cfad671a28c9b6a03689e4eac68c1e53d6deee"
+    },
+    {
+      "path": "tmp/php-runtime/php77/after/390-dashboard.png",
+      "sha256": "c821da588aeda7a8d98aad6b5b5506c18d8e1fd97d278d3a9fcf208290be51c2"
+    },
+    {
+      "path": "tmp/php-runtime/php77/after/768-_.png",
+      "sha256": "e119eb974a7cb56fc9d075db5f7592f0b680d91a24781d4cd6d68f4579b27e7f"
+    },
+    {
+      "path": "tmp/php-runtime/php77/after/768-_about.png",
+      "sha256": "0ecb3cdcbfa71b59ee0e3af1d3d609da0d33332f3bf9d8720130f31b0d5f4b86"
+    },
+    {
+      "path": "tmp/php-runtime/php77/after/768-_products.png",
+      "sha256": "f97214f87f8ce6e0c014268d2cc5d4357b2fadc22311dc795cf50d487aa6d398"
+    },
+    {
+      "path": "tmp/php-runtime/php77/after/768-_products_custom.png",
+      "sha256": "24a0d600bc4f1aba2ab02f5df44bbf59764cdc1a760117fc60a12934a10fe4c0"
+    },
+    {
+      "path": "tmp/php-runtime/php77/after/768-capabilities.png",
+      "sha256": "037374f8e5658355803c067193d149a13514e22bd1060d8fd150b5e39cfe4c04"
+    },
+    {
+      "path": "tmp/php-runtime/php77/after/768-custom-card.png",
+      "sha256": "2788a50cc0b1124864efb1f6410be260e7110762b5e3baa3f1b28afa526f6f14"
+    },
+    {
+      "path": "tmp/php-runtime/php77/artifact-results.json",
+      "sha256": "ef1a2a77ca3d532510b75f6e2c9c0c3f02e93e0537b2e37470c5675345478a06"
+    },
+    {
+      "path": "tmp/php-runtime/php77/before/1440-_.png",
+      "sha256": "371848af5bbb29de848e6d7b34b27dacf926786e328a18dc858ec406a353de6e"
+    },
+    {
+      "path": "tmp/php-runtime/php77/before/1440-_about.png",
+      "sha256": "a7baa00edb116b7531c1664753ab2325790710c3b661e8c02677b09f18714283"
+    },
+    {
+      "path": "tmp/php-runtime/php77/before/1440-_products.png",
+      "sha256": "11a589772188737c6caab5f4e700ba40ab9ec1cc628ac7a8934ff9406c48a11b"
+    },
+    {
+      "path": "tmp/php-runtime/php77/before/1440-_products_custom.png",
+      "sha256": "f8f9176fd069cad8c231aba6fecc538028ac006f5560749bb05baa2eb3e3f706"
+    },
+    {
+      "path": "tmp/php-runtime/php77/before/1440-capabilities.png",
+      "sha256": "049b767a5bb38e1fb3038e57de3f9f24523a33d3fee5e6d11006c72f70466dea"
+    },
+    {
+      "path": "tmp/php-runtime/php77/before/1440-custom-card.png",
+      "sha256": "e083a99f4690a07b1e1011f7f4cc03472ed5430330dc1c74ab7038efc13786e9"
+    },
+    {
+      "path": "tmp/php-runtime/php77/before/1440-dashboard.png",
+      "sha256": "4f0e914bb3116691a648de234aaeddb33ac8b9cd0e21614179c741ac9871b100"
+    },
+    {
+      "path": "tmp/php-runtime/php77/before/320-_.png",
+      "sha256": "e2bb5d97eb44e217c6c72bcf2d3d0a7f7ad1b6bc7f4eb533882a9cd9e91fb96f"
+    },
+    {
+      "path": "tmp/php-runtime/php77/before/320-_about.png",
+      "sha256": "1fd3e4efe8bab5060e5f0d028859f4a1b06afc111f35794617bb96fd1deb7c28"
+    },
+    {
+      "path": "tmp/php-runtime/php77/before/320-_products.png",
+      "sha256": "7da723ea4020072e0ee19bc386b791b03ae937462df0869355ac85e2526dfbaa"
+    },
+    {
+      "path": "tmp/php-runtime/php77/before/320-_products_custom.png",
+      "sha256": "bb848f3f794dc756315725c6d262ed5196c3854086cbce45ca8c8c609279fc36"
+    },
+    {
+      "path": "tmp/php-runtime/php77/before/320-capabilities.png",
+      "sha256": "ab8a776bbb0c5ce93fb433582bbe5298ef1628fb431550488983e48c6f80f453"
+    },
+    {
+      "path": "tmp/php-runtime/php77/before/320-custom-card.png",
+      "sha256": "1404ca91861f187a9a76001a36e2e41a9b0736c985f9bafcf1f27b816ea0f61e"
+    },
+    {
+      "path": "tmp/php-runtime/php77/before/390-_.png",
+      "sha256": "ba3a96909cb873c9bcefec6b3b2f8dc40e846670663e8f6a9c59f3969d03e4e5"
+    },
+    {
+      "path": "tmp/php-runtime/php77/before/390-_about.png",
+      "sha256": "c580437ee919421bf5e4109c426d9454f1eaf6d4ac404dd76a5f58afcd54264a"
+    },
+    {
+      "path": "tmp/php-runtime/php77/before/390-_products.png",
+      "sha256": "1a8a9e4abee7f15f3cc3f69a369d09eed947c12f4f91431481bf6afb88bb5a92"
+    },
+    {
+      "path": "tmp/php-runtime/php77/before/390-_products_custom.png",
+      "sha256": "a23433aec5482b9e0406f9f52e1eb66a23836562779accc951d01a01bc2f9f29"
+    },
+    {
+      "path": "tmp/php-runtime/php77/before/390-capabilities.png",
+      "sha256": "a1415819b89f2dfd4c6dfab39121a3043b43e07065e87fbb9d27b3372249a132"
+    },
+    {
+      "path": "tmp/php-runtime/php77/before/390-custom-card.png",
+      "sha256": "6fb1baa23798628bba795ab3a2515bd9bcf6ea78bf8165fa160427bc3a5b61f3"
+    },
+    {
+      "path": "tmp/php-runtime/php77/before/390-dashboard.png",
+      "sha256": "ae50da9738ea44d9420ffcb5059e12ac9d9ec106fc0b404163adff2791d4f70f"
+    },
+    {
+      "path": "tmp/php-runtime/php77/before/768-_.png",
+      "sha256": "c8957d1a686a467e88e2da5ae654a31a3a613b1ba1d8c3b78d96d559b6142581"
+    },
+    {
+      "path": "tmp/php-runtime/php77/before/768-_about.png",
+      "sha256": "4465afa38e5e60acd4c8d24f53ca6f70db6d2204d70086725b9963b1dca88266"
+    },
+    {
+      "path": "tmp/php-runtime/php77/before/768-_products.png",
+      "sha256": "fccc3c98ac1dd223d65c1c0925de958d146e1c3b8adabd4e3fd0175b6da4c963"
+    },
+    {
+      "path": "tmp/php-runtime/php77/before/768-_products_custom.png",
+      "sha256": "bdbdcab401300f38f936455ad1f5a4c98556b9ffd5bb31371ad40fcb27b5e53a"
+    },
+    {
+      "path": "tmp/php-runtime/php77/before/768-capabilities.png",
+      "sha256": "3700f0967af7e6574bc618dacf862ee0fadf61e9d522262b0b8878794ab2fef2"
+    },
+    {
+      "path": "tmp/php-runtime/php77/before/768-custom-card.png",
+      "sha256": "f4ca1bc786d8abbb7346e5749216c6086e247fe6e80cc989b3fc14051d55a1a7"
+    },
+    {
+      "path": "tmp/php-runtime/php77/before/results.json",
+      "sha256": "235f9a758d89464b9b113bdb78e46ab7e7fb8780684504b10fa5101215f03e51"
+    },
+    {
+      "path": "tmp/php-runtime/php77/dashboard-results.json",
+      "sha256": "1ba9df4f5576f7bb68b8bc6b6fd80ed31654d472fc7671f0dece1e71daa419f6"
+    },
+    {
+      "path": "tmp/php-runtime/php77/mobile-forms-results.json",
+      "sha256": "d224f70495769b024934178f398ff9406c1b4367a2bbdd88db3b4a89c775c56d"
+    },
+    {
+      "path": "tmp/php-runtime/php77/owner-after.json",
+      "sha256": "15ecd5c76f5af4d3123435fb8c01b840c9d2ae7b6e54b00e3a2e127d5656333c"
+    },
+    {
+      "path": "tmp/php-runtime/php77/owner-before.json",
+      "sha256": "15ecd5c76f5af4d3123435fb8c01b840c9d2ae7b6e54b00e3a2e127d5656333c"
+    },
+    {
+      "path": "tmp/php-runtime/php77/performance.json",
+      "sha256": "82e16cb4d192be1bb2c46bf7073fd032708defb76cd841fd9475e02e5aa983bf"
+    },
+    {
+      "path": "tmp/php-runtime/php77/print-contact-sheet.png",
+      "sha256": "c7e3c9ad8bae2e6dcd21a2cc6cc39441ffd5ffc738c4a406f11173cee2c7d1b5"
+    },
+    {
+      "path": "tmp/php-runtime/php77/public-results.json",
+      "sha256": "3d0ca3c341967383f470f47cc0bc62d41cb8159ce0278d578e6dfef2fec0b9fc"
+    }
+  ],
+  "limitations": [
+    "Native Excel and Windows print destination pending owner",
+    "Symfony Mime advisory",
+    "Missing management security headers",
+    "Existing Pint findings",
+    "Composer strict warnings",
+    "Command authenticity limitation",
+    "Database row-level privilege limitation",
+    "Owner UAT approval"
+  ]
+}

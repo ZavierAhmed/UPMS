@@ -1,5 +1,13 @@
 # PHP-7.5 owner acceptance checklist
 
+PHP-7.7 design preview is separate again: public 9463, management 9464 (CGI 9284).
+See PHP-7-7-DESIGN-REVIEW.md for private credentials and safe lifecycle commands.
+Use a separate browser profile. The 7.5/7.6 services, credentials and records stay
+available. Review the removed company number, centered responsive cards/media,
+management navigation/forms and exact date-covered dashboard charts. New design
+acceptance, native Excel/Windows printing and all production decisions remain
+PENDING OWNER. No local automated design check is owner sign-off.
+
 PHP-7.6 follow-up: use PHP-7-6-UAT-CORRECTIONS.md for the revised address/custom-rate
 acceptance on separate URLs 9453/9454. At PHP-7.6 start the owner had already added
 entries to the original fixture (18 documents, 23 bottles); those are retained,

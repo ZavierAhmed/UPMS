@@ -45,7 +45,7 @@
 }
 @media(max-width:650px) {
  .product-grid { grid-template-columns:minmax(0,1fr); gap:20px; }
- .product-card { grid-template-columns:1.1fr .9fr; min-height:340px; padding:52px 18px 24px; }
+ .product-card { grid-template-columns:minmax(0,1fr); min-height:0; padding:52px 22px 24px; }
  .product-card .product-number { left:18px; top:20px; }
  .product-card .product-title h3 { font-size:24px; }
  .product-card p { font-size:13px; margin:14px 0; }
@@ -59,3 +59,7 @@
  *,*::before,*::after { animation:none!important; transition:none!important; scroll-behavior:auto!important; }
  .product-card:hover,.button:hover,.text-link:hover,.product-card:is(:hover,:focus-visible) .product-arrow,.product-card:is(:hover,:focus-visible) .product-decoration,.product-card:is(:hover,:focus-visible) .product-image img { transform:none; }
 }
+
+/* PHP-7.7: media has its own composition rather than competing with narrow text. */
+@media(max-width:650px){.product-card .product-image{grid-row:2;min-height:210px;aspect-ratio:4/3;max-height:300px;margin-top:18px}.product-card .product-primary{inset:8px}.product-card p{font-size:15px;line-height:1.7}.product-card .product-title h3{font-size:28px;line-height:1.18}.product-card .product-details-link{min-height:44px;font-size:14px}.product-card .custom-visual{min-height:0;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:20px}.product-card .custom-visual svg{width:76px;height:76px}.product-card .custom-visual small{font-size:12px}}
+.product-card-copy,.hero-copy,.split-content>div{min-width:0;overflow-wrap:break-word}.product-card .product-image{max-width:100%}.product-card .custom-visual{overflow-wrap:break-word}

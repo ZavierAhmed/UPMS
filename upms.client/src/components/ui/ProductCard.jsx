@@ -12,14 +12,8 @@ export function ProductVisual({ product, priority = false }) {
       height="420"
     />
   ) : (
-    <div className="custom-visual">
+    <div className="custom-visual" aria-hidden="true">
       <Icon name="Custom Packaging Solutions" />
-      <span>
-        YOUR IDEA.
-        <br />
-        YOUR PACKAGING.
-      </span>
-      <small>Design consultation · Concept illustration</small>
     </div>
   );
 }

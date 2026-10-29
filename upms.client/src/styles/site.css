@@ -872,8 +872,9 @@ footer {
 
 /* Preserve full-bleed sections while keeping controls out of the FAB rail. */
 .container {
-  max-width: calc(100% - 96px - env(safe-area-inset-right, 0px));
-  margin-right: max(calc(76px + env(safe-area-inset-right, 0px)), calc((100% - 1320px) / 2));
+  width: min(1320px, calc(100% - 2 * clamp(18px, 4vw, 48px)));
+  max-width: 1320px;
+  margin-inline: auto;
 }
 .whatsapp-floating {
   position: fixed;
@@ -905,3 +906,6 @@ footer {
 
 /* Prerendered content stays visible without JavaScript. */
 html:not(.js) .reveal { opacity: 1; transform: none; }
+/* The contact action has its own space; it never narrows page containers. */
+@media(min-width:1200px){.whatsapp-floating{width:44px;height:44px;right:max(2px,env(safe-area-inset-right,0px));bottom:20px}.whatsapp-floating svg{width:26px;height:26px}}
+@media(max-width:1199px){.whatsapp-floating{position:static;margin:24px auto 32px;width:52px;height:52px}}

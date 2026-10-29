@@ -22,8 +22,7 @@ export default function Contact({ page = false }) {
         </div>
         <div className="contact-details">
           <span>CONTACT OUR TEAM</span>
-          <a href="tel:+923422743901">0342-2743901 ↗</a>
-          <a href="tel:+923142113472">0314-2113472 ↗</a>
+          {company.phones.map(phone=><a key={phone.href} href={phone.href}>{phone.label} ↗</a>)}
           <a className="email" href={email}>
             {company.email}
           </a>

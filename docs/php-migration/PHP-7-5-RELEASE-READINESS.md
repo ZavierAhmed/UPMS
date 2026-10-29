@@ -1,5 +1,13 @@
 # PHP-7.5 release readiness
 
+PHP-7.7 adds public/management presentation and read-only analytics only. It changes
+no backend endpoint, schema, stored balance, posting, authentication or grant.
+Original owner previews and business records remain preserved; a separate design
+preview runs on 9463/9464. No chart dependency was added. Existing Symfony Mime,
+management-header, full Pint/strict-validation, command-authenticity, SQL row-grant,
+hosting and owner-approval gates remain unresolved. Production stays NO-GO;
+owner design acceptance is PENDING OWNER.
+
 PHP-7.6 follow-up: owner-requested website address and per-challan selling rates
 are implemented/tested separately; see PHP-7-6-TEST-RESULTS.md. The original running
 owner fixture and all owner-added postings are preserved. New review uses separate

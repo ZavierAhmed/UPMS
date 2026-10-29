@@ -11,7 +11,7 @@ describe("WhatsApp contact", () => {
     open("/contact");
     const link = screen.getByRole("link", { name: "+923142113472 ↗" });
     expect(link.getAttribute("href")).toBe(buildWhatsAppLink(defaultWhatsAppMessage));
-    expect(screen.getByRole("link", { name: "0342-2743901 ↗" }).getAttribute("href")).toBe("tel:+923422743901");
+    expect(screen.getByRole("link", { name: "0314-2113472 ↗" }).getAttribute("href")).toBe("tel:+923142113472");
     expect(screen.getByRole("link", { name: "uniqueplastic56@gmail.com ↗" }).getAttribute("href")).toContain("mailto:");
   });
   it("uses the approved canonical number and optional encoded draft", () => {

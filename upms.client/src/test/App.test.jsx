@@ -192,8 +192,8 @@ describe("navigation controls and contact", () => {
     open("/contact");
     const main = within(screen.getByRole("main"));
     expect(
-      main.getByRole("link", { name: "0342-2743901 ↗" }).getAttribute("href"),
-    ).toBe("tel:+923422743901");
+      main.getByRole("link", { name: "0314-2113472 ↗" }).getAttribute("href"),
+    ).toBe("tel:+923142113472");
     expect(
       main
         .getByRole("link", { name: /uniqueplastic56@gmail.com/ })
