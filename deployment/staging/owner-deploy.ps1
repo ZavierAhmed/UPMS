@@ -1,11 +1,22 @@
 [CmdletBinding()]
 param(
- [ValidateSet('Inspect','Upload')][string]$Mode='Inspect',
+ [ValidateSet('Inspect','Validate','Upload')][string]$Mode='Inspect',
  [string]$Key='C:\Users\zasah\.ssh\upms_godaddy',
  [string]$ArtifactRecord,
  [switch]$PathsAndQuotaReviewed
 )
 $ErrorActionPreference='Stop'
+function Read-ReviewedArtifact {
+ if(!(Test-Path -LiteralPath $ArtifactRecord -PathType Leaf)){throw 'Explicit reviewed ARTIFACT.json required'}
+ $record=Get-Content -LiteralPath $ArtifactRecord -Raw | ConvertFrom-Json
+ if($record.proposedStagingRoot -ne '/home/tsn6az96j3v7/upms-php83-staging' -or $record.productionReady -ne $false){throw 'Artifact target/classification mismatch'}
+ foreach($field in @('archiveSha256','stagingManifestSha256','releaseManifestSha256','sqlSha256','sqlManifestSha256')){if($record.$field -cnotmatch '^[a-f0-9]{64}$'){throw 'Artifact digest format rejected'}}
+ if($record.sourceCommit -cnotmatch '^[a-f0-9]{40}$'){throw 'Artifact source revision rejected'}
+ if((Get-FileHash -LiteralPath $record.archive -Algorithm SHA256).Hash.ToLowerInvariant() -ne $record.archiveSha256){throw 'Local archive checksum mismatch'}
+ return $record
+}
+if($Mode -eq 'Validate'){$a=Read-ReviewedArtifact;Write-Output 'Local artifact metadata and SHA-256: PASS. No SSH connection made.';return}
+if($Mode -eq 'Upload'){$a=Read-ReviewedArtifact}
 if(!(Test-Path -LiteralPath $Key -PathType Leaf)){throw 'Existing private key path not found; select your existing owner-controlled key. Never share its contents.'}
 $sshArgs=@('-T','-i',$Key,'-p','22','-o','BatchMode=yes','-o','StrictHostKeyChecking=yes','tsn6az96j3v7@unique-plastic.com')
 $scpArgs=@('-i',$Key,'-P','22','-o','BatchMode=yes','-o','StrictHostKeyChecking=yes')
@@ -16,10 +27,6 @@ $inspection=($raw -join "`n") | ConvertFrom-Json
 $inspection | ConvertTo-Json -Depth 8
 if($Mode -eq 'Inspect'){return}
 if(!$PathsAndQuotaReviewed -or !$inspection.inspectionPassed){throw 'Upload requires successful parent/isolation inspection and explicit cPanel quota/path review.'}
-if(!(Test-Path -LiteralPath $ArtifactRecord -PathType Leaf)){throw 'Explicit reviewed ARTIFACT.json required'}
-$a=Get-Content -LiteralPath $ArtifactRecord -Raw | ConvertFrom-Json
-if($a.proposedStagingRoot -ne '/home/tsn6az96j3v7/upms-php83-staging' -or $a.productionReady -ne $false){throw 'Artifact target/classification mismatch'}
-if((Get-FileHash -LiteralPath $a.archive -Algorithm SHA256).Hash.ToLowerInvariant() -ne $a.archiveSha256){throw 'Local archive checksum mismatch'}
 $stage='/home/tsn6az96j3v7/upms-php83-staging'
 & ssh @sshArgs "test ! -e '$stage' && test ! -L '$stage' && umask 077 && mkdir -m 700 -- '$stage'"
 if($LASTEXITCODE -ne 0){throw 'Fresh private destination creation refused; do not delete/reuse an existing directory automatically.'}
