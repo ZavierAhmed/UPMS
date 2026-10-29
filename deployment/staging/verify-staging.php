@@ -9,6 +9,7 @@ if (PHP_SAPI !== 'cli') {
 require __DIR__.'/support.php';
 $o = getopt('', ['plan:','manifest-sha:','database-profile:']);
 $report = ['productionReady' => false,'runtime' => 'DISABLED','administratorProvisioning' => 'NOT_AUTHORIZED','finalization' => 'BLOCKED','publicActivation' => 'BLOCKED','database' => 'PENDING_SELECT_ONLY_PROFILE','backupRestore' => 'PENDING_INDEPENDENT_EVIDENCE','webPhp' => 'PENDING_HOSTED_WEB_EVIDENCE','apache' => 'PENDING_HOSTED_WEB_EVIDENCE','smtp' => 'PENDING_APPROVED_ENDPOINT','managementTrust' => 'BLOCKED_SELF_SIGNED_PUBLIC_ENDPOINT'];
+$phase = 'plan';
 try {
     if (PHP_OS_FAMILY !== 'Linux' || PHP_MAJOR_VERSION !== 8 || PHP_MINOR_VERSION !== 3) {
         throw new RuntimeException('LINUX_PHP83_REQUIRED');
@@ -60,8 +61,12 @@ try {
         if ($c['schema'] !== 'upms_v1' || $c['transport'] !== 'unix_socket' || $c['privateRoot'] !== $paths['stagingRoot'] || ($c['effectivePrivilegesReviewed'] ?? false) !== true) {
             throw new RuntimeException('EXACT_READ_ONLY_UPMS_V1_PROFILE_REQUIRED');
         }
-        $pdo = App\Upms\ProductionConnection::connect($c);
+        $phase = 'database_connect';
+        $pdo = App\Upms\ProductionConnection::connect($c, static function ($value) use (&$phase) {
+            $phase = $value;
+        });
         UpmsStaging::readOnlyGrants($pdo->query('SHOW GRANTS FOR CURRENT_USER')->fetchAll(PDO::FETCH_NUM), 'upms_v1');
+        $report['databaseGrantReview'] = ['visibleGrantsSelectOnly' => true,'effectivePrivilegeReview' => 'OWNER_PROVIDER_REVIEW_REQUIRED_AND_ASSERTED'];
         $pdo = null;
         $report['database'] = UpmsStaging::child([PHP_BINARY,$payload.'/import-tools/verify-clean-import.php','--backend',$backend,'--profile',$o['database-profile']]);
     }
@@ -70,6 +75,13 @@ try {
 } catch (Throwable $e) {
     $code = $e instanceof RuntimeException && preg_match('/^[A-Z_]+$/D', $e->getMessage()) ? $e->getMessage() : 'STAGING_CHECK_FAILED_PRIVATE_REVIEW';
     $report['privateStagingChecksPassed'] = false;
+    if (class_exists(App\Upms\DiagnosticFailure::class)) {
+        $safe = App\Upms\DiagnosticFailure::describe($e, $phase);
+        $report['diagnosis'] = $safe;
+        if ($code === 'STAGING_CHECK_FAILED_PRIVATE_REVIEW') {
+            $code = $safe['code'];
+        }
+    }
     $report['failure'] = $code;
     echo json_encode($report, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR).PHP_EOL;
     exit(1);
