@@ -1,0 +1,4098 @@
+{
+  "milestone": "PHP-7.8",
+  "baseline": "c769239b0ec4e92bf7e4540693758cc222d31314",
+  "branch": "feature/upms-php-7-8-security-remediation",
+  "versions": {
+    "php83": "8.3.36",
+    "php84": "8.4.27",
+    "composer": "2.10.3",
+    "chrome": "156.0.8078.48"
+  },
+  "beforeAudit": {
+    "advisories": {
+      "symfony/mime": [
+        {
+          "advisoryId": "PKSA-wtxr-p26d-nn42",
+          "packageName": "symfony/mime",
+          "affectedVersions": ">=2.0.0,<3.0.0|>=3.0.0,<4.0.0|>=4.0.0,<5.0.0|>=5.0.0,<5.1.0|>=5.1.0,<5.2.0|>=5.2.0,<5.3.0|>=5.3.0,<5.4.0|>=5.4.0,<5.4.55|>=6.0.0,<6.1.0|>=6.1.0,<6.2.0|>=6.2.0,<6.3.0|>=6.3.0,<6.4.0|>=6.4.0,<6.4.49|>=7.0.0,<7.1.0|>=7.1.0,<7.2.0|>=7.2.0,<7.3.0|>=7.3.0,<7.4.0|>=7.4.0,<7.4.22|>=8.0.0,<8.1.0|>=8.1.0,<8.1.10",
+          "title": "CVE-2026-45070: Email Header Injection via Non-Token Characters in Mime Parameter Names",
+          "cve": "CVE-2026-45070",
+          "link": "https://symfony.com/cve-2026-45070",
+          "reportedAt": "2026-10-28T18:08:54+00:00",
+          "sources": [
+            {
+              "name": "GitHub",
+              "remoteId": "GHSA-vqc8-7275-q272"
+            },
+            {
+              "name": "FriendsOfPHP/security-advisories",
+              "remoteId": "symfony/mime/CVE-2026-45070.yaml"
+            }
+          ],
+          "severity": "medium"
+        }
+      ]
+    },
+    "abandoned": [],
+    "filter": []
+  },
+  "afterAudit": {
+    "advisories": [],
+    "abandoned": [],
+    "filter": []
+  },
+  "dependencyChanges": [
+    {
+      "package": "symfony/mime",
+      "before": "v7.4.19",
+      "after": "v7.4.22",
+      "reference": "94a4c017435bc515f5ac80421a2c555fb9ca3676"
+    }
+  ],
+  "composerValidation": {
+    "beforeStrictExit": 1,
+    "afterNormalExit": 0,
+    "afterStrictExit": 0
+  },
+  "pint": {
+    "beforeFailedFiles": 7,
+    "afterExit": 0
+  },
+  "matrix": [
+    {
+      "version": "8.3",
+      "milestone": 2,
+      "passed": true,
+      "httpComparisons": 144,
+      "checks": 18,
+      "schemas": [
+        "upms_test_php_2_ref_1793237647432",
+        "upms_test_php_2_app_1793237647432"
+      ],
+      "evidence": "C:\\Users\\zasah\\source\\repos\\UPMS\\tmp\\php-runtime\\php78-workspace\\tmp\\php-runtime\\php2_1793237647432/evidence.json",
+      "ownerDatabaseContacted": false
+    },
+    {
+      "version": "8.3",
+      "milestone": 3,
+      "passed": true,
+      "httpComparisons": 223,
+      "snapshots": 12,
+      "checks": 18,
+      "evidence": "C:\\Users\\zasah\\source\\repos\\UPMS\\tmp\\php-runtime\\php78-workspace\\tmp\\php-runtime\\php3_1793237723775/evidence.json",
+      "ownerDatabaseContacted": false
+    },
+    {
+      "version": "8.3",
+      "milestone": 4,
+      "passed": true,
+      "httpComparisons": 265,
+      "snapshots": 14,
+      "checks": 22,
+      "evidence": "C:\\Users\\zasah\\source\\repos\\UPMS\\tmp\\php-runtime\\php78-workspace\\tmp\\php-runtime\\php4_1793237861116/evidence.json"
+    },
+    {
+      "version": "8.3",
+      "milestone": 5,
+      "passed": true,
+      "httpComparisons": 276,
+      "snapshots": 13,
+      "evidence": "C:\\Users\\zasah\\source\\repos\\UPMS\\tmp\\php-runtime\\php78-workspace\\tmp\\php-runtime\\php5_1793238053279/evidence.json"
+    },
+    {
+      "version": "8.3",
+      "milestone": 6,
+      "passed": true,
+      "httpComparisons": 427,
+      "snapshots": 14,
+      "evidence": "C:\\Users\\zasah\\source\\repos\\UPMS\\tmp\\php-runtime\\php78-workspace\\tmp\\php-runtime\\php6_1793238209252/evidence.json"
+    },
+    {
+      "version": "8.4",
+      "milestone": 2,
+      "passed": true,
+      "httpComparisons": 144,
+      "checks": 18,
+      "schemas": [
+        "upms_test_php_2_ref_1793238402143",
+        "upms_test_php_2_app_1793238402143"
+      ],
+      "evidence": "C:\\Users\\zasah\\source\\repos\\UPMS\\tmp\\php-runtime\\php78-workspace\\tmp\\php-runtime\\php2_1793238402143/evidence.json",
+      "ownerDatabaseContacted": false
+    },
+    {
+      "version": "8.4",
+      "milestone": 3,
+      "passed": true,
+      "httpComparisons": 223,
+      "snapshots": 12,
+      "checks": 18,
+      "evidence": "C:\\Users\\zasah\\source\\repos\\UPMS\\tmp\\php-runtime\\php78-workspace\\tmp\\php-runtime\\php3_1793238459933/evidence.json",
+      "ownerDatabaseContacted": false
+    },
+    {
+      "version": "8.4",
+      "milestone": 4,
+      "passed": true,
+      "httpComparisons": 265,
+      "snapshots": 14,
+      "checks": 22,
+      "evidence": "C:\\Users\\zasah\\source\\repos\\UPMS\\tmp\\php-runtime\\php78-workspace\\tmp\\php-runtime\\php4_1793238550666/evidence.json"
+    },
+    {
+      "version": "8.4",
+      "milestone": 5,
+      "passed": true,
+      "httpComparisons": 276,
+      "snapshots": 13,
+      "evidence": "C:\\Users\\zasah\\source\\repos\\UPMS\\tmp\\php-runtime\\php78-workspace\\tmp\\php-runtime\\php5_1793238653268/evidence.json"
+    },
+    {
+      "version": "8.4",
+      "milestone": 6,
+      "passed": true,
+      "httpComparisons": 427,
+      "snapshots": 14,
+      "evidence": "C:\\Users\\zasah\\source\\repos\\UPMS\\tmp\\php-runtime\\php78-workspace\\tmp\\php-runtime\\php6_1793238771232/evidence.json"
+    }
+  ],
+  "collector": [
+    {
+      "label": "fixtures",
+      "exitCode": 0
+    },
+    {
+      "label": "reconciliation-contracts",
+      "exitCode": 0
+    },
+    {
+      "label": "phpunit-83",
+      "exitCode": 0
+    },
+    {
+      "label": "inquiries-83",
+      "exitCode": 0
+    },
+    {
+      "label": "platform-83",
+      "exitCode": 0
+    },
+    {
+      "label": "phpunit-84",
+      "exitCode": 0
+    },
+    {
+      "label": "inquiries-84",
+      "exitCode": 0
+    },
+    {
+      "label": "platform-84",
+      "exitCode": 0
+    },
+    {
+      "label": "composer-validate",
+      "exitCode": 0
+    },
+    {
+      "label": "composer-strict",
+      "exitCode": 0
+    },
+    {
+      "label": "composer-audit",
+      "exitCode": 0
+    },
+    {
+      "label": "pint",
+      "exitCode": 0
+    },
+    {
+      "label": "react-test",
+      "exitCode": 0
+    },
+    {
+      "label": "react-build",
+      "exitCode": 0
+    },
+    {
+      "label": "react-lint",
+      "exitCode": 0
+    }
+  ],
+  "totals": {
+    "managementHttp": 2670,
+    "managementSqlSnapshots": 132,
+    "independentPricingHttp": 166,
+    "independentPricingSqlSnapshots": 8,
+    "combinedHttp": 2836,
+    "combinedSqlSnapshots": 140,
+    "phpunitPerRuntime": {
+      "tests": 75,
+      "assertions": 1355
+    },
+    "react": {
+      "tests": 201,
+      "files": 29
+    },
+    "express": {
+      "passed": 290,
+      "failed": 0
+    },
+    "inquiryPerRuntime": {
+      "comparisons": 66,
+      "checks": 78
+    }
+  },
+  "security": {
+    "83": {
+      "passed": true,
+      "checks": [
+        "Unauthorized read denied with headers",
+        "Missing CSRF rejected",
+        "Actual login and secure host cookie",
+        "Invalid JSON, invalid CSRF and cross-origin requests rejected without document effects",
+        "Actual Laravel exception response retains headers",
+        "18 management routes usable",
+        "Actual JavaScript and styles served with policy",
+        "Apache errors retain headers",
+        "Logout invalidates session",
+        "Actual server idle expiry denies a formerly valid browser session",
+        "Expired browser cookie is not authenticated",
+        "Public rendering unaffected",
+        "Actual successful login and logout response headers",
+        "Two individually verified actual-TLS iframe denials with positive controls"
+      ],
+      "responses": [
+        {
+          "label": "HTML ",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:52:46 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=100",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "GET simple-v1/items",
+          "status": 401,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 01:52:48 GMT",
+            "keep-alive": "timeout=5, max=95",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.3.36",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "GET session/csrf",
+          "status": 200,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 01:52:48 GMT",
+            "keep-alive": "timeout=5, max=94",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.3.36",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "POST session/login",
+          "status": 403,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 01:52:49 GMT",
+            "keep-alive": "timeout=5, max=93",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.3.36",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "GET session/current",
+          "status": 200,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 01:52:51 GMT",
+            "keep-alive": "timeout=5, max=89",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.3.36",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "GET simple-v1/documents",
+          "status": 200,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 01:52:52 GMT",
+            "keep-alive": "timeout=5, max=88",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.3.36",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "POST simple-v1/documents",
+          "status": 403,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 01:52:52 GMT",
+            "keep-alive": "timeout=5, max=87",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.3.36",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "POST simple-v1/documents",
+          "status": 403,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 01:52:52 GMT",
+            "keep-alive": "timeout=5, max=86",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.3.36",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "POST simple-v1/documents",
+          "status": 400,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "close",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 01:52:52 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.3.36",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "POST simple-v1/documents",
+          "status": 403,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 01:52:53 GMT",
+            "keep-alive": "timeout=5, max=99",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.3.36",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "GET simple-v1/documents",
+          "status": 200,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 01:52:53 GMT",
+            "keep-alive": "timeout=5, max=98",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.3.36",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "Laravel malformed-cookie error",
+          "status": 503,
+          "headers": {
+            "date": "Thu, 29 Oct 2026 01:52:53 GMT",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-powered-by": "PHP/8.3.36",
+            "cache-control": "no-store",
+            "x-robots-tag": "noindex, nofollow",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "access-control-allow-origin": "*",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "x-frame-options": "DENY",
+            "referrer-policy": "same-origin",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "connection": "close",
+            "transfer-encoding": "chunked",
+            "content-type": "application/json"
+          }
+        },
+        {
+          "label": "HTML ",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:52:53 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=97",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML items",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:52:56 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=92",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML items/new",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:52:58 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=87",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML stock-in",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:53:01 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=82",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML stock-in/new?kind=PRODUCTION",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:53:03 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=77",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML challans",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:53:05 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=72",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML challans/new",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:53:07 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=67",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML challan-returns",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:53:09 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=62",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML clients",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:53:13 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=57",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML vendors",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:53:15 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=52",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML client-payments",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:53:20 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=47",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML vendor-payments",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:53:25 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=42",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML expenses",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:53:29 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=37",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML company-transactions",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:53:33 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=32",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML reports",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:53:38 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=26",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML reports?report=movements",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:53:41 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=21",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML ledgers",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:53:44 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=16",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML settings",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:53:47 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=11",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "static /management/assets/index-daM4cj0q.js",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "537758",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/javascript",
+            "date": "Thu, 29 Oct 2026 01:53:50 GMT",
+            "etag": "\"8349e-65ef0da794678\"",
+            "keep-alive": "timeout=5, max=6",
+            "last-modified": "Thu, 29 Oct 2026 01:46:50 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "static /management/assets/index-2OMGiDI_.css",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "60518",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/css",
+            "date": "Thu, 29 Oct 2026 01:53:50 GMT",
+            "etag": "\"ec66-65ef0da794678\"",
+            "keep-alive": "timeout=5, max=5",
+            "last-modified": "Thu, 29 Oct 2026 01:46:50 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "Apache /missing-file.js",
+          "status": 404,
+          "headers": {
+            "date": "Thu, 29 Oct 2026 01:53:50 GMT",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "x-frame-options": "DENY",
+            "x-content-type-options": "nosniff",
+            "cache-control": "no-store",
+            "referrer-policy": "same-origin",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "x-robots-tag": "noindex, nofollow",
+            "content-length": "196",
+            "keep-alive": "timeout=5, max=100",
+            "connection": "Keep-Alive",
+            "content-type": "text/html; charset=iso-8859-1"
+          }
+        },
+        {
+          "label": "Apache /.env",
+          "status": 404,
+          "headers": {
+            "date": "Thu, 29 Oct 2026 01:53:50 GMT",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "x-frame-options": "DENY",
+            "x-content-type-options": "nosniff",
+            "cache-control": "no-store",
+            "referrer-policy": "same-origin",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "x-robots-tag": "noindex, nofollow",
+            "content-length": "196",
+            "keep-alive": "timeout=5, max=99",
+            "connection": "Keep-Alive",
+            "content-type": "text/html; charset=iso-8859-1"
+          }
+        },
+        {
+          "label": "Apache /server.key",
+          "status": 404,
+          "headers": {
+            "date": "Thu, 29 Oct 2026 01:53:50 GMT",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "x-frame-options": "DENY",
+            "x-content-type-options": "nosniff",
+            "cache-control": "no-store",
+            "referrer-policy": "same-origin",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "x-robots-tag": "noindex, nofollow",
+            "content-length": "196",
+            "keep-alive": "timeout=5, max=98",
+            "connection": "Keep-Alive",
+            "content-type": "text/html; charset=iso-8859-1"
+          }
+        },
+        {
+          "label": "HTML ",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:53:50 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=4",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "GET session/current",
+          "status": 401,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 01:53:55 GMT",
+            "keep-alive": "timeout=5, max=75",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.3.36",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML ",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:53:55 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=74",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "GET session/current",
+          "status": 401,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 01:53:59 GMT",
+            "keep-alive": "timeout=5, max=67",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.3.36",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "GET session/current",
+          "status": 401,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 01:54:00 GMT",
+            "keep-alive": "timeout=5, max=66",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.3.36",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "authentication /api/v1/management/session/login",
+          "status": 403,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 01:52:49 GMT",
+            "keep-alive": "timeout=5, max=93",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.3.36",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "authentication /api/v1/management/session/login",
+          "status": 200,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 01:52:49 GMT",
+            "keep-alive": "timeout=5, max=92",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.3.36",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "authentication /api/v1/management/session/logout",
+          "status": 204,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "date": "Thu, 29 Oct 2026 01:53:55 GMT",
+            "keep-alive": "timeout=5, max=76",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.3.36",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "authentication /api/v1/management/session/login",
+          "status": 200,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 01:53:57 GMT",
+            "keep-alive": "timeout=5, max=70",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.3.36",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        }
+      ],
+      "cspViolations": [],
+      "javascriptErrors": [],
+      "frames": [
+        {
+          "target": "https://127.0.0.1:9474/management/",
+          "positiveControl": true,
+          "blockedChildUrl": "chrome-error://chromewebdata/",
+          "denials": [
+            "Framing 'https://127.0.0.1:9474/' violates the following Content Security Policy directive: \"frame-ancestors 'none'\". The request has been blocked.\n"
+          ],
+          "cspIssues": [
+            {
+              "code": "ContentSecurityPolicyIssue",
+              "details": {
+                "contentSecurityPolicyIssueDetails": {
+                  "blockedURL": "https://127.0.0.1:9474/",
+                  "violatedDirective": "frame-ancestors",
+                  "isReportOnly": false,
+                  "contentSecurityPolicyViolationType": "kURLViolation",
+                  "frameAncestor": {
+                    "frameId": "9F0C6B29A0BA72800BC6931A9105C580"
+                  },
+                  "sourceCodeLocation": {
+                    "url": "",
+                    "lineNumber": -1,
+                    "columnNumber": -1
+                  }
+                }
+              }
+            }
+          ],
+          "requestFailures": [
+            {
+              "url": "https://127.0.0.1:9474/management/",
+              "reason": "net::ERR_BLOCKED_BY_RESPONSE"
+            }
+          ]
+        },
+        {
+          "target": "https://127.0.0.1:9473/",
+          "positiveControl": true,
+          "blockedChildUrl": "chrome-error://chromewebdata/",
+          "denials": [
+            "Framing 'https://127.0.0.1:9473/' violates the following Content Security Policy directive: \"frame-ancestors 'none'\". The request has been blocked.\n"
+          ],
+          "cspIssues": [
+            {
+              "code": "ContentSecurityPolicyIssue",
+              "details": {
+                "contentSecurityPolicyIssueDetails": {
+                  "blockedURL": "https://127.0.0.1:9473/",
+                  "violatedDirective": "frame-ancestors",
+                  "isReportOnly": false,
+                  "contentSecurityPolicyViolationType": "kURLViolation",
+                  "frameAncestor": {
+                    "frameId": "C1DA248165B192E213D640F91DE202CE"
+                  },
+                  "sourceCodeLocation": {
+                    "url": "",
+                    "lineNumber": -1,
+                    "columnNumber": -1
+                  }
+                }
+              }
+            }
+          ],
+          "requestFailures": [
+            {
+              "url": "https://127.0.0.1:9473/",
+              "reason": "net::ERR_BLOCKED_BY_RESPONSE"
+            }
+          ]
+        }
+      ]
+    },
+    "84": {
+      "passed": true,
+      "checks": [
+        "Unauthorized read denied with headers",
+        "Missing CSRF rejected",
+        "Actual login and secure host cookie",
+        "Invalid JSON, invalid CSRF and cross-origin requests rejected without document effects",
+        "Actual Laravel exception response retains headers",
+        "18 management routes usable",
+        "Actual JavaScript and styles served with policy",
+        "Apache errors retain headers",
+        "Logout invalidates session",
+        "Actual server idle expiry denies a formerly valid browser session",
+        "Expired browser cookie is not authenticated",
+        "Public rendering unaffected",
+        "Actual successful login and logout response headers",
+        "Two individually verified actual-TLS iframe denials with positive controls"
+      ],
+      "responses": [
+        {
+          "label": "HTML ",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:59:21 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=100",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "GET simple-v1/items",
+          "status": 401,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 01:59:22 GMT",
+            "keep-alive": "timeout=5, max=98",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.4.27",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "GET session/csrf",
+          "status": 200,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 01:59:22 GMT",
+            "keep-alive": "timeout=5, max=97",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.4.27",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "POST session/login",
+          "status": 403,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 01:59:22 GMT",
+            "keep-alive": "timeout=5, max=96",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.4.27",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "GET session/current",
+          "status": 200,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 01:59:24 GMT",
+            "keep-alive": "timeout=5, max=92",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.4.27",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "GET simple-v1/documents",
+          "status": 200,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 01:59:24 GMT",
+            "keep-alive": "timeout=5, max=91",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.4.27",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "POST simple-v1/documents",
+          "status": 403,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 01:59:24 GMT",
+            "keep-alive": "timeout=5, max=90",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.4.27",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "POST simple-v1/documents",
+          "status": 403,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 01:59:24 GMT",
+            "keep-alive": "timeout=5, max=89",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.4.27",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "POST simple-v1/documents",
+          "status": 400,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "close",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 01:59:24 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.4.27",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "POST simple-v1/documents",
+          "status": 403,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 01:59:24 GMT",
+            "keep-alive": "timeout=5, max=99",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.4.27",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "GET simple-v1/documents",
+          "status": 200,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 01:59:25 GMT",
+            "keep-alive": "timeout=5, max=98",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.4.27",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "Laravel malformed-cookie error",
+          "status": 503,
+          "headers": {
+            "date": "Thu, 29 Oct 2026 01:59:25 GMT",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-powered-by": "PHP/8.4.27",
+            "cache-control": "no-store",
+            "x-robots-tag": "noindex, nofollow",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "access-control-allow-origin": "*",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "x-frame-options": "DENY",
+            "referrer-policy": "same-origin",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "connection": "close",
+            "transfer-encoding": "chunked",
+            "content-type": "application/json"
+          }
+        },
+        {
+          "label": "HTML ",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:59:25 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=97",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML items",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:59:27 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=92",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML items/new",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:59:28 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=87",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML stock-in",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:59:30 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=82",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML stock-in/new?kind=PRODUCTION",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:59:33 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=77",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML challans",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:59:34 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=72",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML challans/new",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:59:36 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=67",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML challan-returns",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:59:38 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=62",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML clients",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:59:40 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=57",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML vendors",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:59:42 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=52",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML client-payments",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:59:43 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=47",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML vendor-payments",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:59:45 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=42",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML expenses",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:59:47 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=37",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML company-transactions",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:59:49 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=32",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML reports",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:59:51 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=26",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML reports?report=movements",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:59:53 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=21",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML ledgers",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:59:55 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=16",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML settings",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:59:57 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=11",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "static /management/assets/index-daM4cj0q.js",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "537758",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/javascript",
+            "date": "Thu, 29 Oct 2026 01:59:59 GMT",
+            "etag": "\"8349e-65ef0da794678\"",
+            "keep-alive": "timeout=5, max=6",
+            "last-modified": "Thu, 29 Oct 2026 01:46:50 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "static /management/assets/index-2OMGiDI_.css",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "60518",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/css",
+            "date": "Thu, 29 Oct 2026 01:59:59 GMT",
+            "etag": "\"ec66-65ef0da794678\"",
+            "keep-alive": "timeout=5, max=5",
+            "last-modified": "Thu, 29 Oct 2026 01:46:50 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "Apache /missing-file.js",
+          "status": 404,
+          "headers": {
+            "date": "Thu, 29 Oct 2026 01:59:59 GMT",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "x-frame-options": "DENY",
+            "x-content-type-options": "nosniff",
+            "cache-control": "no-store",
+            "referrer-policy": "same-origin",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "x-robots-tag": "noindex, nofollow",
+            "content-length": "196",
+            "keep-alive": "timeout=5, max=100",
+            "connection": "Keep-Alive",
+            "content-type": "text/html; charset=iso-8859-1"
+          }
+        },
+        {
+          "label": "Apache /.env",
+          "status": 404,
+          "headers": {
+            "date": "Thu, 29 Oct 2026 01:59:59 GMT",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "x-frame-options": "DENY",
+            "x-content-type-options": "nosniff",
+            "cache-control": "no-store",
+            "referrer-policy": "same-origin",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "x-robots-tag": "noindex, nofollow",
+            "content-length": "196",
+            "keep-alive": "timeout=5, max=99",
+            "connection": "Keep-Alive",
+            "content-type": "text/html; charset=iso-8859-1"
+          }
+        },
+        {
+          "label": "Apache /server.key",
+          "status": 404,
+          "headers": {
+            "date": "Thu, 29 Oct 2026 01:59:59 GMT",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "x-frame-options": "DENY",
+            "x-content-type-options": "nosniff",
+            "cache-control": "no-store",
+            "referrer-policy": "same-origin",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "x-robots-tag": "noindex, nofollow",
+            "content-length": "196",
+            "keep-alive": "timeout=5, max=98",
+            "connection": "Keep-Alive",
+            "content-type": "text/html; charset=iso-8859-1"
+          }
+        },
+        {
+          "label": "HTML ",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 01:59:59 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=4",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "GET session/current",
+          "status": 401,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 02:00:01 GMT",
+            "keep-alive": "timeout=5, max=74",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.4.27",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "HTML ",
+          "status": 200,
+          "headers": {
+            "accept-ranges": "bytes",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-length": "16071",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "text/html",
+            "date": "Thu, 29 Oct 2026 02:00:01 GMT",
+            "etag": "\"3ec7-65ef0dbcf109e\"",
+            "keep-alive": "timeout=5, max=73",
+            "last-modified": "Thu, 29 Oct 2026 01:47:13 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "GET session/current",
+          "status": 401,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 02:00:04 GMT",
+            "keep-alive": "timeout=5, max=66",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.4.27",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "GET session/current",
+          "status": 401,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 02:00:04 GMT",
+            "keep-alive": "timeout=5, max=65",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.4.27",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "authentication /api/v1/management/session/login",
+          "status": 403,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 01:59:22 GMT",
+            "keep-alive": "timeout=5, max=96",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.4.27",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "authentication /api/v1/management/session/login",
+          "status": 200,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 01:59:22 GMT",
+            "keep-alive": "timeout=5, max=95",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.4.27",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "authentication /api/v1/management/session/logout",
+          "status": 204,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "date": "Thu, 29 Oct 2026 02:00:01 GMT",
+            "keep-alive": "timeout=5, max=75",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.4.27",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        },
+        {
+          "label": "authentication /api/v1/management/session/login",
+          "status": 200,
+          "headers": {
+            "access-control-allow-origin": "*",
+            "cache-control": "no-store",
+            "connection": "Keep-Alive",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+            "content-type": "application/json",
+            "date": "Thu, 29 Oct 2026 02:00:02 GMT",
+            "keep-alive": "timeout=5, max=69",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "same-origin",
+            "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+            "transfer-encoding": "chunked",
+            "vary": "Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "PHP/8.4.27",
+            "x-robots-tag": "noindex, nofollow"
+          }
+        }
+      ],
+      "cspViolations": [],
+      "javascriptErrors": [],
+      "frames": [
+        {
+          "target": "https://127.0.0.1:9474/management/",
+          "positiveControl": true,
+          "blockedChildUrl": "chrome-error://chromewebdata/",
+          "denials": [
+            "Framing 'https://127.0.0.1:9474/' violates the following Content Security Policy directive: \"frame-ancestors 'none'\". The request has been blocked.\n"
+          ],
+          "cspIssues": [
+            {
+              "code": "ContentSecurityPolicyIssue",
+              "details": {
+                "contentSecurityPolicyIssueDetails": {
+                  "blockedURL": "https://127.0.0.1:9474/",
+                  "violatedDirective": "frame-ancestors",
+                  "isReportOnly": false,
+                  "contentSecurityPolicyViolationType": "kURLViolation",
+                  "frameAncestor": {
+                    "frameId": "D8525779DABA25717C527E39B03FE41B"
+                  },
+                  "sourceCodeLocation": {
+                    "url": "",
+                    "lineNumber": -1,
+                    "columnNumber": -1
+                  }
+                }
+              }
+            }
+          ],
+          "requestFailures": [
+            {
+              "url": "https://127.0.0.1:9474/management/",
+              "reason": "net::ERR_BLOCKED_BY_RESPONSE"
+            }
+          ]
+        },
+        {
+          "target": "https://127.0.0.1:9473/",
+          "positiveControl": true,
+          "blockedChildUrl": "chrome-error://chromewebdata/",
+          "denials": [
+            "Framing 'https://127.0.0.1:9473/' violates the following Content Security Policy directive: \"frame-ancestors 'none'\". The request has been blocked.\n"
+          ],
+          "cspIssues": [
+            {
+              "code": "ContentSecurityPolicyIssue",
+              "details": {
+                "contentSecurityPolicyIssueDetails": {
+                  "blockedURL": "https://127.0.0.1:9473/",
+                  "violatedDirective": "frame-ancestors",
+                  "isReportOnly": false,
+                  "contentSecurityPolicyViolationType": "kURLViolation",
+                  "frameAncestor": {
+                    "frameId": "B76213642D9EB6FCBED5F3C12F09EB42"
+                  },
+                  "sourceCodeLocation": {
+                    "url": "",
+                    "lineNumber": -1,
+                    "columnNumber": -1
+                  }
+                }
+              }
+            }
+          ],
+          "requestFailures": [
+            {
+              "url": "https://127.0.0.1:9473/",
+              "reason": "net::ERR_BLOCKED_BY_RESPONSE"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "beforeHeaders": [
+    {
+      "port": 9443,
+      "status": 200,
+      "headers": {
+        "date": "Thu, 29 Oct 2026 01:30:39 GMT",
+        "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "DENY",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'",
+        "last-modified": "Wed, 28 Oct 2026 19:27:30 GMT",
+        "etag": "\"4520-65eeb8dd39a09\"",
+        "accept-ranges": "bytes",
+        "content-length": "17696",
+        "keep-alive": "timeout=5, max=100",
+        "connection": "Keep-Alive",
+        "content-type": "text/html"
+      }
+    },
+    {
+      "port": 9444,
+      "status": 200,
+      "headers": {
+        "date": "Thu, 29 Oct 2026 01:30:48 GMT",
+        "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+        "x-powered-by": "PHP/8.4.27",
+        "cache-control": "no-store, private",
+        "x-robots-tag": "noindex, nofollow",
+        "vary": "Cookie",
+        "x-content-type-options": "nosniff",
+        "access-control-allow-origin": "*",
+        "keep-alive": "timeout=5, max=100",
+        "connection": "Keep-Alive",
+        "transfer-encoding": "chunked",
+        "content-type": "application/json"
+      }
+    },
+    {
+      "port": 9453,
+      "status": 200,
+      "headers": {
+        "date": "Thu, 29 Oct 2026 01:30:49 GMT",
+        "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "DENY",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'",
+        "last-modified": "Wed, 28 Oct 2026 21:32:21 GMT",
+        "etag": "\"4532-65eed4c5e81be\"",
+        "accept-ranges": "bytes",
+        "content-length": "17714",
+        "keep-alive": "timeout=5, max=100",
+        "connection": "Keep-Alive",
+        "content-type": "text/html"
+      }
+    },
+    {
+      "port": 9454,
+      "status": 200,
+      "headers": {
+        "date": "Thu, 29 Oct 2026 01:30:49 GMT",
+        "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+        "x-powered-by": "PHP/8.4.27",
+        "cache-control": "no-store, private",
+        "x-robots-tag": "noindex, nofollow",
+        "vary": "Cookie",
+        "x-content-type-options": "nosniff",
+        "access-control-allow-origin": "*",
+        "keep-alive": "timeout=5, max=100",
+        "connection": "Keep-Alive",
+        "transfer-encoding": "chunked",
+        "content-type": "application/json"
+      }
+    },
+    {
+      "port": 9463,
+      "status": 200,
+      "headers": {
+        "date": "Thu, 29 Oct 2026 01:30:49 GMT",
+        "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "DENY",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'",
+        "last-modified": "Wed, 28 Oct 2026 22:49:02 GMT",
+        "etag": "\"448c-65eee5e911040\"",
+        "accept-ranges": "bytes",
+        "content-length": "17548",
+        "keep-alive": "timeout=5, max=100",
+        "connection": "Keep-Alive",
+        "content-type": "text/html"
+      }
+    },
+    {
+      "port": 9464,
+      "status": 200,
+      "headers": {
+        "date": "Thu, 29 Oct 2026 01:30:49 GMT",
+        "server": "Apache/2.4.58 (Win64) OpenSSL/3.1.3",
+        "x-powered-by": "PHP/8.4.27",
+        "cache-control": "no-store, private",
+        "x-robots-tag": "noindex, nofollow",
+        "vary": "Cookie",
+        "x-content-type-options": "nosniff",
+        "access-control-allow-origin": "*",
+        "keep-alive": "timeout=5, max=100",
+        "connection": "Keep-Alive",
+        "transfer-encoding": "chunked",
+        "content-type": "application/json"
+      }
+    }
+  ],
+  "preservation": {
+    "passed": true,
+    "businessTablesPerSchema": 10,
+    "schemas": 3,
+    "identical": true,
+    "originalHttps": [
+      {
+        "port": 9443,
+        "status": 200
+      },
+      {
+        "port": 9444,
+        "status": 200
+      },
+      {
+        "port": 9453,
+        "status": 200
+      },
+      {
+        "port": 9454,
+        "status": 200
+      },
+      {
+        "port": 9463,
+        "status": 200
+      },
+      {
+        "port": 9464,
+        "status": 200
+      }
+    ]
+  },
+  "responsive": {
+    "passed": true,
+    "routes": 10,
+    "widths": 8,
+    "views": 80,
+    "results": [
+      {
+        "width": 320,
+        "route": "/",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": true,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 320,
+        "route": "/about",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": {
+          "loaded": true,
+          "width": 250,
+          "height": 187.5,
+          "frameBackground": "rgb(255, 255, 255)"
+        }
+      },
+      {
+        "width": 320,
+        "route": "/products",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": true,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 320,
+        "route": "/products/buckets",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": true,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 320,
+        "route": "/products/cans",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": true,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 320,
+        "route": "/products/containers",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": true,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 320,
+        "route": "/products/custom",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 320,
+        "route": "/manufacturing",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": {
+          "loaded": true,
+          "width": 250,
+          "height": 220,
+          "frameBackground": "rgb(255, 255, 255)"
+        }
+      },
+      {
+        "width": 320,
+        "route": "/industries",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 320,
+        "route": "/contact",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 360,
+        "route": "/",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": true,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 360,
+        "route": "/about",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": {
+          "loaded": true,
+          "width": 290,
+          "height": 217.5,
+          "frameBackground": "rgb(255, 255, 255)"
+        }
+      },
+      {
+        "width": 360,
+        "route": "/products",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": true,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 360,
+        "route": "/products/buckets",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": true,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 360,
+        "route": "/products/cans",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": true,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 360,
+        "route": "/products/containers",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": true,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 360,
+        "route": "/products/custom",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 360,
+        "route": "/manufacturing",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": {
+          "loaded": true,
+          "width": 290,
+          "height": 220,
+          "frameBackground": "rgb(255, 255, 255)"
+        }
+      },
+      {
+        "width": 360,
+        "route": "/industries",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 360,
+        "route": "/contact",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 375,
+        "route": "/",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": true,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 375,
+        "route": "/about",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": {
+          "loaded": true,
+          "width": 305,
+          "height": 228.75,
+          "frameBackground": "rgb(255, 255, 255)"
+        }
+      },
+      {
+        "width": 375,
+        "route": "/products",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": true,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 375,
+        "route": "/products/buckets",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": true,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 375,
+        "route": "/products/cans",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": true,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 375,
+        "route": "/products/containers",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": true,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 375,
+        "route": "/products/custom",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 375,
+        "route": "/manufacturing",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": {
+          "loaded": true,
+          "width": 305,
+          "height": 220,
+          "frameBackground": "rgb(255, 255, 255)"
+        }
+      },
+      {
+        "width": 375,
+        "route": "/industries",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 375,
+        "route": "/contact",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 390,
+        "route": "/",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": true,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 390,
+        "route": "/about",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": {
+          "loaded": true,
+          "width": 320,
+          "height": 240,
+          "frameBackground": "rgb(255, 255, 255)"
+        }
+      },
+      {
+        "width": 390,
+        "route": "/products",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": true,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 390,
+        "route": "/products/buckets",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": true,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 390,
+        "route": "/products/cans",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": true,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 390,
+        "route": "/products/containers",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": true,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 390,
+        "route": "/products/custom",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 390,
+        "route": "/manufacturing",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": {
+          "loaded": true,
+          "width": 320,
+          "height": 220,
+          "frameBackground": "rgb(255, 255, 255)"
+        }
+      },
+      {
+        "width": 390,
+        "route": "/industries",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 390,
+        "route": "/contact",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 414,
+        "route": "/",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": true,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 414,
+        "route": "/about",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": {
+          "loaded": true,
+          "width": 344,
+          "height": 258,
+          "frameBackground": "rgb(255, 255, 255)"
+        }
+      },
+      {
+        "width": 414,
+        "route": "/products",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": true,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 414,
+        "route": "/products/buckets",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": true,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 414,
+        "route": "/products/cans",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": true,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 414,
+        "route": "/products/containers",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": true,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 414,
+        "route": "/products/custom",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 414,
+        "route": "/manufacturing",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": {
+          "loaded": true,
+          "width": 344,
+          "height": 220,
+          "frameBackground": "rgb(255, 255, 255)"
+        }
+      },
+      {
+        "width": 414,
+        "route": "/industries",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 414,
+        "route": "/contact",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 768,
+        "route": "/",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": false,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 768,
+        "route": "/about",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": {
+          "loaded": true,
+          "width": 658.484375,
+          "height": 493.859375,
+          "frameBackground": "rgb(255, 255, 255)"
+        }
+      },
+      {
+        "width": 768,
+        "route": "/products",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": false,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 768,
+        "route": "/products/buckets",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": false,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 768,
+        "route": "/products/cans",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": false,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 768,
+        "route": "/products/containers",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": false,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 768,
+        "route": "/products/custom",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 768,
+        "route": "/manufacturing",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": {
+          "loaded": true,
+          "width": 658.484375,
+          "height": 260,
+          "frameBackground": "rgb(255, 255, 255)"
+        }
+      },
+      {
+        "width": 768,
+        "route": "/industries",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 768,
+        "route": "/contact",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 1024,
+        "route": "/",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": false,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 1024,
+        "route": "/about",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": {
+          "loaded": true,
+          "width": 386.53125,
+          "height": 289.890625,
+          "frameBackground": "rgb(255, 255, 255)"
+        }
+      },
+      {
+        "width": 1024,
+        "route": "/products",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": false,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 1024,
+        "route": "/products/buckets",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": false,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 1024,
+        "route": "/products/cans",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": false,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 1024,
+        "route": "/products/containers",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": false,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 1024,
+        "route": "/products/custom",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 1024,
+        "route": "/manufacturing",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": {
+          "loaded": true,
+          "width": 386.53125,
+          "height": 300,
+          "frameBackground": "rgb(255, 255, 255)"
+        }
+      },
+      {
+        "width": 1024,
+        "route": "/industries",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 1024,
+        "route": "/contact",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 1440,
+        "route": "/",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": false,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 1440,
+        "route": "/about",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": {
+          "loaded": true,
+          "width": 555.5,
+          "height": 416.625,
+          "frameBackground": "rgb(255, 255, 255)"
+        }
+      },
+      {
+        "width": 1440,
+        "route": "/products",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": false,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 1440,
+        "route": "/products/buckets",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": false,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 1440,
+        "route": "/products/cans",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": false,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 1440,
+        "route": "/products/containers",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": false,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 1440,
+        "route": "/products/custom",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 1440,
+        "route": "/manufacturing",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": {
+          "loaded": true,
+          "width": 555.5,
+          "height": 300,
+          "frameBackground": "rgb(255, 255, 255)"
+        }
+      },
+      {
+        "width": 1440,
+        "route": "/industries",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": null
+      },
+      {
+        "width": 1440,
+        "route": "/contact",
+        "overflow": false,
+        "centeredGutters": true,
+        "stacked": null,
+        "cls": 0,
+        "image": null
+      }
+    ],
+    "javascriptErrors": [],
+    "mobileNavigation": true,
+    "keyboard": true,
+    "reducedMotion": true
+  },
+  "dashboard": {
+    "passed": true,
+    "widths": [
+      {
+        "width": 320,
+        "overflow": false
+      },
+      {
+        "width": 360,
+        "overflow": false
+      },
+      {
+        "width": 375,
+        "overflow": false
+      },
+      {
+        "width": 390,
+        "overflow": false
+      },
+      {
+        "width": 414,
+        "overflow": false
+      },
+      {
+        "width": 768,
+        "overflow": false
+      },
+      {
+        "width": 1024,
+        "overflow": false
+      },
+      {
+        "width": 1440,
+        "overflow": false
+      }
+    ],
+    "ranges": [
+      7,
+      30,
+      90
+    ],
+    "exactSales": "200.00",
+    "returns": "50.00",
+    "netSales": "150.00",
+    "unverifiedStockExcluded": true,
+    "draftAndCancelledExcluded": true,
+    "automaticReconciliation": false,
+    "dashboardFinancialWrites": 0,
+    "routesChecked": 13,
+    "draft": "17",
+    "errors": []
+  },
+  "mobileForms": {
+    "passed": true,
+    "views": 27,
+    "results": [
+      {
+        "width": 320,
+        "route": "items/new",
+        "overflow": false,
+        "labels": true
+      },
+      {
+        "width": 320,
+        "route": "clients/new",
+        "overflow": false,
+        "labels": true
+      },
+      {
+        "width": 320,
+        "route": "vendors/new",
+        "overflow": false,
+        "labels": true
+      },
+      {
+        "width": 320,
+        "route": "stock-in/new",
+        "overflow": false,
+        "labels": true
+      },
+      {
+        "width": 320,
+        "route": "challans/new",
+        "overflow": false,
+        "labels": true
+      },
+      {
+        "width": 320,
+        "route": "expenses/new",
+        "overflow": false,
+        "labels": true
+      },
+      {
+        "width": 320,
+        "route": "client-payments/new",
+        "overflow": false,
+        "labels": true
+      },
+      {
+        "width": 320,
+        "route": "vendor-payments/new",
+        "overflow": false,
+        "labels": true
+      },
+      {
+        "width": 320,
+        "route": "settings",
+        "overflow": false,
+        "labels": true
+      },
+      {
+        "width": 390,
+        "route": "items/new",
+        "overflow": false,
+        "labels": true
+      },
+      {
+        "width": 390,
+        "route": "clients/new",
+        "overflow": false,
+        "labels": true
+      },
+      {
+        "width": 390,
+        "route": "vendors/new",
+        "overflow": false,
+        "labels": true
+      },
+      {
+        "width": 390,
+        "route": "stock-in/new",
+        "overflow": false,
+        "labels": true
+      },
+      {
+        "width": 390,
+        "route": "challans/new",
+        "overflow": false,
+        "labels": true
+      },
+      {
+        "width": 390,
+        "route": "expenses/new",
+        "overflow": false,
+        "labels": true
+      },
+      {
+        "width": 390,
+        "route": "client-payments/new",
+        "overflow": false,
+        "labels": true
+      },
+      {
+        "width": 390,
+        "route": "vendor-payments/new",
+        "overflow": false,
+        "labels": true
+      },
+      {
+        "width": 390,
+        "route": "settings",
+        "overflow": false,
+        "labels": true
+      },
+      {
+        "width": 768,
+        "route": "items/new",
+        "overflow": false,
+        "labels": true
+      },
+      {
+        "width": 768,
+        "route": "clients/new",
+        "overflow": false,
+        "labels": true
+      },
+      {
+        "width": 768,
+        "route": "vendors/new",
+        "overflow": false,
+        "labels": true
+      },
+      {
+        "width": 768,
+        "route": "stock-in/new",
+        "overflow": false,
+        "labels": true
+      },
+      {
+        "width": 768,
+        "route": "challans/new",
+        "overflow": false,
+        "labels": true
+      },
+      {
+        "width": 768,
+        "route": "expenses/new",
+        "overflow": false,
+        "labels": true
+      },
+      {
+        "width": 768,
+        "route": "client-payments/new",
+        "overflow": false,
+        "labels": true
+      },
+      {
+        "width": 768,
+        "route": "vendor-payments/new",
+        "overflow": false,
+        "labels": true
+      },
+      {
+        "width": 768,
+        "route": "settings",
+        "overflow": false,
+        "labels": true
+      }
+    ],
+    "financialWrites": 0,
+    "cspViolations": [],
+    "javascriptErrors": []
+  },
+  "financialArtifacts": {
+    "passed": true,
+    "pdfs": [
+      {
+        "name": "worksheet-register",
+        "pages": 2,
+        "financialContentOnly": true
+      },
+      {
+        "name": "worksheet-challan",
+        "pages": 1,
+        "financialContentOnly": true
+      },
+      {
+        "name": "worksheet-return",
+        "pages": 1,
+        "financialContentOnly": true
+      },
+      {
+        "name": "worksheet-receipt",
+        "pages": 1,
+        "financialContentOnly": true
+      },
+      {
+        "name": "worksheet-payment",
+        "pages": 1,
+        "financialContentOnly": true
+      },
+      {
+        "name": "worksheet-expense",
+        "pages": 1,
+        "financialContentOnly": true
+      },
+      {
+        "name": "php76-custom-challan",
+        "pages": 1,
+        "financialContentOnly": true
+      }
+    ],
+    "exports": [
+      {
+        "name": "UPMS-Company-Transactions.xlsx",
+        "zipCRC": true,
+        "worksheetXML": true
+      },
+      {
+        "name": "UPMS-CLIENT-ledger.xlsx",
+        "zipCRC": true,
+        "worksheetXML": true
+      },
+      {
+        "name": "UPMS-VENDOR-ledger.xlsx",
+        "zipCRC": true,
+        "worksheetXML": true
+      },
+      {
+        "name": "UPMS-stock.xlsx",
+        "zipCRC": true,
+        "worksheetXML": true
+      },
+      {
+        "name": "UPMS-CLIENT-ledger.xlsx",
+        "zipCRC": true,
+        "worksheetXML": true
+      },
+      {
+        "name": "UPMS-Company-Transactions.xlsx",
+        "zipCRC": true,
+        "worksheetXML": true
+      }
+    ],
+    "nativeExcel": "PENDING OWNER",
+    "windowsPrint": "PENDING OWNER",
+    "visualReview": {
+      "pages": 8,
+      "passed": true,
+      "notes": "All rendered financial pages inspected; no overlapping content or management dashboard/navigation in financial prints"
+    }
+  },
+  "publicAssetHashesIdentical": 111,
+  "production": "NO-GO",
+  "ownerSignoff": "PENDING OWNER",
+  "rawEvidence": [
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php2_1793237647432/evidence.json",
+      "sha256": "a01d2eb2bee1aa93d36777a7f55f83657aafedf21bb79bf9764493a748109bb5"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php2_1793238402143/evidence.json",
+      "sha256": "b7e3cffbe16200948f9d123d772d9435522be430a5437ba079a926ca897fa316"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php3_1793237723775/evidence.json",
+      "sha256": "daa30631f295a69fa07a4a72b867256a9258737e4b4ecf2f1b0c5ec62d94d4db"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php3_1793238459933/evidence.json",
+      "sha256": "c4440f82bb372167917becc1093c2fbd05a23d4defa064cc7d73b06cae991a42"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php4_1793237861116/evidence.json",
+      "sha256": "939189736ca90ae7dc59e9be3801232c8ba4f82850d6140a44c85b28c8854831"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php4_1793238550666/evidence.json",
+      "sha256": "96f0a6cb14e0b7dd0bb45b7e5b3e44130da633f732bccfd1d6f52a5e592dae52"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php5_1793238053279/evidence.json",
+      "sha256": "773b00f83f27905e5d65c87aadaecb5c5c5409bb3951046337082adb5264e11c"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php5_1793238653268/evidence.json",
+      "sha256": "f9d5e1ed8d685d810f384f43375c6124a76baab4c32c9a66ed45cf478fb9ba43"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php6-browser-1793237608109/health-results.json",
+      "sha256": "4a131a8f73ee13a65d6285eb25e9e6b2e214efaac2623e2daa303518f11f4ffc"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php6-browser-1793237608109/php7-public-8.4-php78.json",
+      "sha256": "80ec10abb21473299b305447ce674340c6b3429bcb404302010b42ad6a7b6ef4"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php6-browser-1793237608109/php76-browser-results.json",
+      "sha256": "896916192563a3ccb0708e69ffad4b7cc4446b3463849708188b4bff49ae8407"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php6-browser-1793237608109/worksheet-results.json",
+      "sha256": "9eda1ec96f6d68e91a3f6114cc04c5eb39858dc70ef6ec6f60c69779d3bc3315"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php6_1793238209252/evidence.json",
+      "sha256": "bc44602c465a29c6028fd27c3518d486972e31b4e2f57508b33c0fa146d63d36"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php6_1793238771232/evidence.json",
+      "sha256": "67390b02dde6bc5a3141e0efebf93eccb92c4448578649386da0227f1c381a7e"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php7-regressions-1793237645772/results.json",
+      "sha256": "08f495738a7172bf09f12e77927a5139374677cc176bb7aa5d9d8c749685cb2f"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php75-automated-1793237658173/composer-audit.log",
+      "sha256": "a2caf0f7c741e62640c2da83b829c15d0373825abc85618ad482156a2b00c508"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php75-automated-1793237658173/composer-strict.log",
+      "sha256": "617d39e3b4752168f63039991b7e1efaca11e54a1f5a9153d93b0d4efe91fe05"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php75-automated-1793237658173/composer-validate.log",
+      "sha256": "617d39e3b4752168f63039991b7e1efaca11e54a1f5a9153d93b0d4efe91fe05"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php75-automated-1793237658173/fixtures.log",
+      "sha256": "07eb344a89f367d07ca9144847df78caba2da7c90b2fa69de7159b14da6c4300"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php75-automated-1793237658173/inquiries-83.log",
+      "sha256": "9e72c2b687f62987071a71a411d5723680269603e584b97e7ca4c3367804aa92"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php75-automated-1793237658173/inquiries-84.log",
+      "sha256": "6d72e2896bf4ae7947a5df07fa0db18c2454799c56995c5a8296c4f244da37f8"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php75-automated-1793237658173/phpunit-83.log",
+      "sha256": "32ebb897b8c47995f1f336b17e2e793ee7a6ed784a8b3fea7e43e5acc3b4189c"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php75-automated-1793237658173/phpunit-84.log",
+      "sha256": "8222c2f701b1112c7088ca96328f232d4fd6795013832db1c6b9ce5a44c471e0"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php75-automated-1793237658173/pint.log",
+      "sha256": "cd1a94fc2cf6a965b86e1a4809d6c7fb9148b1ee374e1010ed2ac96ff4876ec2"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php75-automated-1793237658173/platform-83.log",
+      "sha256": "c6622ec7724a16ad0a23672362462e284810590e444120a31e64d388bcba4c39"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php75-automated-1793237658173/platform-84.log",
+      "sha256": "66f11ae1f1ed2f499344e064a7ae48eaa7f6824982f9b3c0092b2660f39e2860"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php75-automated-1793237658173/react-build.log",
+      "sha256": "2d881622e3ef37ca4f3ec20c34579bd267ad907d4987176a0f108e2dd787b4a2"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php75-automated-1793237658173/react-lint.log",
+      "sha256": "33f27cdf78f7e264e86cddfac3c584b9ea433c1992e5f0a0058db9e306e004cb"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php75-automated-1793237658173/react-test.log",
+      "sha256": "c04dac499f80a7e62708e935cd8fb410087fca16da53be88f76e64d0e520584d"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php75-automated-1793237658173/reconciliation-contracts.log",
+      "sha256": "49eb6b02937d6af1642950a9f8f538b8bfb8d3e4edf92074b530b6e9a596e9f8"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php75-automated-1793237658173/results.json",
+      "sha256": "1c56d164933e67bd9debe2adfc59df39dbe43304f354f515539e7f4d9834568c"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php76-pricing_1793237947170/evidence.json",
+      "sha256": "aba50e657a5251ef065b92d173a08defbf682f954ed1ae50a6a3f1cdfd037571"
+    },
+    {
+      "path": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php78-workspace/tmp/php-runtime/php76-pricing_1793238014441/evidence.json",
+      "sha256": "8cd0de1d7bd29c652e1e3ea1cfe234d148c1c8d4408c0656bf9091158f44cf60"
+    },
+    {
+      "path": "tmp/php-runtime/php78/audit-after.json",
+      "sha256": "65cb74de105d312fddccfe4c7b15692394b4e5384bf703dd8c1b60be023a1831"
+    },
+    {
+      "path": "tmp/php-runtime/php78/audit-before.json",
+      "sha256": "cd5edcc2345931e8b5c3b9ac432f3f61bbe6ee786d0619244913ed096b768e6d"
+    },
+    {
+      "path": "tmp/php-runtime/php78/mime-probe-after.json",
+      "sha256": "264f1765c977df96733cfd03da9cdca159470a11b89358574e3ed76db1882869"
+    },
+    {
+      "path": "tmp/php-runtime/php78/mime-probe-before.json",
+      "sha256": "bc2f1e9cc98c3a63b356b54a17553da5a3972f06c780deaded26600ed56c427a"
+    },
+    {
+      "path": "tmp/php-runtime/php78/owner-after.json",
+      "sha256": "d67cb8849db743b854869a55c52e1fe62c093889f04af8b25a34b3b31dffc619"
+    },
+    {
+      "path": "tmp/php-runtime/php78/owner-before.json",
+      "sha256": "d67cb8849db743b854869a55c52e1fe62c093889f04af8b25a34b3b31dffc619"
+    },
+    {
+      "path": "tmp/php-runtime/php78/pint-before.json",
+      "sha256": "97c839f8e9a576191e67d04b907401f1830eed038bcfa55eae89ecd58ac53044"
+    },
+    {
+      "path": "tmp/php-runtime/php78/pint-final.json",
+      "sha256": "cd1a94fc2cf6a965b86e1a4809d6c7fb9148b1ee374e1010ed2ac96ff4876ec2"
+    },
+    {
+      "path": "tmp/php-runtime/php78/preservation.json",
+      "sha256": "3789a6fdc42217ddba0c7837babfe6f00035e4b73f0d0fdd4d305eddee2e7c4a"
+    },
+    {
+      "path": "tmp/php-runtime/php78/strict-after.log",
+      "sha256": "617d39e3b4752168f63039991b7e1efaca11e54a1f5a9153d93b0d4efe91fe05"
+    },
+    {
+      "path": "tmp/php-runtime/php78/after/1440-_.png",
+      "sha256": "cd8499e5868893f5b10c568bab4f5e49fb65e47fe32124218dabb27c80d6a552"
+    },
+    {
+      "path": "tmp/php-runtime/php78/after/1440-_about.png",
+      "sha256": "0e19aea293c874727bbed8d10ea28845004b6755e80eebed33ee3cbda37db53b"
+    },
+    {
+      "path": "tmp/php-runtime/php78/after/1440-_products.png",
+      "sha256": "ee4262029742c0ec030b3c010537d17f6cacb6324f0c11f6e5966fe448688a6f"
+    },
+    {
+      "path": "tmp/php-runtime/php78/after/1440-_products_custom.png",
+      "sha256": "3b4ee0b95b9c88f5aaf0dd8e9add695277bf632465203b1c49d64b121eb80dba"
+    },
+    {
+      "path": "tmp/php-runtime/php78/after/1440-capabilities.png",
+      "sha256": "1d440d428417b0d4aa2ad6ff3a1142f2573fae4575277b444d3efb177edbc8e4"
+    },
+    {
+      "path": "tmp/php-runtime/php78/after/1440-custom-card.png",
+      "sha256": "93781db22a6a0a3c07db4735367cb401eb6238199d12d367207c958935c3843c"
+    },
+    {
+      "path": "tmp/php-runtime/php78/after/1440-dashboard.png",
+      "sha256": "839a1622d57b9c09a9c7c5af2bb2220de38ebaa31af3643856e0d7783f117397"
+    },
+    {
+      "path": "tmp/php-runtime/php78/after/320-_.png",
+      "sha256": "fc3fecb75c32830edfec74bad51fcd14691d858b57598f33c0738e657a6fcd83"
+    },
+    {
+      "path": "tmp/php-runtime/php78/after/320-_about.png",
+      "sha256": "aa119d685d33fd9c57678398be308db44183ce5576f62e25634f74a70a83c906"
+    },
+    {
+      "path": "tmp/php-runtime/php78/after/320-_products.png",
+      "sha256": "74e06d55432245bd136c24dfd9476a626593e8b5870df50d59136d6ffd205165"
+    },
+    {
+      "path": "tmp/php-runtime/php78/after/320-_products_custom.png",
+      "sha256": "95fe464165bde239e7bee8f6298dd32538d5c223af809b567a813c5cca236c03"
+    },
+    {
+      "path": "tmp/php-runtime/php78/after/320-capabilities.png",
+      "sha256": "32c1f3e8c2b6a81f8d4f612daf65c49abd226272f3a8b02c2e7a96a5b060d33c"
+    },
+    {
+      "path": "tmp/php-runtime/php78/after/320-custom-card.png",
+      "sha256": "adc1e2cb7cd983bbebe514757777aa514f1214a43fac7b8f7caac8e1145a21e7"
+    },
+    {
+      "path": "tmp/php-runtime/php78/after/390-_.png",
+      "sha256": "6cefd45c50d176483fb885a3969f684e6fefbc7932058e7b735fc3fc0ee9b22f"
+    },
+    {
+      "path": "tmp/php-runtime/php78/after/390-_about.png",
+      "sha256": "f77e5f300bccd2d78919de6bc7f667b9a46f7b6dec6569a5fb96c639090b6ac7"
+    },
+    {
+      "path": "tmp/php-runtime/php78/after/390-_products.png",
+      "sha256": "db2f982bb68bc78dbafbddcf89167db8f5e74d7f27f04ba50e24691c4e68310b"
+    },
+    {
+      "path": "tmp/php-runtime/php78/after/390-_products_custom.png",
+      "sha256": "c1d65cf157779095f316f0010dbbe261837b26a1c971ef18396177c4e055ea4f"
+    },
+    {
+      "path": "tmp/php-runtime/php78/after/390-capabilities.png",
+      "sha256": "7fe0f2bcbd6a58126cc0a524979711b59bea5b03fe9002e49019879ddcb1ab64"
+    },
+    {
+      "path": "tmp/php-runtime/php78/after/390-custom-card.png",
+      "sha256": "38040d0283402bc0337cef1e912dcd2dcd98ac6304d055f4c3cc5df3be1ec975"
+    },
+    {
+      "path": "tmp/php-runtime/php78/after/390-dashboard.png",
+      "sha256": "c821da588aeda7a8d98aad6b5b5506c18d8e1fd97d278d3a9fcf208290be51c2"
+    },
+    {
+      "path": "tmp/php-runtime/php78/after/768-_.png",
+      "sha256": "d094a47c0529d81b10869c4f7c929f60e4c8007d05f454276f7b070715c14391"
+    },
+    {
+      "path": "tmp/php-runtime/php78/after/768-_about.png",
+      "sha256": "0ecb3cdcbfa71b59ee0e3af1d3d609da0d33332f3bf9d8720130f31b0d5f4b86"
+    },
+    {
+      "path": "tmp/php-runtime/php78/after/768-_products.png",
+      "sha256": "957400178512a7dfa958272801c47dcaec12f4f18a3902e4c60ed855e0ca0aa0"
+    },
+    {
+      "path": "tmp/php-runtime/php78/after/768-_products_custom.png",
+      "sha256": "67d53f2e71cbf70f1e7872fd86f1e292d3374e1685188289d4c08e8e92397ffd"
+    },
+    {
+      "path": "tmp/php-runtime/php78/after/768-capabilities.png",
+      "sha256": "4780b5f419d18317476634e5339f2ec89c58ec724af224634fc5c43c21a96f21"
+    },
+    {
+      "path": "tmp/php-runtime/php78/after/768-custom-card.png",
+      "sha256": "678b89452bed7a998e2273acc7d6ad5f5b062724969c292e739ebb7aaf92400d"
+    },
+    {
+      "path": "tmp/php-runtime/php78/artifact-results.json",
+      "sha256": "38000ad88c894c1909cbaba2c00231d5708a6c5f1c68c1711a50ca60429a62e6"
+    },
+    {
+      "path": "tmp/php-runtime/php78/audit-after.json",
+      "sha256": "65cb74de105d312fddccfe4c7b15692394b4e5384bf703dd8c1b60be023a1831"
+    },
+    {
+      "path": "tmp/php-runtime/php78/audit-before.json",
+      "sha256": "cd5edcc2345931e8b5c3b9ac432f3f61bbe6ee786d0619244913ed096b768e6d"
+    },
+    {
+      "path": "tmp/php-runtime/php78/automated.log",
+      "sha256": "2f86e5e24990a718501023eac8980e7d322135833447101b15ac3f6c6e2e9928"
+    },
+    {
+      "path": "tmp/php-runtime/php78/build-final.log",
+      "sha256": "5ea63ae2297c437c387c706b9c0bae4419b8ce9c7e68db6b31797fe3404d90bc"
+    },
+    {
+      "path": "tmp/php-runtime/php78/dashboard-results.json",
+      "sha256": "e9b00566c2f25c21074eadb2ce41ccfe2162b94633c2bc9aca27a5eae6cb2774"
+    },
+    {
+      "path": "tmp/php-runtime/php78/dashboard.log",
+      "sha256": "1d43e1ac8197cddf17c4145b930a4957f665e10b879dde4a365a9cf68671ecdc"
+    },
+    {
+      "path": "tmp/php-runtime/php78/dependency-update.log",
+      "sha256": "bf3d778f6424fc625a478212d0530db280049bf47c3eef6883011c175b8f5903"
+    },
+    {
+      "path": "tmp/php-runtime/php78/express-final.log",
+      "sha256": "8e44b8b745ed3644a08f54c4f6cce61db6d22ecce70c400815fe9801f7a7fe3f"
+    },
+    {
+      "path": "tmp/php-runtime/php78/express.log",
+      "sha256": "501da55698b6e7f1e748ff9e980d2f80db439374115ab69bf04345b65081e2dc"
+    },
+    {
+      "path": "tmp/php-runtime/php78/frame-diagnostic.json",
+      "sha256": "bb5c61cc1fee1072b73bc4d72a5d7bccaea22f852c18458f27059abc78b34ce8"
+    },
+    {
+      "path": "tmp/php-runtime/php78/frame-results-83.json",
+      "sha256": "941935d4107612e50361eabc540e0d0ce86c89ceabd7b67e088d41981f711bb2"
+    },
+    {
+      "path": "tmp/php-runtime/php78/frame-results-84.json",
+      "sha256": "45fe9a5f9dfe45b652f638c83ce6bbffc471df3cedc47a613250b0cbb353ef43"
+    },
+    {
+      "path": "tmp/php-runtime/php78/headers-before.json",
+      "sha256": "21639b2ec3b5f917af6bad1e2f8f5831d5941d24744b03da2a24167ebad01dc7"
+    },
+    {
+      "path": "tmp/php-runtime/php78/health.log",
+      "sha256": "7c99c94c0e8dc3eb6516835baf0ebb4895e30bc94930b4c705d59aa27dffe27e"
+    },
+    {
+      "path": "tmp/php-runtime/php78/management.log",
+      "sha256": "d48269d0e04e19231426fda8ef3e1eaaa0c448d1d31e5843d8763a63ab08f720"
+    },
+    {
+      "path": "tmp/php-runtime/php78/mime-probe-after.json",
+      "sha256": "264f1765c977df96733cfd03da9cdca159470a11b89358574e3ed76db1882869"
+    },
+    {
+      "path": "tmp/php-runtime/php78/mime-probe-before.json",
+      "sha256": "bc2f1e9cc98c3a63b356b54a17553da5a3972f06c780deaded26600ed56c427a"
+    },
+    {
+      "path": "tmp/php-runtime/php78/mobile-forms-final.log",
+      "sha256": "333e58aed8b2ca5ea158011eea50d46cf6b9d293842ce1c91b4670a8dc29f638"
+    },
+    {
+      "path": "tmp/php-runtime/php78/mobile-forms-results.json",
+      "sha256": "ac5c24c332d74c308ad11f8b9ba2d77819c39da75ac35ab60b7019c938596dcd"
+    },
+    {
+      "path": "tmp/php-runtime/php78/mobile-forms.log",
+      "sha256": "333e58aed8b2ca5ea158011eea50d46cf6b9d293842ce1c91b4670a8dc29f638"
+    },
+    {
+      "path": "tmp/php-runtime/php78/owner-after.json",
+      "sha256": "d67cb8849db743b854869a55c52e1fe62c093889f04af8b25a34b3b31dffc619"
+    },
+    {
+      "path": "tmp/php-runtime/php78/owner-before.json",
+      "sha256": "d67cb8849db743b854869a55c52e1fe62c093889f04af8b25a34b3b31dffc619"
+    },
+    {
+      "path": "tmp/php-runtime/php78/pint-after.json",
+      "sha256": "cd1a94fc2cf6a965b86e1a4809d6c7fb9148b1ee374e1010ed2ac96ff4876ec2"
+    },
+    {
+      "path": "tmp/php-runtime/php78/pint-before.json",
+      "sha256": "97c839f8e9a576191e67d04b907401f1830eed038bcfa55eae89ecd58ac53044"
+    },
+    {
+      "path": "tmp/php-runtime/php78/pint-final-format.json",
+      "sha256": "75a21eb552ec20a49da3c75daacff1675fb44102eb75394b92f4ecf65faf28bb"
+    },
+    {
+      "path": "tmp/php-runtime/php78/pint-final.json",
+      "sha256": "cd1a94fc2cf6a965b86e1a4809d6c7fb9148b1ee374e1010ed2ac96ff4876ec2"
+    },
+    {
+      "path": "tmp/php-runtime/php78/pint-format.json",
+      "sha256": "0325fd37e53dd07d3a78b098a0f7823e9d184f41ffb25dc478d78774a255f3b9"
+    },
+    {
+      "path": "tmp/php-runtime/php78/pint-wrong-cwd.json",
+      "sha256": "d6cc0598ad067b0816b04a7746f78ea7f19b50e3433fe74b631e55d0c1b6f585"
+    },
+    {
+      "path": "tmp/php-runtime/php78/prepare.log",
+      "sha256": "83c42be03995a4d1129c795bb24288031593ea99319bde559778c57596919c22"
+    },
+    {
+      "path": "tmp/php-runtime/php78/preservation.json",
+      "sha256": "3789a6fdc42217ddba0c7837babfe6f00035e4b73f0d0fdd4d305eddee2e7c4a"
+    },
+    {
+      "path": "tmp/php-runtime/php78/pricing-83.log",
+      "sha256": "c194d2afcbb259e4ac9ced80fac2a3d69c9ff4e6c4ca5590c6a0eb3e50931101"
+    },
+    {
+      "path": "tmp/php-runtime/php78/pricing-84.log",
+      "sha256": "d87392ad67d722238161d46a03a1afcd419118df449d685f4f60e07909d21346"
+    },
+    {
+      "path": "tmp/php-runtime/php78/pricing-ui.log",
+      "sha256": "20f0ee38619c9bc83685a7f317f3b918f1cf01c2000d9008d0d6e8d6e4346eca"
+    },
+    {
+      "path": "tmp/php-runtime/php78/pricing.log",
+      "sha256": "d9a6bdbdad326ff6b7664b18fe0676819d74b7f2a171efb6d3d3ba2947469b29"
+    },
+    {
+      "path": "tmp/php-runtime/php78/print-contact-sheet.png",
+      "sha256": "ea51c3fc8ab76d0e8e33baceb284a261cc3a4a064ce1eaa59024257cb5eeff98"
+    },
+    {
+      "path": "tmp/php-runtime/php78/public-inquiry-final.log",
+      "sha256": "ab447181c32dd940f8b5029e63370937c1bf0b927d1b6436a0c384b5305b5ac9"
+    },
+    {
+      "path": "tmp/php-runtime/php78/public-inquiry.log",
+      "sha256": "b002e0715f5d17e425b4390a69842d690df9b5ffaa334148b8813499e84dd425"
+    },
+    {
+      "path": "tmp/php-runtime/php78/public-responsive.log",
+      "sha256": "3017ff128360c77bd9f23dd960bf21b268170b71a3237ee452c8ec6e9e94c3cd"
+    },
+    {
+      "path": "tmp/php-runtime/php78/public-results.json",
+      "sha256": "3d0ca3c341967383f470f47cc0bc62d41cb8159ce0278d578e6dfef2fec0b9fc"
+    },
+    {
+      "path": "tmp/php-runtime/php78/security-browser-83.log",
+      "sha256": "bbe873829e64235ed150cedfe6b3a4d43bbcbd4c8cf3758b0329ec3792ec8a25"
+    },
+    {
+      "path": "tmp/php-runtime/php78/security-browser-84-final.log",
+      "sha256": "bbe873829e64235ed150cedfe6b3a4d43bbcbd4c8cf3758b0329ec3792ec8a25"
+    },
+    {
+      "path": "tmp/php-runtime/php78/security-browser-84.log",
+      "sha256": "5b187129dc9dd6c14ac3b0600689de829f402931cfce8dde64e49548fdc2302f"
+    },
+    {
+      "path": "tmp/php-runtime/php78/security-browser-final.log",
+      "sha256": "95d43705ab3a5ae2a856445e7fb5ea1b57028b452a5a937f70df54dd05696dbd"
+    },
+    {
+      "path": "tmp/php-runtime/php78/security-browser.log",
+      "sha256": "1b57aaea288d343acb94f8d5562ce76bff21a119320e0dcea1de044cd6211e10"
+    },
+    {
+      "path": "tmp/php-runtime/php78/security-results-83.json",
+      "sha256": "e7637a9ac3555f28fa6f99f403f6fd57a0321097b06166226e77726a65f72e0a"
+    },
+    {
+      "path": "tmp/php-runtime/php78/security-results-84-initial.json",
+      "sha256": "42608c65f941a7d74b4bf5f6333b05c1a24755e1a9309be04985fa967ec77762"
+    },
+    {
+      "path": "tmp/php-runtime/php78/security-results-84.json",
+      "sha256": "63a091a93512c438860e957931a232af3a5375f6fa615782b14d1ccd176f972e"
+    },
+    {
+      "path": "tmp/php-runtime/php78/security-results.json",
+      "sha256": "63a091a93512c438860e957931a232af3a5375f6fa615782b14d1ccd176f972e"
+    },
+    {
+      "path": "tmp/php-runtime/php78/strict-after.log",
+      "sha256": "617d39e3b4752168f63039991b7e1efaca11e54a1f5a9153d93b0d4efe91fe05"
+    },
+    {
+      "path": "tmp/php-runtime/php78/validate-before.log",
+      "sha256": "155be9dc188cd841e15a872bb88b1438130de1071ead68a0eebabe9099e78059"
+    },
+    {
+      "path": "tmp/php-runtime/php78/worksheet.log",
+      "sha256": "2eea904371bdeb51603fe8c2f972cac00a945b211bce30ee723679a2f233924d"
+    }
+  ]
+}

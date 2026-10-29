@@ -21,8 +21,7 @@ $phase = 'connect';
 try {
     $p = json_decode(stream_get_contents(STDIN), true, 32, JSON_THROW_ON_ERROR);
     $s = $p['smtp'];
-    $transport = new class($s['host'], (int) $s['port'], $s['tls'] === 'SslOnConnect') extends EsmtpTransport
-    {
+    $transport = new class ($s['host'], (int) $s['port'], $s['tls'] === 'SslOnConnect') extends EsmtpTransport {
         public function __destruct()
         {
             // This one-shot worker closes the socket without a second QUIT.
@@ -46,7 +45,7 @@ try {
     $transport->getStream()->setTimeout(max(0.1, $p['timeout'] / 1000))->setStreamOptions(['ssl' => $ssl]);
     $transport->start();
     $phase = 'send';
-    $email = (new Email)->from(new Address($s['from'], 'Unique Plastic Industry'))->to(new Address($s['recipient'], 'Unique Plastic Industry inquiries'))->replyTo($p['input']['email'])->subject('Unique Plastic Industry packaging inquiry ['.$p['reference'].']')->text(InquiryDelivery::body($p['input'], $p['reference']));
+    $email = (new Email())->from(new Address($s['from'], 'Unique Plastic Industry'))->to(new Address($s['recipient'], 'Unique Plastic Industry inquiries'))->replyTo($p['input']['email'])->subject('Unique Plastic Industry packaging inquiry ['.$p['reference'].']')->text(InquiryDelivery::body($p['input'], $p['reference']));
     $transport->send($email);
     $outcome = 'SmtpAccepted';
 } catch (Throwable $e) {

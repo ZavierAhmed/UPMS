@@ -1,0 +1,17 @@
+# PHP-7.8 security review
+
+Baseline: `c769239b0ec4e92bf7e4540693758cc222d31314`, fetched and verified from the requested repository. Branch: `feature/upms-php-7-8-security-remediation`.
+
+The remediation checkout is isolated at `tmp/php-runtime/php78-workspace`. Earlier UAT wrappers load PHP files from the original checkout, so modifying that checkout would change the running owner previews. The original checkout stays on PHP-7.7 with its existing vendor tree; PHP-7.8 has a separate PHP source/vendor tree. Shared JavaScript dependencies are unchanged. Only private runtime/output directories are linked into the isolated checkout. Owner untracked brochures/logos/source assets were neither imported nor staged.
+
+The initial findings are preserved in raw before-audit, strict-validation, Pint and actual-header captures. Dependency investigation establishes a genuine Mime vulnerability, not a false positive. Remediation changes only Mime's locked version to 7.4.22, adopts compatible direct constraints with exact lockfile reproducibility, adds management security headers across Laravel and Apache, and applies Pint cleanup. Details and primary-source references are in DEPENDENCY-AUDIT and HTTP-HEADERS.
+
+The seven pre-existing Pint files were reviewed separately in `tmp/php-runtime/php78/formatting-only.patch`: empty constructor/anonymous class layout, explicit empty constructor parentheses and the required strict_types declaration in config/inquiries.php. That configuration already explicitly casts numeric inputs and uses untyped framework configuration helpers; no coercion-dependent financial algorithm or SQL call is changed. Full runtime/unit/inquiry/integrity regressions independently verify behavior. No immutable evidence structure, posting rule, SQL query, schema, route contract, admin credential or runtime grant changes.
+
+The engine guard now resolves the expected fixed data-directory path through filesystem junctions before its exact comparisons; it still requires the exact approved datadir, MariaDB version, loopback binding, port 3330 and synthetic test administrator. This accommodates the isolated worktree without accepting an arbitrary database target. Existing acceptance scripts gain optional test origin/evidence paths; defaults and business assertions remain unchanged.
+
+New loopback ports 9473/9474/9384 were checked free before provisioning and again before service startup. The dedicated synthetic engine was positively identified before creating the new disposable schema. Existing 9443/9444, 9453/9454 and 9463/9464 services, web roots, backend/vendor files, credentials and manual business postings are retained. Before/after ten-business-table row counts and hashes cover all three older synthetic schemas; no real owner database was accessed.
+
+No public source or dashboard redesign, schema migration, live SMTP delivery, GoDaddy deployment, DNS operation, production ZIP, real financial posting or automatic owner approval is included. All thirteen kinds, exact cents, editable rates, returns/reversals, reconciliation, inquiry deduplication, strict SMTP TLS, charts, approved contact/address, exports and printing remain subject to the executed evidence in TEST-RESULTS.
+
+The four technical gates and all residual production risks have explicit dispositions in RELEASE-GATES. Owner manual UAT, native Excel/Windows printing and production trust-boundary/hosting/recovery decisions remain PENDING OWNER. Production remains NO-GO. Stop for owner review before PHP-8.

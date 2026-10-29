@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 $milliseconds = env('INQUIRY_TIMEOUT_MS');
 $timeout = $milliseconds === null || $milliseconds === ''
     ? max(1, min(30, (int) env('INQUIRY_TIMEOUT_SECONDS', 15))) * 1000

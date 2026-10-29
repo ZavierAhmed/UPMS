@@ -1,5 +1,12 @@
 # PHP-7.5 release readiness
 
+PHP-7.8 clears the four verified technical failures: dependency audit (Mime 7.4.22),
+management CSP/frame/cache headers, full Pint and strict Composer validation.
+Fresh runtime/browser evidence is in PHP-7-8-TEST-RESULTS and HTTP-HEADERS. The
+following PHP-7.7/7.6 paragraphs are historical; PHP-7.8-RELEASE-GATES is the current
+explicit disposition. Production is still NO-GO because manual acceptance and
+production risk/hosting/recovery decisions remain pending. No deployment authorized.
+
 PHP-7.7 adds public/management presentation and read-only analytics only. It changes
 no backend endpoint, schema, stored balance, posting, authentication or grant.
 Original owner previews and business records remain preserved; a separate design
@@ -25,13 +32,13 @@ before PHP-8. Financial and restore test success is not production authorization
 | Replay, conflicts, concurrency, rollback, lost COMMIT | PASS | Fresh disposable differential fixtures |
 | Inquiry parity / strict TLS SMTP fixtures | PASS | 66 comparisons / 78 checks per runtime; no real customer mail |
 | Recovery / restored restricted application | PASS | 19 tables identical, inquiry files identical, clone-only draft/cancel, original preserved |
-| Dependency security | FAIL | New medium Symfony Mime advisory |
-| Management security headers | FAIL | Missing CSP and frame denial |
-| Full Pint / strict Composer validation | FAIL | Recorded formatting / exact-pin findings |
+| Dependency security | PASS | PHP-7.8 Mime 7.4.22; fresh locked audit exits 0; corrected advisory independently investigated |
+| Management security headers | PASS | PHP-7.8 actual HTTPS policy on HTML/static/API/auth/rejections/errors; CSP and iframe checks |
+| Full Pint / strict Composer validation | PASS | PHP-7.8 full Pint, normal validation and strict validation all exit 0 |
 | All manual business workflows | PENDING OWNER | No human testing/sign-off recorded |
 | Native Excel / real Windows printing | PENDING OWNER | ZIP/XML and headless PDF checks do not substitute |
 | Actual cPanel process/storage/transport | BLOCKED | Hosting prerequisite unavailable in local-only scope |
-| Production release | BLOCKED | Failed gates and unsigned risk decisions |
+| Production release | BLOCKED | Unsigned manual acceptance, hosting and production risk/recovery decisions |
 
 ## Separate production-risk disposition
 

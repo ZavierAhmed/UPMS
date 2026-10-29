@@ -83,7 +83,7 @@ final class PublicInquiries
                 return $error(400, 'validation_failed', 'Please check the highlighted fields.', $errors);
             }
             try {
-                $result = $store->submit(strtolower($key), $input, max(100, min(60000, $c['timeout_ms'])), fn ($ref) => (new InquiryDelivery)->send($c, $input, $ref));
+                $result = $store->submit(strtolower($key), $input, max(100, min(60000, $c['timeout_ms'])), fn ($ref) => (new InquiryDelivery())->send($c, $input, $ref));
             } catch (\Throwable) {
                 return $error(503, 'busy', 'Our inquiry service is busy. Please contact us directly or try later.');
             }

@@ -89,7 +89,7 @@ final class InquiryInput
     {
         self::depth($raw);
         if (! $raw instanceof \stdClass) {
-            throw new \InvalidArgumentException;
+            throw new \InvalidArgumentException();
         }
         $result = [];
         $identity = [];
@@ -101,7 +101,7 @@ final class InquiryInput
                 }
             }
             if ($value !== null && ! is_string($value)) {
-                throw new \InvalidArgumentException;
+                throw new \InvalidArgumentException();
             }
             $encoded = V1Input::trim($value ?? '');
             $result[$field] = preg_replace_callback('/\x{E000}(\x{E000}|d[89a-f][0-9a-f]{2};)/u', fn ($m) => $m[1] === "\xEE\x80\x80" ? $m[1] : "\xEF\xBF\xBD", $encoded);
@@ -123,7 +123,7 @@ final class InquiryInput
     {
         if (is_object($v) || is_array($v)) {
             if ($level >= 8) {
-                throw new \InvalidArgumentException;
+                throw new \InvalidArgumentException();
             }
             foreach ($v as $child) {
                 self::depth($child, $level + 1);

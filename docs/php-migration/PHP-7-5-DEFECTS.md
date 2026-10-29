@@ -1,5 +1,21 @@
 # PHP-7.5 defects
 
+PHP-7.8 supersedes the four technical failure dispositions below.
+
+| ID | Current status | Verified disposition |
+| --- | --- | --- |
+| UAT-SEC-01 | PASS | Mime 7.4.22, corrected upstream advisory investigated, locked audit exit 0, serialization probe and both runtime SMTP fixtures pass |
+| UAT-SEC-02 | PASS | Private Laravel/Apache policy tested through actual HTTPS success/rejection/error/static/auth and iframe/CSP acceptance |
+| UAT-STYLE-01 | PASS | Seven-file Pint cleanup separately reviewed; full Pint exit 0 |
+| UAT-VALIDATE-01 | PASS | Compatible constraints and exact lockfile; normal and strict Composer validation exit 0 |
+
+See PHP-7-8-SECURITY-REVIEW, TEST-RESULTS and RELEASE-GATES. Residual authenticity,
+SQL trust boundaries, hosting, recovery and owner manual decisions remain unsigned.
+Production remains NO-GO. The earlier findings below are retained as historical
+before evidence, not current technical-gate failures.
+
+## Historical milestone dispositions
+
 PHP-7.6 disposition: the address and editable challan pricing correction does not
 resolve UAT-SEC-01, UAT-SEC-02 or UAT-VALIDATE-01, nor the pending SQL/authenticity
 decisions. Modified Documents.php was formatted with project Pint, removing its

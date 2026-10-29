@@ -158,3 +158,21 @@ Owner name/date/SHA: **PENDING OWNER**.
 Workflow acceptance: **PENDING OWNER**.
 Risk decisions: **PENDING OWNER**.
 Production decision: **BLOCKED**. Send feedback before PHP-8.
+
+
+## PHP-7.8 security owner review — PENDING OWNER
+
+Review PHP-7-8-SECURITY-REVIEW, DEPENDENCY-AUDIT, HTTP-HEADERS, TEST-RESULTS and
+RELEASE-GATES. The four technical failures have passing corrective evidence. This
+is not production approval. Record name/date/tested final SHA and expected/actual
+results for login/logout/expiry, dashboard/ranges, business forms, inquiries,
+editable rates/returns, A4 printing and native Excel. All owner fields remain
+PENDING OWNER.
+
+Use the separate https://127.0.0.1:9473 public and
+https://127.0.0.1:9474/management/ previews in a disposable browser profile.
+Private credentials and guarded startup/shutdown commands are in PHP-7-8-TEST-RESULTS.
+All three earlier UAT groups are preserved. Do not approve original command
+authenticity, SQL posted/self-user restrictions, historical imports, unknown SMTP
+outcomes, GoDaddy capability, backup/recovery or HSTS policy by implication.
+Production remains NO-GO. Stop for owner review before PHP-8.

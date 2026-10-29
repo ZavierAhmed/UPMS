@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Middleware\ManagementHeaders;
 use App\Http\Middleware\PublicInquiries;
 use App\Upms\ErrorResponse;
 use Illuminate\Foundation\Application;
@@ -18,7 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->prepend(PublicInquiries::class);
+        $middleware->prepend([ManagementHeaders::class, PublicInquiries::class]);
         $middleware->remove([
             TrimStrings::class,
             ConvertEmptyStringsToNull::class,
@@ -26,7 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->dontReport([Throwable::class]);
-        $exceptions->render(fn (Throwable $error, Request $request) => ErrorResponse::render($error, $request));
+        $exceptions->render(fn (Throwable $error, Request $request) => ManagementHeaders::apply($request, ErrorResponse::render($error, $request)));
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
         );

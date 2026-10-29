@@ -7,7 +7,9 @@ namespace App\Upms;
 /** Private single-host journal. Stable lock inode + fsynced atomic replacement; never hold lock during SMTP. */
 final class InquiryStore
 {
-    public function __construct(private readonly string $directory) {}
+    public function __construct(private readonly string $directory)
+    {
+    }
 
     public function transaction(callable $work): mixed
     {

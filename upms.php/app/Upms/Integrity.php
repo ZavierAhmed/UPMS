@@ -32,7 +32,7 @@ final class Integrity
             try {
                 $p = json_decode($d['payload'], false, 512, JSON_THROW_ON_ERROR);
                 if (! $p instanceof \stdClass) {
-                    throw new \RuntimeException;
+                    throw new \RuntimeException();
                 }
             } catch (\Throwable) {
                 $add('DOCUMENT_PAYLOAD_INVALID', 'document', $d['id'], 'payload', 'Saved payload must be a JSON object.');
@@ -67,7 +67,7 @@ final class Integrity
                 try {
                     if ($derived) {
                         if (! preg_match('/^(?:0|[1-9]\d{0,13})\.\d{2}$/D', $value)) {
-                            throw new \RuntimeException;
+                            throw new \RuntimeException();
                         }
                     } else {
                         Exact::cents($value, zero: $zero);
@@ -133,7 +133,7 @@ final class Integrity
             try {
                 $r = json_decode($c['result'], false, 512, JSON_THROW_ON_ERROR);
                 if (! $r instanceof \stdClass || ! self::id($r->id ?? null)) {
-                    throw new \RuntimeException;
+                    throw new \RuntimeException();
                 }
             } catch (\Throwable) {
                 $add('COMMAND_RESULT_INVALID', 'command', $key, 'result', 'Saved command result must be an object with a canonical string id.');

@@ -9,7 +9,9 @@ use Brick\Math\BigInteger as N;
 /** Read-only port of server/src/simple-v1/reconcile.js. No repair or posting path. */
 final class Reconciliation
 {
-    public function __construct(private readonly Database $db) {}
+    public function __construct(private readonly Database $db)
+    {
+    }
 
     private static function evidenceString(mixed $value): string
     {

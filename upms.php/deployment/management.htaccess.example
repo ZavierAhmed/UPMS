@@ -1,3 +1,17 @@
+# Required on the private management document root, including Apache errors.
+# No HSTS on self-signed loopback UAT; approve production HSTS separately.
+Header onsuccess unset Content-Security-Policy
+Header onsuccess unset X-Frame-Options
+Header onsuccess unset X-Content-Type-Options
+Header onsuccess unset Cache-Control
+Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'"
+Header always set X-Frame-Options "DENY"
+Header always set X-Content-Type-Options "nosniff"
+Header always set Cache-Control "no-store"
+Header always set Referrer-Policy "same-origin"
+Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+Header always set X-Robots-Tag "noindex, nofollow"
+
 Options -Indexes -MultiViews
 DirectoryIndex disabled
 <FilesMatch "(^\.|^(?!backend\.php$).*\.php$)">
