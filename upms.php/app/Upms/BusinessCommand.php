@@ -42,7 +42,7 @@ final class BusinessCommand
         if ($user['passwordChangeRequired'] ?? false) {
             throw new ApiError(403, 'PASSWORD_CHANGE_REQUIRED');
         }
-        if (!in_array('administrator', $user['roles'], true) || (string) ($control['operator_id'] ?? '') !== $user['id']) {
+        if (!in_array('administrator', $user['roles'], true) || !OperatorPolicy::permits($user, $control ?? [], config('upms.designated_operators'), (string) config('upms.database'))) {
             throw new ApiError(403, 'V1_OPERATOR_ONLY');
         }
         return [$user, $control];
@@ -69,7 +69,7 @@ final class BusinessCommand
             if ($control['state'] !== 'READY') {
                 throw new ApiError(409, 'V1_CUTOVER_PENDING');
             }
-            // No production exception: Database rejects all owner/remote schemas.
+            // No bypass: Database validates the independently selected profile.
             $result = $work($user, $control);
             $this->db->execute('INSERT INTO v1_commands(`key`,actor_id,fingerprint,result) VALUES(?,?,?,?)', [$key, $user['id'], $hash, self::json($result)]);
             return $result;

@@ -1,6 +1,6 @@
 # PHP-8 hosting preflight — BLOCKED at Phase A
 
-Starting SHA: 0a2060df79f1bfde576e814c3df61c30364aba50. Requested branch: feature/upms-php-8-production-deployment. This is a partial preflight handoff, not a completed production milestone or approval to proceed to Phase B.
+Starting SHA: 0a2060df79f1bfde576e814c3df61c30364aba50. Requested branch: feature/upms-php-8-production-deployment. The owner subsequently authorized safe local preparation while manual hosting verification remains BLOCKED. See deployment/manual/README.md for scripts and execution instructions.
 
 ## Actual observations, 29 October 2026
 
@@ -33,3 +33,7 @@ Need an authenticated cPanel/SSH access path or an existing private access-confi
 If account evidence proves separate roots or required execution/storage unsupported, stop. Obtain a provider-supported compatible plan/environment or an isolated Linux staging/hosting environment that demonstrably provides those capabilities; do not substitute a broken inquiry implementation or insecure shared origin. No provider/plan purchase recommendation is made without actual account evidence.
 
 No application upload, database authentication, live SQL, account change, SMTP delivery, DNS change or cutover occurred. Production remains NO-GO.
+
+## Owner-directed manual handoff
+
+Owner confirms GoDaddy Linux Web Hosting (cPanel). Exact account capabilities remain unknown. The supplied session URL is not authentication and was not used or committed. No remote observations were repeated during local continuation. Follow deployment/manual/README.md and return sanitized reports. Actual hosting verification remains BLOCKED.

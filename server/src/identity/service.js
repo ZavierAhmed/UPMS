@@ -15,7 +15,7 @@ export async function identity(trx, id) {
   if (!user?.enabled) throw new IdentityError(401, 'SESSION_EXPIRED');
   const assigned = await query(trx('user_roles').where({ user_id: id }).select('role_code'));
   const grants = await query(trx('role_permissions').whereIn('role_code', assigned.map(r => r.role_code)).select('permission_code'));
-  const bootstrap = await query(trx('identity_audit_events').where({ target_id: id, action: 'administrator.bootstrap' }).first());
+  const bootstrap = await query(trx('identity_audit_events').where({ target_id: id }).whereIn('action', ['administrator.bootstrap', 'administrator.rotation.required']).orderBy('id', 'desc').first());
   const rotationRequired = bootstrap && JSON.parse(bootstrap.details).requirePasswordChange === true &&
     !await query(trx('identity_audit_events').where({ target_id: id, action: 'user.password.changed' }).where('id', '>', bootstrap.id).first());
   return { id: String(user.id), username: user.login_key, displayName: user.display_name,

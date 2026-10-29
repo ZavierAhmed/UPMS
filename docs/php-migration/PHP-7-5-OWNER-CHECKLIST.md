@@ -210,3 +210,7 @@ are plans, not acceptance evidence. Preserve legitimate data and account IDs;
 resolve conflicts before action. No cutover or residual risk is approved by this
 checklist. Final Phase D approval must identify the concrete reviewed release,
 identity plan, backup/rollback evidence and remaining risk decisions.
+
+## PHP-8 manual hosting action
+
+Follow deployment/manual/README.md and return sanitized capability results. Do not send passwords or session URLs. No live provisioning/deployment/record changes are authorized. Current local evidence is in PHP-8-TEST-RESULTS.md.

@@ -61,3 +61,6 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+# Keep the private Linux preparation helper executable by POSIX shells.
+deployment/*.sh text eol=lf

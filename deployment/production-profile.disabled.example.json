@@ -1,0 +1,21 @@
+{
+  "enabled": false,
+  "hostingVerified": false,
+  "backupRestoreVerified": false,
+  "mode": "approved-production-runtime",
+  "reference": "REPLACE_AFTER_REVIEW",
+  "privateRoot": "",
+  "publicRoot": "",
+  "managementRoot": "",
+  "host": "",
+  "port": 3306,
+  "schema": "",
+  "user": "",
+  "account": "",
+  "passwordFile": "",
+  "caFile": "",
+  "serverVersion": "",
+  "serverId": "",
+  "origin": "https://app.unique-plastic.com",
+  "operators": {"admin": "", "haris": ""}
+}

@@ -1,0 +1,21 @@
+{
+  "enabled": false,
+  "hostingVerified": false,
+  "backupRestoreVerified": false,
+  "mode": "one-time-production-maintenance",
+  "reference": "REPLACE_AFTER_REVIEW",
+  "privateRoot": "",
+  "publicRoot": "",
+  "managementRoot": "",
+  "approvalFile": "",
+  "credentialsFile": "",
+  "host": "",
+  "port": 3306,
+  "schema": "",
+  "user": "",
+  "account": "",
+  "passwordFile": "",
+  "caFile": "",
+  "serverVersion": "",
+  "serverId": ""
+}

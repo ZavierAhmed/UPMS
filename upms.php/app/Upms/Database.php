@@ -16,7 +16,10 @@ final class Database
             return $this->connection;
         }
         $c = config('upms');
-        // Fail closed until a later reviewed production profile exists. No remote DB writes.
+        if (is_string($c['production_profile'] ?? null) && $c['production_profile'] !== '') {
+            return $this->production($c['production_profile']);
+        }
+        // Synthetic path remains independently guarded; no production fallback.
         if (!$c['enabled'] || !in_array($c['host'], ['127.0.0.1', 'localhost', '::1'], true)
             || !preg_match('/^upms_test_php_[a-z0-9_]+$/D', (string) $c['database'])
             || !ctype_digit((string) $c['port']) || (int) $c['port'] < 1 || (int) $c['port'] > 65535
@@ -35,6 +38,42 @@ final class Database
         }
         $pdo->exec("SET SESSION time_zone = '+00:00', innodb_lock_wait_timeout = 3, sql_mode = 'STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION'");
         $pdo->exec('SET SESSION max_statement_time = 5');
+        return $this->connection = $pdo;
+    }
+
+    private function production(string $path): PDO
+    {
+        $c = ProductionProfile::load($path);
+        $pdo = new PDO('mysql:host='.$c['host'].';port='.$c['port'].';dbname='.$c['schema'].';charset=utf8mb4', $c['user'], $c['password'], [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_EMULATE_PREPARES => false,
+            PDO::ATTR_STRINGIFY_FETCHES => false,
+            PDO::ATTR_TIMEOUT => 3,
+            PDO::MYSQL_ATTR_MULTI_STATEMENTS => false,
+            PDO::MYSQL_ATTR_SSL_CA => $c['caFile'],
+            PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => true,
+        ]);
+        $target = $pdo->query('SELECT VERSION() version,DATABASE() schema_name,CURRENT_USER() account,@@server_id server_id,@@character_set_database charset_name')->fetch(PDO::FETCH_ASSOC);
+        $ssl = $pdo->query("SHOW SESSION STATUS LIKE 'Ssl_cipher'")->fetch(PDO::FETCH_ASSOC);
+        if ($target['version'] !== $c['serverVersion'] || $target['schema_name'] !== $c['schema'] || $target['account'] !== $c['account'] || (string) $target['server_id'] !== $c['serverId'] || $target['charset_name'] !== 'utf8mb4' || empty($ssl['Value'])) {
+            throw new ApiError(503, 'PRODUCTION_IDENTITY_REJECTED');
+        }
+        $control = $pdo->query('SELECT operator_id,state FROM v1_control WHERE id=1')->fetch(PDO::FETCH_ASSOC);
+        if (!$control || $control['state'] !== 'READY') {
+            throw new ApiError(503, 'PRODUCTION_CUTOVER_NOT_READY');
+        }
+        $policy = ['schema' => $c['schema'], 'users' => $c['operators']];
+        OperatorPolicy::permits(['username' => 'admin', 'id' => $c['operators']['admin']], $control, $policy, $c['schema']);
+        $admins = $pdo->query("SELECT u.id,u.login_key FROM users u JOIN user_roles r ON r.user_id=u.id WHERE u.enabled=1 AND r.role_code='administrator' ORDER BY u.login_key")->fetchAll(PDO::FETCH_ASSOC);
+        if (count($admins) !== 2 || array_column($admins, 'login_key') !== ['admin', 'haris'] || (string) $admins[0]['id'] !== $c['operators']['admin'] || (string) $admins[1]['id'] !== $c['operators']['haris']) {
+            throw new ApiError(503, 'PRODUCTION_ADMINISTRATORS_REJECTED');
+        }
+        if (config('upms.origin') !== $c['origin']) {
+            throw new ApiError(503, 'PRODUCTION_ORIGIN_REJECTED');
+        }
+        $pdo->exec("SET SESSION time_zone = '+00:00', innodb_lock_wait_timeout = 3, sql_mode = 'STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION'");
+        $pdo->exec('SET SESSION max_statement_time = 5');
+        config(['upms.database' => $c['schema'], 'upms.designated_operators' => $policy]);
         return $this->connection = $pdo;
     }
 

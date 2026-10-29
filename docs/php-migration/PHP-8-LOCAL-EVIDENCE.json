@@ -1,0 +1,135 @@
+{
+  "baseline": "0a2060df79f1bfde576e814c3df61c30364aba50",
+  "hosting": "BLOCKED_PENDING_OWNER_MANUAL_REPORTS",
+  "productionAccessed": false,
+  "productionAccountsCreated": false,
+  "deployed": false,
+  "localChecks": {
+    "legacyFinancial": {
+      "runs": 10,
+      "httpComparisons": 2670
+    },
+    "dual-financial-83-final": {
+      "httpComparisons": 427,
+      "snapshots": 14
+    },
+    "dual-financial-84-final": {
+      "httpComparisons": 427,
+      "snapshots": 14
+    },
+    "admin-financial-83-final": {
+      "httpComparisons": 427,
+      "snapshots": 14
+    },
+    "admin-financial-84-final": {
+      "httpComparisons": 427,
+      "snapshots": 14
+    },
+    "phpunit-83": {
+      "tests": 79,
+      "assertions": 1377
+    },
+    "phpunit-84": {
+      "tests": 79,
+      "assertions": 1377
+    },
+    "express": {
+      "tests": 293
+    },
+    "inquiries83": {
+      "comparisons": 68,
+      "checks": 80
+    },
+    "collector": {
+      "initialFailures": [
+        "inquiries-83 concurrency returned bounded busy under concurrent load; rerun passed",
+        "pint formatting; corrected and final check passed"
+      ],
+      "otherChecks": [
+        "fixtures",
+        "reconciliation-contracts",
+        "phpunit-83",
+        "platform-83",
+        "phpunit-84",
+        "inquiries-84",
+        "platform-84",
+        "composer-validate",
+        "composer-strict",
+        "composer-audit",
+        "react-test",
+        "react-build",
+        "react-lint"
+      ]
+    },
+    "php8-dual-": {
+      "successfulRuns": 2,
+      "checksPerRun": [
+        41,
+        41
+      ]
+    },
+    "php8-manual-probes-": {
+      "successfulRuns": 4,
+      "checksPerRun": [
+        24,
+        24,
+        24,
+        24
+      ]
+    },
+    "php8-restore-": {
+      "successfulRuns": 1,
+      "checksPerRun": [],
+      "tables": 19,
+      "rows": 93,
+      "sourcePreserved": true,
+      "ownerBackupVerified": false
+    },
+    "sourceKit": {
+      "kind": "NONDEPLOYABLE_SOURCE_KIT",
+      "files": 175,
+      "manifestSha256": "b5654fca705162e087c5d12d17f17666d179cd9fc52402a23c9424c29fffa26f",
+      "linuxVendorIncluded": false,
+      "deployable": false
+    }
+  },
+  "logs": [
+    {
+      "path": "php8/management-local.log",
+      "sha256": "7f138ba06e3cb7e689c285f00fa55194560a622df9618a02ad6e4fac140977f1"
+    },
+    {
+      "path": "php8/dual-financial-83-final.log",
+      "sha256": "b9cdf8945f9d1590dbad8d0a9848d60a1f0aa9a13bbe5e611239b72f90e827be"
+    },
+    {
+      "path": "php8/dual-financial-84-final.log",
+      "sha256": "f3a0afbe805254467283df5b11ac60d6b487c6398820aa0ee06784500e852a94"
+    },
+    {
+      "path": "php8/admin-financial-83-final.log",
+      "sha256": "092409d6c2c19ce0db692bab163fe64c8e18e7d71eccf538e730d9d628267f1d"
+    },
+    {
+      "path": "php8/admin-financial-84-final.log",
+      "sha256": "15754f54baed693015ebeed3344070fec70333e1c0407995f85fd60d3ad3b478"
+    },
+    {
+      "path": "php8/phpunit-83-final.log",
+      "sha256": "5b9068dbd8248b5fb01cffe8f7c07b5c933d8bf9305785c0b0aded3ce108dd60"
+    },
+    {
+      "path": "php8/phpunit-84-final.log",
+      "sha256": "9bd9bab5807b79328bd3d3d32f4bd4365e7bc29f7123b95afb00ffde2f7e3065"
+    },
+    {
+      "path": "php8/express-final.log",
+      "sha256": "bc36fceb11f142b6cca5e06e6ecbfcebb541a5ce22b326d0c1985f47788af9e6"
+    },
+    {
+      "path": "php8/inquiries-83-rerun.log",
+      "sha256": "4fb88b180b8b0d5311bf088875cc44b8c2a3e6d64d7d124a95067796b10f43ed"
+    }
+  ],
+  "generatedAt": "2026-10-29T06:12:43.160Z"
+}

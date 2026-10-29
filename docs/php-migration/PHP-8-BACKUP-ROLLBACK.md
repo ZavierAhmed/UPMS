@@ -11,3 +11,7 @@ Restore into a newly authorized separate private target with independently verif
 Rollback trigger: financial/counter mismatch, auth/header/TLS failure, failed inquiry-state integrity, or package/checksum mismatch. Fence writes/dispatch, preserve new transactions and evidence, then owner selects the reviewed application-pointer/config rollback and any data recovery. An application rollback must preserve the database; restoring an older DB snapshot after new transactions needs a separate approved reconciliation plan. Do not auto-switch to Express against the live DB without a reviewed compatible state/profile.
 
 Actual backup ID, checksum, restore target/results, retention, RTO/RPO, operator and rollback approval: PENDING OWNER / NOT VERIFIED.
+
+## Fresh local rehearsal
+
+The continuation ran scripts/php-8-local-restore.mjs on a new guarded synthetic dual-admin fixture only. It privately captured/restored all 19 tables and 93 rows to a new synthetic target, compared every restored row, and confirmed source preservation. Backup SHA256: 4f20a2a36655c297b0e255ffe5fa492834dbe831b8b8871b36c02871c542ae33. This is no evidence of an owner production backup or host filesystem/inquiry-state recovery; those remain BLOCKED.

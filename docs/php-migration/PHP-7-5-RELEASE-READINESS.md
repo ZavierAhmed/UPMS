@@ -76,3 +76,7 @@ No pending decision has implied acceptance. No release package, deployment, DNS
 change, remote production profile, owner migration, real administrator reset,
 live financial posting or real customer email occurred. Express and approved
 Unique Plastic identity/assets remain intact.
+
+## PHP-8 local continuation
+
+Safe local dual-admin/provisioning/profile preparation and manual hosting scripts are implemented. See PHP-8-LOCAL-PREPARATION.md and PHP-8-TEST-RESULTS.md. Production access/cutover remains blocked; no owner records changed. Await sanitized manual reports per deployment/manual/README.md.

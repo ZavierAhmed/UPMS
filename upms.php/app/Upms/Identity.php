@@ -30,7 +30,7 @@ final class Identity
         }
         $roles = array_column($this->db->rows('SELECT role_code FROM user_roles WHERE user_id=?', [$id]), 'role_code');
         $permissions = array_column($this->db->rows('SELECT DISTINCT p.permission_code FROM role_permissions p JOIN user_roles r ON r.role_code=p.role_code WHERE r.user_id=? ORDER BY p.permission_code', [$id]), 'permission_code');
-        $bootstrap = $this->db->one("SELECT id,details FROM identity_audit_events WHERE target_id=? AND action='administrator.bootstrap' LIMIT 1", [$id]);
+        $bootstrap = $this->db->one("SELECT id,details FROM identity_audit_events WHERE target_id=? AND action IN ('administrator.bootstrap','administrator.rotation.required') ORDER BY id DESC LIMIT 1", [$id]);
         $rotation = $bootstrap && (json_decode($bootstrap['details'], true, 512, JSON_THROW_ON_ERROR)['requirePasswordChange'] ?? false) === true
             && !$this->db->one("SELECT id FROM identity_audit_events WHERE target_id=? AND action='user.password.changed' AND id>? LIMIT 1", [$id, $bootstrap['id']]);
         return ['id' => (string) $row['id'], 'username' => $row['login_key'], 'displayName' => $row['display_name'],

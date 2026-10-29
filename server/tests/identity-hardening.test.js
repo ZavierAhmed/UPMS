@@ -45,13 +45,13 @@ test('temporary administrator sessions cannot use administration until a durable
   const db = table => {
     const criteria = {};
     const builder = { where(key) { if (typeof key === 'object') Object.assign(criteria,key); return this; },
-      whereIn() { return this; }, select() { return this; }, first() { return this; },
+      whereIn(key,values) { criteria[key]=values; return this; }, orderBy() { return this; }, select() { return this; }, first() { return this; },
       timeout() {
         if (table === 'sessions') return Promise.resolve({user_id:1,revoked:false,idle_expires:Date.now()+60000,absolute_expires:Date.now()+60000});
         if (table === 'users') return Promise.resolve({id:1,enabled:true,login_key:'synthetic',display_name:'Synthetic',authorization_version:1});
         if (table === 'user_roles') return Promise.resolve([{role_code:'administrator'}]);
         if (table === 'role_permissions') return Promise.resolve(['portal.access','profile.password','users.read'].map(permission_code=>({permission_code})));
-        if (criteria.action === 'administrator.bootstrap') return Promise.resolve({id:1,details:JSON.stringify({requirePasswordChange:true})});
+        if (Array.isArray(criteria.action) && criteria.action.includes('administrator.bootstrap')) return Promise.resolve({id:1,details:JSON.stringify({requirePasswordChange:true})});
         return Promise.resolve(changed ? {id:2}:undefined);
       } };
     return builder;
