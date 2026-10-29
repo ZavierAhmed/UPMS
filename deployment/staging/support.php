@@ -25,6 +25,9 @@ final class UpmsStaging
         if (dirname($paths['stagingRoot']) !== $paths['home'] || (fileperms($paths['stagingRoot']) & 0077) || (fileperms($paths['home']) & 0022)) {
             throw new RuntimeException('PRIVATE_STAGING_PARENT_OR_MODE_REJECTED');
         }
+        if (fileowner($paths['stagingRoot']) !== fileowner($paths['home'])) {
+            throw new RuntimeException('STAGING_HOME_OWNER_MISMATCH');
+        }
         if (function_exists('posix_geteuid') && fileowner($paths['stagingRoot']) !== posix_geteuid()) {
             throw new RuntimeException('STAGING_OWNER_REJECTED');
         }
