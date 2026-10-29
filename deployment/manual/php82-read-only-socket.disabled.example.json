@@ -1,0 +1,23 @@
+{
+  "enabled": false,
+  "hostingVerified": false,
+  "backupRestoreVerified": false,
+  "mode": "read-only-transport-verification",
+  "reference": "REPLACE_AFTER_REVIEW",
+  "privateRoot": "",
+  "publicRoot": "",
+  "managementRoot": "",
+  "schema": "upms",
+  "user": "upms_view_user",
+  "account": "upms_view_user@localhost",
+  "passwordFile": "",
+  "serverVersion": "",
+  "serverId": "1",
+  "origin": "https://app.unique-plastic.com",
+  "transport": "unix_socket",
+  "socket": "/var/lib/mysql/mysql.sock",
+  "socketOwnerUid": "981",
+  "serverHostname": "sg2plzcpnl508885.prod.sin2.secureserver.net",
+  "localSocketVerified": false,
+  "readOnlyMetadataApproved": false
+}

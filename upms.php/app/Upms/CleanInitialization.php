@@ -16,6 +16,17 @@ final class CleanInitialization
         $row = $pdo->query('SELECT DATABASE() schema_name,@@server_id server_id,@@hostname server_hostname,VERSION() version')->fetch(PDO::FETCH_ASSOC);
         return hash('sha256', json_encode(array_map('strval', $row), JSON_THROW_ON_ERROR));
     }
+    public static function receiptDdl(): string
+    {
+        return json_decode(file_get_contents(dirname(__DIR__, 2).'/resources/production-receipt-schema.json'), true, 16, JSON_THROW_ON_ERROR)['sql'];
+    }
+    public static function verifySchema(PDO $pdo): void
+    {
+        foreach (self::plan()['tables'] as $table) {
+            self::verifyTable($pdo, $table);
+        }
+        self::verifyTable($pdo, ['table' => self::RECEIPT,'sql' => self::receiptDdl()]);
+    }
     public static function plan(): array
     {
         $plan = json_decode(file_get_contents(dirname(__DIR__, 2).'/resources/production-schema.json'), true, 64, JSON_THROW_ON_ERROR);
@@ -37,7 +48,7 @@ final class CleanInitialization
     {
         return hash('sha256', json_encode(['schema' => self::plan(),'receiptVersion' => 2], JSON_THROW_ON_ERROR));
     }
-    private static function normalize(string $ddl): string
+    public static function normalize(string $ddl): string
     {
         return preg_replace('/ AUTO_INCREMENT=[0-9]+/', '', $ddl);
     }
@@ -45,7 +56,7 @@ final class CleanInitialization
     {
         return $pdo->query("SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() ORDER BY TABLE_NAME")->fetchAll(PDO::FETCH_COLUMN);
     }
-    private static function privateReceipt(string $path, array $data, bool $first = false): void
+    public static function privateReceipt(string $path, array $data, bool $first = false): void
     {
         $temp = $first ? $path : $path.'.pending';
         $f = fopen($temp, 'xb');
@@ -72,7 +83,7 @@ final class CleanInitialization
         $q = $pdo->prepare('UPDATE upms_production_migrations SET state=?,step=? WHERE id=1');
         $q->execute([$state,$step]);
     }
-    private static function verifyTable(PDO $pdo, array $table): void
+    public static function verifyTable(PDO $pdo, array $table): void
     {
         $actual = $pdo->query('SHOW CREATE TABLE `'.$table['table'].'`')->fetch(PDO::FETCH_ASSOC);
         if (self::normalize($actual['Create Table']) !== self::normalize($table['sql'])) {
@@ -113,7 +124,7 @@ final class CleanInitialization
                 if ($tables || ($external && !$reviewedResume)) {
                     throw new \RuntimeException('PARTIAL_DDL_REVIEW_REQUIRED');
                 }
-                $pdo->exec('CREATE TABLE upms_production_migrations (id INT NOT NULL PRIMARY KEY,reference VARCHAR(64) NOT NULL,plan_hash CHAR(64) NOT NULL,target_hash CHAR(64) NOT NULL,state VARCHAR(32) NOT NULL,step VARCHAR(64) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci');
+                $pdo->exec(self::receiptDdl());
                 $q = $pdo->prepare("INSERT INTO upms_production_migrations VALUES(1,?,?,?,'DDL','receipt')");
                 $q->execute([$reference,$hash,$targetKey]);
             } else {

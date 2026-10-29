@@ -64,3 +64,7 @@
 
 # Keep the private Linux preparation helper executable by POSIX shells.
 deployment/*.sh text eol=lf
+
+# Immutable PHP-8.2 artifact hashes must survive Windows/Linux checkout.
+deployment/phpmyadmin/* text eol=lf
+deployment/manual/upms-pdo-check.php text eol=lf

@@ -31,12 +31,12 @@ final class ProductionConnection
         }
         $path = $c['socket'];
         clearstatcache(true, $path);
-        $stat = lstat($path);
+        $stat = @lstat($path);
         if (!$stat || is_link($path) || realpath($path) !== $path || filetype($path) !== 'socket' || (string)$stat['uid'] !== (string)$c['socketOwnerUid']) {
             throw new ApiError(503, 'LOCAL_SOCKET_PATH_REJECTED');
         }
         for ($parent = dirname($path);; $parent = dirname($parent)) {
-            $s = lstat($parent);
+            $s = @lstat($parent);
             if (!$s || is_link($parent) || !in_array((string)$s['uid'], ['0',(string)$c['socketOwnerUid']], true) || ($s['mode'] & 0022)) {
                 throw new ApiError(503, 'LOCAL_SOCKET_PARENT_REJECTED');
             }
@@ -49,8 +49,9 @@ final class ProductionConnection
         }
         return ['device' => $stat['dev'],'inode' => $stat['ino'],'uid' => $stat['uid']];
     }
-    public static function connect(array $c): PDO
+    public static function connect(array $c, ?\Closure $progress = null): PDO
     {
+        $progress?->__invoke('transport_validation');
         $mode = self::transport($c);
         $options = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,PDO::ATTR_EMULATE_PREPARES => false,PDO::ATTR_STRINGIFY_FETCHES => false,PDO::ATTR_TIMEOUT => 3,PDO::MYSQL_ATTR_MULTI_STATEMENTS => false];
         if ($mode === 'tls') {
@@ -58,13 +59,17 @@ final class ProductionConnection
             $options[PDO::MYSQL_ATTR_SSL_CA] = $c['caFile'];
             $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = true;
         } else {
+            $progress?->__invoke('socket_validation');
             $before = self::socketProperties($c);
             $dsn = 'mysql:unix_socket='.$c['socket'];
         }
+        $progress?->__invoke('pdo_connect');
         $pdo = new PDO($dsn.';dbname='.$c['schema'].';charset=utf8mb4', $c['user'], $c['password'], $options);
+        $progress?->__invoke('identity_query');
         $target = $pdo->query('SELECT VERSION() version,DATABASE() schema_name,CURRENT_USER() account,@@server_id server_id,@@hostname server_hostname,@@socket socket_path,@@character_set_database charset_name')->fetch(PDO::FETCH_ASSOC);
+        $progress?->__invoke('identity_validation');
         if ($target['version'] !== $c['serverVersion'] || $target['schema_name'] !== $c['schema'] || $target['account'] !== $c['account'] || (string)$target['server_id'] !== $c['serverId']) {
-            throw new ApiError(503, 'PRODUCTION_IDENTITY_REJECTED');
+            throw new ApiError(503, 'PRODUCTION_IDENTITY_REJECTED', details: ['checks' => ['version' => $target['version'] === $c['serverVersion'],'schema' => $target['schema_name'] === $c['schema'],'account' => $target['account'] === $c['account'],'serverId' => (string)$target['server_id'] === $c['serverId']]]);
         }
         if ($mode === 'tls') {
             $ssl = $pdo->query("SHOW SESSION STATUS LIKE 'Ssl_cipher'")->fetch(PDO::FETCH_ASSOC);
@@ -72,10 +77,12 @@ final class ProductionConnection
                 throw new ApiError(503, 'PRODUCTION_TLS_REQUIRED');
             }
         } else {
+            $progress?->__invoke('pdo_transport');
             if (self::socketProperties($c) !== $before || $target['socket_path'] !== $c['socket'] || $target['server_hostname'] !== $c['serverHostname'] || !preg_match('/via UNIX socket/i', (string)$pdo->getAttribute(PDO::ATTR_CONNECTION_STATUS))) {
                 throw new ApiError(503, 'LOCAL_SOCKET_TRANSPORT_REJECTED');
             }
         }
+        $progress?->__invoke('session_configuration');
         $pdo->exec("SET SESSION time_zone = '+00:00', innodb_lock_wait_timeout=3, sql_mode='STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION'");
         $pdo->exec('SET SESSION max_statement_time=5');
         return $pdo;

@@ -90,4 +90,76 @@ final class ProductionProfileTest extends TestCase
         $this->expectException(ApiError::class);
         OperatorPolicy::permits(['id' => '1','username' => 'admin'], $c, $p, 'other_schema');
     }
+
+    public function test_account_and_read_only_mode_do_not_bypass_target_pins(): void
+    {
+        foreach (['different@localhost','runtime@@localhost','runtime@local host','runtime'] as $account) {
+            $c = $this->profile();
+            $c['account'] = $account;
+            try {
+                ProductionProfile::validate($c);
+                $this->fail('Invalid account accepted');
+            } catch (ApiError $e) {
+                $this->assertSame('PRODUCTION_ACCOUNT_PIN_REJECTED', $e->apiCode);
+            }
+        }
+        $c = $this->profile();
+        $c['mode'] = 'read-only-transport-verification';
+        $c['readOnlyMetadataApproved'] = true;
+        $c['hostingVerified'] = false;
+        $c['backupRestoreVerified'] = false;
+        ProductionProfile::validate($c, 'read-only-transport-verification');
+        $this->addToAssertionCount(1);
+        foreach (['approved-production-runtime','one-time-sql-import-finalization'] as $mode) {
+            try {
+                ProductionProfile::validate($c, $mode);
+                $this->fail('Read-only profile accepted for write mode');
+            } catch (ApiError $e) {
+                $this->assertSame('PRODUCTION_PROFILE_DISABLED', $e->apiCode);
+            }
+        }
+        $c['schema'] = 'upms_test_php_82_fixture';
+        $this->expectExceptionMessage('PRODUCTION_TARGET_REJECTED');
+        ProductionProfile::validate($c, 'read-only-transport-verification');
+    }
+    public function test_private_secret_file_encoding_is_rejected_without_printing_contents(): void
+    {
+        $base = sys_get_temp_dir().'/upms-profile-encoding-'.bin2hex(random_bytes(6));
+        mkdir($base, 0700);
+        foreach (['private','public','management'] as $dir) {
+            mkdir($base.'/'.$dir, 0700);
+        }
+        $c = $this->profile();
+        foreach (['privateRoot' => 'private','publicRoot' => 'public','managementRoot' => 'management'] as $key => $dir) {
+            $c[$key] = $base.'/'.$dir;
+        }
+        $c['passwordFile'] = $base.'/private/password';
+        $c['caFile'] = $base.'/private/ca';
+        $profile = $base.'/private/profile.json';
+        try {
+            file_put_contents($c['caFile'], 'synthetic');
+            file_put_contents($profile, json_encode($c));
+            chmod($profile, 0600);
+            chmod($c['caFile'], 0600);
+            foreach (["\xEF\xBB\xBFSECRET","\xFF\xFES\0","SECRET\0"] as $invalid) {
+                file_put_contents($c['passwordFile'], $invalid);
+                chmod($c['passwordFile'], 0600);
+                try {
+                    ProductionProfile::load($profile);
+                    $this->fail('Invalid encoding accepted');
+                } catch (ApiError $e) {
+                    $this->assertSame('PRODUCTION_PASSWORD_ENCODING_REJECTED', $e->apiCode);
+                    $this->assertStringNotContainsString('SECRET', $e->getMessage());
+                }
+            }
+        } finally {
+            foreach ([$profile,$c['passwordFile'],$c['caFile']] as $file) {
+                if (is_file($file)) {
+                    unlink($file);
+                }
+            }foreach (['private','public','management'] as $dir) {
+                rmdir($base.'/'.$dir);
+            }rmdir($base);
+        }
+    }
 }

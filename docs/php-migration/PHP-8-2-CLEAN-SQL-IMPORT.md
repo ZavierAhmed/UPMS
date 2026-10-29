@@ -1,0 +1,21 @@
+# PHP-8.2 — canonical clean SQL import
+
+Status: locally validated import mechanism; **actual GoDaddy import/deployment/activation NOT AUTHORIZED**. Baseline `27214ba6af63e9207b479a7574dcfb4bfb5fc3ff`, branch `feature/upms-php-8-2-phpmyadmin-clean-import`. The fetched baseline matched exactly. Earlier worktrees and owner source assets remain preserved.
+
+The five-file package is `deployment/phpmyadmin/`. Generate offline with `php upms.php/scripts/generate-clean-sql.php`; no database connection or application bootstrap is involved. `scripts/php-8-2-diagnostic-bundle.mjs` separately rebuilds the standalone metadata diagnostic. LF attributes/normalization preserve generated artifact hashes across Windows/Linux checkouts.
+
+The SQL derives nineteen tables and system catalogs from production-schema.json, cross-checked against Schema::TABLES, plus the version-2 receipt definition in production-receipt-schema.json. The latter exactly matches PHP-8.1's receipt SHOW CREATE TABLE. Genuine canonical plan hash remains `6c75b59659dca955a2c9c95e907f4979e7d7ba3fd58979d6d2210c1eb701a24a`. No old database export is used.
+
+1. After separate approval, verify a new empty selected target, ownership/complete visibility/import grants, protected PHP PDO connection, complete old backup/independent restore, and exact SQL/manifest digests.
+2. phpMyAdmin imports one MariaDB BEGIN NOT ATOMIC block. It acquires the existing schema-scoped maintenance lock; rejects nonempty/known old/system targets and existing transactions; sets database/table utf8mb4; creates twenty InnoDB tables; inserts only catalogs. Receipt says IMPORTED_NOT_ACTIVATED with an explicitly **unbound empty target hash**, not a fabricated valid identity. No application users or business rows; PENDING control.
+3. Private SELECT-only verification compares exact SHOW CREATE TABLE for every table, column, decimal, key, FK, default and nullability, normalizing only AUTO_INCREMENT counters. It checks exact table set, seeds, zero business/authentication rows, charset, numbering and intermediate receipt.
+4. Distinct approved private finalization binds genuine database/server identity, unchanged plan and approved SQL digest. It persists fsynced private intent/SCHEMA_READY receipts and one genuine maintenance audit. No schema recreation, users or activation. A matching committed retry does not duplicate audit; conflicting/missing receipts fail closed. Do not rerun finalization after provisioning starts.
+5. Separately approved existing provisioning creates admin/Admin and haris/Haris, then binds BOUND/PENDING. Private account report verifies exactly those users and zero business rows. Activation still requires every original gate.
+
+Private exact-operation sign-offs are **not cryptographic signatures**. Preflight/finalization approvals require exact MaintenanceApproval target fingerprint, plan, SQL and manifest SHA-256, backup checksum and independently verified restore reference. Checked-in profiles are disabled and approval NOT_APPROVED.
+
+DDL is not atomic. EXIT handler stops at first error and marks owned partial imports IMPORT_REVIEW_REQUIRED; seed rollback cannot undo earlier DDL. Nonempty/repeated/partial imports are not automatically repaired. Preserve failures for review. SQL cannot establish ownership, approval, backup or objects hidden by inadequate grants. Do not split the block or ignore errors. Actual GoDaddy phpMyAdmin parser remains untested; native MariaDB DELIMITER and single-compound-statement PDO paths were tested locally.
+
+Read the package's beginner guide before any later approved action. Existing upms and hosted files remain unchanged. If a second database is unavailable, stop for a separately reviewed alternative; no in-place reset is supplied.
+
+References: [anonymous compound statements](https://mariadb.com/docs/server/reference/sql-statements/programmatic-compound-statements/using-compound-statements-outside-of-stored-programs), [BEGIN END](https://mariadb.com/docs/server/reference/sql-statements/programmatic-compound-statements/begin-end), [DECLARE HANDLER](https://mariadb.com/docs/server/reference/sql-statements/programmatic-compound-statements/declare-handler). This anonymous block requires no CREATE ROUTINE privilege.

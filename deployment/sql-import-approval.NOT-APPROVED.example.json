@@ -1,0 +1,11 @@
+{
+  "status": "NOT_APPROVED",
+  "operation": "finalize-clean-sql-import",
+  "reference": "",
+  "targetHash": "",
+  "planHash": "",
+  "sqlSha256": "",
+  "manifestSha256": "",
+  "backupSha256": "",
+  "restoreReference": ""
+}

@@ -14,7 +14,7 @@ final class ProductionProfile
             throw new ApiError(503, 'PRODUCTION_PROFILE_REJECTED');
         }
         try {
-            $c = json_decode(file_get_contents($real), true, 32, JSON_THROW_ON_ERROR);
+            $c = json_decode(@file_get_contents($real), true, 32, JSON_THROW_ON_ERROR);
         } catch (\Throwable) {
             throw new ApiError(503, 'PRODUCTION_PROFILE_REJECTED');
         }
@@ -38,7 +38,14 @@ final class ProductionProfile
                 }
             }
         }
-        $c['password'] = rtrim(file_get_contents($c['passwordFile']), "\r\n");
+        $secret = @file_get_contents($c['passwordFile']);
+        if ($secret === false) {
+            throw new ApiError(503, 'PRODUCTION_PASSWORD_FILE_UNREADABLE');
+        }
+        if (str_contains($secret, "\0") || str_starts_with($secret, "\xEF\xBB\xBF") || str_starts_with($secret, "\xFF\xFE") || str_starts_with($secret, "\xFE\xFF")) {
+            throw new ApiError(503, 'PRODUCTION_PASSWORD_ENCODING_REJECTED');
+        }
+        $c['password'] = rtrim($secret, "\r\n");
         if ($c['password'] === '') {
             throw new ApiError(503, 'PRODUCTION_PASSWORD_REQUIRED');
         }
@@ -49,7 +56,7 @@ final class ProductionProfile
     {
         $readOnly = $mode === 'read-only-transport-verification';
         $approved = is_array($c) && ($readOnly ? ($c['readOnlyMetadataApproved'] ?? false) === true : (($c['hostingVerified'] ?? false) === true && ($c['backupRestoreVerified'] ?? false) === true));
-        if (!is_array($c) || !$approved || ($c['enabled'] ?? false) !== true || ($c['mode'] ?? '') !== $mode || !in_array($mode, ['approved-production-runtime','one-time-production-maintenance','one-time-clean-initialization','reviewed-clean-activation','read-only-transport-verification'], true)) {
+        if (!is_array($c) || !$approved || ($c['enabled'] ?? false) !== true || ($c['mode'] ?? '') !== $mode || !in_array($mode, ['approved-production-runtime','one-time-production-maintenance','one-time-clean-initialization','reviewed-clean-activation','read-only-transport-verification','one-time-sql-import-finalization'], true)) {
             throw new ApiError(503, 'PRODUCTION_PROFILE_DISABLED');
         }
         foreach (['privateRoot', 'publicRoot', 'managementRoot', 'schema', 'user', 'account', 'passwordFile', 'serverVersion', 'serverId', 'origin', 'reference'] as $key) {
@@ -63,6 +70,9 @@ final class ProductionProfile
             || $c['origin'] !== 'https://app.unique-plastic.com' || !preg_match('/^[a-zA-Z0-9_-]{12,64}$/D', $c['reference'])
             || ($mode === 'approved-production-runtime' && !is_array($c['operators'] ?? null))) {
             throw new ApiError(503, 'PRODUCTION_TARGET_REJECTED');
+        }
+        if (substr_count($c['account'], '@') !== 1 || explode('@', $c['account'], 2)[0] !== $c['user'] || preg_match('/\s/', $c['account'])) {
+            throw new ApiError(503, 'PRODUCTION_ACCOUNT_PIN_REJECTED');
         }
         ProductionConnection::transport($c);
         if ($mode !== 'approved-production-runtime') {

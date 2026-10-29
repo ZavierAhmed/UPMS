@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Upms\ApiError;
 use App\Upms\Database;
 use App\Upms\Identity;
+use App\Upms\OperatorPolicy;
 use App\Upms\SimpleV1;
 use Illuminate\Http\Request;
 
@@ -20,7 +21,7 @@ final class SimpleV1Controller
             if ($user['passwordChangeRequired'] ?? false) {
                 throw new ApiError(403, 'PASSWORD_CHANGE_REQUIRED');
             }
-            if (!in_array('administrator', $user['roles'], true) || (string) ($control['operator_id'] ?? '') !== $user['id']) {
+            if (!in_array('administrator', $user['roles'], true) || !OperatorPolicy::permits($user, $control ?? [], config('upms.designated_operators'), (string) config('upms.database'))) {
                 throw new ApiError(403, 'V1_OPERATOR_ONLY');
             }
             $path = substr($request->path(), strlen('api/v1/management/simple-v1/'));

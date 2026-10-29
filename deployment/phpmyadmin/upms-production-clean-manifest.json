@@ -1,0 +1,20 @@
+{
+    "format": "upms-php82-clean-import-v1",
+    "schemaVersion": "php81-clean-v1",
+    "receiptVersion": 2,
+    "planHash": "6c75b59659dca955a2c9c95e907f4979e7d7ba3fd58979d6d2210c1eb701a24a",
+    "sqlSha256": "cba317ebaf5571112e1f19c3d4aff5b2aa8af14764e4355eecbe850fe110aa29",
+    "targetDatabase": null,
+    "requiresVerifiedNewEmptySelectedTarget": true,
+    "stateAfterImport": "IMPORTED_NOT_ACTIVATED",
+    "initialApplicationUsers": 0,
+    "initialBusinessRows": 0,
+    "administratorProvisioning": "separate-private-CLI",
+    "productionActivationApproved": false,
+    "files": {
+        "upms-production-clean.sql": "cba317ebaf5571112e1f19c3d4aff5b2aa8af14764e4355eecbe850fe110aa29",
+        "README-PHPMYADMIN-IMPORT.md": "b6f3e364309d065d1abe819ad452936b7d9da45661c1642bc720914300615ae5",
+        "verify-clean-import.php": "a43a13c125ef99783604161f7739dbd751ba81687290fdf0c52274e7704bf32b",
+        "finalize-clean-import.php": "a43a13c125ef99783604161f7739dbd751ba81687290fdf0c52274e7704bf32b"
+    }
+}
