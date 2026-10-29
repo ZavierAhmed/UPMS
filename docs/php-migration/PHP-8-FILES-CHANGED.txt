@@ -1,0 +1,15 @@
+docs/php-migration/PHP-7-5-OWNER-CHECKLIST.md
+docs/php-migration/PHP-7-5-RELEASE-READINESS.md
+docs/php-migration/PHP-8-ADMIN-PROVISIONING.md
+docs/php-migration/PHP-8-BACKUP-ROLLBACK.md
+docs/php-migration/PHP-8-DEPLOYMENT-PLAN.md
+docs/php-migration/PHP-8-FILES-CHANGED.txt
+docs/php-migration/PHP-8-HOSTING-PREFLIGHT.md
+docs/php-migration/PHP-8-MULTI-ADMIN-PARITY.md
+docs/php-migration/PHP-8-PREFLIGHT-EVIDENCE.json
+docs/php-migration/PHP-8-PRODUCTION-DATA-AUDIT.md
+docs/php-migration/PHP-8-RELEASE-MANIFEST.md
+docs/php-migration/PHP-8-SECURITY-GATES.md
+docs/php-migration/PHP-8-TEST-RESULTS.md
+scripts/php-8-hosting-preflight.mjs
+scripts/php-8-hosting-preflight.test.mjs

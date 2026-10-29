@@ -1,5 +1,15 @@
 # PHP-7.5 release readiness
 
+PHP-8 is blocked at the required actual-hosting Phase A. Fresh unauthenticated
+checks verify public HTTPS but reject the management certificate; the known DB
+endpoint does not advertise TLS and no approved DB TLS hostname is configured.
+No owner DB authentication/SQL, provisioning, production profile, release archive,
+backup/restore, upload or activation occurred. Two-admin functionality remains an
+identified implementation blocker, not a completed feature. See PHP-8-HOSTING-
+PREFLIGHT, SECURITY-GATES and TEST-RESULTS. Production remains NO-GO; account access,
+verified transport, hosting/data/recovery evidence and final cutover approval are
+still required. Earlier local UAT results do not clear these gates.
+
 PHP-7.9 replaces the retired public category with Stickers/Cartons and refreshes
 login/palette presentation. Its only backend contract change adds two known inquiry
 IDs while retaining bounded API-only custom compatibility for historical replays.

@@ -1,0 +1,169 @@
+{
+  "baseline": "0a2060df79f1bfde576e814c3df61c30364aba50",
+  "branch": "feature/upms-php-8-production-deployment",
+  "milestoneComplete": false,
+  "phase": "A",
+  "status": "BLOCKED",
+  "observation": {
+    "checkedAt": "2026-10-29T05:23:31.581Z",
+    "phase": "A",
+    "productionReady": false,
+    "accountCapabilitiesVerified": false,
+    "database": {
+      "target": {
+        "host": "184.168.100.110",
+        "port": 3306
+      },
+      "credentialsSent": false,
+      "sqlExecuted": false,
+      "greeting": {
+        "tlsAdvertised": false,
+        "advertisedVersion": "5.5.5-10.11.19-MariaDB-cll-lve",
+        "authenticated": false
+      },
+      "authenticatedInspection": "NOT PERFORMED",
+      "greetingIsUnauthenticatedVersionHint": true
+    },
+    "hosts": [
+      {
+        "host": "unique-plastic.com",
+        "proposed": true,
+        "addresses": [
+          {
+            "address": "184.168.100.110",
+            "family": 4
+          }
+        ],
+        "https": {
+          "status": 200,
+          "certificateAuthorized": true,
+          "tlsProtocol": "TLSv1.2",
+          "certificateSubject": "unique-plastic.com",
+          "certificateExpires": "May 10 18:32:39 2027 GMT",
+          "headers": {
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'",
+            "x-frame-options": "DENY",
+            "x-content-type-options": "nosniff"
+          }
+        }
+      },
+      {
+        "host": "app.unique-plastic.com",
+        "proposed": true,
+        "addresses": [
+          {
+            "address": "184.168.100.110",
+            "family": 4
+          }
+        ],
+        "httpsError": "DEPTH_ZERO_SELF_SIGNED_CERT"
+      }
+    ],
+    "pending": [
+      "Authenticated cPanel/SSH capability inspection",
+      "Verified private database transport and restricted read-only inventory",
+      "Separate document roots and management certificate",
+      "Backup/restore proof",
+      "Two-admin identity plan and implementation",
+      "Host-matching Linux staging",
+      "Explicit final cutover approval"
+    ]
+  },
+  "localChecks": {
+    "observerTests": {
+      "passed": 3,
+      "failed": 0
+    },
+    "auditExit": 0,
+    "strictValidationExit": 0,
+    "pintExit": 0,
+    "audit": {
+      "advisories": [],
+      "abandoned": [],
+      "filter": []
+    },
+    "localPreviews": {
+      "passed": true,
+      "existingHttps": [
+        {
+          "port": 9443,
+          "status": 200
+        },
+        {
+          "port": 9444,
+          "status": 200
+        },
+        {
+          "port": 9453,
+          "status": 200
+        },
+        {
+          "port": 9454,
+          "status": 200
+        },
+        {
+          "port": 9463,
+          "status": 200
+        },
+        {
+          "port": 9464,
+          "status": 200
+        },
+        {
+          "port": 9473,
+          "status": 200
+        },
+        {
+          "port": 9474,
+          "status": 200
+        },
+        {
+          "port": 9483,
+          "status": 200
+        },
+        {
+          "port": 9484,
+          "status": 200
+        }
+      ],
+      "servicesStopped": false,
+      "databasesAuthenticated": false
+    }
+  },
+  "notPerformed": [
+    "Authenticated hosting capability inspection",
+    "Owner database authentication/SQL/data classification",
+    "Production profile implementation/activation",
+    "Two-admin provisioning or policy implementation/tests",
+    "Production package or upload",
+    "Owner backup/restore",
+    "Host-matching staging",
+    "Final cutover"
+  ],
+  "evidenceFiles": [
+    {
+      "path": "tmp/php-runtime/php8/phase-a-final.json",
+      "sha256": "4dc6d6925476d20f90e4e13548401819f3f5c0aece29a442b414f0f5c90f0726"
+    },
+    {
+      "path": "tmp/php-runtime/php8/preflight-tests.log",
+      "sha256": "b6336ed19be9cd1d0241360cb629e11e32ea86afa70754a03076d31468cfc731"
+    },
+    {
+      "path": "tmp/php-runtime/php8/audit.json",
+      "sha256": "65cb74de105d312fddccfe4c7b15692394b4e5384bf703dd8c1b60be023a1831"
+    },
+    {
+      "path": "tmp/php-runtime/php8/strict.log",
+      "sha256": "617d39e3b4752168f63039991b7e1efaca11e54a1f5a9153d93b0d4efe91fe05"
+    },
+    {
+      "path": "tmp/php-runtime/php8/pint.json",
+      "sha256": "cd1a94fc2cf6a965b86e1a4809d6c7fb9148b1ee374e1010ed2ac96ff4876ec2"
+    },
+    {
+      "path": "tmp/php-runtime/php8/local-preservation.json",
+      "sha256": "c1cc1ba4dc469c796a56cc8e68038624053f676930438b886eb31830d0ea935f"
+    }
+  ]
+}

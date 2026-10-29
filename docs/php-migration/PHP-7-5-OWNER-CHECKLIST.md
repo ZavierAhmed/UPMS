@@ -193,3 +193,20 @@ location and guarded service commands are in PHP-7-9-TEST-RESULTS. All four earl
 UAT groups remain preserved, including PHP-7.8 on 9473/9474. PHP-7.8 security gates
 remain green; original authenticity/SQL/provenance/SMTP/hosting/recovery decisions
 are not approved by this UI milestone. Production remains NO-GO. Stop before PHP-8.
+
+
+## PHP-8 Phase A — BLOCKED; deployment not approved
+
+The owner authorized deployment preparation. Actual account preflight is required
+first. Public HTTPS verifies, but app.unique-plastic.com has an untrusted self-signed
+certificate and the configured remote DB greeting does not advertise TLS. No DB
+credentials or SQL were sent. Need authenticated cPanel/SSH access and an approved
+protected read-only DB transport before capability/data/account inventory.
+
+Review PHP-8-HOSTING-PREFLIGHT and SECURITY-GATES. Two-admin provisioning/policy,
+production profile, Linux package, backup/restore and host-matching staging are
+NOT IMPLEMENTED/EXECUTED in this blocked Phase A change. All proposed procedures
+are plans, not acceptance evidence. Preserve legitimate data and account IDs;
+resolve conflicts before action. No cutover or residual risk is approved by this
+checklist. Final Phase D approval must identify the concrete reviewed release,
+identity plan, backup/rollback evidence and remaining risk decisions.
