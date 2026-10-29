@@ -5,7 +5,7 @@ export default function ProductGallery({product,images=product.gallery||[]}){
  const [index,setIndex]=useState(0),touch=useRef(null),buttons=useRef([]);
  const move=delta=>select((index+delta+images.length)%images.length);
  function select(next){setIndex(next);buttons.current[next]?.scrollIntoView?.({block:'nearest',inline:'nearest',behavior:'instant'});}
- if(!images.length)return <figure className="detail-visual"><ProductVisual product={product}/><figcaption>Design consultation illustration. Share your packaging brief with our team.</figcaption></figure>;
+ if(!images.length)return <figure className="detail-visual"><ProductVisual product={product}/><figcaption>{product.imageCaption||"Share your packaging brief with our team."}</figcaption></figure>;
  const image=images[index];
  return <figure className="detail-visual product-gallery" role="region" aria-roledescription="carousel" aria-label={product.title+' product gallery'} tabIndex={0} onKeyDown={e=>{if(images.length>1&&['ArrowLeft','ArrowRight'].includes(e.key)){e.preventDefault();move(e.key==='ArrowRight'?1:-1);}}}>
   <div className="gallery-stage" onTouchStart={e=>{const t=e.touches[0];touch.current=t?{x:t.clientX,y:t.clientY}:null;}} onTouchEnd={e=>{const start=touch.current,t=e.changedTouches[0];touch.current=null;if(start&&t&&images.length>1){const dx=t.clientX-start.x,dy=t.clientY-start.y;if(Math.abs(dx)>48&&Math.abs(dx)>Math.abs(dy)*1.2)move(dx<0?1:-1);}}} onTouchCancel={()=>{touch.current=null;}}><CatalogImage key={image.id} image={image} priority sizes="(max-width: 900px) 90vw, 560px"/></div>

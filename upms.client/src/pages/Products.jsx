@@ -35,11 +35,11 @@ export default function Products() {
             <br />A stronger starting point.
           </>
         }
-        description="Explore our plastic packaging categories, then talk to our team about the format, quantity and design your application needs."
+        description="Explore our packaging categories, then talk to our team about the format, quantity and design your application needs."
         crumbs={[["Products"]]}
       >
         <div className="hero-caption">
-          <span className="eyebrow">FOUR CATEGORIES. ONE CONVERSATION.</span>
+          <span className="eyebrow">FIVE CATEGORIES. ONE CONVERSATION.</span>
           <p>
             Standard formats and tailored ideas, brought together around your
             packaging brief.
@@ -68,7 +68,7 @@ export default function Products() {
             >
               <option value="all">All categories</option>
               <option value="Containers">Containers</option>
-              <option value="Custom solutions">Custom solutions</option>
+              <option value="Labels & Cartons">Labels & Cartons</option>
             </select>
           </div>
           <p role="status" aria-live="polite">

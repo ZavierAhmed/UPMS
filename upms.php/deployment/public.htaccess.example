@@ -10,6 +10,8 @@ RewriteCond %{HTTP_HOST} !^PUBLIC_HOST(?::443)?$ [NC]
 RewriteRule ^ - [R=400,END]
 RewriteCond %{HTTPS} !=on
 RewriteRule ^ https://PUBLIC_HOST%{REQUEST_URI} [R=307,END]
+# Retired product category: honest 404, not a renamed or silently reclassified product.
+RewriteRule ^products/custom/?$ - [R=404,END]
 RewriteRule ^management(?:/|$) - [R=404,END,NC]
 RewriteRule ^api(?:/|$) backend.php [END,NC]
 RewriteCond %{REQUEST_FILENAME} -f [OR]

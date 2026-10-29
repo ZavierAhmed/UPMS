@@ -1,5 +1,15 @@
 # PHP-7.5 release readiness
 
+PHP-7.9 replaces the retired public category with Stickers/Cartons and refreshes
+login/palette presentation. Its only backend contract change adds two known inquiry
+IDs while retaining bounded API-only custom compatibility for historical replays.
+No financial posting, schema, auth, dashboard aggregation or dependency change.
+PHP-7.8 audit/header/Pint/strict-validation gates remain green under fresh checks.
+Four earlier UAT business schemas and services are preserved; new review uses
+9483/9484. See PHP-7-9-TEST-RESULTS and VISUAL-ACCEPTANCE. Owner acceptance of the
+new interface and all existing production risk/hosting/recovery decisions remain
+PENDING OWNER. Production stays NO-GO; no deployment or release package authorized.
+
 PHP-7.8 clears the four verified technical failures: dependency audit (Mime 7.4.22),
 management CSP/frame/cache headers, full Pint and strict Composer validation.
 Fresh runtime/browser evidence is in PHP-7-8-TEST-RESULTS and HTTP-HEADERS. The

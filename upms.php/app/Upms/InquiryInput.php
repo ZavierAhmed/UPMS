@@ -8,7 +8,8 @@ final class InquiryInput
 {
     private const WHITESPACE = '\x{0009}-\x{000D}\x{0020}\x{00A0}\x{1680}\x{2000}-\x{200A}\x{2028}\x{2029}\x{202F}\x{205F}\x{3000}\x{FEFF}';
 
-    public const CATEGORIES = ['buckets' => 'Plastic Buckets', 'cans' => 'Lubricant Cans', 'containers' => 'Plastic Cans', 'custom' => 'Custom Packaging'];
+    // custom remains API-only for legacy clients and exact historical replays.
+    public const CATEGORIES = ['buckets' => 'Plastic Buckets', 'cans' => 'Lubricant Cans', 'containers' => 'Plastic Cans', 'stickers' => 'Stickers', 'cartons' => 'Cartons', 'custom' => 'Custom Packaging'];
 
     public const FIELDS = ['customerName', 'companyName', 'email', 'phone', 'productCategory', 'quantity', 'capacity', 'message', 'website'];
 

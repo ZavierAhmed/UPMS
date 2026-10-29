@@ -2,6 +2,9 @@ export const categories = Object.freeze({
   buckets: "Plastic Buckets",
   cans: "Lubricant Cans",
   containers: "Plastic Cans",
+  stickers: "Stickers",
+  cartons: "Cartons",
+  // API-only compatibility; the public catalog does not offer this retired category.
   custom: "Custom Packaging",
 });
 export const fields = [

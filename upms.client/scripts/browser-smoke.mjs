@@ -11,7 +11,8 @@ export async function runBrowserSmoke({ tab, viewport, baseURL }) {
     "/products/buckets",
     "/products/cans",
     "/products/containers",
-    "/products/custom",
+    "/products/stickers",
+    "/products/cartons",
   ];
   const results = [],
     links = new Set();
@@ -106,34 +107,34 @@ export async function runBrowserInteractions({ tab, viewport, baseURL }) {
   await tab.playwright
     .getByRole("button", { name: "Clear search and filters" })
     .click();
-  await tab.playwright.getByText("4 categories", { exact: true }).waitFor({ state: "visible" });
+  await tab.playwright.getByText("5 categories", { exact: true }).waitFor({ state: "visible" });
   assert(
-    (await tab.playwright.getByRole("status").innerText()) === "4 categories",
+    (await tab.playwright.getByRole("status").innerText()) === "5 categories",
     "Clear filters restores catalog",
   );
   await tab.playwright
     .getByLabel("Packaging type")
-    .selectOption("Custom solutions");
-  await tab.playwright.getByText("1 category", { exact: true }).waitFor({ state: "visible" });
+    .selectOption("Labels & Cartons");
+  await tab.playwright.getByText("2 categories", { exact: true }).waitFor({ state: "visible" });
   assert(
-    (await tab.playwright.getByRole("status").innerText()) === "1 category",
-    "Custom packaging filter",
+    (await tab.playwright.getByRole("status").innerText()) === "2 categories",
+    "Labels and cartons filter",
   );
-  await tab.playwright.locator('main a[href="/products/custom"]').click();
+  await tab.playwright.locator('main a[href="/products/stickers"]').click();
   await tab.reload();
   assert(
-    (await tab.playwright.locator("h1").innerText()) === "Custom Packaging",
+    (await tab.playwright.locator("h1").innerText()) === "Stickers",
     "Direct detail refresh renders selected category",
   );
   await tab.back();
-  await tab.playwright.getByText("1 category", { exact: true }).waitFor({ state: "visible" });
+  await tab.playwright.getByText("2 categories", { exact: true }).waitFor({ state: "visible" });
   assert(
-    (await tab.playwright.getByRole("status").innerText()) === "1 category",
+    (await tab.playwright.getByRole("status").innerText()) === "2 categories",
     "Back restores catalog filter",
   );
   await tab.forward();
   assert(
-    (await tab.url()).endsWith("/products/custom"),
+    (await tab.url()).endsWith("/products/stickers"),
     "Forward restores detail route",
   );
   await tab.goto(baseURL + "/not-a-page");

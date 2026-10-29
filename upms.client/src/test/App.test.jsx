@@ -131,20 +131,20 @@ describe("catalog and product detail", () => {
       screen.queryByRole("heading", { name: "Lubricant Cans" }),
     ).toBeNull();
     fireEvent.change(screen.getByLabelText("Packaging type"), {
-      target: { value: "Custom solutions" },
+      target: { value: "Labels & Cartons" },
     });
     expect(screen.getByRole("status").textContent).toBe("0 categories");
     fireEvent.click(
       screen.getByRole("button", { name: "Clear search and filters" }),
     );
-    expect(screen.getByRole("status").textContent).toBe("4 categories");
+    expect(screen.getByRole("status").textContent).toBe("5 categories");
     expect(screen.getByLabelText("Search packaging").value).toBe("");
   });
   it("restores filters from a shared URL", () => {
-    open("/products?group=Custom+solutions");
-    expect(screen.getByRole("status").textContent).toBe("1 category");
+    open("/products?group=Labels+%26+Cartons");
+    expect(screen.getByRole("status").textContent).toBe("2 categories");
     expect(
-      screen.getByRole("heading", { name: "Custom Packaging" }),
+      screen.getByRole("heading", { name: "Stickers" }),
     ).toBeTruthy();
   });
   it("keeps search focus while updating query parameters", () => {

@@ -6,8 +6,8 @@ import {products} from '../data/company';
 import {publicPage,publicPages} from '../data/publicRoutes';
 import {notFoundMeta} from '../data/pages';
 
-it('uses exactly four approved categories and preserves the containers URL',()=>{
- expect(products.map(p=>p.title)).toEqual(['Plastic Buckets','Lubricant Cans','Plastic Cans','Custom Packaging']);
+it('uses exactly five approved categories and preserves the containers URL',()=>{
+ expect(products.map(p=>p.title)).toEqual(['Plastic Buckets','Lubricant Cans','Plastic Cans','Stickers','Cartons']);
  expect(publicPage('/products/jars')).toBe(notFoundMeta);
  expect(publicPages.some(p=>p.path==='/products/jars')).toBe(false);
  expect(publicPage('/products/containers').title).toBe('Plastic Cans');
@@ -25,12 +25,13 @@ it('prepares one same-category secondary image only on fine-pointer intent',()=>
  expect(container.querySelectorAll('.product-secondary')).toHaveLength(1);
  expect(screen.getByRole('link').textContent).toContain('View Details');
 });
-it('keeps the primary image for coarse pointers and an explicit custom illustration',()=>{
+it('keeps the primary image for coarse pointers and an explicit stickers illustration',()=>{
  vi.stubGlobal('matchMedia',vi.fn(()=>({matches:false})));
  const {container,rerender}=render(<MemoryRouter><ProductCard product={products[1]}/></MemoryRouter>);
  fireEvent.pointerEnter(screen.getByRole('link'));
  expect(container.querySelector('.product-secondary')).toBeNull();
  rerender(<MemoryRouter><ProductCard product={products[3]}/></MemoryRouter>);
- expect(screen.getAllByText(/Concept illustration/).length).toBeGreaterThan(0);
- expect(container.querySelector('img')).toBeNull();
+ expect(screen.getAllByText(/Illustrative image/).length).toBeGreaterThan(0);
+ expect(container.querySelector('img').getAttribute('src')).toBe(products[3].image);
+ expect(container.querySelector('img').alt).toMatch(/Illustration/);
 });

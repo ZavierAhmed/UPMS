@@ -32,7 +32,7 @@ export default function ProductCard({ product, index = 0 }) {
       </div>
       <p>{product.text}</p>
       {product.capacities.length>0&&<div className="product-capacities">Catalog sizes: {product.capacities.join(" · ")}</div>}
-      {!product.capacities.length&&<div className="product-capacities">Design consultation · Concept illustration</div>}
+      {!product.capacities.length&&<div className="product-capacities">Illustrative image · Discuss requirements</div>}
       <span className="product-details-link">View Details <span aria-hidden="true">→</span><span className="product-arrow" aria-hidden="true">↗</span></span>
       </div>
       <div className="product-image">

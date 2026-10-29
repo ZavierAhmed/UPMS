@@ -1,3 +1,5 @@
+import stickerIllustration from "../assets/products/stickers-illustration.svg";
+import cartonIllustration from "../assets/products/cartons-illustration.svg";
 import {catalogGalleries} from "./catalog";
 export const company = {
   name: "Unique Plastic Industry",
@@ -90,25 +92,26 @@ export const products = [
     source: "Bucket.pdf page 3",
   },
   {
-    id: "custom",
-    title: "Custom Packaging",
-    group: "Custom solutions",
-    text: "Start with your brief. Explore tailored plastic molding and packaging designs with our team.",
-    image: null,
-    alt: null,
-    capacities: [],
-    capacityNote:
-      "Design, sizing and feasibility are discussed for each project. No standard custom specification is claimed.",
-    description:
-      "Every business has its own packaging requirements. Our brochure describes a collaborative approach to tailored plastic molding, with design discussions shaped around product needs and brand requirements.",
-    uses: ["Tailored plastic molding", "Brand-led packaging design"],
-    discussion: [
-      "A sketch, reference or packaging brief",
-      "Contents and intended use",
-      "Target dimensions and quantity",
-      "Sample and timing requirements",
-    ],
-    source: "Brochure pages 3–4",
+    id: "stickers", title: "Stickers", group: "Labels & Cartons",
+    text: "Stickers and labels for product packaging and brand presentation. Share your artwork, dimensions and quantity requirements.",
+    image: stickerIllustration, alt: "Illustration of a packaging-label roll and arranged label shapes with orange accents",
+    imageCaption: "Illustrative image only. Actual product photographs will be added when supplied.", capacities: [],
+    capacityNote: "Share your size, material and finish preferences for discussion; availability and suitability must be confirmed.",
+    description: "Discuss sticker and label requirements for your packaging, including dimensions, design references and intended application. Our team will review your brief before confirming any options.",
+    uses: ["Product packaging labels", "Brand presentation requirements"],
+    discussion: ["Required dimensions", "Artwork or logo", "Intended use", "Approximate quantity", "Any material or finish preference"],
+    source: "Owner-approved category brief; temporary original illustration",
+  },
+  {
+    id: "cartons", title: "Cartons", group: "Labels & Cartons",
+    text: "Carton packaging for product presentation and handling. Discuss sizes, quantities and artwork requirements with our team.",
+    image: cartonIllustration, alt: "Illustration of neatly arranged open and closed cardboard cartons with subtle orange tape",
+    imageCaption: "Illustrative image only. Actual product photographs will be added when supplied.", capacities: [],
+    capacityNote: "Discuss the dimensions and presentation your product needs. Specifications and suitability must be confirmed for your requirements.",
+    description: "Explore carton packaging requirements based on your product, preferred dimensions and presentation needs. Share your brief so our team can discuss the appropriate next steps.",
+    uses: ["Product presentation", "Handling and delivery requirements"],
+    discussion: ["Product dimensions", "Carton size requirements", "Required quantity", "Printing or branding requirements", "Intended handling and delivery"],
+    source: "Owner-approved category brief; temporary original illustration",
   },
 ].map(product=>{
  const gallery=product.id==='containers'?[...catalogGalleries.containers].reverse():catalogGalleries[product.id]||[];

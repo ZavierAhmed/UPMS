@@ -96,8 +96,8 @@ export default function Manufacturing() {
             Our approach is collaborative: understand the requirements, explore
             the options and agree on practical next steps.
           </p>
-          <Link className="button" to="/products/custom">
-            Explore custom packaging ↗
+          <Link className="button" to="/contact">
+            Discuss your packaging brief ↗
           </Link>
         </div>
       </section>

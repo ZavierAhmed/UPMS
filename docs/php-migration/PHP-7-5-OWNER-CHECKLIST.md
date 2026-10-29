@@ -176,3 +176,20 @@ All three earlier UAT groups are preserved. Do not approve original command
 authenticity, SQL posted/self-user restrictions, historical imports, unknown SMTP
 outcomes, GoDaddy capability, backup/recovery or HSTS policy by implication.
 Production remains NO-GO. Stop for owner review before PHP-8.
+
+
+## PHP-7.9 product and interface review — PENDING OWNER
+
+Review PHP-7-9-PRODUCT-CHANGES, LOGIN-DESIGN, COLOR-AND-UX, INQUIRY-PARITY,
+VISUAL-ACCEPTANCE, ASSET-MANIFEST and TEST-RESULTS. Verify five catalog categories,
+Stickers/Cartons illustrations and preselection, retired custom 404, the new staff
+login states, dashboard palette, mobile workflows and financial printing/exports.
+Record owner name/date/tested final SHA and actual results. All owner fields remain
+PENDING OWNER; native Excel and Windows printing are still human acceptance items.
+
+The separate preview is https://127.0.0.1:9483 and
+https://127.0.0.1:9484/management/. Use a disposable browser profile. Credentials
+location and guarded service commands are in PHP-7-9-TEST-RESULTS. All four earlier
+UAT groups remain preserved, including PHP-7.8 on 9473/9474. PHP-7.8 security gates
+remain green; original authenticity/SQL/provenance/SMTP/hosting/recovery decisions
+are not approved by this UI milestone. Production remains NO-GO. Stop before PHP-8.
