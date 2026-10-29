@@ -6,7 +6,7 @@ assert os.name=='posix' and not out.exists(),'NEW_PRIVATE_LINUX_OUTPUT_REQUIRED'
 sha=lambda b:hashlib.sha256(b).hexdigest()
 original_manifest=sha((release/'MANIFEST.json').read_bytes())
 subprocess.run([a.php,str(repo/'deployment/check-release.php'),str(release),original_manifest],check=True)
-subprocess.run(['git','diff','--exit-code','HEAD','--','deployment','scripts','upms.php','upms.client'],check=True,stdout=subprocess.DEVNULL)
+subprocess.run(['git','diff','--exit-code','HEAD','--','deployment','scripts','upms.php','upms.client'],check=True,stdout=subprocess.DEVNULL,stderr=subprocess.PIPE)
 assert not subprocess.check_output(['git','ls-files','--others','--exclude-standard','--','deployment/staging'],text=True).strip(),'COMMITTED_TOOLS_REQUIRED'
 source_commit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip();assert re.fullmatch('[a-f0-9]{40}',source_commit)
 plan=json.loads((repo/'deployment/staging/staging-plan.NOT-REVIEWED.json').read_text());target=plan['stagingRoot'];backend=target+'/payload/release/private/backend'
@@ -42,5 +42,5 @@ with archive.open('wb') as raw, gzip.GzipFile(fileobj=raw,mode='wb',filename='',
    with path.open('rb') as f:tar.addfile(info,f)
   else:tar.addfile(info)
 archive.chmod(0o600)
-record=dict(prepared=True,sourceCommit=source_commit,archive=str(archive),archiveSha256=sha(archive.read_bytes()),stagingManifestSha256=sha(manifest.read_bytes()),releaseManifestSha256=bundle['releaseManifestSha256'],sqlSha256=bundle['sqlSha256'],sqlManifestSha256=bundle['sqlManifestSha256'],files=len(rows),archiveBytes=archive.stat().st_size,extractedFileBytes=sum(r['bytes'] for r in rows),proposedStagingRoot=target,proposedBackendPath=backend,actualGoDaddyPathsVerified=False,uploaded=False,productionReady=False)
+record=dict(prepared=True,sourceCommit=source_commit,archive=str(archive),archiveSha256=sha(archive.read_bytes()),stagingManifestSha256=sha(manifest.read_bytes()),releaseManifestSha256=bundle['releaseManifestSha256'],sqlSha256=bundle['sqlSha256'],sqlManifestSha256=bundle['sqlManifestSha256'],files=len(rows),fileCountIncludingManifest=len(rows)+1,directoryCount=sum(p.is_dir() for p in payload.rglob('*')),archiveBytes=archive.stat().st_size,extractedFileBytes=sum(r['bytes'] for r in rows)+manifest.stat().st_size,proposedStagingRoot=target,proposedBackendPath=backend,actualGoDaddyPathsVerified=False,uploaded=False,productionReady=False)
 (out/'ARTIFACT.json').write_text(json.dumps(record,indent=2)+'\n');(repo/'tmp/php-runtime/php83-artifact.json').write_text(json.dumps(record,indent=2)+'\n');print(json.dumps(record))
