@@ -1,0 +1,32 @@
+Baseline: ed629f02f9e21e735598387fd33300c5e34b3b6e
+Branch: feature/upms-php-8-3-godaddy-staged-deployment
+Artifact source: c0d05b340cbaa136464015669fe650060e450f12
+
+.gitattributes
+deployment/staging/approval.NOT-APPROVED.json
+deployment/staging/inspect-host.php
+deployment/staging/owner-deploy.ps1
+deployment/staging/prepare-runtime.php
+deployment/staging/runtime-check.php
+deployment/staging/runtime.DISABLED.env.example
+deployment/staging/staging-plan.NOT-REVIEWED.json
+deployment/staging/support.php
+deployment/staging/upms-v1-finalization.DISABLED.json
+deployment/staging/upms-v1-provisioning.DISABLED.json
+deployment/staging/upms-v1-read-only.DISABLED.json
+deployment/staging/verify-staging.php
+docs/php-migration/PHP-8-3-ADMIN-PROVISIONING.md
+docs/php-migration/PHP-8-3-ARTIFACT.json
+docs/php-migration/PHP-8-3-DATABASE-FINALIZATION.md
+docs/php-migration/PHP-8-3-FILES-CHANGED.txt
+docs/php-migration/PHP-8-3-GODADDY-DEPLOYMENT.md
+docs/php-migration/PHP-8-3-HOSTING-CHECKS.md
+docs/php-migration/PHP-8-3-LOCAL-EVIDENCE.json
+docs/php-migration/PHP-8-3-RELEASE-READINESS.md
+docs/php-migration/PHP-8-3-STAGING-ACCEPTANCE.md
+docs/php-migration/PHP-8-3-TEST-RESULTS.md
+scripts/php-8-3-grants.mjs
+scripts/php-8-3-package.py
+scripts/php-8-3-rehearsal.py
+scripts/php-8-3-support-test.php
+scripts/php-8-3-test-grants.php

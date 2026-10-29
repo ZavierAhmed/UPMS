@@ -1,0 +1,162 @@
+{
+  "baseline": "ed629f02f9e21e735598387fd33300c5e34b3b6e",
+  "fetchedBaselineMatched": true,
+  "artifactSourceCommit": "c0d05b340cbaa136464015669fe650060e450f12",
+  "generatedAt": "2026-10-29T13:40:21.991803+00:00",
+  "applicationAndReactSourceUnchanged": true,
+  "sshAuthenticated": false,
+  "sshKeyContentsRead": false,
+  "goDaddyChanges": [],
+  "sqlImportedByAgent": false,
+  "productionAccountsCreated": false,
+  "publicCutover": false,
+  "productionReady": false,
+  "checks": {
+    "guards": {
+      "passed": true,
+      "checks": 22,
+      "productionContacted": false,
+      "fixture": "/home/zasah/.cache/upms-php81-local/php83-guards-a70ec771b9"
+    },
+    "grants": {
+      "passed": true,
+      "checks": 3,
+      "version": "10.11.19-MariaDB",
+      "syntheticSchema": "upms_test_php_83_grants_1793279535529",
+      "productionContacted": false
+    },
+    "rehearsal": {
+      "passed": true,
+      "checks": 32,
+      "kernelChecksEach": 4,
+      "repeatVerification": true,
+      "privateKeyStable": true,
+      "artifactUnchanged": true,
+      "databaseConnected": false,
+      "productionContacted": false,
+      "uploaded": false,
+      "fixture": "/home/zasah/.cache/upms-php81-local/php83-rehearsal-1793280896296255711"
+    },
+    "powershell": {
+      "passed": true,
+      "checks": 3,
+      "syntaxParsed": true,
+      "localArchiveValidated": true,
+      "invalidMetadataRejected": true,
+      "sshConnected": false
+    },
+    "reproducibility": {
+      "passed": true,
+      "reproducibleArchive": true,
+      "archiveSha256": "102d19fe11e775b52f0805f6136a4895f1a251c2b5669dfd2e7f33182d4995f6",
+      "sourceCommit": "c0d05b340cbaa136464015669fe650060e450f12",
+      "regularFiles": 6061,
+      "unsafeArchiveMembers": 0,
+      "knownPrivateSecretMatches": 0,
+      "publicBrandConflicts": 0,
+      "productionContacted": false
+    }
+  },
+  "reactProductionBuildPassed": true,
+  "pintPassed": true,
+  "linuxNoDevComposer": {
+    "strictValidation": true,
+    "platformRequirements": true,
+    "auditPassedAtBuild": true,
+    "releaseManifestFiles": 6041,
+    "php": "8.3.6 distro-security local runtime"
+  },
+  "ownerSuppliedEvidence": {
+    "cliPhp": "8.3.36",
+    "mariaDb": "10.11.19",
+    "phpPdoSocketAuthenticated": true,
+    "upmsV1Imported": true,
+    "tables": 20,
+    "charset": "utf8mb4",
+    "receipt": "IMPORTED_NOT_ACTIVATED",
+    "control": "PENDING",
+    "users": 0,
+    "items": 0,
+    "parties": 0,
+    "documents": 0,
+    "oldUpmsBackupDownloaded": true,
+    "independentRestoreVerified": false,
+    "newSchemaSelectOnlyAccessEstablished": false
+  },
+  "artifact": {
+    "prepared": true,
+    "sourceCommit": "c0d05b340cbaa136464015669fe650060e450f12",
+    "archive": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php83-staging-artifact-102d19fe11e7/upms-php83-private-staging.tar.gz",
+    "archiveSha256": "102d19fe11e775b52f0805f6136a4895f1a251c2b5669dfd2e7f33182d4995f6",
+    "stagingManifestSha256": "5c023fb7420430794a06952595045cc883937845b51b99f9c378d866b3682af1",
+    "releaseManifestSha256": "059da290b1b4c9f13732daa15b958bb0c5d6db78471d797f62e32bce9ecfb037",
+    "sqlSha256": "cba317ebaf5571112e1f19c3d4aff5b2aa8af14764e4355eecbe850fe110aa29",
+    "sqlManifestSha256": "0de16efa7c653ad1fb8ba83b97419a03767514eec2ed71312ec983539aaa2312",
+    "files": 6060,
+    "fileCountIncludingManifest": 6061,
+    "directoryCount": 860,
+    "archiveBytes": 6738635,
+    "extractedFileBytes": 30705953,
+    "proposedStagingRoot": "/home/tsn6az96j3v7/upms-php83-staging",
+    "proposedBackendPath": "/home/tsn6az96j3v7/upms-php83-staging/payload/release/private/backend",
+    "actualGoDaddyPathsVerified": false,
+    "uploaded": false,
+    "productionReady": false,
+    "artifactRecord": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php83-staging-artifact-102d19fe11e7/ARTIFACT.json"
+  },
+  "notRerun": [
+    "full financial comparison matrix",
+    "business initialization/import/provisioning suites",
+    "unchanged PHP unit/feature suite",
+    "unchanged React test suite",
+    "unchanged Express tests",
+    "unchanged SMTP/inquiry/journal matrices",
+    "actual GoDaddy upload/web/Apache/SMTP verification"
+  ],
+  "logs": [
+    {
+      "file": "php83-guards.json",
+      "sha256": "29977ac342a16f0d0ee512da6996a5d324de468bf8890f020b09a448939c5f30"
+    },
+    {
+      "file": "php83-grants.json",
+      "sha256": "d2c28708799b45d5c17507bf523efadaa875592d49727a962566912f5ccb10a4"
+    },
+    {
+      "file": "php83-rehearsal.json",
+      "sha256": "aaca0004690a9b5efe0bfd31eacf45fd640e611175314676b43ae24f449449bd"
+    },
+    {
+      "file": "php83-powershell.json",
+      "sha256": "1732bf1034a51d56a235c183a3bf5e307b34b72a50d95e34f20669d736437b19"
+    },
+    {
+      "file": "php83-reproducibility.json",
+      "sha256": "7a166f234514b9d6922dd9c8b2abef75c88d355ab98fbf97529670ef5bd1845e"
+    },
+    {
+      "file": "php83-react-build.log",
+      "sha256": "db6ddd42ae146c006223f5a3b349211a4b038ec5ff20133d33dc7607ffd3a5ed"
+    },
+    {
+      "file": "php83-pint.log",
+      "sha256": "acbf5da6385237b6f4cd342c4454d93f6c4df8bfcf1687838edb3b651981c4e1"
+    },
+    {
+      "file": "php83-client-audit.json",
+      "sha256": "4022f1e0e987fbb0815236c36f0de1232cb0bbe6643710074f84cdf071aab494"
+    }
+  ],
+  "clientDependencyAudit": {
+    "passed": true,
+    "includesBuildAndRuntimeDependencies": true,
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "prepared": true,
+  "sourceCommit": "c0d05b340cbaa136464015669fe650060e450f12",
+  "archive": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php83-staging-artifact-102d19fe11e7/upms-php83-private-staging.tar.gz",
+  "archiveSha256": "102d19fe11e775b52f0805f6136a4895f1a251c2b5669dfd2e7f33182d4995f6",
+  "stagingManifestSha256": "5c023fb7420430794a06952595045cc883937845b51b99f9c378d866b3682af1",
+  "releaseManifestSha256": "059da290b1b4c9f13732daa15b958bb0c5d6db78471d797f62e32bce9ecfb037",
+  "sqlSha256": "cba317ebaf5571112e1f19c3d4aff5b2aa8af14764e4355eecbe850fe110aa29",
+  "sqlManifestSha256": "0de16efa7c653ad1fb8ba83b97419a03767514eec2ed71312ec983539aaa2312",
+  "files": 6060,
+  "fileCountIncludingManifest": 6061,
+  "directoryCount": 860,
+  "archiveBytes": 6738635,
+  "extractedFileBytes": 30705953,
+  "proposedStagingRoot": "/home/tsn6az96j3v7/upms-php83-staging",
+  "proposedBackendPath": "/home/tsn6az96j3v7/upms-php83-staging/payload/release/private/backend",
+  "actualGoDaddyPathsVerified": false,
+  "uploaded": false,
+  "productionReady": false,
+  "artifactRecord": "C:/Users/zasah/source/repos/UPMS/tmp/php-runtime/php83-staging-artifact-102d19fe11e7/ARTIFACT.json"
+}
