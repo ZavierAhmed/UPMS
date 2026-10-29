@@ -1,0 +1,15 @@
+# PHP-8.1 backup and restore procedure
+
+Actual GoDaddy backup/restore: **NOT EXECUTED / BLOCKED**. Owner classifies the old database as disposable, but its complete backup is still required before replacement or switch approval.
+
+1. Pin old schema/server/account/transport and actual object inventory. Keep old `upms` intact. Account for all20 owner-reported tables, including existing administrator, roles, audits and upms_remote_initialization; include any later discovered objects rather than silently omitting them.
+2. Fence old writes/DDL and coordinate any private SMTP journal/uncertain delivery state. Use a separately reviewed backup account and trusted TLS or verified local socket. Avoid password arguments; keep the private defaults/credential file0600 outside both roots.
+3. Create a consistent complete dump with schema, data, triggers, routines/events where present and permitted, using explicit utf8mb4/hex-blob. InnoDB --single-transaction is insufficient if concurrent DDL or nontransactional/private file state changes. Fail if permissions prevent complete coverage.
+4. Use the exact approved schema as the positional dump target; avoid --databases/embedded source USE/CREATE DATABASE commands when preparing an isolated restore. Review dump behavior before any restore so it cannot target the original schema.
+5. Record source identity, time/tool versions, object list/DDL, row counts, appropriate row/integrity hashes, file checksum and private journal manifest. Store encrypted/restricted outside Git/web roots and verify a protected off-device copy and separate key custody.
+6. Restore into a newly authorized isolated destination with independently verified identity. Compare schema/keys/precision/collations, all table counts/hashes, administrator IDs/audits/history, numbering/counters and applicable financial/stock reconciliation. A dump exit code alone never proves recovery.
+7. Review a preview that retains the old database/backup and creates a separate clean schema; exclude all old rows and the old initialization marker from the new production state. Bind backup SHA256/restore reference to final operation approval.
+
+Local rehearsal: a fresh synthetic legacy-like20-table database, including an old administrator/audit and initialization-history row, was fully captured and restored to a different synthetic target. All20 tables/44 rows matched and the source was unchanged; SHA256 `23336979a9b6e79fd535f7f8ac5ebab6b13202f42897a07f3e538368e59d146b`. No actual GoDaddy data was read or used as a fixture. This does not verify the owner's backup, off-device storage or hosting restore permissions.
+
+Rollback: before live writes, keep the old website/config/database untouched and revert only the reviewed application pointer/profile if needed. After any legitimate new transactions, fence writes/dispatch, preserve new state and reconcile before choosing any data restore; never overwrite new transactions with an old snapshot automatically. No DROP DATABASE/TABLE, TRUNCATE, bulk DELETE or reset operation is authorized or executed in this milestone.

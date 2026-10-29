@@ -5,7 +5,7 @@ import {createHash} from 'node:crypto';
 import knex from 'knex';
 import {verifyUatEngine} from './php-7-5-engine-guard.mjs';
 await verifyUatEngine();
-const source=process.env.PHP8_BACKUP_SCHEMA;assert.match(source||'',/^upms_test_php_6_dual_[0-9]+$/);
+const source=process.env.PHP8_BACKUP_SCHEMA;assert.match(source||'',/^upms_test_php_6_(?:dual|backup)_[0-9]+$/);
 const c=JSON.parse(await readFile('tmp/php-runtime/php2-engine.json','utf8')),run=Date.now(),target='upms_test_php_8_restore_'+run,dir=resolve('tmp/php-runtime/php8-restore-'+run);await mkdir(dir);
 const db=knex({client:'mysql2',connection:{host:'127.0.0.1',port:3330,user:'php2_test_admin',password:c.password,database:source,dateStrings:true,supportBigNumbers:true,bigNumberStrings:true},pool:{min:0,max:1}});
 const digest=v=>createHash('sha256').update(JSON.stringify(v)).digest('hex');

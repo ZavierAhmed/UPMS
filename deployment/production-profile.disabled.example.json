@@ -17,5 +17,9 @@
   "serverVersion": "",
   "serverId": "",
   "origin": "https://app.unique-plastic.com",
-  "operators": {"admin": "", "haris": ""}
+  "operators": {
+    "admin": "",
+    "haris": ""
+  },
+  "transport": "tls"
 }

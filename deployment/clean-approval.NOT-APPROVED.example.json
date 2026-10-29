@@ -1,0 +1,17 @@
+{
+  "status": "NOT_APPROVED",
+  "operation": "",
+  "reference": "",
+  "targetHash": "",
+  "planHash": "",
+  "gates": {
+    "ownerApproved": false,
+    "backupRestoreVerified": false,
+    "transportVerified": false,
+    "managementTrustVerified": false,
+    "hostnameIsolationVerified": false,
+    "linuxReleaseVerified": false
+  },
+  "backupSha256": "",
+  "restoreReference": ""
+}

@@ -1,0 +1,234 @@
+{
+  "baseline": "21d71167eff47515e811d8c4d10629079a4f54eb",
+  "status": "PARTIAL_PRODUCTION_BLOCKED",
+  "productionAccessed": false,
+  "productionInitialized": false,
+  "productionAccountsCreated": false,
+  "deployed": false,
+  "checks": {
+    "legacyFinancial": {
+      "runs": 10,
+      "httpComparisons": 2670
+    },
+    "adminFinancial83": {
+      "httpComparisons": 427,
+      "snapshots": 14,
+      "canonicalApplicationTables": true
+    },
+    "adminFinancial84": {
+      "httpComparisons": 427,
+      "snapshots": 14,
+      "canonicalApplicationTables": true
+    },
+    "harisFinancial83": {
+      "httpComparisons": 427,
+      "snapshots": 14,
+      "canonicalApplicationTables": true
+    },
+    "harisFinancial84": {
+      "httpComparisons": 427,
+      "snapshots": 14,
+      "canonicalApplicationTables": true
+    },
+    "fresh83": {
+      "checks": 76,
+      "tables": 20,
+      "initialUsers": 2,
+      "initialBusinessRows": 0,
+      "partialDdlRecovery": true
+    },
+    "phpunit83": {
+      "tests": 83,
+      "assertions": 1411,
+      "memoryLimit": "128M"
+    },
+    "fresh84": {
+      "checks": 76,
+      "tables": 20,
+      "initialUsers": 2,
+      "initialBusinessRows": 0,
+      "partialDdlRecovery": true
+    },
+    "phpunit84": {
+      "tests": 83,
+      "assertions": 1411,
+      "memoryLimit": "128M"
+    },
+    "express": {
+      "passed": 293
+    },
+    "automated": {
+      "allOtherChecksPassed": true,
+      "initialPintFormattingCorrected": true,
+      "reactTests": 210,
+      "reactFiles": 30,
+      "inquiriesEachPhp": {
+        "comparisons": 68,
+        "checks": 80
+      },
+      "composerStrictPlatformAudit": true
+    },
+    "inquiry128MB": {
+      "comparisons": 68,
+      "checks": 80
+    },
+    "syntheticBackup": {
+      "tables": 20,
+      "rows": 44,
+      "backupSha256": "23336979a9b6e79fd535f7f8ac5ebab6b13202f42897a07f3e538368e59d146b",
+      "sourcePreserved": true,
+      "ownerBackupVerified": false
+    },
+    "linux-socket": {
+      "passed": true,
+      "checks": 9,
+      "platform": "Linux",
+      "php": "8.3.6",
+      "databaseVersion": "10.11.14-MariaDB-0ubuntu0.24.04.1",
+      "actualUnixSocket": true,
+      "tcpNetworkingDisabled": true,
+      "freshTables": 20,
+      "businessRows": 0,
+      "initialUsers": 2,
+      "posting": "DISABLED",
+      "memoryLimit": "128M",
+      "peakMemoryBytes": 2097152,
+      "productionContacted": false
+    },
+    "linux-runtime": {
+      "passed": true,
+      "checks": 4,
+      "linuxNoDevRuntime": true,
+      "databaseEnabled": false,
+      "smtpContacted": false,
+      "memoryLimit": "128M",
+      "peakMemoryBytes": 20971520,
+      "productionContacted": false
+    },
+    "linux-journal": {
+      "passed": true,
+      "workers": 8,
+      "handoffs": 1,
+      "crossProcessJournal": true,
+      "uncertainDeliveryNoResend": true,
+      "privateMailWorkerIncluded": true,
+      "memoryLimit": "128M",
+      "peakMemoryBytes": 6291456,
+      "smtpContacted": false,
+      "productionContacted": false
+    },
+    "linux-apache": {
+      "passed": true,
+      "checks": 13,
+      "platform": "Linux Apache",
+      "productionContacted": false,
+      "actualGoDaddyRewritesVerified": false,
+      "phpHandlerVerified": false
+    },
+    "linux-checksum": {
+      "passed": true,
+      "readOnlyManifestChecker": true,
+      "tamperedPayloadRejected": true,
+      "unmanifestedFileRejected": true,
+      "restoredArtifactVerified": true,
+      "manifestSha256": "7b08aae749b3e6fe5dfda5928b4d073c954edae5ba5abbca4f75f454031630f7",
+      "productionContacted": false
+    },
+    "linux-source-match": {
+      "passed": true,
+      "files": 6038,
+      "allManifestHashesVerified": true,
+      "currentBackendSourceMatches": true,
+      "manifestSha256": "7b08aae749b3e6fe5dfda5928b4d073c954edae5ba5abbca4f75f454031630f7",
+      "productionReady": false,
+      "actualGoDaddyPathsVerified": false
+    },
+    "linuxManifest": {
+      "files": 6038,
+      "sha256": "7b08aae749b3e6fe5dfda5928b4d073c954edae5ba5abbca4f75f454031630f7",
+      "linuxDependenciesVerified": true,
+      "productionReady": false,
+      "actualGoDaddyPathsVerified": false
+    }
+  },
+  "logHashes": [
+    {
+      "path": "php81-management.log",
+      "sha256": "90766029528d6ac773814342ee9e817984ad8e06664b303bb92177abce7b9d64"
+    },
+    {
+      "path": "php81-admin-83.log",
+      "sha256": "79bfc4317b2f612b9388d94260d21407123f421194c793d5f767bd4d88ba979c"
+    },
+    {
+      "path": "php81-admin-84.log",
+      "sha256": "ce71a1bfd4a79fd269f5aa32263e29288a2ad11dd1cba66c200d9f53a8a4840c"
+    },
+    {
+      "path": "php81-haris-83.log",
+      "sha256": "c16b111389e6b79a150040f58b73339468499d2b285299608c4714ad422fac86"
+    },
+    {
+      "path": "php81-haris-84.log",
+      "sha256": "894f77f505a74939c0d89223ef0b228dbc71df45dc49f2ea0bf14a402bebbede"
+    },
+    {
+      "path": "php81-clean83-final.log",
+      "sha256": "cafd97f197e2ce554182aa7b737d044878dec9623825f0e3ddeb4a131794dfb0"
+    },
+    {
+      "path": "php81-phpunit83-final.log",
+      "sha256": "8c0ef44c0aa2300e172a5ea9da2a82de7ea9f7044cd72e868d43692b33c174a5"
+    },
+    {
+      "path": "php81-clean84-final.log",
+      "sha256": "a5507ea2c330811026f197a3dfa4cc5ad47e4acd22dc2184df9a847de1ea8328"
+    },
+    {
+      "path": "php81-phpunit84-final.log",
+      "sha256": "5b76b53241c4c98189da7b44332f0f6d21e11147a29df12846a6e934c0481116"
+    },
+    {
+      "path": "php81-express-final.log",
+      "sha256": "71687a2f21b5cfe90e3d895e173be6bae070971e2868bab92c07cb6e5e267e94"
+    },
+    {
+      "path": "php81-pint-final.log",
+      "sha256": "acbf5da6385237b6f4cd342c4454d93f6c4df8bfcf1687838edb3b651981c4e1"
+    },
+    {
+      "path": "php81-inquiries128.log",
+      "sha256": "79e148e793ba3fdb786870ae419448f6ccb38ddfa2361ff9702e5b3abdf9c253"
+    },
+    {
+      "path": "php81-backup-final.log",
+      "sha256": "35162e491a0e1ebf5b98643facbc1d2e9fb788444a9f38d2d400f7c586fe0366"
+    },
+    {
+      "path": "php81-linux-socket.json",
+      "sha256": "0e72294b3e8893eafa112e96d1d7f86e2a06d48999b1a73572de36249df6d97f"
+    },
+    {
+      "path": "php81-linux-runtime.json",
+      "sha256": "c9eb1f3ce21628ec5e79c3a09cef942c729ca9daa14274be829a48efb340404b"
+    },
+    {
+      "path": "php81-linux-journal.json",
+      "sha256": "c2add290680fd8c785726130128396cd403b7f5407be7996d192a72c99c6a7f1"
+    },
+    {
+      "path": "php81-linux-apache.json",
+      "sha256": "fd6267c6166761ce043775fbb482ae07874713915f31e372e9e41823b3cb28ec"
+    },
+    {
+      "path": "php81-linux-checksum.json",
+      "sha256": "647c01948baaf1d5e4e3277d0a511cbb17bff962112a644fe068e4ea48f4aef1"
+    },
+    {
+      "path": "php81-linux-source-match.json",
+      "sha256": "f67a6e9cd801f6c69d58401f13e5ee9888256fce7aa0c8c589a330c8f03a0b6a"
+    }
+  ],
+  "canonicalPlanHash": "6c75b59659dca955a2c9c95e907f4979e7d7ba3fd58979d6d2210c1eb701a24a",
+  "generatedAt": "2026-10-29T10:39:52.492Z"
+}

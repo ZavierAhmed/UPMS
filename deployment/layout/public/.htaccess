@@ -1,0 +1,17 @@
+Options -Indexes -MultiViews
+RewriteEngine On
+RewriteRule (^|/)\. - [F,END]
+# Parent directory rules must allow the separate management virtual host to apply its own boundary.
+RewriteCond %{HTTP_HOST} !^(unique-plastic\.com|app\.unique-plastic\.com)$ [NC]
+RewriteRule ^ - [F,END]
+RewriteCond %{HTTP_HOST} ^app\.unique-plastic\.com$ [NC]
+RewriteRule ^ - [L]
+RewriteRule ^(?:dashboard|management)(?:/|$) - [F,END,NC]
+RewriteRule (^|/)(\.|vendor|storage|config|bootstrap|scripts|backups|composer\.(json|lock))(?:/|$) - [F,END,NC]
+RewriteRule ^api/v1/public/inquiries$ inquiry.php [END]
+RewriteRule ^api(?:/|$) - [F,END,NC]
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [END]
+RewriteRule ^ index.html [END]
+Header always set X-Content-Type-Options "nosniff"
+Header always set X-Frame-Options "DENY"

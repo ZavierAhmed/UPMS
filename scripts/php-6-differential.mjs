@@ -1,3 +1,4 @@
+import {canonicalFixture} from './php-8-1-canonical-fixture.mjs';
 import {editablePricingProbes} from './php-7-6-pricing-probes.mjs';
 import {lostCommitProxy} from './php-test-commit-proxy.mjs';
 import {integrityProbes} from './php-7-1-probes.mjs';
@@ -74,7 +75,8 @@ try{
   const name='upms_test_php_6_'+side+'_'+run;assert.match(name,/^upms_test_php_6_(ref|app)_[0-9]+$/);
   await admin.raw('CREATE DATABASE ?? CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci',[name]);
   const db=knex({client:'mysql2',connection:{...adminConnection,database:name,timezone:'Z'},pool:{min:0,max:6}});databases.push(db);
-  await identitySchema(db);await v1Schema(db);await entrySchema(db);
+  if(process.env.PHP81_CANONICAL==='true')await canonicalFixture({php,args:phpArgs,connection:adminConnection,schema:name,directory});
+  else{await identitySchema(db);await v1Schema(db);await entrySchema(db);}
   const identity=createIdentityService(db);await identity.bootstrap({username:primary,displayName:'Synthetic PHP6 administrator',password});
   const [owner]=await db('users').where({id:1});for(const [id,user,role]of [[2,'inventory','inventory'],[3,secondary,'administrator']]){await db('users').insert({...owner,id,login_key:user,display_name:user});await db('user_roles').insert({user_id:id,role_code:role});}
   await db('v1_control').where({id:1}).update({operator_id:'1',state:'READY',cutover_evidence:'Isolated PHP-6 acceptance only'});

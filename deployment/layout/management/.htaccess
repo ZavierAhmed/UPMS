@@ -1,0 +1,17 @@
+Options -Indexes -MultiViews
+RewriteEngine On
+RewriteRule (^|/)\. - [F,END]
+RewriteCond %{HTTP_HOST} !^app\.unique-plastic\.com$ [NC]
+RewriteRule ^ - [F,END]
+RewriteRule (^|/)(\.|vendor|storage|config|bootstrap|scripts|backups|composer\.(json|lock))(?:/|$) - [F,END,NC]
+RewriteRule ^api/v1/management(?:/.*)?$ gateway.php [END]
+RewriteRule ^api(?:/|$) - [F,END,NC]
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [END]
+RewriteRule ^ index.html [END]
+Header always set Cache-Control "no-store"
+Header always set X-Robots-Tag "noindex, nofollow"
+Header always set X-Content-Type-Options "nosniff"
+Header always set X-Frame-Options "DENY"
+Header always set Referrer-Policy "same-origin"
+Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'"

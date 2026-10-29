@@ -6,6 +6,7 @@ return [
     // Default synthetic profile; verified private production configuration is separate.
     'enabled' => env('UPMS_ENABLED', false),
     'production_profile' => env('UPMS_PRODUCTION_PROFILE'),
+    'enforce_host_boundary' => env('UPMS_ENFORCE_HOST_BOUNDARY', false),
     'host' => env('UPMS_DB_HOST'),
     'port' => env('UPMS_DB_PORT'),
     'database' => env('UPMS_DB_DATABASE'),

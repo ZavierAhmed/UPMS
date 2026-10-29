@@ -1,0 +1,22 @@
+{
+  "status": "REVIEW_ONLY_NOT_EXECUTABLE",
+  "runtime": {
+    "select": "All 19 canonical application tables plus upms_production_migrations",
+    "insert": ["sessions", "login_attempts", "identity_audit_events", "v1_items", "v1_stock", "v1_parties", "v1_documents", "v1_lines", "v1_stock_journal", "v1_party_journal", "v1_audit", "v1_commands"],
+    "delete": ["sessions", "login_attempts"],
+    "updateColumns": {
+      "users": ["password_hash", "authorization_version", "updated_at"],
+      "v1_control": ["next_dc", "next_item_code"],
+      "v1_items": ["description", "quality", "colour", "packing", "remarks", "active", "version", "selling_price"],
+      "v1_parties": ["name", "phone", "address", "remarks", "active", "version", "opening_verified"],
+      "v1_stock": ["quantity", "verified"],
+      "v1_documents": ["kind", "date", "party_id", "status", "version", "payload", "total", "corrects_id", "official_number", "sequence", "sale_subtotal", "discount_mode", "discount_value", "discount_amount"]
+    },
+    "sessionTables": "SELECT/INSERT/UPDATE/DELETE for sessions and login_attempts only",
+    "denied": ["DDL", "GRANT", "migration receipt writes", "control state/operator writes", "journal UPDATE/DELETE", "blanket ALL PRIVILEGES"],
+    "residual": "Shared SQL credentials cannot enforce per-application-user password-row scope or posted-row immutability by these column grants alone; explicit owner disposition remains required."
+  },
+  "maintenance": "Separate temporary identity: SELECT plus approved-target CREATE/ALTER/INDEX/REFERENCES and only required initialization/catalog/user/role/session-revocation/audit/control/receipt writes. No DROP/TRUNCATE/reset or general application usage. Revoke after the approved operation.",
+  "backup": "Separate reviewed source-only account with complete SELECT and required object-definition/trigger/routine/event metadata capabilities. Verify exact actual object coverage and restore permissions with provider; do not assume cPanel can grant the needed granularity.",
+  "actualAccountsVerified": false
+}

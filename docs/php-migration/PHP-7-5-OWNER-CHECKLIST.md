@@ -214,3 +214,7 @@ identity plan, backup/rollback evidence and remaining risk decisions.
 ## PHP-8 manual hosting action
 
 Follow deployment/manual/README.md and return sanitized capability results. Do not send passwords or session URLs. No live provisioning/deployment/record changes are authorized. Current local evidence is in PHP-8-TEST-RESULTS.md.
+
+## PHP-8.1 remaining owner evidence
+
+Use deployment/manual/PHP-8-1-README.md for consolidated remaining checks. Return sanitized results only. No passwords/dumps/session tokens in chat. Exact new target/quota, protected transport, web/runtime/root behavior, SMTP, restored complete backup and final operation approvals remain outstanding. No live changes are authorized.

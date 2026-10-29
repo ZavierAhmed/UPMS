@@ -1,0 +1,26 @@
+{
+  "enabled": false,
+  "hostingVerified": false,
+  "backupRestoreVerified": false,
+  "mode": "approved-production-runtime",
+  "reference": "REPLACE_AFTER_REVIEW",
+  "privateRoot": "",
+  "publicRoot": "",
+  "managementRoot": "",
+  "schema": "",
+  "user": "",
+  "account": "",
+  "passwordFile": "",
+  "serverVersion": "",
+  "serverId": "",
+  "origin": "https://app.unique-plastic.com",
+  "operators": {
+    "admin": "",
+    "haris": ""
+  },
+  "transport": "unix_socket",
+  "socket": "",
+  "socketOwnerUid": "",
+  "serverHostname": "",
+  "localSocketVerified": false
+}

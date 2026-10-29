@@ -1,0 +1,148 @@
+{
+  "version": "php81-clean-v1",
+  "sourceMigrations": [
+    "202610210001_identity",
+    "202610240001_simple_v1",
+    "202610240002_entry_fixes"
+  ],
+  "tables": [
+    {
+      "table": "identity_guard",
+      "sql": "CREATE TABLE `identity_guard` (\n  `id` int(11) NOT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "table": "users",
+      "sql": "CREATE TABLE `users` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `login_key` varchar(64) NOT NULL,\n  `display_name` varchar(100) NOT NULL,\n  `password_hash` varchar(255) NOT NULL,\n  `enabled` tinyint(1) NOT NULL DEFAULT 1,\n  `authorization_version` int(10) unsigned NOT NULL DEFAULT 1,\n  `created_at` datetime(6) NOT NULL,\n  `updated_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `users_login_key_unique` (`login_key`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "table": "roles",
+      "sql": "CREATE TABLE `roles` (\n  `code` varchar(32) NOT NULL,\n  `name` varchar(64) NOT NULL,\n  PRIMARY KEY (`code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "table": "permissions",
+      "sql": "CREATE TABLE `permissions` (\n  `code` varchar(64) NOT NULL,\n  PRIMARY KEY (`code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "table": "user_roles",
+      "sql": "CREATE TABLE `user_roles` (\n  `user_id` bigint(20) unsigned NOT NULL,\n  `role_code` varchar(32) NOT NULL,\n  PRIMARY KEY (`user_id`,`role_code`),\n  KEY `user_roles_role_code_foreign` (`role_code`),\n  CONSTRAINT `user_roles_role_code_foreign` FOREIGN KEY (`role_code`) REFERENCES `roles` (`code`),\n  CONSTRAINT `user_roles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "table": "role_permissions",
+      "sql": "CREATE TABLE `role_permissions` (\n  `role_code` varchar(32) NOT NULL,\n  `permission_code` varchar(64) NOT NULL,\n  PRIMARY KEY (`role_code`,`permission_code`),\n  KEY `role_permissions_permission_code_foreign` (`permission_code`),\n  CONSTRAINT `role_permissions_permission_code_foreign` FOREIGN KEY (`permission_code`) REFERENCES `permissions` (`code`),\n  CONSTRAINT `role_permissions_role_code_foreign` FOREIGN KEY (`role_code`) REFERENCES `roles` (`code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "table": "sessions",
+      "sql": "CREATE TABLE `sessions` (\n  `token_hash` varchar(64) NOT NULL,\n  `user_id` bigint(20) unsigned DEFAULT NULL,\n  `data` text NOT NULL,\n  `idle_expires` bigint(20) NOT NULL,\n  `absolute_expires` bigint(20) NOT NULL,\n  `revoked` tinyint(1) NOT NULL DEFAULT 0,\n  PRIMARY KEY (`token_hash`),\n  KEY `sessions_user_id_index` (`user_id`),\n  KEY `sessions_idle_expires_index` (`idle_expires`),\n  KEY `sessions_absolute_expires_index` (`absolute_expires`),\n  CONSTRAINT `sessions_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "table": "identity_audit_events",
+      "sql": "CREATE TABLE `identity_audit_events` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `actor_id` bigint(20) unsigned DEFAULT NULL,\n  `target_id` bigint(20) unsigned DEFAULT NULL,\n  `action` varchar(64) NOT NULL,\n  `correlation` varchar(64) NOT NULL,\n  `details` text NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  KEY `identity_audit_events_actor_id_foreign` (`actor_id`),\n  KEY `identity_audit_events_target_id_id_index` (`target_id`,`id`),\n  CONSTRAINT `identity_audit_events_actor_id_foreign` FOREIGN KEY (`actor_id`) REFERENCES `users` (`id`),\n  CONSTRAINT `identity_audit_events_target_id_foreign` FOREIGN KEY (`target_id`) REFERENCES `users` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "table": "login_attempts",
+      "sql": "CREATE TABLE `login_attempts` (\n  `bucket` varchar(64) NOT NULL,\n  `window_start` bigint(20) NOT NULL,\n  `attempts` int(10) unsigned NOT NULL,\n  PRIMARY KEY (`bucket`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "table": "v1_control",
+      "sql": "CREATE TABLE `v1_control` (\n  `id` int(11) NOT NULL,\n  `version` int(11) NOT NULL,\n  `operator_id` bigint(20) unsigned DEFAULT NULL,\n  `state` varchar(20) NOT NULL,\n  `next_dc` int(10) unsigned NOT NULL,\n  `cutover_evidence` text DEFAULT NULL,\n  `entry_version` int(11) NOT NULL DEFAULT 2,\n  `next_item_code` bigint(20) unsigned NOT NULL DEFAULT 1,\n  PRIMARY KEY (`id`),\n  KEY `v1_control_operator_id_foreign` (`operator_id`),\n  CONSTRAINT `v1_control_operator_id_foreign` FOREIGN KEY (`operator_id`) REFERENCES `users` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "table": "v1_items",
+      "sql": "CREATE TABLE `v1_items` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `code` varchar(64) NOT NULL,\n  `description` varchar(200) NOT NULL,\n  `quality` varchar(100) NOT NULL,\n  `colour` varchar(100) NOT NULL,\n  `packing` varchar(100) NOT NULL,\n  `remarks` text NOT NULL,\n  `active` tinyint(1) NOT NULL,\n  `version` int(11) NOT NULL,\n  `selling_price` decimal(18,2) DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `v1_items_code_unique` (`code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "table": "v1_parties",
+      "sql": "CREATE TABLE `v1_parties` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `kind` varchar(10) NOT NULL,\n  `name` varchar(150) NOT NULL,\n  `phone` varchar(64) NOT NULL,\n  `address` text NOT NULL,\n  `remarks` text NOT NULL,\n  `active` tinyint(1) NOT NULL,\n  `opening_verified` tinyint(1) NOT NULL DEFAULT 0,\n  `version` int(11) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `v1_parties_kind_name_unique` (`kind`,`name`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "table": "v1_stock",
+      "sql": "CREATE TABLE `v1_stock` (\n  `item_id` bigint(20) unsigned NOT NULL,\n  `quantity` decimal(18,0) NOT NULL DEFAULT 0,\n  `verified` tinyint(1) NOT NULL DEFAULT 0,\n  PRIMARY KEY (`item_id`),\n  CONSTRAINT `v1_stock_item_id_foreign` FOREIGN KEY (`item_id`) REFERENCES `v1_items` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "table": "v1_documents",
+      "sql": "CREATE TABLE `v1_documents` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `kind` varchar(30) NOT NULL,\n  `date` date NOT NULL,\n  `party_id` bigint(20) unsigned DEFAULT NULL,\n  `status` varchar(12) NOT NULL,\n  `version` int(11) NOT NULL,\n  `payload` longtext NOT NULL,\n  `official_number` varchar(24) DEFAULT NULL,\n  `sequence` int(10) unsigned DEFAULT NULL,\n  `total` decimal(18,2) NOT NULL DEFAULT 0.00,\n  `corrects_id` bigint(20) unsigned DEFAULT NULL,\n  `actor_id` bigint(20) unsigned NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  `sale_subtotal` decimal(18,2) DEFAULT NULL,\n  `discount_mode` varchar(12) DEFAULT NULL,\n  `discount_value` decimal(18,2) DEFAULT NULL,\n  `discount_amount` decimal(18,2) DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `v1_documents_official_number_unique` (`official_number`),\n  UNIQUE KEY `v1_documents_sequence_unique` (`sequence`),\n  UNIQUE KEY `v1_documents_corrects_id_unique` (`corrects_id`),\n  KEY `v1_documents_party_id_foreign` (`party_id`),\n  KEY `v1_documents_actor_id_foreign` (`actor_id`),\n  CONSTRAINT `v1_documents_actor_id_foreign` FOREIGN KEY (`actor_id`) REFERENCES `users` (`id`),\n  CONSTRAINT `v1_documents_corrects_id_foreign` FOREIGN KEY (`corrects_id`) REFERENCES `v1_documents` (`id`),\n  CONSTRAINT `v1_documents_party_id_foreign` FOREIGN KEY (`party_id`) REFERENCES `v1_parties` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "table": "v1_lines",
+      "sql": "CREATE TABLE `v1_lines` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `document_id` bigint(20) unsigned NOT NULL,\n  `line_no` int(11) NOT NULL,\n  `item_id` bigint(20) unsigned NOT NULL,\n  `snapshot` text NOT NULL,\n  `quantity` decimal(18,0) NOT NULL,\n  `rate` decimal(18,2) NOT NULL,\n  `amount` decimal(18,2) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `v1_lines_document_id_line_no_unique` (`document_id`,`line_no`),\n  KEY `v1_lines_item_id_foreign` (`item_id`),\n  CONSTRAINT `v1_lines_document_id_foreign` FOREIGN KEY (`document_id`) REFERENCES `v1_documents` (`id`),\n  CONSTRAINT `v1_lines_item_id_foreign` FOREIGN KEY (`item_id`) REFERENCES `v1_items` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "table": "v1_stock_journal",
+      "sql": "CREATE TABLE `v1_stock_journal` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `document_id` bigint(20) unsigned NOT NULL,\n  `item_id` bigint(20) unsigned NOT NULL,\n  `delta` decimal(18,0) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `v1_stock_journal_document_id_item_id_unique` (`document_id`,`item_id`),\n  KEY `v1_stock_journal_item_id_foreign` (`item_id`),\n  CONSTRAINT `v1_stock_journal_document_id_foreign` FOREIGN KEY (`document_id`) REFERENCES `v1_documents` (`id`),\n  CONSTRAINT `v1_stock_journal_item_id_foreign` FOREIGN KEY (`item_id`) REFERENCES `v1_items` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "table": "v1_party_journal",
+      "sql": "CREATE TABLE `v1_party_journal` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `document_id` bigint(20) unsigned NOT NULL,\n  `party_id` bigint(20) unsigned NOT NULL,\n  `debit` decimal(18,2) NOT NULL,\n  `credit` decimal(18,2) NOT NULL,\n  `particulars` varchar(200) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `v1_party_journal_document_id_party_id_unique` (`document_id`,`party_id`),\n  KEY `v1_party_journal_party_id_foreign` (`party_id`),\n  CONSTRAINT `v1_party_journal_document_id_foreign` FOREIGN KEY (`document_id`) REFERENCES `v1_documents` (`id`),\n  CONSTRAINT `v1_party_journal_party_id_foreign` FOREIGN KEY (`party_id`) REFERENCES `v1_parties` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "table": "v1_audit",
+      "sql": "CREATE TABLE `v1_audit` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `actor_id` bigint(20) unsigned NOT NULL,\n  `action` varchar(64) NOT NULL,\n  `reference` varchar(100) NOT NULL,\n  `reason` text NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  KEY `v1_audit_actor_id_foreign` (`actor_id`),\n  CONSTRAINT `v1_audit_actor_id_foreign` FOREIGN KEY (`actor_id`) REFERENCES `users` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "table": "v1_commands",
+      "sql": "CREATE TABLE `v1_commands` (\n  `key` varchar(36) NOT NULL,\n  `actor_id` bigint(20) unsigned NOT NULL,\n  `fingerprint` varchar(64) NOT NULL,\n  `result` longtext NOT NULL,\n  PRIMARY KEY (`key`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    }
+  ],
+  "roles": [
+    {
+      "code": "administrator",
+      "name": "Administrator",
+      "permissions": [
+        "portal.access",
+        "profile.read",
+        "profile.password",
+        "sessions.self",
+        "users.read",
+        "users.create",
+        "users.update",
+        "roles.read",
+        "roles.assign",
+        "audit.read",
+        "sessions.revoke"
+      ]
+    },
+    {
+      "code": "inventory",
+      "name": "Inventory",
+      "permissions": [
+        "portal.access",
+        "profile.read",
+        "profile.password",
+        "sessions.self"
+      ]
+    },
+    {
+      "code": "sales_dispatch",
+      "name": "Sales/Dispatch",
+      "permissions": [
+        "portal.access",
+        "profile.read",
+        "profile.password",
+        "sessions.self"
+      ]
+    },
+    {
+      "code": "accounts",
+      "name": "Accounts",
+      "permissions": [
+        "portal.access",
+        "profile.read",
+        "profile.password",
+        "sessions.self"
+      ]
+    }
+  ],
+  "permissions": [
+    "portal.access",
+    "profile.read",
+    "profile.password",
+    "sessions.self",
+    "users.read",
+    "users.create",
+    "users.update",
+    "roles.read",
+    "roles.assign",
+    "audit.read",
+    "sessions.revoke"
+  ]
+}

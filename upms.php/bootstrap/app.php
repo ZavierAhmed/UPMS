@@ -19,7 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->prepend([ManagementHeaders::class, PublicInquiries::class]);
+        $middleware->prepend([\App\Http\Middleware\HostBoundary::class, ManagementHeaders::class, PublicInquiries::class]);
         $middleware->remove([
             TrimStrings::class,
             ConvertEmptyStringsToNull::class,

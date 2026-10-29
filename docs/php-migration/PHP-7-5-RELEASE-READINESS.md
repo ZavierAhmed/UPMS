@@ -80,3 +80,7 @@ Unique Plastic identity/assets remain intact.
 ## PHP-8 local continuation
 
 Safe local dual-admin/provisioning/profile preparation and manual hosting scripts are implemented. See PHP-8-LOCAL-PREPARATION.md and PHP-8-TEST-RESULTS.md. Production access/cutover remains blocked; no owner records changed. Await sanitized manual reports per deployment/manual/README.md.
+
+## PHP-8.1 clean start preparation
+
+The owner classifies old GoDaddy upms as disposable; new production starts without its business rows, while old data/backups remain untouched until separate approval. See PHP-8-1-CLEAN-PRODUCTION-PLAN.md and PHP-8-1-DEPLOYMENT-READINESS.md. Local canonical initialization, two-admin acceptance and Linux staging verification pass; actual hosting transport/trust/grants/backup and activation remain blocked.

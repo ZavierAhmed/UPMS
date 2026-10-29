@@ -44,19 +44,16 @@ final class Database
     private function production(string $path): PDO
     {
         $c = ProductionProfile::load($path);
-        $pdo = new PDO('mysql:host='.$c['host'].';port='.$c['port'].';dbname='.$c['schema'].';charset=utf8mb4', $c['user'], $c['password'], [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_EMULATE_PREPARES => false,
-            PDO::ATTR_STRINGIFY_FETCHES => false,
-            PDO::ATTR_TIMEOUT => 3,
-            PDO::MYSQL_ATTR_MULTI_STATEMENTS => false,
-            PDO::MYSQL_ATTR_SSL_CA => $c['caFile'],
-            PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => true,
-        ]);
-        $target = $pdo->query('SELECT VERSION() version,DATABASE() schema_name,CURRENT_USER() account,@@server_id server_id,@@character_set_database charset_name')->fetch(PDO::FETCH_ASSOC);
-        $ssl = $pdo->query("SHOW SESSION STATUS LIKE 'Ssl_cipher'")->fetch(PDO::FETCH_ASSOC);
-        if ($target['version'] !== $c['serverVersion'] || $target['schema_name'] !== $c['schema'] || $target['account'] !== $c['account'] || (string) $target['server_id'] !== $c['serverId'] || $target['charset_name'] !== 'utf8mb4' || empty($ssl['Value'])) {
-            throw new ApiError(503, 'PRODUCTION_IDENTITY_REJECTED');
+        $pdo = ProductionConnection::connect($c);
+        if ($pdo->query('SELECT @@character_set_database')->fetchColumn() !== 'utf8mb4') {
+            throw new ApiError(503, 'PRODUCTION_CHARSET_REJECTED');
+        }
+        if ((int) $pdo->query("SELECT COUNT(*) FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='upms_production_migrations'")->fetchColumn() !== 1) {
+            throw new ApiError(503, 'CLEAN_ACTIVATION_RECEIPT_REQUIRED');
+        }
+        $receipt = $pdo->query('SELECT reference,plan_hash,target_hash,state FROM upms_production_migrations WHERE id=1')->fetch(PDO::FETCH_ASSOC);
+        if (!$receipt || $receipt['state'] !== 'ACTIVATED' || $receipt['reference'] !== $c['reference'] || $receipt['plan_hash'] !== CleanInitialization::hash() || ($receipt['target_hash'] ?? null) !== CleanInitialization::target($pdo)) {
+            throw new ApiError(503, 'CLEAN_ACTIVATION_RECEIPT_REQUIRED');
         }
         $control = $pdo->query('SELECT operator_id,state FROM v1_control WHERE id=1')->fetch(PDO::FETCH_ASSOC);
         if (!$control || $control['state'] !== 'READY') {
