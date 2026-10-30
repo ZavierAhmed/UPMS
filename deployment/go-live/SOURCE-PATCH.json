@@ -55,7 +55,7 @@
     {
       "source": "deployment/go-live/renew-management-ssl.sh",
       "destination": "/home/tsn6az96j3v7/upms-php83-staging/php84-tools/renew-management-ssl.sh",
-      "sha256Lf": "8c009bec3d62fb4b1e0e634015a5b83950c8d688f3bdfb3854731ced999c6f45"
+      "sha256Lf": "04f4442c2ceec964dc382bb473a911ad1dbac124052e6ad23d445bc840939797"
     },
     {
       "source": "deployment/go-live/runtime84-grants.sql",

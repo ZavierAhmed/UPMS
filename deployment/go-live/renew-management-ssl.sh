@@ -16,4 +16,3 @@ cp -p signed-chain.crt signed-chain.previous.crt
 mv signed-chain.next.crt signed-chain.crt
 /opt/alt/php83/usr/bin/php /home/tsn6az96j3v7/upms-php83-staging/php84-tools/install-management-ssl.php
 /usr/bin/curl --fail --silent --show-error --max-time 20 https://app.unique-plastic.com/ >/dev/null
-
