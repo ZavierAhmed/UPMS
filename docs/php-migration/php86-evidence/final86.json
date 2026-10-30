@@ -1,0 +1,29 @@
+{
+    "release": {
+        "passed": true,
+        "filesVerified": 6070,
+        "publishedFilesVerified": 120,
+        "patchSha256": "43c400571ed2bc99a1e8421ec336b7e212817a16665cf7bf172d0f01a50c6909"
+    },
+    "grants": {
+        "passed": true,
+        "policy": "godaddy_database_crud",
+        "account": "upms_runtime84@localhost",
+        "identityMatched": true,
+        "directGrantsOnly": true,
+        "expectedPrivileges": 4,
+        "actualPrivileges": 4,
+        "missing": [],
+        "unexpected": []
+    },
+    "guards": {
+        "passed": true,
+        "triggers": 45,
+        "guardHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+        "definerPrivilegesVerified": true
+    },
+    "databaseReceiptState": "ACTIVATED",
+    "businessControlState": "READY",
+    "verifiedUtc": "2026-10-30T03:43:45+00:00",
+    "passed": true
+}

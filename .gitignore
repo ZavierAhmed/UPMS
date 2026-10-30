@@ -428,3 +428,6 @@ FodyWeavers.xsd
 
 # Private PHP migration runtimes, synthetic databases, credentials and test evidence
 /tmp/php-runtime/
+
+# Protected encrypted off-host backups and DPAPI key material (never commit).
+/tmp/protected-offhost-backups/

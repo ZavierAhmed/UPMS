@@ -1,0 +1,164 @@
+{
+    "passed": true,
+    "checks": [
+        "admin_rotated_login",
+        "haris_rotated_login",
+        "admin_read_state",
+        "admin_read_items",
+        "admin_read_parties?kind=CLIENT",
+        "admin_read_parties?kind=VENDOR",
+        "admin_read_documents",
+        "admin_read_overview",
+        "admin_read_register",
+        "admin_read_movements",
+        "admin_read_reconciliation",
+        "admin_csrf_rejected",
+        "admin_origin_rejected",
+        "admin_identity_mutation_disabled",
+        "admin_read_own_identity",
+        "haris_read_state",
+        "haris_read_items",
+        "haris_read_parties?kind=CLIENT",
+        "haris_read_parties?kind=VENDOR",
+        "haris_read_documents",
+        "haris_read_overview",
+        "haris_read_register",
+        "haris_read_movements",
+        "haris_read_reconciliation",
+        "haris_csrf_rejected",
+        "haris_origin_rejected",
+        "haris_identity_mutation_disabled",
+        "haris_read_own_identity",
+        "admin_logout",
+        "haris_independent_after_admin_logout",
+        "haris_logout",
+        "business_unchanged"
+    ],
+    "checkCount": 32,
+    "initialRotationChecks": [
+        "admin_bootstrap",
+        "admin_initial_login",
+        "admin_mandatory_change",
+        "admin_csrf_rejection",
+        "admin_origin_rejection",
+        "admin_password_change",
+        "admin_old_session_revoked",
+        "admin_new_password_login",
+        "haris_bootstrap",
+        "haris_initial_login",
+        "haris_mandatory_change",
+        "haris_csrf_rejection",
+        "haris_origin_rejection",
+        "haris_password_change",
+        "haris_old_session_revoked",
+        "haris_new_password_login",
+        "admin_independent_session"
+    ],
+    "initialHarnessFailure": "Initial request omitted required parties kind; actual API returned INVALID_PARTY_KIND 400. Correct CLIENT\/VENDOR queries pass.",
+    "identities": {
+        "admin": "1",
+        "haris": "2"
+    },
+    "passwordChanges": {
+        "admin": "COMPLETED",
+        "haris": "COMPLETED"
+    },
+    "cookiePolicyVerified": true,
+    "businessBefore": {
+        "v1_items": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "v1_stock": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "v1_parties": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "v1_documents": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "v1_lines": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "v1_stock_journal": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "v1_party_journal": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "v1_audit": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "v1_commands": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        }
+    },
+    "businessAfter": {
+        "v1_items": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "v1_stock": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "v1_parties": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "v1_documents": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "v1_lines": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "v1_stock_journal": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "v1_party_journal": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "v1_audit": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "v1_commands": {
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        }
+    },
+    "grants": {
+        "passed": true,
+        "policy": "godaddy_database_crud",
+        "account": "upms_runtime84@localhost",
+        "identityMatched": true,
+        "directGrantsOnly": true,
+        "expectedPrivileges": 4,
+        "actualPrivileges": 4,
+        "missing": [],
+        "unexpected": []
+    },
+    "guards": {
+        "passed": true,
+        "triggers": 45,
+        "guardHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+        "definerPrivilegesVerified": true
+    },
+    "smtpDisabled": true,
+    "productionState": "ACTIVATED_READY",
+    "passwordsPrinted": false,
+    "verifiedUtc": "2026-10-30T03:18:43+00:00"
+}

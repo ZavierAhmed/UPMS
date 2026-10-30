@@ -78,3 +78,6 @@ deployment/go-live/* text eol=lf
 
 # PHP-8.5 private CRUD activation tools.
 deployment/go-live85/* text eol=lf
+
+# Private production operations and backup tools.
+deployment/operations/* text eol=lf

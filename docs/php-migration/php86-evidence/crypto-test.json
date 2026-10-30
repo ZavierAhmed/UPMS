@@ -1,0 +1,13 @@
+{
+  "verifiedUtc": "2026-10-30T03:39:57.5951192+00:00",
+  "passed": true,
+  "plaintextWrittenToDisk": false,
+  "privateKeyUploaded": false,
+  "checks": [
+    "valid-archive-authenticated",
+    "modified-ciphertext-rejected",
+    "truncated-final-tag-rejected",
+    "trailing-bytes-rejected"
+  ],
+  "originalArchiveUnchanged": true
+}
