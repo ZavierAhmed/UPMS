@@ -1,0 +1,136 @@
+{
+    "passed": true,
+    "readinessDigest": "aea5e4bfa45cb5838aae668209dad2c8c9fff4a40670acc22098cf4ded58e980",
+    "bindings": {
+        "targetHash": "d888452f396c419285b0fda880f5b2543b0b8a73db63a45cac34a9747f7db4ef",
+        "reference": "php84_owner_go_live_20261030",
+        "riskDigest": "32c441964dfdd6003f86126df2f77622f8df12648fe5af3066374eaf6eccbee8",
+        "guardHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+        "releasePatchSha256": "43c400571ed2bc99a1e8421ec336b7e212817a16665cf7bf172d0f01a50c6909",
+        "backupSha256": "f60f00daa167e1dad1c152692101d35abf656d55e1bb82ba478cca1c0658e7ba"
+    },
+    "grants": {
+        "passed": true,
+        "policy": "godaddy_database_crud",
+        "account": "upms_runtime84@localhost",
+        "identityMatched": true,
+        "directGrantsOnly": true,
+        "expectedPrivileges": 4,
+        "actualPrivileges": 4,
+        "missing": [],
+        "unexpected": []
+    },
+    "guards": {
+        "passed": true,
+        "triggers": 45,
+        "guardHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+        "definerPrivilegesVerified": true,
+        "targetHash": "d888452f396c419285b0fda880f5b2543b0b8a73db63a45cac34a9747f7db4ef"
+    },
+    "accounts": {
+        "verified": true,
+        "users": [
+            {
+                "id": 1,
+                "login_key": "admin",
+                "display_name": "Admin",
+                "enabled": 1,
+                "passwordChangeRequired": true,
+                "role": "administrator"
+            },
+            {
+                "id": 2,
+                "login_key": "haris",
+                "display_name": "Haris",
+                "enabled": 1,
+                "passwordChangeRequired": true,
+                "role": "administrator"
+            }
+        ],
+        "applicationUserCount": 2,
+        "businessRows": 0,
+        "posting": "DISABLED",
+        "credentialsPrinted": false
+    },
+    "recovery": {
+        "passed": true,
+        "backupSha256": "f60f00daa167e1dad1c152692101d35abf656d55e1bb82ba478cca1c0658e7ba",
+        "restoreReference": "php84_new_production_restore_20261030",
+        "tables": 20,
+        "recoveryIncludesGuardRestoreProcedure": true
+    },
+    "release": {
+        "passed": true,
+        "filesVerified": 6070,
+        "publishedFilesVerified": 120,
+        "patchSha256": "43c400571ed2bc99a1e8421ec336b7e212817a16665cf7bf172d0f01a50c6909"
+    },
+    "https": {
+        "unique-plastic.com": true,
+        "app.unique-plastic.com": true
+    },
+    "negativeTests": {
+        "passed": true,
+        "checks": 91,
+        "guardHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+        "allGuardEventsExecuted": 45,
+        "cookieFlagsVerified": true,
+        "syntheticSchema": "upms_security85",
+        "kernel": "Laravel CLI HTTP kernel, not Apache",
+        "syntheticPositiveWorkflows": [
+            "stock-opening",
+            "client-opening",
+            "challan",
+            "client-payment",
+            "expense"
+        ],
+        "productionWrites": 0,
+        "negativeApiBusinessChanges": 0,
+        "verifiedUtc": "2026-10-30T02:39:15+00:00"
+    },
+    "hostedChecks": 30,
+    "liveProtection": {
+        "passed": true,
+        "liveRejections": 28,
+        "guardDefinitionsVerified": 45,
+        "guardHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+        "grants": {
+            "passed": true,
+            "policy": "godaddy_database_crud",
+            "account": "upms_runtime84@localhost",
+            "identityMatched": true,
+            "directGrantsOnly": true,
+            "expectedPrivileges": 4,
+            "actualPrivileges": 4,
+            "missing": [],
+            "unexpected": []
+        },
+        "businessRows": {
+            "v1_items": 0,
+            "v1_stock": 0,
+            "v1_parties": 0,
+            "v1_documents": 0,
+            "v1_lines": 0,
+            "v1_stock_journal": 0,
+            "v1_party_journal": 0,
+            "v1_audit": 0,
+            "v1_commands": 0
+        },
+        "accountCount": 2,
+        "backupStillMatchesAllRecords": true,
+        "businessProbeRecordsCreated": 0,
+        "committedApplicationWrites": 0,
+        "emptyFinancialGuardExecution": "All financial guard events executed on isolated GoDaddy schema; production definitions verified exactly without inserting financial rows.",
+        "verifiedUtc": "2026-10-30T02:29:48+00:00"
+    },
+    "databaseReceiptState": "BOUND",
+    "businessControlState": "PENDING",
+    "productionState": "BOUND_PENDING_DISABLED",
+    "activationApproved": false,
+    "residualRisks": [
+        "DIRECT_SQL_CAN_FABRICATE_NEW_INSERTS",
+        "SHARED_SQL_CAN_CHANGE_ANY_PASSWORD_ROW",
+        "MUTABLE_STOCK_COUNTERS_AND_SESSIONS_REMAIN_WRITABLE"
+    ],
+    "verifiedUtc": "2026-10-30T02:54:29+00:00"
+}

@@ -75,3 +75,6 @@ scripts/php-8-3-*.py text eol=lf
 
 # Private go-live tools must remain POSIX-safe across checkouts.
 deployment/go-live/* text eol=lf
+
+# PHP-8.5 private CRUD activation tools.
+deployment/go-live85/* text eol=lf

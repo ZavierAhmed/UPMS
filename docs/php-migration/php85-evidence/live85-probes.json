@@ -1,0 +1,34 @@
+{
+    "passed": true,
+    "liveRejections": 28,
+    "guardDefinitionsVerified": 45,
+    "guardHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+    "grants": {
+        "passed": true,
+        "policy": "godaddy_database_crud",
+        "account": "upms_runtime84@localhost",
+        "identityMatched": true,
+        "directGrantsOnly": true,
+        "expectedPrivileges": 4,
+        "actualPrivileges": 4,
+        "missing": [],
+        "unexpected": []
+    },
+    "businessRows": {
+        "v1_items": 0,
+        "v1_stock": 0,
+        "v1_parties": 0,
+        "v1_documents": 0,
+        "v1_lines": 0,
+        "v1_stock_journal": 0,
+        "v1_party_journal": 0,
+        "v1_audit": 0,
+        "v1_commands": 0
+    },
+    "accountCount": 2,
+    "backupStillMatchesAllRecords": true,
+    "businessProbeRecordsCreated": 0,
+    "committedApplicationWrites": 0,
+    "emptyFinancialGuardExecution": "All financial guard events executed on isolated GoDaddy schema; production definitions verified exactly without inserting financial rows.",
+    "verifiedUtc": "2026-10-30T02:29:48+00:00"
+}

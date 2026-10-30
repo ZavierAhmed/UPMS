@@ -1,0 +1,19 @@
+{
+    "passed": true,
+    "checks": 91,
+    "guardHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+    "allGuardEventsExecuted": 45,
+    "cookieFlagsVerified": true,
+    "syntheticSchema": "upms_security85",
+    "kernel": "Laravel CLI HTTP kernel, not Apache",
+    "syntheticPositiveWorkflows": [
+        "stock-opening",
+        "client-opening",
+        "challan",
+        "client-payment",
+        "expense"
+    ],
+    "productionWrites": 0,
+    "negativeApiBusinessChanges": 0,
+    "verifiedUtc": "2026-10-30T02:39:15+00:00"
+}

@@ -45,6 +45,13 @@ final class Database
     {
         $c = ProductionProfile::load($path);
         $pdo = ProductionConnection::connect($c);
+        $grantReport = RuntimePrivileges::verify($pdo, $c);
+        if (!$grantReport['passed']) {
+            throw new ApiError(503, 'PRODUCTION_PRIVILEGES_REJECTED');
+        }
+        if (($c['privilegePolicy'] ?? RuntimePrivileges::STRICT) === RuntimePrivileges::GODADDY) {
+            CrudRiskApproval::verify($pdo, $c);
+        }
         if ($pdo->query('SELECT @@character_set_database')->fetchColumn() !== 'utf8mb4') {
             throw new ApiError(503, 'PRODUCTION_CHARSET_REJECTED');
         }

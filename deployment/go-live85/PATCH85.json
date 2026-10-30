@@ -1,0 +1,222 @@
+{
+  "baseline": "17601a70172287a8111f7b8acb8a8eb6bb493869",
+  "hashEncoding": "SHA-256 after CRLF to LF normalization",
+  "files": [
+    {
+      "source": "upms.php/app/Upms/LegacyRecoveryWaiver.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php84-release/private/backend/app/Upms/LegacyRecoveryWaiver.php",
+      "deploy": false,
+      "sha256Lf": "7c9bbd9a30595528ff18d5c12498c8273182ad85bf1b6829950a04a5bf29e726"
+    },
+    {
+      "source": "upms.php/app/Upms/ProductionProfile.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php84-release/private/backend/app/Upms/ProductionProfile.php",
+      "deploy": true,
+      "sha256Lf": "2f9b8fffa32f0e6fb2e46b2cf51c189fda03ab25806f60147b3f56d1523681f9"
+    },
+    {
+      "source": "upms.php/app/Upms/MaintenanceApproval.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php84-release/private/backend/app/Upms/MaintenanceApproval.php",
+      "deploy": false,
+      "sha256Lf": "993f9452a9a0f3e01cfb18b59eea809c49e9cffc8ebc6a49d0dddd5e19c6afb5"
+    },
+    {
+      "source": "upms.php/app/Upms/CleanSqlImport.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php84-release/private/backend/app/Upms/CleanSqlImport.php",
+      "deploy": false,
+      "sha256Lf": "a264c0c3006ad7a0728805e0534a96fec87b9d861600c463e2adbb26e252d49f"
+    },
+    {
+      "source": "upms.php/app/Upms/AdminProvisioning.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php84-release/private/backend/app/Upms/AdminProvisioning.php",
+      "deploy": false,
+      "sha256Lf": "4b4e59a9525037082f5be74e9b6d93a11d2382f1d5298585bdaff1bd5d59c9a5"
+    },
+    {
+      "source": "upms.php/scripts/provision-admins.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php84-release/private/backend/scripts/provision-admins.php",
+      "deploy": false,
+      "sha256Lf": "ae5551b316fd43e4ebc58b2fddc5be77a652f894cefab73d990cb9168a9d173f"
+    },
+    {
+      "source": "deployment/go-live/install-management-ssl.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php84-tools/install-management-ssl.php",
+      "deploy": false,
+      "sha256Lf": "efa1a274c5880fbc2c524f9ac68514c61058672f4d663c3ed7901b8726640f18"
+    },
+    {
+      "source": "deployment/go-live/prepare-maintenance.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php84-tools/prepare-maintenance.php",
+      "deploy": false,
+      "sha256Lf": "4f7ac8c31f9d6b4de2e5802561c8674656327b99acdf5d78ee54e46af34ca26b"
+    },
+    {
+      "source": "deployment/go-live/prepare-runtime.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php84-tools/prepare-runtime.php",
+      "deploy": false,
+      "sha256Lf": "6248ab8f706ef88987e31b5a4eb5f632a4c356161c5149b6abdfce8a7c1280e4"
+    },
+    {
+      "source": "deployment/go-live/publish.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php84-tools/publish.php",
+      "deploy": false,
+      "sha256Lf": "d0b3c4e4823181a26e3e0433a5ead756a880e62051022927f4c72881c0cdc8df"
+    },
+    {
+      "source": "deployment/go-live/renew-management-ssl.sh",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php84-tools/renew-management-ssl.sh",
+      "deploy": false,
+      "sha256Lf": "04f4442c2ceec964dc382bb473a911ad1dbac124052e6ad23d445bc840939797"
+    },
+    {
+      "source": "deployment/go-live/runtime84-grants.sql",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php84-tools/runtime84-grants.sql",
+      "deploy": false,
+      "sha256Lf": "b8a37c029fc3614d7a7de1d54281ad22dc2398788c2e5267ccbdcf7c04b949ee"
+    },
+    {
+      "source": "deployment/go-live/runtime84-policy.json",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php84-tools/runtime84-policy.json",
+      "deploy": false,
+      "sha256Lf": "da2777d05e444e122c4ff5cb136d9a6d6c957ddb4f991ec9a5c11bed987e13f7"
+    },
+    {
+      "source": "deployment/go-live/schedule-renewal.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php84-tools/schedule-renewal.php",
+      "deploy": false,
+      "sha256Lf": "5a4d31eb4f9dc0b5c749d0b8bda934e0701674f4ea611a91be050dc540b9d422"
+    },
+    {
+      "source": "deployment/go-live/support.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php84-tools/support.php",
+      "deploy": false,
+      "sha256Lf": "796e7c1756a8530d6b749847e930114f8487b7deccb042e465250175e0848eb6"
+    },
+    {
+      "source": "deployment/go-live/verify-hosted.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php84-tools/verify-hosted.php",
+      "deploy": false,
+      "sha256Lf": "fee687d2d968ca4387bad6bc5eb8bdb5b09f2cac85cb171c4aa210a0bd0d7c44"
+    },
+    {
+      "source": "deployment/go-live/verify-new-recovery.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php84-tools/verify-new-recovery.php",
+      "deploy": false,
+      "sha256Lf": "bf1a176ac9df65544a81fd093f15e489bcaa88f28dd43753b71474350b985e95"
+    },
+    {
+      "source": "deployment/go-live/verify-runtime-grants.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php84-tools/verify-runtime-grants.php",
+      "deploy": false,
+      "sha256Lf": "f7282352cce518106c3e3d704b896017a33bb4ce0b004c5827c6f66bace38112"
+    },
+    {
+      "source": "deployment/phpmyadmin/finalize-clean-import.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php84-import-tools/finalize-clean-import.php",
+      "deploy": false,
+      "sha256Lf": "f0050424d56f4f3d73106763ee185823f37c1f2f3fd96fd6f26c01dab5fc3b70"
+    },
+    {
+      "source": "deployment/phpmyadmin/verify-clean-import.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php84-import-tools/verify-clean-import.php",
+      "deploy": false,
+      "sha256Lf": "f0050424d56f4f3d73106763ee185823f37c1f2f3fd96fd6f26c01dab5fc3b70"
+    },
+    {
+      "source": "deployment/phpmyadmin/upms-production-clean-manifest.json",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php84-import-tools/upms-production-clean-manifest.json",
+      "deploy": false,
+      "sha256Lf": "1f56b305b84a603895c2baa706a467ba35160e25a1c1843f944df061ff555e2f"
+    },
+    {
+      "source": "upms.php/app/Upms/BusinessRecords.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php84-release/private/backend/app/Upms/BusinessRecords.php",
+      "deploy": true,
+      "sha256Lf": "c7fe33105a6d544e98fff0937ad7b547dc3edd9a3d63e29d99bbddde03525b3f"
+    },
+    {
+      "source": "upms.php/app/Upms/Database.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php84-release/private/backend/app/Upms/Database.php",
+      "deploy": true,
+      "sha256Lf": "426ce79ab891810139b936c090755d191b404501670f5f920528cc5a3b344cff"
+    },
+    {
+      "source": "upms.php/app/Upms/RuntimePrivileges.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php84-release/private/backend/app/Upms/RuntimePrivileges.php",
+      "deploy": true,
+      "sha256Lf": "ca9a977a55ca3201f9187f3999e9b6db5ec37d5e48bfd60894ce118362e9bc9f"
+    },
+    {
+      "source": "upms.php/app/Upms/CrudGuards.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php84-release/private/backend/app/Upms/CrudGuards.php",
+      "deploy": true,
+      "sha256Lf": "16bede06297165ffd48024855be6886fdd788828f4c981e33ff450b4e0ac5a66"
+    },
+    {
+      "source": "upms.php/app/Upms/CrudRiskApproval.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php84-release/private/backend/app/Upms/CrudRiskApproval.php",
+      "deploy": true,
+      "sha256Lf": "bd656cbab3c45eb7d18fb6ba9893ec81e36bcd579cc0c9ec9ce290c160be4df9"
+    },
+    {
+      "source": "upms.php/resources/runtime-privileges.json",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php84-release/private/backend/resources/runtime-privileges.json",
+      "deploy": true,
+      "sha256Lf": "72249c4afb44a6a29e09722b3c079611398437d989635a1c1fd65241f36f0845"
+    },
+    {
+      "source": "deployment/go-live85/activate.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php85-tools/activate.php",
+      "deploy": true,
+      "sha256Lf": "3e910b1634dcd76ba48cf9148b309395e165b836898d55c7d067076410b85e93"
+    },
+    {
+      "source": "deployment/go-live85/install-guards.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php85-tools/install-guards.php",
+      "deploy": true,
+      "sha256Lf": "861460211c9ff26d7bc9fa9b62b89c57ce603681b60e3498bc2169d1879d2de5"
+    },
+    {
+      "source": "deployment/go-live85/readiness-support.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php85-tools/readiness-support.php",
+      "deploy": true,
+      "sha256Lf": "6c36ff96b756a1096bd59341cd96e885c1f8ced11fbdc888ccf307949b869db1"
+    },
+    {
+      "source": "deployment/go-live85/test-host-guards.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php85-tools/test-host-guards.php",
+      "deploy": true,
+      "sha256Lf": "0f55d1addf27af0b57cdac1aa7eaa23311bce84c35c3314e7ba3e4c46ad666dd"
+    },
+    {
+      "source": "deployment/go-live85/test-kernel.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php85-tools/test-kernel.php",
+      "deploy": true,
+      "sha256Lf": "1a18ddb6e2727be71d9a888326d29d03012d6f5b2f9c3f72059a740e04066a6e"
+    },
+    {
+      "source": "deployment/go-live85/test-live-protection.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php85-tools/test-live-protection.php",
+      "deploy": true,
+      "sha256Lf": "bd59c0616baa91fac5e1db3da098225ae1f5ed41740a6c139b14fd084401b2b0"
+    },
+    {
+      "source": "deployment/go-live85/verify-grants.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php85-tools/verify-grants.php",
+      "deploy": true,
+      "sha256Lf": "d447a02daa096c8cd741d4c8b5bd57244275bdcfc613731f675416571f832dc1"
+    },
+    {
+      "source": "deployment/go-live85/verify-hosted.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php85-tools/verify-hosted.php",
+      "deploy": true,
+      "sha256Lf": "d5e376fb9858a746f217e67204ec2292f9182dd422c3460370f740e354474c0a"
+    },
+    {
+      "source": "deployment/go-live85/verify-readiness.php",
+      "destination": "/home/tsn6az96j3v7/upms-php83-staging/php85-tools/verify-readiness.php",
+      "deploy": true,
+      "sha256Lf": "1a5184a3f2ed79346f0bfea62cabdff92d090048fe885a9c67a11e26df098385"
+    }
+  ]
+}

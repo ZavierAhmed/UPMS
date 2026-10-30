@@ -23,7 +23,7 @@ final class ProductionProfile
         if (!$private || is_link($c['privateRoot']) || (PHP_OS_FAMILY !== 'Windows' && (fileperms($private) & 0077))) {
             throw new ApiError(503, 'PRODUCTION_PRIVATE_ROOT_REJECTED');
         }
-        foreach (array_filter([$real, $private, $c['passwordFile'], $c['caFile'] ?? null, $c['approvalFile'] ?? null, $c['credentialsFile'] ?? null, isset($c['credentialsFile']) ? $c['credentialsFile'].'.handoff' : null, $c['receiptFile'] ?? null]) as $candidate) {
+        foreach (array_filter([$real, $private, $c['passwordFile'], $c['caFile'] ?? null, $c['approvalFile'] ?? null, $c['credentialsFile'] ?? null, isset($c['credentialsFile']) ? $c['credentialsFile'].'.handoff' : null, $c['receiptFile'] ?? null, $c['crudRiskApprovalFile'] ?? null, $c['guardEvidenceFile'] ?? null]) as $candidate) {
             $file = realpath($candidate);
             if (!$file && in_array($candidate, [$c['credentialsFile'] ?? null, isset($c['credentialsFile']) ? $c['credentialsFile'].'.handoff' : null, $c['receiptFile'] ?? null], true) && realpath(dirname($candidate))) {
                 $file = realpath(dirname($candidate)).DIRECTORY_SEPARATOR.basename($candidate);
@@ -77,6 +77,11 @@ final class ProductionProfile
         ProductionConnection::transport($c);
         if ($mode !== 'approved-production-runtime') {
             return;
+        }
+        $privilegePolicy = $c['privilegePolicy'] ?? RuntimePrivileges::STRICT;
+        if (!in_array($privilegePolicy, [RuntimePrivileges::STRICT, RuntimePrivileges::GODADDY], true)
+            || ($privilegePolicy === RuntimePrivileges::GODADDY && ($c['schema'] !== 'upms_v1' || $c['account'] !== 'upms_runtime84@localhost' || !is_string($c['crudRiskApprovalFile'] ?? null) || !is_string($c['guardEvidenceFile'] ?? null)))) {
+            throw new ApiError(503, 'PRODUCTION_PRIVILEGE_POLICY_REJECTED');
         }
         // Validate exact designated names/IDs before any connection attempt.
         OperatorPolicy::permits(['username' => 'admin', 'id' => $c['operators']['admin'] ?? ''], ['operator_id' => $c['operators']['admin'] ?? null], ['schema' => $c['schema'], 'users' => $c['operators']], $c['schema']);

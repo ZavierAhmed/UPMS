@@ -1,0 +1,12 @@
+{
+    "passed": true,
+    "triggers": 45,
+    "guardHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+    "targetHash": "d888452f396c419285b0fda880f5b2543b0b8a73db63a45cac34a9747f7db4ef",
+    "recordsBeforeSha256": "0502596152606cd8694af85416db63c1b925f4c7393bb816134d2c9ee1386b1c",
+    "recordsAfterSha256": "0502596152606cd8694af85416db63c1b925f4c7393bb816134d2c9ee1386b1c",
+    "applicationRecordsChanged": false,
+    "runtimeDdlGranted": false,
+    "definerAccount": "upms_guard85@localhost",
+    "verifiedUtc": "2026-10-30T02:27:19+00:00"
+}

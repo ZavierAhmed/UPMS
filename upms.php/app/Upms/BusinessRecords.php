@@ -11,6 +11,16 @@ final class BusinessRecords
     {
     }
 
+    public static function permit(string $table, array $columns, string $operation): void
+    {
+        $p = json_decode(file_get_contents(dirname(__DIR__, 2).'/resources/runtime-privileges.json'), true, 32, JSON_THROW_ON_ERROR);
+        $allowed = $operation === 'insert' ? in_array($table, $p['insert'], true) && !in_array('id', $columns, true)
+            : ($operation === 'update' && isset($p['updateColumns'][$table]) && !array_diff($columns, $p['updateColumns'][$table]));
+        if (!str_starts_with($table, 'v1_') || !$allowed) {
+            throw new \LogicException('Protected business mutation');
+        }
+    }
+
     private function columns(string $table, array $names): string
     {
         if (!str_starts_with($table, 'v1_') || !isset(Schema::TABLES[$table]) || array_diff($names, Schema::TABLES[$table])) {
@@ -21,6 +31,7 @@ final class BusinessRecords
 
     public function insert(string $table, array $record): string
     {
+        self::permit($table, array_keys($record), 'insert');
         $columns = $this->columns($table, array_keys($record));
         $this->db->execute('INSERT INTO `'.$table.'` ('.$columns.') VALUES ('.implode(',', array_fill(0, count($record), '?')).')', array_values($record));
         return $this->db->pdo()->lastInsertId();
@@ -28,6 +39,7 @@ final class BusinessRecords
 
     public function update(string $table, array $record, array $where): void
     {
+        self::permit($table, array_keys($record), 'update');
         if (!$record || !$where) {
             throw new \LogicException('Explicit update fields and predicate required');
         }
@@ -43,6 +55,7 @@ final class BusinessRecords
             return;
         }
         $keys = array_keys($records[0]);
+        self::permit($table, $keys, 'insert');
         $columns = $this->columns($table, $keys);
         $bindings = [];
         foreach ($records as $record) {
