@@ -156,7 +156,21 @@ final class CleanSqlImport
         if ($permissions !== $expected) {
             throw new \RuntimeException('IMPORT_ADMIN_PERMISSIONS_REJECTED');
         }
+        $audit = $pdo->prepare("SELECT details FROM identity_audit_events WHERE action='administrators.provisioned' AND correlation=?");
+        $audit->execute([$reference]);
+        $events = $audit->fetchAll(PDO::FETCH_COLUMN);
+        $expectedIds = ['admin' => (string)$users[0]['id'], 'haris' => (string)$users[1]['id']];
+        if (count($events) !== 1 || (json_decode($events[0], true, 32, JSON_THROW_ON_ERROR)['users'] ?? null) !== $expectedIds) {
+            throw new \RuntimeException('IMPORT_PROVISIONING_AUDIT_REQUIRED');
+        }
         foreach ($users as &$user) {
+            $rotation = $pdo->prepare("SELECT details FROM identity_audit_events WHERE target_id=? AND action IN ('administrator.bootstrap','administrator.rotation.required') ORDER BY id DESC LIMIT 1");
+            $rotation->execute([$user['id']]);
+            $details = $rotation->fetchColumn();
+            if (!$details || (json_decode($details, true, 16, JSON_THROW_ON_ERROR)['requirePasswordChange'] ?? false) !== true) {
+                throw new \RuntimeException('IMPORT_PASSWORD_ROTATION_REQUIRED');
+            }
+            $user['passwordChangeRequired'] = true;
             if ((password_get_info($user['password_hash'])['algoName'] ?? null) !== 'argon2id') {
                 throw new \RuntimeException('IMPORT_PASSWORD_ALGORITHM_REJECTED');
             }unset($user['password_hash']);
@@ -164,7 +178,7 @@ final class CleanSqlImport
         }unset($user);
         return ['verified' => true,'users' => $users,'applicationUserCount' => 2,'businessRows' => 0,'posting' => 'DISABLED','credentialsPrinted' => false];
     }
-    public static function finalize(PDO $pdo, string $reference, string $receiptFile, string $approvedSqlDigest): array
+    public static function finalize(PDO $pdo, string $reference, string $receiptFile, string $approvedSqlDigest, ?array $legacyRecoveryWaiver = null): array
     {
         if (is_link($receiptFile) || is_link($receiptFile.'.pending') || !is_dir(dirname($receiptFile)) || !hash_equals(self::digest(), $approvedSqlDigest) || !preg_match('/^[A-Za-z0-9_-]{12,64}$/D', $reference)) {
             throw new \RuntimeException('IMPORT_FINALIZATION_APPROVAL_REJECTED');
@@ -180,7 +194,7 @@ final class CleanSqlImport
         try {
             $receipt = $pdo->query('SELECT * FROM upms_production_migrations WHERE id=1')->fetch(PDO::FETCH_ASSOC);
             $external = is_file($receiptFile) ? json_decode(file_get_contents($receiptFile), true, 32, JSON_THROW_ON_ERROR) : null;
-            if ($external && (($external['reference'] ?? null) !== $reference || ($external['targetHash'] ?? null) !== $target || ($external['sqlSha256'] ?? null) !== self::digest() || ($external['planHash'] ?? null) !== CleanInitialization::hash() || ($external['schema'] ?? null) !== $schema)) {
+            if ($external && (($external['reference'] ?? null) !== $reference || ($external['targetHash'] ?? null) !== $target || ($external['sqlSha256'] ?? null) !== self::digest() || ($external['planHash'] ?? null) !== CleanInitialization::hash() || ($external['schema'] ?? null) !== $schema || ($external['legacyRecoveryWaiver'] ?? null) !== $legacyRecoveryWaiver)) {
                 throw new \RuntimeException('IMPORT_EXTERNAL_RECEIPT_CONFLICT');
             }
             $already = $receipt && $receipt['state'] === 'SCHEMA_READY' && $receipt['reference'] === $reference && $receipt['target_hash'] === $target && $receipt['plan_hash'] === CleanInitialization::hash() && $receipt['step'] === self::digest();
@@ -194,7 +208,7 @@ final class CleanSqlImport
             if ($external && !in_array($external['state'] ?? null, ['FINALIZATION_INTENT','SCHEMA_READY'], true)) {
                 throw new \RuntimeException('IMPORT_EXTERNAL_STATE_REJECTED');
             }
-            $record = ['schema' => $schema,'reference' => $reference,'planHash' => CleanInitialization::hash(),'targetHash' => $target,'sqlSha256' => self::digest(),'state' => 'FINALIZATION_INTENT'];
+            $record = ['schema' => $schema,'reference' => $reference,'planHash' => CleanInitialization::hash(),'targetHash' => $target,'sqlSha256' => self::digest(),'state' => 'FINALIZATION_INTENT','legacyRecoveryWaiver' => $legacyRecoveryWaiver];
             if (!$external) {
                 CleanInitialization::privateReceipt($receiptFile, $record, true);
             }
@@ -206,7 +220,7 @@ final class CleanSqlImport
                     $q = $pdo->prepare("UPDATE upms_production_migrations SET reference=?,target_hash=?,state='SCHEMA_READY',step=? WHERE id=1");
                     $q->execute([$reference,$target,self::digest()]);
                     $q = $pdo->prepare("INSERT INTO identity_audit_events(actor_id,target_id,action,correlation,details,created_at) VALUES(NULL,NULL,'production.sql-import.finalized',?,?,UTC_TIMESTAMP(6))");
-                    $q->execute([$reference,json_encode(['sqlSha256' => self::digest(),'principal' => $pdo->query('SELECT CURRENT_USER()')->fetchColumn()], JSON_THROW_ON_ERROR)]);
+                    $q->execute([$reference,json_encode(['sqlSha256' => self::digest(),'principal' => $pdo->query('SELECT CURRENT_USER()')->fetchColumn(),'legacyRecoveryWaiver' => $legacyRecoveryWaiver], JSON_THROW_ON_ERROR)]);
                     $pdo->commit();
                 } catch (\Throwable $e) {
                     if ($pdo->inTransaction()) {

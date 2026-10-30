@@ -47,7 +47,7 @@ try {
     if ($finalize) {
         if (!is_string($c['receiptFile'] ?? null) || $c['receiptFile'] === '') {
             throw new RuntimeException('PRIVATE_RECEIPT_REQUIRED');
-        }$result = App\Upms\CleanSqlImport::finalize($pdo, $c['reference'], $c['receiptFile'], $approval['sqlSha256']);
+        }$result = App\Upms\CleanSqlImport::finalize($pdo, $c['reference'], $c['receiptFile'], $approval['sqlSha256'], $approval['legacyRecoveryWaiver'] ?? null);
     } else {
         $pdo->exec('START TRANSACTION READ ONLY');
         $result = isset($o['preflight']) ? App\Upms\CleanSqlImport::preflight($pdo) : (isset($o['accounts']) ? App\Upms\CleanSqlImport::accounts($pdo, $c['reference']) : App\Upms\CleanSqlImport::verify($pdo));

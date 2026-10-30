@@ -21,7 +21,11 @@ final class MaintenanceApproval
             throw new \RuntimeException('PRIVATE_APPROVAL_REQUIRED');
         }
         $a = json_decode(file_get_contents($c['approvalFile']), true, 32, JSON_THROW_ON_ERROR);
-        if (!preg_match('/^[a-f0-9]{64}$/D', $a['backupSha256'] ?? '') || !preg_match('/^[a-zA-Z0-9_-]{12,64}$/D', $a['restoreReference'] ?? '')) {
+        $waived = LegacyRecoveryWaiver::valid($c, $operation);
+        if ($waived && (($a['legacyRecoveryWaiver'] ?? null) !== $c['legacyRecoveryWaiver'] || !empty($a['backupSha256']) || !empty($a['restoreReference']))) {
+            throw new \RuntimeException('EXACT_LEGACY_RECOVERY_WAIVER_REQUIRED');
+        }
+        if (!$waived && (!preg_match('/^[a-f0-9]{64}$/D', $a['backupSha256'] ?? '') || !preg_match('/^[a-zA-Z0-9_-]{12,64}$/D', $a['restoreReference'] ?? ''))) {
             throw new \RuntimeException('VERIFIED_BACKUP_REFERENCE_REQUIRED');
         }
         if (($a['status'] ?? '') !== 'APPROVED_FINAL_CUTOVER' || ($a['operation'] ?? '') !== $operation || ($a['reference'] ?? '') !== $c['reference'] || ($a['targetHash'] ?? '') !== self::targetHash($c) || ($a['planHash'] ?? '') !== CleanInitialization::hash()) {

@@ -9,7 +9,7 @@ use PDO;
 /** Maintenance-only service. Never registered as an HTTP route or called at startup. */
 final class AdminProvisioning
 {
-    public static function apply(PDO $pdo, string $reference, array $passwords): array
+    public static function apply(PDO $pdo, string $reference, array $passwords, ?array $legacyRecoveryWaiver = null): array
     {
         if (!preg_match('/^[a-zA-Z0-9_-]{12,64}$/D', $reference)) {
             throw new \RuntimeException('PROVISION_REFERENCE_REQUIRED');
@@ -84,7 +84,7 @@ final class AdminProvisioning
                 $pdo->prepare('UPDATE users SET authorization_version=authorization_version+1,updated_at=UTC_TIMESTAMP(6) WHERE id=?')->execute([$id]);
                 $pdo->prepare('UPDATE sessions SET revoked=1 WHERE user_id=?')->execute([$id]);
             }
-            $pdo->prepare("INSERT INTO identity_audit_events(actor_id,target_id,action,correlation,details,created_at) VALUES(NULL,NULL,'administrators.provisioned',?,?,UTC_TIMESTAMP(6))")->execute([$reference, json_encode(['users' => $ids, 'created' => array_keys($missing), 'maintenanceAccount' => $pdo->query('SELECT CURRENT_USER()')->fetchColumn()], JSON_THROW_ON_ERROR)]);
+            $pdo->prepare("INSERT INTO identity_audit_events(actor_id,target_id,action,correlation,details,created_at) VALUES(NULL,NULL,'administrators.provisioned',?,?,UTC_TIMESTAMP(6))")->execute([$reference, json_encode(['users' => $ids, 'created' => array_keys($missing), 'maintenanceAccount' => $pdo->query('SELECT CURRENT_USER()')->fetchColumn(), 'legacyRecoveryWaiver' => $legacyRecoveryWaiver], JSON_THROW_ON_ERROR)]);
             $pdo->commit();
             return ['users' => $ids, 'created' => array_keys($missing), 'changed' => true];
         } catch (\Throwable $error) {

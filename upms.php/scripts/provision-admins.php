@@ -27,7 +27,7 @@ try {
     if (!is_string($c['credentialsFile'] ?? null) || !is_string($c['approvalFile'] ?? null)) {
         throw new RuntimeException('PRIVATE_HANDOFF_REQUIRED');
     }
-    App\Upms\MaintenanceApproval::read($c, 'provision-clean-administrators');
+    $approval = App\Upms\MaintenanceApproval::read($c, 'provision-clean-administrators');
     $pdo = App\Upms\ProductionConnection::connect($c);
     App\Upms\CleanInitialization::provisionable($pdo, $c['reference']);
     // Prepared credentials survive a crash; they are never regenerated on a retry.
@@ -49,7 +49,7 @@ try {
         } chmod($c['credentialsFile'], 0600);
         $writePrivate($stream, $credentials, 'PRIVATE_CREDENTIAL_WRITE_FAILED');
     }
-    $result = App\Upms\AdminProvisioning::apply($pdo, $c['reference'], $credentials);
+    $result = App\Upms\AdminProvisioning::apply($pdo, $c['reference'], $credentials, $approval['legacyRecoveryWaiver'] ?? null);
     // Generated candidates are only valid for accounts created by this receipt.
     // Existing account hashes are preserved; their generated candidates must never be used.
     $handoff = ['reference' => $c['reference'], 'users' => $result['users'], 'created' => $result['created'], 'existingAccountsKeepCurrentPassword' => array_values(array_diff(['admin', 'haris'], $result['created']))];

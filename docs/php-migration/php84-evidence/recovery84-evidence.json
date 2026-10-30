@@ -1,0 +1,15 @@
+{
+    "verified": true,
+    "sourceSchema": "upms_v1",
+    "recoverySchema": "upms_recovery84",
+    "backupFile": "\/home\/tsn6az96j3v7\/upms-php83-staging\/runtime\/upms-v1-backup84.json",
+    "backupSha256": "f60f00daa167e1dad1c152692101d35abf656d55e1bb82ba478cca1c0658e7ba",
+    "restoreReference": "php84_new_production_restore_20261030",
+    "tables": 20,
+    "rowsCompared": 49,
+    "sourceWrites": 0,
+    "retiredDatabaseAccessed": false,
+    "restorePrivilegesRevoked": true,
+    "capturedUtc": "2026-10-30T01:27:35+00:00",
+    "verifiedUtc": "2026-10-30T01:27:40+00:00"
+}

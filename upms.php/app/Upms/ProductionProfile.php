@@ -55,7 +55,7 @@ final class ProductionProfile
     public static function validate(mixed $c, string $mode = 'approved-production-runtime'): void
     {
         $readOnly = $mode === 'read-only-transport-verification';
-        $approved = is_array($c) && ($readOnly ? ($c['readOnlyMetadataApproved'] ?? false) === true : (($c['hostingVerified'] ?? false) === true && ($c['backupRestoreVerified'] ?? false) === true));
+        $approved = is_array($c) && ($readOnly ? ($c['readOnlyMetadataApproved'] ?? false) === true : (($c['hostingVerified'] ?? false) === true && (($c['backupRestoreVerified'] ?? false) === true || LegacyRecoveryWaiver::valid($c))));
         if (!is_array($c) || !$approved || ($c['enabled'] ?? false) !== true || ($c['mode'] ?? '') !== $mode || !in_array($mode, ['approved-production-runtime','one-time-production-maintenance','one-time-clean-initialization','reviewed-clean-activation','read-only-transport-verification','one-time-sql-import-finalization'], true)) {
             throw new ApiError(503, 'PRODUCTION_PROFILE_DISABLED');
         }
