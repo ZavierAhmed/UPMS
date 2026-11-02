@@ -5,6 +5,9 @@ declare(strict_types=1);
 return [
     // Default synthetic profile; verified private production configuration is separate.
     'enabled' => env('UPMS_ENABLED', false),
+    'money_accounts_enabled' => env('UPMS_MONEY_ACCOUNTS_ENABLED', false),
+    'money_guard_evidence' => env('UPMS_MONEY_GUARD_EVIDENCE'),
+    'money_release_approval' => env('UPMS_MONEY_RELEASE_APPROVAL'),
     'production_profile' => env('UPMS_PRODUCTION_PROFILE'),
     'enforce_host_boundary' => env('UPMS_ENFORCE_HOST_BOUNDARY', false),
     'host' => env('UPMS_DB_HOST'),

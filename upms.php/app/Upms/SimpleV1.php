@@ -53,10 +53,10 @@ final class SimpleV1
 
     public function state(array $control, array $user): array
     {
-        return ['mode' => 'SIMPLE_V1', 'deploymentPurpose' => 'legacy-synthetic', 'interfaceVersion' => $control['entry_version'] === 2 ? 'simple-v1.2' : 'simple-v1.1',
+        return [...(config('upms.money_accounts_enabled', false) ? ['moneyAccountsEnabled' => true] : []), 'mode' => 'SIMPLE_V1', 'deploymentPurpose' => 'legacy-synthetic', 'interfaceVersion' => $control['entry_version'] === 2 ? 'simple-v1.2' : 'simple-v1.1',
             'operator' => $user['displayName'], 'company' => 'Unique Plastic Industry', 'currency' => 'PKR', 'unit' => 'bottles', 'state' => $control['state'],
             'nextChallan' => $control['next_dc'] <= 10999 ? self::dcNumber($control['next_dc']) : 'Rollover blocked', 'cutoverEvidence' => $control['cutover_evidence'],
-            'paymentPolicy' => 'Account-level payments. Official CR/VP references are assigned on posting; external cash/bank references are optional. Cheque identification is required. No cash/bank account balance is managed.'];
+            'paymentPolicy' => config('upms.money_accounts_enabled', false) ? 'Party receipts and expenses are not yet linked to Money Accounts. Money Accounts has independent, explicitly verified openings; no historical backfill.' : 'Account-level payments. Official CR/VP references are assigned on posting; external cash/bank references are optional. Cheque identification is required. No cash/bank account balance is managed.'];
     }
 
     public function items(): array

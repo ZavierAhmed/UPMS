@@ -25,3 +25,11 @@ Audit scope: deployed PHP Simple V1 paths at baseline `07897208`, not the older 
 Cross-cutting gates for future work: isolated synthetic tests; retain PHP 8.3 compatibility, operator authorization, first-password restrictions, exact money, transaction safety, audit, idempotency and immutable snapshots; assess changes against all 45 guard definitions; production deployment and business-state changes require their own approved milestone.
 
 Phase 3.1 completes Hafta, item optionality and the affected Back navigation only. Cash holdings, cheque lifecycle, new modules and public content changes remain backlog work.
+
+## P3.2A progress — local only
+
+The Money Accounts foundation now implements configurable Haris/Junaid cash holdings, UBL Official bank and nonspendable Cheques custody; explicit openings; exact immutable movements; atomic transfers/reversals; statements; additional guard design and isolated forward/restore tests. It is disabled by default and has not been deployed. See [P3.2A technical report](../phase-3.2a/TECHNICAL-REPORT.md).
+
+Requirements 5 and the foundation portion of 6 are locally implemented. Account-linked existing customer receipts, vendor payments, paid purchases and expenses remain **P3.2B**, with no historical backfill. Requirement 7 remains **P3.2C** for the instrument register and clearing/dishonour workflow; custody opening value is not spendable funds or a full cheque lifecycle. Category/employee requirements remain subsequent work. All other 17 requirements and branding/asset approvals remain as recorded above.
+
+Production migration remains blocked pending version-aware 25-table/60-guard protected off-host backup/recovery, actual hosted readiness and a separate explicit owner release approval. No prior production authorization is treated as approval of these new money operations.

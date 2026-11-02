@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "scope": "Isolated development/testing only; no production access or deployment",
+  "startingSha": "f272eec529bcfb803c2461b5399e974c09cbfa32",
+  "php": {
+    "version": "8.3.36",
+    "tests": 60,
+    "assertions": 1259
+  },
+  "react": {
+    "files": 33,
+    "tests": 228
+  },
+  "integration": {
+    "groupedChecks": 28,
+    "tables": 25,
+    "guards": 60,
+    "restoredRows": 158
+  },
+  "existingFinancialRegression": {
+    "httpComparisons": 83,
+    "snapshotComparisons": 4
+  },
+  "eslint": "passed",
+  "pint": "passed",
+  "build": {
+    "public": "passed",
+    "ssr": "passed",
+    "prerenderRoutes": 11,
+    "notFound": true,
+    "management": "passed",
+    "advisory": "Management bundle exceeds Vite 500 kB advisory threshold"
+  },
+  "browser": "passed, local intercepted synthetic PHP fixtures",
+  "printAndExport": "passed",
+  "productionContacted": false,
+  "productionReady": false,
+  "featureDefault": "disabled",
+  "recordedUtc": "2026-11-02T08:19:03.616Z"
+}

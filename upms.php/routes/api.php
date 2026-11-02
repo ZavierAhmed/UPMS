@@ -14,6 +14,9 @@ Route::get('/healthz', fn () => response()->json(['status' => 'ok']));
 Route::get('/readyz', function () {
     try {
         Schema::verify(app(Database::class));
+        if (config('upms.money_accounts_enabled', false)) {
+            \App\Upms\MoneySchema::ready(app(Database::class));
+        }
         return response()->json(['status' => 'ready']);
     } catch (Throwable) {
         return response()->json(['status' => 'unavailable'], 503);
@@ -25,6 +28,9 @@ Route::prefix('/api/v1/management')->middleware(UpmsBoundary::class)->group(func
     Route::get('/session/current', [SessionController::class, 'current']);
     Route::post('/session/logout', [SessionController::class, 'logout']);
     Route::post('/profile/password', [SessionController::class, 'password']);
+    Route::get('/simple-v1/money', \App\Http\Controllers\MoneyAccountsController::class);
+    Route::get('/simple-v1/money/accounts/{id}', \App\Http\Controllers\MoneyAccountsController::class);
+    Route::post('/simple-v1/money/{operation}', \App\Http\Controllers\MoneyAccountsController::class)->whereIn('operation', ['openings','transfers','sources','reversals']);
     foreach (['state', 'items', 'parties', 'documents', 'documents/{id}', 'ledgers/{id}', 'overview', 'movements', 'register', 'reconciliation', 'hafta'] as $path) {
         Route::get('/simple-v1/'.$path, SimpleV1Controller::class);
     }

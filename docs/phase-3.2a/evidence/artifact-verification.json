@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "syntheticOnly": true,
+  "pdfPages": 2,
+  "landscape": "A4",
+  "blankPages": 0,
+  "allEightMovementsPrinted": true,
+  "textWithinPageBounds": true,
+  "navigationAndPostingControlsAbsent": true,
+  "excelOpened": true,
+  "excelExactMovementSum": "43.10",
+  "excelClosing": "43.10",
+  "unknownBroughtForwardPreserved": true,
+  "formulaCells": 0
+}

@@ -1,0 +1,26 @@
+// Local UI acceptance with real synthetic PHP response fixtures; no production requests or postings.
+import assert from 'node:assert/strict';
+import {readFile,mkdir,writeFile} from 'node:fs/promises';
+import {resolve} from 'node:path';
+import {createServer} from '../upms.client/node_modules/vite/dist/node/index.js';
+import puppeteer from 'puppeteer-core';
+const setup=JSON.parse(await readFile('tmp/php-runtime/p32a-latest.json','utf8'));
+const overview=JSON.parse(await readFile(setup.directory+'/overview.json','utf8')),statement=JSON.parse(await readFile(setup.directory+'/statement.json','utf8'));
+const evidence='docs/phase-3.2a/evidence';await mkdir(evidence,{recursive:true});await mkdir('tmp/pdfs',{recursive:true});
+const server=await createServer({configFile:resolve('upms.client/vite.management.config.js'),root:resolve('upms.client/management'),server:{host:'127.0.0.1',port:5179,strictPort:true,proxy:{}}});await server.listen();
+const browser=await puppeteer.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true,args:['--no-first-run','--no-default-browser-check']});
+let writes=0;const errors=[];
+try{
+ const p=await browser.newPage();await p.setViewport({width:1660,height:1050});p.on('pageerror',e=>errors.push(e.message));p.on('dialog',d=>d.accept());await p.setRequestInterception(true);
+ p.on('request',r=>{if(!r.url().startsWith('http://127.0.0.1:5179/')&&!r.url().startsWith('data:'))return r.abort();if(!r.url().includes('/api/'))return r.continue();if(r.method()!=='GET')writes++;const path=new URL(r.url()).pathname;let body={};if(path.endsWith('/session/current'))body={user:{id:'1',displayName:'Synthetic administrator',roles:['administrator'],permissions:['portal.access']},csrfToken:'synthetic'};else if(path.endsWith('/state'))body={interfaceVersion:'simple-v1.2',state:'READY',moneyAccountsEnabled:true};else if(path.endsWith('/money'))body=overview;else if(path.includes('/money/accounts/'))body=statement;else if(path.endsWith('/items')||path.endsWith('/documents')||path.endsWith('/movements')||path.endsWith('/parties'))body={records:[]};return r.respond({status:200,contentType:'application/json',body:JSON.stringify(body)});});
+ const goto=async query=>{await p.goto('http://127.0.0.1:5179/management/money-accounts'+query,{waitUntil:'networkidle0'});await p.waitForSelector('.money-cards,.money-statement,form');await p.evaluate(()=>document.fonts.ready);await p.evaluate(()=>{const el=document.createElement('p');el.textContent='SYNTHETIC TEST DATA — LOCAL UI ACCEPTANCE; NOT PRODUCTION BALANCES';el.style.cssText='padding:10px;border:2px solid #d77721;background:#fff4e4;font-weight:700;font-size:12px';document.querySelector('.money-accounts').prepend(el);});};
+ await goto('');assert.equal(await p.$$eval('.money-card',nodes=>nodes.length),4);assert.equal(await p.$$eval('.money-custody',nodes=>nodes.length),1);assert.ok((await p.$eval('main',e=>e.innerText)).includes('99.99 PKR'));await p.screenshot({path:evidence+'/money-accounts.png',fullPage:true});
+ await p.evaluate(()=>[...document.querySelectorAll('button')].find(b=>b.textContent==='Internal transfer').click());await p.waitForSelector('select[name=fromAccountId]');
+ const options=await p.$$eval('select[name=fromAccountId] option',nodes=>nodes.map(n=>n.textContent));assert.equal(options.some(s=>s.includes('Cheques')),false);
+ await p.select('select[name=fromAccountId]','1');await p.select('select[name=toAccountId]','2');await p.type('input[name=amount]','1.10');await p.type('input[name=reference]','SYNTHETIC-TRANSFER-PREVIEW');await p.type('textarea[name=reason]','Synthetic transfer preview only. This form has not been posted.');await p.click('input[name=approved]');await p.screenshot({path:evidence+'/money-transfer.png',fullPage:true});
+ await goto('?view=statement&account=1&from=2026-10-30&to=2026-10-30');await p.waitForSelector('.money-statement');await p.screenshot({path:evidence+'/money-statement.png',fullPage:true});
+ const cdp=await p.createCDPSession();await cdp.send('Browser.setDownloadBehavior',{behavior:'allow',downloadPath:resolve(evidence)});await p.evaluate(()=>[...document.querySelectorAll('button')].find(b=>b.textContent==='Export Excel').click());await new Promise(r=>setTimeout(r,500));
+ await p.pdf({path:'tmp/pdfs/p32a-money-statement.pdf',preferCSSPageSize:true,printBackground:true});
+ await p.setViewport({width:390,height:844});await goto('');assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);await p.screenshot({path:evidence+'/money-mobile.png',fullPage:true});
+ assert.equal(writes,0);assert.deepEqual(errors,[]);await writeFile(evidence+'/browser.json',JSON.stringify({passed:true,source:'Actual isolated PHP response fixtures with local intercepted transport',screenshots:['money-accounts.png','money-transfer.png','money-statement.png','money-mobile.png'],configuredHoldings:4,chequeOptionsInTransfer:false,mobileHorizontalOverflow:false,financialRequests:writes,javascriptErrors:errors,productionContacted:false,transferFormSubmitted:false,printPdf:'tmp/pdfs/p32a-money-statement.pdf',verifiedUtc:new Date().toISOString()},null,2));console.log('Money accounts, transfer preview, statements, mobile, print and Excel browser checks passed.');
+}finally{await browser.close();await server.close();}

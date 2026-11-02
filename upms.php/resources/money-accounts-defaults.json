@@ -1,0 +1,22 @@
+[
+  {
+    "code": "HARIS_CASH",
+    "name": "Haris",
+    "type": "CASH_HOLDER"
+  },
+  {
+    "code": "JUNAID_CASH",
+    "name": "Junaid",
+    "type": "CASH_HOLDER"
+  },
+  {
+    "code": "UBL_OFFICIAL",
+    "name": "UBL Official",
+    "type": "BANK"
+  },
+  {
+    "code": "CHEQUES",
+    "name": "Cheques",
+    "type": "CHEQUE_CUSTODY"
+  }
+]

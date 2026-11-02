@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "source": "Actual isolated PHP response fixtures with local intercepted transport",
+  "screenshots": [
+    "money-accounts.png",
+    "money-transfer.png",
+    "money-statement.png",
+    "money-mobile.png"
+  ],
+  "configuredHoldings": 4,
+  "chequeOptionsInTransfer": false,
+  "mobileHorizontalOverflow": false,
+  "financialRequests": 0,
+  "javascriptErrors": [],
+  "productionContacted": false,
+  "transferFormSubmitted": false,
+  "printPdf": "tmp/pdfs/p32a-money-statement.pdf",
+  "verifiedUtc": "2026-11-02T08:17:47.291Z"
+}

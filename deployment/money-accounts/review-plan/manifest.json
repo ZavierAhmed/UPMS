@@ -1,0 +1,39 @@
+{
+    "status": "NOT_APPROVED_NOT_APPLIED",
+    "moneyPlanHash": "1fce4426d5799ee9ffaf34734fcbb374ef953a56b29b0ec845758f749dc81805",
+    "baseGuardHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+    "additionalGuardHash": "507af072fa4f22e2a94311b6944ec876e8022c857578768b0ed2dc067e7cd3b1",
+    "tablesAdded": 5,
+    "guardsAdded": 15,
+    "expectedTotalTables": 25,
+    "expectedTotalGuards": 60,
+    "accounts": [
+        {
+            "code": "HARIS_CASH",
+            "name": "Haris",
+            "type": "CASH_HOLDER"
+        },
+        {
+            "code": "JUNAID_CASH",
+            "name": "Junaid",
+            "type": "CASH_HOLDER"
+        },
+        {
+            "code": "UBL_OFFICIAL",
+            "name": "UBL Official",
+            "type": "BANK"
+        },
+        {
+            "code": "CHEQUES",
+            "name": "Cheques",
+            "type": "CHEQUE_CUSTODY"
+        }
+    ],
+    "files": {
+        "01-schema.sql": "400ea59f86a3de8f0d67b1acc061fb43efcf72470565d5964bd67b67e437f98b",
+        "02-master-config.sql": "b07dc7e9bb93fa16b75c187a5357d99daf19a6050ea6bc6ac397730800390a37",
+        "03-additional-guards.sql": "ebeabb11e832937bdf050176499c974f4d0f5bad05db0d82fbe950a40dabd6f2"
+    },
+    "receiptFinalization": "Requires separate target-bound schema\/guard\/recovery verification and owner-approved release; not generated here.",
+    "legacyBackupCompatible": false
+}

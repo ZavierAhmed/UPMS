@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "reproducible": true,
+  "status": "NOT_APPROVED_NOT_APPLIED",
+  "files": 4,
+  "tablesAdded": 5,
+  "masters": 4,
+  "guardsAdded": 15,
+  "moneyPlanHash": "1fce4426d5799ee9ffaf34734fcbb374ef953a56b29b0ec845758f749dc81805",
+  "baseGuardHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+  "additionalGuardHash": "507af072fa4f22e2a94311b6944ec876e8022c857578768b0ed2dc067e7cd3b1",
+  "sqlExecuted": false,
+  "grantsEmitted": false,
+  "financialOpeningsEmitted": false
+}

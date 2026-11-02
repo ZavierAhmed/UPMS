@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "php": "8.3.36",
+  "engine": "10.11.19-MariaDB",
+  "httpComparisons": 83,
+  "snapshotComparisons": 4,
+  "checks": [
+    {
+      "name": "PHP76 concurrent custom posting exactly once",
+      "tables": 10,
+      "sha256": "4d5d3e027849fc3adef1b5d243b6eacbb4f89281e40d6d34b1cfb3f6085d218c"
+    },
+    {
+      "name": "PHP76 exact custom pricing payloads lines journals audit commands",
+      "tables": 10,
+      "sha256": "009a7d938be21d870ae519fd139292b6960f416588ef6342183be3d4ebeafc19"
+    },
+    {
+      "name": "unknown COMMIT result replays one durable custom challan outcome",
+      "tables": 10,
+      "sha256": "fff8538cb0790a5cacaaba23c204e78f603fb51765056a40ce82bb16eff55887"
+    },
+    {
+      "name": "PHP76 custom-rate lost COMMIT acknowledgements",
+      "dropped": 2,
+      "serverCommitted": true,
+      "replayWithoutDuplicates": true
+    },
+    {
+      "name": "PHP76 final all ten business tables",
+      "tables": 10,
+      "sha256": "fff8538cb0790a5cacaaba23c204e78f603fb51765056a40ce82bb16eff55887"
+    }
+  ],
+  "ownerDatabaseContacted": false,
+  "migrationsModified": false
+}
