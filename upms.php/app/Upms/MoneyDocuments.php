@@ -15,8 +15,13 @@ final class MoneyDocuments
 
     public static function required(array $p): bool
     {
-        return in_array($p['kind'], ['CLIENT_PAYMENT', 'VENDOR_PAYMENT', 'EXPENSE'], true)
+        return in_array($p['kind'], ['CLIENT_PAYMENT', 'VENDOR_PAYMENT', 'EXPENSE',FinancialCorrections::KIND], true)
             || ($p['kind'] === 'PURCHASE' && ($p['paidImmediately'] ?? false));
+    }
+
+    public static function credit(array $p): bool
+    {
+        return $p['kind'] === 'CLIENT_PAYMENT' || ($p['kind'] === FinancialCorrections::KIND && FinancialCorrections::incoming($p));
     }
 
     public static function validate(array $p): void
@@ -117,7 +122,7 @@ final class MoneyDocuments
             $claims[$id][] = $b;
             $d = $docs[$id] ?? null;
             $p = $d ? SimpleV1::payload($d) : [];
-            $credit = ($d['kind'] ?? '') === 'CLIENT_PAYMENT';
+            $credit = $d ? self::credit($p) : false;
             $account = $p['moneyAccountId'] ?? '';
             $posting = array_values(array_filter($audits, fn ($e) => $e['reference'] === (string)($d['official_number'] ?? $id)));
             $poster = count($posting) === 1 ? (string)$posting[0]['actor_id'] : null;
@@ -145,6 +150,8 @@ final class MoneyDocuments
                 $linked++;
             }
         }
+        $refunds = FinancialCorrections::sources($documents, $batches);
+        $findings = [...$findings,...$refunds['findings']];
         return ['matched' => !$findings, 'findings' => $findings, 'linkedDocuments' => $linked, 'historicalUnlinkedDocuments' => $historic,
             'coverage' => 'Only p32b1-marked posted documents require canonical money effects. Historical documents are not backfilled.'];
     }

@@ -1,0 +1,314 @@
+{
+  "syntheticOnly": true,
+  "productionContacted": false,
+  "client": {
+    "convention": "Debit: owed to company / company advance. Credit: owed by company / client advance. Vendor payments debit and reduce a payable credit balance.",
+    "opening": "0.00",
+    "debit": "135.04",
+    "credit": "36.11",
+    "closing": "98.93",
+    "records": [
+      {
+        "date": "2026-11-01",
+        "particulars": "Explicit client opening",
+        "reference": "Entry 1",
+        "originalReference": "",
+        "externalReference": "",
+        "chequeReference": "",
+        "debit": "100.00",
+        "credit": "0.00",
+        "balance": "100.00",
+        "documentId": "1"
+      },
+      {
+        "date": "2026-11-01",
+        "particulars": "Amount received · CASH",
+        "reference": "CR-0004",
+        "originalReference": "",
+        "externalReference": "SOURCE-CASH",
+        "chequeReference": "",
+        "debit": "0.00",
+        "credit": "25.01",
+        "balance": "74.99",
+        "documentId": "4"
+      },
+      {
+        "date": "2026-11-01",
+        "particulars": "Amount received · BANK_TRANSFER",
+        "reference": "CR-0005",
+        "originalReference": "",
+        "externalReference": "SOURCE-BANK",
+        "chequeReference": "",
+        "debit": "0.00",
+        "credit": "10.02",
+        "balance": "64.97",
+        "documentId": "5"
+      },
+      {
+        "date": "2026-11-01",
+        "particulars": "Amount received · CASH",
+        "reference": "CR-0009",
+        "originalReference": "",
+        "externalReference": "UNLINKED-LEGACY",
+        "chequeReference": "",
+        "debit": "0.00",
+        "credit": "0.04",
+        "balance": "64.93",
+        "documentId": "9"
+      },
+      {
+        "date": "2026-11-01",
+        "particulars": "Amount received · CHEQUE_RECEIVED",
+        "reference": "CR-0010",
+        "originalReference": "",
+        "externalReference": "",
+        "chequeReference": "LEGACY-CHEQUE",
+        "debit": "0.00",
+        "credit": "0.03",
+        "balance": "64.90",
+        "documentId": "10"
+      },
+      {
+        "date": "2026-11-02",
+        "particulars": "Evidenced full client_payment refund",
+        "reference": "RF-0011",
+        "originalReference": "CR-0004",
+        "externalReference": "REFUND-4",
+        "chequeReference": "",
+        "debit": "25.01",
+        "credit": "0.00",
+        "balance": "89.91",
+        "documentId": "11"
+      },
+      {
+        "date": "2026-11-02",
+        "particulars": "Evidenced full client_payment refund",
+        "reference": "RF-0015",
+        "originalReference": "CR-0005",
+        "externalReference": "REFUND-5",
+        "chequeReference": "",
+        "debit": "10.02",
+        "credit": "0.00",
+        "balance": "99.93",
+        "documentId": "15"
+      },
+      {
+        "date": "2026-11-02",
+        "particulars": "Amount received · CASH",
+        "reference": "CR-0016",
+        "originalReference": "",
+        "externalReference": "RETRY-SOURCE",
+        "chequeReference": "",
+        "debit": "0.00",
+        "credit": "0.01",
+        "balance": "99.92",
+        "documentId": "16"
+      },
+      {
+        "date": "2026-11-02",
+        "particulars": "Evidenced full client_payment refund",
+        "reference": "RF-0017",
+        "originalReference": "CR-0016",
+        "externalReference": "REFUND-16",
+        "chequeReference": "",
+        "debit": "0.01",
+        "credit": "0.00",
+        "balance": "99.93",
+        "documentId": "17"
+      },
+      {
+        "date": "2026-11-02",
+        "particulars": "Amount received · CASH",
+        "reference": "CR-0018",
+        "originalReference": "",
+        "externalReference": "INSUFFICIENT-SOURCE",
+        "chequeReference": "",
+        "debit": "0.00",
+        "credit": "1.00",
+        "balance": "98.93",
+        "documentId": "18"
+      }
+    ]
+  },
+  "vendor": {
+    "convention": "Debit: owed to company / company advance. Credit: owed by company / client advance. Vendor payments debit and reduce a payable credit balance.",
+    "opening": "0.00",
+    "debit": "50.11",
+    "credit": "150.09",
+    "closing": "-99.98",
+    "records": [
+      {
+        "date": "2026-11-01",
+        "particulars": "Explicit vendor opening",
+        "reference": "Entry 2",
+        "originalReference": "",
+        "externalReference": "",
+        "chequeReference": "",
+        "debit": "0.00",
+        "credit": "100.00",
+        "balance": "-100.00",
+        "documentId": "2"
+      },
+      {
+        "date": "2026-11-01",
+        "particulars": "Amount paid · BANK_TRANSFER",
+        "reference": "VP-0006",
+        "originalReference": "",
+        "externalReference": "SOURCE-VENDOR",
+        "chequeReference": "",
+        "debit": "30.03",
+        "credit": "0.00",
+        "balance": "-69.97",
+        "documentId": "6"
+      },
+      {
+        "date": "2026-11-01",
+        "particulars": "Bottle purchase paid immediately; method reference only",
+        "reference": "SOURCE-PURCHASE",
+        "originalReference": "",
+        "externalReference": "SOURCE-PURCHASE",
+        "chequeReference": "",
+        "debit": "20.06",
+        "credit": "20.06",
+        "balance": "-69.97",
+        "documentId": "8"
+      },
+      {
+        "date": "2026-11-02",
+        "particulars": "Evidenced full vendor_payment refund",
+        "reference": "RF-0012",
+        "originalReference": "VP-0006",
+        "externalReference": "REFUND-6",
+        "chequeReference": "",
+        "debit": "0.00",
+        "credit": "30.03",
+        "balance": "-100.00",
+        "documentId": "12"
+      },
+      {
+        "date": "2026-11-02",
+        "particulars": "Amount paid · BANK_TRANSFER",
+        "reference": "VP-0020",
+        "originalReference": "",
+        "externalReference": "FAILURE-SOURCE",
+        "chequeReference": "",
+        "debit": "0.02",
+        "credit": "0.00",
+        "balance": "-99.98",
+        "documentId": "20"
+      }
+    ]
+  },
+  "bankStatement": {
+    "account": "UBL Official",
+    "opening": null,
+    "movement": "479.92",
+    "closing": "479.92",
+    "records": [
+      {
+        "reference": "MA-000003",
+        "date": "2026-11-01",
+        "kind": "OPENING",
+        "delta": "500.00",
+        "balance": "500.00",
+        "documentId": null
+      },
+      {
+        "reference": "MA-000006",
+        "date": "2026-11-01",
+        "kind": "SOURCE_CREDIT",
+        "delta": "10.02",
+        "balance": "510.02",
+        "documentId": "5"
+      },
+      {
+        "reference": "MA-000007",
+        "date": "2026-11-01",
+        "kind": "SOURCE_DEBIT",
+        "delta": "-30.03",
+        "balance": "479.99",
+        "documentId": "6"
+      },
+      {
+        "reference": "MA-000009",
+        "date": "2026-11-01",
+        "kind": "SOURCE_DEBIT",
+        "delta": "-20.06",
+        "balance": "459.93",
+        "documentId": "8"
+      },
+      {
+        "reference": "MA-000011",
+        "date": "2026-11-02",
+        "kind": "SOURCE_CREDIT",
+        "delta": "30.03",
+        "balance": "489.96",
+        "documentId": "12",
+        "originalDocumentId": "6"
+      },
+      {
+        "reference": "MA-000013",
+        "date": "2026-11-02",
+        "kind": "SOURCE_DEBIT",
+        "delta": "-10.02",
+        "balance": "479.94",
+        "documentId": "15",
+        "originalDocumentId": "5"
+      },
+      {
+        "reference": "MA-000018",
+        "date": "2026-11-02",
+        "kind": "SOURCE_DEBIT",
+        "delta": "-0.02",
+        "balance": "479.92",
+        "documentId": "20"
+      }
+    ]
+  },
+  "expenses": {
+    "overall": "0.02",
+    "records": [
+      {
+        "documentId": "7",
+        "date": "2026-11-01",
+        "amount": "0.30",
+        "category": "Transport",
+        "employee": "Synthetic Employee",
+        "account": "Haris"
+      },
+      {
+        "documentId": "13",
+        "originalDocumentId": "7",
+        "date": "2026-11-02",
+        "amount": "-0.30",
+        "category": "Transport",
+        "employee": "Synthetic Employee",
+        "account": "Haris"
+      },
+      {
+        "documentId": "28",
+        "date": "2026-11-02",
+        "amount": "0.02",
+        "category": "Other",
+        "employee": null,
+        "account": "Haris"
+      }
+    ]
+  },
+  "companyTotals": {
+    "sales": "0.00",
+    "returnCredits": "0.00",
+    "netSales": "0.00",
+    "purchases": "20.06",
+    "clientReceipts": "36.11",
+    "vendorPayments": "50.11",
+    "expensesRecorded": "0.32",
+    "expensesPaid": "0.32",
+    "clientRefunds": "35.04",
+    "vendorRecoveries": "30.03",
+    "expenseRefunds": "0.30",
+    "netClientReceipts": "1.07",
+    "netVendorPayments": "20.08",
+    "netExpenses": "0.02"
+  }
+}

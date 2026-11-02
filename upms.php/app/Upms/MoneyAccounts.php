@@ -189,6 +189,10 @@ final class MoneyAccounts
                 $journal[(string)$movement['batch_id']] = $movement;
             }
         }
+        $originals = [];
+        foreach ($this->db->rows("SELECT id,corrects_id FROM v1_documents WHERE kind='FINANCIAL_REFUND' AND status='POSTED'") as $refund) {
+            $originals[(string)$refund['id']] = (string)$refund['corrects_id'];
+        }
         $rows = [];
         $opened = false;
         $openingAtStart = false;
@@ -208,7 +212,7 @@ final class MoneyAccounts
                 continue;
             }
             $change = $change->plus($delta);
-            $rows[] = ['id' => (string)$b['id'],'movementId' => (string)$movement['id'],'reference' => 'MA-'.str_pad((string)$b['id'], 6, '0', STR_PAD_LEFT),'date' => $b['date'],'kind' => $b['kind'],'sourceReference' => $b['source_ref'],'documentId' => $b['source_type'] === 'DOCUMENT' ? substr($b['source_ref'], 9) : null,'correctsId' => $b['corrects_id'],'reason' => $b['reason'],'actorId' => (string)$b['actor_id'],'createdUtc' => $b['created_at'],'delta' => $movement['delta'],'balance' => $r['matched'] && $opened ? Exact::money($sum) : null];
+            $rows[] = ['id' => (string)$b['id'],'movementId' => (string)$movement['id'],'reference' => 'MA-'.str_pad((string)$b['id'], 6, '0', STR_PAD_LEFT),'date' => $b['date'],'kind' => $b['kind'],'sourceReference' => $b['source_ref'],...(isset($originals[substr($b['source_ref'], 9)]) ? ['originalDocumentId' => $originals[substr($b['source_ref'], 9)]] : []),'documentId' => $b['source_type'] === 'DOCUMENT' ? substr($b['source_ref'], 9) : null,'correctsId' => $b['corrects_id'],'reason' => $b['reason'],'actorId' => (string)$b['actor_id'],'createdUtc' => $b['created_at'],'delta' => $movement['delta'],'balance' => $r['matched'] && $opened ? Exact::money($sum) : null];
         }
         return ['account' => $a,'from' => $f['from'] ?? '','to' => $f['to'] ?? '','currency' => 'PKR','opening' => $r['matched'] && $openingAtStart ? Exact::money($prior) : null,'movement' => Exact::money($change),'closing' => $r['matched'] && $opened ? Exact::money($sum) : null,'verified' => $r['matched'] && $opened,'records' => $rows,'reconciliationMatched' => $r['matched'],'coverage' => 'An explicit opening starts verified coverage on its recorded date. Earlier holdings are unknown. Transfers do not affect party ledgers, revenue or expenses.'];
     }
@@ -297,7 +301,7 @@ final class MoneyAccounts
         }
         MoneyDocuments::validate($p);
         (new MoneyDocuments($this->db))->account($p);
-        $credit = $p['kind'] === 'CLIENT_PAYMENT';
+        $credit = MoneyDocuments::credit($p);
         return $this->append(['amount' => $amount,'date' => $p['date'],'reference' => 'UPMS-DOC:'.$d['id'],'reason' => 'Linked '.$p['kind'].' document '.$d['id']], $credit ? 'SOURCE_CREDIT' : 'SOURCE_DEBIT', $credit ? null : $p['moneyAccountId'], $credit ? $p['moneyAccountId'] : null, null, null, 'DOCUMENT', self::sourceKey((string)$d['id']), $user);
     }
     private function append(array $p, string $kind, ?string $from, ?string $to, ?string $opening, ?string $corrects, string $sourceType, string $sourceKey, array $user): array

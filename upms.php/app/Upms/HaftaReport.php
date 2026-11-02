@@ -125,9 +125,9 @@ final class HaftaReport
                 } elseif ($d['kind'] === 'CLIENT_PAYMENT') {
                     $receipts = $receipts->plus($amount);
                     $rows[] = ['date' => $d['date'], 'kind' => $d['kind'], 'reference' => $reference, 'description' => 'Client receipt · '.($p['method'] ?? '').' (not classified as advance)', 'quantity' => '', 'rate' => '', 'amount' => $d['total']];
-                } elseif ($d['kind'] === 'PAYMENT_REVERSAL') {
+                } elseif ($d['kind'] === 'PAYMENT_REVERSAL' || ($d['kind'] === FinancialCorrections::KIND && ($p['originalKind'] ?? '') === 'CLIENT_PAYMENT')) {
                     $reversals = $reversals->plus($amount);
-                    $rows[] = ['date' => $d['date'], 'kind' => $d['kind'], 'reference' => $reference, 'description' => 'Receipt reversal', 'quantity' => '', 'rate' => '', 'amount' => $d['total']];
+                    $rows[] = ['date' => $d['date'], 'kind' => $d['kind'], 'reference' => $reference, 'description' => $d['kind'] === FinancialCorrections::KIND ? 'Actual full customer refund · '.$p['originalReference'] : 'Receipt reversal', 'quantity' => '', 'rate' => '', 'amount' => $d['total']];
                 }
             }
             foreach ($journal as $j) {

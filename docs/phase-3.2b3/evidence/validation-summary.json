@@ -1,0 +1,56 @@
+{
+  "passed": true,
+  "php": {
+    "version": "8.3.36",
+    "unitTests": 89,
+    "assertions": 1375,
+    "pint": "passed"
+  },
+  "react": {
+    "files": 36,
+    "tests": 255,
+    "focusedRefundTests": 9,
+    "focusedRefundRetest": "passed"
+  },
+  "lint": "passed",
+  "builds": {
+    "public": true,
+    "ssr": true,
+    "prerenderRoutes": 11,
+    "notFoundPage": true,
+    "management": true,
+    "managementLargeChunkAdvisory": true
+  },
+  "mariadb": "10.11.19",
+  "integrationChecks": 26,
+  "regressions": {
+    "p32a": 28,
+    "p32b1": 28,
+    "p32b2": 28,
+    "httpComparisons": 83,
+    "snapshots": 4,
+    "p31": "Existing Hafta/item unit and financial differential checks retained"
+  },
+  "recovery": {
+    "format": "UPMS_FINANCIAL_SNAPSHOT_V1",
+    "tables": 29,
+    "rows": 289,
+    "guards": 72,
+    "matched": true,
+    "nonemptyTargetRejected": true
+  },
+  "browser": {
+    "screenshots": 10,
+    "javascriptErrors": [],
+    "financialPosts": 0,
+    "mobileOuterOverflow": false,
+    "confirmationDismissed": true
+  },
+  "schemaChanged": false,
+  "guardDefinitionsChanged": false,
+  "newFeatureDefaultEnabled": false,
+  "productionContacted": false,
+  "productionDeployed": false,
+  "liveBackupChanged": false,
+  "verifiedUtc": "2026-11-02T10:52:28.811Z"
+}

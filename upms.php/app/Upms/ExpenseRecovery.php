@@ -16,7 +16,7 @@ final class ExpenseRecovery
         sort($t);
         return $t;
     }
-    public static function capture(PDO $pdo, string $runtime): array
+    public static function capture(PDO $pdo, string $runtime, bool $refunds = false): array
     {
         $tables = $pdo->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN);
         sort($tables);
@@ -39,6 +39,9 @@ final class ExpenseRecovery
         }
         ExpenseGuards::verify($pdo, $runtime, $guards['definer']);
         ExpenseSchema::verify($pdo);
+        if (!$refunds && array_filter($data['v1_documents']['rows'], fn ($d) => $d['kind'] === FinancialCorrections::KIND)) {
+            throw new \RuntimeException('REFUND_BACKUP_FORMAT_REQUIRED');
+        }
         return ['format' => self::FORMAT,'documentIntegrationVersion' => MoneyDocuments::VERSION,'basePlanHash' => CleanInitialization::hash(),'moneyPlanHash' => MoneySchema::hash(),'expensePlanHash' => ExpenseSchema::hash(),'runtime' => $runtime,'guards' => $guards,'triggerDefinitions' => $triggers,'sourceTargetHash' => CleanInitialization::target($pdo),'createdUtc' => gmdate('c'),'tables' => $data];
     }
     public static function encrypt(array $snapshot, string $publicKey): string
@@ -60,7 +63,7 @@ final class ExpenseRecovery
             sodium_memzero($plain);
         }
     }
-    public static function restoreIsolated(PDO $pdo, array $snapshot, string $runtime): array
+    public static function restoreIsolated(PDO $pdo, array $snapshot, string $runtime, bool $refunds = false): array
     {
         MoneySchema::assertIsolated($pdo, true);
         if (PHP_SAPI !== 'cli' || !preg_match('/^upms_test_php_money_[0-9]+_restore$/D', (string)$pdo->query('SELECT DATABASE()')->fetchColumn()) || $pdo->query('SHOW TABLES')->fetchAll()) {
@@ -68,6 +71,9 @@ final class ExpenseRecovery
         }
         if (($snapshot['format'] ?? '') !== self::FORMAT || ($snapshot['expensePlanHash'] ?? '') !== ExpenseSchema::hash() || ($snapshot['guards']['expenseHash'] ?? '') !== ExpenseGuards::hash($snapshot['runtime'] ?? '') || ($snapshot['basePlanHash'] ?? '') !== CleanInitialization::hash() || ($snapshot['moneyPlanHash'] ?? '') !== MoneySchema::hash() || array_keys($snapshot['tables'] ?? []) !== self::tables() || ($snapshot['guards']['passed'] ?? false) !== true || ($snapshot['guards']['baseHash'] ?? '') !== CrudGuards::hash() || ($snapshot['guards']['totalGuards'] ?? 0) !== 72 || ($snapshot['guards']['moneyHash'] ?? '') !== MoneyGuards::hash($snapshot['runtime'] ?? '')) {
             throw new \RuntimeException('MONEY_BACKUP_MANIFEST_REJECTED');
+        }
+        if (!$refunds && array_filter($snapshot['tables']['v1_documents']['rows'] ?? [], fn ($d) => $d['kind'] === FinancialCorrections::KIND)) {
+            throw new \RuntimeException('REFUND_BACKUP_FORMAT_REQUIRED');
         }
         $base = [];
         $rules = [...CrudGuards::plan($snapshot['runtime']),...MoneyGuards::plan($snapshot['runtime']),...ExpenseGuards::plan($snapshot['runtime'])];

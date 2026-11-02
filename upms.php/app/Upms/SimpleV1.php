@@ -9,6 +9,7 @@ use Brick\Math\BigInteger as IntMath;
 final class SimpleV1
 {
     public const EVENTS = [
+        'FINANCIAL_REFUND' => ['Full financial refund','Evidenced full return via original account'],
         'CHALLAN_RETURN' => ['DELIVERY CHALLAN RETURN', 'Client credit / stock returned'],
         'STOCK_OPENING' => ['Stock opening', 'Opening balance'],
         'PRODUCTION' => ['Production stock in', 'Inventory-only movement'],
@@ -53,7 +54,7 @@ final class SimpleV1
 
     public function state(array $control, array $user): array
     {
-        return [...(config('upms.expense_masters_enabled', false) ? ['expenseMastersEnabled' => true] : []),...(config('upms.money_accounts_enabled', false) ? ['moneyAccountsEnabled' => true] : []), 'mode' => 'SIMPLE_V1', 'deploymentPurpose' => 'legacy-synthetic', 'interfaceVersion' => $control['entry_version'] === 2 ? 'simple-v1.2' : 'simple-v1.1',
+        return [...(config('upms.financial_refunds_enabled', false) ? ['financialRefundsEnabled' => true] : []),...(config('upms.expense_masters_enabled', false) ? ['expenseMastersEnabled' => true] : []),...(config('upms.money_accounts_enabled', false) ? ['moneyAccountsEnabled' => true] : []), 'mode' => 'SIMPLE_V1', 'deploymentPurpose' => 'legacy-synthetic', 'interfaceVersion' => $control['entry_version'] === 2 ? 'simple-v1.2' : 'simple-v1.1',
             'operator' => $user['displayName'], 'company' => 'Unique Plastic Industry', 'currency' => 'PKR', 'unit' => 'bottles', 'state' => $control['state'],
             'nextChallan' => $control['next_dc'] <= 10999 ? self::dcNumber($control['next_dc']) : 'Rollover blocked', 'cutoverEvidence' => $control['cutover_evidence'],
             'paymentPolicy' => config('upms.money_accounts_enabled', false) ? 'Cash/bank receipts, payments, paid expenses and immediate purchases require a verified matching money account and post atomically. Cheques are unavailable pending P3.2C. No historical backfill.' : 'Account-level payments. Official CR/VP references are assigned on posting; external cash/bank references are optional. Cheque identification is required. No cash/bank account balance is managed.'];
@@ -96,6 +97,14 @@ final class SimpleV1
         $party = $d['party_id'] ? $this->db->one('SELECT * FROM v1_parties WHERE id=?', [$d['party_id']]) : null;
         $reversal = $this->db->one("SELECT id FROM v1_documents WHERE corrects_id=? AND kind='PAYMENT_REVERSAL' AND status='POSTED' LIMIT 1", [$id]);
         $extra = [];
+        $refund = $this->db->one("SELECT id FROM v1_documents WHERE corrects_id=? AND kind='FINANCIAL_REFUND' AND status='POSTED'", [$id]);
+        if ($refund) {
+            $extra['financialRefundId'] = (string)$refund['id'];
+        }
+        if ($d['kind'] === FinancialCorrections::KIND) {
+            $extra['originalDocumentId'] = $p['originalId'];
+        }
+
         if ($d['kind'] === 'CHALLAN' && $d['status'] === 'POSTED') {
             $returns = array_values(array_filter($this->documents('CHALLAN_RETURN'), fn ($r) => ($r['payload']['originalId'] ?? null) === $id));
             usort($returns, fn ($a, $b) => IntMath::of($a['id'])->compareTo($b['id']));
@@ -249,6 +258,13 @@ final class SimpleV1
             if (isset($f['reference']) && !str_contains(mb_strtolower(implode(' ', [$r['reference'], $r['originalReference'], $r['externalReference'], $r['chequeReference']])), mb_strtolower($f['reference']))) {
                 continue;
             }
+            if ($d['kind'] === FinancialCorrections::KIND) {
+                $r['originalDocumentId'] = $p['originalId'];
+                $r['type'] = match($p['originalKind']) {
+                    'CLIENT_PAYMENT' => 'Customer refund paid','VENDOR_PAYMENT' => 'Vendor payment returned',default => 'Expense refund received'
+                };
+                $r['effect'] = ($p['originalKind'] === 'CLIENT_PAYMENT' ? 'Money out; client receivable restored' : ($p['originalKind'] === 'VENDOR_PAYMENT' ? 'Money in; vendor payable restored' : 'Money in; original expense offset')) . ' · Original '.$p['originalReference'];
+            }
             $records[] = $r;
             $n = Exact::cents($r['amount'], zero: true);
             $keys = match ($r['kind']) {
@@ -256,6 +272,14 @@ final class SimpleV1
                 'CLIENT_PAYMENT' => ['clientReceipts'], 'VENDOR_PAYMENT' => ['vendorPayments'], 'EXPENSE' => ['expensesRecorded', 'expensesPaid'], default => [],
             };
             foreach ($keys as $key) {
+                $totals[$key] = $totals[$key]->plus($n);
+            }
+            if ($r['kind'] === FinancialCorrections::KIND) {
+                foreach (['clientRefunds','vendorRecoveries','expenseRefunds'] as $key) {
+                    $totals[$key] ??= IntMath::zero();
+                }$key = match($p['originalKind']) {
+                    'CLIENT_PAYMENT' => 'clientRefunds','VENDOR_PAYMENT' => 'vendorRecoveries',default => 'expenseRefunds'
+                };
                 $totals[$key] = $totals[$key]->plus($n);
             }
             if ($r['kind'] === 'CHALLAN_RETURN') {
@@ -286,6 +310,11 @@ final class SimpleV1
             if ($p['kind'] === 'VENDOR' && $n->isNegative()) {
                 $payables = $payables->minus($n);
             }
+        }
+        if (isset($totals['clientRefunds'])) {
+            $totals['netClientReceipts'] = $totals['clientReceipts']->minus($totals['clientRefunds']);
+            $totals['netVendorPayments'] = $totals['vendorPayments']->minus($totals['vendorRecoveries']);
+            $totals['netExpenses'] = $totals['expensesPaid']->minus($totals['expenseRefunds']);
         }
         return ['records' => $records, 'totals' => array_map(Exact::money(...), $totals), 'clientReceivables' => Exact::money($receivables), 'vendorPayables' => Exact::money($payables), 'productionBottles' => (string) $production, 'balanceCoverage' => 'Verified party balances as of To date (or present), across all parties; advances excluded. Event totals follow all filters.', 'unverifiedParties' => $unverified];
     }

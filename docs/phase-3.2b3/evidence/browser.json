@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "source": "Actual isolated PHP GET fixtures; final financial confirmation dismissed. API posting tested separately by MariaDB integration.",
+  "screenshots": [
+    "refund-review-desktop.png",
+    "incorrect-entry-blocked.png",
+    "purchase-return-blocked.png",
+    "refund-final-confirmation-draft.png",
+    "vendor-refund-posted.png",
+    "expense-refund-posted.png",
+    "expense-refund-mobile.png",
+    "money-statement-refund-links.png",
+    "signed-expense-report.png",
+    "signed-expense-report-mobile.png"
+  ],
+  "financialRequests": 0,
+  "confirmationsDismissed": 1,
+  "javascriptErrors": [],
+  "mobileOuterOverflow": false,
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-02T10:51:10.357Z"
+}

@@ -145,6 +145,10 @@ final class Reconciliation
                 $mismatches[] = 'Expense master/document evidence mismatch';
             }
         }
+        $refunds = FinancialCorrections::reconcile($docs, $moneyBatches, $journal, $lines, $movements);
+        if (!$refunds['matched']) {
+            $mismatches[] = 'Refund source/journal evidence mismatch';
+        }
         $integrity = Integrity::inspect($docs, $this->db->rows('SELECT * FROM v1_commands ORDER BY `key`'), $this->db->rows('SELECT id FROM users'), $this->db->rows('SELECT id,code FROM v1_items'), $this->db->rows('SELECT id FROM v1_parties'), $audit, $moneyBatches, $expenseAudit);
         $integrityFindings = $integrity['findings'];
         foreach ($integrityFindings as $f) {
@@ -178,6 +182,9 @@ final class Reconciliation
                     $mismatches[] = 'Unposted effects '.$d['id'];
                 }
 
+                continue;
+            }
+            if ($d['kind'] === FinancialCorrections::KIND) {
                 continue;
             }
             $debit = $credit = $total = N::zero();
@@ -374,6 +381,6 @@ final class Reconciliation
             }
         }
 
-        return [...($expense !== null ? ['expense' => $expense] : []),'matched' => ! $mismatches, 'mismatches' => $mismatches, 'repairPerformed' => false, 'documents' => count(array_filter($docs, fn ($d) => $d['status'] === 'POSTED')), 'sourceLines' => count($lines), 'stockEntries' => count($movements), 'ledgerEntries' => count($journal), 'integrityFindings' => $integrityFindings, 'reviewRequired' => (bool) array_filter($integrityFindings, fn ($f) => $f['severity'] === 'warning'), 'authenticityVerified' => false];
+        return [...($refunds['postedRefunds'] ? ['refunds' => $refunds] : []),...($expense !== null ? ['expense' => $expense] : []),'matched' => ! $mismatches, 'mismatches' => $mismatches, 'repairPerformed' => false, 'documents' => count(array_filter($docs, fn ($d) => $d['status'] === 'POSTED')), 'sourceLines' => count($lines), 'stockEntries' => count($movements), 'ledgerEntries' => count($journal), 'integrityFindings' => $integrityFindings, 'reviewRequired' => (bool) array_filter($integrityFindings, fn ($f) => $f['severity'] === 'warning'), 'authenticityVerified' => false];
     }
 }

@@ -18,7 +18,7 @@ final class ExpenseReports
         $employees = [];
         $dates = [];
         foreach ($records as $r) {
-            $n = Exact::cents($r['amount']);
+            $n = Exact::cents($r['amount'], signed:true);
             $overall = $overall->plus($n);
             foreach ([['category',$r['categoryId'] ?? 'legacy',$r['categoryName']],['employee',$r['employeeId'] ?? 'none',$r['employeeName'] ?? 'No associated employee'],['date',$r['date'],$r['date']]] as [$type,$key,$name]) {
                 if ($type === 'category') {
@@ -74,7 +74,7 @@ final class ExpenseReports
                 V1Input::field('moneyAccountId', 'Choose an existing paying account.');
             }
         }
-        $documents = $this->db->rows("SELECT * FROM v1_documents WHERE kind='EXPENSE' AND status='POSTED' ORDER BY date,id");
+        $documents = $this->db->rows("SELECT * FROM v1_documents WHERE (kind='EXPENSE' OR (kind='FINANCIAL_REFUND' AND JSON_UNQUOTE(JSON_EXTRACT(payload,'$.originalKind'))='EXPENSE')) AND status='POSTED' ORDER BY date,id");
         $evidence = ExpenseMasters::documents($documents, $this->db->rows('SELECT * FROM expense_master_audit ORDER BY id'));
         if (!$evidence['matched']) {
             throw new ApiError(409, 'EXPENSE_DOCUMENT_SNAPSHOT_REQUIRED', publicMessage:'Expense snapshots do not reconcile. No report totals were published.');
@@ -91,12 +91,14 @@ final class ExpenseReports
             $mapped = isset($p['expenseMasterVersion']);
             $category = $mapped ? $p['categorySnapshot'] : null;
             $employee = $mapped ? ($p['employeeSnapshot'] ?? null) : null;
-            $account = $claims[(string)$d['id']]['from_account_id'] ?? null;
+            $claim = $claims[(string)$d['id']] ?? null;
+            $account = $claim ? ($claim['from_account_id'] ?? $claim['to_account_id']) : null;
             if ((isset($filters['from']) && $d['date'] < $filters['from']) || (isset($filters['to']) && $d['date'] > $filters['to']) || (!empty($input['categoryId']) && $input['categoryId'] !== ($category['id'] ?? 'legacy')) || (!empty($input['employeeId']) && $input['employeeId'] !== ($employee['id'] ?? 'none')) || (!empty($input['moneyAccountId']) && $input['moneyAccountId'] !== $account)) {
                 continue;
             }
-            $records[] = ['documentId' => (string)$d['id'],'reference' => $p['reference'],'date' => $d['date'],'categoryId' => $category['id'] ?? null,'categoryName' => $category['name'] ?? 'Legacy / unmapped','legacyCategory' => $mapped ? null : $p['category'],'employeeId' => $employee['id'] ?? null,'employeeName' => $employee['name'] ?? null,'description' => $p['description'],'payee' => $p['payee'],'amount' => $d['total'],'method' => $p['method'],'moneyAccountId' => $account,'moneyAccountName' => array_values(array_filter($money, fn ($a) => $a['id'] === $account))[0]['name'] ?? null];
+            $records[] = ['documentId' => (string)$d['id'],'reference' => $p['reference'],'date' => $d['date'],'categoryId' => $category['id'] ?? null,'categoryName' => $category['name'] ?? 'Legacy / unmapped','legacyCategory' => $mapped ? null : $p['category'],'employeeId' => $employee['id'] ?? null,'employeeName' => $employee['name'] ?? null,'description' => $p['description'],'payee' => $p['payee'],'amount' => $d['kind'] === FinancialCorrections::KIND ? '-'.$d['total'] : $d['total'],...($d['kind'] === FinancialCorrections::KIND ? ['kind' => FinancialCorrections::KIND,'originalDocumentId' => $p['originalId']] : []),'method' => $p['method'],'moneyAccountId' => $account,'moneyAccountName' => array_values(array_filter($money, fn ($a) => $a['id'] === $account))[0]['name'] ?? null];
         }
-        return ['company' => 'Unique Plastic Industry','currency' => 'PKR','filters' => $input,'records' => $records,...self::summarize($records),'coverage' => 'Posted paid business expenses only. Legacy categories are unmapped; historical names are retained. This is not payroll or a profit-and-loss report.','snapshotReconciliation' => $evidence,'draftsExcluded' => (int)$this->db->one("SELECT COUNT(*) n FROM v1_documents WHERE kind='EXPENSE' AND status='DRAFT'")['n']];
+        $refundCount = count(array_filter($records, fn ($r) => ($r['kind'] ?? '') === FinancialCorrections::KIND));
+        return [...($refundCount ? ['refundsCount' => $refundCount,'expenseCoverage' => 'Signed rows: original paid expenses positive; evidenced full refunds negative. Originals remain visible.'] : []),'company' => 'Unique Plastic Industry','currency' => 'PKR','filters' => $input,'records' => $records,...self::summarize($records),'coverage' => 'Posted paid business expenses only. Legacy categories are unmapped; historical names are retained. This is not payroll or a profit-and-loss report.','snapshotReconciliation' => $evidence,'draftsExcluded' => (int)$this->db->one("SELECT COUNT(*) n FROM v1_documents WHERE kind='EXPENSE' AND status='DRAFT'")['n']];
     }
 }
