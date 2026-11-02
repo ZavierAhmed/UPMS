@@ -1,0 +1,228 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "name": "PHP units",
+      "command": [
+        "C:\\Users\\zasah\\source\\repos\\UPMS\\tmp\\php-runtime\\bin\\php.exe",
+        "vendor/bin/phpunit",
+        "--testsuite",
+        "Unit",
+        "--no-progress"
+      ],
+      "cwd": "upms.php",
+      "exitCode": 0,
+      "seconds": 1,
+      "summary": [
+        "OK (97 tests, 1394 assertions)\u001b[0m"
+      ]
+    },
+    {
+      "name": "PHP style",
+      "command": [
+        "C:\\Users\\zasah\\source\\repos\\UPMS\\tmp\\php-runtime\\bin\\php.exe",
+        "vendor/bin/pint",
+        "--test",
+        "app/Upms/ChallanNumbers.php",
+        "app/Upms/Documents.php",
+        "app/Upms/ExpenseMasters.php",
+        "app/Upms/FinancialCorrections.php",
+        "app/Upms/FinancialRecovery.php",
+        "app/Upms/Reconciliation.php",
+        "app/Upms/SimpleV1.php",
+        "app/Upms/V1Input.php",
+        "tests/Unit/Uat1ContractsTest.php",
+        "tests/Unit/ExpenseMastersTest.php"
+      ],
+      "cwd": "upms.php",
+      "exitCode": 0,
+      "seconds": 1,
+      "summary": []
+    },
+    {
+      "name": "React",
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--maxWorkers=4"
+      ],
+      "cwd": "upms.client",
+      "exitCode": 0,
+      "seconds": 20,
+      "summary": [
+        "Test Files  36 passed (36)",
+        "Tests  259 passed (259)"
+      ]
+    },
+    {
+      "name": "ESLint",
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "node_modules/eslint/bin/eslint.js",
+        "."
+      ],
+      "cwd": "upms.client",
+      "exitCode": 0,
+      "seconds": 10,
+      "summary": []
+    },
+    {
+      "name": "public build",
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "node_modules/vite/bin/vite.js",
+        "build"
+      ],
+      "cwd": "upms.client",
+      "exitCode": 0,
+      "seconds": 1,
+      "summary": []
+    },
+    {
+      "name": "SSR build",
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "node_modules/vite/bin/vite.js",
+        "build",
+        "--ssr",
+        "src/entry-server.jsx",
+        "--outDir",
+        ".prerender"
+      ],
+      "cwd": "upms.client",
+      "exitCode": 0,
+      "seconds": 1,
+      "summary": []
+    },
+    {
+      "name": "prerender",
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "scripts/prerender.mjs"
+      ],
+      "cwd": "upms.client",
+      "exitCode": 0,
+      "seconds": 1,
+      "summary": []
+    },
+    {
+      "name": "management build",
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "node_modules/vite/bin/vite.js",
+        "build",
+        "--config",
+        "vite.management.config.js"
+      ],
+      "cwd": "upms.client",
+      "exitCode": 0,
+      "seconds": 1,
+      "summary": []
+    },
+    {
+      "name": "financial/security regressions",
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "scripts/uat1-regressions.mjs"
+      ],
+      "cwd": ".",
+      "exitCode": 0,
+      "seconds": 268,
+      "summary": [
+        "foundation money regression passed",
+        "documents money regression passed",
+        "expenses money regression passed",
+        "refunds money regression passed",
+        "Existing financial differential: 83 HTTP comparisons, 4 snapshots passed"
+      ]
+    },
+    {
+      "name": "B4 consolidated + UAT1 contracts / recovery",
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "scripts/uat1-integration.mjs"
+      ],
+      "cwd": ".",
+      "exitCode": 0,
+      "seconds": 84,
+      "summary": [
+        "{\"passed\":true,\"operations\":20,\"restoredRows\":262}"
+      ]
+    },
+    {
+      "name": "baseline UI evidence",
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "scripts/uat1-browser.mjs",
+        "--before"
+      ],
+      "cwd": ".",
+      "exitCode": 0,
+      "seconds": 15,
+      "summary": [
+        "{\"passed\":true,\"mode\":\"before\",\"screenshots\":8,\"pdfs\":2,\"requests\":49,\"exports\":0}"
+      ]
+    },
+    {
+      "name": "UAT1 actual PHP browser / print / exports",
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "scripts/uat1-browser.mjs"
+      ],
+      "cwd": ".",
+      "exitCode": 0,
+      "seconds": 67,
+      "summary": [
+        "{\"passed\":true,\"screenshots\":27,\"pdfs\":15,\"exports\":10,\"requests\":263,\"verifiedUtc\":\"2026-11-02T16:28:32.577Z\"}"
+      ],
+      "note": "Browser acceptance rerun after print-only corrections; actual browser receipt timestamp above."
+    },
+    {
+      "name": "React after final print corrections",
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--maxWorkers=4"
+      ],
+      "cwd": "upms.client",
+      "exitCode": 0,
+      "summary": "RUN  v5.0.5 C:/Users/zasah/source/repos/UPMS/upms.client\n\n\n Test Files  36 passed (36)\n      Tests  259 passed (259)\n   Start at  21:29:02\n   Duration  17.53s (environment 55%, tests 31%, setup 10%, import 3%, transform 1%)\n\nEnvironment  jsdom was created 36 times · 34.75s total, 55% of tracked time\n             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)\n             learn more: https://vitest.dev/guide/improving-performance#test-environments"
+    },
+    {
+      "name": "ESLint after final print corrections",
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "node_modules/eslint/bin/eslint.js",
+        "."
+      ],
+      "cwd": "upms.client",
+      "exitCode": 0,
+      "summary": ""
+    },
+    {
+      "name": "PDF/XLSX verification",
+      "command": [
+        "C:/Users/zasah/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "scripts/uat1-print-verify.py"
+      ],
+      "cwd": ".",
+      "exitCode": 0,
+      "summary": "{\"passed\": true, \"pdfs\": 15, \"workbooks\": 10}"
+    },
+    {
+      "name": "owner UAT preservation",
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "scripts/uat1-owner-preservation.mjs"
+      ],
+      "cwd": ".",
+      "exitCode": 0,
+      "summary": "Owner UAT records, administrators and control state unchanged."
+    }
+  ],
+  "productionContacted": false,
+  "printCorrectionRerun": true,
+  "verifiedUtc": "2026-11-02T16:29:29.952Z"
+}

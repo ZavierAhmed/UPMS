@@ -39,7 +39,7 @@ export function HaftaReport({api, clients}) {
   function update(next) {setReport(null);setFilters(next);history.replaceState(history.state,'',location.pathname+'?'+new URLSearchParams({report:'hafta',...next,paper}));}
   const selected=filters.parties?filters.parties.split(','):[];
   const exportExcel=()=>{const w=haftaWorkbook(report);exportWorkbook('Hafta',w.columns,w.rows,w.metadata);};
-  return <section className="hafta-report"><h1 className="no-print">Hafta Report</h1>
+  return <section className="hafta-report"><h1 className="no-print">Hafta Report · client weekly statement</h1><p className="no-print">This is a client sales/payment statement. <a href="/management/expense-reports?week=1">Review weekly business expenses separately</a>.</p>
     <div className="hafta-controls no-print">
       <label>Week containing<input type="date" value={filters.from} onChange={e=>{if(e.target.value)update({...filters,...weekRange(e.target.value)});}}/></label>
       <label>From<input type="date" value={filters.from} onChange={e=>update({...filters,from:e.target.value})}/></label>

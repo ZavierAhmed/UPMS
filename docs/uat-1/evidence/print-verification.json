@@ -1,0 +1,164 @@
+{
+  "passed": true,
+  "pdfs": [
+    {
+      "surface": "company-transactions",
+      "pages": 3,
+      "blankPages": 0,
+      "clippedCharacters": 0,
+      "controlsExcluded": true
+    },
+    {
+      "surface": "client-hafta",
+      "pages": 1,
+      "blankPages": 0,
+      "clippedCharacters": 0,
+      "controlsExcluded": true
+    },
+    {
+      "surface": "customer-ledger",
+      "pages": 1,
+      "blankPages": 0,
+      "clippedCharacters": 0,
+      "controlsExcluded": true
+    },
+    {
+      "surface": "vendor-ledger",
+      "pages": 1,
+      "blankPages": 0,
+      "clippedCharacters": 0,
+      "controlsExcluded": true
+    },
+    {
+      "surface": "money-statement",
+      "pages": 2,
+      "blankPages": 0,
+      "clippedCharacters": 0,
+      "controlsExcluded": true
+    },
+    {
+      "surface": "expense-category",
+      "pages": 1,
+      "blankPages": 0,
+      "clippedCharacters": 0,
+      "controlsExcluded": true
+    },
+    {
+      "surface": "expense-employee",
+      "pages": 1,
+      "blankPages": 0,
+      "clippedCharacters": 0,
+      "controlsExcluded": true
+    },
+    {
+      "surface": "custom-challan",
+      "pages": 1,
+      "blankPages": 0,
+      "clippedCharacters": 0,
+      "controlsExcluded": true
+    },
+    {
+      "surface": "purchase",
+      "pages": 1,
+      "blankPages": 0,
+      "clippedCharacters": 0,
+      "controlsExcluded": true
+    },
+    {
+      "surface": "purchase-register",
+      "pages": 1,
+      "blankPages": 0,
+      "clippedCharacters": 0,
+      "controlsExcluded": true
+    },
+    {
+      "surface": "stock",
+      "pages": 1,
+      "blankPages": 0,
+      "clippedCharacters": 0,
+      "controlsExcluded": true
+    },
+    {
+      "surface": "stock-movements",
+      "pages": 1,
+      "blankPages": 0,
+      "clippedCharacters": 0,
+      "controlsExcluded": true
+    },
+    {
+      "surface": "financial-receipt",
+      "pages": 1,
+      "blankPages": 0,
+      "clippedCharacters": 0,
+      "controlsExcluded": true
+    },
+    {
+      "surface": "financial-refund",
+      "pages": 1,
+      "blankPages": 0,
+      "clippedCharacters": 0,
+      "controlsExcluded": true
+    },
+    {
+      "surface": "sales-return",
+      "pages": 1,
+      "blankPages": 0,
+      "clippedCharacters": 0,
+      "controlsExcluded": true
+    }
+  ],
+  "excel": [
+    {
+      "surface": "expense-category",
+      "formulaCells": 0,
+      "rows": 11
+    },
+    {
+      "surface": "expense-employee",
+      "formulaCells": 0,
+      "rows": 11
+    },
+    {
+      "surface": "company-transactions",
+      "formulaCells": 0,
+      "rows": 39
+    },
+    {
+      "surface": "customer-ledger",
+      "formulaCells": 0,
+      "rows": 13
+    },
+    {
+      "surface": "vendor-ledger",
+      "formulaCells": 0,
+      "rows": 11
+    },
+    {
+      "surface": "money-statement",
+      "formulaCells": 0,
+      "rows": 11
+    },
+    {
+      "surface": "stock-movements",
+      "formulaCells": 0,
+      "rows": 10
+    },
+    {
+      "surface": "stock",
+      "formulaCells": 0,
+      "rows": 3
+    },
+    {
+      "surface": "client-hafta",
+      "formulaCells": 0,
+      "rows": 21
+    },
+    {
+      "surface": "purchase-register",
+      "formulaCells": 0,
+      "rows": 5
+    }
+  ],
+  "syntheticOnly": true,
+  "productionContacted": false
+}

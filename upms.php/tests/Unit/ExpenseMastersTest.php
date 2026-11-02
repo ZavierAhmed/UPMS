@@ -20,6 +20,21 @@ final class ExpenseMastersTest extends TestCase
         $p = ['kind' => 'EXPENSE','categoryId' => '71','employeeId' => '92','category' => 'Original category','categorySnapshot' => ExpenseMasters::display($c, 'CATEGORY'),'employeeSnapshot' => ExpenseMasters::display($e, 'EMPLOYEE'),'expenseMasterVersion' => 'p32b2','expensePurpose' => 'BUSINESS_EXPENSE','businessExpenseConfirmed' => true];
         return [[$c],[$e],$audit,[['id' => '7','kind' => 'EXPENSE','status' => 'POSTED','payload' => json_encode($p)]]];
     }
+    public function test_new_employee_payee_is_bound_to_retained_identity_while_old_payees_remain_unchanged(): void
+    {
+        [$c,$e,$a,$d] = $this->fixture();
+        $p = json_decode($d[0]['payload'], true);
+        $p['payee'] = 'Original employee';
+        $p['employeePayeeVersion'] = 'uat1';
+        $d[0]['payload'] = json_encode($p);
+        self::assertTrue(ExpenseMasters::documents($d, $a)['matched']);
+        $p['payee'] = 'Unintended payee';
+        $d[0]['payload'] = json_encode($p);
+        self::assertFalse(ExpenseMasters::documents($d, $a)['matched']);
+        unset($p['employeePayeeVersion']);
+        $d[0]['payload'] = json_encode($p);
+        self::assertTrue(ExpenseMasters::documents($d, $a)['matched']);
+    }
     public function test_stable_identity_history_and_posted_snapshots_reconcile(): void
     {
         [$c,$e,$a,$d] = $this->fixture();

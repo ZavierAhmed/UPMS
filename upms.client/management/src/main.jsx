@@ -5,4 +5,5 @@ import { SimpleV1 } from './SimpleV1.jsx';
 import './management.css';
 import './operations.css';
 import './refresh.css';
+import './print-layout.css';
 createRoot(document.getElementById('root')).render(<React.StrictMode>{document.documentElement.dataset.upmsMode==='simple-v1'?<SimpleV1/>:<Management />}</React.StrictMode>);

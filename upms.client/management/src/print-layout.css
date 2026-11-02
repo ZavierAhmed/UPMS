@@ -1,0 +1,48 @@
+.upms-print-header,.upms-print-totals{display:none}
+@media print{
+ @page{size:A4 landscape;margin:12mm}
+ html,body,.simple-v1.management{background:white!important;color:#171b20!important;width:auto!important;min-width:0!important;font-size:10pt!important}
+ .simple-v1.management main{margin:0!important;padding:0!important;width:auto!important;max-width:none!important}
+ .simple-v1.management .sidebar,.simple-v1.management .workspace-topbar,.simple-v1.management .mobile-toggle,.simple-v1.management .drawer-backdrop,.simple-v1.management .no-print,.simple-v1.management button,.simple-v1.management input,.simple-v1.management select,.simple-v1.management textarea,.simple-v1.management dialog,.simple-v1.management .directory-filters,.simple-v1.management .report-selector,.simple-v1.management .action-toolbar,.simple-v1.management .tools{display:none!important}
+ .simple-v1.management main>section,.simple-v1.management article{box-shadow:none!important;border:0!important;border-radius:0!important;padding:0!important;max-width:none!important}
+ .simple-v1.management .upms-print-header{display:flex!important;align-items:center;gap:7mm;border-bottom:2px solid #d97820;padding:0 0 5mm!important;margin:0 0 5mm;break-inside:avoid}
+ .upms-print-header img{width:22mm;height:22mm;object-fit:contain}.upms-print-header strong{font-size:13pt}.upms-print-header h1{font-size:18pt;margin:1mm 0}.upms-print-header p{font-size:9pt;margin:1mm 0;color:#303840}
+ .simple-v1.management main:has(.upms-print-header)>section>h1,.simple-v1.management .detail-heading,.simple-v1.management .financial-refunds>header:not(.upms-print-header){display:none!important}
+ .simple-v1.management main .table-wrap,.simple-v1.management main .money-table-wrap{overflow:visible!important;max-width:none!important;border:0!important;border-radius:0!important;outline:0!important}
+ .simple-v1.management main table{width:100%!important;min-width:0!important;table-layout:auto!important;border-collapse:collapse!important}
+ .simple-v1.management main table th,.simple-v1.management main table td{white-space:normal!important;word-break:normal!important;overflow-wrap:break-word!important;font-size:9pt!important;line-height:1.4!important;padding:2mm!important;vertical-align:top}
+ .simple-v1.management main table thead{display:table-header-group!important}.simple-v1.management main table tfoot{display:table-footer-group!important}.simple-v1.management main table tr{break-inside:avoid}.simple-v1.management main table th{background:#f2f2ef!important}
+ .simple-v1.management a{color:inherit!important;text-decoration:none!important}.simple-v1.management a[href*="/management/documents/"]::after{content:none!important}
+ .simple-v1.management .v1-register .business-summary,.simple-v1.management .v1-register>p,.simple-v1.management .expense-total-grid,.simple-v1.management .expense-reports>header:not(.upms-print-header),.simple-v1.management .expense-reports>p:not(.expense-overall-total),.simple-v1.management .money-policy,.simple-v1.management .money-accounts>h1,.simple-v1.management .money-accounts>.money-summary,.simple-v1.management .payment-summary,.simple-v1.management .payment-confirmation,.simple-v1.management .refund-action,.simple-v1.management .financial-refunds>p{display:none!important}
+ .simple-v1.management .upms-print-totals{display:block!important;border-top:1px solid #555;margin-top:4mm;break-inside:avoid}.upms-print-totals dl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3mm}.upms-print-totals dt{font-weight:600}.upms-print-totals dd{margin:1mm 0}
+ .simple-v1.management .hafta-grid,.simple-v1.management .paper-A3 .hafta-grid{display:block!important;columns:auto!important;padding:0!important}.simple-v1.management .hafta-block{margin:0 0 8mm!important;break-inside:auto!important}.simple-v1.management .hafta-block header{break-after:avoid}.simple-v1.management .hafta-block table{table-layout:fixed!important}.simple-v1.management .hafta-block .hafta-day{width:16%}.simple-v1.management .hafta-block .hafta-description{width:42%}.simple-v1.management .hafta-block .hafta-qty{width:10%}.simple-v1.management .hafta-block .hafta-rate,.simple-v1.management .hafta-block .hafta-amount{width:16%}.simple-v1.management .hafta-block td:first-child,.simple-v1.management .hafta-block td:nth-child(n+3){white-space:nowrap!important}.simple-v1.management .hafta-legend p{display:none!important}.simple-v1.management .hafta-summary{break-inside:avoid}.simple-v1.management .hafta-summary dl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3mm}
+ .simple-v1.management .money-document-effect .action-toolbar,.simple-v1.management .money-document-effect button{display:none!important}
+ .simple-v1.management main .table-wrap table th,.simple-v1.management main .table-wrap table td,.simple-v1.management main .money-table-wrap table th,.simple-v1.management main .money-table-wrap table td,.simple-v1.management main .hafta-block table th,.simple-v1.management main .hafta-block table td{word-break:normal!important;overflow-wrap:break-word!important;line-height:1.4!important}
+ .simple-v1.management .document-detail>header:not(.upms-print-header){display:none!important}
+ .simple-v1.management .v1-register{page:auto!important}
+ .simple-v1.management .upms-print-row{display:table-row!important}.simple-v1.management .upms-print-row>td{border:0!important;padding:3mm 0!important}.simple-v1.management .upms-print-tail{break-inside:avoid!important;page-break-inside:avoid!important}
+ .simple-v1.management .upms-print-header{break-after:avoid}.simple-v1.management h2{break-after:avoid}
+}
+@media print{
+ .simple-v1.management .document-detail p{margin:2mm 0!important;font-size:9pt!important;line-height:1.35!important}
+ .simple-v1.management .document-detail .v1-delivery-header{padding:2mm 0!important}
+ .simple-v1.management .document-detail .business-table{min-height:0!important}
+ .simple-v1.management .document-detail .business-summary{margin:2mm 0!important;padding:0!important;gap:5mm!important}
+ .simple-v1.management .document-detail .business-summary>div{padding:0!important;border:0!important;background:none!important}
+ .simple-v1.management .document-detail .v1-signatures{margin:8mm 0 2mm!important;break-inside:avoid}
+ .simple-v1.management .payment-information{padding:3mm!important;margin-top:3mm!important;break-inside:avoid}
+ .simple-v1.management .payment-information dl>div{padding:2mm 0!important;gap:3mm!important}
+ .simple-v1.management .payment-information h3{margin:0 0 2mm!important}
+ .simple-v1.management .document-detail .money-document-effect{margin:2mm 0!important;padding:0!important}
+}
+@media print{
+ .simple-v1.management .document-detail .upms-print-header p{margin:.5mm 0!important}
+ .simple-v1.management .document-detail .upms-print-header{padding-bottom:3mm!important;margin-bottom:3mm!important}
+ .simple-v1.management .document-detail .v1-signatures{margin:3mm 0 1mm!important;font-size:9pt!important}
+ .simple-v1.management .document-detail .custom-challan-number{margin:2mm 0!important;font-size:14pt!important}
+ .simple-v1.management .party-ledger-report>.entity-select,.simple-v1.management .party-ledger-report>p{display:none!important}
+ .simple-v1.management .party-ledger-report .business-summary{display:flex!important;gap:5mm!important;margin:3mm 0!important;break-inside:avoid}
+ .simple-v1.management .party-ledger-report .business-summary>div{flex:1;padding:2mm!important;border:0!important;background:none!important}
+ .simple-v1.management .party-ledger-report .business-summary strong{font-size:12pt!important}
+ .simple-v1.management .party-ledger-report h2{font-size:12pt!important;margin:2mm 0!important}
+}

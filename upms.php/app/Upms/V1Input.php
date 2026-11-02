@@ -7,7 +7,7 @@ namespace App\Upms;
 /** Explicit compatibility validators for the existing Zod Simple V1 inputs. */
 final class V1Input
 {
-    private const LABELS = ['description' => 'Item description', 'quality' => 'Quality', 'colour' => 'Colour', 'packing' => 'Packing', 'date' => 'Date', 'partyId' => 'Client or vendor', 'sellingPrice' => 'Selling price', 'reason' => 'Justification', 'code' => 'Item code', 'discountMode' => 'Discount mode', 'discountValue' => 'Discount value', 'quantity' => 'Quantity', 'rate' => 'Rate', 'itemId' => 'Bottle', 'amount' => 'Amount', 'time' => 'Time', 'name' => 'Name'];
+    private const LABELS = ['description' => 'Item description', 'quality' => 'Quality', 'colour' => 'Colour', 'packing' => 'Packing', 'date' => 'Date', 'partyId' => 'Client or vendor', 'sellingPrice' => 'Selling price', 'reason' => 'Justification', 'code' => 'Item code', 'discountMode' => 'Discount mode', 'discountValue' => 'Discount value', 'quantity' => 'Quantity', 'rate' => 'Rate', 'itemId' => 'Item', 'amount' => 'Amount', 'time' => 'Time', 'name' => 'Name'];
 
     public static function field(string $field, string $message, string $code = 'ENTRY_VALIDATION', ?array $details = null): never
     {
@@ -46,6 +46,7 @@ final class V1Input
             ...($expenseEnabled ? ['categoryId' => ['id','optional'],'employeeId' => ['id','optional'],'businessExpenseConfirmed' => ['bool','optional'],'expensePurpose' => ['enum',['BUSINESS_EXPENSE'],'optional']] : []),
             ...($moneyEnabled ? ['moneyAccountId' => ['id', 'optional']] : []),
             'kind' => ['enum', array_keys(SimpleV1::EVENTS)], 'date' => ['date'], 'partyId' => ['id', 'nullable', 'default', null], 'originalId' => ['id', 'optional'],
+            'customChallanNumber' => ['text',40,0,'optional'],
             'reference' => ['text', 150, 0, 'default', ''], 'remarks' => ['text', 1000, 0, 'default', ''], 'reason' => ['text', 500, 0, 'default', ''],
             'amount' => ['string', 'default', '0'], 'discountMode' => ['enum', ['NONE', 'FIXED', 'PERCENT'], 'default', 'NONE'], 'discountValue' => ['string', 'default', '0'],
             'category' => ['text', 100, 0, 'default', ''], 'description' => ['text', 500, 0, 'default', ''], 'payee' => ['text', 150, 0, 'default', ''],

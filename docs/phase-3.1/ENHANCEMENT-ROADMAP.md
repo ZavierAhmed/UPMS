@@ -55,3 +55,9 @@ The cumulative schema/guards remain 29/72 with no new definitions. Refund-aware 
 ## P3.2B4 consolidated local acceptance checkpoint
 
 The cumulative financial foundation has independent cross-workflow numerical acceptance, real isolated PHP/browser posting and exports, synthetic Windows-protected refund-aware recovery, and a read-only release gate matrix. A successful refund-draft navigation defect and narrow-screen report readability were fixed. Schema and guards remain 29/72; all feature defaults remain off. No production work or new accounting policy is introduced. Genuine hosted recovery, operational backup integration, target/guard/grant proofs and owner release approvals remain BLOCKED. See [P3.2B4 report](../phase-3.2b4/TECHNICAL-REPORT.md) and [production gate matrix](../phase-3.2b4/RELEASE-GATE-MATRIX.md). All original requirements, remaining policies and branding constraints remain in force.
+
+## UAT-1 checkpoint — local corrections
+
+UAT-1 corrects popup geometry/focus, PHP print/export presentation, separate client Hafta and weekly business expenses, server-derived employee payees, Money Accounts history navigation, generic Item labels and optional custom challan numbering. Evidence and owner retest steps are in `../uat-1/`.
+
+UAT-2 retains active-PHP cheque lifecycle work. UAT-3 retains approved Unique Plastic website content/design/accessibility work. UAT-4 retains operational protected 29/72 off-host backup integration, independent restore, hosted guard verification, financial opening/cutoff policy approval and controlled release. UAT-1 does not authorize production deployment or financial-policy activation.

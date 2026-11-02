@@ -255,7 +255,10 @@ final class SimpleV1
             if ((!empty($f['from']) && $r['date'] < $f['from']) || (!empty($f['to']) && $r['date'] > $f['to']) || (!empty($f['type']) && $r['kind'] !== $f['type']) || (isset($f['party']) && !str_contains(mb_strtolower($r['party']), mb_strtolower($f['party'])))) {
                 continue;
             }
-            if (isset($f['reference']) && !str_contains(mb_strtolower(implode(' ', [$r['reference'], $r['originalReference'], $r['externalReference'], $r['chequeReference']])), mb_strtolower($f['reference']))) {
+            if (!empty($p['customChallanNumber'])) {
+                $r['customChallanNumber'] = $p['customChallanNumber'];
+            }
+            if (isset($f['reference']) && !str_contains(mb_strtolower(implode(' ', [$r['reference'], $r['originalReference'], $r['externalReference'], $r['chequeReference'], $p['customChallanNumber'] ?? ''])), mb_strtolower($f['reference']))) {
                 continue;
             }
             if ($d['kind'] === FinancialCorrections::KIND) {

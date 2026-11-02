@@ -145,6 +145,9 @@ final class Reconciliation
                 $mismatches[] = 'Expense master/document evidence mismatch';
             }
         }
+        if (!ChallanNumbers::reconcile($docs)['matched']) {
+            $mismatches[] = 'Custom challan number evidence mismatch';
+        }
         $refunds = FinancialCorrections::reconcile($docs, $moneyBatches, $journal, $lines, $movements);
         if (!$refunds['matched']) {
             $mismatches[] = 'Refund source/journal evidence mismatch';

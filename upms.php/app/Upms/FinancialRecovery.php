@@ -30,7 +30,8 @@ final class FinancialRecovery
         $sources = MoneyDocuments::reconcile($rows('v1_documents'), $rows('money_batches'), $rows('money_accounts'), array_values(array_filter($rows('v1_audit'), fn ($event) => $event['action'] === 'document.posted')));
         $masters = ExpenseMasters::reconcile($rows('expense_categories'), $rows('employees'), $rows('expense_master_audit'));
         $expenses = ExpenseMasters::documents($rows('v1_documents'), $rows('expense_master_audit'));
-        return ['matched' => $refunds['matched'] && $money['matched'] && $sources['matched'] && $masters['matched'] && $expenses['matched'],'refunds' => $refunds,'money' => $money,'sources' => $sources,'masters' => $masters,'expenses' => $expenses];
+        $numbers = ChallanNumbers::reconcile($rows('v1_documents'));
+        return ['matched' => $numbers['matched'] && $refunds['matched'] && $money['matched'] && $sources['matched'] && $masters['matched'] && $expenses['matched'],'customChallanNumbers' => $numbers,'refunds' => $refunds,'money' => $money,'sources' => $sources,'masters' => $masters,'expenses' => $expenses];
     }
     public static function capture(PDO $pdo, string $runtime): array
     {

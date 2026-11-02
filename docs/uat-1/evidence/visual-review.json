@@ -1,0 +1,32 @@
+{
+  "renderedPages": 23,
+  "sheets": [
+    "docs/uat-1/evidence/print-review-1.png",
+    "docs/uat-1/evidence/print-review-2.png",
+    "docs/uat-1/evidence/print-review-3.png",
+    "docs/uat-1/evidence/print-review-4.png",
+    "docs/uat-1/evidence/print-review-5.png",
+    "docs/uat-1/evidence/print-review-6.png"
+  ],
+  "reviewed": true,
+  "pdfSha256": {
+    "output\\pdf\\uat-1\\after-client-hafta.pdf": "abed9a6776368f649f368075da7a26072d3ad3d21fa88c8b58cb66d6874d06c1",
+    "output\\pdf\\uat-1\\after-company-transactions.pdf": "f0a587dbbb49267123d6ed5d53c8355e1cb0b8a14dc81a8e9d54cf1ccace09a7",
+    "output\\pdf\\uat-1\\after-custom-challan.pdf": "1768cf92d8fe3d5ac07d04f8d7b396c69431466d560cb02950a3fb255efa9777",
+    "output\\pdf\\uat-1\\after-customer-ledger.pdf": "aac6b6ffa0e3bcb99ba502a7b71860f202c3be1d1fbcb494a40cf9b1cf984866",
+    "output\\pdf\\uat-1\\after-expense-category.pdf": "dff055f5b231fb27f152c539ac3ae7c31bbbad0e978d81db53ae0918c23860c5",
+    "output\\pdf\\uat-1\\after-expense-employee.pdf": "cecade5325ad36f15de9a5d30bf662b97daa6cd88a765af9674ed8af10b0a9a2",
+    "output\\pdf\\uat-1\\after-financial-receipt.pdf": "b766a565d11ac9f7573776944bd455e5b8fb4dc5a9fd4588731580588b07e34b",
+    "output\\pdf\\uat-1\\after-financial-refund.pdf": "9a9b473508d849bee5718079384b1baea51d3dd95db1c37ac0f4abd7f9b550ed",
+    "output\\pdf\\uat-1\\after-money-statement.pdf": "b745632b0e2994f71df9608cb20e942b84fe68579d4077dcbd5ee60bc1246378",
+    "output\\pdf\\uat-1\\after-purchase-register.pdf": "243363eab92a91efb1209b14949afd60f5d24353314ac7ed8e5f495fdf2e365c",
+    "output\\pdf\\uat-1\\after-purchase.pdf": "f61a41aaa2946fa3271e791b8ac8b2dfa72cb5351104bbb4951b7c3dd8073b24",
+    "output\\pdf\\uat-1\\after-sales-return.pdf": "e3e2a4d6a9f5cc52e5850f3578922fe7e21fa83eb1695a1145969ac9a76de4ae",
+    "output\\pdf\\uat-1\\after-stock-movements.pdf": "c7abcdc651deee577d159646914f4328c3f1a8a3754ed87c1d43b191419312d5",
+    "output\\pdf\\uat-1\\after-stock.pdf": "b95570c8be86e1f62652faad176a28e3a071116748bac8305e97a7631a460b91",
+    "output\\pdf\\uat-1\\after-vendor-ledger.pdf": "410b7315e5f4aa7ccde1324cc77fe60742e63f5d5a34535de27b5e598ae4da31",
+    "output\\pdf\\uat-1\\before-client-hafta.pdf": "6b486819f2e6085d9399cad647ed407fc841c7f5cefb4dfc89e71a922d1d9372",
+    "output\\pdf\\uat-1\\before-company-transactions.pdf": "10e23937a51784150224b6de2918c4fea8d4c507453b00b77d3248510b618b6d"
+  },
+  "notes": "Visually inspected all 23 rendered pages, including baseline failures and corrected logo/context, columns, signed totals, pagination and purchase amounts. Larger owner datasets still require print-preview retest."
+}

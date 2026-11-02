@@ -182,6 +182,10 @@ final class ExpenseMasters
         $p['category'] = $category['name'];
         $p['categorySnapshot'] = self::display($category, 'CATEGORY');
         $p['employeeSnapshot'] = $employee ? self::display($employee, 'EMPLOYEE') : null;
+        if ($employee) {
+            $p['payee'] = $employee['name'];
+            $p['employeePayeeVersion'] = 'uat1';
+        }
         $p['expenseMasterVersion'] = 'p32b2';
         return $p;
     }
@@ -196,6 +200,9 @@ final class ExpenseMasters
             }return;
         }
         $current = $this->prepare($p);
+        if (isset($p['employeePayeeVersion']) && (($p['employeePayeeVersion'] !== 'uat1') || !$current['employeeSnapshot'] || $p['payee'] !== $current['payee'])) {
+            V1Input::field('employeeId', 'Employee payee changed. Review and save the expense again.', 'EXPENSE_PAYEE_REVIEW_REQUIRED');
+        }
         foreach (['expenseMasterVersion','category','categorySnapshot','employeeSnapshot'] as $key) {
             if (BusinessCommand::canonical($current[$key]) !== BusinessCommand::canonical($p[$key] ?? null)) {
                 V1Input::field('categoryId', 'Category or employee details changed. Edit, review and save this draft again.', 'EXPENSE_MASTER_REVIEW_REQUIRED');
@@ -221,6 +228,9 @@ final class ExpenseMasters
             }$mapped++;
             $category = $p['categorySnapshot'] ?? [];
             $employee = $p['employeeSnapshot'] ?? null;
+            if (isset($p['employeePayeeVersion']) && ($p['employeePayeeVersion'] !== 'uat1' || !$employee || ($p['payee'] ?? '') !== ($employee['name'] ?? null))) {
+                $findings[] = ['code' => 'EXPENSE_PAYEE_SNAPSHOT','documentId' => (string)$d['id']];
+            }
             $check = function ($snapshot, $entity) use ($history) {
                 $h = $history[$entity.':'.($snapshot['id'] ?? '').':'.($snapshot['version'] ?? '')] ?? null;
                 if (!$h) {

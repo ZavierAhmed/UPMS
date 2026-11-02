@@ -100,6 +100,7 @@ final class Documents
                 $p['discountSummary'] = Pricing::discount($subtotal, $p['discountMode'], $p['discountValue'], allowZero: true);
             }
         }
+        $p = ChallanNumbers::prepare($p);
         $p = (new ExpenseMasters($this->db))->prepare($p);
         $p = (new MoneyDocuments($this->db))->prepare($p);
         $p = ReversalIdentity::derive($this->db, $p);
@@ -159,6 +160,7 @@ final class Documents
             throw new ApiError(409, 'IMMUTABLE_DOCUMENT');
         }
         $p = SimpleV1::payload($d);
+        ChallanNumbers::beforePost($this->db, $p);
         (new ExpenseMasters($this->db))->beforePost($p);
         (new MoneyDocuments($this->db))->beforePost($p, (string)$d['id']);
         if ($p['date'] > SimpleV1::today()) {

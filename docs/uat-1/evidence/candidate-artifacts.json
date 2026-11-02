@@ -1,0 +1,144 @@
+{
+  "baseline": "01460a0e05dbd948e5408177f3442a05e43dded8",
+  "sourceHeadInspected": "01460a0e05dbd948e5408177f3442a05e43dded8",
+  "candidate": true,
+  "ownerApproved": false,
+  "artifacts": [
+    {
+      "path": "scripts/uat1-browser.mjs",
+      "sha256": "861428f4f2d9890615ef07ad9c91a1edb8ca16cd0e985bea45bcd91d91e6f740"
+    },
+    {
+      "path": "scripts/uat1-finish-validation.mjs",
+      "sha256": "7c020cb1364eb5b35ea0c39714311b9649789956f64f7c446b710069eee5326c"
+    },
+    {
+      "path": "scripts/uat1-integration.mjs",
+      "sha256": "b0fe8bc6ed5755f5f177eac3970a0aa2b677e127db9029160f454233ca3fdd4a"
+    },
+    {
+      "path": "scripts/uat1-inventory.mjs",
+      "sha256": "7295dd3e3c7badd463515ac46d496d217aca34fd7b45764d587620c8cdfb40e2"
+    },
+    {
+      "path": "scripts/uat1-owner-preservation.mjs",
+      "sha256": "457e201b9c98aa030210714149557e5d77421399140224d7765331b8a61742ff"
+    },
+    {
+      "path": "scripts/uat1-print-verify.py",
+      "sha256": "4c09f809a6b03fe967c719dcfd18b508e4965d71b5fc0d7641d2e07f9404413f"
+    },
+    {
+      "path": "scripts/uat1-regressions.mjs",
+      "sha256": "64a4b4721ffc9b54d5089880cceb9ac0b556f3ee1ac7850568d465db9d39d923"
+    },
+    {
+      "path": "scripts/uat1-render-review.py",
+      "sha256": "6960b188d3aa00397ca8068134d869ea28242fc69ad51b58191fc7fbf4997b24"
+    },
+    {
+      "path": "scripts/uat1-validate.mjs",
+      "sha256": "c42c313e29702576ce05e839dc78afcc7a701f230d0871631b8b8919d9405777"
+    },
+    {
+      "path": "upms.client/management/src/BottleLineEditor.jsx",
+      "sha256": "c34885b7916b27df52c6dcc022374c158f4158b2aafa19ee19ab52d61336e6e5"
+    },
+    {
+      "path": "upms.client/management/src/ChallanReturn.jsx",
+      "sha256": "7da366d3d2d88b0cbc69cbcfaab16724a1cf8ae5bd97f90a2f29e221cdb390e3"
+    },
+    {
+      "path": "upms.client/management/src/ExpenseMasters.jsx",
+      "sha256": "52706cb8df00eeeddb4cbd3b50ce7229813b9cda4572e3804e60421906e43b0e"
+    },
+    {
+      "path": "upms.client/management/src/ExpenseReports.jsx",
+      "sha256": "a19d32010611a8c9ea5202c8a12aa55325e20f0c8879f8383cddca42176e9771"
+    },
+    {
+      "path": "upms.client/management/src/FinancialRefunds.jsx",
+      "sha256": "cf88b9f65603ac60e4bf5ae9079cedb020f8ad6a0a5dd8175d66835619f072cd"
+    },
+    {
+      "path": "upms.client/management/src/HaftaReport.jsx",
+      "sha256": "c0307f6354704934bf34c44e65cae80c22a1596686583810b5f54c6f14f1fb93"
+    },
+    {
+      "path": "upms.client/management/src/MoneyAccounts.jsx",
+      "sha256": "092b1e37d4ac4f379f02d9d30b5c1c4dffaa746d03a8698d21535ca88627743d"
+    },
+    {
+      "path": "upms.client/management/src/PaymentDocument.jsx",
+      "sha256": "21482e479176e8f58834048adb58fcbffaf16017964fc1b9c537092fe75fbdc5"
+    },
+    {
+      "path": "upms.client/management/src/PrintLayout.jsx",
+      "sha256": "c5cf17bcac9074d652cd92d812c8d20e96e79e45fa87fd70c7902579607b517a"
+    },
+    {
+      "path": "upms.client/management/src/SimpleV1.jsx",
+      "sha256": "bbc8eb740af32850a0f945d6bada18c448d34f96e0e8adba4502115114fdd547"
+    },
+    {
+      "path": "upms.client/management/src/expense-masters.css",
+      "sha256": "645fc99dc62787d815453521ac835a77f8bc40237e18e3887a964ab5144a1044"
+    },
+    {
+      "path": "upms.client/management/src/main.jsx",
+      "sha256": "b4cc2f77a6a9f5546fa3b54fc2055bd72adda7e38ce380ad0f83dfd0bc131ceb"
+    },
+    {
+      "path": "upms.client/management/src/print-layout.css",
+      "sha256": "1ec9189670a2f06f8277ed785261521400d0ea6a7d610af3f4be5e92b1b31241"
+    },
+    {
+      "path": "upms.client/src/test/BottleLineEditor.test.jsx",
+      "sha256": "52e705215600a8e92566f1f0be4bcabf070c994d40ab625aeda111737fad28cb"
+    },
+    {
+      "path": "upms.client/src/test/ExpenseMasters.test.jsx",
+      "sha256": "8cc15474a52f265a15979d5288f50473d77d4dca6cfb7f1eec8f1727d95d40c4"
+    },
+    {
+      "path": "upms.php/app/Upms/ChallanNumbers.php",
+      "sha256": "5b647202379f45884822d23b36dc9a790c032392d340518abcea23c2342fc1b1"
+    },
+    {
+      "path": "upms.php/app/Upms/Documents.php",
+      "sha256": "fb65af03a96633292350fff831836f567a828a5097ba29ddd785bdd5f3d96f97"
+    },
+    {
+      "path": "upms.php/app/Upms/ExpenseMasters.php",
+      "sha256": "a368c04557143cdc99ef9aa11e87a34268d31dbe172c69f5dd5145968e158317"
+    },
+    {
+      "path": "upms.php/app/Upms/FinancialCorrections.php",
+      "sha256": "d500be5c7ba76a907c195ebe52352afc1d35a92da4b6b6f7b2e8910d691b544d"
+    },
+    {
+      "path": "upms.php/app/Upms/FinancialRecovery.php",
+      "sha256": "065977f349e8b5fc4d5beccebd11d0b3dab81e8f377238555f5c3d1cfb3f4877"
+    },
+    {
+      "path": "upms.php/app/Upms/Reconciliation.php",
+      "sha256": "0e55179e66ff12afbc2a8f1065d61244d9ae0d251223aa605344aff981b47c62"
+    },
+    {
+      "path": "upms.php/app/Upms/SimpleV1.php",
+      "sha256": "2098c5b6393a0a4a4403641b092e7d087f3d5093373cc42bb530a29d7d83ca7b"
+    },
+    {
+      "path": "upms.php/app/Upms/V1Input.php",
+      "sha256": "231d1812a1f0d372e054d3f27f06cf3020c82d584d6dd137560e69a32c74cdcc"
+    },
+    {
+      "path": "upms.php/tests/Unit/ExpenseMastersTest.php",
+      "sha256": "0df94bb1f95ba4559a57e85694b71a974932c33aa36e9c1266d81682b16923c5"
+    },
+    {
+      "path": "upms.php/tests/Unit/Uat1ContractsTest.php",
+      "sha256": "f09a9805f5c161f387767020ef914ce0a835d87f9a3dead9103775ba0d068707"
+    }
+  ]
+}

@@ -273,7 +273,7 @@ final class FinancialCorrections
                     $ok = false;
                 }
             }
-            foreach (['partySnapshot','category','categoryId','categorySnapshot','employeeId','employeeSnapshot','businessExpenseConfirmed','expensePurpose','expenseMasterVersion','payee','description'] as $field) {
+            foreach (['partySnapshot','category','categoryId','categorySnapshot','employeeId','employeeSnapshot','businessExpenseConfirmed','expensePurpose','expenseMasterVersion','employeePayeeVersion','payee','description'] as $field) {
                 if (BusinessCommand::canonical($p[$field] ?? null) !== BusinessCommand::canonical($sp[$field] ?? null)) {
                     $ok = false;
                 }
@@ -302,8 +302,8 @@ final class FinancialCorrections
             $id = (string)$d['id'];
             $js = array_values(array_filter($journals, fn ($j) => (string)$j['document_id'] === $id));
             $expected = $p['originalKind'] === 'EXPENSE' ? [] : [['party_id' => (string)$d['party_id'],'debit' => $p['originalKind'] === 'CLIENT_PAYMENT' ? $d['total'] : '0.00','credit' => $p['originalKind'] === 'VENDOR_PAYMENT' ? $d['total'] : '0.00']];
-            $actual = array_map(fn ($j) => ['party_id' => (string)$j['party_id'],'debit' => $j['debit'],'credit' => $j['credit']],$js);
-            if ($actual !== $expected || array_filter([...$lines,...$stock],fn ($row) => (string)$row['document_id'] === $id)) {
+            $actual = array_map(fn ($j) => ['party_id' => (string)$j['party_id'],'debit' => $j['debit'],'credit' => $j['credit']], $js);
+            if ($actual !== $expected || array_filter([...$lines,...$stock], fn ($row) => (string)$row['document_id'] === $id)) {
                 $findings[] = ['code' => 'REFUND_JOURNAL_STOCK_MISMATCH','documentId' => $id];
             }
         }

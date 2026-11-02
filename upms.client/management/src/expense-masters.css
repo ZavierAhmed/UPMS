@@ -4,3 +4,6 @@
 
 @media print{.expense-report-group{break-inside:auto}.expense-report-tail{break-inside:avoid}.expense-report-group h2{break-after:avoid}.expense-group-total{break-before:avoid}}
 @media screen and (max-width:700px){.expense-report-group .table-wrap{max-width:100%;overflow-x:auto}.expense-report-group table{min-width:900px}.expense-report-group .table-wrap:focus-visible{outline:2px solid #e87817;outline-offset:2px}}
+.simple-v1.management .expense-master-dialog footer{margin:0;padding:16px 0 0;border:0;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:12px;width:100%;box-sizing:border-box}
+.simple-v1.management .expense-master-dialog footer .action-button{flex:0 0 auto;width:auto;min-width:max-content;min-height:44px;white-space:nowrap;word-break:normal;overflow-wrap:normal;margin:0}
+.simple-v1.management .expense-master-dialog footer .action-button>span{white-space:nowrap}.expense-master-dialog [role=alert],.expense-master-dialog h2{overflow-wrap:anywhere}.expense-master-dialog fieldset{min-width:0}
