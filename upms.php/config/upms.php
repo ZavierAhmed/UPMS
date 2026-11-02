@@ -5,6 +5,9 @@ declare(strict_types=1);
 return [
     // Default synthetic profile; verified private production configuration is separate.
     'enabled' => env('UPMS_ENABLED', false),
+    'expense_masters_enabled' => env('UPMS_EXPENSE_MASTERS_ENABLED', false),
+    'expense_guard_evidence' => env('UPMS_EXPENSE_GUARD_EVIDENCE', ''),
+    'expense_release_approval' => env('UPMS_EXPENSE_RELEASE_APPROVAL', ''),
     'money_accounts_enabled' => env('UPMS_MONEY_ACCOUNTS_ENABLED', false),
     'money_guard_evidence' => env('UPMS_MONEY_GUARD_EVIDENCE'),
     'money_release_approval' => env('UPMS_MONEY_RELEASE_APPROVAL'),

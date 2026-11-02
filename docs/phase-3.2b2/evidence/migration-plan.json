@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "reproducible": true,
+  "status": "NOT_APPROVED_NOT_APPLIED",
+  "tablesAdded": 4,
+  "guardsAdded": 12,
+  "totalTables": 29,
+  "totalGuards": 72,
+  "expensePlanHash": "ef265791f848fea7543dc4d0de899fe9ab7d6d082ca8fc9a7dc478a17ee343ea",
+  "expenseGuardHash": "78ea4719d6fd96921486bb5bbf2df10b98e8959269fa17cf5171dfbe31520e00",
+  "sqlExecuted": false,
+  "grantsEmitted": false,
+  "recordsSeeded": false
+}

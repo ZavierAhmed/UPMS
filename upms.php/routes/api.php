@@ -17,6 +17,9 @@ Route::get('/readyz', function () {
         if (config('upms.money_accounts_enabled', false)) {
             \App\Upms\MoneySchema::ready(app(Database::class));
         }
+        if (config('upms.expense_masters_enabled', false)) {
+            \App\Upms\ExpenseSchema::ready(app(Database::class));
+        }
         return response()->json(['status' => 'ready']);
     } catch (Throwable) {
         return response()->json(['status' => 'unavailable'], 503);
@@ -28,6 +31,10 @@ Route::prefix('/api/v1/management')->middleware(UpmsBoundary::class)->group(func
     Route::get('/session/current', [SessionController::class, 'current']);
     Route::post('/session/logout', [SessionController::class, 'logout']);
     Route::post('/profile/password', [SessionController::class, 'password']);
+    Route::get('/simple-v1/expense-directory', \App\Http\Controllers\ExpenseController::class);
+    Route::get('/simple-v1/expense-reports', \App\Http\Controllers\ExpenseController::class);
+    Route::post('/simple-v1/expense-masters/{entity}', \App\Http\Controllers\ExpenseController::class)->whereIn('entity', ['categories','employees']);
+    Route::patch('/simple-v1/expense-masters/{entity}/{id}', \App\Http\Controllers\ExpenseController::class)->whereIn('entity', ['categories','employees']);
     Route::get('/simple-v1/money', \App\Http\Controllers\MoneyAccountsController::class);
     Route::get('/simple-v1/money/accounts/{id}', \App\Http\Controllers\MoneyAccountsController::class);
     Route::post('/simple-v1/money/{operation}', \App\Http\Controllers\MoneyAccountsController::class)->whereIn('operation', ['openings','transfers','sources','reversals']);

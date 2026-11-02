@@ -29,10 +29,16 @@ final class Documents
         if (config('upms.money_accounts_enabled', false) && in_array($input->kind ?? '', ['CLIENT_PAYMENT','VENDOR_PAYMENT','EXPENSE','PURCHASE','PAYMENT_REVERSAL'], true)) {
             MoneySchema::ready($this->db);
         }
+        if (config('upms.expense_masters_enabled', false) && ($input->kind ?? '') === 'EXPENSE') {
+            ExpenseSchema::ready($this->db);
+        }
         if ($id !== null) {
             $stored = $this->db->one('SELECT kind FROM v1_documents WHERE id=?', [$id]);
             if ($stored) {
                 self::supported($stored['kind']);
+                if (config('upms.expense_masters_enabled', false) && $stored['kind'] === 'EXPENSE') {
+                    ExpenseSchema::ready($this->db);
+                }
                 if (config('upms.money_accounts_enabled', false) && in_array($stored['kind'], ['CLIENT_PAYMENT','VENDOR_PAYMENT','EXPENSE','PURCHASE','PAYMENT_REVERSAL'], true)) {
                     MoneySchema::ready($this->db);
                 }
@@ -49,7 +55,7 @@ final class Documents
         }
         $raw = clone $input;
         unset($raw->version);
-        $p = V1Input::document($raw, (bool) config('upms.money_accounts_enabled', false));
+        $p = V1Input::document($raw, (bool) config('upms.money_accounts_enabled', false), (bool) config('upms.expense_masters_enabled', false));
         self::supported($p['kind']);
         V1Input::uniqueLines($p['lines']);
         if ($p['kind'] === 'CHALLAN_RETURN') {
@@ -94,6 +100,7 @@ final class Documents
                 $p['discountSummary'] = Pricing::discount($subtotal, $p['discountMode'], $p['discountValue'], allowZero: true);
             }
         }
+        $p = (new ExpenseMasters($this->db))->prepare($p);
         $p = (new MoneyDocuments($this->db))->prepare($p);
         $p = ReversalIdentity::derive($this->db, $p);
         if ($p['partyId'] && ! in_array($p['kind'], ['CHALLAN_RETURN', 'PAYMENT_REVERSAL'], true)) {
@@ -152,6 +159,7 @@ final class Documents
             throw new ApiError(409, 'IMMUTABLE_DOCUMENT');
         }
         $p = SimpleV1::payload($d);
+        (new ExpenseMasters($this->db))->beforePost($p);
         (new MoneyDocuments($this->db))->beforePost($p, (string)$d['id']);
         if ($p['date'] > SimpleV1::today()) {
             throw new ApiError(400, 'FUTURE_DATE_NOT_ALLOWED');

@@ -38,11 +38,12 @@ final class V1Input
         ]);
     }
 
-    public static function document(object $input, bool $moneyEnabled = false): array
+    public static function document(object $input, bool $moneyEnabled = false, bool $expenseEnabled = false): array
     {
         $errors = [];
         $aborted = false;
         $parsed = self::parse($input, [
+            ...($expenseEnabled ? ['categoryId' => ['id','optional'],'employeeId' => ['id','optional'],'businessExpenseConfirmed' => ['bool','optional'],'expensePurpose' => ['enum',['BUSINESS_EXPENSE'],'optional']] : []),
             ...($moneyEnabled ? ['moneyAccountId' => ['id', 'optional']] : []),
             'kind' => ['enum', array_keys(SimpleV1::EVENTS)], 'date' => ['date'], 'partyId' => ['id', 'nullable', 'default', null], 'originalId' => ['id', 'optional'],
             'reference' => ['text', 150, 0, 'default', ''], 'remarks' => ['text', 1000, 0, 'default', ''], 'reason' => ['text', 500, 0, 'default', ''],

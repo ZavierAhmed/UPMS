@@ -1,0 +1,102 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Upms;
+
+use Brick\Math\BigInteger as N;
+
+final class ExpenseReports
+{
+    public function __construct(private readonly Database $db)
+    {
+    }
+    public static function summarize(array $records): array
+    {
+        $overall = N::zero();
+        $categories = [];
+        $employees = [];
+        $dates = [];
+        foreach ($records as $r) {
+            $n = Exact::cents($r['amount']);
+            $overall = $overall->plus($n);
+            foreach ([['category',$r['categoryId'] ?? 'legacy',$r['categoryName']],['employee',$r['employeeId'] ?? 'none',$r['employeeName'] ?? 'No associated employee'],['date',$r['date'],$r['date']]] as [$type,$key,$name]) {
+                if ($type === 'category') {
+                    $groups = &$categories;
+                } elseif ($type === 'employee') {
+                    $groups = &$employees;
+                } else {
+                    $groups = &$dates;
+                }
+                if (!isset($groups[$key])) {
+                    $groups[$key] = ['identity' => (string)$key,'names' => [],'total' => N::zero(),'records' => []];
+                }
+                if (!in_array($name, $groups[$key]['names'], true)) {
+                    $groups[$key]['names'][] = $name;
+                }$groups[$key]['total'] = $groups[$key]['total']->plus($n);
+                $groups[$key]['records'][] = $r;
+                unset($groups);
+            }
+        }
+        $convert = static function ($groups) {
+            ksort($groups, SORT_NATURAL);
+            return array_values(array_map(fn ($g) => [...$g,'total' => Exact::money($g['total'])], $groups));
+        };
+        return ['overall' => Exact::money($overall),'categoryGroups' => $convert($categories),'employeeGroups' => $convert($employees),'dateGroups' => $convert($dates),'count' => count($records)];
+    }
+    public function generate(array $input): array
+    {
+        $allowed = ['from','to','categoryId','employeeId',...(config('upms.money_accounts_enabled', false) ? ['moneyAccountId'] : [])];
+        if (array_diff(array_keys($input), $allowed)) {
+            throw new ApiError(400, 'INVALID_EXPENSE_FILTER');
+        }
+        $filters = V1Input::reportFilters(array_filter(array_intersect_key($input, array_flip(['from','to'])), fn ($v) => $v !== ''));
+        if (isset($filters['from'],$filters['to']) && $filters['from'] > $filters['to']) {
+            V1Input::field('from', 'From date must not follow To date.');
+        }
+        $directory = (new ExpenseMasters($this->db))->directory();
+        if (!(new Reconciliation($this->db))->run()['matched']) {
+            throw new ApiError(409, 'EXPENSE_FINANCIAL_RECONCILIATION_REQUIRED', publicMessage:'Posted financial evidence does not reconcile. No expense totals were published.');
+        }
+        foreach (['categoryId' => ['categories','legacy'],'employeeId' => ['employees','none']] as $field => [$list,$special]) {
+            if (!empty($input[$field]) && $input[$field] !== $special && !array_filter($directory[$list], fn ($a) => $a['id'] === $input[$field])) {
+                V1Input::field($field, 'Choose an existing reporting identity.');
+            }
+        }
+        $money = [];
+        if (config('upms.money_accounts_enabled', false)) {
+            MoneySchema::ready($this->db);
+            $overview = (new MoneyAccounts($this->db))->overview();
+            if (!$overview['reconciliation']['matched']) {
+                throw new ApiError(409, 'MONEY_RECONCILIATION_REQUIRED');
+            }$money = $overview['accounts'];
+            if (!empty($input['moneyAccountId']) && !array_filter($money, fn ($a) => $a['id'] === $input['moneyAccountId'])) {
+                V1Input::field('moneyAccountId', 'Choose an existing paying account.');
+            }
+        }
+        $documents = $this->db->rows("SELECT * FROM v1_documents WHERE kind='EXPENSE' AND status='POSTED' ORDER BY date,id");
+        $evidence = ExpenseMasters::documents($documents, $this->db->rows('SELECT * FROM expense_master_audit ORDER BY id'));
+        if (!$evidence['matched']) {
+            throw new ApiError(409, 'EXPENSE_DOCUMENT_SNAPSHOT_REQUIRED', publicMessage:'Expense snapshots do not reconcile. No report totals were published.');
+        }
+        $claims = [];
+        if ($money) {
+            foreach ($this->db->rows("SELECT * FROM money_batches WHERE source_type='DOCUMENT'") as $b) {
+                $claims[substr($b['source_ref'], 9)] = $b;
+            }
+        }
+        $records = [];
+        foreach ($documents as $d) {
+            $p = SimpleV1::payload($d);
+            $mapped = isset($p['expenseMasterVersion']);
+            $category = $mapped ? $p['categorySnapshot'] : null;
+            $employee = $mapped ? ($p['employeeSnapshot'] ?? null) : null;
+            $account = $claims[(string)$d['id']]['from_account_id'] ?? null;
+            if ((isset($filters['from']) && $d['date'] < $filters['from']) || (isset($filters['to']) && $d['date'] > $filters['to']) || (!empty($input['categoryId']) && $input['categoryId'] !== ($category['id'] ?? 'legacy')) || (!empty($input['employeeId']) && $input['employeeId'] !== ($employee['id'] ?? 'none')) || (!empty($input['moneyAccountId']) && $input['moneyAccountId'] !== $account)) {
+                continue;
+            }
+            $records[] = ['documentId' => (string)$d['id'],'reference' => $p['reference'],'date' => $d['date'],'categoryId' => $category['id'] ?? null,'categoryName' => $category['name'] ?? 'Legacy / unmapped','legacyCategory' => $mapped ? null : $p['category'],'employeeId' => $employee['id'] ?? null,'employeeName' => $employee['name'] ?? null,'description' => $p['description'],'payee' => $p['payee'],'amount' => $d['total'],'method' => $p['method'],'moneyAccountId' => $account,'moneyAccountName' => array_values(array_filter($money, fn ($a) => $a['id'] === $account))[0]['name'] ?? null];
+        }
+        return ['company' => 'Unique Plastic Industry','currency' => 'PKR','filters' => $input,'records' => $records,...self::summarize($records),'coverage' => 'Posted paid business expenses only. Legacy categories are unmapped; historical names are retained. This is not payroll or a profit-and-loss report.','snapshotReconciliation' => $evidence,'draftsExcluded' => (int)$this->db->one("SELECT COUNT(*) n FROM v1_documents WHERE kind='EXPENSE' AND status='DRAFT'")['n']];
+    }
+}

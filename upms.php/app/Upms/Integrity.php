@@ -19,7 +19,7 @@ final class Integrity
         return is_string($v) && preg_match('/^(?!0000)(\d{4})-(\d{2})-(\d{2})$/D', $v, $m) && checkdate((int) $m[2], (int) $m[3], (int) $m[1]);
     }
 
-    public static function inspect(array $docs, array $commands, array $users, array $items, array $parties, array $audit = [], array $moneyBatches = []): array
+    public static function inspect(array $docs, array $commands, array $users, array $items, array $parties, array $audit = [], array $moneyBatches = [], array $expenseAudit = []): array
     {
         $findings = $invalid = $receipts = $keys = [];
         $add = function ($code, $entity, $id, $field, $message, $severity = 'error') use (&$findings, &$invalid): void {
@@ -148,6 +148,13 @@ final class Integrity
                 if ((string) $x['id'] === $r->id) {
                     $d = $x;
                 }
+            }
+            if ($names === 'expenseMaster,id,record,version') {
+                $a = array_values(array_filter($expenseAudit, fn ($a) => $a['entity'] === $r->expenseMaster && (string)$a['entity_id'] === $r->id && (int)$a['version'] === $r->version));
+                if (count($a) !== 1 || (string)$a[0]['actor_id'] !== (string)$c['actor_id'] || !is_object($r->record) || BusinessCommand::canonical($r->record) !== BusinessCommand::canonical(json_decode($a[0]['snapshot'], false, 32, JSON_THROW_ON_ERROR))) {
+                    $add('COMMAND_EXPENSE_MASTER_INVALID', 'command', $key, 'result', 'Master receipt must match its retained immutable version and actor.');
+                }
+                continue;
             }
             // Money receipts have their own exact shape and retained immutable batch.
             if ($names === 'amount,correctsId,id,kind,reference,status' && ($r->status ?? null) === 'POSTED') {

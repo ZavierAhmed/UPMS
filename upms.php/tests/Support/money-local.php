@@ -5,7 +5,7 @@ if (PHP_SAPI !== 'cli') {
     exit(1);
 }
 require __DIR__.'/../../vendor/autoload.php';
-use App\Upms\{CleanInitialization,CleanSqlImport,CrudGuards,MoneySchema,MoneyRecovery};
+use App\Upms\{CleanInitialization,CleanSqlImport,CrudGuards,MoneySchema,MoneyRecovery,ExpenseSchema,ExpenseRecovery,ExpenseGuards,MoneyGuards};
 
 $c = json_decode(stream_get_contents(STDIN), true, 32, JSON_THROW_ON_ERROR);
 if (($c['port'] ?? 0) !== 3330 || !preg_match('/^upms_test_php_money_[0-9]+(?:_restore)?$/D', $c['schema'] ?? '') || !preg_match('/^money_rt_[0-9]+$/D', $c['runtime'] ?? '')) {
@@ -43,6 +43,23 @@ switch ($c['action']) {
         $r['runtime'] = $c['runtime'].'@localhost';
         $r['targetHash'] = CleanInitialization::target($p);
         echo json_encode($r);
+        break;
+    case 'verifyExpense': echo json_encode([...ExpenseGuards::verify($p, $c['runtime'], (string)$p->query('SELECT CURRENT_USER()')->fetchColumn()),...ExpenseSchema::verify($p)]);
+        break;
+    case 'verifyMoneyOnly': echo json_encode(MoneyGuards::verify($p, $c['runtime']));
+        break;
+    case 'expenseExtension': echo json_encode(ExpenseSchema::installIsolated($p, $c['runtime']));
+        break;
+    case 'expenseSnapshot': $kp = sodium_crypto_box_keypair();
+        $snapshot = ExpenseRecovery::capture($p, $c['runtime']);
+        $cipher = ExpenseRecovery::encrypt($snapshot, sodium_crypto_box_publickey($kp));
+        echo json_encode(['cipher' => base64_encode($cipher),'keyPair' => base64_encode($kp),'tables' => count($snapshot['tables'])]);
+        sodium_memzero($kp);
+        break;
+    case 'expenseRestore': $kp = base64_decode($c['keyPair'], true);
+        $snapshot = ExpenseRecovery::decrypt(base64_decode($c['cipher'], true), $kp);
+        sodium_memzero($kp);
+        echo json_encode(ExpenseRecovery::restoreIsolated($p, $snapshot, $c['runtime']));
         break;
     case 'snapshot':$keypair = sodium_crypto_box_keypair();
         $snapshot = MoneyRecovery::capture($p, $c['runtime']);

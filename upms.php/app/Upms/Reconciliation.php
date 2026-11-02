@@ -132,7 +132,20 @@ final class Reconciliation
         $audit = $this->db->rows('SELECT * FROM v1_audit');
         $moneyTables = $this->db->one("SELECT COUNT(*) n FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='money_batches'");
         $moneyBatches = (int)$moneyTables['n'] === 1 ? $this->db->rows('SELECT * FROM money_batches ORDER BY id') : [];
-        $integrity = Integrity::inspect($docs, $this->db->rows('SELECT * FROM v1_commands ORDER BY `key`'), $this->db->rows('SELECT id FROM users'), $this->db->rows('SELECT id,code FROM v1_items'), $this->db->rows('SELECT id FROM v1_parties'), $audit, $moneyBatches);
+        $expenseTables = $this->db->one("SELECT COUNT(*) n FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='expense_master_audit'");
+        $expenseAudit = (int)$expenseTables['n'] === 1 ? $this->db->rows('SELECT * FROM expense_master_audit ORDER BY id') : [];
+        $expense = null;
+        if (config('upms.expense_masters_enabled', false)) {
+            ExpenseSchema::ready($this->db);
+            [$c,$e,$a] = (new ExpenseMasters($this->db))->rows();
+            $masters = ExpenseMasters::reconcile($c, $e, $a);
+            $snapshots = ExpenseMasters::documents($docs, $a);
+            $expense = ['matched' => $masters['matched'] && $snapshots['matched'],'masters' => $masters,'documents' => $snapshots];
+            if (!$expense['matched']) {
+                $mismatches[] = 'Expense master/document evidence mismatch';
+            }
+        }
+        $integrity = Integrity::inspect($docs, $this->db->rows('SELECT * FROM v1_commands ORDER BY `key`'), $this->db->rows('SELECT id FROM users'), $this->db->rows('SELECT id,code FROM v1_items'), $this->db->rows('SELECT id FROM v1_parties'), $audit, $moneyBatches, $expenseAudit);
         $integrityFindings = $integrity['findings'];
         foreach ($integrityFindings as $f) {
             if ($f['severity'] === 'error') {
@@ -361,6 +374,6 @@ final class Reconciliation
             }
         }
 
-        return ['matched' => ! $mismatches, 'mismatches' => $mismatches, 'repairPerformed' => false, 'documents' => count(array_filter($docs, fn ($d) => $d['status'] === 'POSTED')), 'sourceLines' => count($lines), 'stockEntries' => count($movements), 'ledgerEntries' => count($journal), 'integrityFindings' => $integrityFindings, 'reviewRequired' => (bool) array_filter($integrityFindings, fn ($f) => $f['severity'] === 'warning'), 'authenticityVerified' => false];
+        return [...($expense !== null ? ['expense' => $expense] : []),'matched' => ! $mismatches, 'mismatches' => $mismatches, 'repairPerformed' => false, 'documents' => count(array_filter($docs, fn ($d) => $d['status'] === 'POSTED')), 'sourceLines' => count($lines), 'stockEntries' => count($movements), 'ledgerEntries' => count($journal), 'integrityFindings' => $integrityFindings, 'reviewRequired' => (bool) array_filter($integrityFindings, fn ($f) => $f['severity'] === 'warning'), 'authenticityVerified' => false];
     }
 }

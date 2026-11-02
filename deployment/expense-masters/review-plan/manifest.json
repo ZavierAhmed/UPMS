@@ -1,0 +1,18 @@
+{
+    "status": "NOT_APPROVED_NOT_APPLIED",
+    "expensePlanHash": "ef265791f848fea7543dc4d0de899fe9ab7d6d082ca8fc9a7dc478a17ee343ea",
+    "moneyPlanHash": "1fce4426d5799ee9ffaf34734fcbb374ef953a56b29b0ec845758f749dc81805",
+    "baseGuardHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+    "moneyGuardHash": "507af072fa4f22e2a94311b6944ec876e8022c857578768b0ed2dc067e7cd3b1",
+    "expenseGuardHash": "78ea4719d6fd96921486bb5bbf2df10b98e8959269fa17cf5171dfbe31520e00",
+    "tablesAdded": 4,
+    "guardsAdded": 12,
+    "expectedTotalTables": 29,
+    "expectedTotalGuards": 72,
+    "files": {
+        "01-schema.sql": "d1d17211c81e37700680fffe45a58132b8cebb352e0c22813c44fff6311d9dba",
+        "02-additional-guards.sql": "9a587485f9614509e58dc84c2332b15e26d8486be4c2234e2523aade40313cf1"
+    },
+    "receiptFinalization": "Requires separate target-bound verification, protected off-host recovery and owner approval. No receipt or activation is generated here.",
+    "legacyBackupCompatible": false
+}

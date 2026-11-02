@@ -84,3 +84,6 @@ deployment/operations/* text eol=lf
 
 # Offline Money Accounts migration plan integrity.
 deployment/money-accounts/** text eol=lf
+
+# Preserve review SQL byte hashes.
+deployment/expense-masters/** text eol=lf

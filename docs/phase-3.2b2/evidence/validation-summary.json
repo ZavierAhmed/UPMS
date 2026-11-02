@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "startingSha": "8fd9a0a3dfea40077fe3490ff7af29c5edfdc711",
+  "branch": "feature/upms-p3-2b2-expense-employees-reports",
+  "php": {
+    "version": "8.3.36",
+    "tests": 79,
+    "assertions": 1332
+  },
+  "react": {
+    "files": 35,
+    "tests": 246
+  },
+  "integration": {
+    "checks": 28,
+    "tables": 29,
+    "guards": 72,
+    "restoredRows": 138,
+    "financialReconciliationMatched": true
+  },
+  "regressions": {
+    "foundation": 28,
+    "financialDocuments": 28,
+    "httpComparisons": 83,
+    "snapshots": 4
+  },
+  "eslint": "passed",
+  "pint": "passed",
+  "build": {
+    "public": "passed",
+    "ssr": "passed",
+    "prerenderRoutes": 11,
+    "notFound": true,
+    "management": "passed",
+    "advisory": "Management bundle exceeds Vite 500 kB advisory threshold"
+  },
+  "exports": {
+    "pdfs": 2,
+    "a4Landscape": true,
+    "pagesEach": 2,
+    "excelRowsEach": 5,
+    "exactOverall": "0.63",
+    "formulaCells": 0
+  },
+  "featureDefault": "disabled",
+  "original60GuardDefinitionsChanged": false,
+  "productionBackupChanged": false,
+  "productionContacted": false,
+  "hostedDefinerPrivilegesVerified": false,
+  "productionReady": false,
+  "recordedUtc": "2026-11-02T09:57:54.107Z"
+}

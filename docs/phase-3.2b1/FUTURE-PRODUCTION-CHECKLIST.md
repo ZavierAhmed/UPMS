@@ -1,5 +1,7 @@
 # Future controlled production release — pending, not authorized
 
+P3.2B2 now implements expense categories, employees and reports locally. Financial corrections are separately proposed as [P3.2B3](../phase-3.2b2/P3.2B3-FINANCIAL-CORRECTIONS.md). Use the updated [29-table/72-guard production checklist](../phase-3.2b2/FUTURE-PRODUCTION-CHECKLIST.md) and [cheque plan](../phase-3.2b2/P3.2C-CHEQUE-PLAN.md); the text below records the earlier P3.2B1 checkpoint.
+
 All hosted gates below remain unchecked. This milestone made no production connection, deployment, migration, grant change, administrator change or live guard change.
 
 - [ ] Obtain separate owner authorization for a concrete cumulative P3.1/P3.2A/P3.2B1 release and accounting policy, with exact release SHA and integrity manifest.

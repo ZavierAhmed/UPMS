@@ -70,6 +70,9 @@ final class MoneySchema
         if (!config('upms.money_accounts_enabled')) {
             throw new ApiError(503, 'MONEY_ACCOUNTS_DISABLED', publicMessage:'Money Accounts is not enabled for this deployment.', entry:false);
         }
+        if (config('upms.expense_masters_enabled', false)) {
+            ExpenseSchema::ready($db);
+        }
         try {
             $pdo = $db->pdo();
             $schema = self::verify($pdo);
@@ -79,13 +82,18 @@ final class MoneySchema
                 throw new \RuntimeException('MONEY_GUARD_EVIDENCE_REQUIRED');
             }
             $g = json_decode(file_get_contents($path), true, 32, JSON_THROW_ON_ERROR);
-            if (($g['passed'] ?? false) !== true || ($g['runtime'] ?? '') !== $runtime || ($g['targetHash'] ?? '') !== CleanInitialization::target($pdo) || ($g['planHash'] ?? '') !== $schema['planHash'] || ($g['accountsHash'] ?? '') !== $schema['accountsHash'] || ($g['baseHash'] ?? '') !== CrudGuards::hash() || ($g['moneyHash'] ?? '') !== MoneyGuards::hash(explode('@', $runtime)[0]) || ($g['totalGuards'] ?? 0) !== 60) {
+            $expenseTables = (int)$pdo->query("SELECT COUNT(*) FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME IN ('expense_categories','employees','expense_master_audit','expense_schema_receipts')")->fetchColumn();
+            $extended = $expenseTables > 0 || config('upms.expense_masters_enabled', false) || ($g['totalGuards'] ?? 0) === 72;
+            if ($extended) {
+                ExpenseSchema::ready($db, false);
+            }
+            if (($g['passed'] ?? false) !== true || ($g['runtime'] ?? '') !== $runtime || ($g['targetHash'] ?? '') !== CleanInitialization::target($pdo) || ($g['planHash'] ?? '') !== $schema['planHash'] || ($g['accountsHash'] ?? '') !== $schema['accountsHash'] || ($g['baseHash'] ?? '') !== CrudGuards::hash() || ($g['moneyHash'] ?? '') !== MoneyGuards::hash(explode('@', $runtime)[0]) || ($g['totalGuards'] ?? 0) !== ($extended ? 72 : 60)) {
                 throw new \RuntimeException('MONEY_GUARD_EVIDENCE_REJECTED');
             }
             if ($pdo->query('SELECT DATABASE()')->fetchColumn() === 'upms_v1') {
                 // A development evidence receipt is never a production approval.
                 $a = json_decode(file_get_contents((string)config('upms.money_release_approval')), true, 32, JSON_THROW_ON_ERROR);
-                if (($a['status'] ?? '') !== 'OWNER_APPROVED_MONEY_RELEASE' || ($a['documentIntegrationVersion'] ?? '') !== MoneyDocuments::VERSION || ($a['targetHash'] ?? '') !== $g['targetHash'] || ($a['planHash'] ?? '') !== self::hash() || ($a['guardEvidenceSha256'] ?? '') !== hash_file('sha256', $path) || ($a['recoveryFormat'] ?? '') !== 'UPMS_MONEY_SNAPSHOT_V1' || ($a['recoveryVerified'] ?? false) !== true || ($g['definer'] ?? '') !== CrudGuards::DEFINER || ($g['definerPrivilegesVerified'] ?? false) !== true) {
+                if (($a['status'] ?? '') !== 'OWNER_APPROVED_MONEY_RELEASE' || ($a['documentIntegrationVersion'] ?? '') !== MoneyDocuments::VERSION || ($a['targetHash'] ?? '') !== $g['targetHash'] || ($a['planHash'] ?? '') !== self::hash() || ($a['guardEvidenceSha256'] ?? '') !== hash_file('sha256', $path) || ($a['recoveryFormat'] ?? '') !== ($extended ? ExpenseRecovery::FORMAT : MoneyRecovery::FORMAT) || ($a['recoveryVerified'] ?? false) !== true || ($g['definer'] ?? '') !== CrudGuards::DEFINER || ($g['definerPrivilegesVerified'] ?? false) !== true) {
                     throw new \RuntimeException('MONEY_PRODUCTION_APPROVAL_REQUIRED');
                 }
             }

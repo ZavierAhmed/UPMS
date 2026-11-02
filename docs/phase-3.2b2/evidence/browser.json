@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "source": "Actual isolated PHP GET fixtures; two inline master creation responses simulated, not hosted acceptance",
+  "screenshots": [
+    "category-popup.png",
+    "employee-popup.png",
+    "employee-popup-mobile.png",
+    "expense-preserved-mobile.png",
+    "category-report.png",
+    "employee-report.png",
+    "employee-report-mobile.png"
+  ],
+  "masterResponsesSimulated": 2,
+  "financialRequests": 0,
+  "javascriptErrors": [],
+  "mobileOuterOverflow": false,
+  "popupDraftFieldsPreserved": true,
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-02T09:52:22.960Z"
+}

@@ -53,7 +53,7 @@ final class SimpleV1
 
     public function state(array $control, array $user): array
     {
-        return [...(config('upms.money_accounts_enabled', false) ? ['moneyAccountsEnabled' => true] : []), 'mode' => 'SIMPLE_V1', 'deploymentPurpose' => 'legacy-synthetic', 'interfaceVersion' => $control['entry_version'] === 2 ? 'simple-v1.2' : 'simple-v1.1',
+        return [...(config('upms.expense_masters_enabled', false) ? ['expenseMastersEnabled' => true] : []),...(config('upms.money_accounts_enabled', false) ? ['moneyAccountsEnabled' => true] : []), 'mode' => 'SIMPLE_V1', 'deploymentPurpose' => 'legacy-synthetic', 'interfaceVersion' => $control['entry_version'] === 2 ? 'simple-v1.2' : 'simple-v1.1',
             'operator' => $user['displayName'], 'company' => 'Unique Plastic Industry', 'currency' => 'PKR', 'unit' => 'bottles', 'state' => $control['state'],
             'nextChallan' => $control['next_dc'] <= 10999 ? self::dcNumber($control['next_dc']) : 'Rollover blocked', 'cutoverEvidence' => $control['cutover_evidence'],
             'paymentPolicy' => config('upms.money_accounts_enabled', false) ? 'Cash/bank receipts, payments, paid expenses and immediate purchases require a verified matching money account and post atomically. Cheques are unavailable pending P3.2C. No historical backfill.' : 'Account-level payments. Official CR/VP references are assigned on posting; external cash/bank references are optional. Cheque identification is required. No cash/bank account balance is managed.'];

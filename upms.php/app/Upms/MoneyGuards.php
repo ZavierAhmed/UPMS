@@ -38,9 +38,9 @@ final class MoneyGuards
     {
         return hash('sha256', json_encode(self::plan($runtime), JSON_THROW_ON_ERROR));
     }
-    public static function verify(PDO $pdo, string $runtime, ?string $definer = null): array
+    public static function verify(PDO $pdo, string $runtime, ?string $definer = null, array $extension = []): array
     {
-        $all = [...CrudGuards::plan($runtime),...self::plan($runtime)];
+        $all = [...CrudGuards::plan($runtime),...self::plan($runtime),...$extension];
         $rows = $pdo->query('SELECT TRIGGER_NAME,EVENT_MANIPULATION,EVENT_OBJECT_TABLE,ACTION_TIMING,ACTION_STATEMENT,DEFINER FROM information_schema.TRIGGERS WHERE TRIGGER_SCHEMA=DATABASE()')->fetchAll(PDO::FETCH_ASSOC);
         if (count($rows) !== count($all)) {
             throw new \RuntimeException('MONEY_GUARD_SET_REJECTED');
@@ -80,6 +80,6 @@ final class MoneyGuards
             }
             $privilegesVerified = true;
         }
-        return ['passed' => true,'baseGuards' => 45,'additionalGuards' => 15,'totalGuards' => 60,'baseHash' => CrudGuards::hash(),'moneyHash' => self::hash($runtime),'definer' => $definer,'definerPrivilegesVerified' => $privilegesVerified];
+        return ['passed' => true,'baseGuards' => 45,'additionalGuards' => 15,'totalGuards' => count($all),'baseHash' => CrudGuards::hash(),'moneyHash' => self::hash($runtime),'definer' => $definer,'definerPrivilegesVerified' => $privilegesVerified];
     }
 }
