@@ -1,0 +1,6 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {productionGo,requiredHostedGates} from './p32b4-gates.mjs';
+// In-memory boolean fixtures only: no owner approval or readiness certificates are created.
+const complete=()=>requiredHostedGates.map(id=>({id,mandatory:true,status:'PASS'}));
+test('every mandatory failure or unavailable gate prevents GO',()=>{for(const status of ['FAIL','BLOCKED','UNKNOWN'])for(let i=0;i<requiredHostedGates.length;i++){const g=complete();g[i].status=status;assert.equal(productionGo(g),false);}});
+test('empty, omitted, duplicate and optionalized hosted gates cannot bypass readiness',()=>{assert.equal(productionGo([]),false);assert.equal(productionGo(complete().slice(1)),false);const g=complete();g[0].mandatory=false;assert.equal(productionGo(g),false);assert.equal(productionGo([...complete(),complete()[0]]),false);});
+test('all gates must be present and passing; only genuinely optional N/A is tolerated',()=>{assert.equal(productionGo(complete()),true);assert.equal(productionGo([...complete(),{id:'GST',mandatory:false,status:'NOT APPLICABLE'}]),true);const g=complete();g[0].status='NOT APPLICABLE';assert.equal(productionGo(g),false);});

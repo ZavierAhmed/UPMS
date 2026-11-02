@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "syntheticOnly": true,
+  "checks": [
+    {
+      "group": "Category",
+      "pdfPages": 2,
+      "blankPages": 0,
+      "a4Landscape": true,
+      "allPostedSourcesPresent": true,
+      "excelRows": 3,
+      "exactOverall": "0.07",
+      "formulaCells": 0,
+      "orphanGroupTotals": 0
+    },
+    {
+      "group": "Employee",
+      "pdfPages": 2,
+      "blankPages": 0,
+      "a4Landscape": true,
+      "allPostedSourcesPresent": true,
+      "excelRows": 3,
+      "exactOverall": "0.07",
+      "formulaCells": 0,
+      "orphanGroupTotals": 0
+    }
+  ]
+}

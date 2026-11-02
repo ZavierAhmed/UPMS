@@ -1,0 +1,173 @@
+{
+  "passed": false,
+  "results": [
+    {
+      "name": "PHP unit",
+      "command": [
+        "C:\\Users\\zasah\\source\\repos\\UPMS\\tmp\\php-runtime\\bin\\php.exe",
+        "vendor/bin/phpunit",
+        "--testsuite",
+        "Unit",
+        "--no-progress"
+      ],
+      "cwd": "upms.php",
+      "exitCode": 0,
+      "seconds": 1,
+      "summary": [
+        "OK (92 tests, 1378 assertions)\u001b[0m"
+      ]
+    },
+    {
+      "name": "PHP style",
+      "command": [
+        "C:\\Users\\zasah\\source\\repos\\UPMS\\tmp\\php-runtime\\bin\\php.exe",
+        "vendor/bin/pint",
+        "--test",
+        "app/Upms/FinancialArchive.php",
+        "tests/Unit/FinancialArchiveTest.php",
+        "tests/Support/money-local.php"
+      ],
+      "cwd": "upms.php",
+      "exitCode": 0,
+      "seconds": 1,
+      "summary": []
+    },
+    {
+      "name": "React",
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--maxWorkers=4"
+      ],
+      "cwd": "upms.client",
+      "exitCode": 0,
+      "seconds": 20,
+      "summary": [
+        "Test Files  36 passed (36)",
+        "Tests  255 passed (255)"
+      ]
+    },
+    {
+      "name": "ESLint",
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "node_modules/eslint/bin/eslint.js",
+        "."
+      ],
+      "cwd": "upms.client",
+      "exitCode": 0,
+      "seconds": 11,
+      "summary": []
+    },
+    {
+      "name": "public build",
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "node_modules/vite/bin/vite.js",
+        "build"
+      ],
+      "cwd": "upms.client",
+      "exitCode": 0,
+      "seconds": 1,
+      "summary": []
+    },
+    {
+      "name": "SSR build",
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "node_modules/vite/bin/vite.js",
+        "build",
+        "--ssr",
+        "src/entry-server.jsx",
+        "--outDir",
+        ".prerender"
+      ],
+      "cwd": "upms.client",
+      "exitCode": 0,
+      "seconds": 1,
+      "summary": []
+    },
+    {
+      "name": "prerender",
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "scripts/prerender.mjs"
+      ],
+      "cwd": "upms.client",
+      "exitCode": 0,
+      "seconds": 0,
+      "summary": []
+    },
+    {
+      "name": "management build",
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "node_modules/vite/bin/vite.js",
+        "build",
+        "--config",
+        "vite.management.config.js"
+      ],
+      "cwd": "upms.client",
+      "exitCode": 0,
+      "seconds": 1,
+      "summary": []
+    },
+    {
+      "name": "prior financial regressions",
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "scripts/p32b4-regressions.mjs"
+      ],
+      "cwd": ".",
+      "exitCode": 0,
+      "seconds": 246,
+      "summary": [
+        "foundation money regression passed",
+        "documents money regression passed",
+        "expenses money regression passed",
+        "refunds money regression passed",
+        "Existing financial differential: 83 HTTP comparisons, 4 snapshots passed"
+      ]
+    },
+    {
+      "name": "consolidated oracle",
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "scripts/p32b4-consolidated.mjs"
+      ],
+      "cwd": ".",
+      "exitCode": 0,
+      "seconds": 72,
+      "summary": [
+        "{\"passed\":true,\"operations\":18,\"restoredRows\":231}"
+      ]
+    },
+    {
+      "name": "offline Windows recovery",
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "scripts/p32b4-recovery.mjs"
+      ],
+      "cwd": ".",
+      "exitCode": 0,
+      "seconds": 5,
+      "summary": [
+        "{\"passed\":true,\"negativeArchiveCases\":7,\"windowsDpapi\":true,\"restoredRows\":231}"
+      ]
+    },
+    {
+      "name": "built UI / real PHP",
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "scripts/p32b4-browser.mjs"
+      ],
+      "cwd": ".",
+      "exitCode": 1,
+      "seconds": 41,
+      "summary": []
+    }
+  ],
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-02T13:41:26.879Z"
+}

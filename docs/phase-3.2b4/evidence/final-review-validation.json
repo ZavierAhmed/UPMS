@@ -1,0 +1,63 @@
+{
+  "passed": true,
+  "scope": "Final UI review fixes; prior unchanged backend/full validation retained separately",
+  "results": [
+    {
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "--test",
+        "scripts/p32b4-gates.test.mjs"
+      ],
+      "exitCode": 0,
+      "seconds": 0,
+      "summary": "✔ every mandatory failure or unavailable gate prevents GO (1.4976ms)\n✔ empty, omitted, duplicate and optionalized hosted gates cannot bypass readiness (0.183ms)\n✔ all gates must be present and passing; only genuinely optional N/A is tolerated (0.159ms)\nℹ tests 3\nℹ suites 0\nℹ pass 3\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 89.385\n"
+    },
+    {
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "scripts/p32b4-ui-verify.mjs"
+      ],
+      "exitCode": 0,
+      "seconds": 27,
+      "summary": "Final UI tests, lint and optimized build passed.\n"
+    },
+    {
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "scripts/p32b4-consolidated.mjs"
+      ],
+      "exitCode": 0,
+      "seconds": 77,
+      "summary": "{\"passed\":true,\"operations\":18,\"restoredRows\":231}\n"
+    },
+    {
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "scripts/p32b4-recovery.mjs"
+      ],
+      "exitCode": 0,
+      "seconds": 6,
+      "summary": "{\"passed\":true,\"negativeArchiveCases\":7,\"windowsDpapi\":true,\"restoredRows\":231}\n"
+    },
+    {
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "scripts/p32b4-browser.mjs"
+      ],
+      "exitCode": 0,
+      "seconds": 29,
+      "summary": "{\"passed\":true,\"apiRequests\":98,\"financialPosts\":2,\"screenshots\":12}\n"
+    },
+    {
+      "command": [
+        "C:/Users/zasah/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "scripts/p32b4-artifacts.py"
+      ],
+      "exitCode": 0,
+      "seconds": 1,
+      "summary": "{\"passed\": true, \"syntheticOnly\": true, \"checks\": [{\"group\": \"Category\", \"pdfPages\": 2, \"blankPages\": 0, \"a4Landscape\": true, \"allPostedSourcesPresent\": true, \"excelRows\": 3, \"exactOverall\": \"0.07\", \"formulaCells\": 0, \"orphanGroupTotals\": 0}, {\"group\": \"Employee\", \"pdfPages\": 2, \"blankPages\": 0, \"a4Landscape\": true, \"allPostedSourcesPresent\": true, \"excelRows\": 3, \"exactOverall\": \"0.07\", \"formulaCells\": 0, \"orphanGroupTotals\": 0}]}\r\n"
+    }
+  ],
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-02T13:54:09.930Z"
+}

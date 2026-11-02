@@ -6,5 +6,8 @@ export default defineConfig({
     transformIndexHtml:html=>html.replace('<html','<html data-upms-mode="simple-v1"'),
   }],
   server: {host:'127.0.0.1',port:5173,strictPort:true,proxy:{'/api':{target:'http://127.0.0.1:3000'}}},
-  build: { outDir: '../dist/management', emptyOutDir: true, sourcemap: false },
+  build: { outDir: '../dist/management', emptyOutDir: true, sourcemap: false,
+    // Keep the existing eagerly loaded applications; separate shared dependencies at build time only.
+    rolldownOptions: {output: {codeSplitting: {groups: [{name:'vendor',test:/node_modules/}]}}},
+  },
 });

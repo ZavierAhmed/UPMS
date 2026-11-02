@@ -1,0 +1,67 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--maxWorkers=4"
+      ],
+      "cwd": "upms.client",
+      "exitCode": 0,
+      "summary": [
+        "Test Files  36 passed (36)",
+        "Tests  257 passed (257)"
+      ]
+    },
+    {
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "node_modules/eslint/bin/eslint.js",
+        "."
+      ],
+      "cwd": "upms.client",
+      "exitCode": 0,
+      "summary": []
+    },
+    {
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "node_modules/vite/bin/vite.js",
+        "build",
+        "--config",
+        "vite.management.config.js"
+      ],
+      "cwd": "upms.client",
+      "exitCode": 0,
+      "summary": []
+    }
+  ],
+  "bundle": {
+    "beforeLargestBytes": 599820,
+    "beforeLargestGzipBytes": 162560,
+    "after": [
+      {
+        "name": "index-D9ouPCz6.js",
+        "bytes": 380229,
+        "gzipBytes": 94275
+      },
+      {
+        "name": "rolldown-runtime-WkwZ5CU-.js",
+        "bytes": 599,
+        "gzipBytes": 368
+      },
+      {
+        "name": "vendor-7VJPxFFw.js",
+        "bytes": 218759,
+        "gzipBytes": 67530
+      }
+    ],
+    "compressionMeasurement": "Before values are approximate Vite output; after bytes and gzip measured directly with Node zlib defaults. Compare uncompressed chunk sizes, not claimed bandwidth savings.",
+    "cause": "main.jsx eagerly imports both Management and SimpleV1 plus shared React runtime. Both are retained; build-only dependency grouping separates vendor modules.",
+    "behavior": "No lazy route or application behavior changes; total code remains approximately the same, largest chunk below 500 kB."
+  },
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-02T13:52:17.010Z"
+}

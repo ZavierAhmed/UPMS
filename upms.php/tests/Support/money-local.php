@@ -16,6 +16,37 @@ if (!str_starts_with($p->query('SELECT VERSION()')->fetchColumn(), '10.11.19-Mar
     throw new RuntimeException('ISOLATED_ENGINE_ONLY');
 }
 switch ($c['action']) {
+    case 'archiveAcceptance':
+        $kp = base64_decode($c['keyPair'], true);
+        $snapshot = FinancialRecovery::decrypt(base64_decode($c['cipher'], true), $kp);
+        $cipher = \App\Upms\FinancialArchive::encrypt($snapshot, sodium_crypto_box_publickey($kp));
+        $decoded = \App\Upms\FinancialArchive::decrypt($cipher, $kp);
+        if ($decoded !== $snapshot) {
+            throw new RuntimeException('ARCHIVE_ROUNDTRIP_MISMATCH');
+        }
+        $tests = [];
+        $expectRejected = static function (string $label, callable $test) use (&$tests): void {
+            try {
+                $test();
+            } catch (Throwable) {
+                $tests[] = $label;
+                return;
+            }
+            throw new RuntimeException('ARCHIVE_INVALID_INPUT_ACCEPTED');
+        };
+        $expectRejected('truncated ciphertext', fn () => \App\Upms\FinancialArchive::decrypt(substr($cipher, 0, -11), $kp));
+        $broken = $cipher;
+        $broken[100] = chr(ord($broken[100]) ^ 1);
+        $expectRejected('corrupted ciphertext', fn () => \App\Upms\FinancialArchive::decrypt($broken, $kp));
+        $expectRejected('wrong recipient', fn () => \App\Upms\FinancialArchive::decrypt($cipher, sodium_crypto_box_keypair()));
+        foreach (['unsupported version' => ['format' => 'V999'], 'inconsistent manifest' => ['format' => \App\Upms\FinancialArchive::FORMAT, 'manifest' => ['tables' => 20], 'snapshot' => $snapshot]] as $label => $bad) {
+            $expectRejected($label, fn () => \App\Upms\FinancialArchive::decrypt(ExpenseRecovery::encrypt($bad, sodium_crypto_box_publickey($kp)), $kp));
+        }
+        $expectRejected('legacy format refused by new consumer', fn () => \App\Upms\FinancialArchive::decrypt(base64_decode($c['cipher'], true), $kp));
+        $r = FinancialRecovery::restoreIsolated($p, $decoded, $c['runtime']);
+        sodium_memzero($kp);
+        echo json_encode(['passed' => true, 'rejections' => $tests, 'restored' => $r]);
+        break;
     case 'base':
         if ($p->query('SHOW TABLES')->fetchAll()) {
             throw new RuntimeException('EMPTY_BASE_REQUIRED');

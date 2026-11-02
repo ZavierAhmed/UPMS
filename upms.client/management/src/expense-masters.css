@@ -3,3 +3,4 @@
 @media print{.expense-reports header h1{font-size:22px;margin:10px 0}.expense-reports p{font-size:11px;line-height:1.4;margin:6px 0}.expense-reports h2{font-size:15px;margin:12px 0 8px}.expense-report-group{break-inside:avoid;margin:14px 0}.expense-reports table{font-size:11px}.expense-total-grid p{font-size:10px}.expense-reports .synthetic-expense-notice{font-size:10px}}
 
 @media print{.expense-report-group{break-inside:auto}.expense-report-tail{break-inside:avoid}.expense-report-group h2{break-after:avoid}.expense-group-total{break-before:avoid}}
+@media screen and (max-width:700px){.expense-report-group .table-wrap{max-width:100%;overflow-x:auto}.expense-report-group table{min-width:900px}.expense-report-group .table-wrap:focus-visible{outline:2px solid #e87817;outline-offset:2px}}

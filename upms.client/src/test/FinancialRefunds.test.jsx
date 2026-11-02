@@ -4,6 +4,19 @@ import {RefundReview,RefundDetail,RefundAction} from '../../management/src/Finan
 const review={eligible:true,canPost:true,originalId:'5',originalKind:'CLIENT_PAYMENT',originalVersion:2,originalReference:'CR-0005',originalAmount:'25.01',party:'Original Client',sourceMoneyBatchId:'6',account:{id:'71',name:'Haris',balance:'100.01'},moneyDirection:'OUT',expectedBalance:'75.00',partyEffect:'Restore client receivable by PKR 25.01.',today:'2026-11-02',datePolicy:'Current business day only.',sufficientFunds:true,blockedReason:''};
 const detail={id:'9',kind:'FINANCIAL_REFUND',status:'DRAFT',version:1,date:'2026-11-02',party_id:'41',payload:{originalId:'5',originalKind:'CLIENT_PAYMENT',originalReference:'CR-0005',amount:'25.01',moneyAccountId:'71',reference:'ACTUAL-RETURN',reason:'Real full refund',refundEvidence:'Verified returned funds reference',date:'2026-11-02',partySnapshot:{name:'Original Client'}}};
 beforeEach(()=>{history.replaceState({},'','/management/financial-refunds/5');vi.clearAllMocks();});
+it('removes the draft account preview after posting instead of showing its old available balance',async()=>{
+ const props={api:vi.fn().mockResolvedValue(review),run:vi.fn(),go:vi.fn(),busy:false,enabled:true};
+ const {rerender}=render(<RefundDetail detail={detail} {...props}/>);await screen.findByText('75.00');
+ rerender(<RefundDetail detail={{...detail,status:'POSTED',official_number:'RF-0009'}} {...props}/>);
+ expect(screen.queryByText('75.00')).toBeNull();expect(screen.queryByText('100.01')).toBeNull();expect(screen.getByText(/Full refund posted once/)).toBeTruthy();
+});
+it('blocks navigation while saving but permits its own successful draft navigation',async()=>{
+ let finish;const navigation=vi.fn();const api=vi.fn(async(path,method)=>method==='POST'?new Promise(r=>{finish=r;}):review);
+ const go=path=>navigation(path,window.dispatchEvent(new Event('v1beforeleave',{cancelable:true})));
+ render(<RefundReview originalId="5" api={api} go={go}/>);await screen.findByText('CR-0005');fill();fireEvent.click(screen.getByRole('button',{name:'Save refund draft'}));
+ await waitFor(()=>expect(finish).toBeTypeOf('function'));expect(window.dispatchEvent(new Event('v1beforeleave',{cancelable:true}))).toBe(false);
+ finish({id:'9'});await waitFor(()=>expect(navigation).toHaveBeenCalledWith('/management/documents/9',true));
+});
 function fill(){fireEvent.change(screen.getByLabelText('Actual refund reference'),{target:{value:'REAL-RETURN-1'}});fireEvent.change(screen.getByLabelText('Reason for refund'),{target:{value:'Original full payment returned'}});fireEvent.change(screen.getByLabelText('Evidence of money returned'),{target:{value:'Verified bank transaction reference'}});fireEvent.click(screen.getByRole('checkbox'));}
 it('shows server-pinned exact effects and never offers amount/account overrides',async()=>{
  render(<RefundReview originalId="5" api={vi.fn().mockResolvedValue(review)} go={()=>{}}/>);await screen.findByText('75.00');expect(screen.getByText('CR-0005')).toBeTruthy();expect(screen.getByText('Haris')).toBeTruthy();expect(screen.getByText('Deduct 25.01 PKR')).toBeTruthy();expect(screen.queryByLabelText('Amount')).toBeNull();expect(screen.getAllByRole('combobox')).toHaveLength(1);expect(screen.getByRole('button',{name:'Save refund draft'}).disabled).toBe(true);

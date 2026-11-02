@@ -1,0 +1,92 @@
+{
+  "baseline": "73a290dfb5bea2bc616784f89f7c22e6636fa943",
+  "sourceHeadInspected": "73a290dfb5bea2bc616784f89f7c22e6636fa943",
+  "candidate": true,
+  "ownerApproved": false,
+  "artifacts": [
+    {
+      "path": "scripts/p32b4-artifacts.py",
+      "sha256": "ee30db1b010d511714d627d0ae670b3a67e5ed76433dd49b4216cf41239a411f"
+    },
+    {
+      "path": "scripts/p32b4-browser.mjs",
+      "sha256": "7d830ee66f2ee222bd8dc327a6680954a9c1a2c7eb5e7c738a7c922c60377829"
+    },
+    {
+      "path": "scripts/p32b4-consolidated.mjs",
+      "sha256": "9d47d6e7270fcf41cd723c78520922dfbd1726a4d2a483a3b02dbec7decd915a"
+    },
+    {
+      "path": "scripts/p32b4-dpapi.ps1",
+      "sha256": "c259f268b94e72562048e2216d00aa163e2ba420421e9787e7177d24fc408e6e"
+    },
+    {
+      "path": "scripts/p32b4-final-ui-acceptance.mjs",
+      "sha256": "91e058ffdbb7121a2524cd2fba1b85aed649a921bf369c6bffcfdcd5ad228f71"
+    },
+    {
+      "path": "scripts/p32b4-gates.mjs",
+      "sha256": "baef85d4bd3964ee92d65c67ae74a47aee2cf4378113181039f19ece21758aaa"
+    },
+    {
+      "path": "scripts/p32b4-gates.test.mjs",
+      "sha256": "6b1b2805e6c4c52770308042a9bd65a0a28a6e91224331acb62d27f122869cd9"
+    },
+    {
+      "path": "scripts/p32b4-inventory.mjs",
+      "sha256": "03d1fcacbcd8e9971a772f9b57d259dc8ca1b0b799626ea250b65f3aa75e45a4"
+    },
+    {
+      "path": "scripts/p32b4-recovery.mjs",
+      "sha256": "5df42793a5b8eed5a7dff64cd906a2d10fe5c5a3e42baf6318442dcd684011e2"
+    },
+    {
+      "path": "scripts/p32b4-regressions.mjs",
+      "sha256": "48e3f331dc5b74f59ed4ff5ebd18ae2f5eec538807977d5e2842e491666c830c"
+    },
+    {
+      "path": "scripts/p32b4-release-preflight.mjs",
+      "sha256": "15410a626f4d6389754b8a96fe55f5cf9df9faca75fde3e0aa12a05a12bd13a0"
+    },
+    {
+      "path": "scripts/p32b4-ui-verify.mjs",
+      "sha256": "15e50ea8756adb4a873c71100749639ffc300194b21ff29ca6e26e5308afaa1c"
+    },
+    {
+      "path": "scripts/p32b4-validate.mjs",
+      "sha256": "52156b880deff2cb3f71adc6bda7e814ac8de17d7ac0196bdaab84cd068a3e49"
+    },
+    {
+      "path": "upms.client/management/src/ExpenseReports.jsx",
+      "sha256": "e0e775d17dc385f83c9b671cb5af4aaa20b4eb0e7c5c4d81eaa50b6bfb1bec86"
+    },
+    {
+      "path": "upms.client/management/src/FinancialRefunds.jsx",
+      "sha256": "71ff4e2bd9cf6fae0970db8e93049e702b72d82d01cd1519605e8dcf96357c73"
+    },
+    {
+      "path": "upms.client/management/src/expense-masters.css",
+      "sha256": "f42f9ce2f92f20cbc5720fafbd316318b073fc4aa43015fe03f29df1828a7c69"
+    },
+    {
+      "path": "upms.client/src/test/FinancialRefunds.test.jsx",
+      "sha256": "3ffe44a36599e70e1dda9864824f9b4382ac4d1a04e04a2e3a00964b834fc4a7"
+    },
+    {
+      "path": "upms.client/vite.management.config.js",
+      "sha256": "e23dc3bd7f7e41cb8e6055248d4d3c6dce8eb69688bd89f10e073b96b49d34a3"
+    },
+    {
+      "path": "upms.php/app/Upms/FinancialArchive.php",
+      "sha256": "44f59f4c08f9c67ee4ff54ca9947fd309041132992beb4d51dd9c076dfddca4b"
+    },
+    {
+      "path": "upms.php/tests/Support/money-local.php",
+      "sha256": "e6e8d3ef50f0998c913ffd9aed1df16247bf8d1452040cf644126734d1a459da"
+    },
+    {
+      "path": "upms.php/tests/Unit/FinancialArchiveTest.php",
+      "sha256": "57f28cd6d791c94dbba165bace72c37baadbb6e989fb16414e78c5c2230344f2"
+    }
+  ]
+}

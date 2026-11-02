@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "transport": "Optimized built assets, Simple V1 deployment mode. Every API request executed the real isolated Laravel HTTP kernel, middleware and MariaDB; no simulated financial responses",
+  "apiRequests": 98,
+  "financialPosts": 2,
+  "screenshots": [
+    "customer-ledger.png",
+    "vendor-ledger.png",
+    "full-refund-review.png",
+    "blocked-policy.png",
+    "refund-final-confirmation.png",
+    "refund-posted.png",
+    "money-statement.png",
+    "expenses.png",
+    "category-report.png",
+    "employee-report.png",
+    "employee-report-mobile.png",
+    "dated-negative-report-mobile.png"
+  ],
+  "keyboardNavigation": true,
+  "mobileOuterOverflow": false,
+  "javascriptErrors": [],
+  "independentPostExpected": {
+    "client": "45.76",
+    "UBL_OFFICIAL": "2988.02"
+  },
+  "actual": {
+    "client": "45.76",
+    "UBL_OFFICIAL": "2988.02"
+  },
+  "datedExpenseExpected": "-5.36",
+  "datedExpenseActual": "-5.36",
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-02T13:54:08.679Z"
+}

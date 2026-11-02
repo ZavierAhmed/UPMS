@@ -1,0 +1,257 @@
+{
+  "mode": "READ_ONLY_DRY_RUN",
+  "releaseHeadInspected": "73a290dfb5bea2bc616784f89f7c22e6636fa943",
+  "baseline": "73a290dfb5bea2bc616784f89f7c22e6636fa943",
+  "artifacts": [
+    {
+      "path": "upms.php/app/Upms/CrudGuards.php",
+      "sha256": "16bede06297165ffd48024855be6886fdd788828f4c981e33ff450b4e0ac5a66",
+      "baselineUnchanged": true
+    },
+    {
+      "path": "upms.php/app/Upms/MoneyGuards.php",
+      "sha256": "abe2fbe38c6883d38c2ae156ecad9c2d31ad2f1b0b26f083c962a76144802e6a",
+      "baselineUnchanged": true
+    },
+    {
+      "path": "upms.php/app/Upms/ExpenseGuards.php",
+      "sha256": "725d17490a10b43eabd1a6981a1cbf9dc182cc173cc9719662b91d72afd0ed4b",
+      "baselineUnchanged": true
+    },
+    {
+      "path": "upms.php/resources/money-accounts-schema.json",
+      "sha256": "548ba990064696301a19c26088ed1a09fc7706dcc27f0ed86150a3eec191e548",
+      "baselineUnchanged": true
+    },
+    {
+      "path": "upms.php/resources/expense-masters-schema.json",
+      "sha256": "f35070e1b34905550ac505b4c4678e0390a6ac314ce8d2d8d4ad045247a84953",
+      "baselineUnchanged": true
+    },
+    {
+      "path": "deployment/operations/backup-offhost.ps1",
+      "sha256": "722a1b40e9e0a51dd941cd518174bee68490243c15b4b7b9c074ca49d75ebc4a",
+      "baselineUnchanged": true
+    },
+    {
+      "path": "deployment/operations/backup-client.php",
+      "sha256": "43f30cafbd1ecdc081a2a89849f3ab749c4babaed3501e1daca98c09c038eedc",
+      "baselineUnchanged": true
+    },
+    {
+      "path": "deployment/operations/export-protected-backup.php",
+      "sha256": "236f1c7275553aa63bb4b71bc00de24d21d06f2bff161aa3cff883875cd75b01",
+      "baselineUnchanged": true
+    }
+  ],
+  "gates": [
+    {
+      "id": "upms.php/app/Upms/CrudGuards.php",
+      "status": "PASS",
+      "reason": "Compared actual worktree bytes (normalized line endings) with verified P3.2B3 baseline.",
+      "mandatory": true
+    },
+    {
+      "id": "upms.php/app/Upms/MoneyGuards.php",
+      "status": "PASS",
+      "reason": "Compared actual worktree bytes (normalized line endings) with verified P3.2B3 baseline.",
+      "mandatory": true
+    },
+    {
+      "id": "upms.php/app/Upms/ExpenseGuards.php",
+      "status": "PASS",
+      "reason": "Compared actual worktree bytes (normalized line endings) with verified P3.2B3 baseline.",
+      "mandatory": true
+    },
+    {
+      "id": "upms.php/resources/money-accounts-schema.json",
+      "status": "PASS",
+      "reason": "Compared actual worktree bytes (normalized line endings) with verified P3.2B3 baseline.",
+      "mandatory": true
+    },
+    {
+      "id": "upms.php/resources/expense-masters-schema.json",
+      "status": "PASS",
+      "reason": "Compared actual worktree bytes (normalized line endings) with verified P3.2B3 baseline.",
+      "mandatory": true
+    },
+    {
+      "id": "deployment/operations/backup-offhost.ps1",
+      "status": "PASS",
+      "reason": "Compared actual worktree bytes (normalized line endings) with verified P3.2B3 baseline.",
+      "mandatory": true
+    },
+    {
+      "id": "deployment/operations/backup-client.php",
+      "status": "PASS",
+      "reason": "Compared actual worktree bytes (normalized line endings) with verified P3.2B3 baseline.",
+      "mandatory": true
+    },
+    {
+      "id": "deployment/operations/export-protected-backup.php",
+      "status": "PASS",
+      "reason": "Compared actual worktree bytes (normalized line endings) with verified P3.2B3 baseline.",
+      "mandatory": true
+    },
+    {
+      "id": "default flags",
+      "status": "PASS",
+      "reason": "Actual example defaults inspected.",
+      "mandatory": true
+    },
+    {
+      "id": "source identity",
+      "status": "PASS",
+      "reason": "Read HEAD 73a290dfb5bea2bc616784f89f7c22e6636fa943; candidate file hashes recorded. This is not owner release approval.",
+      "mandatory": true
+    },
+    {
+      "id": "migration sequence",
+      "status": "PASS",
+      "reason": "Canonical 20/45 -> money 25/60 -> expense 29/72; refunds add no schema. Maintenance-only installation required; no SQL executed.",
+      "mandatory": true
+    },
+    {
+      "id": "local authenticated runtime",
+      "status": "PASS",
+      "reason": "Actual CURRENT_USER and exact CRUD fixture grant evidence from rerun refund regression; not a hosted grant claim.",
+      "mandatory": true
+    },
+    {
+      "id": "local schema and guard definitions",
+      "status": "PASS",
+      "reason": "Actual isolated canonical schema and 72 guard verification; local creator php2_test_admin@127.0.0.1 is not a restricted hosted guard-definer proof.",
+      "mandatory": true
+    },
+    {
+      "id": "local consolidated reconciliation",
+      "status": "PASS",
+      "reason": "Actual P3.2B4 evidence file consolidated.json",
+      "mandatory": true
+    },
+    {
+      "id": "local encrypted recovery",
+      "status": "PASS",
+      "reason": "Actual P3.2B4 evidence file recovery.json",
+      "mandatory": true
+    },
+    {
+      "id": "local PHP browser acceptance",
+      "status": "PASS",
+      "reason": "Actual P3.2B4 evidence file browser.json",
+      "mandatory": true
+    },
+    {
+      "id": "quality validation",
+      "status": "PASS",
+      "reason": "Actual P3.2B4 evidence file validation.json",
+      "mandatory": true
+    },
+    {
+      "id": "final UI and bundle validation",
+      "status": "PASS",
+      "reason": "Actual P3.2B4 evidence file ui-validation.json",
+      "mandatory": true
+    },
+    {
+      "id": "actual PDF/XLSX verification",
+      "status": "PASS",
+      "reason": "Actual P3.2B4 evidence file artifact-verification.json",
+      "mandatory": true
+    },
+    {
+      "id": "final UI review acceptance",
+      "status": "PASS",
+      "reason": "Actual P3.2B4 evidence file final-review-validation.json",
+      "mandatory": true
+    },
+    {
+      "id": "exact hosted target and approved release SHA",
+      "status": "BLOCKED",
+      "reason": "Production connections/work and owner approval creation prohibited in P3.2B4; no genuine hosted evidence supplied.",
+      "mandatory": true
+    },
+    {
+      "id": "hosted CURRENT_USER and exact restricted grants",
+      "status": "BLOCKED",
+      "reason": "Production connections/work and owner approval creation prohibited in P3.2B4; no genuine hosted evidence supplied.",
+      "mandatory": true
+    },
+    {
+      "id": "restricted SELECT/TRIGGER guard definer privileges",
+      "status": "BLOCKED",
+      "reason": "Production connections/work and owner approval creation prohibited in P3.2B4; no genuine hosted evidence supplied.",
+      "mandatory": true
+    },
+    {
+      "id": "hosted immutable journal/guard proof",
+      "status": "BLOCKED",
+      "reason": "Production connections/work and owner approval creation prohibited in P3.2B4; no genuine hosted evidence supplied.",
+      "mandatory": true
+    },
+    {
+      "id": "genuine protected off-host archive independently restored",
+      "status": "BLOCKED",
+      "reason": "Production connections/work and owner approval creation prohibited in P3.2B4; no genuine hosted evidence supplied.",
+      "mandatory": true
+    },
+    {
+      "id": "hosted 29/72 backup collector/DPAPI consumer compatibility",
+      "status": "BLOCKED",
+      "reason": "Production connections/work and owner approval creation prohibited in P3.2B4; no genuine hosted evidence supplied.",
+      "mandatory": true
+    },
+    {
+      "id": "target-bound money and expense readiness proofs",
+      "status": "BLOCKED",
+      "reason": "Production connections/work and owner approval creation prohibited in P3.2B4; no genuine hosted evidence supplied.",
+      "mandatory": true
+    },
+    {
+      "id": "target-bound owner refund approval / p32b3-full-same-account-v1",
+      "status": "BLOCKED",
+      "reason": "Production connections/work and owner approval creation prohibited in P3.2B4; no genuine hosted evidence supplied.",
+      "mandatory": true
+    },
+    {
+      "id": "hosted maintenance migration order and business cutoff approval",
+      "status": "BLOCKED",
+      "reason": "Production connections/work and owner approval creation prohibited in P3.2B4; no genuine hosted evidence supplied.",
+      "mandatory": true
+    },
+    {
+      "id": "trusted HTTPS, host isolation and non-business smoke acceptance",
+      "status": "BLOCKED",
+      "reason": "Production connections/work and owner approval creation prohibited in P3.2B4; no genuine hosted evidence supplied.",
+      "mandatory": true
+    },
+    {
+      "id": "authorized file/config restore and stop-on-failure procedure",
+      "status": "BLOCKED",
+      "reason": "Production connections/work and owner approval creation prohibited in P3.2B4; no genuine hosted evidence supplied.",
+      "mandatory": true
+    },
+    {
+      "id": "cross-Windows identity isolation acceptance",
+      "status": "BLOCKED",
+      "reason": "Production connections/work and owner approval creation prohibited in P3.2B4; no genuine hosted evidence supplied.",
+      "mandatory": true
+    },
+    {
+      "id": "live scheduling, retention, quota and failure-alert delivery",
+      "status": "BLOCKED",
+      "reason": "Production connections/work and owner approval creation prohibited in P3.2B4; no genuine hosted evidence supplied.",
+      "mandatory": true
+    },
+    {
+      "id": "GST separation",
+      "status": "NOT APPLICABLE",
+      "reason": "PHP Simple V1 has no supported GST ledger dimension; legacy Node modules are excluded.",
+      "mandatory": false
+    }
+  ],
+  "productionGo": false,
+  "decision": "BLOCKED",
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-02T13:55:23.619Z"
+}

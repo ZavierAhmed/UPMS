@@ -1,0 +1,161 @@
+{
+  "passed": true,
+  "syntheticOnly": true,
+  "dpapi": [
+    {
+      "passed": true,
+      "productionPathsAccessed": false,
+      "secretsPrinted": false,
+      "platform": "Windows",
+      "mode": "Protect",
+      "protection": "DPAPI CurrentUser"
+    },
+    {
+      "platform": "Windows",
+      "secretsPrinted": false,
+      "productionPathsAccessed": false,
+      "passed": true,
+      "mode": "Test",
+      "protection": "DPAPI CurrentUser"
+    },
+    {
+      "mode": "Unprotect",
+      "platform": "Windows",
+      "protection": "DPAPI CurrentUser",
+      "productionPathsAccessed": false,
+      "passed": true,
+      "secretsPrinted": false
+    }
+  ],
+  "missingArchiveRejected": true,
+  "cipherAndKeyNeverPrinted": true,
+  "rejections": [
+    "truncated ciphertext",
+    "corrupted ciphertext",
+    "wrong recipient",
+    "unsupported version",
+    "inconsistent manifest",
+    "legacy format refused by new consumer"
+  ],
+  "restored": {
+    "expenseMasterReconciliation": {
+      "matched": true,
+      "findings": [],
+      "categories": 1,
+      "employees": 1,
+      "historyEvents": 2
+    },
+    "expenseDocumentReconciliation": {
+      "matched": true,
+      "findings": [],
+      "mappedExpenses": 2,
+      "legacyUnmappedExpenses": 0
+    },
+    "passed": true,
+    "format": "UPMS_FINANCIAL_SNAPSHOT_V1",
+    "tables": 29,
+    "rows": 231,
+    "guards": {
+      "passed": true,
+      "baseGuards": 45,
+      "additionalGuards": 15,
+      "totalGuards": 72,
+      "baseHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+      "moneyHash": "0c0329100984b3f0f8e541f41161213ca4232418d9fb3ed46be1731ef30716de",
+      "definer": null,
+      "definerPrivilegesVerified": false,
+      "expenseGuards": 12,
+      "expenseHash": "4cd0837cd20ccd2d183212fa13fa666fb8bb6f9bcdeab5aa127d97417c80d4d9"
+    },
+    "schema": {
+      "passed": true,
+      "planHash": "ef265791f848fea7543dc4d0de899fe9ab7d6d082ca8fc9a7dc478a17ee343ea",
+      "tables": 29,
+      "totalGuards": 72
+    },
+    "moneyReconciliation": {
+      "matched": true,
+      "findings": [],
+      "balances": {
+        "1": "976.90",
+        "2": "223.76",
+        "3": "3020.51",
+        "4": "40.64"
+      },
+      "openings": {
+        "1": "2026-11-01",
+        "2": "2026-11-01",
+        "3": "2026-11-01",
+        "4": "2026-11-01"
+      },
+      "batches": 14,
+      "movements": 15,
+      "sourceCoverage": "Money batches plus canonical p32b1 document claims; historical V1 payments and expenses are not backfilled.",
+      "authenticity": "Shape and arithmetic consistency, not proof of physical funds or protection against fabricated SQL inserts.",
+      "documentIntegration": {
+        "matched": true,
+        "findings": [],
+        "linkedDocuments": 9,
+        "historicalUnlinkedDocuments": 0,
+        "coverage": "Only p32b1-marked posted documents require canonical money effects. Historical documents are not backfilled."
+      }
+    },
+    "productionContacted": false,
+    "sourceTargetHashPreserved": true,
+    "refundReconciliation": {
+      "matched": true,
+      "refunds": {
+        "matched": true,
+        "findings": [],
+        "postedRefunds": 3,
+        "policyVersion": "p32b3-full-same-account-v1",
+        "authenticity": "Operator attestation and consistency evidence, not proof that physical funds moved or protection against fabricated SQL inserts."
+      },
+      "money": {
+        "matched": true,
+        "findings": [],
+        "balances": {
+          "1": "976.90",
+          "2": "223.76",
+          "3": "3020.51",
+          "4": "40.64"
+        },
+        "openings": {
+          "1": "2026-11-01",
+          "2": "2026-11-01",
+          "3": "2026-11-01",
+          "4": "2026-11-01"
+        },
+        "batches": 14,
+        "movements": 15,
+        "sourceCoverage": "Money batches plus canonical p32b1 document claims; historical V1 payments and expenses are not backfilled.",
+        "authenticity": "Shape and arithmetic consistency, not proof of physical funds or protection against fabricated SQL inserts."
+      },
+      "sources": {
+        "matched": true,
+        "findings": [],
+        "linkedDocuments": 9,
+        "historicalUnlinkedDocuments": 0,
+        "coverage": "Only p32b1-marked posted documents require canonical money effects. Historical documents are not backfilled."
+      },
+      "masters": {
+        "matched": true,
+        "findings": [],
+        "categories": 1,
+        "employees": 1,
+        "historyEvents": 2
+      },
+      "expenses": {
+        "matched": true,
+        "findings": [],
+        "mappedExpenses": 2,
+        "legacyUnmappedExpenses": 0
+      }
+    }
+  },
+  "productionContacted": false,
+  "legacyLiveProtocolChanged": false,
+  "genuineProductionArchiveRestore": "BLOCKED: no production connection/archive authorized by this milestone",
+  "crossWindowsIdentity": "BLOCKED: second Windows identity not available; actual CurrentUser roundtrip, tamper and wrong-context tests executed",
+  "verifiedUtc": "2026-11-02T13:53:40.173Z"
+}

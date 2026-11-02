@@ -1,0 +1,139 @@
+{
+  "passed": true,
+  "php": "8.3.36",
+  "mariadb": "10.11.19",
+  "checks": [
+    "unauthenticated document access rejected",
+    "disabled mode retains historic cash/cheque behavior; additive 25-table/60-guard setup preserves snapshots",
+    "missing accounts, custody and cash/bank method mismatches rejected",
+    "unverified paying opening cannot post party or money effects",
+    "legacy draft requires review; client cannot forge server-owned integration marker",
+    "customer cash receipts to independent Haris/Junaid and bank receipt to UBL post exact single credits",
+    "vendor, paid expense and immediate purchase debit once; credit purchase has no money effect or second vendor payment",
+    "established party debit/credit conventions retained; expense has no party ledger entry",
+    "document details and statements expose matching immutable source/movement links",
+    "concurrent identical business retries commit exactly one party and money effect",
+    "insufficient funds rolls back all document, party, money and command effects",
+    "concurrent expense and transfer serialize; only one debit can spend the same funds",
+    "enabled mode explicitly excludes cheque receipt and cheque-linked payment reversal, including pre-existing drafts",
+    "manual duplicate financial sources rejected in both directions; detached reversal of linked document prohibited",
+    "injected batch, movement, money-audit, party, stock, business-audit and command write failures each roll back all financial state",
+    "document POSTED transition failure rolls back money, party/stock and command effects",
+    "source-effect mismatch hides balances and blocks financial posting without repair",
+    "document-to-money reconciliation detects immutable source total disagreement",
+    "existing party/source financial mismatch blocks integrated posting without repairing history",
+    "turning feature off cannot silently post an integration-marked draft without its money effect",
+    "disabled feature retains legacy posting and creates no fictitious money movement",
+    "stale guard evidence fails closed before supported financial posting",
+    "actual authenticated CRUD-only runtime; no global/table/column/grant option; escalation and immutable history mutation denied",
+    "base financial, stock and source reconciliation match; Hafta sales unchanged and client receipts counted once",
+    "encrypted 25-table recovery restores 60 guards plus linked-document reconciliation in an empty isolated database",
+    "CSRF protection rejects financial drafts",
+    "mandatory password rotation blocks document reads and posting",
+    "revoked administrator cannot access documents/accounts or post financial effects"
+  ],
+  "checkCount": 28,
+  "tables": 25,
+  "totalGuards": 60,
+  "schemaChanged": false,
+  "guardsChanged": false,
+  "balances": {
+    "HARIS_CASH": "995.97",
+    "JUNAID_CASH": "110.02",
+    "UBL_OFFICIAL": "9929.93",
+    "CHEQUES": "99.99"
+  },
+  "financialReconciliation": {
+    "matched": true,
+    "mismatches": [],
+    "repairPerformed": false,
+    "documents": 15,
+    "sourceLines": 3,
+    "stockEntries": 3,
+    "ledgerEntries": 12,
+    "integrityFindings": [],
+    "reviewRequired": false,
+    "authenticityVerified": false,
+    "money": {
+      "matched": true,
+      "findings": [],
+      "balances": {
+        "1": "995.97",
+        "2": "110.02",
+        "3": "9929.93",
+        "4": "99.99"
+      },
+      "openings": {
+        "1": "2026-10-30",
+        "2": "2026-10-30",
+        "3": "2026-10-30",
+        "4": "2026-10-30"
+      },
+      "batches": 13,
+      "movements": 13,
+      "sourceCoverage": "Money batches plus canonical p32b1 document claims; historical V1 payments and expenses are not backfilled.",
+      "authenticity": "Shape and arithmetic consistency, not proof of physical funds or protection against fabricated SQL inserts.",
+      "documentIntegration": {
+        "matched": true,
+        "findings": [],
+        "linkedDocuments": 8,
+        "historicalUnlinkedDocuments": 3,
+        "coverage": "Only p32b1-marked posted documents require canonical money effects. Historical documents are not backfilled."
+      }
+    }
+  },
+  "restore": {
+    "passed": true,
+    "format": "UPMS_MONEY_SNAPSHOT_V1",
+    "tables": 25,
+    "rows": 242,
+    "guards": {
+      "passed": true,
+      "baseGuards": 45,
+      "additionalGuards": 15,
+      "totalGuards": 60,
+      "baseHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+      "moneyHash": "94051cadd07a09f2a911d9ae9fa99f81c48c6dcef8db569a0ac8d2f5c3fc94f1",
+      "definer": null,
+      "definerPrivilegesVerified": false
+    },
+    "schema": {
+      "passed": true,
+      "tables": 5,
+      "planHash": "1fce4426d5799ee9ffaf34734fcbb374ef953a56b29b0ec845758f749dc81805",
+      "accountsHash": "b4020964ed7968edf119c0c88b572986a4c9b63fddc7c2488d7388cb0d8eba6d",
+      "reference": "SYNTHETIC-P32A-ONLY"
+    },
+    "moneyReconciliation": {
+      "matched": true,
+      "findings": [],
+      "balances": {
+        "1": "995.97",
+        "2": "110.02",
+        "3": "9929.93",
+        "4": "99.99"
+      },
+      "openings": {
+        "1": "2026-10-30",
+        "2": "2026-10-30",
+        "3": "2026-10-30",
+        "4": "2026-10-30"
+      },
+      "batches": 13,
+      "movements": 13,
+      "sourceCoverage": "Money batches plus canonical p32b1 document claims; historical V1 payments and expenses are not backfilled.",
+      "authenticity": "Shape and arithmetic consistency, not proof of physical funds or protection against fabricated SQL inserts.",
+      "documentIntegration": {
+        "matched": true,
+        "findings": [],
+        "linkedDocuments": 8,
+        "historicalUnlinkedDocuments": 3,
+        "coverage": "Only p32b1-marked posted documents require canonical money effects. Historical documents are not backfilled."
+      }
+    },
+    "productionContacted": false,
+    "sourceTargetHashPreserved": true
+  },
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-02T13:45:21.785Z"
+}
