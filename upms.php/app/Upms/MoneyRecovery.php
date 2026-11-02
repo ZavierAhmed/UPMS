@@ -39,7 +39,7 @@ final class MoneyRecovery
         }
         MoneyGuards::verify($pdo, $runtime, $guards['definer']);
         MoneySchema::verify($pdo);
-        return ['format' => self::FORMAT,'basePlanHash' => CleanInitialization::hash(),'moneyPlanHash' => MoneySchema::hash(),'runtime' => $runtime,'guards' => $guards,'triggerDefinitions' => $triggers,'sourceTargetHash' => CleanInitialization::target($pdo),'createdUtc' => gmdate('c'),'tables' => $data];
+        return ['format' => self::FORMAT,'documentIntegrationVersion' => MoneyDocuments::VERSION,'basePlanHash' => CleanInitialization::hash(),'moneyPlanHash' => MoneySchema::hash(),'runtime' => $runtime,'guards' => $guards,'triggerDefinitions' => $triggers,'sourceTargetHash' => CleanInitialization::target($pdo),'createdUtc' => gmdate('c'),'tables' => $data];
     }
     public static function encrypt(array $snapshot, string $publicKey): string
     {
@@ -149,6 +149,8 @@ final class MoneyRecovery
             $data[] = $records;
         }
         $reconciliation = MoneyAccounts::reconcile(...$data);
+        $documents = MoneyDocuments::reconcile($pdo->query('SELECT * FROM v1_documents')->fetchAll(PDO::FETCH_ASSOC), $data[1], $data[0], $pdo->query("SELECT * FROM v1_audit WHERE action='document.posted'")->fetchAll(PDO::FETCH_ASSOC));
+        $reconciliation = [...$reconciliation,'matched' => $reconciliation['matched'] && $documents['matched'],'documentIntegration' => $documents];
         if (!$reconciliation['matched']) {
             throw new \RuntimeException('MONEY_RESTORED_RECONCILIATION_FAILED');
         }

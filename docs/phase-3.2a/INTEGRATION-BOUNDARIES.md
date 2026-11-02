@@ -1,5 +1,7 @@
 # Receipts, payments, expenses and Hafta boundaries
 
+Historical P3.2A checkpoint. P3.2B1 now implements the supported cash/bank document adapters locally; use the [current report](../phase-3.2b1/TECHNICAL-REPORT.md) and [updated future production checklist](../phase-3.2b1/FUTURE-PRODUCTION-CHECKLIST.md). Production authorization and hosted gates remain pending.
+
 Current PHP source audited: `Documents`, `MasterData`, `BusinessCommand`, `Pricing`, `ChallanReturns`, `SimpleV1::ledger/register/overview`, `Reconciliation`, `HaftaReport`, `PaymentDocument` and the current Simple V1 forms. Older Node Phase 2 modules were reviewed only as business documentation; no old Node money routes or schema were ported into production functionality.
 
 Money Accounts is a separate immutable ledger. It does not write `v1_documents`, party/stock journals, stock quantities, revenue or expense records. Existing protected `v1_commands` supplies the same actor/fingerprint/idempotency protocol; money audit is in its own table. Current PHP transactions serialize through `identity_guard`, and account rows are also locked in numeric identity order. Exact available funds and reconciled evidence are rechecked inside the same transaction before any debit. Account dates are nondecreasing to prevent a backdated debit from inventing historical availability.

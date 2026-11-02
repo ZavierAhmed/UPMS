@@ -26,10 +26,16 @@ final class Documents
         if (isset($input->kind) && is_string($input->kind) && isset(SimpleV1::EVENTS[$input->kind])) {
             self::supported($input->kind);
         }
+        if (config('upms.money_accounts_enabled', false) && in_array($input->kind ?? '', ['CLIENT_PAYMENT','VENDOR_PAYMENT','EXPENSE','PURCHASE','PAYMENT_REVERSAL'], true)) {
+            MoneySchema::ready($this->db);
+        }
         if ($id !== null) {
             $stored = $this->db->one('SELECT kind FROM v1_documents WHERE id=?', [$id]);
             if ($stored) {
                 self::supported($stored['kind']);
+                if (config('upms.money_accounts_enabled', false) && in_array($stored['kind'], ['CLIENT_PAYMENT','VENDOR_PAYMENT','EXPENSE','PURCHASE','PAYMENT_REVERSAL'], true)) {
+                    MoneySchema::ready($this->db);
+                }
             }
         }
     }
@@ -43,7 +49,7 @@ final class Documents
         }
         $raw = clone $input;
         unset($raw->version);
-        $p = V1Input::document($raw);
+        $p = V1Input::document($raw, (bool) config('upms.money_accounts_enabled', false));
         self::supported($p['kind']);
         V1Input::uniqueLines($p['lines']);
         if ($p['kind'] === 'CHALLAN_RETURN') {
@@ -88,6 +94,7 @@ final class Documents
                 $p['discountSummary'] = Pricing::discount($subtotal, $p['discountMode'], $p['discountValue'], allowZero: true);
             }
         }
+        $p = (new MoneyDocuments($this->db))->prepare($p);
         $p = ReversalIdentity::derive($this->db, $p);
         if ($p['partyId'] && ! in_array($p['kind'], ['CHALLAN_RETURN', 'PAYMENT_REVERSAL'], true)) {
             $party = $this->db->one('SELECT * FROM v1_parties WHERE id=?', [$p['partyId']]);
@@ -145,6 +152,7 @@ final class Documents
             throw new ApiError(409, 'IMMUTABLE_DOCUMENT');
         }
         $p = SimpleV1::payload($d);
+        (new MoneyDocuments($this->db))->beforePost($p, (string)$d['id']);
         if ($p['date'] > SimpleV1::today()) {
             throw new ApiError(400, 'FUTURE_DATE_NOT_ALLOWED');
         }
@@ -285,11 +293,15 @@ final class Documents
             $numbering = ['official_number' => $number, 'sequence' => $control['next_dc']];
             $this->records->update('v1_control', ['next_dc' => $control['next_dc'] + 1], ['id' => 1]);
         }
+        $money = (new MoneyDocuments($this->db))->post($d, $p, Exact::money($total), $user);
         $discountFields = $discount === null ? [] : ['sale_subtotal' => $discount['subtotal'], 'discount_mode' => $discount['mode'], 'discount_value' => $discount['value'], 'discount_amount' => $discount['amount']];
         $this->records->update('v1_documents', ['status' => 'POSTED', 'total' => Exact::money($total), ...($p['kind'] === 'PAYMENT_REVERSAL' ? ['payload' => BusinessCommand::json($p)] : []), ...$discountFields, 'party_id' => $party['id'] ?? null, ...$numbering, 'corrects_id' => $p['correctsId'] ?? null], ['id' => $d['id'], 'version' => $d['version'], 'status' => 'DRAFT']);
         $this->commands->audit($user, 'document.posted', $number ?? (string) $d['id'], $p['reason']);
 
-        return ['id' => (string) $d['id'], 'status' => 'POSTED', 'official_number' => $number, 'total' => Exact::money($total)];
+        if ($money !== null && !(new MoneyAccounts($this->db))->reconciliation()['matched']) {
+            throw new ApiError(409, 'MONEY_DOCUMENT_RECONCILIATION_FAILED');
+        }
+        return [...($money !== null ? ['moneyMovement' => $money] : []), 'id' => (string) $d['id'], 'status' => 'POSTED', 'official_number' => $number, 'total' => Exact::money($total)];
     }
 
     private function journal(array $document, array $party, string $debit, string $credit, string $particulars): void

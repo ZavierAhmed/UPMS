@@ -130,7 +130,9 @@ final class Reconciliation
         $movements = $this->db->rows('SELECT * FROM v1_stock_journal');
         $journal = $this->db->rows('SELECT * FROM v1_party_journal');
         $audit = $this->db->rows('SELECT * FROM v1_audit');
-        $integrity = Integrity::inspect($docs, $this->db->rows('SELECT * FROM v1_commands ORDER BY `key`'), $this->db->rows('SELECT id FROM users'), $this->db->rows('SELECT id,code FROM v1_items'), $this->db->rows('SELECT id FROM v1_parties'), $audit);
+        $moneyTables = $this->db->one("SELECT COUNT(*) n FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='money_batches'");
+        $moneyBatches = (int)$moneyTables['n'] === 1 ? $this->db->rows('SELECT * FROM money_batches ORDER BY id') : [];
+        $integrity = Integrity::inspect($docs, $this->db->rows('SELECT * FROM v1_commands ORDER BY `key`'), $this->db->rows('SELECT id FROM users'), $this->db->rows('SELECT id,code FROM v1_items'), $this->db->rows('SELECT id FROM v1_parties'), $audit, $moneyBatches);
         $integrityFindings = $integrity['findings'];
         foreach ($integrityFindings as $f) {
             if ($f['severity'] === 'error') {

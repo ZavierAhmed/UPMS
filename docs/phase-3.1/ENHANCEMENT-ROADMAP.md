@@ -33,3 +33,9 @@ The Money Accounts foundation now implements configurable Haris/Junaid cash hold
 Requirements 5 and the foundation portion of 6 are locally implemented. Account-linked existing customer receipts, vendor payments, paid purchases and expenses remain **P3.2B**, with no historical backfill. Requirement 7 remains **P3.2C** for the instrument register and clearing/dishonour workflow; custody opening value is not spendable funds or a full cheque lifecycle. Category/employee requirements remain subsequent work. All other 17 requirements and branding/asset approvals remain as recorded above.
 
 Production migration remains blocked pending version-aware 25-table/60-guard protected off-host backup/recovery, actual hosted readiness and a separate explicit owner release approval. No prior production authorization is treated as approval of these new money operations.
+
+## P3.2B1 local financial integration checkpoint
+
+Cash/bank customer and vendor payments, paid expenses and immediate purchases now create atomic canonical money-account effects in the active PHP application. Credit purchases remain payable-only. P3.1 Hafta/item behavior and historic snapshots are preserved. Searchable account selection, exact effect previews and source links are implemented. This extends requirements 5/6 locally; it does not complete the full financial/cheque roadmap or authorize deployment.
+
+See [P3.2B1 report](../phase-3.2b1/TECHNICAL-REPORT.md), [P3.2B2/P3.2C boundaries](../phase-3.2b1/NEXT-INTEGRATION-PLAN.md) and the [pending production checklist](../phase-3.2b1/FUTURE-PRODUCTION-CHECKLIST.md). All original seventeen requirements remain in force.

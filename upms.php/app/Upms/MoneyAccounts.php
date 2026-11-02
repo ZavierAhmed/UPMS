@@ -9,6 +9,10 @@ use Brick\Math\BigInteger as N;
 /** Independent money ledger. Never posts to a party, stock, sales or expense journal. */
 final class MoneyAccounts
 {
+    public static function receipt(array $b): array
+    {
+        return ['id' => (string)$b['id'],'reference' => 'MA-'.str_pad((string)$b['id'], 6, '0', STR_PAD_LEFT),'kind' => $b['kind'],'amount' => $b['amount'],'status' => 'POSTED','correctsId' => $b['corrects_id'] === null ? null : (string)$b['corrects_id']];
+    }
     public function __construct(private readonly Database $db)
     {
     }
@@ -53,7 +57,10 @@ final class MoneyAccounts
     }
     public function reconciliation(): array
     {
-        return self::reconcile(...$this->data());
+        [$a,$b,$m,$audit] = $this->data();
+        $r = self::reconcile($a, $b, $m, $audit);
+        $linked = MoneyDocuments::reconcile($this->db->rows('SELECT * FROM v1_documents ORDER BY id'), $b, $a, $this->db->rows("SELECT * FROM v1_audit WHERE action='document.posted'"));
+        return [...$r, 'matched' => $r['matched'] && $linked['matched'], 'findings' => [...$r['findings'], ...$linked['findings']], 'documentIntegration' => $linked];
     }
     public static function reconcile(array $accounts, array $batches, array $movements, array $audits): array
     {
@@ -87,9 +94,9 @@ final class MoneyAccounts
         foreach ($batches as $b) {
             $id = (string)$b['id'];
             $sourceType = match ($b['kind']) {
-                'OPENING' => 'OPENING','TRANSFER' => 'TRANSFER','SOURCE_CREDIT','SOURCE_DEBIT' => 'EXTERNAL','REVERSAL' => 'REVERSAL',default => ''
+                'OPENING' => 'OPENING','TRANSFER' => 'TRANSFER','SOURCE_CREDIT','SOURCE_DEBIT' => $b['source_type'] === 'DOCUMENT' ? 'DOCUMENT' : 'EXTERNAL','REVERSAL' => 'REVERSAL',default => ''
             };
-            $sourceIdentity = $b['kind'] === 'OPENING' ? (string)$b['opening_account_id'] : ($b['kind'] === 'REVERSAL' ? (string)$b['corrects_id'] : $b['source_ref']);
+            $sourceIdentity = $b['kind'] === 'OPENING' ? (string)$b['opening_account_id'] : ($b['kind'] === 'REVERSAL' ? (string)$b['corrects_id'] : ($b['source_type'] === 'DOCUMENT' ? substr($b['source_ref'], 9) : $b['source_ref']));
             if ($b['source_type'] !== $sourceType || $b['source_key'] !== self::sourceKey($sourceIdentity)) {
                 $findings[] = ['code' => 'SOURCE_REFERENCE_MISMATCH','id' => $id];
             }
@@ -108,7 +115,7 @@ final class MoneyAccounts
             }
             if ($b['kind'] === 'REVERSAL') {
                 $original = $bs[(string)$b['corrects_id']] ?? null;
-                if (!$original || !in_array($original['kind'], ['TRANSFER','SOURCE_CREDIT','SOURCE_DEBIT'], true) || $original['amount'] !== $b['amount'] || $original['from_account_id'] !== $b['to_account_id'] || $original['to_account_id'] !== $b['from_account_id'] || $b['date'] < $original['date'] || N::of($id)->compareTo($original['id']) <= 0) {
+                if (!$original || ($original['source_type'] ?? '') === 'DOCUMENT' || !in_array($original['kind'], ['TRANSFER','SOURCE_CREDIT','SOURCE_DEBIT'], true) || $original['amount'] !== $b['amount'] || $original['from_account_id'] !== $b['to_account_id'] || $original['to_account_id'] !== $b['from_account_id'] || $b['date'] < $original['date'] || N::of($id)->compareTo($original['id']) <= 0) {
                     $findings[] = ['code' => 'CORRECTION_LINK_MISMATCH','id' => $id];
                 }
             }
@@ -146,12 +153,12 @@ final class MoneyAccounts
                 $findings[] = ['code' => 'AUDIT_EVIDENCE_MISMATCH','id' => $id];
             }
         }
-        return ['matched' => !$findings,'findings' => $findings,'balances' => array_map(fn ($n) => Exact::money($n), $balances),'openings' => $open,'batches' => count($batches),'movements' => count($movements),'sourceCoverage' => 'Money batches only; historic V1 payments and expenses are not linked or backfilled.','authenticity' => 'Shape and arithmetic consistency, not proof of physical funds or protection against fabricated SQL inserts.'];
+        return ['matched' => !$findings,'findings' => $findings,'balances' => array_map(fn ($n) => Exact::money($n), $balances),'openings' => $open,'batches' => count($batches),'movements' => count($movements),'sourceCoverage' => 'Money batches plus canonical p32b1 document claims; historical V1 payments and expenses are not backfilled.','authenticity' => 'Shape and arithmetic consistency, not proof of physical funds or protection against fabricated SQL inserts.'];
     }
     public function overview(): array
     {
         [$accounts,$batches,$movements,$audits] = $this->data();
-        $r = self::reconcile($accounts, $batches, $movements, $audits);
+        $r = $this->reconciliation();
         return ['currency' => 'PKR','accounts' => array_map(fn ($a) => [...$a,'id' => (string)$a['id'],'spendable' => $a['type'] !== 'CHEQUE_CUSTODY','verified' => $r['matched'] && isset($r['openings'][(string)$a['id']]),'balance' => $r['matched'] && isset($r['openings'][(string)$a['id']]) ? $r['balances'][(string)$a['id']] : null,'openingDate' => $r['openings'][(string)$a['id']] ?? null], $accounts),'batches' => array_reverse(array_map(fn ($b) => [...$b,'reference' => 'MA-'.str_pad((string)$b['id'], 6, '0', STR_PAD_LEFT)], $batches)),'reconciliation' => $r,'policy' => 'Cash and bank balances are separate. Cheque custody is not spendable. All openings require explicit evidence; no historic payment backfill.','operations' => ['opening' => true,'transfer' => true,'externalSource' => true,'reversal' => true]];
     }
     public function statement(string $id, array $input): array
@@ -164,7 +171,7 @@ final class MoneyAccounts
             self::fail('INVALID_STATEMENT_RANGE', 'From must not follow To.', 400);
         }
         [$accounts,$batches,$movements,$audits] = $this->data();
-        $r = self::reconcile($accounts, $batches, $movements, $audits);
+        $r = $this->reconciliation();
         $a = null;
         foreach ($accounts as $account) {
             if ((string)$account['id'] === $id) {
@@ -201,7 +208,7 @@ final class MoneyAccounts
                 continue;
             }
             $change = $change->plus($delta);
-            $rows[] = ['id' => (string)$b['id'],'movementId' => (string)$movement['id'],'reference' => 'MA-'.str_pad((string)$b['id'], 6, '0', STR_PAD_LEFT),'date' => $b['date'],'kind' => $b['kind'],'sourceReference' => $b['source_ref'],'correctsId' => $b['corrects_id'],'reason' => $b['reason'],'actorId' => (string)$b['actor_id'],'createdUtc' => $b['created_at'],'delta' => $movement['delta'],'balance' => $r['matched'] && $opened ? Exact::money($sum) : null];
+            $rows[] = ['id' => (string)$b['id'],'movementId' => (string)$movement['id'],'reference' => 'MA-'.str_pad((string)$b['id'], 6, '0', STR_PAD_LEFT),'date' => $b['date'],'kind' => $b['kind'],'sourceReference' => $b['source_ref'],'documentId' => $b['source_type'] === 'DOCUMENT' ? substr($b['source_ref'], 9) : null,'correctsId' => $b['corrects_id'],'reason' => $b['reason'],'actorId' => (string)$b['actor_id'],'createdUtc' => $b['created_at'],'delta' => $movement['delta'],'balance' => $r['matched'] && $opened ? Exact::money($sum) : null];
         }
         return ['account' => $a,'from' => $f['from'] ?? '','to' => $f['to'] ?? '','currency' => 'PKR','opening' => $r['matched'] && $openingAtStart ? Exact::money($prior) : null,'movement' => Exact::money($change),'closing' => $r['matched'] && $opened ? Exact::money($sum) : null,'verified' => $r['matched'] && $opened,'records' => $rows,'reconciliationMatched' => $r['matched'],'coverage' => 'An explicit opening starts verified coverage on its recorded date. Earlier holdings are unknown. Transfers do not affect party ledgers, revenue or expenses.'];
     }
@@ -258,16 +265,19 @@ final class MoneyAccounts
                 $from = $p['accountId'];
             }$sourceType = 'EXTERNAL';
             $sourceKey = self::sourceKey($p['reference']);
+            if (str_starts_with(mb_strtolower($p['reference']), 'upms-doc:')) {
+                self::fail('MONEY_RESERVED_SOURCE', 'UPMS document references are posted only by their original business workflow.');
+            }
             if ($this->db->one("SELECT id FROM v1_documents WHERE status='POSTED' AND (official_number=? OR JSON_UNQUOTE(JSON_EXTRACT(payload,'$.reference'))=? OR JSON_UNQUOTE(JSON_EXTRACT(payload,'$.chequeReference'))=?) LIMIT 1", [$p['reference'],$p['reference'],$p['reference']])) {
-                self::fail('MONEY_LEGACY_LINK_PENDING', 'This reference belongs to an existing UPMS document. Account linking is not available yet; do not re-enter it as external money.');
+                self::fail('MONEY_LEGACY_LINK_PENDING', 'This reference belongs to an existing UPMS document. Use its original financial workflow and linked money effect; do not re-enter it as external money.');
             }
         } else {
             if (!self::validId($p['batchId'])) {
                 self::fail('INVALID_MONEY_BATCH', 'Choose an original movement.', 400);
             }
             $original = $this->db->one('SELECT * FROM money_batches WHERE id=?', [$p['batchId']]);
-            if (!$original || !in_array($original['kind'], ['TRANSFER','SOURCE_CREDIT','SOURCE_DEBIT'], true) || $p['date'] < $original['date']) {
-                self::fail('MONEY_REVERSAL_NOT_ALLOWED', 'Only an original transfer or external movement can be reversed on or after its date. Opening corrections require a separate reviewed policy.');
+            if (!$original || $original['source_type'] === 'DOCUMENT' || !in_array($original['kind'], ['TRANSFER','SOURCE_CREDIT','SOURCE_DEBIT'], true) || $p['date'] < $original['date']) {
+                self::fail('MONEY_REVERSAL_NOT_ALLOWED', 'Only an original standalone transfer or external movement can be reversed. Linked business corrections and opening corrections require separately reviewed workflows.');
             }
             $kind = 'REVERSAL';
             $from = $original['to_account_id'];
@@ -278,6 +288,20 @@ final class MoneyAccounts
             $sourceType = 'REVERSAL';
             $sourceKey = self::sourceKey($corrects);
         }
+        return $this->append($p, $kind, $from, $to, $opening, $corrects, $sourceType, $sourceKey, $user);
+    }
+    public function postDocument(array $d, array $p, string $amount, array $user): array
+    {
+        if (!$this->db->pdo()->inTransaction() || $d['status'] !== 'DRAFT' || ($p['moneyIntegrationVersion'] ?? '') !== MoneyDocuments::VERSION || !MoneyDocuments::required($p)) {
+            throw new \LogicException('DOCUMENT_TRANSACTION_REQUIRED');
+        }
+        MoneyDocuments::validate($p);
+        (new MoneyDocuments($this->db))->account($p);
+        $credit = $p['kind'] === 'CLIENT_PAYMENT';
+        return $this->append(['amount' => $amount,'date' => $p['date'],'reference' => 'UPMS-DOC:'.$d['id'],'reason' => 'Linked '.$p['kind'].' document '.$d['id']], $credit ? 'SOURCE_CREDIT' : 'SOURCE_DEBIT', $credit ? null : $p['moneyAccountId'], $credit ? $p['moneyAccountId'] : null, null, null, 'DOCUMENT', self::sourceKey((string)$d['id']), $user);
+    }
+    private function append(array $p, string $kind, ?string $from, ?string $to, ?string $opening, ?string $corrects, string $sourceType, string $sourceKey, array $user): array
+    {
         $amount = Exact::money(Exact::cents($p['amount'], zero:$kind === 'OPENING'));
         $ids = array_values(array_filter([$from,$to], fn ($id) => $id !== null));
         foreach ($ids as $id) {
@@ -292,7 +316,7 @@ final class MoneyAccounts
         if (count($locked) !== count($ids)) {
             self::fail('MONEY_ACCOUNT_NOT_FOUND', 'A selected account no longer exists.', 404);
         }
-        $r = $this->reconciliation();
+        $r = $sourceType === 'DOCUMENT' ? self::reconcile(...$this->data()) : $this->reconciliation();
         if (!$r['matched']) {
             self::fail('MONEY_RECONCILIATION_REQUIRED', 'Money history does not reconcile. No entry was posted; investigate the evidence.');
         }
@@ -327,7 +351,7 @@ final class MoneyAccounts
         ksort($after, SORT_NATURAL);
         $e = ['batchHash' => self::batchHash($batch),'approvedBy' => $user['id'],'approval' => 'Designated administrator self-approval with justification','before' => $before,'after' => $after];
         $this->db->execute('INSERT INTO money_audit(batch_id,actor_id,action,reason,evidence,created_at) VALUES(?,?,?,?,?,?)', [$id,$user['id'],'money.posted.'.$kind,$p['reason'],BusinessCommand::json((object)$e),$now]);
-        if (!$this->reconciliation()['matched']) {
+        if (!($sourceType === 'DOCUMENT' ? self::reconcile(...$this->data()) : $this->reconciliation())['matched']) {
             self::fail('MONEY_POSTING_RECONCILIATION_FAILED', 'Posting did not reconcile and was rolled back.');
         }
         return ['id' => $id,'reference' => 'MA-'.str_pad($id, 6, '0', STR_PAD_LEFT),'kind' => $kind,'amount' => $amount,'status' => 'POSTED','correctsId' => $corrects];

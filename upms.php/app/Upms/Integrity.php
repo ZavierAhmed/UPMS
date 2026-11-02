@@ -19,7 +19,7 @@ final class Integrity
         return is_string($v) && preg_match('/^(?!0000)(\d{4})-(\d{2})-(\d{2})$/D', $v, $m) && checkdate((int) $m[2], (int) $m[3], (int) $m[1]);
     }
 
-    public static function inspect(array $docs, array $commands, array $users, array $items, array $parties, array $audit = []): array
+    public static function inspect(array $docs, array $commands, array $users, array $items, array $parties, array $audit = [], array $moneyBatches = []): array
     {
         $findings = $invalid = $receipts = $keys = [];
         $add = function ($code, $entity, $id, $field, $message, $severity = 'error') use (&$findings, &$invalid): void {
@@ -149,8 +149,27 @@ final class Integrity
                     $d = $x;
                 }
             }
+            // Money receipts have their own exact shape and retained immutable batch.
+            if ($names === 'amount,correctsId,id,kind,reference,status' && ($r->status ?? null) === 'POSTED') {
+                $batch = array_values(array_filter($moneyBatches, fn ($b) => (string)$b['id'] === $r->id && $b['source_type'] !== 'DOCUMENT'));
+                if (count($batch) !== 1 || BusinessCommand::canonical($r) !== BusinessCommand::canonical((object)MoneyAccounts::receipt($batch[0])) || (string)$batch[0]['actor_id'] !== (string)$c['actor_id']) {
+                    $add('COMMAND_MONEY_RESULT_INVALID', 'command', $key, 'result', 'Money receipt must exactly match its retained batch and posting actor.');
+                }
+                continue;
+            }
             if (($r->status ?? null) === 'POSTED') {
-                if ($names !== 'id,official_number,status,total' || ! is_string($r->total) || ! preg_match('/^(?:0|[1-9]\d{0,15})\.\d{2}$/D', $r->total) || ! ($r->official_number === null || is_string($r->official_number))) {
+                $linked = $names === 'id,moneyMovement,official_number,status,total';
+                if (!$linked && $d && (SimpleV1::payload($d)['moneyIntegrationVersion'] ?? '') === MoneyDocuments::VERSION) {
+                    $add('COMMAND_MONEY_LINK_REQUIRED', 'command', $key, 'result', 'An integrated document receipt must retain its exact money movement.');
+                }
+                if ($linked) {
+                    $batch = array_values(array_filter($moneyBatches, fn ($b) => $b['source_type'] === 'DOCUMENT' && $b['source_ref'] === 'UPMS-DOC:'.$r->id));
+                    $payload = $d ? SimpleV1::payload($d) : [];
+                    if (count($batch) !== 1 || ($payload['moneyIntegrationVersion'] ?? '') !== MoneyDocuments::VERSION || !is_object($r->moneyMovement) || BusinessCommand::canonical($r->moneyMovement) !== BusinessCommand::canonical((object)MoneyAccounts::receipt($batch[0])) || (string)$batch[0]['actor_id'] !== (string)$c['actor_id']) {
+                        $add('COMMAND_MONEY_LINK_INVALID', 'command', $key, 'result.moneyMovement', 'Linked document receipt must exactly match the canonical source batch and actor.');
+                    }
+                }
+                if ((!$linked && $names !== 'id,official_number,status,total') || ! is_string($r->total) || ! preg_match('/^(?:0|[1-9]\d{0,15})\.\d{2}$/D', $r->total) || ! ($r->official_number === null || is_string($r->official_number))) {
                     $add('COMMAND_RESULT_INVALID', 'command', $key, 'result', 'Posted receipt must retain id, POSTED status, official_number and exact string total.');
 
                     continue;

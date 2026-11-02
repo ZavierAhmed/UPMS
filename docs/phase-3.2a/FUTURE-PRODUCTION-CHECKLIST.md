@@ -1,5 +1,7 @@
 # Future production release checklist — not performed
 
+Historical P3.2A checkpoint. P3.2B1 now implements the supported cash/bank document adapters locally; use the [current report](../phase-3.2b1/TECHNICAL-REPORT.md) and [updated future production checklist](../phase-3.2b1/FUTURE-PRODUCTION-CHECKLIST.md). Production authorization and hosted gates remain pending.
+
 Every hosted gate below is **pending**. The local P3.2A tests do not satisfy them. No release or activation authorization is requested or inferred by this document.
 
 - [ ] Review the complete cumulative patch against the genuinely deployed release. P3.1 and P3.2A were local-only milestones; do not assume the starting Git branch is the hosted release.

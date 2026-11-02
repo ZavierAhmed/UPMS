@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "startingSha": "0f392ff68898c4aeeb14a24c8716a0ca365ceeb8",
+  "branch": "feature/upms-p3-2b1-financial-money-integration",
+  "php": {
+    "version": "8.3.36",
+    "tests": 69,
+    "assertions": 1288
+  },
+  "react": {
+    "files": 34,
+    "tests": 236
+  },
+  "integration": {
+    "groupedChecks": 28,
+    "tables": 25,
+    "guards": 60,
+    "restoredRows": 242,
+    "financialReconciliationMatched": true,
+    "sourceMoneyMatched": true
+  },
+  "existingFinancialRegression": {
+    "httpComparisons": 83,
+    "snapshotComparisons": 4
+  },
+  "eslint": "passed",
+  "pint": "passed",
+  "build": {
+    "public": "passed",
+    "ssr": "passed",
+    "prerenderRoutes": 11,
+    "notFound": true,
+    "management": "passed",
+    "advisory": "Management bundle exceeds Vite 500 kB advisory threshold"
+  },
+  "browser": "passed using local intercepted GET responses from actual synthetic PHP fixtures",
+  "schemaChanged": false,
+  "guardDefinitionsChanged": false,
+  "productionBackupChanged": false,
+  "productionContacted": false,
+  "hostedDefinerPrivilegesVerified": false,
+  "productionReady": false,
+  "featureDefault": "disabled",
+  "recordedUtc": "2026-11-02T08:58:22.575Z"
+}

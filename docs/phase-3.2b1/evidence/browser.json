@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "transport": "Local intercepted GET responses from actual isolated PHP fixtures",
+  "screenshots": [
+    "customer-account-preview.png",
+    "expense-account-search.png",
+    "expense-final-review.png",
+    "receipt-linked-movement.png",
+    "purchase-linked-movement.png",
+    "statement-original-documents.png",
+    "mobile-expense-review.png"
+  ],
+  "previewAmounts": {
+    "customer": "1020.98",
+    "expense": "965.92"
+  },
+  "confirmationsDismissed": 1,
+  "financialRequests": 0,
+  "javascriptErrors": [],
+  "mobileHorizontalOverflow": false,
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-02T08:58:30.605Z"
+}

@@ -56,7 +56,7 @@ final class SimpleV1
         return [...(config('upms.money_accounts_enabled', false) ? ['moneyAccountsEnabled' => true] : []), 'mode' => 'SIMPLE_V1', 'deploymentPurpose' => 'legacy-synthetic', 'interfaceVersion' => $control['entry_version'] === 2 ? 'simple-v1.2' : 'simple-v1.1',
             'operator' => $user['displayName'], 'company' => 'Unique Plastic Industry', 'currency' => 'PKR', 'unit' => 'bottles', 'state' => $control['state'],
             'nextChallan' => $control['next_dc'] <= 10999 ? self::dcNumber($control['next_dc']) : 'Rollover blocked', 'cutoverEvidence' => $control['cutover_evidence'],
-            'paymentPolicy' => config('upms.money_accounts_enabled', false) ? 'Party receipts and expenses are not yet linked to Money Accounts. Money Accounts has independent, explicitly verified openings; no historical backfill.' : 'Account-level payments. Official CR/VP references are assigned on posting; external cash/bank references are optional. Cheque identification is required. No cash/bank account balance is managed.'];
+            'paymentPolicy' => config('upms.money_accounts_enabled', false) ? 'Cash/bank receipts, payments, paid expenses and immediate purchases require a verified matching money account and post atomically. Cheques are unavailable pending P3.2C. No historical backfill.' : 'Account-level payments. Official CR/VP references are assigned on posting; external cash/bank references are optional. Cheque identification is required. No cash/bank account balance is managed.'];
     }
 
     public function items(): array
@@ -88,6 +88,11 @@ final class SimpleV1
             throw new ApiError(404, 'NOT_FOUND');
         }
         $p = self::payload($d);
+        $moneyExtra = [];
+        if (config('upms.money_accounts_enabled', false)) {
+            MoneySchema::ready($this->db);
+            $moneyExtra = ['moneyIntegrationEnabled' => true,'moneyMovement' => $this->db->one("SELECT b.id,b.source_ref,b.amount,b.from_account_id,b.to_account_id,a.name accountName FROM money_batches b JOIN money_accounts a ON a.id=COALESCE(b.from_account_id,b.to_account_id) WHERE b.source_type='DOCUMENT' AND b.source_key=?", [MoneyAccounts::sourceKey($id)])];
+        }
         $party = $d['party_id'] ? $this->db->one('SELECT * FROM v1_parties WHERE id=?', [$d['party_id']]) : null;
         $reversal = $this->db->one("SELECT id FROM v1_documents WHERE corrects_id=? AND kind='PAYMENT_REVERSAL' AND status='POSTED' LIMIT 1", [$id]);
         $extra = [];
@@ -116,7 +121,7 @@ final class SimpleV1
             $amount = $l['credit'] ?? (preg_match('/^\d+$/D', $l['quantity']) && preg_match('/^\d+(?:\.\d{1,2})?$/D', $l['rate']) ? Exact::money(IntMath::of($l['quantity'])->multipliedBy(Exact::cents($l['rate'], zero: true))) : 'Review invalid line');
             return ['line_no' => $i + 1, 'snapshot' => (object) ($l['snapshot'] ?? []), 'quantity' => $l['quantity'], 'rate' => $l['rate'], 'amount' => $amount];
         }, $p['lines'], array_keys($p['lines'])) : array_map(fn ($l) => [...$l, 'snapshot' => json_decode($l['snapshot'], false, 512, JSON_THROW_ON_ERROR)], $this->db->rows('SELECT * FROM v1_lines WHERE document_id=? ORDER BY line_no', [$id]));
-        return [...$d, 'id' => $id, 'party_id' => $d['party_id'] ? (string) $d['party_id'] : null, 'payload' => json_decode($d['payload'], false, 512, JSON_THROW_ON_ERROR), ...$extra,
+        return [...$d, 'id' => $id, 'party_id' => $d['party_id'] ? (string) $d['party_id'] : null, 'payload' => json_decode($d['payload'], false, 512, JSON_THROW_ON_ERROR), ...$extra,...$moneyExtra,
             'party' => isset($p['partySnapshot']) ? (object) $p['partySnapshot'] : $party, 'openingVerified' => (bool) ($party['opening_verified'] ?? false), 'reversalId' => $reversal ? (string) $reversal['id'] : null,
             'lines' => $lines, 'history' => $this->db->rows('SELECT * FROM v1_audit WHERE reference=? OR reference=? ORDER BY id', [$id, $d['official_number'] ?: $id])];
     }
@@ -287,6 +292,12 @@ final class SimpleV1
 
     public function reconciliation(): array
     {
-        return (new Reconciliation($this->db))->run();
+        $r = (new Reconciliation($this->db))->run();
+        if (!config('upms.money_accounts_enabled', false)) {
+            return $r;
+        }
+        MoneySchema::ready($this->db);
+        $money = (new MoneyAccounts($this->db))->reconciliation();
+        return [...$r,'matched' => $r['matched'] && $money['matched'],'money' => $money];
     }
 }

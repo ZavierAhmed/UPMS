@@ -85,7 +85,7 @@ final class MoneySchema
             if ($pdo->query('SELECT DATABASE()')->fetchColumn() === 'upms_v1') {
                 // A development evidence receipt is never a production approval.
                 $a = json_decode(file_get_contents((string)config('upms.money_release_approval')), true, 32, JSON_THROW_ON_ERROR);
-                if (($a['status'] ?? '') !== 'OWNER_APPROVED_MONEY_RELEASE' || ($a['targetHash'] ?? '') !== $g['targetHash'] || ($a['planHash'] ?? '') !== self::hash() || ($a['guardEvidenceSha256'] ?? '') !== hash_file('sha256', $path) || ($a['recoveryFormat'] ?? '') !== 'UPMS_MONEY_SNAPSHOT_V1' || ($a['recoveryVerified'] ?? false) !== true || ($g['definer'] ?? '') !== CrudGuards::DEFINER || ($g['definerPrivilegesVerified'] ?? false) !== true) {
+                if (($a['status'] ?? '') !== 'OWNER_APPROVED_MONEY_RELEASE' || ($a['documentIntegrationVersion'] ?? '') !== MoneyDocuments::VERSION || ($a['targetHash'] ?? '') !== $g['targetHash'] || ($a['planHash'] ?? '') !== self::hash() || ($a['guardEvidenceSha256'] ?? '') !== hash_file('sha256', $path) || ($a['recoveryFormat'] ?? '') !== 'UPMS_MONEY_SNAPSHOT_V1' || ($a['recoveryVerified'] ?? false) !== true || ($g['definer'] ?? '') !== CrudGuards::DEFINER || ($g['definerPrivilegesVerified'] ?? false) !== true) {
                     throw new \RuntimeException('MONEY_PRODUCTION_APPROVAL_REQUIRED');
                 }
             }
