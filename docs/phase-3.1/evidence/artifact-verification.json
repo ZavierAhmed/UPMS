@@ -1,0 +1,35 @@
+{
+  "A4": {
+    "pages": 4,
+    "landscapeDimensionsPoints": [
+      842,
+      595
+    ],
+    "blankPages": 0,
+    "allEightPartiesPresent": true,
+    "textWithinPageBounds": true
+  },
+  "A3": {
+    "pages": 2,
+    "landscapeDimensionsPoints": [
+      1191,
+      842
+    ],
+    "blankPages": 0,
+    "allEightPartiesPresent": true,
+    "textWithinPageBounds": true
+  },
+  "tallParty": {
+    "pages": 7,
+    "all36RowsPresent": true,
+    "closingBalancePresent": true
+  },
+  "excel": {
+    "openedWithOpenpyxl": true,
+    "partySections": 8,
+    "noFormulas": true,
+    "unverifiedBalancesPreserved": true,
+    "receiptsSeparateFromAdvances": true
+  },
+  "passed": true
+}

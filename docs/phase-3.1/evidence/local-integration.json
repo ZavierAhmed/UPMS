@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "php": "8.3",
+  "database": "upms_test_php_p31_1793600084208",
+  "guardCount": 45,
+  "checks": [
+    "45 actual guards installed on isolated MariaDB",
+    "unauthenticated report rejected",
+    "name-only create and idempotent retry",
+    "identical and similar names keep distinct stock identities",
+    "edit preserves omitted price and immutable code",
+    "code mutation and zero default price rejected",
+    "real posted snapshots, discounts, returns, receipts/reversal and exact balances; report makes no writes",
+    "vendor selection rejected",
+    "invalid date rejected",
+    "revoked administrator authorization rejected",
+    "runtime immutable line/audit mutations still denied"
+  ],
+  "checkCount": 11,
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-02T06:14:56.744Z"
+}

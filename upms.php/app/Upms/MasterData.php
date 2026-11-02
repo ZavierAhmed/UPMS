@@ -14,6 +14,22 @@ final class MasterData
 
     public function saveItem(array $user, array $control, object $input, ?string $id): array
     {
+        // An omitted optional PATCH value preserves the saved value. Explicit ""
+        // deliberately clears it; an omitted price must never erase a saved price.
+        if ($id !== null) {
+            $previous = $this->db->one('SELECT * FROM v1_items WHERE id=?', [$id]);
+            if ($previous) {
+                $input = clone $input;
+                foreach (['quality', 'colour', 'packing', 'remarks', 'active'] as $key) {
+                    if (!property_exists($input, $key)) {
+                        $input->$key = $key === 'active' ? (bool) $previous[$key] : $previous[$key];
+                    }
+                }
+                if (!property_exists($input, 'sellingPrice')) {
+                    $input->sellingPrice = $previous['selling_price'] ?? null;
+                }
+            }
+        }
         $p = V1Input::item($input);
         $version = $p['version'] ?? null;
         $reason = $p['reason'];

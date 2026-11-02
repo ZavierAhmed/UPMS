@@ -25,7 +25,7 @@ Route::prefix('/api/v1/management')->middleware(UpmsBoundary::class)->group(func
     Route::get('/session/current', [SessionController::class, 'current']);
     Route::post('/session/logout', [SessionController::class, 'logout']);
     Route::post('/profile/password', [SessionController::class, 'password']);
-    foreach (['state', 'items', 'parties', 'documents', 'documents/{id}', 'ledgers/{id}', 'overview', 'movements', 'register', 'reconciliation'] as $path) {
+    foreach (['state', 'items', 'parties', 'documents', 'documents/{id}', 'ledgers/{id}', 'overview', 'movements', 'register', 'reconciliation', 'hafta'] as $path) {
         Route::get('/simple-v1/'.$path, SimpleV1Controller::class);
     }
     foreach (['items', 'parties', 'documents', 'documents/{id}/post', 'documents/{id}/cancel'] as $path) {

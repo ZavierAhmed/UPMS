@@ -431,3 +431,6 @@ FodyWeavers.xsd
 
 # Protected encrypted off-host backups and DPAPI key material (never commit).
 /tmp/protected-offhost-backups/
+
+# Intermediate PDF render and pagination fixtures; final samples live in output/pdf.
+/tmp/pdfs/

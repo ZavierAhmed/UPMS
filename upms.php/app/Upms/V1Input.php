@@ -25,7 +25,7 @@ final class V1Input
         return self::parse($input, [
             'code' => ['text', 64, 1, 'optional', '/^[a-zA-Z0-9][a-zA-Z0-9_-]*$/D'],
             'sellingPrice' => ['string', 'nullable', 'optional'],
-            'description' => ['text', 200, 1], 'quality' => ['text', 100, 1], 'colour' => ['text', 100, 1], 'packing' => ['text', 100, 1],
+            'description' => ['text', 200, 1], 'quality' => ['text', 100, 0, 'default', ''], 'colour' => ['text', 100, 0, 'default', ''], 'packing' => ['text', 100, 0, 'default', ''],
             'remarks' => ['text', 1000, 0, 'default', ''], 'active' => ['bool', 'default', true], 'version' => ['version', 'optional'], 'reason' => ['text', 500, 0, 'default', ''],
         ]);
     }

@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "syntheticOnly": true,
+  "productionContacted": false,
+  "screenColumns": 4,
+  "partyBlocks": 8,
+  "a4PrintColumns": 2,
+  "a3PrintColumns": 4,
+  "cellOverflow": 0,
+  "mobileHorizontalOverflow": false,
+  "tallPartyRows": 36,
+  "tallPartyPdf": "tmp/pdfs/hafta-stress.pdf",
+  "financialWrites": 0,
+  "javascriptErrors": [],
+  "pdfFiles": [
+    "output/pdf/UPMS-Hafta-synthetic-A4.pdf",
+    "output/pdf/UPMS-Hafta-synthetic-A3.pdf"
+  ],
+  "verifiedUtc": "2026-11-02T06:11:12.382Z"
+}

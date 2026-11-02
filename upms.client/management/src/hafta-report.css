@@ -1,0 +1,38 @@
+.hafta-controls{display:flex;flex-wrap:wrap;align-items:end;gap:12px;margin:18px 0}.hafta-controls label{display:flex;flex-direction:column;gap:5px}.hafta-controls fieldset{max-width:400px}.hafta-party-options{max-height:180px;overflow:auto}.hafta-party-options label{flex-direction:row}.hafta-output{color:#222;background:#fff}.hafta-legend{padding:14px;border-bottom:3px solid #e27624;font-size:13px}.hafta-legend p{margin:6px 0}.hafta-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;padding:16px 0;align-items:start}.hafta-block{border:1.5px solid #353b40;min-width:0;break-inside:avoid-page;background:white;padding:10px}.hafta-block header{display:flex;gap:12px;align-items:center;border-bottom:2px solid #e27624;padding-bottom:8px}.hafta-block header img{width:52px;height:52px;object-fit:contain}.hafta-block header strong{font-size:23px;letter-spacing:.12em}.hafta-block header p{font-size:11px;margin:5px 0}.hafta-block h2{font-size:18px;overflow-wrap:anywhere;margin:10px 0 5px}.hafta-classification{font-size:10px}.hafta-warning{padding:8px;border:1px solid #a25900;font-size:11px;color:#603500;background:#fff8ed}.hafta-block table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:11px}.hafta-day{width:14%}.hafta-description{width:35%}.hafta-qty{width:12%}.hafta-rate{width:17%}.hafta-amount{width:22%}.hafta-block th,.hafta-block td{padding:6px 3px;border:1px solid #adb1b3;vertical-align:top;overflow-wrap:anywhere;white-space:normal}.hafta-block th{font-size:9px;background:#f3f0eb}.hafta-block small{display:block;font-size:9px;margin-top:4px}.hafta-block dl{font-size:11px;margin:10px 0 0}.hafta-block dl>div{display:flex;gap:8px;justify-content:space-between;border-bottom:1px solid #ddd;padding:5px 0}.hafta-block dd{margin:0;text-align:right;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}.hafta-block dt{max-width:64%}.hafta-block dl>div:nth-child(4),.hafta-block dl>div:last-child{font-weight:700;border-top:2px solid #444}
+@media(min-width:1700px){.hafta-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:700px){.hafta-grid{grid-template-columns:1fr}}
+@media print{
+ .simple-v1.management .hafta-output{page:auto!important;font-size:8pt;line-height:1.2}
+ .simple-v1.management .hafta-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));columns:auto;gap:5mm;align-items:start;padding:3mm 0}
+ .simple-v1.management .paper-A3 .hafta-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .simple-v1.management .hafta-block{display:block;width:100%;box-sizing:border-box;margin:0;break-inside:avoid;page-break-inside:avoid;box-shadow:none!important;padding:2.5mm}
+ .simple-v1.management .hafta-legend{font-size:7.5pt;padding:0 0 2mm;line-height:1.2}
+ .simple-v1.management .hafta-legend p{font-size:7.5pt;line-height:1.2;margin:2mm 0}
+ .simple-v1.management .hafta-block header{padding:0 0 2mm;gap:2mm}
+ .simple-v1.management .hafta-block header img{width:11mm;height:11mm}
+ .simple-v1.management .hafta-block header strong{font-size:14pt}
+ .simple-v1.management .hafta-block header p{font-size:7pt;line-height:1.2;margin:1mm 0}
+ .simple-v1.management .hafta-block h2{font-size:12pt;line-height:1.2;margin:2mm 0 1mm}
+ .simple-v1.management .hafta-block .hafta-classification{font-size:6.5pt;line-height:1.2;margin:1mm 0 2mm}
+ .simple-v1.management .hafta-block table{table-layout:fixed!important;line-height:1.2}
+ .simple-v1.management .hafta-block td,.simple-v1.management .hafta-block th{padding:1mm .8mm!important;font-size:8pt!important;line-height:1.2!important;overflow-wrap:anywhere!important}
+ .simple-v1.management .hafta-block small{font-size:6pt;line-height:1.2;margin-top:1mm}
+ .simple-v1.management .hafta-block dl{font-size:8pt;line-height:1.2;margin:2mm 0 0;break-inside:avoid}
+ .simple-v1.management .hafta-block dl>div{padding:.7mm 0;line-height:1.2}
+ .simple-v1.management .hafta-block dt,.simple-v1.management .hafta-block dd{font-size:8pt;line-height:1.2}
+ .simple-v1.management .hafta-block .hafta-warning{display:block!important;font-size:7pt;line-height:1.2;padding:1.5mm;margin:1mm 0}
+ .hafta-report>h1,.hafta-controls{display:none!important}
+}@media print{
+ .simple-v1.management main>section:has(.hafta-report){margin:0!important;padding:0!important;border:0!important}
+ .simple-v1.management .hafta-legend{padding-bottom:1mm;font-size:6.5pt;line-height:1.1}
+ .simple-v1.management .hafta-legend strong{display:block;font-size:8pt;margin-bottom:1mm}
+ .simple-v1.management .hafta-legend p{display:inline;font-size:6.5pt;line-height:1.1;margin:0;max-width:none}
+ .simple-v1.management .hafta-legend p::after{content:' · '}
+}
+.hafta-print-context,.hafta-print-only{display:none}
+@media print{
+ .simple-v1.management .hafta-print-context{display:table-row!important}
+ .simple-v1.management .hafta-print-context th{font-size:6.5pt!important;background:white}
+ .simple-v1.management .hafta-summary{break-inside:avoid}
+ .simple-v1.management .hafta-print-only{display:block;font-size:6.5pt;line-height:1.1;margin:1mm 0}
+}

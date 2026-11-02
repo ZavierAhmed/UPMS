@@ -38,6 +38,7 @@ final class SimpleV1Controller
                 str_starts_with($path, 'ledgers/') => $service->ledger($id, $request->query()),
                 $path === 'overview' => $service->overview(),
                 $path === 'movements' => ['records' => $service->movements()],
+                $path === 'hafta' => (new \App\Upms\HaftaReport($db))->generate($request->query()),
                 $path === 'register' => $service->register($request->query()),
                 $path === 'reconciliation' => $service->reconciliation(),
                 default => throw new ApiError(404, 'NOT_FOUND'),

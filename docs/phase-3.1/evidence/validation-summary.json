@@ -1,0 +1,30 @@
+{
+  "phpVersion": "8.3.36",
+  "phpUnit": {
+    "tests": 51,
+    "assertions": 1233,
+    "passed": true
+  },
+  "react": {
+    "files": 32,
+    "tests": 219,
+    "passed": true,
+    "newFocusedTests": 9
+  },
+  "eslint": {
+    "passed": true
+  },
+  "pintChangedFiles": {
+    "passed": true
+  },
+  "build": {
+    "public": true,
+    "ssrPrerender": true,
+    "management": true,
+    "warning": "Management bundle exceeds 500 kB advisory threshold"
+  },
+  "productionDeployed": false,
+  "productionDatabaseContacted": false,
+  "guardSourceChanged": false,
+  "unrelatedAssetsPreserved": true
+}
