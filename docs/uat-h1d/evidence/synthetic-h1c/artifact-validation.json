@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "actualChromePdfs": [
+    {
+      "file": "output/pdf/uath1d-synthetic-production.pdf",
+      "pages": 1,
+      "sha256": "ea3a111045ebb347e6f74990a3b0ebbac11d88308a87f91bfd085ed28cf6c0ec",
+      "textAndTotalsVerified": true
+    },
+    {
+      "file": "output/pdf/uath1d-synthetic-hafta.pdf",
+      "pages": 1,
+      "sha256": "d14ef2f2f224cf31f54cc4f823398d2ed1d7d7bb32e6a8d790a759f54f9bf36e",
+      "textAndTotalsVerified": true
+    },
+    {
+      "file": "output/pdf/uath1d-synthetic-expense-classification.pdf",
+      "pages": 1,
+      "sha256": "75d8c30fee13e48926f498cfdb35a4fb6d9ea28337b2b328206a0414f6eae505",
+      "textAndTotalsVerified": true
+    }
+  ],
+  "actualCompletedExcelDownloads": [
+    {
+      "file": "UPMS-Employee-Hafta.xlsx",
+      "sha256": "b604c7e215a200c96cb9b2da8d9a9c647b1364c9295f0a07d2ce4d49a8cdf4d7"
+    },
+    {
+      "file": "UPMS-Expense-Classification.xlsx",
+      "sha256": "eaa3b41437ade8cecac9791729b99735015527bcf41ef49f807b5bdd350483a4"
+    }
+  ],
+  "earned": "2000.00",
+  "existingPaymentApplied": "1200.00",
+  "closing": "800.00",
+  "expenseSignedAmounts": [
+    "1200.00",
+    "-1200.00"
+  ],
+  "expenseNet": "0.00",
+  "laborMoneyCellsNumeric": true,
+  "formulaErrorsOrMacrosIntroduced": false,
+  "nativeExcelApplicationRun": false,
+  "visualReview": "Text, totals and workbook cell types verified; visual review recorded separately."
+}

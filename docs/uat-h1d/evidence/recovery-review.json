@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "database": "upms_test_php_money_1793712380319020_restore",
+  "tables": 34,
+  "guards": 88,
+  "rows": 109,
+  "allOriginalTableHashesMatched": true,
+  "inventoryFinancialAndLaborReconciled": true,
+  "authenticatedDecryptionVerified": true,
+  "ownerDatabaseModified": false,
+  "ownerBindingChanged": false,
+  "sourceDatabasePreserved": "upms_test_php_money_1793691451921",
+  "productionConnected": false
+}

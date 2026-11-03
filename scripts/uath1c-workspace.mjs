@@ -13,7 +13,7 @@ export async function extensionHelper(binding,action) {
   child.stdin.end(JSON.stringify({action,port:3330,schema:binding.schema,runtime:binding.runtime,user:'php2_test_admin',password:engine.password}));
  });
 }
-export async function provisionClassifiedWorkspace() {
+export async function provisionClassifiedWorkspace({publishLatest=true}={}) {
  const password=randomBytes(24).toString('hex'),directory=resolve('tmp/php-runtime/uath1c-'+Date.now());
  const binding=await provisionWorkspace({directory,password});
  const g=await extensionHelper(binding,'install');
@@ -22,6 +22,6 @@ export async function provisionClassifiedWorkspace() {
  const envPath=resolve(directory,'test.env');
  await appendFile(envPath,'UPMS_LABOR_CLASSIFICATION_ENABLED=true\nUPMS_LABOR_EXTENSION_GUARD_EVIDENCE="'+proofPath.replaceAll('\\','/')+'"\n');
  const bindingPath=resolve(directory,'binding.json');await atomicJson(bindingPath,binding);
- await atomicJson('tmp/php-runtime/uath1c-latest.json',{...binding,bindingPath});
+ if(publishLatest)await atomicJson('tmp/php-runtime/uath1c-latest.json',{...binding,bindingPath});
  return {binding,bindingPath,envPath,password};
 }

@@ -1,0 +1,13 @@
+# Financial reconciliation and preservation
+
+The original 5180 database reconciled at 34/88 before the separately approved additive upgrade and now reconciles at 38/103. Ahmed has 2,000.00 earnings and a canonical 1,200.00 posted expense. No labor opening exists, so verified payable is null/UNVERIFIED. This work does not manufacture a 0.00 opening or automatically produce 800.00 in owner records.
+
+The authenticated encrypted baseline snapshot restored all 109 rows independently. Native consumer validation compares all table rows, supported DDL, guards, FKs, money/document sources, expense masters, refunds and labor receipts. Additional normal PHP reconciliation verifies inventory and party-ledger projections. Original row fingerprints matched. The rehearsal adds only four versioned tables and 15 guards, plus two permissions and two administrator role-permission rows. Original 88 guard definitions and original row values remain.
+
+The completed real upgrade rechecked original fingerprints immediately before DDL, rejects stale preflight/configuration/binding/archive evidence, and compares original rows after installation. Permission comparisons exclude only the two explicitly approved additions and independently verify their exact administrator grants. Runtime privileges are checked through its actual authenticated account.
+
+Independent synthetic tests cover duplicate/wrong/refunded sources, unverified coverage, insufficient earned payable, inconsistent canonical money evidence, duplicate approval/idempotency, rollback insertion faults, authorization/CSRF, employee rename, week/date boundaries, signed expense adjustments, actual Chrome PDFs/Excel, native immutable guards and encrypted 38/103 recovery. Interrupted native DDL is tested on a disposable copy; retry must reject before additional writes while all original 34 table hashes and 88 guards remain intact. Maintenance tests cover installing/failed/verifying and malformed marker states.
+
+Exact counts and actual final states are in `evidence/`; failed checks are not represented as passes. Application authorization and reconciliation are not SQL row isolation, proof of physical cash, or protection against every consistent fabricated INSERT. Existing residual CRUD risks and unsupported partial allocation/advances remain unchanged.
+
+Post-upgrade checkpoint: 121 independently restored rows, every original non-session row preserved; zero additions across original business tables, zero allocations, two new permissions/two administrator grants and three identity-audit rows. Owner login/session activity is expected and is not a financial mutation. Actual owner Excel confirms 2000.00 earned, 0.00 paid, UNVERIFIED opening/closing.

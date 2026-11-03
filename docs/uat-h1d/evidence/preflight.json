@@ -1,0 +1,301 @@
+{
+  "passed": true,
+  "sourceDatabase": "upms_test_php_money_1793691451921",
+  "sourceTargetHash": "3cb110e94f482a2837d87ff49d55c618c0349bec655eb17c83afee7ee098f042",
+  "sourceTables": 34,
+  "sourceGuards": 88,
+  "sourceFingerprints": {
+    "employees": {
+      "rows": 1,
+      "hash": "155ac5965f0954ffd9c17d65905db4a99057f54a2e8c728ac2404136463d58e5"
+    },
+    "expense_categories": {
+      "rows": 1,
+      "hash": "215383d6ac5e209368463866d41efedb2be25540a744cf7bd291cca61f702c20"
+    },
+    "expense_master_audit": {
+      "rows": 2,
+      "hash": "e5c88f479439929ce7622969764f6fab4904f55e0b1167744f8349aee7349ee9"
+    },
+    "expense_schema_receipts": {
+      "rows": 1,
+      "hash": "68e83c9a69f315795cc0db773ede7d84b271ee5de95c82dd2a9384a82ed603e3"
+    },
+    "identity_audit_events": {
+      "rows": 3,
+      "hash": "29f0b90570fc9ae3a2e566a81d9b4bd04702382328ec92bd64d426c12e327c0e"
+    },
+    "identity_guard": {
+      "rows": 1,
+      "hash": "0635b2cca1554f32b15b8f159e5d09f0aa4ff5598340841247227a86eb7cc475"
+    },
+    "labor_audit": {
+      "rows": 1,
+      "hash": "80329b610ecfa09c68bb4bf5235ff8860017546776dd23624efede8233cfe491"
+    },
+    "labor_earnings": {
+      "rows": 1,
+      "hash": "a0b5e5669dc90326e69f6154e00b6a0faf3524e199c3bf616e0461c1e8c58576"
+    },
+    "labor_openings": {
+      "rows": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "labor_payments": {
+      "rows": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "labor_schema_receipts": {
+      "rows": 1,
+      "hash": "f90e3e855b1e7434665d5eb87e375d9382fad59cb61385726707c10460a1ed0f"
+    },
+    "money_accounts": {
+      "rows": 4,
+      "hash": "19b65b195a312e51408e469b4e8bb606294bbab18f5df75de764f41636576403"
+    },
+    "money_audit": {
+      "rows": 2,
+      "hash": "fbb4026f87803f5b43a6273f383593661cd052eff6f5610e425e7e0f5ab44851"
+    },
+    "money_batches": {
+      "rows": 2,
+      "hash": "4e708ff886fc1e206491c0646a2b6db54c123f43b87650a2bc6432276dd8e45e"
+    },
+    "money_movements": {
+      "rows": 2,
+      "hash": "254bb35813ba4d0b8a01e48bf36d43cbfa428862309c28b00ded5c13b59a5688"
+    },
+    "money_schema_receipts": {
+      "rows": 1,
+      "hash": "680bc0cc740ec9a7710d824388c549a79ffb5371e06802f0bba7270488f3b8ad"
+    },
+    "permissions": {
+      "rows": 17,
+      "hash": "672e00a538e605eed4ae3d5c0d1dffeb5fcf1208b60773a41375606d858eb480"
+    },
+    "role_permissions": {
+      "rows": 28,
+      "hash": "d64bfba5a94339e049b1a16c302ac4252df01493c24abe8e8b54945b5335f444"
+    },
+    "roles": {
+      "rows": 4,
+      "hash": "4b8cfbd8c934179b17790dc6386c87d695686866342209cf7be1ca96c448999f"
+    },
+    "upms_production_migrations": {
+      "rows": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "user_roles": {
+      "rows": 1,
+      "hash": "7635f307f95e4b072fe51f4f73d4186b86ad14b88f296815a3bf7c851da9bc61"
+    },
+    "users": {
+      "rows": 1,
+      "hash": "98813a5511b6412d2c51d44e49d75d0e17016cdec1140bf2a16209401e370f9d"
+    },
+    "v1_audit": {
+      "rows": 8,
+      "hash": "f19d5cea7a3dc78b1e5e97dd3aa12d2ea071859bad5c6e0b4b1a78f11bfd2f74"
+    },
+    "v1_commands": {
+      "rows": 11,
+      "hash": "14a4707641cbe957beaf7179adbe035c9e8c5af60e854f8a4097b089b47e612f"
+    },
+    "v1_control": {
+      "rows": 1,
+      "hash": "f4a1073304fda8a7133895423528e7d309bcaa9bd963d29908e7d96fa4b40f8d"
+    },
+    "v1_documents": {
+      "rows": 3,
+      "hash": "1a30bbd74ede0959846cb45e2b0f41ed3d65d08435f548b1f1c1e5fb6994c3ba"
+    },
+    "v1_items": {
+      "rows": 1,
+      "hash": "db1b2bc48f2bd0eead8bffcab8b5d7757dfd0cc059d190b3775733e7923a1bbc"
+    },
+    "v1_lines": {
+      "rows": 2,
+      "hash": "12dacfd6d9281aaf7fc60531ddca3417db459e1bbde7f31879b6389e8cd788fd"
+    },
+    "v1_parties": {
+      "rows": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "v1_party_journal": {
+      "rows": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "v1_stock": {
+      "rows": 1,
+      "hash": "0cc57da51381665f31a0467a414e6d77a8f358c900172e87f822935e31142dc0"
+    },
+    "v1_stock_journal": {
+      "rows": 2,
+      "hash": "f9bab4d17d91c09a40a0eb50c9121f33143d289fa103cdfe5e7fcfc8c5269db7"
+    }
+  },
+  "archive": "C:\\Users\\zasah\\source\\repos\\UPMS\\tmp\\php-runtime\\uath1d-owner-protection\\preupgrade-1793711114327.sealed",
+  "archiveSha256": "a0f157aecca571ee3540cdf631200cec89b1faf8d7159f523293be13774ffce6",
+  "archiveBytes": 82753,
+  "snapshotManifestSha256": "4077ee6fc654669693a895f1a5dc2845aa8ff4fcde7bb6816581239031afe7bc",
+  "format": "UPMS_EMPLOYEE_HAFTA_SNAPSHOT_V1",
+  "authenticatedDecryptionVerified": true,
+  "plaintextWrittenToDisk": false,
+  "privateKeyProtection": "Windows DPAPI CurrentUser",
+  "independentRestore": {
+    "database": "upms_test_php_money_1793711125460217_restore",
+    "tables": 34,
+    "guards": 88,
+    "rows": 109,
+    "allTableHashesMatched": true,
+    "reconciliation": {
+      "matched": true,
+      "financial": {
+        "matched": true,
+        "customChallanNumbers": {
+          "matched": true,
+          "findings": []
+        },
+        "refunds": {
+          "matched": true,
+          "findings": [],
+          "postedRefunds": 0,
+          "policyVersion": "p32b3-full-same-account-v1",
+          "authenticity": "Operator attestation and consistency evidence, not proof that physical funds moved or protection against fabricated SQL inserts."
+        },
+        "money": {
+          "matched": true,
+          "findings": [],
+          "balances": {
+            "1": "3800.00",
+            "2": "0.00",
+            "3": "0.00",
+            "4": "0.00"
+          },
+          "openings": {
+            "1": "2026-11-03"
+          },
+          "batches": 2,
+          "movements": 2,
+          "sourceCoverage": "Money batches plus canonical p32b1 document claims; historical V1 payments and expenses are not backfilled.",
+          "authenticity": "Shape and arithmetic consistency, not proof of physical funds or protection against fabricated SQL inserts."
+        },
+        "sources": {
+          "matched": true,
+          "findings": [],
+          "linkedDocuments": 1,
+          "historicalUnlinkedDocuments": 0,
+          "coverage": "Only p32b1-marked posted documents require canonical money effects. Historical documents are not backfilled."
+        },
+        "masters": {
+          "matched": true,
+          "findings": [],
+          "categories": 1,
+          "employees": 1,
+          "historyEvents": 2
+        },
+        "expenses": {
+          "matched": true,
+          "findings": [],
+          "mappedExpenses": 1,
+          "legacyUnmappedExpenses": 0
+        }
+      },
+      "labor": {
+        "matched": true,
+        "findings": [],
+        "balances": {
+          "1": null
+        },
+        "earnings": 1,
+        "payments": 0,
+        "openings": 0,
+        "authenticityVerified": false,
+        "coverage": "Canonical source/snapshot/arithmetic/audit consistency; not proof of physical funds or protection against fabricated consistent SQL inserts."
+      },
+      "commands": {
+        "matched": true,
+        "findings": []
+      }
+    },
+    "inventoryReconciliation": {
+      "employeeLabor": {
+        "matched": true,
+        "findings": [],
+        "balances": {
+          "1": null
+        },
+        "earnings": 1,
+        "payments": 0,
+        "openings": 0,
+        "authenticityVerified": false,
+        "coverage": "Canonical source/snapshot/arithmetic/audit consistency; not proof of physical funds or protection against fabricated consistent SQL inserts.",
+        "commands": {
+          "matched": true,
+          "findings": []
+        }
+      },
+      "expense": {
+        "matched": true,
+        "masters": {
+          "matched": true,
+          "findings": [],
+          "categories": 1,
+          "employees": 1,
+          "historyEvents": 2
+        },
+        "documents": {
+          "matched": true,
+          "findings": [],
+          "mappedExpenses": 1,
+          "legacyUnmappedExpenses": 0
+        }
+      },
+      "matched": true,
+      "mismatches": [],
+      "repairPerformed": false,
+      "documents": 3,
+      "sourceLines": 2,
+      "stockEntries": 2,
+      "ledgerEntries": 0,
+      "integrityFindings": [],
+      "reviewRequired": false,
+      "authenticityVerified": false
+    }
+  },
+  "migrationRehearsal": {
+    "tables": 38,
+    "guards": 103,
+    "allOriginalRowsPreserved": true,
+    "proof": {
+      "passed": true,
+      "baseGuards": 45,
+      "additionalGuards": 15,
+      "totalGuards": 103,
+      "baseHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+      "moneyHash": "b50693808bc71e1765ef89b9bc02546fb6b167c2bd0dc74be6b7abab487de6bd",
+      "definer": "php2_test_admin@127.0.0.1",
+      "definerPrivilegesVerified": false,
+      "expenseHash": "94bfa9f2f790007a5007e9f6999cc31924b7c5d5f6500162921d33c602a8785e",
+      "laborHash": "8a913516951f07b00d34384f90b36de21b9b74cf8b0b29ef32d61416d7d9834b",
+      "extensionHash": "2d923aff000ddcc287233fab25ba7e2587c7b28fe5df7211f825b455ba1f55d5",
+      "extensionGuards": 15,
+      "extensionPlanHash": "6ee414ac0c82ba9029331c2dc9e3822c7bb1d91f98a54761bf277da6637f5692",
+      "runtime": "money_rt_1793711125460217@localhost",
+      "targetHash": "75ab9b29c2492dfcfddfc93aad5543e6d6aac668dffbedccf801d135825e6a93"
+    }
+  },
+  "ownerDatabaseMigrated": false,
+  "ownerRecordsWritten": false,
+  "productionConnected": false,
+  "protectedConfigurationBackup": "environment-before.dpapi",
+  "verifiedUtc": "2026-11-03T13:05:47.332Z",
+  "bindingDatabase": "upms_test_php_money_1793691451921",
+  "expectedMigrationVersion": "uath1c-v1",
+  "expectedMigrationPlanHash": "6ee414ac0c82ba9029331c2dc9e3822c7bb1d91f98a54761bf277da6637f5692",
+  "authorization": "NOT_AUTHORIZED_FOR_OWNER_DATABASE_MIGRATION",
+  "nextAction": "Separate explicit owner approval is required before modifying the fixed port 5180 database.",
+  "bindingFileSha256": "890392f6f086752955c6abe178bd0f806e969efcb569577b3c2ad0e9aaf1d989",
+  "environmentFileSha256": "4958944ea5d3f1ae1f839cc701dae11e941b371ebef7da02c2c99f9d35356567",
+  "configurationBindingVerifiedUtc": "2026-11-03T13:14:15.435Z"
+}

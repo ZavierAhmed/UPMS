@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "syntheticOnly": true,
+  "verifiedEarnedPayable": "500.00",
+  "fullSourceAmount": "1000.00",
+  "insufficientEarnedPayableRejected": true,
+  "inconsistentSourceMoneyRejected": true,
+  "failedApprovalsHaveNoMutations": true,
+  "injectedSourceRestoredAndReconciled": true,
+  "ownerDatabaseModified": false
+}

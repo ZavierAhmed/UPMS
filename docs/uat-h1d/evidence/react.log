@@ -1,0 +1,14 @@
+
+ RUN  v5.0.5 C:/Users/zasah/source/repos/UPMS/upms.client
+
+ ❯ src/test/IntegrityReview.test.jsx (2 tests | 1 failed) 1758ms
+   × shows actionable integrity evidence when projection matched is true 1201ms
+
+ Test Files  1 failed | 39 passed (40)
+      Tests  1 failed | 282 passed (283)
+   Start at  18:01:49
+   Duration  13.12s (environment 56%, tests 31%, setup 9%, import 2%, transform 2%)
+
+Environment  jsdom was created 40 times · 125.08s total, 56% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments

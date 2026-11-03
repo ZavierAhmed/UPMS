@@ -27,6 +27,15 @@ if(-not $state){
     }
 }
 if(-not $state){throw 'Startup listener did not become ready. Inspect tmp/php-runtime/uath1-owner-setup diagnostics; existing database binding was not reset.'}
+$fixedBinding=Test-Path -LiteralPath (Join-Path $repo 'tmp/php-runtime/uath1-owner-binding.json')
+if($fixedBinding -and $state.state -in @('STARTING','RUNNING')){
+    for($attempt=0;$attempt -lt 30;$attempt++){
+        Start-Sleep -Milliseconds 500
+        $state=Get-WorkspaceStatus
+        if($state -and $state.state -notin @('STARTING','RUNNING')){break}
+    }
+}
+if($fixedBinding -and (!$state -or $state.state -notin @('READY','FAILED'))){throw 'Existing fixed owner workspace is not ready. Preserve its binding and credentials; do not create another administrator or initialize a database.'}
 if($state.state -eq 'READY'){
     $response=Invoke-WebRequest -Uri $url -TimeoutSec 10
     if($response.StatusCode -ne 200 -or $response.Headers['X-UPMS-Workspace'] -ne 'employee-hafta'){throw 'Dashboard HTTP readiness failed; not reporting success.'}

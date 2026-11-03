@@ -1,0 +1,100 @@
+{
+  "passed": true,
+  "php": "8.3.36",
+  "mariadb": "10.11.19",
+  "checks": [
+    "unauthenticated access rejected",
+    "additive forward migration preserves every base table row; original 45 plus 15 new guards",
+    "global readiness includes the enabled money extension",
+    "four independently configured holdings begin unverified, never zero",
+    "unverified opening prevents spending",
+    "explicit administrator verification and CSRF are mandatory",
+    "explicit zero, positive cash and nonspendable custody openings; idempotent opening retry",
+    "one opening per account; cheque custody cannot fund or receive ordinary transfers",
+    "existing challan source cannot be silently re-entered as external money",
+    "exact external source effects and case-normalized global source uniqueness",
+    "equal two-legged transfer, retry, changed-payload conflict and no party/stock/revenue/expense effects",
+    "concurrent overspending: one transfer wins, one rejected, no negative balance",
+    "concurrent identical retries post once",
+    "cash/bank directions supported; administrator deficit override field rejected",
+    "linked reversal preserves original; insufficient funds, duplicate, opening and recursive reversals rejected",
+    "independent exact final balances and custody value; all sources reconcile",
+    "statement date filters preserve unknown pre-opening coverage",
+    "backdating and out-of-range account identities are blocked",
+    "14-digit accumulated balance remains spendable exactly; one-cent transfer and full reversal restore all balances",
+    "actual CRUD-only identity; DDL/GRANT and immutable master, receipt, batch, movement and audit mutation denied",
+    "audit-write failure rolls back batch, both legs and idempotency ownership",
+    "inconsistent evidence hides balances and blocks posting; no automatic repair",
+    "P3.1 name-only item and authenticated read-only Hafta remain compatible",
+    "feature off and missing extension guard readiness fail closed",
+    "mandatory password rotation blocks money reads and writes",
+    "authenticated encrypted 25-table snapshot restored to empty isolated schema; all rows/FKs and 60 guards verified",
+    "restore refuses a nonempty target; no reset/reinitialize path",
+    "revoked administrator authorization rejected on read and posting boundary"
+  ],
+  "checkCount": 28,
+  "baseGuards": 45,
+  "additionalGuards": 15,
+  "totalGuards": 60,
+  "tables": 25,
+  "balances": {
+    "HARIS_CASH": "43.10",
+    "JUNAID_CASH": "3.90",
+    "UBL_OFFICIAL": "68.00",
+    "CHEQUES": "99.99"
+  },
+  "restore": {
+    "passed": true,
+    "format": "UPMS_MONEY_SNAPSHOT_V1",
+    "tables": 25,
+    "rows": 158,
+    "guards": {
+      "passed": true,
+      "baseGuards": 45,
+      "additionalGuards": 15,
+      "totalGuards": 60,
+      "baseHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+      "moneyHash": "f07118a864f5e64789294ada256d54aeb2df1a6e903b3b99b8f9e62a334b8463",
+      "definer": null,
+      "definerPrivilegesVerified": false
+    },
+    "schema": {
+      "passed": true,
+      "tables": 5,
+      "planHash": "1fce4426d5799ee9ffaf34734fcbb374ef953a56b29b0ec845758f749dc81805",
+      "accountsHash": "b4020964ed7968edf119c0c88b572986a4c9b63fddc7c2488d7388cb0d8eba6d",
+      "reference": "SYNTHETIC-P32A-ONLY"
+    },
+    "moneyReconciliation": {
+      "matched": true,
+      "findings": [],
+      "balances": {
+        "1": "43.10",
+        "2": "3.90",
+        "3": "68.00",
+        "4": "99.99"
+      },
+      "openings": {
+        "1": "2026-10-30",
+        "2": "2026-10-30",
+        "3": "2026-10-30",
+        "4": "2026-10-30"
+      },
+      "batches": 16,
+      "movements": 23,
+      "sourceCoverage": "Money batches plus canonical p32b1 document claims; historical V1 payments and expenses are not backfilled.",
+      "authenticity": "Shape and arithmetic consistency, not proof of physical funds or protection against fabricated SQL inserts.",
+      "documentIntegration": {
+        "matched": true,
+        "findings": [],
+        "linkedDocuments": 0,
+        "historicalUnlinkedDocuments": 0,
+        "coverage": "Only p32b1-marked posted documents require canonical money effects. Historical documents are not backfilled."
+      }
+    },
+    "productionContacted": false,
+    "sourceTargetHashPreserved": true
+  },
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-03T13:02:39.542Z"
+}

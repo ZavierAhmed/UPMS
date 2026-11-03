@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "syntheticOnly": true,
+  "checks": [
+    "Missing owner authorization rejected before connecting",
+    "Actual native readiness and in-flight write metrics",
+    "INSTALLING/FAILED/VERIFYING block authenticated writes",
+    "Wrong origin still rejected",
+    "Malformed maintenance evidence fails closed",
+    "Completed marker restores verified native readiness",
+    "No employee created during blocked operations"
+  ],
+  "ownerDatabaseModified": false
+}

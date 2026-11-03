@@ -1,0 +1,172 @@
+{
+  "passed": true,
+  "checks": [
+    "Explicit first production zero opening and production committed atomically; exact concurrent idempotent retry has one stock/earning effect; missing confirmation has no mutation",
+    "Verified opening 0 + earned 2000 - approved existing payment 1200 = payable 800; original expense and cash/stock/ledger hashes unchanged; allocation retry exact and duplicate source rejected"
+  ],
+  "tables": 38,
+  "guards": 103,
+  "report": {
+    "title": "Employee Hafta",
+    "from": "2026-11-03",
+    "to": "2026-11-03",
+    "currency": "PKR",
+    "blocks": [
+      {
+        "employeeId": "1",
+        "names": [
+          "Ahmed synthetic H1C"
+        ],
+        "currentName": "Ahmed synthetic H1C",
+        "active": true,
+        "verified": true,
+        "opening": "0.00",
+        "earned": "2000.00",
+        "paid": "1200.00",
+        "directPaid": "0.00",
+        "allocatedPaid": "1200.00",
+        "closing": "800.00",
+        "coverageDate": "2026-11-03",
+        "records": [
+          {
+            "id": "1",
+            "type": "EARNING",
+            "date": "2026-11-03",
+            "description": "H1C first production bottle",
+            "employeeName": "Ahmed synthetic H1C",
+            "quantity": "200",
+            "laborRate": "10.00",
+            "earned": "2000.00",
+            "paid": "",
+            "documentId": "1",
+            "paymentId": null,
+            "reference": "Production 1"
+          },
+          {
+            "id": "1",
+            "type": "EXPENSE_ALLOCATION",
+            "date": "2026-11-03",
+            "description": "Existing expense applied to Hafta (no new cash)",
+            "employeeName": "Ahmed synthetic H1C",
+            "quantity": "",
+            "laborRate": "",
+            "earned": "",
+            "paid": "1200.00",
+            "documentId": "3",
+            "paymentId": null,
+            "reference": "H1C-EXISTING-1200"
+          }
+        ]
+      }
+    ],
+    "totals": {
+      "opening": "0.00",
+      "earned": "2000.00",
+      "paid": "1200.00",
+      "directPaid": "0.00",
+      "allocatedPaid": "1200.00",
+      "closing": "800.00"
+    },
+    "businessExpenses": [],
+    "businessExpensePolicy": "Ordinary employee-associated business expenses are not deducted. Only explicitly approved existing-payment allocations reduce Hafta; original cash movements remain unchanged.",
+    "unallocatedProductions": [],
+    "coverage": "Balances require explicit evidenced employee openings. Historical unallocated production is not assumed to have zero labor. No advances or automatic expense reclassification.",
+    "reconciliation": {
+      "matched": true,
+      "findings": [],
+      "balances": {
+        "1": "800.00"
+      },
+      "earnings": 1,
+      "payments": 0,
+      "openings": 1,
+      "authenticityVerified": false,
+      "coverage": "Canonical source/snapshot/arithmetic/audit consistency; not proof of physical funds or protection against fabricated consistent SQL inserts.",
+      "extension": {
+        "matched": true,
+        "findings": [],
+        "allocations": 1,
+        "initializations": 1,
+        "authenticityVerified": false
+      }
+    }
+  },
+  "reconciliation": {
+    "employeeLabor": {
+      "matched": true,
+      "findings": [],
+      "balances": {
+        "1": "800.00"
+      },
+      "earnings": 1,
+      "payments": 0,
+      "openings": 1,
+      "authenticityVerified": false,
+      "coverage": "Canonical source/snapshot/arithmetic/audit consistency; not proof of physical funds or protection against fabricated consistent SQL inserts.",
+      "commands": {
+        "matched": true,
+        "findings": []
+      },
+      "extension": {
+        "matched": true,
+        "findings": [],
+        "allocations": 1,
+        "initializations": 1,
+        "authenticityVerified": false
+      }
+    },
+    "expense": {
+      "matched": true,
+      "masters": {
+        "matched": true,
+        "findings": [],
+        "categories": 1,
+        "employees": 1,
+        "historyEvents": 2
+      },
+      "documents": {
+        "matched": true,
+        "findings": [],
+        "mappedExpenses": 1,
+        "legacyUnmappedExpenses": 0
+      }
+    },
+    "matched": true,
+    "mismatches": [],
+    "repairPerformed": false,
+    "documents": 3,
+    "sourceLines": 2,
+    "stockEntries": 2,
+    "ledgerEntries": 0,
+    "integrityFindings": [],
+    "reviewRequired": false,
+    "authenticityVerified": false,
+    "money": {
+      "matched": true,
+      "findings": [],
+      "balances": {
+        "1": "3800.00",
+        "2": "0.00",
+        "3": "0.00",
+        "4": "0.00"
+      },
+      "openings": {
+        "1": "2026-11-03"
+      },
+      "batches": 2,
+      "movements": 2,
+      "sourceCoverage": "Money batches plus canonical p32b1 document claims; historical V1 payments and expenses are not backfilled.",
+      "authenticity": "Shape and arithmetic consistency, not proof of physical funds or protection against fabricated SQL inserts.",
+      "documentIntegration": {
+        "matched": true,
+        "findings": [],
+        "linkedDocuments": 1,
+        "historicalUnlinkedDocuments": 0,
+        "coverage": "Only p32b1-marked posted documents require canonical money effects. Historical documents are not backfilled."
+      }
+    }
+  },
+  "productionContacted": false,
+  "ownerDataMutated": false,
+  "verifiedUtc": "2026-11-03T13:13:00.370Z"
+}

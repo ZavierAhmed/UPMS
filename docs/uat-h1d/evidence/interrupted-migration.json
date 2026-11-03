@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "interruptedAfterFirstNativeDdl": true,
+  "retryRejectedBeforeAdditionalWrites": true,
+  "allOriginal34TableHashesPreserved": true,
+  "actualPartialTables": 35,
+  "originalGuards": 88,
+  "partialCopyPreservedForReview": true,
+  "ownerDatabaseModified": false
+}

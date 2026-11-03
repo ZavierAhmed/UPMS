@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "ownerPerformedExistingCredentialLogin": true,
+  "dashboardAndHaftaAndOriginalExpenseViewed": true,
+  "ownerTransactionsPosted": false,
+  "earned": "2000.00",
+  "directPayments": "0.00",
+  "existingPaymentsApplied": "0.00",
+  "opening": "UNVERIFIED",
+  "closing": "UNVERIFIED",
+  "sourceExpense": 3,
+  "sourceMoneyBatch": 2,
+  "sourceBlockedReason": "H1C_LABOR_COVERAGE_UNVERIFIED",
+  "ownerExcelVerified": true,
+  "original5173BindingUnchanged": true,
+  "original5173DatabaseConnected": false,
+  "syntheticPdfsVisuallyReviewed": 3,
+  "syntheticExcelVerified": 2,
+  "manualBusinessAcceptance": "PENDING_OWNER_REVIEW"
+}

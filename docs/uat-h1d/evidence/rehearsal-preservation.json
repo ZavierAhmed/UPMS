@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "schema": {
+    "passed": true,
+    "tables": 38,
+    "version": "uath1c-v1",
+    "planHash": "6ee414ac0c82ba9029331c2dc9e3822c7bb1d91f98a54761bf277da6637f5692"
+  },
+  "guards": 103,
+  "originalBaseRowsPreserved": true,
+  "onlyApprovedPermissionAdditions": true,
+  "ownerDatabaseModified": false
+}

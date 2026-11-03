@@ -1,0 +1,357 @@
+{
+  "passed": true,
+  "database": "upms_test_php_money_1793691451921",
+  "schema": {
+    "passed": true,
+    "tables": 38,
+    "version": "uath1c-v1",
+    "planHash": "6ee414ac0c82ba9029331c2dc9e3822c7bb1d91f98a54761bf277da6637f5692"
+  },
+  "guards": {
+    "passed": true,
+    "baseGuards": 45,
+    "additionalGuards": 15,
+    "totalGuards": 103,
+    "baseHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+    "moneyHash": "f451d533e26c54dabe55d5637b41fbf949cd63572b42b0920759bf62378b5b26",
+    "definer": "php2_test_admin@127.0.0.1",
+    "definerPrivilegesVerified": false,
+    "expenseHash": "b49ea8a1faf741e88d7066f72dc5e5ab8a7522f74e0a65e849d2de7036695729",
+    "laborHash": "3befd6487d9c99b13a983f60732f9b8d4719f05be6b76c869e82be4693732205",
+    "extensionHash": "fe3272e06ff111ef9bf7a41efbfd321cedf4b18b1a33c3272aadcc3499043f8c",
+    "extensionGuards": 15,
+    "extensionPlanHash": "6ee414ac0c82ba9029331c2dc9e3822c7bb1d91f98a54761bf277da6637f5692",
+    "runtime": "money_rt_1793691451921@localhost",
+    "targetHash": "3cb110e94f482a2837d87ff49d55c618c0349bec655eb17c83afee7ee098f042"
+  },
+  "preservedOriginalRows": true,
+  "permissionRowsAdded": 2,
+  "administratorPermissionGrantsAdded": 2,
+  "originalBusinessRecordsModified": false,
+  "originalAdministratorRowsModified": false,
+  "approvalReference": "OWNER_REPLY_call_6ba999386e26468eb46cd6f7ae9b1f85_APPROVE_UAT_ONLY_UPGRADE",
+  "preflightSha256": "d17456623e75df1d05fd0740c7ee8c6afe4fcc6e2c21975ecbacf66679348316",
+  "manualOpeningAndAllocationPerformed": false,
+  "productionConnected": false,
+  "after": {
+    "passed": true,
+    "readOnly": true,
+    "database": "upms_test_php_money_1793691451921",
+    "targetHost": "127.0.0.1",
+    "port": 3330,
+    "targetHash": "3cb110e94f482a2837d87ff49d55c618c0349bec655eb17c83afee7ee098f042",
+    "runtimeAuthenticatedAs": "money_rt_1793691451921@localhost",
+    "runtimeGrants": [
+      "GRANT USAGE ON *.* TO `money_rt_1793691451921`@`localhost` [authentication omitted]",
+      "GRANT SELECT, INSERT, UPDATE, DELETE ON `upms\\_test\\_php\\_money\\_1793691451921`.* TO `money_rt_1793691451921`@`localhost`",
+      "GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, REFERENCES, INDEX, ALTER, CREATE TEMPORARY TABLES, LOCK TABLES, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, EVENT, TRIGGER, DELETE HISTORY ON `test`.* TO PUBLIC",
+      "GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, REFERENCES, INDEX, ALTER, CREATE TEMPORARY TABLES, LOCK TABLES, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, EVENT, TRIGGER, DELETE HISTORY ON `test\\_%`.* TO PUBLIC"
+    ],
+    "maintenanceDefiner": "php2_test_admin@127.0.0.1",
+    "schema": {
+      "passed": true,
+      "tables": 38,
+      "version": "uath1c-v1",
+      "planHash": "6ee414ac0c82ba9029331c2dc9e3822c7bb1d91f98a54761bf277da6637f5692"
+    },
+    "guards": {
+      "passed": true,
+      "baseGuards": 45,
+      "additionalGuards": 15,
+      "totalGuards": 103,
+      "baseHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+      "moneyHash": "f451d533e26c54dabe55d5637b41fbf949cd63572b42b0920759bf62378b5b26",
+      "definer": "php2_test_admin@127.0.0.1",
+      "definerPrivilegesVerified": false,
+      "expenseHash": "b49ea8a1faf741e88d7066f72dc5e5ab8a7522f74e0a65e849d2de7036695729",
+      "laborHash": "3befd6487d9c99b13a983f60732f9b8d4719f05be6b76c869e82be4693732205",
+      "extensionHash": "fe3272e06ff111ef9bf7a41efbfd321cedf4b18b1a33c3272aadcc3499043f8c",
+      "extensionGuards": 15
+    },
+    "tableCount": 38,
+    "administrators": [
+      {
+        "id": "1",
+        "username": "php-admin",
+        "displayName": "Employee Hafta UAT Administrator",
+        "version": 1,
+        "roles": [
+          "administrator"
+        ],
+        "permissions": [
+          "audit.read",
+          "employee_labor.classify",
+          "employee_labor.opening",
+          "employee_labor.pay",
+          "employee_labor.record",
+          "employee_labor.view",
+          "money.accounts.view",
+          "portal.access",
+          "profile.password",
+          "profile.read",
+          "roles.assign",
+          "roles.read",
+          "sessions.revoke",
+          "sessions.self",
+          "stock.initial_opening.confirm",
+          "users.create",
+          "users.read",
+          "users.update"
+        ]
+      }
+    ],
+    "employees": [
+      {
+        "id": "1",
+        "name": "Ahmed",
+        "active": 1,
+        "version": 1
+      }
+    ],
+    "earnings": [
+      {
+        "id": "1",
+        "document_id": "1",
+        "employee_id": "1",
+        "date": "2026-11-03",
+        "quantity": "200",
+        "labor_rate": "10.00",
+        "amount": "2000.00"
+      }
+    ],
+    "ahmedSources": [
+      {
+        "expenseId": "3",
+        "amount": "1200.00",
+        "date": "2026-11-03",
+        "employeeId": "1",
+        "employeeName": "Ahmed",
+        "canonicalSourceVerified": true,
+        "batchId": "2",
+        "movementId": "2",
+        "sourceHashes": {
+          "expense": "d2aa6fac5f2949357412409210b391d162edca0da996b496c98720ec3cb3d79e",
+          "batch": "aeef7bbd96d641ab9e71395894d8bd63c5e2e3aba73767e998c5200e30f4f6f7",
+          "movement": "10347e71f650b4e4014c769c91fdf51912d780507a29f2d2ea45a5f4471701a7"
+        },
+        "opening": null,
+        "verifiedCurrentPayable": null,
+        "manualOpeningReviewRequired": true
+      }
+    ],
+    "reconciliation": {
+      "employeeLabor": {
+        "matched": true,
+        "findings": [],
+        "balances": {
+          "1": null
+        },
+        "earnings": 1,
+        "payments": 0,
+        "openings": 0,
+        "authenticityVerified": false,
+        "coverage": "Canonical source/snapshot/arithmetic/audit consistency; not proof of physical funds or protection against fabricated consistent SQL inserts.",
+        "commands": {
+          "matched": true,
+          "findings": []
+        },
+        "extension": {
+          "matched": true,
+          "findings": [],
+          "allocations": 0,
+          "initializations": 0,
+          "authenticityVerified": false
+        }
+      },
+      "expense": {
+        "matched": true,
+        "masters": {
+          "matched": true,
+          "findings": [],
+          "categories": 1,
+          "employees": 1,
+          "historyEvents": 2
+        },
+        "documents": {
+          "matched": true,
+          "findings": [],
+          "mappedExpenses": 1,
+          "legacyUnmappedExpenses": 0
+        }
+      },
+      "matched": true,
+      "mismatches": [],
+      "repairPerformed": false,
+      "documents": 3,
+      "sourceLines": 2,
+      "stockEntries": 2,
+      "ledgerEntries": 0,
+      "integrityFindings": [],
+      "reviewRequired": false,
+      "authenticityVerified": false
+    },
+    "originalFingerprints": {
+      "employees": {
+        "rows": 1,
+        "hash": "155ac5965f0954ffd9c17d65905db4a99057f54a2e8c728ac2404136463d58e5"
+      },
+      "expense_categories": {
+        "rows": 1,
+        "hash": "215383d6ac5e209368463866d41efedb2be25540a744cf7bd291cca61f702c20"
+      },
+      "expense_master_audit": {
+        "rows": 2,
+        "hash": "e5c88f479439929ce7622969764f6fab4904f55e0b1167744f8349aee7349ee9"
+      },
+      "expense_schema_receipts": {
+        "rows": 1,
+        "hash": "68e83c9a69f315795cc0db773ede7d84b271ee5de95c82dd2a9384a82ed603e3"
+      },
+      "identity_audit_events": {
+        "rows": 3,
+        "hash": "29f0b90570fc9ae3a2e566a81d9b4bd04702382328ec92bd64d426c12e327c0e"
+      },
+      "identity_guard": {
+        "rows": 1,
+        "hash": "0635b2cca1554f32b15b8f159e5d09f0aa4ff5598340841247227a86eb7cc475"
+      },
+      "labor_audit": {
+        "rows": 1,
+        "hash": "80329b610ecfa09c68bb4bf5235ff8860017546776dd23624efede8233cfe491"
+      },
+      "labor_earnings": {
+        "rows": 1,
+        "hash": "a0b5e5669dc90326e69f6154e00b6a0faf3524e199c3bf616e0461c1e8c58576"
+      },
+      "labor_expense_allocations": {
+        "rows": 0,
+        "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "labor_extension_audit": {
+        "rows": 0,
+        "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "labor_extension_receipts": {
+        "rows": 1,
+        "hash": "629e9f16676b6f7e2902dc7300ec74837d19b1bf8681be8f5f592a52230dde88"
+      },
+      "labor_openings": {
+        "rows": 0,
+        "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "labor_payments": {
+        "rows": 0,
+        "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "labor_schema_receipts": {
+        "rows": 1,
+        "hash": "f90e3e855b1e7434665d5eb87e375d9382fad59cb61385726707c10460a1ed0f"
+      },
+      "money_accounts": {
+        "rows": 4,
+        "hash": "19b65b195a312e51408e469b4e8bb606294bbab18f5df75de764f41636576403"
+      },
+      "money_audit": {
+        "rows": 2,
+        "hash": "fbb4026f87803f5b43a6273f383593661cd052eff6f5610e425e7e0f5ab44851"
+      },
+      "money_batches": {
+        "rows": 2,
+        "hash": "4e708ff886fc1e206491c0646a2b6db54c123f43b87650a2bc6432276dd8e45e"
+      },
+      "money_movements": {
+        "rows": 2,
+        "hash": "254bb35813ba4d0b8a01e48bf36d43cbfa428862309c28b00ded5c13b59a5688"
+      },
+      "money_schema_receipts": {
+        "rows": 1,
+        "hash": "680bc0cc740ec9a7710d824388c549a79ffb5371e06802f0bba7270488f3b8ad"
+      },
+      "permissions": {
+        "rows": 19,
+        "hash": "de08f3f0cce1656187e4b66e5cd81a709bf005cb104357d5b9379767ce5ed915"
+      },
+      "role_permissions": {
+        "rows": 30,
+        "hash": "f14f201841f3685834cb20f49b197f449572f0fc8d23944b8622597c6e8d3aa2"
+      },
+      "roles": {
+        "rows": 4,
+        "hash": "4b8cfbd8c934179b17790dc6386c87d695686866342209cf7be1ca96c448999f"
+      },
+      "stock_initializations": {
+        "rows": 0,
+        "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "upms_production_migrations": {
+        "rows": 0,
+        "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "user_roles": {
+        "rows": 1,
+        "hash": "7635f307f95e4b072fe51f4f73d4186b86ad14b88f296815a3bf7c851da9bc61"
+      },
+      "users": {
+        "rows": 1,
+        "hash": "98813a5511b6412d2c51d44e49d75d0e17016cdec1140bf2a16209401e370f9d"
+      },
+      "v1_audit": {
+        "rows": 8,
+        "hash": "f19d5cea7a3dc78b1e5e97dd3aa12d2ea071859bad5c6e0b4b1a78f11bfd2f74"
+      },
+      "v1_commands": {
+        "rows": 11,
+        "hash": "14a4707641cbe957beaf7179adbe035c9e8c5af60e854f8a4097b089b47e612f"
+      },
+      "v1_control": {
+        "rows": 1,
+        "hash": "f4a1073304fda8a7133895423528e7d309bcaa9bd963d29908e7d96fa4b40f8d"
+      },
+      "v1_documents": {
+        "rows": 3,
+        "hash": "1a30bbd74ede0959846cb45e2b0f41ed3d65d08435f548b1f1c1e5fb6994c3ba"
+      },
+      "v1_items": {
+        "rows": 1,
+        "hash": "db1b2bc48f2bd0eead8bffcab8b5d7757dfd0cc059d190b3775733e7923a1bbc"
+      },
+      "v1_lines": {
+        "rows": 2,
+        "hash": "12dacfd6d9281aaf7fc60531ddca3417db459e1bbde7f31879b6389e8cd788fd"
+      },
+      "v1_parties": {
+        "rows": 0,
+        "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "v1_party_journal": {
+        "rows": 0,
+        "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "v1_stock": {
+        "rows": 1,
+        "hash": "0cc57da51381665f31a0467a414e6d77a8f358c900172e87f822935e31142dc0"
+      },
+      "v1_stock_journal": {
+        "rows": 2,
+        "hash": "f9bab4d17d91c09a40a0eb50c9121f33143d289fa103cdfe5e7fcfc8c5269db7"
+      }
+    },
+    "migrationVersion": "uath1c-v1",
+    "migrationPlanHash": "6ee414ac0c82ba9029331c2dc9e3822c7bb1d91f98a54761bf277da6637f5692",
+    "productionConnected": false,
+    "ownerRecordsWritten": false
+  },
+  "live": {
+    "state": "READY",
+    "stage": "ready",
+    "error": null,
+    "url": "http://127.0.0.1:5180/management",
+    "readinessVerified": true,
+    "inFlightWrites": 0
+  },
+  "ownerDatabaseMigrated": true,
+  "originalBindingChanged": false,
+  "credentialsReset": false,
+  "openingOrExpenseAutomaticallyPosted": false,
+  "completedUtc": "2026-11-03T13:34:34.542Z"
+}

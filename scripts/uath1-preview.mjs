@@ -5,6 +5,7 @@ import {spawn} from 'node:child_process';
 import {resolve,extname,sep} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {verifyUatEngine} from './php-7-5-engine-guard.mjs';
+import {workspaceMaintenance} from './uath1d-maintenance.mjs';
 export const privateRoot=resolve('tmp/php-runtime');
 export async function privatePath(path){const actual=await realpath(path);if(!actual.startsWith(privateRoot+sep))throw Error('PRIVATE_LOCAL_PATH_REQUIRED');return actual;}
 export function phpBridge(envPath,input){return new Promise((done,fail)=>{
@@ -18,15 +19,20 @@ export async function employeePreview(bindingPath,{port=5180}={}){
  for(const [k,v] of Object.entries({UPMS_DB_HOST:'127.0.0.1',UPMS_DB_PORT:'3330',UPMS_DB_DATABASE:setup.schema,UPMS_DB_USERNAME:setup.runtime,UPMS_EMPLOYEE_HAFTA_ENABLED:'true'}))if(!env.split(/\r?\n/).includes(k+'='+v))throw Error('EMPLOYEE_UAT_PROFILE_REJECTED');
  const ready=await phpBridge(envPath,{method:'GET',path:'/readyz'});if(ready.status!==200)throw Error('EMPLOYEE_UAT_NOT_READY');
  const root=resolve('upms.client/dist/management');await readFile(resolve(root,'index.html'));
- return {setup,handler:async(req,res)=>{
+ let inFlightWrites=0;
+ return {setup,envPath,directory,metrics:()=>({inFlightWrites}),checkReadiness:async()=>{const maintenance=await workspaceMaintenance(directory);if(maintenance)return {ready:false,maintenance};const r=await phpBridge(envPath,{method:'GET',path:'/readyz'});return {ready:r.status===200};},handler:async(req,res)=>{
   if(!['127.0.0.1:'+port,'localhost:'+port].includes(req.headers.host)){res.writeHead(403);return res.end('Local Host rejected.');}
   const u=new URL(req.url,'http://127.0.0.1:'+port);res.setHeader('Cache-Control','no-store');res.setHeader('Referrer-Policy','same-origin');
   if(u.pathname.startsWith('/api/v1/management/')){
    const unsafe=!['GET','HEAD'].includes(req.method);if(unsafe&&req.headers.origin!=='http://'+req.headers.host){res.writeHead(403);return res.end('Local Origin rejected.');}
+   if(unsafe&&await workspaceMaintenance(directory)){res.writeHead(503,{'Content-Type':'application/json'});return res.end(JSON.stringify({error:{code:'OWNER_UAT_UPGRADE_MAINTENANCE',message:'Owner UAT upgrade is in maintenance. No entry was posted. Existing records and diagnostic evidence are preserved.'}}));}
+   if(unsafe)inFlightWrites++;
+   try {
    const body=await bodyText(req),cookies={};for(const part of (req.headers.cookie||'').split(';')){const [name,...value]=part.trim().split('=');if(name==='upms_employee_uat')cookies['__Host-upms-php']=decodeURIComponent(value.join('='));}
    const r=await phpBridge(envPath,{method:req.method,path:u.pathname+u.search,cookies,headers:unsafe?{origin:'https://app.unique-plastic.test','x-csrf-token':req.headers['x-csrf-token']||'','idempotency-key':req.headers['idempotency-key']||''}:{},raw:body||null});
    if(Object.hasOwn(r.cookies||{},'__Host-upms-php')){const token=r.cookies['__Host-upms-php'];res.setHeader('Set-Cookie','upms_employee_uat='+encodeURIComponent(token||'')+'; Path=/; HttpOnly; SameSite=Strict'+(!token?'; Max-Age=0':''));}
    res.writeHead(r.status,{'Content-Type':'application/json'});return res.end(r.raw);
+   }finally{if(unsafe)inFlightWrites--;}
   }
   if(!['GET','HEAD'].includes(req.method)){res.writeHead(405);return res.end();}
   if(u.pathname!=='/management'&&!u.pathname.startsWith('/management/')){res.writeHead(404);return res.end();}

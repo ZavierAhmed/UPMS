@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "ownerDatabase": "upms_test_php_money_1793691451921",
+  "allOriginalNonSessionRowsPreserved": true,
+  "originalBusinessRowsAdded": {
+    "labor_audit": 0,
+    "labor_earnings": 0,
+    "labor_openings": 0,
+    "labor_payments": 0,
+    "money_audit": 0,
+    "money_batches": 0,
+    "money_movements": 0,
+    "v1_documents": 0,
+    "v1_lines": 0,
+    "v1_party_journal": 0,
+    "v1_stock": 0,
+    "v1_stock_journal": 0
+  },
+  "identityAuditRowsAdded": 3,
+  "permissionRowsAdded": 2,
+  "administratorPermissionGrantsAdded": 2,
+  "newAllocations": 0,
+  "archive": "C:\\Users\\zasah\\source\\repos\\UPMS\\tmp\\php-runtime\\uath1d-owner-protection/postupgrade-1793713866940535.sealed",
+  "archiveSha256": "7e0c75585137e9d3a05fc88d81da89adf11cdc6a647203abba98c71f0b2f575b",
+  "format": "UPMS_EMPLOYEE_HAFTA_CLASSIFIED_SNAPSHOT_V1",
+  "authenticatedDecryptionVerified": true,
+  "plaintextWrittenToDisk": false,
+  "independentRestore": {
+    "database": "upms_test_php_money_1793713866940535_restore",
+    "tables": 38,
+    "guards": 103,
+    "rows": 121,
+    "allRowsCompared": true,
+    "financialInventoryLaborReconciled": true
+  },
+  "ownerBindingChanged": false,
+  "ownerFinancialTransactionsPostedByThisCommand": false,
+  "productionConnected": false
+}
