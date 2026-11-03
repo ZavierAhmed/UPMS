@@ -1,0 +1,16 @@
+{
+  "reproduced": true,
+  "requests": [
+    {
+      "method": "POST",
+      "destination": "http://127.0.0.1:5180/setup",
+      "origin": "null",
+      "referrerPolicy": "no-referrer (legacy response header)"
+    }
+  ],
+  "status": 403,
+  "server": "PID 19644: tmp/php-runtime/uath1-browser-setup.mjs",
+  "bindingExists": false,
+  "setupState": "WAITING",
+  "passwordStored": false
+}

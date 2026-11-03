@@ -8,7 +8,9 @@ For the new feature, use a separate synthetic workspace. In an owner PowerShell 
 & 'C:/Users/zasah/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe' -NoProfile -File scripts/start-uath1-preview.ps1
 ```
 
-On first use this explicitly creates a **new synthetic database**, runs isolated acceptance and prompts securely for a strong password for its synthetic `php-admin` login. The password passes in process memory/stdin; it is not written to a credential file. No existing administrator is reset. Later starts reuse the fixed new workspace binding and its records. Keep this Windows computer awake and its existing local MariaDB engine running. The feature link is `http://127.0.0.1:5180/management`. This interactive owner-selected-password startup is supplied and syntax-checked; the agent did not choose or persist an owner login secret or claim an interactive owner login had been performed.
+On first use the browser opens the local setup page. Choose a NEW 14–128 character password for its separate synthetic `php-admin` account. The password stays in request/process memory and is never written to a credential file. Wait for PHP and HTTP readiness verification; the browser then redirects to `http://127.0.0.1:5180/management`. Sign in with the password you chose. Existing owner administrators are not reset or copied. Later starts reuse the fixed new workspace binding and its records without reinitialization. Keep the existing local MariaDB engine running.
+
+If setup fails, the page shows its stage/error and retains protected diagnostic evidence. Use the same originally chosen password when retrying after administrator creation. An uncertain partial DDL stage requires review; do not delete the database or reset users. See `../uat-h1-startup/STARTUP-FIX.md` for the verified browser startup correction and exact boundary behavior.
 
 Retest with synthetic records only:
 

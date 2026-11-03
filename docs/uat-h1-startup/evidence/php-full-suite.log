@@ -1,0 +1,12 @@
+PHPUnit 12.5.42 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.3.36
+Configuration: C:\Users\zasah\source\repos\UPMS\upms.php\phpunit.xml
+
+...............................................................  63 / 160 ( 39%)
+............................................................... 126 / 160 ( 78%)
+..................................                              160 / 160 (100%)
+
+Time: 00:08.030, Memory: 48.00 MB
+
+[30;42mOK (160 tests, 1894 assertions)[0m

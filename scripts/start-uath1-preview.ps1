@@ -1,37 +1,39 @@
-param()
+param([switch]$NoBrowser)
 $ErrorActionPreference='Stop'
 $repo=Split-Path -Parent $PSScriptRoot
 Set-Location -LiteralPath $repo
-$binding=Join-Path $repo 'tmp/php-runtime/uath1-owner-binding.json'
-if(-not(Test-Path -LiteralPath $binding)){
-    Write-Host 'Creates a NEW isolated synthetic Employee Hafta UAT database. Existing owner UAT stays unchanged.'
-    $secure=Read-Host 'Choose a strong password for the NEW synthetic php-admin account (14+ characters)' -AsSecureString
-    $pointer=[Runtime.InteropServices.Marshal]::SecureStringToBSTR($secure)
-    try{
-        $password=[Runtime.InteropServices.Marshal]::PtrToStringBSTR($pointer)
-        if($password.Length -lt 14){throw 'Use at least 14 characters for this isolated UAT password.'}
-        $info=[Diagnostics.ProcessStartInfo]::new()
-        $info.FileName=(Get-Command node).Source
-        $info.ArgumentList.Add('scripts/uath1-integration.mjs')
-        $info.ArgumentList.Add('--owner-password-stdin')
-        $info.WorkingDirectory=$repo
-        $info.UseShellExecute=$false
-        $info.CreateNoWindow=$true
-        $info.RedirectStandardInput=$true
-        $process=[Diagnostics.Process]::Start($info)
-        $process.StandardInput.WriteLine((@{password=$password}|ConvertTo-Json -Compress))
-        $process.StandardInput.Close()
-        $password=$null
-        $process.WaitForExit()
-        if($process.ExitCode -ne 0){throw 'Isolated setup/acceptance failed; no owner binding was changed. See the failed stage.'}
-        Copy-Item -LiteralPath (Join-Path $repo 'tmp/php-runtime/uath1-latest.json') -Destination $binding
-    }finally{
-        $password=$null
-        [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($pointer)
-        $secure.Dispose()
+$url='http://127.0.0.1:5180/management'
+function Get-WorkspaceStatus {
+    try {
+        $response=Invoke-WebRequest -Uri 'http://127.0.0.1:5180/setup/status' -TimeoutSec 3
+        $state=$response.Content | ConvertFrom-Json
+        if($state.state -notin @('WAITING','STARTING','RUNNING','FAILED','READY')){return $null}
+        return $state
+    }catch{return $null}
+}
+$state=Get-WorkspaceStatus
+if(-not $state){
+    # Never terminate an unidentified listener or launch provisioning over it.
+    $occupied=Get-NetTCPConnection -LocalPort 5180 -State Listen -ErrorAction SilentlyContinue
+    if($occupied){throw 'Port 5180 belongs to another server. Preserve it and identify its process before replacement; no setup was run.'}
+    $node=(Get-Command node -ErrorAction SilentlyContinue).Source
+    if(-not $node){$node=Join-Path $env:USERPROFILE '.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe'}
+    if(-not(Test-Path -LiteralPath $node)){throw 'Node runtime unavailable; no database setup was run.'}
+    Start-Process -FilePath $node -ArgumentList 'scripts/uath1-launcher.mjs' -WorkingDirectory $repo -WindowStyle Hidden
+    for($attempt=0;$attempt -lt 30;$attempt++){
+        Start-Sleep -Milliseconds 500
+        $state=Get-WorkspaceStatus
+        if($state){break}
     }
 }
-# Subsequent starts reuse the fixed owner-selected synthetic binding and its records.
-Start-Process -FilePath (Get-Command node).Source -ArgumentList 'scripts/uath1-preview.mjs' -WorkingDirectory $repo -WindowStyle Hidden
-Write-Host 'Employee Hafta UAT: http://127.0.0.1:5180/management (synthetic php-admin account).'
-Write-Host 'Original owner UAT remains at http://127.0.0.1:5173/management with its existing credentials and records.'
+if(-not $state){throw 'Startup listener did not become ready. Inspect tmp/php-runtime/uath1-owner-setup diagnostics; existing database binding was not reset.'}
+if($state.state -eq 'READY'){
+    $response=Invoke-WebRequest -Uri $url -TimeoutSec 10
+    if($response.StatusCode -ne 200 -or $response.Headers['X-UPMS-Workspace'] -ne 'employee-hafta'){throw 'Dashboard HTTP readiness failed; not reporting success.'}
+    Write-Host "Employee Hafta dashboard verified HTTP 200: $url"
+}elseif($state.state -eq 'FAILED'){
+    Write-Warning "Startup failed at $($state.stage): $($state.error). Evidence and fixed binding are preserved. Open the setup page to inspect/retry safely."
+}else{
+    Write-Host "Setup page available: $url — dashboard is not ready yet. Choose the NEW synthetic password in your browser; wait for verified startup."
+}
+if(-not $NoBrowser){Start-Process $url}

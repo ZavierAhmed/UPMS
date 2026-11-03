@@ -1,0 +1,10 @@
+{
+  "pid": 24392,
+  "command": "node scripts/uath1-launcher.mjs",
+  "boundAddress": "127.0.0.1",
+  "port": 5180,
+  "httpStatus": 200,
+  "state": "WAITING",
+  "ownerBindingExists": false,
+  "productionContacted": false
+}

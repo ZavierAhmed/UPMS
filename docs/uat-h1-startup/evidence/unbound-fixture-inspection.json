@@ -1,0 +1,9 @@
+{
+  "schema": "upms_test_php_money_1793689235570",
+  "tables": 34,
+  "guards": 88,
+  "syntheticAdministrators": 1,
+  "fixedOwnerBindingExists": false,
+  "adoptedOrMutated": false,
+  "administratorCredentialsRead": false
+}

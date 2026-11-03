@@ -1,0 +1,58 @@
+{
+  "passed": true,
+  "base": "25889014a61229098c7826757cfbe01ef06f29b8",
+  "php": {
+    "tests": 160,
+    "assertions": 1894,
+    "runtime": "8.3.36"
+  },
+  "react": {
+    "tests": 272,
+    "files": 38,
+    "passed": true
+  },
+  "managementBuild": true,
+  "eslint": true,
+  "powershellParser": true,
+  "browser": {
+    "passed": true,
+    "requests": 248,
+    "scenarioGroups": 7,
+    "actualChromePhpMariaDB": true,
+    "logoutStatus": 204
+  },
+  "regressions": {
+    "foundation": {
+      "passed": true,
+      "checks": 28
+    },
+    "documents": {
+      "passed": true,
+      "checks": 28
+    },
+    "expenses": {
+      "passed": true,
+      "checks": 28
+    },
+    "refunds": {
+      "passed": true,
+      "checks": 26
+    }
+  },
+  "pricing": {
+    "http": 83,
+    "snapshots": 4
+  },
+  "existingUncommittedEvidencePreserved": true,
+  "originalGuardAndFinancialCodeUnchanged": true,
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-03T07:36:02.879575+00:00",
+  "originalOwnerRecordsUnchanged": true,
+  "ownerLauncher": {
+    "listening": true,
+    "port": 5180,
+    "setupPageHttpStatus": 200,
+    "state": "WAITING_FOR_OWNER_SELECTED_NEW_PASSWORD",
+    "fixedOwnerBindingExists": false
+  }
+}
