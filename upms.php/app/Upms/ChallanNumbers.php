@@ -7,6 +7,31 @@ namespace App\Upms;
 /** Optional company-wide custom identity in immutable canonical JSON; official DC sequence is independent. */
 final class ChallanNumbers
 {
+    /** Presentation only: never persist this value over the immutable official identity. */
+    public static function display(array $d): string
+    {
+        $p = is_string($d['payload'] ?? null) ? SimpleV1::payload($d) : (array) ($d['payload'] ?? []);
+        if (($d['kind'] ?? '') === 'CHALLAN' && ($p['customChallanNumber'] ?? '') !== '') {
+            return self::normalize($p['customChallanNumber']);
+        }
+        return ($d['official_number'] ?? '') ?: (($d['status'] ?? 'DRAFT') === 'DRAFT' ? 'Draft ' : 'Entry ').($d['id'] ?? $d['document_id'] ?? '');
+    }
+
+    public static function presentation(Database $db, array $d): array
+    {
+        $p = is_string($d['payload'] ?? null) ? SimpleV1::payload($d) : (array) ($d['payload'] ?? []);
+        if ($d['kind'] === 'CHALLAN' && ($p['customChallanNumber'] ?? '') !== '') {
+            return ['displayNumber' => self::display($d)];
+        }
+        if ($d['kind'] === 'CHALLAN_RETURN') {
+            $source = $db->one("SELECT * FROM v1_documents WHERE id=? AND kind='CHALLAN'", [$p['originalId']]);
+            if ($source && self::display($source) !== ($p['originalReference'] ?? '')) {
+                return ['originalDisplayNumber' => self::display($source)];
+            }
+        }
+        return [];
+    }
+
     public static function normalize(string $value): string
     {
         $value = strtoupper(V1Input::trim($value));
@@ -35,9 +60,9 @@ final class ChallanNumbers
         }
         $number = self::normalize($p['customChallanNumber']);
         // BusinessCommand already serializes all authorized postings under identity_guard lock.
-        foreach ($db->rows("SELECT payload FROM v1_documents WHERE kind='CHALLAN' AND status='POSTED'") as $row) {
+        foreach ($db->rows("SELECT official_number,payload FROM v1_documents WHERE kind='CHALLAN' AND status='POSTED'") as $row) {
             $old = SimpleV1::payload($row)['customChallanNumber'] ?? '';
-            if ($old !== '' && self::normalize($old) === $number) {
+            if (($old !== '' && self::normalize($old) === $number) || strtoupper(V1Input::trim($row['official_number'] ?? '')) === $number) {
                 throw new ApiError(409, 'DUPLICATE_CUSTOM_CHALLAN_NUMBER', publicMessage:'This custom challan number is already finalized. Choose another number.');
             }
         }

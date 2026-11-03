@@ -1,0 +1,251 @@
+{
+  "passed": true,
+  "php": "8.3.36",
+  "mariadb": "10.11.19",
+  "checks": [
+    "unauthenticated document access rejected",
+    "unlinked legacy cash and cheque sources cannot infer ownership or produce a new refund",
+    "review pins original number, full amount, party, original account and exact customer refund effects",
+    "no physical refund, insufficient evidence, incorrect entry, metadata, partial, cross-account and backdate requests create no refund or money effect",
+    "stale source version and wrong original money claim rejected",
+    "paid purchase/goods return remains blocked with stock and vendor/money evidence untouched",
+    "actual customer refund restores client receivable and deducts original account; vendor return restores payable and credits original account",
+    "expense refund offsets net expense, credits original account, retains historical category/employee despite current changes, and creates no party journal",
+    "refund-date category/employee reports show signed correction rows and exact negative period totals without removing originals",
+    "second full refund, detached standalone reversal and legacy posting route cannot alter integrated correction history",
+    "concurrent different refund drafts claim the original once; SQL unique correction link prevents double refund",
+    "concurrent identical idempotency retries replay one correction, journal and money claim",
+    "customer refund cannot spend unavailable funds or switch accounts, even after the original money was transferred",
+    "party, money batch/leg/audit, business audit, command and POSTED-transition failures roll back all correction effects; no stock writes are attempted",
+    "failed expense refund publishes no negative expense fact, account credit or command receipt",
+    "original posted source documents and historic snapshots remain byte-for-byte unchanged",
+    "party ledgers, outstanding summaries, company gross/refund/net totals and Hafta retain separate original/refund events exactly once",
+    "full source, correction, party, stock, expense and money reconciliation matches",
+    "stale refund versions and prior-business-day drafts cannot post",
+    "corrupted refund money effect hides balances and blocks further posting without repair",
+    "actual CRUD-only runtime cannot mutate posted refunds, original journals, money/master audits or escalate to DDL/GRANT",
+    "cancelled refund draft has no financial effect, cannot post and does not claim its original",
+    "all 72 original definitions unchanged; refund-aware authenticated encrypted recovery restores 29 tables and validates source/refund links; old expense format refuses refund data",
+    "mandatory password rotation blocks refund review and posting",
+    "default-disabled refund capability blocks review and posting without changing historic report effects",
+    "CSRF and revoked administrator permissions block refund preparation, review and posting"
+  ],
+  "checkCount": 26,
+  "tables": 29,
+  "totalGuards": 72,
+  "schemaChanged": false,
+  "guardDefinitionsChanged": false,
+  "authenticatedRuntime": "money_rt_1793676554895@localhost",
+  "grantScope": [
+    {
+      "privilege": "SELECT",
+      "grantable": "NO",
+      "escapedSchema": "upms\\_test\\_php\\_money\\_1793676554895"
+    },
+    {
+      "privilege": "INSERT",
+      "grantable": "NO",
+      "escapedSchema": "upms\\_test\\_php\\_money\\_1793676554895"
+    },
+    {
+      "privilege": "UPDATE",
+      "grantable": "NO",
+      "escapedSchema": "upms\\_test\\_php\\_money\\_1793676554895"
+    },
+    {
+      "privilege": "DELETE",
+      "grantable": "NO",
+      "escapedSchema": "upms\\_test\\_php\\_money\\_1793676554895"
+    }
+  ],
+  "reconciliation": {
+    "refunds": {
+      "matched": true,
+      "findings": [],
+      "postedRefunds": 5,
+      "policyVersion": "p32b3-full-same-account-v1",
+      "authenticity": "Operator attestation and consistency evidence, not proof that physical funds moved or protection against fabricated SQL inserts."
+    },
+    "expense": {
+      "matched": true,
+      "masters": {
+        "matched": true,
+        "findings": [],
+        "categories": 2,
+        "employees": 1,
+        "historyEvents": 5
+      },
+      "documents": {
+        "matched": true,
+        "findings": [],
+        "mappedExpenses": 2,
+        "legacyUnmappedExpenses": 0
+      }
+    },
+    "matched": true,
+    "mismatches": [],
+    "repairPerformed": false,
+    "documents": 19,
+    "sourceLines": 2,
+    "stockEntries": 2,
+    "ledgerEntries": 15,
+    "integrityFindings": [],
+    "reviewRequired": false,
+    "authenticityVerified": false,
+    "money": {
+      "matched": true,
+      "findings": [],
+      "balances": {
+        "1": "100.98",
+        "2": "0.00",
+        "3": "479.92",
+        "4": "10.00"
+      },
+      "openings": {
+        "1": "2026-11-02",
+        "2": "2026-11-02",
+        "3": "2026-11-02",
+        "4": "2026-11-02"
+      },
+      "batches": 19,
+      "movements": 20,
+      "sourceCoverage": "Money batches plus canonical p32b1 document claims; historical V1 payments and expenses are not backfilled.",
+      "authenticity": "Shape and arithmetic consistency, not proof of physical funds or protection against fabricated SQL inserts.",
+      "documentIntegration": {
+        "matched": true,
+        "findings": [],
+        "linkedDocuments": 14,
+        "historicalUnlinkedDocuments": 2,
+        "coverage": "Only p32b1-marked posted documents require canonical money effects. Historical documents are not backfilled."
+      }
+    }
+  },
+  "restore": {
+    "expenseMasterReconciliation": {
+      "matched": true,
+      "findings": [],
+      "categories": 2,
+      "employees": 1,
+      "historyEvents": 5
+    },
+    "expenseDocumentReconciliation": {
+      "matched": true,
+      "findings": [],
+      "mappedExpenses": 2,
+      "legacyUnmappedExpenses": 0
+    },
+    "passed": true,
+    "format": "UPMS_FINANCIAL_SNAPSHOT_V1",
+    "tables": 29,
+    "rows": 289,
+    "guards": {
+      "passed": true,
+      "baseGuards": 45,
+      "additionalGuards": 15,
+      "totalGuards": 72,
+      "baseHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+      "moneyHash": "9610e4cfa6300566cfbd24eed1c6acfffe59d9fe400d9184123af5b20394e8c2",
+      "definer": null,
+      "definerPrivilegesVerified": false,
+      "expenseGuards": 12,
+      "expenseHash": "f88484cea0b85d1890f1d9fe4645740a39c9dc320ccd3a978b9cb51e93f85501"
+    },
+    "schema": {
+      "passed": true,
+      "planHash": "ef265791f848fea7543dc4d0de899fe9ab7d6d082ca8fc9a7dc478a17ee343ea",
+      "tables": 29,
+      "totalGuards": 72
+    },
+    "moneyReconciliation": {
+      "matched": true,
+      "findings": [],
+      "balances": {
+        "1": "100.98",
+        "2": "0.00",
+        "3": "479.92",
+        "4": "10.00"
+      },
+      "openings": {
+        "1": "2026-11-02",
+        "2": "2026-11-02",
+        "3": "2026-11-02",
+        "4": "2026-11-02"
+      },
+      "batches": 19,
+      "movements": 20,
+      "sourceCoverage": "Money batches plus canonical p32b1 document claims; historical V1 payments and expenses are not backfilled.",
+      "authenticity": "Shape and arithmetic consistency, not proof of physical funds or protection against fabricated SQL inserts.",
+      "documentIntegration": {
+        "matched": true,
+        "findings": [],
+        "linkedDocuments": 14,
+        "historicalUnlinkedDocuments": 2,
+        "coverage": "Only p32b1-marked posted documents require canonical money effects. Historical documents are not backfilled."
+      }
+    },
+    "productionContacted": false,
+    "sourceTargetHashPreserved": true,
+    "refundReconciliation": {
+      "matched": true,
+      "customChallanNumbers": {
+        "matched": true,
+        "findings": []
+      },
+      "refunds": {
+        "matched": true,
+        "findings": [],
+        "postedRefunds": 5,
+        "policyVersion": "p32b3-full-same-account-v1",
+        "authenticity": "Operator attestation and consistency evidence, not proof that physical funds moved or protection against fabricated SQL inserts."
+      },
+      "money": {
+        "matched": true,
+        "findings": [],
+        "balances": {
+          "1": "100.98",
+          "2": "0.00",
+          "3": "479.92",
+          "4": "10.00"
+        },
+        "openings": {
+          "1": "2026-11-02",
+          "2": "2026-11-02",
+          "3": "2026-11-02",
+          "4": "2026-11-02"
+        },
+        "batches": 19,
+        "movements": 20,
+        "sourceCoverage": "Money batches plus canonical p32b1 document claims; historical V1 payments and expenses are not backfilled.",
+        "authenticity": "Shape and arithmetic consistency, not proof of physical funds or protection against fabricated SQL inserts."
+      },
+      "sources": {
+        "matched": true,
+        "findings": [],
+        "linkedDocuments": 14,
+        "historicalUnlinkedDocuments": 2,
+        "coverage": "Only p32b1-marked posted documents require canonical money effects. Historical documents are not backfilled."
+      },
+      "masters": {
+        "matched": true,
+        "findings": [],
+        "categories": 2,
+        "employees": 1,
+        "historyEvents": 5
+      },
+      "expenses": {
+        "matched": true,
+        "findings": [],
+        "mappedExpenses": 2,
+        "legacyUnmappedExpenses": 0
+      }
+    }
+  },
+  "balances": {
+    "HARIS_CASH": "100.98",
+    "JUNAID_CASH": "0.00",
+    "UBL_OFFICIAL": "479.92",
+    "CHEQUES": "10.00"
+  },
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-03T03:31:11.012Z"
+}

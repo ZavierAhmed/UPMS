@@ -1,0 +1,195 @@
+{
+  "ownerSchema": "upms_test_php_money_1793629044839",
+  "before": {
+    "v1_items": {
+      "rows": 2,
+      "sha256": "d2cf18392f0cc64c3424547ad0b72c140f5779b933e0f9e699672f8e604c65b9"
+    },
+    "v1_stock": {
+      "rows": 2,
+      "sha256": "1a9a30f8686e9ee6be1059590676e7298c6b13584521f1a74c0c2a85a4fab4d6"
+    },
+    "v1_parties": {
+      "rows": 2,
+      "sha256": "cff4c2a9dae6c35d8d29799c22fe8c5fa49381a7a0c0afb23882c5928206519b"
+    },
+    "v1_documents": {
+      "rows": 22,
+      "sha256": "da06db2ebc4d7522b92c8c7b6aa85ff0fc7829612ec81b2d98189a6c5dd8a194"
+    },
+    "v1_lines": {
+      "rows": 9,
+      "sha256": "46838e08135ffa69eb22dabe96f4c63ab6c12cb3e154e37cc95e5c73ba714f04"
+    },
+    "v1_stock_journal": {
+      "rows": 9,
+      "sha256": "1dd4a1be631dce6778608502fd79f64d8637932d9b30712a7007fc0893134b48"
+    },
+    "v1_party_journal": {
+      "rows": 13,
+      "sha256": "378f9f5717e6c5fe6653be6d5dd0ecb4d0100ef2498971d565c001b7fca195cc"
+    },
+    "v1_audit": {
+      "rows": 46,
+      "sha256": "eea2950e0f19924ef5917ff11d37b7d6a85b418644a3f77cb03bf1f326029ea9"
+    },
+    "v1_commands": {
+      "rows": 57,
+      "sha256": "1a1bd7b437efa5fe8fbcf3b3a1176b0fd4ae9105549afa2ba88952b37defd6ec"
+    },
+    "money_accounts": {
+      "rows": 4,
+      "sha256": "dde07a534f6872ffd856d0f1237a19d0748299e3885bbbc6f3d0f85ab9a6e1b3"
+    },
+    "money_batches": {
+      "rows": 16,
+      "sha256": "09c354f0a7ad0176741a39c9dac602149c00a5dfbe0e5ef2a122f21db6403313"
+    },
+    "money_movements": {
+      "rows": 18,
+      "sha256": "f426fcb885d8e345e57fcc00e67d4d696af56023f7b002602f97bfdece5dfde8"
+    },
+    "money_audit": {
+      "rows": 16,
+      "sha256": "d937129d0bf7a8835d8ad159143059588f74e3d428f271a952331d0d479e091a"
+    },
+    "expense_categories": {
+      "rows": 2,
+      "sha256": "327b81379142232cf97a5f9d79b8d45f98b7e6b4216ecbc2557e160e6aaa8d0a"
+    },
+    "employees": {
+      "rows": 2,
+      "sha256": "6051c4dae107614fca0713821339c3db7860cce3fb90da6c205dc2bd53c6523a"
+    },
+    "expense_master_audit": {
+      "rows": 5,
+      "sha256": "4a193cf9543e6769375b3ed318e80098f27b30fbb3ab1e866f360b93e013d6f6"
+    },
+    "users": {
+      "rows": 1,
+      "sha256": "7a65ae4cdc068db5cf87e899757d0b589d35ddb707f5797da37df948d8d7f9e8"
+    },
+    "user_roles": {
+      "rows": 1,
+      "sha256": "c8a1b7ff3ccc0f0bc2dbe4082a849449aac18c3a12b05b74bdbe8be2de4e4c90"
+    },
+    "roles": {
+      "rows": 4,
+      "sha256": "81f36e1bbe87406ca59d02eb4cb11ea842b16c99824cc38dfa28fe5894f6a4ef"
+    },
+    "permissions": {
+      "rows": 11,
+      "sha256": "45eb6a4a3b53d2bb8f7db12c9b7d16b4639aefd628eb39186c84ae6b7929223a"
+    },
+    "role_permissions": {
+      "rows": 23,
+      "sha256": "688b9cd3e551b634855c15138eb52eccf15641ecc7c471910ac4371ec292268f"
+    },
+    "upms_production_migrations": {
+      "rows": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "v1_control": {
+      "rows": 1,
+      "sha256": "09fcac605f9f421dd7c3d7036ac98f17b3dc8ef19dcd1737497c615a2a633eb5"
+    }
+  },
+  "after": {
+    "v1_items": {
+      "rows": 2,
+      "sha256": "d2cf18392f0cc64c3424547ad0b72c140f5779b933e0f9e699672f8e604c65b9"
+    },
+    "v1_stock": {
+      "rows": 2,
+      "sha256": "1a9a30f8686e9ee6be1059590676e7298c6b13584521f1a74c0c2a85a4fab4d6"
+    },
+    "v1_parties": {
+      "rows": 2,
+      "sha256": "cff4c2a9dae6c35d8d29799c22fe8c5fa49381a7a0c0afb23882c5928206519b"
+    },
+    "v1_documents": {
+      "rows": 22,
+      "sha256": "da06db2ebc4d7522b92c8c7b6aa85ff0fc7829612ec81b2d98189a6c5dd8a194"
+    },
+    "v1_lines": {
+      "rows": 9,
+      "sha256": "46838e08135ffa69eb22dabe96f4c63ab6c12cb3e154e37cc95e5c73ba714f04"
+    },
+    "v1_stock_journal": {
+      "rows": 9,
+      "sha256": "1dd4a1be631dce6778608502fd79f64d8637932d9b30712a7007fc0893134b48"
+    },
+    "v1_party_journal": {
+      "rows": 13,
+      "sha256": "378f9f5717e6c5fe6653be6d5dd0ecb4d0100ef2498971d565c001b7fca195cc"
+    },
+    "v1_audit": {
+      "rows": 46,
+      "sha256": "eea2950e0f19924ef5917ff11d37b7d6a85b418644a3f77cb03bf1f326029ea9"
+    },
+    "v1_commands": {
+      "rows": 57,
+      "sha256": "1a1bd7b437efa5fe8fbcf3b3a1176b0fd4ae9105549afa2ba88952b37defd6ec"
+    },
+    "money_accounts": {
+      "rows": 4,
+      "sha256": "dde07a534f6872ffd856d0f1237a19d0748299e3885bbbc6f3d0f85ab9a6e1b3"
+    },
+    "money_batches": {
+      "rows": 16,
+      "sha256": "09c354f0a7ad0176741a39c9dac602149c00a5dfbe0e5ef2a122f21db6403313"
+    },
+    "money_movements": {
+      "rows": 18,
+      "sha256": "f426fcb885d8e345e57fcc00e67d4d696af56023f7b002602f97bfdece5dfde8"
+    },
+    "money_audit": {
+      "rows": 16,
+      "sha256": "d937129d0bf7a8835d8ad159143059588f74e3d428f271a952331d0d479e091a"
+    },
+    "expense_categories": {
+      "rows": 2,
+      "sha256": "327b81379142232cf97a5f9d79b8d45f98b7e6b4216ecbc2557e160e6aaa8d0a"
+    },
+    "employees": {
+      "rows": 2,
+      "sha256": "6051c4dae107614fca0713821339c3db7860cce3fb90da6c205dc2bd53c6523a"
+    },
+    "expense_master_audit": {
+      "rows": 5,
+      "sha256": "4a193cf9543e6769375b3ed318e80098f27b30fbb3ab1e866f360b93e013d6f6"
+    },
+    "users": {
+      "rows": 1,
+      "sha256": "7a65ae4cdc068db5cf87e899757d0b589d35ddb707f5797da37df948d8d7f9e8"
+    },
+    "user_roles": {
+      "rows": 1,
+      "sha256": "c8a1b7ff3ccc0f0bc2dbe4082a849449aac18c3a12b05b74bdbe8be2de4e4c90"
+    },
+    "roles": {
+      "rows": 4,
+      "sha256": "81f36e1bbe87406ca59d02eb4cb11ea842b16c99824cc38dfa28fe5894f6a4ef"
+    },
+    "permissions": {
+      "rows": 11,
+      "sha256": "45eb6a4a3b53d2bb8f7db12c9b7d16b4639aefd628eb39186c84ae6b7929223a"
+    },
+    "role_permissions": {
+      "rows": 23,
+      "sha256": "688b9cd3e551b634855c15138eb52eccf15641ecc7c471910ac4371ec292268f"
+    },
+    "upms_production_migrations": {
+      "rows": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "v1_control": {
+      "rows": 1,
+      "sha256": "09fcac605f9f421dd7c3d7036ac98f17b3dc8ef19dcd1737497c615a2a633eb5"
+    }
+  },
+  "passed": true,
+  "status": "UNCHANGED",
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-03T03:33:17.387Z"
+}

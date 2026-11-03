@@ -1,0 +1,20 @@
+{
+  "renderedPages": 10,
+  "sheets": [
+    "docs/uat-1a/evidence/print-review-1.png",
+    "docs/uat-1a/evidence/print-review-2.png",
+    "docs/uat-1a/evidence/print-review-3.png"
+  ],
+  "reviewed": true,
+  "pdfSha256": {
+    "output\\pdf\\uat-1a\\automatic-challan.pdf": "136376be29afdc6da30f9fe4a4615a5f160048153c4e5988b9551352d1ee3977",
+    "output\\pdf\\uat-1a\\company-register.pdf": "82e25bf327c7482643e1463eb60ba87e192ecc7b0f005d1e58f7f6c6f4f6f48f",
+    "output\\pdf\\uat-1a\\custom-challan.pdf": "c1bf2deb6e493ac262a3b2883f80843ca317dee2162e601a08f9c559a4a5b032",
+    "output\\pdf\\uat-1a\\customer-ledger.pdf": "9834a2ff52ed44040cc76b359a1c459e6e9ebaf2adbba76cd8c71c585db8522a",
+    "output\\pdf\\uat-1a\\linked-return.pdf": "dc6263b6a41bef42e838f348f3eeaf2bc5d53efd91f1534654884100602e4fc5",
+    "output\\pdf\\uat-1a\\return-register.pdf": "c08ec94e8e77aa8931f3c1f42b42ff2a7e65abc837708f69c2186b2a999c1cad",
+    "output\\pdf\\uat-1a\\sales-register.pdf": "a87d05348ef4c5f13d7d4dc3725f4af360fbed79c0022d5c074b60a4cb049921",
+    "output\\pdf\\uat-1a\\stock-movements.pdf": "8fcb2fcba32078112712a0d962434450dc53fd7f6552f6fa47c29a335a544962"
+  },
+  "notes": "All ten rendered pages visually inspected: single custom/generated challan identity, source-return identity, company/customer context, intact items/rates/totals/signatures, repeated register headers, no clipping or orphan totals. Synthetic data only."
+}

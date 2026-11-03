@@ -1,0 +1,100 @@
+{
+  "passed": true,
+  "pdfs": [
+    {
+      "name": "custom-challan",
+      "pages": 1,
+      "internalIdentityExcluded": true,
+      "clippedCharacters": 0,
+      "blankPages": 0
+    },
+    {
+      "name": "automatic-challan",
+      "pages": 1,
+      "internalIdentityExcluded": true,
+      "clippedCharacters": 0,
+      "blankPages": 0
+    },
+    {
+      "name": "linked-return",
+      "pages": 1,
+      "internalIdentityExcluded": true,
+      "clippedCharacters": 0,
+      "blankPages": 0
+    },
+    {
+      "name": "sales-register",
+      "pages": 1,
+      "internalIdentityExcluded": true,
+      "clippedCharacters": 0,
+      "blankPages": 0
+    },
+    {
+      "name": "return-register",
+      "pages": 1,
+      "internalIdentityExcluded": true,
+      "clippedCharacters": 0,
+      "blankPages": 0
+    },
+    {
+      "name": "company-register",
+      "pages": 3,
+      "internalIdentityExcluded": true,
+      "clippedCharacters": 0,
+      "blankPages": 0
+    },
+    {
+      "name": "customer-ledger",
+      "pages": 1,
+      "internalIdentityExcluded": true,
+      "clippedCharacters": 0,
+      "blankPages": 0
+    },
+    {
+      "name": "stock-movements",
+      "pages": 1,
+      "internalIdentityExcluded": true,
+      "clippedCharacters": 0,
+      "blankPages": 0
+    }
+  ],
+  "exports": [
+    {
+      "name": "sales-register",
+      "rows": 4,
+      "customIdentityPresent": true,
+      "internalIdentityExcluded": true,
+      "formulaCells": 0
+    },
+    {
+      "name": "return-register",
+      "rows": 4,
+      "customIdentityPresent": true,
+      "internalIdentityExcluded": true,
+      "formulaCells": 0
+    },
+    {
+      "name": "company-register",
+      "rows": 40,
+      "customIdentityPresent": true,
+      "internalIdentityExcluded": true,
+      "formulaCells": 0
+    },
+    {
+      "name": "customer-ledger",
+      "rows": 14,
+      "customIdentityPresent": true,
+      "internalIdentityExcluded": true,
+      "formulaCells": 0
+    },
+    {
+      "name": "stock-movements",
+      "rows": 11,
+      "customIdentityPresent": true,
+      "internalIdentityExcluded": true,
+      "formulaCells": 0
+    }
+  ],
+  "syntheticOnly": true,
+  "productionContacted": false
+}

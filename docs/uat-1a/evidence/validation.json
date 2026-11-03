@@ -1,0 +1,141 @@
+{
+  "passed": true,
+  "baseline": "bff3158e341fc34df8768bab024d60053c2dcb74",
+  "cliObserved": {
+    "php": {
+      "command": "../tmp/php-runtime/bin/php.exe vendor/bin/phpunit --testsuite Unit --no-progress",
+      "cwd": "upms.php",
+      "exitCode": 0,
+      "tests": 99,
+      "assertions": 1399,
+      "runtime": "8.3.36"
+    },
+    "react": {
+      "command": "node node_modules/vitest/vitest.mjs run --maxWorkers=4",
+      "cwd": "upms.client",
+      "exitCode": 0,
+      "tests": 264,
+      "files": 37
+    },
+    "pint": {
+      "exitCode": 0,
+      "scope": [
+        "app/Upms/ChallanNumbers.php",
+        "app/Upms/SimpleV1.php",
+        "tests/Unit/ChallanDisplayTest.php"
+      ]
+    },
+    "eslint": {
+      "command": "node node_modules/eslint/bin/eslint.js .",
+      "cwd": "upms.client",
+      "exitCode": 0
+    },
+    "managementBuild": {
+      "command": "node node_modules/vite/bin/vite.js build --config vite.management.config.js",
+      "cwd": "upms.client",
+      "exitCode": 0
+    }
+  },
+  "regressions": [
+    {
+      "name": "foundation",
+      "checks": 28,
+      "evidence": "foundation-regression/integration.json"
+    },
+    {
+      "name": "documents",
+      "checks": 28,
+      "evidence": "documents-regression/integration.json"
+    },
+    {
+      "name": "expenses",
+      "checks": 28,
+      "evidence": "expenses-regression/integration.json"
+    },
+    {
+      "name": "refunds",
+      "checks": 26,
+      "evidence": "refunds-regression/integration.json"
+    }
+  ],
+  "security": {
+    "http": 83,
+    "snapshots": 4
+  },
+  "consolidatedCheckpoints": 21,
+  "recovery": {
+    "tables": 29,
+    "triggers": 72,
+    "rows": 270
+  },
+  "browser": {
+    "requests": 133,
+    "pdfs": 8,
+    "exports": 5,
+    "screenshots": 12,
+    "readOnly": true
+  },
+  "visualPages": 10,
+  "ownerRecords": "UNCHANGED",
+  "financialCodeAndSchemaAndHaftaUnchanged": true,
+  "productionContacted": false,
+  "sources": [
+    {
+      "path": "scripts/uat1a-browser.mjs",
+      "sha256": "7f9c42742c46ecc41700836299d937ae253a3701f35dc05d83f01901d75300c5"
+    },
+    {
+      "path": "scripts/uat1a-evidence.mjs",
+      "sha256": "ad1eb3e7bdf89b2826d3bb8c59c2b2a66f9316e578c19c5de6de5f179b76ce3c"
+    },
+    {
+      "path": "scripts/uat1a-integration.mjs",
+      "sha256": "8de4488451387f222b64551368f50e20a2c4a9665793c354895563713ac0969e"
+    },
+    {
+      "path": "scripts/uat1a-owner-preservation.mjs",
+      "sha256": "feb4bc47d73c5c2c760edd4da5d835091ede9ffcaf9711a0ec6810268fe36f8f"
+    },
+    {
+      "path": "scripts/uat1a-print-verify.py",
+      "sha256": "f6b050c0a7345e00fa0b404fe1cd34fd6311696c884f3af0fd4e5843184f04b2"
+    },
+    {
+      "path": "scripts/uat1a-regressions.mjs",
+      "sha256": "9cc5154f5eac3d04f0bfc894a9fa62ca1ba76200b84cffd52a8a54a922f4657a"
+    },
+    {
+      "path": "scripts/uat1a-render-review.py",
+      "sha256": "fe5d9b8371af5ad65ac8dc3115d55a27c7c60799a9ed95878d55f9b113b372a7"
+    },
+    {
+      "path": "upms.client/management/src/ChallanReturn.jsx",
+      "sha256": "731120f9904ad1ddb3b9db1dfceeb67e36aa12ad5bb022e7c67ed57a5fdf1699"
+    },
+    {
+      "path": "upms.client/management/src/SimpleV1.jsx",
+      "sha256": "5e0ca6560b35c40af56329914fbe0b1b0bc0c99bb0c8f99f76e322a115a4d353"
+    },
+    {
+      "path": "upms.client/management/src/challanDisplay.js",
+      "sha256": "48ff3c5a97af309d9eb1c1aefc1a478cb8641514d681377ac4a3c37ebd5871de"
+    },
+    {
+      "path": "upms.client/src/test/ChallanDisplay.test.jsx",
+      "sha256": "c8e93200465de1c3d7af6f2ae53453d22b2e44df8af42966ff005b20cd27bddb"
+    },
+    {
+      "path": "upms.php/app/Upms/ChallanNumbers.php",
+      "sha256": "7cd79682c25bf0f20bc4435827edb3424fcafd539c4e13ca47fe6a19cdfcd28a"
+    },
+    {
+      "path": "upms.php/app/Upms/SimpleV1.php",
+      "sha256": "cabd14980dc458642f3dfcaf76fa53617f82ddeef0885355f37f719d0a023e91"
+    },
+    {
+      "path": "upms.php/tests/Unit/ChallanDisplayTest.php",
+      "sha256": "80ee10218d3c7915cef21279303c4fb896f2fb0e813d1e88a06aeeabac616374"
+    }
+  ],
+  "verifiedUtc": "2026-11-03T03:34:23.556Z"
+}

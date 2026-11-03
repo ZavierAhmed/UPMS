@@ -18,3 +18,14 @@ Statuses describe implemented behavior, not merely the presence of tests. Eviden
 | Production deployment and operational 29/72 backup/recovery | No hosted operations authorized or executed. | BLOCKED | UAT-4 gates remain; see outstanding blockers. |
 
 Canonical custom-number uniqueness is enforced at the authorized API posting boundary under the existing database transaction/identity guard. It is not a new native JSON unique index. Compromised broad-CRUD SQL credentials can still fabricate inserts; reconciliation/recovery now detect duplicate/invalid explicit custom identities, but they do not authenticate physical transactions.
+
+## UAT-1A follow-up (supersedes dual-number presentation)
+
+| Issue | Resolution | Status | Evidence / boundary |
+| --- | --- | --- | --- |
+| Custom and generated identities printed together | One reusable display policy selects the explicit normalized challan number, otherwise generated identity, otherwise a draft label. Delivery notes print exactly one Delivery Challan No heading. | FIXED | Actual PHP/Chrome custom and automatic PDFs in `../../output/pdf/uat-1a/`; UAT-1A acceptance evidence. |
+| Lists, exports and return source links expose a different challan identity | Read-only display aliases cover lists, sales/return reports, register, client ledger, stock movements and source-ID-linked returns. Internal lookup still accepts generated numbers. | FIXED | Five actual Excel exports, both lookup paths and return navigation tested. Original references and financial fields remain stored unchanged. |
+| Internal allocation/reconciliation notices printed on customer delivery notes | Hide the challan money-effect container only in print; administrative screen notices remain. | FIXED | Screen/print assertions plus visual PDF review. |
+| New Hafta requirements and cheque work | No implementation in this correction. | DEFERRED | Hafta awaits Haris clarification; cheques remain separate. |
+
+See `../uat-1a/TECHNICAL-REPORT.md` for exact scope, tests and unchanged-owner-record evidence.

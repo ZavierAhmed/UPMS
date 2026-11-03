@@ -1,0 +1,735 @@
+{
+  "passed": true,
+  "oracle": "Independent scenario constants and BigInt arithmetic; direct journal/movement sums plus PHP endpoints checked after each operation",
+  "comparisons": [
+    {
+      "operation": "verified opening stock, parties and four holdings",
+      "expected": {
+        "stock": "100",
+        "client": "10.11",
+        "vendor": "-20.22",
+        "HARIS_CASH": "1000.31",
+        "JUNAID_CASH": "200.42",
+        "UBL_OFFICIAL": "3000.53",
+        "CHEQUES": "40.64",
+        "expense": "0.00",
+        "sales": "0.00"
+      },
+      "actual": {
+        "stock": "100",
+        "client": "10.11",
+        "vendor": "-20.22",
+        "HARIS_CASH": "1000.31",
+        "JUNAID_CASH": "200.42",
+        "UBL_OFFICIAL": "3000.53",
+        "CHEQUES": "40.64",
+        "expense": "0.00",
+        "sales": "0.00"
+      }
+    },
+    {
+      "operation": "finished bottle production",
+      "expected": {
+        "stock": "117",
+        "client": "10.11",
+        "vendor": "-20.22",
+        "HARIS_CASH": "1000.31",
+        "JUNAID_CASH": "200.42",
+        "UBL_OFFICIAL": "3000.53",
+        "CHEQUES": "40.64",
+        "expense": "0.00",
+        "sales": "0.00"
+      },
+      "actual": {
+        "stock": "117",
+        "client": "10.11",
+        "vendor": "-20.22",
+        "HARIS_CASH": "1000.31",
+        "JUNAID_CASH": "200.42",
+        "UBL_OFFICIAL": "3000.53",
+        "CHEQUES": "40.64",
+        "expense": "0.00",
+        "sales": "0.00"
+      }
+    },
+    {
+      "operation": "paid purchase 3 x 4.17",
+      "expected": {
+        "stock": "120",
+        "client": "10.11",
+        "vendor": "-20.22",
+        "HARIS_CASH": "1000.31",
+        "JUNAID_CASH": "200.42",
+        "UBL_OFFICIAL": "2988.02",
+        "CHEQUES": "40.64",
+        "expense": "0.00",
+        "sales": "0.00"
+      },
+      "actual": {
+        "stock": "120",
+        "client": "10.11",
+        "vendor": "-20.22",
+        "HARIS_CASH": "1000.31",
+        "JUNAID_CASH": "200.42",
+        "UBL_OFFICIAL": "2988.02",
+        "CHEQUES": "40.64",
+        "expense": "0.00",
+        "sales": "0.00"
+      }
+    },
+    {
+      "operation": "credit purchase 5 x 4.19",
+      "expected": {
+        "stock": "125",
+        "client": "10.11",
+        "vendor": "-41.17",
+        "HARIS_CASH": "1000.31",
+        "JUNAID_CASH": "200.42",
+        "UBL_OFFICIAL": "2988.02",
+        "CHEQUES": "40.64",
+        "expense": "0.00",
+        "sales": "0.00"
+      },
+      "actual": {
+        "stock": "125",
+        "client": "10.11",
+        "vendor": "-41.17",
+        "HARIS_CASH": "1000.31",
+        "JUNAID_CASH": "200.42",
+        "UBL_OFFICIAL": "2988.02",
+        "CHEQUES": "40.64",
+        "expense": "0.00",
+        "sales": "0.00"
+      }
+    },
+    {
+      "operation": "delivery 7 x 7.13",
+      "expected": {
+        "stock": "118",
+        "client": "60.02",
+        "vendor": "-41.17",
+        "HARIS_CASH": "1000.31",
+        "JUNAID_CASH": "200.42",
+        "UBL_OFFICIAL": "2988.02",
+        "CHEQUES": "40.64",
+        "expense": "0.00",
+        "sales": "49.91"
+      },
+      "actual": {
+        "stock": "118",
+        "client": "60.02",
+        "vendor": "-41.17",
+        "HARIS_CASH": "1000.31",
+        "JUNAID_CASH": "200.42",
+        "UBL_OFFICIAL": "2988.02",
+        "CHEQUES": "40.64",
+        "expense": "0.00",
+        "sales": "49.91"
+      }
+    },
+    {
+      "operation": "permitted two bottle sales return",
+      "expected": {
+        "stock": "120",
+        "client": "45.76",
+        "vendor": "-41.17",
+        "HARIS_CASH": "1000.31",
+        "JUNAID_CASH": "200.42",
+        "UBL_OFFICIAL": "2988.02",
+        "CHEQUES": "40.64",
+        "expense": "0.00",
+        "sales": "35.65"
+      },
+      "actual": {
+        "stock": "120",
+        "client": "45.76",
+        "vendor": "-41.17",
+        "HARIS_CASH": "1000.31",
+        "JUNAID_CASH": "200.42",
+        "UBL_OFFICIAL": "2988.02",
+        "CHEQUES": "40.64",
+        "expense": "0.00",
+        "sales": "35.65"
+      }
+    },
+    {
+      "operation": "permitted documented stock correction",
+      "expected": {
+        "stock": "119",
+        "client": "45.76",
+        "vendor": "-41.17",
+        "HARIS_CASH": "1000.31",
+        "JUNAID_CASH": "200.42",
+        "UBL_OFFICIAL": "2988.02",
+        "CHEQUES": "40.64",
+        "expense": "0.00",
+        "sales": "35.65"
+      },
+      "actual": {
+        "stock": "119",
+        "client": "45.76",
+        "vendor": "-41.17",
+        "HARIS_CASH": "1000.31",
+        "JUNAID_CASH": "200.42",
+        "UBL_OFFICIAL": "2988.02",
+        "CHEQUES": "40.64",
+        "expense": "0.00",
+        "sales": "35.65"
+      }
+    },
+    {
+      "operation": "ordinary partial customer payment",
+      "expected": {
+        "stock": "119",
+        "client": "32.49",
+        "vendor": "-41.17",
+        "HARIS_CASH": "1013.58",
+        "JUNAID_CASH": "200.42",
+        "UBL_OFFICIAL": "2988.02",
+        "CHEQUES": "40.64",
+        "expense": "0.00",
+        "sales": "35.65"
+      },
+      "actual": {
+        "stock": "119",
+        "client": "32.49",
+        "vendor": "-41.17",
+        "HARIS_CASH": "1013.58",
+        "JUNAID_CASH": "200.42",
+        "UBL_OFFICIAL": "2988.02",
+        "CHEQUES": "40.64",
+        "expense": "0.00",
+        "sales": "35.65"
+      }
+    },
+    {
+      "operation": "ordinary full remaining customer payment",
+      "expected": {
+        "stock": "119",
+        "client": "0.00",
+        "vendor": "-41.17",
+        "HARIS_CASH": "1013.58",
+        "JUNAID_CASH": "200.42",
+        "UBL_OFFICIAL": "3020.51",
+        "CHEQUES": "40.64",
+        "expense": "0.00",
+        "sales": "35.65"
+      },
+      "actual": {
+        "stock": "119",
+        "client": "0.00",
+        "vendor": "-41.17",
+        "HARIS_CASH": "1013.58",
+        "JUNAID_CASH": "200.42",
+        "UBL_OFFICIAL": "3020.51",
+        "CHEQUES": "40.64",
+        "expense": "0.00",
+        "sales": "35.65"
+      }
+    },
+    {
+      "operation": "vendor payment",
+      "expected": {
+        "stock": "119",
+        "client": "0.00",
+        "vendor": "-29.80",
+        "HARIS_CASH": "1013.58",
+        "JUNAID_CASH": "200.42",
+        "UBL_OFFICIAL": "3009.14",
+        "CHEQUES": "40.64",
+        "expense": "0.00",
+        "sales": "35.65"
+      },
+      "actual": {
+        "stock": "119",
+        "client": "0.00",
+        "vendor": "-29.80",
+        "HARIS_CASH": "1013.58",
+        "JUNAID_CASH": "200.42",
+        "UBL_OFFICIAL": "3009.14",
+        "CHEQUES": "40.64",
+        "expense": "0.00",
+        "sales": "35.65"
+      }
+    },
+    {
+      "operation": "Haris to Junaid transfer",
+      "expected": {
+        "stock": "119",
+        "client": "0.00",
+        "vendor": "-29.80",
+        "HARIS_CASH": "990.17",
+        "JUNAID_CASH": "223.83",
+        "UBL_OFFICIAL": "3009.14",
+        "CHEQUES": "40.64",
+        "expense": "0.00",
+        "sales": "35.65"
+      },
+      "actual": {
+        "stock": "119",
+        "client": "0.00",
+        "vendor": "-29.80",
+        "HARIS_CASH": "990.17",
+        "JUNAID_CASH": "223.83",
+        "UBL_OFFICIAL": "3009.14",
+        "CHEQUES": "40.64",
+        "expense": "0.00",
+        "sales": "35.65"
+      }
+    },
+    {
+      "operation": "employee-associated paid expense",
+      "expected": {
+        "stock": "119",
+        "client": "0.00",
+        "vendor": "-29.80",
+        "HARIS_CASH": "990.17",
+        "JUNAID_CASH": "218.40",
+        "UBL_OFFICIAL": "3009.14",
+        "CHEQUES": "40.64",
+        "expense": "5.43",
+        "sales": "35.65"
+      },
+      "actual": {
+        "stock": "119",
+        "client": "0.00",
+        "vendor": "-29.80",
+        "HARIS_CASH": "990.17",
+        "JUNAID_CASH": "218.40",
+        "UBL_OFFICIAL": "3009.14",
+        "CHEQUES": "40.64",
+        "expense": "5.43",
+        "sales": "35.65"
+      }
+    },
+    {
+      "operation": "full customer refund of partial ordinary payment",
+      "expected": {
+        "stock": "119",
+        "client": "13.27",
+        "vendor": "-29.80",
+        "HARIS_CASH": "976.90",
+        "JUNAID_CASH": "218.40",
+        "UBL_OFFICIAL": "3009.14",
+        "CHEQUES": "40.64",
+        "expense": "5.43",
+        "sales": "35.65"
+      },
+      "actual": {
+        "stock": "119",
+        "client": "13.27",
+        "vendor": "-29.80",
+        "HARIS_CASH": "976.90",
+        "JUNAID_CASH": "218.40",
+        "UBL_OFFICIAL": "3009.14",
+        "CHEQUES": "40.64",
+        "expense": "5.43",
+        "sales": "35.65"
+      }
+    },
+    {
+      "operation": "full vendor returned payment",
+      "expected": {
+        "stock": "119",
+        "client": "13.27",
+        "vendor": "-41.17",
+        "HARIS_CASH": "976.90",
+        "JUNAID_CASH": "218.40",
+        "UBL_OFFICIAL": "3020.51",
+        "CHEQUES": "40.64",
+        "expense": "5.43",
+        "sales": "35.65"
+      },
+      "actual": {
+        "stock": "119",
+        "client": "13.27",
+        "vendor": "-41.17",
+        "HARIS_CASH": "976.90",
+        "JUNAID_CASH": "218.40",
+        "UBL_OFFICIAL": "3020.51",
+        "CHEQUES": "40.64",
+        "expense": "5.43",
+        "sales": "35.65"
+      }
+    },
+    {
+      "operation": "full expense refund",
+      "expected": {
+        "stock": "119",
+        "client": "13.27",
+        "vendor": "-41.17",
+        "HARIS_CASH": "976.90",
+        "JUNAID_CASH": "223.83",
+        "UBL_OFFICIAL": "3020.51",
+        "CHEQUES": "40.64",
+        "expense": "0.00",
+        "sales": "35.65"
+      },
+      "actual": {
+        "stock": "119",
+        "client": "13.27",
+        "vendor": "-41.17",
+        "HARIS_CASH": "976.90",
+        "JUNAID_CASH": "223.83",
+        "UBL_OFFICIAL": "3020.51",
+        "CHEQUES": "40.64",
+        "expense": "0.00",
+        "sales": "35.65"
+      }
+    },
+    {
+      "operation": "lost response then safe identical retry",
+      "expected": {
+        "stock": "119",
+        "client": "13.27",
+        "vendor": "-41.17",
+        "HARIS_CASH": "976.90",
+        "JUNAID_CASH": "223.76",
+        "UBL_OFFICIAL": "3020.51",
+        "CHEQUES": "40.64",
+        "expense": "0.07",
+        "sales": "35.65"
+      },
+      "actual": {
+        "stock": "119",
+        "client": "13.27",
+        "vendor": "-41.17",
+        "HARIS_CASH": "976.90",
+        "JUNAID_CASH": "223.76",
+        "UBL_OFFICIAL": "3020.51",
+        "CHEQUES": "40.64",
+        "expense": "0.07",
+        "sales": "35.65"
+      }
+    },
+    {
+      "operation": "unavailable stock rejected",
+      "expected": {
+        "stock": "119",
+        "client": "13.27",
+        "vendor": "-41.17",
+        "HARIS_CASH": "976.90",
+        "JUNAID_CASH": "223.76",
+        "UBL_OFFICIAL": "3020.51",
+        "CHEQUES": "40.64",
+        "expense": "0.07",
+        "sales": "35.65"
+      },
+      "actual": {
+        "stock": "119",
+        "client": "13.27",
+        "vendor": "-41.17",
+        "HARIS_CASH": "976.90",
+        "JUNAID_CASH": "223.76",
+        "UBL_OFFICIAL": "3020.51",
+        "CHEQUES": "40.64",
+        "expense": "0.07",
+        "sales": "35.65"
+      }
+    },
+    {
+      "operation": "custody cannot become spendable funds",
+      "expected": {
+        "stock": "119",
+        "client": "13.27",
+        "vendor": "-41.17",
+        "HARIS_CASH": "976.90",
+        "JUNAID_CASH": "223.76",
+        "UBL_OFFICIAL": "3020.51",
+        "CHEQUES": "40.64",
+        "expense": "0.07",
+        "sales": "35.65"
+      },
+      "actual": {
+        "stock": "119",
+        "client": "13.27",
+        "vendor": "-41.17",
+        "HARIS_CASH": "976.90",
+        "JUNAID_CASH": "223.76",
+        "UBL_OFFICIAL": "3020.51",
+        "CHEQUES": "40.64",
+        "expense": "0.07",
+        "sales": "35.65"
+      }
+    },
+    {
+      "operation": "UAT1 one simultaneous custom-number claim",
+      "expected": {
+        "stock": "118",
+        "client": "20.40",
+        "vendor": "-41.17",
+        "HARIS_CASH": "976.90",
+        "JUNAID_CASH": "223.76",
+        "UBL_OFFICIAL": "3020.51",
+        "CHEQUES": "40.64",
+        "expense": "0.07",
+        "sales": "42.78"
+      },
+      "actual": {
+        "stock": "118",
+        "client": "20.40",
+        "vendor": "-41.17",
+        "HARIS_CASH": "976.90",
+        "JUNAID_CASH": "223.76",
+        "UBL_OFFICIAL": "3020.51",
+        "CHEQUES": "40.64",
+        "expense": "0.07",
+        "sales": "42.78"
+      }
+    },
+    {
+      "operation": "UAT1 reviewed server-derived employee payee",
+      "expected": {
+        "stock": "118",
+        "client": "20.40",
+        "vendor": "-41.17",
+        "HARIS_CASH": "976.90",
+        "JUNAID_CASH": "223.63",
+        "UBL_OFFICIAL": "3020.51",
+        "CHEQUES": "40.64",
+        "expense": "0.20",
+        "sales": "42.78"
+      },
+      "actual": {
+        "stock": "118",
+        "client": "20.40",
+        "vendor": "-41.17",
+        "HARIS_CASH": "976.90",
+        "JUNAID_CASH": "223.63",
+        "UBL_OFFICIAL": "3020.51",
+        "CHEQUES": "40.64",
+        "expense": "0.20",
+        "sales": "42.78"
+      }
+    },
+    {
+      "operation": "UAT1A linked return retains original financial effects",
+      "expected": {
+        "stock": "119",
+        "client": "13.27",
+        "vendor": "-41.17",
+        "HARIS_CASH": "976.90",
+        "JUNAID_CASH": "223.63",
+        "UBL_OFFICIAL": "3020.51",
+        "CHEQUES": "40.64",
+        "expense": "0.20",
+        "sales": "35.65"
+      },
+      "actual": {
+        "stock": "119",
+        "client": "13.27",
+        "vendor": "-41.17",
+        "HARIS_CASH": "976.90",
+        "JUNAID_CASH": "223.63",
+        "UBL_OFFICIAL": "3020.51",
+        "CHEQUES": "40.64",
+        "expense": "0.20",
+        "sales": "35.65"
+      }
+    }
+  ],
+  "reconciliation": {
+    "refunds": {
+      "matched": true,
+      "findings": [],
+      "postedRefunds": 3,
+      "policyVersion": "p32b3-full-same-account-v1",
+      "authenticity": "Operator attestation and consistency evidence, not proof that physical funds moved or protection against fabricated SQL inserts."
+    },
+    "expense": {
+      "matched": true,
+      "masters": {
+        "matched": true,
+        "findings": [],
+        "categories": 1,
+        "employees": 1,
+        "historyEvents": 2
+      },
+      "documents": {
+        "matched": true,
+        "findings": [],
+        "mappedExpenses": 2,
+        "legacyUnmappedExpenses": 0
+      }
+    },
+    "matched": true,
+    "mismatches": [],
+    "repairPerformed": false,
+    "documents": 17,
+    "sourceLines": 7,
+    "stockEntries": 7,
+    "ledgerEntries": 11,
+    "integrityFindings": [],
+    "reviewRequired": false,
+    "authenticityVerified": false,
+    "money": {
+      "matched": true,
+      "findings": [],
+      "balances": {
+        "1": "976.90",
+        "2": "223.76",
+        "3": "3020.51",
+        "4": "40.64"
+      },
+      "openings": {
+        "1": "2026-11-02",
+        "2": "2026-11-02",
+        "3": "2026-11-02",
+        "4": "2026-11-02"
+      },
+      "batches": 14,
+      "movements": 15,
+      "sourceCoverage": "Money batches plus canonical p32b1 document claims; historical V1 payments and expenses are not backfilled.",
+      "authenticity": "Shape and arithmetic consistency, not proof of physical funds or protection against fabricated SQL inserts.",
+      "documentIntegration": {
+        "matched": true,
+        "findings": [],
+        "linkedDocuments": 9,
+        "historicalUnlinkedDocuments": 0,
+        "coverage": "Only p32b1-marked posted documents require canonical money effects. Historical documents are not backfilled."
+      }
+    }
+  },
+  "restored": {
+    "expenseMasterReconciliation": {
+      "matched": true,
+      "findings": [],
+      "categories": 2,
+      "employees": 1,
+      "historyEvents": 4
+    },
+    "expenseDocumentReconciliation": {
+      "matched": true,
+      "findings": [],
+      "mappedExpenses": 3,
+      "legacyUnmappedExpenses": 0
+    },
+    "passed": true,
+    "format": "UPMS_FINANCIAL_SNAPSHOT_V1",
+    "tables": 29,
+    "rows": 270,
+    "guards": {
+      "passed": true,
+      "baseGuards": 45,
+      "additionalGuards": 15,
+      "totalGuards": 72,
+      "baseHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+      "moneyHash": "66dbf7e53ebd1c8de18e9324454e7befe3cd4a077ad5876bfb06c8801ed8dbf4",
+      "definer": null,
+      "definerPrivilegesVerified": false,
+      "expenseGuards": 12,
+      "expenseHash": "a135b6d77a38892128ba9efacd74bdd11cec6bd960ba1d0675227ea36fa83bd2"
+    },
+    "schema": {
+      "passed": true,
+      "planHash": "ef265791f848fea7543dc4d0de899fe9ab7d6d082ca8fc9a7dc478a17ee343ea",
+      "tables": 29,
+      "totalGuards": 72
+    },
+    "moneyReconciliation": {
+      "matched": true,
+      "findings": [],
+      "balances": {
+        "1": "976.90",
+        "2": "223.63",
+        "3": "3020.51",
+        "4": "40.64"
+      },
+      "openings": {
+        "1": "2026-11-02",
+        "2": "2026-11-02",
+        "3": "2026-11-02",
+        "4": "2026-11-02"
+      },
+      "batches": 15,
+      "movements": 16,
+      "sourceCoverage": "Money batches plus canonical p32b1 document claims; historical V1 payments and expenses are not backfilled.",
+      "authenticity": "Shape and arithmetic consistency, not proof of physical funds or protection against fabricated SQL inserts.",
+      "documentIntegration": {
+        "matched": true,
+        "findings": [],
+        "linkedDocuments": 10,
+        "historicalUnlinkedDocuments": 0,
+        "coverage": "Only p32b1-marked posted documents require canonical money effects. Historical documents are not backfilled."
+      }
+    },
+    "productionContacted": false,
+    "sourceTargetHashPreserved": true,
+    "refundReconciliation": {
+      "matched": true,
+      "customChallanNumbers": {
+        "matched": true,
+        "findings": []
+      },
+      "refunds": {
+        "matched": true,
+        "findings": [],
+        "postedRefunds": 3,
+        "policyVersion": "p32b3-full-same-account-v1",
+        "authenticity": "Operator attestation and consistency evidence, not proof that physical funds moved or protection against fabricated SQL inserts."
+      },
+      "money": {
+        "matched": true,
+        "findings": [],
+        "balances": {
+          "1": "976.90",
+          "2": "223.63",
+          "3": "3020.51",
+          "4": "40.64"
+        },
+        "openings": {
+          "1": "2026-11-02",
+          "2": "2026-11-02",
+          "3": "2026-11-02",
+          "4": "2026-11-02"
+        },
+        "batches": 15,
+        "movements": 16,
+        "sourceCoverage": "Money batches plus canonical p32b1 document claims; historical V1 payments and expenses are not backfilled.",
+        "authenticity": "Shape and arithmetic consistency, not proof of physical funds or protection against fabricated SQL inserts."
+      },
+      "sources": {
+        "matched": true,
+        "findings": [],
+        "linkedDocuments": 10,
+        "historicalUnlinkedDocuments": 0,
+        "coverage": "Only p32b1-marked posted documents require canonical money effects. Historical documents are not backfilled."
+      },
+      "masters": {
+        "matched": true,
+        "findings": [],
+        "categories": 2,
+        "employees": 1,
+        "historyEvents": 4
+      },
+      "expenses": {
+        "matched": true,
+        "findings": [],
+        "mappedExpenses": 3,
+        "legacyUnmappedExpenses": 0
+      }
+    }
+  },
+  "guardProof": {
+    "passed": true,
+    "baseGuards": 45,
+    "additionalGuards": 15,
+    "totalGuards": 72,
+    "baseHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+    "moneyHash": "66dbf7e53ebd1c8de18e9324454e7befe3cd4a077ad5876bfb06c8801ed8dbf4",
+    "definer": "php2_test_admin@127.0.0.1",
+    "definerPrivilegesVerified": false,
+    "expenseGuards": 12,
+    "expenseHash": "a135b6d77a38892128ba9efacd74bdd11cec6bd960ba1d0675227ea36fa83bd2",
+    "planHash": "ef265791f848fea7543dc4d0de899fe9ab7d6d082ca8fc9a7dc478a17ee343ea",
+    "tables": 29
+  },
+  "gst": {
+    "status": "NOT APPLICABLE",
+    "reason": "Active PHP Simple V1 has no GST/non-GST ledger dimension; legacy Node GST modules are not used."
+  },
+  "lostResponseRetry": true,
+  "originalsPreserved": true,
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-03T03:28:44.176Z"
+}

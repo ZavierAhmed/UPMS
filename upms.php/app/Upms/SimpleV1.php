@@ -79,7 +79,7 @@ final class SimpleV1
             throw new ApiError(400, 'INVALID_DOCUMENT_KIND');
         }
         $rows = $kind ? $this->db->rows('SELECT * FROM v1_documents WHERE kind=? ORDER BY id DESC', [$kind]) : $this->db->rows('SELECT * FROM v1_documents ORDER BY id DESC');
-        return array_map(fn ($d) => [...$d, 'id' => (string) $d['id'], 'party_id' => $d['party_id'] ? (string) $d['party_id'] : null, 'payload' => self::payload($d)], $rows);
+        return array_map(fn ($d) => [...$d, 'id' => (string) $d['id'], 'party_id' => $d['party_id'] ? (string) $d['party_id'] : null, 'payload' => self::payload($d), ...ChallanNumbers::presentation($this->db, $d)], $rows);
     }
 
     public function detail(string $id): array
@@ -130,7 +130,7 @@ final class SimpleV1
             $amount = $l['credit'] ?? (preg_match('/^\d+$/D', $l['quantity']) && preg_match('/^\d+(?:\.\d{1,2})?$/D', $l['rate']) ? Exact::money(IntMath::of($l['quantity'])->multipliedBy(Exact::cents($l['rate'], zero: true))) : 'Review invalid line');
             return ['line_no' => $i + 1, 'snapshot' => (object) ($l['snapshot'] ?? []), 'quantity' => $l['quantity'], 'rate' => $l['rate'], 'amount' => $amount];
         }, $p['lines'], array_keys($p['lines'])) : array_map(fn ($l) => [...$l, 'snapshot' => json_decode($l['snapshot'], false, 512, JSON_THROW_ON_ERROR)], $this->db->rows('SELECT * FROM v1_lines WHERE document_id=? ORDER BY line_no', [$id]));
-        return [...$d, 'id' => $id, 'party_id' => $d['party_id'] ? (string) $d['party_id'] : null, 'payload' => json_decode($d['payload'], false, 512, JSON_THROW_ON_ERROR), ...$extra,...$moneyExtra,
+        return [...$d, 'id' => $id, 'party_id' => $d['party_id'] ? (string) $d['party_id'] : null, 'payload' => json_decode($d['payload'], false, 512, JSON_THROW_ON_ERROR), ...$extra,...$moneyExtra, ...ChallanNumbers::presentation($this->db, $d),
             'party' => isset($p['partySnapshot']) ? (object) $p['partySnapshot'] : $party, 'openingVerified' => (bool) ($party['opening_verified'] ?? false), 'reversalId' => $reversal ? (string) $reversal['id'] : null,
             'lines' => $lines, 'history' => $this->db->rows('SELECT * FROM v1_audit WHERE reference=? OR reference=? ORDER BY id', [$id, $d['official_number'] ?: $id])];
     }
@@ -182,7 +182,15 @@ final class SimpleV1
             $p = self::payload($r);
             $reference = $r['official_number'] ?: (BusinessCommand::truthy($p['reference'] ?? '') ? $p['reference'] : 'Entry '.$r['document_id']);
             $entry = ['date' => $r['date'], 'particulars' => $r['particulars'], 'reference' => $reference, 'originalReference' => $p['originalReference'] ?? '', 'externalReference' => $p['reference'] ?? '', 'chequeReference' => $p['chequeReference'] ?? '', 'debit' => $r['debit'], 'credit' => $r['credit'], 'balance' => Exact::money($balance), 'documentId' => (string) $r['document_id']];
-            if (!isset($f['reference']) || $f['reference'] === '' || str_contains(mb_strtolower(implode(' ', [$entry['reference'], $entry['originalReference'], $entry['externalReference'], $entry['chequeReference']])), mb_strtolower((string) $f['reference']))) {
+            $display = ChallanNumbers::presentation($this->db, $r);
+            if (isset($display['displayNumber'])) {
+                $entry['displayReference'] = $display['displayNumber'];
+            }
+            if (isset($display['originalDisplayNumber'])) {
+                $entry['originalDisplayReference'] = $display['originalDisplayNumber'];
+                $entry['displayParticulars'] = str_replace($p['originalReference'], $display['originalDisplayNumber'], $r['particulars']);
+            }
+            if (!isset($f['reference']) || $f['reference'] === '' || str_contains(mb_strtolower(implode(' ', [$entry['reference'], $entry['originalReference'], $entry['externalReference'], $entry['chequeReference'], $entry['displayReference'] ?? '', $entry['originalDisplayReference'] ?? ''])), mb_strtolower((string) $f['reference']))) {
                 $records[] = $entry;
             }
         }
@@ -258,7 +266,15 @@ final class SimpleV1
             if (!empty($p['customChallanNumber'])) {
                 $r['customChallanNumber'] = $p['customChallanNumber'];
             }
-            if (isset($f['reference']) && !str_contains(mb_strtolower(implode(' ', [$r['reference'], $r['originalReference'], $r['externalReference'], $r['chequeReference'], $p['customChallanNumber'] ?? ''])), mb_strtolower($f['reference']))) {
+            $display = ChallanNumbers::presentation($this->db, $d);
+            if (isset($display['displayNumber'])) {
+                $r['displayReference'] = $display['displayNumber'];
+            }
+            if (isset($display['originalDisplayNumber'])) {
+                $r['originalDisplayReference'] = $display['originalDisplayNumber'];
+                $r['displayParticulars'] = $type.' / '.$display['originalDisplayNumber'];
+            }
+            if (isset($f['reference']) && !str_contains(mb_strtolower(implode(' ', [$r['reference'], $r['originalReference'], $r['externalReference'], $r['chequeReference'], $p['customChallanNumber'] ?? '', $r['originalDisplayReference'] ?? ''])), mb_strtolower($f['reference']))) {
                 continue;
             }
             if ($d['kind'] === FinancialCorrections::KIND) {
