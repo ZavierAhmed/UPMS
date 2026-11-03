@@ -1,0 +1,13 @@
+{
+  "state": "READY",
+  "ownerBindingExists": true,
+  "schema": "upms_test_php_money_1793691451921",
+  "tables": 34,
+  "guards": 88,
+  "syntheticUsers": 1,
+  "phpReadiness": 200,
+  "dashboardHttpStatus": 200,
+  "administratorCredentialsRead": false,
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-03T07:41:27.775Z"
+}

@@ -51,8 +51,13 @@
   "ownerLauncher": {
     "listening": true,
     "port": 5180,
-    "setupPageHttpStatus": 200,
-    "state": "WAITING_FOR_OWNER_SELECTED_NEW_PASSWORD",
-    "fixedOwnerBindingExists": false
+    "dashboardHttpStatus": 200,
+    "phpReadinessStatus": 200,
+    "state": "READY",
+    "fixedOwnerBindingExists": true,
+    "tables": 34,
+    "guards": 88,
+    "syntheticUsers": 1,
+    "administratorCredentialsRead": false
   }
 }

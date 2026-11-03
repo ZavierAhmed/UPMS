@@ -13,7 +13,8 @@ Base `25889014a61229098c7826757cfbe01ef06f29b8`. Only local startup scripts, the
 - `docs/uat-h1-startup/evidence/first-time-production.png`
 - `docs/uat-h1-startup/evidence/foundation-regression/integration.json`
 - `docs/uat-h1-startup/evidence/legacy-403.json`
-- `docs/uat-h1-startup/evidence/owner-launcher-state.json`
+- `docs/uat-h1-startup/evidence/owner-launcher-state.json` (initial WAITING observation)
+- `docs/uat-h1-startup/evidence/owner-final-ready.json` (final READY observation)
 - `docs/uat-h1-startup/evidence/owner-preservation.json`
 - `docs/uat-h1-startup/evidence/php-fixtures.log`
 - `docs/uat-h1-startup/evidence/php-full-suite.log`
