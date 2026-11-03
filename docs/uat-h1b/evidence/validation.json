@@ -1,0 +1,88 @@
+{
+  "passed": true,
+  "base": "5a883e022cefa8c75a4e7f3f76d88c3a1541a2ff",
+  "php": {
+    "tests": 166,
+    "assertions": 1906,
+    "unitTests": 112,
+    "unitAssertions": 1434,
+    "runtime": "8.3.36"
+  },
+  "react": {
+    "tests": 277,
+    "files": 39,
+    "passed": true
+  },
+  "eslint": true,
+  "managementBuild": true,
+  "pintChangedPhp": true,
+  "productionBrowser": {
+    "groups": 8,
+    "primary": {
+      "draftId": "1",
+      "stock": "200",
+      "earned": "2000.00",
+      "moneyMovements": 0,
+      "partyMovements": 0,
+      "payable": null
+    }
+  },
+  "viewports": [
+    390,
+    768,
+    1024,
+    1440,
+    1920
+  ],
+  "financialRegressions": {
+    "foundation": {
+      "passed": true,
+      "checks": 28
+    },
+    "documents": {
+      "passed": true,
+      "checks": 28
+    },
+    "expenses": {
+      "passed": true,
+      "checks": 28
+    },
+    "refunds": {
+      "passed": true,
+      "checks": 26
+    }
+  },
+  "securityDifferential": {
+    "http": 83,
+    "snapshots": 4
+  },
+  "fullStockLabor": {
+    "checkpoints": 34,
+    "laborGroups": 13,
+    "recoveryRows": 656
+  },
+  "priorEmployeeBrowser": {
+    "requests": 157,
+    "passed": true
+  },
+  "priorStartupBrowser": {
+    "requests": 236,
+    "passed": true
+  },
+  "acceptanceBackupRecovery": {
+    "tables": 34,
+    "guards": 88,
+    "rows": 147,
+    "passed": true
+  },
+  "productionPdfs": {
+    "count": 2,
+    "pages": 2,
+    "visuallyReviewed": true
+  },
+  "bothOwnerWorkspacesUnchanged": true,
+  "preExistingWorkingChangesPreserved": true,
+  "schemaAndGuardDefinitionsUnchanged": true,
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-03T08:31:09.676126+00:00"
+}

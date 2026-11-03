@@ -92,6 +92,11 @@ final class SimpleV1
             throw new ApiError(404, 'NOT_FOUND');
         }
         $p = self::payload($d);
+        $productionEvidence = [];
+        if ($d['kind'] === 'PRODUCTION' && $d['status'] === 'POSTED' && config('upms.employee_hafta_enabled', false)) {
+            EmployeeHaftaSchema::ready($this->db);
+            $productionEvidence['productionLaborEvidence'] = $this->db->rows('SELECT item_id,quantity,labor_rate,amount,employee_snapshot,item_snapshot FROM labor_earnings WHERE document_id=? ORDER BY line_id', [$id]);
+        }
         $moneyExtra = [];
         if (config('upms.money_accounts_enabled', false)) {
             MoneySchema::ready($this->db);
@@ -135,7 +140,7 @@ final class SimpleV1
         }, $p['lines'], array_keys($p['lines'])) : array_map(fn ($l) => [...$l, 'snapshot' => json_decode($l['snapshot'], false, 512, JSON_THROW_ON_ERROR)], $this->db->rows('SELECT * FROM v1_lines WHERE document_id=? ORDER BY line_no', [$id]));
         return [...$d, 'id' => $id, 'party_id' => $d['party_id'] ? (string) $d['party_id'] : null, 'payload' => json_decode($d['payload'], false, 512, JSON_THROW_ON_ERROR), ...$extra,...$moneyExtra, ...ChallanNumbers::presentation($this->db, $d),
             'party' => isset($p['partySnapshot']) ? (object) $p['partySnapshot'] : $party, 'openingVerified' => (bool) ($party['opening_verified'] ?? false), 'reversalId' => $reversal ? (string) $reversal['id'] : null,
-            'lines' => $lines, 'history' => $this->db->rows('SELECT * FROM v1_audit WHERE reference=? OR reference=? ORDER BY id', [$id, $d['official_number'] ?: $id])];
+            'lines' => $lines, ...$productionEvidence, 'history' => $this->db->rows('SELECT * FROM v1_audit WHERE reference=? OR reference=? ORDER BY id', [$id, $d['official_number'] ?: $id])];
     }
 
     public function movements(): array

@@ -1,0 +1,12 @@
+{
+  "renderedPages": 2,
+  "sheets": [
+    "tmp\\pdfs\\uath1b-final\\review-1.png"
+  ],
+  "reviewed": true,
+  "pdfSha256": {
+    "output\\pdf\\uat-h1b\\production-draft.pdf": "521fd8c4d94f00ba0c5f68d90b1f23fe638a5604df928eb1a3ca12320bdfd87a",
+    "output\\pdf\\uat-h1b\\production-posted.pdf": "fc16ac42b17c5e7ff6ec79aba2ad9ecb87a8cf161a2d56001a9579647dbc7268"
+  },
+  "reviewNotes": "Both Chrome PDF pages visually inspected; approved logo, stock quantity, draft estimate versus immutable posted earning, rates and signatures intact. Responsive 390/768/1024/1440/1920 geometry verified and screenshots inspected."
+}

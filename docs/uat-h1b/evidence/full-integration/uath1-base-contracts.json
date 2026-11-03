@@ -1,0 +1,77 @@
+{
+  "passed": true,
+  "checks": [
+    "custom number normalization, draft editing, company-wide concurrent posting claim, immutable official identity, independent reference and dual-number search",
+    "new employee payee server derivation, forged draft rejection, stale employee review, immutable original snapshots and ordinary payee requirement",
+    "single custom display identity, generated/draft fallback, both lookup paths, generated namespace rejection, immutable existing posted bytes and ID-linked return source presentation"
+  ],
+  "concurrentCustomStatuses": [
+    200,
+    409
+  ],
+  "schemaChanged": false,
+  "guardsChanged": false,
+  "reconciliation": {
+    "refunds": {
+      "matched": true,
+      "findings": [],
+      "postedRefunds": 3,
+      "policyVersion": "p32b3-full-same-account-v1",
+      "authenticity": "Operator attestation and consistency evidence, not proof that physical funds moved or protection against fabricated SQL inserts."
+    },
+    "expense": {
+      "matched": true,
+      "masters": {
+        "matched": true,
+        "findings": [],
+        "categories": 2,
+        "employees": 1,
+        "historyEvents": 4
+      },
+      "documents": {
+        "matched": true,
+        "findings": [],
+        "mappedExpenses": 3,
+        "legacyUnmappedExpenses": 0
+      }
+    },
+    "matched": true,
+    "mismatches": [],
+    "repairPerformed": false,
+    "documents": 20,
+    "sourceLines": 9,
+    "stockEntries": 9,
+    "ledgerEntries": 13,
+    "integrityFindings": [],
+    "reviewRequired": false,
+    "authenticityVerified": false,
+    "money": {
+      "matched": true,
+      "findings": [],
+      "balances": {
+        "1": "976.90",
+        "2": "223.63",
+        "3": "3020.51",
+        "4": "40.64"
+      },
+      "openings": {
+        "1": "2026-10-06",
+        "2": "2026-10-06",
+        "3": "2026-10-06",
+        "4": "2026-10-06"
+      },
+      "batches": 15,
+      "movements": 16,
+      "sourceCoverage": "Money batches plus canonical p32b1 document claims; historical V1 payments and expenses are not backfilled.",
+      "authenticity": "Shape and arithmetic consistency, not proof of physical funds or protection against fabricated SQL inserts.",
+      "documentIntegration": {
+        "matched": true,
+        "findings": [],
+        "linkedDocuments": 10,
+        "historicalUnlinkedDocuments": 0,
+        "coverage": "Only p32b1-marked posted documents require canonical money effects. Historical documents are not backfilled."
+      }
+    }
+  },
+  "verifiedUtc": "2026-11-03T08:08:12.981Z"
+}

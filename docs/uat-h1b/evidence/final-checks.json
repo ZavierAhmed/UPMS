@@ -1,0 +1,139 @@
+{
+  "passed": true,
+  "geometry": [
+    {
+      "width": 390,
+      "scrollWidth": 390,
+      "header": "none",
+      "readinessWidth": 324,
+      "formWidth": 358
+    },
+    {
+      "width": 768,
+      "scrollWidth": 768,
+      "header": "none",
+      "readinessWidth": 679.9375,
+      "formWidth": 728
+    },
+    {
+      "width": 1024,
+      "scrollWidth": 1024,
+      "header": "none",
+      "readinessWidth": 664.5625,
+      "formWidth": 726.5625
+    },
+    {
+      "width": 1440,
+      "scrollWidth": 1440,
+      "header": "grid",
+      "readinessWidth": 1055.625,
+      "formWidth": 1117.625
+    },
+    {
+      "width": 1920,
+      "scrollWidth": 1920,
+      "header": "grid",
+      "readinessWidth": 1534,
+      "formWidth": 1596
+    }
+  ],
+  "addRemoveUsable": true,
+  "unrelatedEditorsLaborFree": true,
+  "anonymousReadinessDenied": true,
+  "backup": {
+    "format": "UPMS_EMPLOYEE_HAFTA_SNAPSHOT_V1",
+    "ciphertextSha256": "013e29501eeecf5cd9f62d5defa1d62053ee9cec05c1cdb03f6a805034907783",
+    "corruptCiphertextRejected": true,
+    "wrongRecipientRejected": true
+  },
+  "restored": {
+    "passed": true,
+    "format": "UPMS_EMPLOYEE_HAFTA_SNAPSHOT_V1",
+    "tables": 34,
+    "rows": 147,
+    "guards": {
+      "passed": true,
+      "baseGuards": 45,
+      "additionalGuards": 15,
+      "totalGuards": 88,
+      "baseHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+      "moneyHash": "fd2d4cc24cb9153663eac29aefe30a89d5f2c1eb0241c0cddd67d1f3b0559a8e",
+      "definer": "php2_test_admin@127.0.0.1",
+      "definerPrivilegesVerified": false,
+      "expenseHash": "509ce116a67629325197bd4c34dec3f09b1a216d67f61491a757f464544786e5",
+      "laborHash": "a953d34bc33a96f4730cbe13ff07bd8e6c8f39e32544403e75e6856eb2b1bfed",
+      "laborGuards": 16
+    },
+    "reconciliation": {
+      "matched": true,
+      "financial": {
+        "matched": true,
+        "customChallanNumbers": {
+          "matched": true,
+          "findings": []
+        },
+        "refunds": {
+          "matched": true,
+          "findings": [],
+          "postedRefunds": 0,
+          "policyVersion": "p32b3-full-same-account-v1",
+          "authenticity": "Operator attestation and consistency evidence, not proof that physical funds moved or protection against fabricated SQL inserts."
+        },
+        "money": {
+          "matched": true,
+          "findings": [],
+          "balances": {
+            "1": "0.00",
+            "2": "0.00",
+            "3": "0.00",
+            "4": "0.00"
+          },
+          "openings": [],
+          "batches": 0,
+          "movements": 0,
+          "sourceCoverage": "Money batches plus canonical p32b1 document claims; historical V1 payments and expenses are not backfilled.",
+          "authenticity": "Shape and arithmetic consistency, not proof of physical funds or protection against fabricated SQL inserts."
+        },
+        "sources": {
+          "matched": true,
+          "findings": [],
+          "linkedDocuments": 0,
+          "historicalUnlinkedDocuments": 0,
+          "coverage": "Only p32b1-marked posted documents require canonical money effects. Historical documents are not backfilled."
+        },
+        "masters": {
+          "matched": true,
+          "findings": [],
+          "categories": 0,
+          "employees": 1,
+          "historyEvents": 1
+        },
+        "expenses": {
+          "matched": true,
+          "findings": [],
+          "mappedExpenses": 0,
+          "legacyUnmappedExpenses": 0
+        }
+      },
+      "labor": {
+        "matched": true,
+        "findings": [],
+        "balances": {
+          "1": null
+        },
+        "earnings": 2,
+        "payments": 0,
+        "openings": 0,
+        "authenticityVerified": false,
+        "coverage": "Canonical source/snapshot/arithmetic/audit consistency; not proof of physical funds or protection against fabricated consistent SQL inserts."
+      },
+      "commands": {
+        "matched": true,
+        "findings": []
+      }
+    },
+    "oldConsumerRejected": true
+  },
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-03T08:12:29.439Z"
+}

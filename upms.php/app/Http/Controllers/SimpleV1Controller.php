@@ -32,6 +32,7 @@ final class SimpleV1Controller
             $answer = match (true) {
                 $path === 'state' => $service->state($control, $user),
                 $path === 'items' => ['records' => $service->items()],
+                $path === 'stock-readiness' => (new \App\Upms\StockReadiness($db))->query($request->query()),
                 $path === 'parties' => ['records' => $service->parties($request->query('kind'))],
                 $path === 'documents' => ['records' => $service->documents($request->query('kind'))],
                 str_starts_with($path, 'documents/') => $service->detail($id),

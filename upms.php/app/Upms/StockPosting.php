@@ -29,7 +29,7 @@ final class StockPosting
             throw new ApiError(400, 'ONE_ITEM_OPENING_REQUIRED');
         }
         $total = BigInteger::zero();
-        $changes = $lines = [];
+        $changes = $lines = $itemLabels = [];
         foreach ($payload['lines'] as $index => $line) {
             $item = $this->db->one('SELECT * FROM v1_items WHERE id=? AND active=1', [$line['itemId']]);
             if (!$item) {
@@ -55,6 +55,7 @@ final class StockPosting
             $total = $total->plus($amount);
             Exact::money($total);
             $id = (string) $item['id'];
+            $itemLabels[$id] = ['code' => $item['code'], 'description' => $item['description']];
             $delta = $kind === 'CHALLAN' ? $quantity->negated() : $quantity;
             $changes[$id] = ($changes[$id] ?? BigInteger::zero())->plus($delta);
             $lines[] = ['document_id' => $document['id'], 'line_no' => $index + 1, 'item_id' => $item['id'], 'snapshot' => BusinessCommand::json(['description' => $item['description'], 'quality' => $item['quality'], 'colour' => $item['colour'], 'packing' => $item['packing'], 'code' => $item['code']]), 'quantity' => (string) $quantity, 'rate' => Exact::money($rate), 'amount' => Exact::money($amount)];
@@ -70,10 +71,19 @@ final class StockPosting
                 }
                 $this->records->update('v1_stock', ['verified' => true], ['item_id' => (string) $itemId]);
             } elseif (!$stock['verified']) {
+                if ($kind === 'PRODUCTION') {
+                    $label = $itemLabels[(string)$itemId];
+                    $index = array_search((string)$itemId, array_column($payload['lines'], 'itemId'), true);
+                    throw new ApiError(409, 'STOCK_OPENING_UNVERIFIED', ['lines.'.$index.'.itemId' => 'Stock opening required.'], $label['code'].' — '.$label['description'].': Stock opening required. Set up an explicitly reviewed opening dated on or before '.$payload['date'].'. Confirm zero only if there genuinely was no prior stock.', details: ['itemId' => (string)$itemId,'code' => $label['code'],'productionDate' => $payload['date']]);
+                }
                 throw new ApiError(409, 'STOCK_OPENING_UNVERIFIED');
             } else {
                 $opening = $this->db->one("SELECT d.date FROM v1_stock_journal j JOIN v1_documents d ON d.id=j.document_id WHERE j.item_id=? AND d.kind='STOCK_OPENING' AND d.status='POSTED' LIMIT 1", [(string) $itemId]);
                 if (!$opening || $payload['date'] < $opening['date']) {
+                    if ($kind === 'PRODUCTION') {
+                        $label = $itemLabels[(string)$itemId];
+                        throw new ApiError(400, 'DATE_PRECEDES_STOCK_OPENING', publicMessage: $label['code'].' — '.$label['description'].': the verified stock opening is dated '.($opening['date'] ?? 'unknown').', after production '.$payload['date'].'. Review the production date; do not create a duplicate opening.', details: ['itemId' => (string)$itemId,'code' => $label['code'],'openingDate' => $opening['date'] ?? null]);
+                    }
                     throw new ApiError(400, 'DATE_PRECEDES_STOCK_OPENING');
                 }
             }

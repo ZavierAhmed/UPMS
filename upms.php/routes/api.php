@@ -32,6 +32,7 @@ Route::get('/readyz', function () {
     }
 });
 Route::prefix('/api/v1/management')->middleware(UpmsBoundary::class)->group(function () {
+    Route::get('/simple-v1/stock-readiness', SimpleV1Controller::class);
     Route::get('/session/csrf', [SessionController::class, 'csrf']);
     Route::get('/simple-v1/employee-hafta', \App\Http\Controllers\EmployeeHaftaController::class);
     Route::get('/simple-v1/employee-hafta/payments/{id}', \App\Http\Controllers\EmployeeHaftaController::class);

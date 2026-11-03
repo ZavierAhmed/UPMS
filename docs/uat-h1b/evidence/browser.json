@@ -1,0 +1,1327 @@
+{
+  "passed": true,
+  "checks": [
+    "missing opening blocks UI and backend with item-specific business message and separate diagnostic reference; no posting effects",
+    "explicit reviewed zero opening dated on/before production; return to same draft preserves employee, lines, rates, reference and version",
+    "200 bottles x 10.00 produces exactly 200 stock / 2000.00 durable labor, no cash or party movement; identical post retry has one effect",
+    "Hafta shows immutable earned 2000.00 with payable coverage still UNVERIFIED",
+    "multiple item readiness identifies valid nonzero, later and missing openings; duplicate/later posting rejected",
+    "unallocated production accrues no wages; explicit zero rate confirmation retained",
+    "deactivated items and stale item snapshots cannot finalize",
+    "unsaved production form survives opening navigation without saving or posting it"
+  ],
+  "responses": [
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/current",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/stock-readiness",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/expense-directory",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/current",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents/1",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/stock-readiness",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/expense-directory",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents/1",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/documents/1/post",
+      "status": 409
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents/2",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/documents/2/post",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents/2",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents/1",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/stock-readiness",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/expense-directory",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents/1",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/expense-directory",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/stock-readiness",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/stock-readiness",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/expense-directory",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/documents/1/post",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents/1",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents/1",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/documents/1/post",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/employee-hafta",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/current",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/expense-directory",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/employee-hafta",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents/3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/documents/3/post",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents/4",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/documents/4/post",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents/5",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/documents/5/post",
+      "status": 409
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents/6",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/stock-readiness",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/documents/6/post",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/current",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents/6",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/stock-readiness",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/expense-directory",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents/7",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/documents/7/post",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents/8",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/documents/8/post",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents/9",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/management/simple-v1/items/2",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/documents/9/post",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/management/simple-v1/items/2",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/documents/9/post",
+      "status": 409
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/current",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/expense-directory",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/stock-readiness",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/expense-directory",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/stock-readiness",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/reconciliation",
+      "status": 200
+    }
+  ],
+  "geometry": [
+    {
+      "viewport": 390,
+      "scrollWidth": 390,
+      "rects": [
+        {
+          "x": 67,
+          "y": 1378.5625,
+          "width": 208,
+          "height": 44
+        },
+        {
+          "x": 67,
+          "y": 1470.5625,
+          "width": 256,
+          "height": 44
+        },
+        {
+          "x": 67,
+          "y": 1562.5625,
+          "width": 256,
+          "height": 44
+        }
+      ],
+      "buttons": [
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 157.078125,
+          "height": 44
+        },
+        {
+          "width": 205.546875,
+          "height": 44
+        }
+      ],
+      "header": "none"
+    },
+    {
+      "viewport": 768,
+      "scrollWidth": 768,
+      "rects": [
+        {
+          "x": 78.03125,
+          "y": 1128.0625,
+          "width": 563.9375,
+          "height": 44
+        },
+        {
+          "x": 78.03125,
+          "y": 1220.0625,
+          "width": 299.96875,
+          "height": 44
+        },
+        {
+          "x": 390,
+          "y": 1220.0625,
+          "width": 299.96875,
+          "height": 44
+        }
+      ],
+      "buttons": [
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 157.078125,
+          "height": 44
+        },
+        {
+          "width": 205.546875,
+          "height": 44
+        }
+      ],
+      "header": "none"
+    },
+    {
+      "viewport": 1024,
+      "scrollWidth": 1024,
+      "rects": [
+        {
+          "x": 335.71875,
+          "y": 1108.921875,
+          "width": 540.5625,
+          "height": 44
+        },
+        {
+          "x": 335.71875,
+          "y": 1200.921875,
+          "width": 288.28125,
+          "height": 44
+        },
+        {
+          "x": 636,
+          "y": 1200.921875,
+          "width": 288.28125,
+          "height": 44
+        }
+      ],
+      "buttons": [
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 157.078125,
+          "height": 44
+        },
+        {
+          "width": 205.546875,
+          "height": 44
+        }
+      ],
+      "header": "none"
+    },
+    {
+      "viewport": 1440,
+      "scrollWidth": 1440,
+      "rects": [
+        {
+          "x": 371.1875,
+          "y": 1074.921875,
+          "width": 352.734375,
+          "height": 44
+        },
+        {
+          "x": 783.921875,
+          "y": 1074.921875,
+          "width": 128.234375,
+          "height": 44
+        },
+        {
+          "x": 924.15625,
+          "y": 1074.921875,
+          "width": 176.328125,
+          "height": 44
+        }
+      ],
+      "buttons": [
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 157.078125,
+          "height": 44
+        },
+        {
+          "width": 205.546875,
+          "height": 44
+        }
+      ],
+      "header": "grid"
+    },
+    {
+      "viewport": 1920,
+      "scrollWidth": 1920,
+      "rects": [
+        {
+          "x": 372,
+          "y": 1074.921875,
+          "width": 570.171875,
+          "height": 44
+        },
+        {
+          "x": 1002.171875,
+          "y": 1074.921875,
+          "width": 197.828125,
+          "height": 44
+        },
+        {
+          "x": 1212,
+          "y": 1074.921875,
+          "width": 272,
+          "height": 44
+        }
+      ],
+      "buttons": [
+        {
+          "width": 44,
+          "height": 44
+        },
+        {
+          "width": 157.078125,
+          "height": 44
+        },
+        {
+          "width": 205.546875,
+          "height": 44
+        }
+      ],
+      "header": "grid"
+    }
+  ],
+  "screenshots": [
+    "after-production-390.png",
+    "after-production-768.png",
+    "after-production-1024.png",
+    "after-production-1440.png",
+    "after-production-1920.png",
+    "production-draft-review.png",
+    "explicit-zero-opening-posted.png",
+    "production-posted.png",
+    "hafta-2000-unverified.png",
+    "multiple-opening-states.png"
+  ],
+  "pdfs": [
+    "production-draft.pdf",
+    "production-posted.pdf"
+  ],
+  "primary": {
+    "draftId": "1",
+    "stock": "200",
+    "earned": "2000.00",
+    "moneyMovements": 0,
+    "partyMovements": 0,
+    "payable": null
+  },
+  "reconciliation": {
+    "employeeLabor": {
+      "matched": true,
+      "findings": [],
+      "balances": {
+        "1": null
+      },
+      "earnings": 2,
+      "payments": 0,
+      "openings": 0,
+      "authenticityVerified": false,
+      "coverage": "Canonical source/snapshot/arithmetic/audit consistency; not proof of physical funds or protection against fabricated consistent SQL inserts.",
+      "commands": {
+        "matched": true,
+        "findings": []
+      }
+    },
+    "expense": {
+      "matched": true,
+      "masters": {
+        "matched": true,
+        "findings": [],
+        "categories": 0,
+        "employees": 1,
+        "historyEvents": 1
+      },
+      "documents": {
+        "matched": true,
+        "findings": [],
+        "mappedExpenses": 0,
+        "legacyUnmappedExpenses": 0
+      }
+    },
+    "matched": true,
+    "mismatches": [],
+    "repairPerformed": false,
+    "documents": 6,
+    "sourceLines": 6,
+    "stockEntries": 6,
+    "ledgerEntries": 0,
+    "integrityFindings": [],
+    "reviewRequired": false,
+    "authenticityVerified": false,
+    "money": {
+      "matched": true,
+      "findings": [],
+      "balances": {
+        "1": "0.00",
+        "2": "0.00",
+        "3": "0.00",
+        "4": "0.00"
+      },
+      "openings": [],
+      "batches": 0,
+      "movements": 0,
+      "sourceCoverage": "Money batches plus canonical p32b1 document claims; historical V1 payments and expenses are not backfilled.",
+      "authenticity": "Shape and arithmetic consistency, not proof of physical funds or protection against fabricated SQL inserts.",
+      "documentIntegration": {
+        "matched": true,
+        "findings": [],
+        "linkedDocuments": 0,
+        "historicalUnlinkedDocuments": 0,
+        "coverage": "Only p32b1-marked posted documents require canonical money effects. Historical documents are not backfilled."
+      }
+    }
+  },
+  "tables": 34,
+  "guards": 88,
+  "errors": [],
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-03T08:08:52.490Z"
+}

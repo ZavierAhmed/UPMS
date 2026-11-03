@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "independentCalculation": "200 x 10.00 = 2000.00",
+  "pdfs": [
+    {
+      "name": "production-draft",
+      "pages": 1,
+      "quantity": "200",
+      "rate": "10.00",
+      "labor": "2000.00",
+      "blankPages": 0,
+      "clippedCharacters": 0,
+      "sha256": "521fd8c4d94f00ba0c5f68d90b1f23fe638a5604df928eb1a3ca12320bdfd87a"
+    },
+    {
+      "name": "production-posted",
+      "pages": 1,
+      "quantity": "200",
+      "rate": "10.00",
+      "labor": "2000.00",
+      "blankPages": 0,
+      "clippedCharacters": 0,
+      "sha256": "fc16ac42b17c5e7ff6ec79aba2ad9ecb87a8cf161a2d56001a9579647dbc7268"
+    }
+  ],
+  "visuallyReviewedPages": 2,
+  "productionContacted": false
+}
