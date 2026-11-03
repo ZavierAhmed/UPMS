@@ -23,6 +23,9 @@ final class Documents
 
     public function scope(object $input, ?string $id): void
     {
+        if (config('upms.employee_hafta_enabled', false) && ($input->kind ?? '') === 'PRODUCTION') {
+            EmployeeHaftaSchema::ready($this->db);
+        }
         if (isset($input->kind) && is_string($input->kind) && isset(SimpleV1::EVENTS[$input->kind])) {
             self::supported($input->kind);
         }
@@ -33,8 +36,11 @@ final class Documents
             ExpenseSchema::ready($this->db);
         }
         if ($id !== null) {
-            $stored = $this->db->one('SELECT kind FROM v1_documents WHERE id=?', [$id]);
+            $stored = $this->db->one('SELECT kind,payload FROM v1_documents WHERE id=?', [$id]);
             if ($stored) {
+                if (isset(SimpleV1::payload($stored)['laborVersion']) || (config('upms.employee_hafta_enabled', false) && $stored['kind'] === 'PRODUCTION')) {
+                    EmployeeHaftaSchema::ready($this->db);
+                }
                 self::supported($stored['kind']);
                 if (config('upms.expense_masters_enabled', false) && $stored['kind'] === 'EXPENSE') {
                     ExpenseSchema::ready($this->db);
@@ -55,7 +61,7 @@ final class Documents
         }
         $raw = clone $input;
         unset($raw->version);
-        $p = V1Input::document($raw, (bool) config('upms.money_accounts_enabled', false), (bool) config('upms.expense_masters_enabled', false));
+        $p = V1Input::document($raw, (bool) config('upms.money_accounts_enabled', false), (bool) config('upms.expense_masters_enabled', false), (bool) config('upms.employee_hafta_enabled', false));
         self::supported($p['kind']);
         V1Input::uniqueLines($p['lines']);
         if ($p['kind'] === 'CHALLAN_RETURN') {
@@ -101,6 +107,7 @@ final class Documents
             }
         }
         $p = ChallanNumbers::prepare($p);
+        $p = (new EmployeeHafta($this->db))->prepare($p, $user);
         $p = (new ExpenseMasters($this->db))->prepare($p);
         $p = (new MoneyDocuments($this->db))->prepare($p);
         $p = ReversalIdentity::derive($this->db, $p);
@@ -161,6 +168,7 @@ final class Documents
         }
         $p = SimpleV1::payload($d);
         ChallanNumbers::beforePost($this->db, $p);
+        (new EmployeeHafta($this->db))->beforePost($p, $user);
         (new ExpenseMasters($this->db))->beforePost($p);
         (new MoneyDocuments($this->db))->beforePost($p, (string)$d['id']);
         if ($p['date'] > SimpleV1::today()) {
@@ -307,6 +315,7 @@ final class Documents
         $discountFields = $discount === null ? [] : ['sale_subtotal' => $discount['subtotal'], 'discount_mode' => $discount['mode'], 'discount_value' => $discount['value'], 'discount_amount' => $discount['amount']];
         $this->records->update('v1_documents', ['status' => 'POSTED', 'total' => Exact::money($total), ...($p['kind'] === 'PAYMENT_REVERSAL' ? ['payload' => BusinessCommand::json($p)] : []), ...$discountFields, 'party_id' => $party['id'] ?? null, ...$numbering, 'corrects_id' => $p['correctsId'] ?? null], ['id' => $d['id'], 'version' => $d['version'], 'status' => 'DRAFT']);
         $this->commands->audit($user, 'document.posted', $number ?? (string) $d['id'], $p['reason']);
+        (new EmployeeHafta($this->db))->posted($d, $p, $user);
 
         if ($money !== null && !(new MoneyAccounts($this->db))->reconciliation()['matched']) {
             throw new ApiError(409, 'MONEY_DOCUMENT_RECONCILIATION_FAILED');

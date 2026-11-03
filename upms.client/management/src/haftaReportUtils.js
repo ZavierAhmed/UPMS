@@ -13,5 +13,5 @@ export function haftaWorkbook(report) {
     ...[['Gross sales',b.grossSales],['Discounts',b.discounts],['Returns credit',b.returns],['TOTAL · net weekly sales',b.total],['Client receipts (not advances)',b.receipts],['Receipt reversals',b.receiptReversals],['Opening entries / corrections in range',b.openingEntries],['Opening',b.opening??'UNVERIFIED'],['ADVANCE','Not separately classified'],['Recorded movement',b.movement],['BALANCE',b.balance??'UNVERIFIED']].map(([label,value])=>[b.partyName,'','',label,'','',value]),
     ...b.warnings.map(w=>[b.partyName,'','WARNING',w]), []
   ]);
-  return {columns, rows, metadata:['Unique Plastic Industry · HAFTA · PKR', report.from+' to '+report.to, 'TOTAL = gross sales - bill discounts - return credits. Return amounts are recorded net credits at historical rates.', 'BALANCE = verified opening + signed journal movements. Receipts are not classified as advances.', ...report.sourceLimitations]};
+  return {columns, rows, metadata:['Unique Plastic Industry · Client Weekly Statement · PKR', report.from+' to '+report.to, 'TOTAL = gross sales - bill discounts - return credits. Return amounts are recorded net credits at historical rates.', 'BALANCE = verified opening + signed journal movements. Receipts are not classified as advances.', ...report.sourceLimitations]};
 }

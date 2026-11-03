@@ -29,7 +29,7 @@ final class SimpleV1Controller
             if ($id !== null && !preg_match('/^[1-9][0-9]*$/D', $id)) {
                 throw new ApiError(400, 'INVALID_INPUT');
             }
-            return match (true) {
+            $answer = match (true) {
                 $path === 'state' => $service->state($control, $user),
                 $path === 'items' => ['records' => $service->items()],
                 $path === 'parties' => ['records' => $service->parties($request->query('kind'))],
@@ -43,6 +43,11 @@ final class SimpleV1Controller
                 $path === 'reconciliation' => $service->reconciliation(),
                 default => throw new ApiError(404, 'NOT_FOUND'),
             };
+            if (config('upms.employee_hafta_enabled', false) && !in_array('money.accounts.view', $user['permissions'], true) && !empty($answer['moneyMovement'])) {
+                unset($answer['moneyMovement']);
+                $answer['moneyMovementRedacted'] = true;
+            }
+            return $answer;
         });
         return response()->json($result);
     }

@@ -5,6 +5,8 @@ declare(strict_types=1);
 return [
     // Default synthetic profile; verified private production configuration is separate.
     'enabled' => env('UPMS_ENABLED', false),
+    'employee_hafta_enabled' => env('UPMS_EMPLOYEE_HAFTA_ENABLED', false),
+    'employee_hafta_guard_evidence' => env('UPMS_EMPLOYEE_HAFTA_GUARD_EVIDENCE', ''),
     'financial_refunds_enabled' => env('UPMS_FINANCIAL_REFUNDS_ENABLED', false),
     'refund_release_approval' => env('UPMS_REFUND_RELEASE_APPROVAL', ''),
     'expense_masters_enabled' => env('UPMS_EXPENSE_MASTERS_ENABLED', false),

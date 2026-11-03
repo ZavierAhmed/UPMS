@@ -1,0 +1,132 @@
+import {runLaborScenario} from './uath1-labor-scenario.mjs';
+// All provisioning, fault injection and restore actions are restricted to the existing loopback test engine.
+import assert from 'node:assert/strict';
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {resolve} from 'node:path';
+import {spawn} from 'node:child_process';
+import {randomBytes,randomUUID,createHash} from 'node:crypto';
+import knex from 'knex';
+import {verifyUatEngine} from './php-7-5-engine-guard.mjs';
+import {createIdentityService} from '../server/src/identity/service.js';
+import {protectPrivateDirectory} from './php-7-5-private-directory.mjs';
+await verifyUatEngine();
+const e=JSON.parse(await readFile('tmp/php-runtime/php2-engine.json','utf8')),run=Date.now().toString(),schema='upms_test_php_money_'+run,runtime='money_rt_'+run;
+const dir=resolve('tmp/php-runtime/money-'+run),evidence='docs/uat-h1/evidence',php=resolve('tmp/php-runtime/bin/php.exe');await mkdir(dir);await protectPrivateDirectory(dir);await mkdir(evidence,{recursive:true});
+const connection={host:'127.0.0.1',port:3330,user:'php2_test_admin',password:e.password,dateStrings:true,supportBigNumbers:true,bigNumberStrings:true};
+const admin=knex({client:'mysql2',connection,pool:{min:0,max:1}});let db,rt;
+const checks=[];const check=name=>checks.push(name);
+function execute(file,input,env={}){return new Promise((done,fail)=>{const child=spawn(php,[file],{windowsHide:true,env:{...Object.fromEntries(Object.entries(process.env).filter(([key])=>!key.startsWith('UPMS_'))),UPMS_PRODUCTION_PROFILE:'',...env},stdio:['pipe','pipe','pipe']});let out='',err='';child.stdout.on('data',b=>out+=b);child.stderr.on('data',b=>err+=b);child.on('error',fail);child.on('close',code=>{if(code!==0)return fail(Error('Local PHP helper failed at '+file+' action '+input.action+'; error codes '+JSON.stringify(err.match(/(?:REFUND|EXPENSE|MONEY)_[A-Z_]+/g)||[])+'; sensitive input/output withheld'));try{done(JSON.parse(out));}catch{fail(Error('Local PHP helper returned non-JSON; output withheld'));}});child.stdin.end(JSON.stringify(input));});}
+const helper=(action,extra={},target=schema)=>execute('upms.php/tests/Support/money-local.php',{action,port:3330,schema:target,runtime,user:connection.user,password:e.password,...extra});
+const grant=async name=>admin.raw('GRANT SELECT,INSERT,UPDATE,DELETE ON ??.* TO ??@?',[name.replaceAll('_','\\_'),runtime,'localhost']);
+try{
+ await admin.raw('CREATE DATABASE ?? CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci',[schema]);db=knex({client:'mysql2',connection:{...connection,database:schema},pool:{min:0,max:1}});
+ await helper('base');let password=randomBytes(24).toString('hex');if(process.argv.includes('--owner-password-stdin')){let supplied='';for await(const b of process.stdin)supplied+=b;const parsed=JSON.parse(supplied);if(typeof parsed.password!=='string'||parsed.password.length<14)throw Error('ISOLATED_TEST_PASSWORD_POLICY');password=parsed.password;supplied='';parsed.password='';}await createIdentityService(db).bootstrap({username:'php-admin',displayName:'Synthetic Money Administrator',password});await db('v1_control').where({id:1}).update({entry_version:2,operator_id:1,state:'READY',cutover_evidence:'ISOLATED MONEY FOUNDATION'});
+ const runtimePassword=randomBytes(24).toString('hex');await admin.raw('CREATE USER ??@? IDENTIFIED BY ?',[runtime,'localhost',runtimePassword]);await grant(schema);await helper('guards');
+ const guardPath=dir+'/guard-evidence.json';let migration,guardEvidence;
+ const envPath=dir+'/test.env';const env=`APP_ENV=testing\nAPP_DEBUG=false\nAPP_KEY=base64:${randomBytes(32).toString('base64')}\nCACHE_STORE=array\nSESSION_DRIVER=array\nUPMS_ENABLED=true\nUPMS_ORIGIN=https://app.unique-plastic.test\nUPMS_DB_HOST=127.0.0.1\nUPMS_DB_PORT=3330\nUPMS_DB_DATABASE=${schema}\nUPMS_DB_USERNAME=${runtime}\nUPMS_DB_PASSWORD=${runtimePassword}\nUPMS_MONEY_ACCOUNTS_ENABLED=true\nUPMS_MONEY_GUARD_EVIDENCE="${guardPath.replaceAll('\\','/')}"\n`;await writeFile(envPath,env);
+ const disabledPath=dir+'/disabled.env';await writeFile(disabledPath,env.replace('UPMS_MONEY_ACCOUNTS_ENABLED=true','UPMS_MONEY_ACCOUNTS_ENABLED=false'));let currentEnv=disabledPath;
+ let cookies={},csrf='';
+ async function call(method,path,body,options={}){
+  const r=await execute('upms.php/tests/Support/http-bridge.php',{method,path:'/api/v1/management'+path,cookies:options.anonymous?{}:cookies,headers:{...(method!=='GET'?{origin:'https://app.unique-plastic.test','x-csrf-token':csrf,'idempotency-key':options.key||randomUUID()}:{}),...options.headers},raw:method==='GET'?null:JSON.stringify(body??{})},{UPMS_PHP2_ENV:options.envPath||currentEnv});r.body=r.raw?JSON.parse(r.raw):null;if(!options.anonymous){Object.assign(cookies,r.cookies);if(r.body?.csrfToken)csrf=r.body.csrfToken;}return r;
+ }
+ const request=(m,p,b,o)=>call(m,'/simple-v1'+p,b,o);
+ const ok=async(m,p,b,o)=>{const r=await request(m,p,b,o);assert.ok([200,201].includes(r.status),p+' '+JSON.stringify(r.body));return r.body;};
+ let r=await request('GET','/documents',undefined,{anonymous:true});assert.equal(r.status,401);check('unauthenticated document access rejected');
+ await call('GET','/session/csrf');r=await call('POST','/session/login',{username:'php-admin',password});assert.equal(r.status,200);
+
+ const today=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Karachi',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+ const prior=new Date(today+'T12:00:00Z');prior.setUTCDate(prior.getUTCDate()-28);const date=prior.toISOString().slice(0,10);
+ migration=await helper('extension');guardEvidence={...migration};delete guardEvidence.schemaHashes;const extension=await helper('expenseExtension');delete extension.schemaHashes;guardEvidence={...guardEvidence,...extension};await writeFile(guardPath,JSON.stringify(guardEvidence));
+ const refundEnv=env+'UPMS_EXPENSE_MASTERS_ENABLED=true\nUPMS_EXPENSE_GUARD_EVIDENCE="'+guardPath.replaceAll('\\','/')+'"\nUPMS_FINANCIAL_REFUNDS_ENABLED=true\n';await writeFile(envPath,refundEnv);currentEnv=envPath;
+ const refundOff=dir+'/refund-off.env';await writeFile(refundOff,refundEnv.replace('UPMS_FINANCIAL_REFUNDS_ENABLED=true','UPMS_FINANCIAL_REFUNDS_ENABLED=false'));
+ async function draft(body,options){return ok('POST','/documents',{date,...body},options);}
+ async function document(body,options){const d=await draft(body,options);return ok('POST','/documents/'+d.id+'/post',{version:1},options);}
+ // Independent oracle: expected changes are explicit scenario constants, never read from application outputs.
+ const cents=v=>{const negative=v.startsWith('-');const [w,f='']=v.replace('-','').split('.');return (BigInt(w)*100n+BigInt(f.padEnd(2,'0')))*(negative?-1n:1n);};
+ const money=n=>(n<0n?'-':'')+(n<0n?-n:n)/100n+'.'+String((n<0n?-n:n)%100n).padStart(2,'0');
+ const expected={stock:0n,client:0n,vendor:0n,HARIS_CASH:0n,JUNAID_CASH:0n,UBL_OFFICIAL:0n,CHEQUES:0n,expense:0n,sales:0n},comparisons=[];
+ const item=await ok('POST','/items',{description:'Synthetic consolidated bottle',sellingPrice:'7.13'}),client=await ok('POST','/parties',{kind:'CLIENT',name:'Consolidated Client'}),vendor=await ok('POST','/parties',{kind:'VENDOR',name:'Consolidated Vendor'});
+ const ids=Object.fromEntries((await ok('GET','/money')).accounts.map(a=>[a.code,a.id]));
+ async function verify(label,changes){for(const [k,v] of Object.entries(changes))expected[k]+=k==='stock'?BigInt(v):cents(v);const actual={};
+  actual.stock=BigInt((await db('v1_stock').where({item_id:item.id}).first())?.quantity||0);const sj=await db('v1_stock_journal').where({item_id:item.id});assert.equal(sj.reduce((s,r)=>s+BigInt(r.delta),0n),expected.stock);
+  for(const [key,id] of [['client',client.id],['vendor',vendor.id]]){const rows=await db('v1_party_journal').where({party_id:id});const sum=rows.reduce((s,r)=>s+cents(r.debit)-cents(r.credit),0n);assert.equal(sum,expected[key],label+' journal '+key);actual[key]=cents((await ok('GET','/ledgers/'+id)).closing);}
+  const overview=await ok('GET','/money');for(const a of overview.accounts){actual[a.code]=cents(a.balance);const legs=await db('money_movements').where({account_id:a.id});assert.equal(legs.reduce((s,r)=>s+cents(r.delta),0n),expected[a.code],label+' movements '+a.code);}
+  actual.expense=cents((await ok('GET','/expense-reports')).overall);const reg=await ok('GET','/register');actual.sales=cents(reg.totals.netSales);const out={operation:label,expected:{},actual:{}};for(const k of Object.keys(expected)){assert.equal(actual[k],expected[k],label+' '+k);out.expected[k]=k==='stock'?String(expected[k]):money(expected[k]);out.actual[k]=k==='stock'?String(actual[k]):money(actual[k]);}comparisons.push(out);
+ }
+ // Explicit verified openings precede per-operation comparisons because unopened account balances are null.
+ await document({kind:'CLIENT_OPENING',partyId:client.id,amount:'10.11',direction:'OWED_TO_COMPANY'});await document({kind:'VENDOR_OPENING',partyId:vendor.id,amount:'20.22',direction:'OWED_BY_COMPANY'});await document({kind:'STOCK_OPENING',lines:[{itemId:item.id,quantity:'100',rate:'0'}]});
+ const opening={HARIS_CASH:'1000.31',JUNAID_CASH:'200.42',UBL_OFFICIAL:'3000.53',CHEQUES:'40.64'};for(const [code,amount] of Object.entries(opening))await ok('POST','/money/openings',{date,approved:true,reason:'Verified synthetic opening',accountId:ids[code],amount,reference:'B4-OPEN-'+code});
+ await verify('verified opening stock, parties and four holdings',{stock:'100',client:'10.11',vendor:'-20.22',...opening});
+ const production=await document({kind:'PRODUCTION',lines:[{itemId:item.id,quantity:'17',rate:'0'}]});await verify('finished bottle production',{stock:'17'});
+ const paid=await document({kind:'PURCHASE',partyId:vendor.id,method:'BANK_TRANSFER',moneyAccountId:ids.UBL_OFFICIAL,paidImmediately:true,reference:'B4-PAID',lines:[{itemId:item.id,quantity:'3',rate:'4.17'}]});await verify('paid purchase 3 x 4.17',{stock:'3',UBL_OFFICIAL:'-12.51'});
+ await document({kind:'PURCHASE',partyId:vendor.id,reference:'B4-CREDIT',lines:[{itemId:item.id,quantity:'5',rate:'4.19'}]});await verify('credit purchase 5 x 4.19',{stock:'5',vendor:'-20.95'});
+ const challan=await document({kind:'CHALLAN',partyId:client.id,reference:'B4-SALE',lines:[{itemId:item.id,quantity:'7',rate:'7.13'}]});await verify('delivery 7 x 7.13',{stock:'-7',client:'49.91',sales:'49.91'});
+ const sourceLine=await db('v1_lines').where({document_id:challan.id}).first();await document({kind:'CHALLAN_RETURN',partyId:client.id,originalId:challan.id,reason:'Synthetic accepted sales return',lines:[{originalLineId:String(sourceLine.id),itemId:item.id,quantity:'2',rate:'7.13'}]});await verify('permitted two bottle sales return',{stock:'2',client:'-14.26',sales:'-14.26'});
+ await document({kind:'STOCK_CORRECTION',correctsId:production.id,reason:'Verified synthetic damaged bottle',lines:[{itemId:item.id,quantity:'-1',rate:'0'}]});await verify('permitted documented stock correction',{stock:'-1'});
+ const partial=await document({kind:'CLIENT_PAYMENT',partyId:client.id,method:'CASH',moneyAccountId:ids.HARIS_CASH,amount:'13.27',reference:'B4-PARTIAL'});await verify('ordinary partial customer payment',{client:'-13.27',HARIS_CASH:'13.27'});
+ const full=await document({kind:'CLIENT_PAYMENT',partyId:client.id,method:'BANK_TRANSFER',moneyAccountId:ids.UBL_OFFICIAL,amount:'32.49',reference:'B4-FULL'});await verify('ordinary full remaining customer payment',{client:'-32.49',UBL_OFFICIAL:'32.49'});
+ const vp=await document({kind:'VENDOR_PAYMENT',partyId:vendor.id,method:'BANK_TRANSFER',moneyAccountId:ids.UBL_OFFICIAL,amount:'11.37',reference:'B4-VENDOR'});await verify('vendor payment',{vendor:'11.37',UBL_OFFICIAL:'-11.37'});
+ await ok('POST','/money/transfers',{date,approved:true,reason:'Synthetic actual transfer',fromAccountId:ids.HARIS_CASH,toAccountId:ids.JUNAID_CASH,amount:'23.41',reference:'B4-TRANSFER'});await verify('Haris to Junaid transfer',{HARIS_CASH:'-23.41',JUNAID_CASH:'23.41'});
+ const category=await ok('POST','/expense-masters/categories',{name:'Consolidated transport',employeeBased:true}),employee=await ok('POST','/expense-masters/employees',{name:'Synthetic Consolidated Employee'});
+ const ep={kind:'EXPENSE',date,categoryId:category.id,employeeId:employee.id,businessExpenseConfirmed:true,expensePurpose:'BUSINESS_EXPENSE',description:'Synthetic actual business transport',payee:'Synthetic transport supplier',method:'CASH',moneyAccountId:ids.JUNAID_CASH,amount:'5.43',reference:'B4-EXPENSE',paymentStatus:'PAID'};
+ const expense=await document(ep);await verify('employee-associated paid expense',{JUNAID_CASH:'-5.43',expense:'5.43'});
+ const originals=await db('v1_documents').where({status:'POSTED'}).orderBy('id'),beforeRefundStock=expected.stock,beforeRefundSales=expected.sales;
+ const refundInput=async id=>{const x=await ok('GET','/financial-refunds/review/'+id);return {originalId:x.originalId,originalVersion:x.originalVersion,sourceMoneyBatchId:x.sourceMoneyBatchId,date:today,type:'ACTUAL_FULL_REFUND',actualFundsReturned:true,reason:'Synthetic full funds returned',evidence:'Synthetic transfer evidence reviewed against original account',reference:'B4-REFUND-'+id};};
+ const refund=async id=>{const d=await ok('POST','/financial-refunds',await refundInput(id));return ok('POST','/financial-refunds/'+d.id+'/post',{version:1});};
+ await refund(partial.id);await verify('full customer refund of partial ordinary payment',{client:'13.27',HARIS_CASH:'-13.27'});
+ await refund(vp.id);await verify('full vendor returned payment',{vendor:'-11.37',UBL_OFFICIAL:'11.37'});
+ await refund(expense.id);await verify('full expense refund',{JUNAID_CASH:'5.43',expense:'-5.43'});assert.equal(expected.stock,beforeRefundStock);assert.equal(expected.sales,beforeRefundSales);
+ for(const original of originals)assert.deepEqual(await db('v1_documents').where({id:original.id}).first(),original);
+ const blockedBefore=JSON.stringify(await db('money_movements'));for(const id of [paid.id]){const x=await ok('GET','/financial-refunds/review/'+id);assert.equal(x.eligible,false);r=await request('POST','/financial-refunds',await refundInput(id));assert.equal(r.status,409);}assert.equal(JSON.stringify(await db('money_movements')),blockedBefore);
+ // Simulate a transport losing the successful response: discard it, retry same command key, compare all rows.
+ const retryDraft=await draft({...ep,date:today,amount:'0.07',reference:'B4-LOST-RESPONSE'}),retryKey=randomUUID();await ok('POST','/documents/'+retryDraft.id+'/post',{version:1},{key:retryKey});const afterCommit=JSON.stringify(await db('money_movements'));const replay=await ok('POST','/documents/'+retryDraft.id+'/post',{version:1},{key:retryKey});assert.equal(replay.id,retryDraft.id);assert.equal(JSON.stringify(await db('money_movements')),afterCommit);await verify('lost response then safe identical retry',{JUNAID_CASH:'-0.07',expense:'0.07'});
+ r=await request('POST','/documents/'+retryDraft.id+'/post',{version:999},{key:retryKey});assert.equal(r.status,409);
+ const over=await draft({kind:'CHALLAN',partyId:client.id,lines:[{itemId:item.id,quantity:'9999',rate:'7.13'}]});r=await request('POST','/documents/'+over.id+'/post',{version:1});assert.equal(r.status,409);await verify('unavailable stock rejected',{});
+ r=await request('POST','/money/transfers',{date:today,approved:true,reason:'No cheque funds',fromAccountId:ids.CHEQUES,toAccountId:ids.UBL_OFFICIAL,amount:'1.01',reference:'B4-NO-CHEQUE'});assert.equal(r.status,409);await verify('custody cannot become spendable funds',{});
+ const dated=await ok('GET','/expense-reports?from='+today+'&to='+today);assert.equal(dated.overall,'-5.36');const reg=await ok('GET','/register');assert.equal(reg.totals.expenseRefunds,'5.43');assert.equal(reg.totals.netExpenses,'0.07');
+ const reconciliation=await ok('GET','/reconciliation');assert.equal(reconciliation.matched,true);const proof=await helper('verifyExpense');assert.equal(proof.totalGuards,72);
+ const uatChecks=[];
+ const customBody={kind:'CHALLAN',date:today,partyId:client.id,customChallanNumber:'UPI-TEMP',reference:'Independent external reference',lines:[{itemId:item.id,quantity:'1',rate:'7.13'}]};
+ const customA=await draft(customBody);await ok('PATCH','/documents/'+customA.id,{...customBody,version:1,customChallanNumber:' ch-001 '});
+ const customB=await draft({...customBody,customChallanNumber:'CH-001'});
+ const duplicateResults=await Promise.all([request('POST','/documents/'+customA.id+'/post',{version:2}),request('POST','/documents/'+customB.id+'/post',{version:1})]);assert.deepEqual(duplicateResults.map(x=>x.status).sort(),[200,409]);const customPosted=duplicateResults.find(x=>x.status===200).body;
+ await verify('UAT1 one simultaneous custom-number claim',{stock:'-1',client:'7.13',sales:'7.13'});
+ const detail=await ok('GET','/documents/'+customPosted.id);assert.equal(detail.payload.customChallanNumber,'CH-001');assert.notEqual(detail.official_number,'CH-001');assert.equal(detail.payload.reference,'Independent external reference');
+ const customStored=JSON.stringify(await db('v1_documents').where({id:customPosted.id}).first());r=await request('PATCH','/documents/'+customPosted.id,{...customBody,version:detail.version,customChallanNumber:'UPI-CHANGED'});assert.equal(r.status,409);assert.equal(JSON.stringify(await db('v1_documents').where({id:customPosted.id}).first()),customStored);
+ const search=await ok('GET','/register?reference=ch-001');assert.equal(search.records.length,1);assert.equal(search.records[0].customChallanNumber,'CH-001');assert.equal((await ok('GET','/register?reference='+detail.official_number)).records[0].id,customPosted.id);
+ for(const number of ['UPI -001','UPІ-2026-001','DC-A0001','UPI--001']){r=await request('POST','/documents',{...customBody,customChallanNumber:number});assert.equal(r.status,400);}
+ uatChecks.push('custom number normalization, draft editing, company-wide concurrent posting claim, immutable official identity, independent reference and dual-number search');
+ const wrongPayee=await draft({...ep,date:today,amount:'0.13',payee:'Unintended external person',reference:'UAT1-DERIVED'});const derived=await ok('GET','/documents/'+wrongPayee.id);assert.equal(derived.payload.payee,'Synthetic Consolidated Employee');assert.equal(derived.payload.employeePayeeVersion,'uat1');
+ const tampered=JSON.parse((await db('v1_documents').where({id:wrongPayee.id}).first()).payload);tampered.payee='Unintended person';const originalDerived=derived.payload;await db('v1_documents').where({id:wrongPayee.id}).update({payload:JSON.stringify(tampered)});try{r=await request('POST','/documents/'+wrongPayee.id+'/post',{version:1});assert.equal(r.status,400);}finally{await db('v1_documents').where({id:wrongPayee.id}).update({payload:JSON.stringify(originalDerived)});}
+ await ok('PATCH','/expense-masters/employees/'+employee.id,{name:'Updated Synthetic Employee',version:1});r=await request('POST','/documents/'+wrongPayee.id+'/post',{version:1});assert.equal(r.status,400);await ok('PATCH','/documents/'+wrongPayee.id,{...ep,date:today,version:1,amount:'0.13',payee:'Not trusted',reference:'UAT1-DERIVED'});const corrected=await ok('GET','/documents/'+wrongPayee.id);assert.equal(corrected.payload.payee,'Updated Synthetic Employee');await ok('POST','/documents/'+wrongPayee.id+'/post',{version:2});await verify('UAT1 reviewed server-derived employee payee',{JUNAID_CASH:'-0.13',expense:'0.13'});
+ const ordinary=await ok('POST','/expense-masters/categories',{name:'Ordinary synthetic supplier',employeeBased:false});const ordinaryDraft=await draft({...ep,date:today,categoryId:ordinary.id,employeeId:undefined,businessExpenseConfirmed:undefined,payee:'',reference:'UAT1-ORDINARY'});r=await request('POST','/documents/'+ordinaryDraft.id+'/post',{version:1});assert.equal(r.status,400);r=await request('POST','/documents',{...ep,date:today,employeeId:'999999',payee:'Invented',reference:'UAT1-BAD-EMPLOYEE'});assert.equal(r.status,400);
+ uatChecks.push('new employee payee server derivation, forged draft rejection, stale employee review, immutable original snapshots and ordinary payee requirement');
+
+ // Read-only display correction of an already-posted custom challan. Internal IDs and references remain unchanged.
+ const beforeDisplay=JSON.stringify(await db('v1_documents').where({id:customPosted.id}).first());
+ const displayed=await ok('GET','/documents/'+customPosted.id);assert.equal(displayed.displayNumber,'CH-001');assert.equal(displayed.official_number,detail.official_number);
+ const generated=await ok('GET','/documents/'+challan.id);assert.equal(generated.official_number,'DC-0001');assert.equal(generated.displayNumber,undefined);
+ const customSearch=await ok('GET','/register?reference=ch-001');assert.equal(customSearch.records[0].displayReference,'CH-001');
+ const generatedSearch=await ok('GET','/register?reference='+detail.official_number);assert.equal(generatedSearch.records[0].id,customPosted.id);assert.equal(generatedSearch.records[0].displayReference,'CH-001');
+ assert.equal((await ok('GET','/register?reference=DC-0001')).records[0].id,challan.id);
+ assert.equal(JSON.stringify(await db('v1_documents').where({id:customPosted.id}).first()),beforeDisplay);
+ for(const forbidden of ['DC-0001','dc-0003','DC-A9999']){r=await request('POST','/documents',{...customBody,customChallanNumber:forbidden});assert.equal(r.status,400);}
+ const line=displayed.returnableLines[0];const linkedReturn=await document({kind:'CHALLAN_RETURN',date:today,originalId:customPosted.id,partyId:client.id,reason:'Synthetic UAT1A linked return',lines:[{originalLineId:line.id,itemId:line.item_id,quantity:'1',rate:line.rate}]});
+ await verify('UAT1A linked return retains original financial effects',{stock:'1',client:'-7.13',sales:'-7.13'});
+ const returnDetail=await ok('GET','/documents/'+linkedReturn.id);assert.equal(returnDetail.payload.originalId,customPosted.id);assert.equal(returnDetail.payload.originalReference,detail.official_number);assert.equal(returnDetail.originalDisplayNumber,'CH-001');
+ const registerReturn=(await ok('GET','/register')).records.find(x=>x.id===linkedReturn.id);assert.equal(registerReturn.originalReference,detail.official_number);assert.equal(registerReturn.originalDisplayReference,'CH-001');assert.ok(registerReturn.displayParticulars.includes('CH-001'));
+ const customLedger=await ok('GET','/ledgers/'+client.id+'?reference=ch-001');assert.equal(customLedger.records.length,2);assert.ok(customLedger.records.some(x=>x.displayReference==='CH-001'));assert.ok(customLedger.records.some(x=>x.originalDisplayReference==='CH-001'));
+ const internalLedger=await ok('GET','/ledgers/'+client.id+'?reference='+detail.official_number);assert.equal(internalLedger.records.length,2);
+ assert.equal(JSON.stringify(await db('v1_documents').where({id:customPosted.id}).first()),beforeDisplay);
+ uatChecks.push('single custom display identity, generated/draft fallback, both lookup paths, generated namespace rejection, immutable existing posted bytes and ID-linked return source presentation');
+ const uatReconciliation=await ok('GET','/reconciliation');assert.equal(uatReconciliation.matched,true);
+ await writeFile(dir+'/uath1-browser.json',JSON.stringify({customId:customPosted.id,customReturnId:linkedReturn.id,customNumber:'CH-001',officialNumber:detail.official_number,employeeExpenseId:wrongPayee.id,originalChallanId:challan.id,purchaseId:paid.id,expenseId:expense.id,refundId:(await db('v1_documents').where({kind:'FINANCIAL_REFUND',status:'POSTED'}).first()).id,clientId:client.id,vendorId:vendor.id,accountId:ids.UBL_OFFICIAL,categoryId:category.id,employeeId:employee.id,fullSourceId:full.id}));
+ await writeFile(evidence+'/uath1-base-contracts.json',JSON.stringify({passed:true,checks:uatChecks,concurrentCustomStatuses:duplicateResults.map(x=>x.status).sort(),schemaChanged:false,guardsChanged:false,reconciliation:uatReconciliation,verifiedUtc:new Date().toISOString()},null,2));
+
+ const snapshot=await helper('financialSnapshot');await writeFile(dir+'/synthetic-snapshot.json',JSON.stringify(snapshot));
+ const restoreSchema=schema+'_restore';await admin.raw('CREATE DATABASE ?? CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci',[restoreSchema]);const restored=await helper('financialRestore',{cipher:snapshot.cipher,keyPair:snapshot.keyPair},restoreSchema);assert.equal(restored.passed,true);await assert.rejects(helper('financialRestore',{cipher:snapshot.cipher,keyPair:snapshot.keyPair},restoreSchema));
+ for(const t of ['v1_stock','v1_stock_journal','v1_party_journal','money_movements','v1_documents']){const normalize=rows=>rows.map(x=>JSON.stringify(x)).sort();assert.deepEqual(normalize(await db(t)),normalize(await admin.withSchema(restoreSchema).from(t)));}
+ await runLaborScenario({dir,evidence,envPath,refundEnv,execute,schema,runtime,password,engine:e,db,admin,request,ok,draft,document,verify,ids,item,today,date});
+ await writeFile(dir+'/browser.json',JSON.stringify({envPath,cookies,csrf,fullSourceId:full.id,clientId:client.id,vendorId:vendor.id,accountId:ids.UBL_OFFICIAL,directory:dir,schema,runtime}));await writeFile('tmp/php-runtime/uath1-latest.json',JSON.stringify({directory:dir,schema,runtime}));
+ await writeFile(evidence+'/consolidated.json',JSON.stringify({passed:true,oracle:'Independent scenario constants and BigInt arithmetic; direct journal/movement sums plus PHP endpoints checked after each operation',comparisons,reconciliation,restored,guardProof:proof,gst:{status:'NOT APPLICABLE',reason:'Active PHP Simple V1 has no GST/non-GST ledger dimension; legacy Node GST modules are not used.'},lostResponseRetry:true,originalsPreserved:true,productionContacted:false,verifiedUtc:new Date().toISOString()},null,2));console.log(JSON.stringify({passed:true,operations:comparisons.length,restoredRows:restored.rows}));
+}finally{if(rt)await rt.destroy();if(db)await db.destroy();await admin.destroy();}

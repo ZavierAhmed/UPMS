@@ -1,0 +1,68 @@
+{
+  "passed": true,
+  "pdfs": [
+    {
+      "name": "employee-single",
+      "pages": 3,
+      "blankPages": 0,
+      "clippedCharacters": 0
+    },
+    {
+      "name": "employee-all",
+      "pages": 7,
+      "blankPages": 0,
+      "clippedCharacters": 0
+    },
+    {
+      "name": "employee-week",
+      "pages": 3,
+      "blankPages": 0,
+      "clippedCharacters": 0
+    },
+    {
+      "name": "hafta-payment",
+      "pages": 1,
+      "blankPages": 0,
+      "clippedCharacters": 0
+    },
+    {
+      "name": "client-weekly-statement",
+      "pages": 1,
+      "blankPages": 0,
+      "clippedCharacters": 0
+    }
+  ],
+  "exports": [
+    {
+      "name": "employee-single",
+      "rows": 41,
+      "formulaCells": 0,
+      "totalsCompared": true
+    },
+    {
+      "name": "employee-all",
+      "rows": 62,
+      "formulaCells": 0,
+      "totalsCompared": true
+    },
+    {
+      "name": "employee-week",
+      "rows": 37,
+      "formulaCells": 0,
+      "totalsCompared": true
+    },
+    {
+      "name": "client-weekly-statement",
+      "rows": 22,
+      "formulaCells": 0,
+      "totalsCompared": true
+    }
+  ],
+  "independentAlice": {
+    "earned": "108.35",
+    "paid": "96.00",
+    "closing": "12.35"
+  },
+  "syntheticOnly": true,
+  "productionContacted": false
+}

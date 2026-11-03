@@ -14,9 +14,19 @@ final class ExpenseController
         $service = new ExpenseMasters($db);
         if ($request->isMethod('GET')) {
             $result = $db->transaction(function () use ($request, $db, $commands, $service) {
-                $commands->operator($request->attributes->get('upms.session'));
+                [$user] = $commands->operator($request->attributes->get('upms.session'));
                 ExpenseSchema::ready($db);
-                return str_ends_with($request->path(), 'expense-reports') ? (new ExpenseReports($db))->generate($request->query()) : $service->directory();
+                $answer = str_ends_with($request->path(), 'expense-reports') ? (new ExpenseReports($db))->generate($request->query()) : $service->directory();
+                if (config('upms.employee_hafta_enabled', false) && !in_array('money.accounts.view', $user['permissions'], true)) {
+                    $redact = function ($value) use (&$redact) {
+                        if (!is_array($value)) {
+                            return $value;
+                        }unset($value['moneyAccountId'],$value['moneyAccountName']);
+                        return array_map($redact, $value);
+                    };
+                    $answer = $redact($answer);
+                }
+                return $answer;
             });
         } else {
             $id = $request->route('id');
@@ -30,6 +40,6 @@ final class ExpenseController
             }
             $result = $commands->run($request->attributes->get('upms.session'), $request->header('idempotency-key'), 'expense-master.'.$entity.':'.($id ?? 'new'), $input, fn ($user) => $service->save($entity, $id, $input, $user), fn () => ExpenseSchema::ready($db));
         }
-        return response()->json($result,$request->isMethod('POST') ? 201 : 200);
+        return response()->json($result, $request->isMethod('POST') ? 201 : 200);
     }
 }

@@ -124,6 +124,16 @@ final class Reconciliation
     public function run(): array
     {
         $mismatches = [];
+        $labor = null;
+        if (config('upms.employee_hafta_enabled', false)) {
+            EmployeeHaftaSchema::ready($this->db);
+            $labor = EmployeeHaftaReconciliation::run((new EmployeeHafta($this->db))->data());
+            $labor['commands'] = EmployeeHaftaReconciliation::commands((new EmployeeHafta($this->db))->data());
+            $labor['matched'] = $labor['matched'] && $labor['commands']['matched'];
+            if (!$labor['matched']) {
+                $mismatches[] = 'Employee labor source/audit mismatch';
+            }
+        }
         $docs = $this->db->rows('SELECT * FROM v1_documents ORDER BY id');
         $lines = $this->db->rows('SELECT * FROM v1_lines');
         $stock = $this->db->rows('SELECT * FROM v1_stock');
@@ -152,7 +162,7 @@ final class Reconciliation
         if (!$refunds['matched']) {
             $mismatches[] = 'Refund source/journal evidence mismatch';
         }
-        $integrity = Integrity::inspect($docs, $this->db->rows('SELECT * FROM v1_commands ORDER BY `key`'), $this->db->rows('SELECT id FROM users'), $this->db->rows('SELECT id,code FROM v1_items'), $this->db->rows('SELECT id FROM v1_parties'), $audit, $moneyBatches, $expenseAudit);
+        $integrity = Integrity::inspect($docs, $this->db->rows('SELECT * FROM v1_commands ORDER BY `key`'), $this->db->rows('SELECT id FROM users'), $this->db->rows('SELECT id,code FROM v1_items'), $this->db->rows('SELECT id FROM v1_parties'), $audit, $moneyBatches, $expenseAudit, $labor !== null ? (new EmployeeHafta($this->db))->data() : []);
         $integrityFindings = $integrity['findings'];
         foreach ($integrityFindings as $f) {
             if ($f['severity'] === 'error') {
@@ -384,6 +394,6 @@ final class Reconciliation
             }
         }
 
-        return [...($refunds['postedRefunds'] ? ['refunds' => $refunds] : []),...($expense !== null ? ['expense' => $expense] : []),'matched' => ! $mismatches, 'mismatches' => $mismatches, 'repairPerformed' => false, 'documents' => count(array_filter($docs, fn ($d) => $d['status'] === 'POSTED')), 'sourceLines' => count($lines), 'stockEntries' => count($movements), 'ledgerEntries' => count($journal), 'integrityFindings' => $integrityFindings, 'reviewRequired' => (bool) array_filter($integrityFindings, fn ($f) => $f['severity'] === 'warning'), 'authenticityVerified' => false];
+        return [...($labor !== null ? ['employeeLabor' => $labor] : []),...($refunds['postedRefunds'] ? ['refunds' => $refunds] : []),...($expense !== null ? ['expense' => $expense] : []),'matched' => ! $mismatches, 'mismatches' => $mismatches, 'repairPerformed' => false, 'documents' => count(array_filter($docs, fn ($d) => $d['status'] === 'POSTED')), 'sourceLines' => count($lines), 'stockEntries' => count($movements), 'ledgerEntries' => count($journal), 'integrityFindings' => $integrityFindings, 'reviewRequired' => (bool) array_filter($integrityFindings, fn ($f) => $f['severity'] === 'warning'), 'authenticityVerified' => false];
     }
 }

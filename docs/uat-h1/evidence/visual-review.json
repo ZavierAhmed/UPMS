@@ -1,0 +1,18 @@
+{
+  "renderedPages": 15,
+  "sheets": [
+    "tmp\\pdfs\\uath1-final\\review-1.png",
+    "tmp\\pdfs\\uath1-final\\review-2.png",
+    "tmp\\pdfs\\uath1-final\\review-3.png",
+    "tmp\\pdfs\\uath1-final\\review-4.png"
+  ],
+  "reviewed": true,
+  "pdfSha256": {
+    "output\\pdf\\uat-h1\\client-weekly-statement.pdf": "9a73891976f54b345cf38f5abc1b0e0b1383647090350fff4dd328393740d84a",
+    "output\\pdf\\uat-h1\\employee-all.pdf": "9608ba3200e327039143a4b0f462a556e8bee682495ea718d485f935c9f65d7a",
+    "output\\pdf\\uat-h1\\employee-single.pdf": "8ef8d10bc37056b8a729c7b6938191b0582222aa86e8f5affb8b263abd3352a8",
+    "output\\pdf\\uat-h1\\employee-week.pdf": "c451c25742d71b61c2346e3bbd5c963a976e0f1379e69d9b1bca81d96aa547fb",
+    "output\\pdf\\uat-h1\\hafta-payment.pdf": "42e1cf4dd977cc809e409479739b5ad34168e0f8212b00df21fbdb2785774e32"
+  },
+  "reviewNotes": "All 15 rendered Chrome pages inspected: repeated continuation headers, final totals/signatures, no blank/error pages, clipping or identity conflicts. Desktop/mobile popup also inspected."
+}

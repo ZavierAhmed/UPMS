@@ -1,0 +1,133 @@
+{
+  "passed": true,
+  "sourceSchema": "upms_test_php_money_1793684948467",
+  "restoreSchema": "upms_test_php_money_1793685975451998_restore",
+  "format": "UPMS_EMPLOYEE_HAFTA_SNAPSHOT_V1",
+  "proof": {
+    "schema": {
+      "passed": true,
+      "version": "uath1-v1",
+      "planHash": "56ee871967be3ec5ac3fb7208261767596fb20c03cb7abbef03bd19bededafcb",
+      "tables": 34
+    },
+    "guards": {
+      "passed": true,
+      "baseGuards": 45,
+      "additionalGuards": 15,
+      "totalGuards": 88,
+      "baseHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+      "moneyHash": "d8f7ac33816ec3884eda896981a5a9edbf09258be934a20e4a107a475bf72b58",
+      "definer": "php2_test_admin@127.0.0.1",
+      "definerPrivilegesVerified": false,
+      "expenseHash": "8eed17f4c38fb8c32c1f3bd51eb5f29827bad551f4547e4ef09c896b6be74c3b",
+      "laborHash": "14ff924c55c1172e39fe0c55e907c0fdbaedf1ed855b80c4fd4933528431903e",
+      "laborGuards": 16
+    }
+  },
+  "restored": {
+    "passed": true,
+    "format": "UPMS_EMPLOYEE_HAFTA_SNAPSHOT_V1",
+    "tables": 34,
+    "rows": 674,
+    "guards": {
+      "passed": true,
+      "baseGuards": 45,
+      "additionalGuards": 15,
+      "totalGuards": 88,
+      "baseHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+      "moneyHash": "d8f7ac33816ec3884eda896981a5a9edbf09258be934a20e4a107a475bf72b58",
+      "definer": "php2_test_admin@127.0.0.1",
+      "definerPrivilegesVerified": false,
+      "expenseHash": "8eed17f4c38fb8c32c1f3bd51eb5f29827bad551f4547e4ef09c896b6be74c3b",
+      "laborHash": "14ff924c55c1172e39fe0c55e907c0fdbaedf1ed855b80c4fd4933528431903e",
+      "laborGuards": 16
+    },
+    "reconciliation": {
+      "matched": true,
+      "financial": {
+        "matched": true,
+        "customChallanNumbers": {
+          "matched": true,
+          "findings": []
+        },
+        "refunds": {
+          "matched": true,
+          "findings": [],
+          "postedRefunds": 3,
+          "policyVersion": "p32b3-full-same-account-v1",
+          "authenticity": "Operator attestation and consistency evidence, not proof that physical funds moved or protection against fabricated SQL inserts."
+        },
+        "money": {
+          "matched": true,
+          "findings": [],
+          "balances": {
+            "1": "945.79",
+            "2": "163.63",
+            "3": "3015.51",
+            "4": "40.64"
+          },
+          "openings": {
+            "1": "2026-10-06",
+            "2": "2026-10-06",
+            "3": "2026-10-06",
+            "4": "2026-10-06"
+          },
+          "batches": 20,
+          "movements": 21,
+          "sourceCoverage": "Money batches plus canonical p32b1 document claims; historical V1 payments and expenses are not backfilled.",
+          "authenticity": "Shape and arithmetic consistency, not proof of physical funds or protection against fabricated SQL inserts."
+        },
+        "sources": {
+          "matched": true,
+          "findings": [],
+          "linkedDocuments": 11,
+          "historicalUnlinkedDocuments": 0,
+          "coverage": "Only p32b1-marked posted documents require canonical money effects. Historical documents are not backfilled."
+        },
+        "masters": {
+          "matched": true,
+          "findings": [],
+          "categories": 3,
+          "employees": 5,
+          "historyEvents": 12
+        },
+        "expenses": {
+          "matched": true,
+          "findings": [],
+          "mappedExpenses": 4,
+          "legacyUnmappedExpenses": 0
+        }
+      },
+      "labor": {
+        "matched": true,
+        "findings": [],
+        "balances": {
+          "2": "12.35",
+          "3": "10005.00"
+        },
+        "earnings": 32,
+        "payments": 4,
+        "openings": 2,
+        "authenticityVerified": false,
+        "coverage": "Canonical source/snapshot/arithmetic/audit consistency; not proof of physical funds or protection against fabricated consistent SQL inserts."
+      },
+      "commands": {
+        "matched": true,
+        "findings": []
+      }
+    },
+    "oldConsumerRejected": true
+  },
+  "negativeTests": {
+    "wrong recipient": true,
+    "corrupted ciphertext": true,
+    "altered earning amount": true,
+    "altered earning employee_id": true,
+    "altered earning quantity": true,
+    "duplicate earning": true,
+    "missing settlement": true
+  },
+  "archivePrivate": true,
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-03T06:06:23.250Z"
+}

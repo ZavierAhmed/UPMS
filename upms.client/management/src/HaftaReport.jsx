@@ -7,10 +7,10 @@ import './hafta-report.css';
 const money = v => v === null ? 'UNVERIFIED' : v;
 export function HaftaBlocks({report, paper='A4'}) {
   return <div className={'hafta-output paper-'+paper}><style media="print">{'@page { size: '+(paper==='A3'?'A3':'A4')+' landscape; margin: 10mm; }'}</style>
-    <div className="hafta-legend"><strong>HAFTA · {report.from} to {report.to} · PKR</strong><p>TOTAL = gross weekly sales − recorded bill discounts − return credits. Return AMOUNT is net credit after the original discount; RATE stays historical. ADVANCE is not separately classified. Receipts and reversals are separate. BALANCE = verified opening + all signed journal movements; a negative balance means company owes client.</p>{report.sourceLimitations.map(s=><p key={s}>{s}</p>)}</div>
+    <div className="hafta-legend"><strong>Client Weekly Statement · {report.from} to {report.to} · PKR</strong><p>TOTAL = gross weekly sales − recorded bill discounts − return credits. Return AMOUNT is net credit after the original discount; RATE stays historical. ADVANCE is not separately classified. Receipts and reversals are separate. BALANCE = verified opening + all signed journal movements; a negative balance means company owes client.</p>{report.sourceLimitations.map(s=><p key={s}>{s}</p>)}</div>
     {!report.blocks.length && <p className="empty-state">No clients match this selection.</p>}
-    <div className="hafta-grid">{report.blocks.map(b=><article className="hafta-block" key={b.partyId} aria-label={'Hafta · '+b.partyName}>
-      <header><img src={logo} alt="Unique Plastic Industry"/><div><strong>HAFTA</strong><p>{report.from} — {report.to}</p></div></header>
+    <div className="hafta-grid">{report.blocks.map(b=><article className="hafta-block" key={b.partyId} aria-label={'Client Weekly Statement · '+b.partyName}>
+      <header><img src={logo} alt="Unique Plastic Industry"/><div><strong>Client Weekly Statement</strong><p>{report.from} — {report.to}</p></div></header>
       <h2>{b.partyName}</h2><p className="hafta-classification">{b.partyKind} · {b.classification}</p>
       {b.warnings.map(w=><p className="hafta-warning" key={w}>{w}</p>)}
       <table><caption className="sr-only">{b.partyName} weekly posted records</caption><colgroup><col className="hafta-day"/><col className="hafta-description"/><col className="hafta-qty"/><col className="hafta-rate"/><col className="hafta-amount"/></colgroup><thead><tr className="hafta-print-context"><th colSpan="5">{b.partyName} · {report.from} — {report.to}</th></tr><tr>{['DAY','DESCRIPTION','QTY','RATE','AMOUNT'].map(h=><th key={h}>{h}</th>)}</tr></thead><tbody>
@@ -38,8 +38,8 @@ export function HaftaReport({api, clients}) {
   },[filters,selectedOnly]);
   function update(next) {setReport(null);setFilters(next);history.replaceState(history.state,'',location.pathname+'?'+new URLSearchParams({report:'hafta',...next,paper}));}
   const selected=filters.parties?filters.parties.split(','):[];
-  const exportExcel=()=>{const w=haftaWorkbook(report);exportWorkbook('Hafta',w.columns,w.rows,w.metadata);};
-  return <section className="hafta-report"><h1 className="no-print">Hafta Report · client weekly statement</h1><p className="no-print">This is a client sales/payment statement. <a href="/management/expense-reports?week=1">Review weekly business expenses separately</a>.</p>
+  const exportExcel=()=>{const w=haftaWorkbook(report);exportWorkbook('Client Weekly Statement',w.columns,w.rows,w.metadata);};
+  return <section className="hafta-report"><h1 className="no-print">Client Weekly Statement</h1><p className="no-print">This is a client sales/payment statement. <a href="/management/expense-reports?week=1">Review weekly business expenses separately</a>.</p>
     <div className="hafta-controls no-print">
       <label>Week containing<input type="date" value={filters.from} onChange={e=>{if(e.target.value)update({...filters,...weekRange(e.target.value)});}}/></label>
       <label>From<input type="date" value={filters.from} onChange={e=>update({...filters,from:e.target.value})}/></label>

@@ -1,0 +1,67 @@
+{
+  "passed": true,
+  "baseline": "7c8e6184c4be16ed33adb03b71d47fac9b2a53fd",
+  "php": {
+    "runtime": "8.3.36",
+    "tests": 160,
+    "assertions": 1894,
+    "unitTests": 106,
+    "unitAssertions": 1422
+  },
+  "react": {
+    "tests": 272,
+    "files": 38,
+    "passed": true
+  },
+  "eslint": true,
+  "managementBuild": true,
+  "pintChangedPhp": true,
+  "regressions": {
+    "foundation": {
+      "passed": true,
+      "checks": 28
+    },
+    "documents": {
+      "passed": true,
+      "checks": 28
+    },
+    "expenses": {
+      "passed": true,
+      "checks": 28
+    },
+    "refunds": {
+      "passed": true,
+      "checks": 26
+    }
+  },
+  "pricing": {
+    "http": 83,
+    "snapshots": 4
+  },
+  "laborGroups": 13,
+  "browser": {
+    "requests": 154,
+    "pdfs": 5,
+    "exports": 4,
+    "screenshots": 12
+  },
+  "recovery": {
+    "tables": 34,
+    "guards": 88,
+    "rows": 674
+  },
+  "visualPages": 15,
+  "checks": {
+    "labor-integration.json": true,
+    "browser.json": true,
+    "final-recovery.json": true,
+    "owner-preservation.json": true,
+    "print-verification.json": true,
+    "money-detail-authorization.json": true,
+    "pricing-regression.json": true
+  },
+  "productionContacted": false,
+  "originalOwnerUnchanged": true,
+  "interactiveOwnerStartup": "SYNTAX_CHECKED_OWNER_PASSWORD_SELECTION_PENDING",
+  "verifiedUtc": "2026-11-03T06:15:24.977082+00:00"
+}

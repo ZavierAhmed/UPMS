@@ -269,7 +269,7 @@ final class MoneyAccounts
                 $from = $p['accountId'];
             }$sourceType = 'EXTERNAL';
             $sourceKey = self::sourceKey($p['reference']);
-            if (str_starts_with(mb_strtolower($p['reference']), 'upms-doc:')) {
+            if (str_starts_with(mb_strtolower($p['reference']), 'upms-doc:') || str_starts_with(mb_strtolower($p['reference']), 'upms-labor:')) {
                 self::fail('MONEY_RESERVED_SOURCE', 'UPMS document references are posted only by their original business workflow.');
             }
             if ($this->db->one("SELECT id FROM v1_documents WHERE status='POSTED' AND (official_number=? OR JSON_UNQUOTE(JSON_EXTRACT(payload,'$.reference'))=? OR JSON_UNQUOTE(JSON_EXTRACT(payload,'$.chequeReference'))=?) LIMIT 1", [$p['reference'],$p['reference'],$p['reference']])) {
@@ -280,7 +280,7 @@ final class MoneyAccounts
                 self::fail('INVALID_MONEY_BATCH', 'Choose an original movement.', 400);
             }
             $original = $this->db->one('SELECT * FROM money_batches WHERE id=?', [$p['batchId']]);
-            if (!$original || $original['source_type'] === 'DOCUMENT' || !in_array($original['kind'], ['TRANSFER','SOURCE_CREDIT','SOURCE_DEBIT'], true) || $p['date'] < $original['date']) {
+            if (!$original || $original['source_type'] === 'DOCUMENT' || str_starts_with(strtolower($original['source_ref']), 'upms-labor:') || !in_array($original['kind'], ['TRANSFER','SOURCE_CREDIT','SOURCE_DEBIT'], true) || $p['date'] < $original['date']) {
                 self::fail('MONEY_REVERSAL_NOT_ALLOWED', 'Only an original standalone transfer or external movement can be reversed. Linked business corrections and opening corrections require separately reviewed workflows.');
             }
             $kind = 'REVERSAL';
@@ -303,6 +303,14 @@ final class MoneyAccounts
         (new MoneyDocuments($this->db))->account($p);
         $credit = MoneyDocuments::credit($p);
         return $this->append(['amount' => $amount,'date' => $p['date'],'reference' => 'UPMS-DOC:'.$d['id'],'reason' => 'Linked '.$p['kind'].' document '.$d['id']], $credit ? 'SOURCE_CREDIT' : 'SOURCE_DEBIT', $credit ? null : $p['moneyAccountId'], $credit ? $p['moneyAccountId'] : null, null, null, 'DOCUMENT', self::sourceKey((string)$d['id']), $user);
+    }
+    public function postLabor(string $id, array $p, array $user): array
+    {
+        if (!$this->db->pdo()->inTransaction() || !config('upms.employee_hafta_enabled', false) || !preg_match('/^[a-f0-9-]{36}$/D', $id)) {
+            throw new \LogicException('LABOR_TRANSACTION_REQUIRED');
+        }
+        $source = 'UPMS-LABOR:'.$id;
+        return $this->append(['amount' => $p['amount'],'date' => $p['date'],'reference' => $source,'reason' => $p['reason']], 'SOURCE_DEBIT', $p['moneyAccountId'], null, null, null, 'EXTERNAL', self::sourceKey($source), $user);
     }
     private function append(array $p, string $kind, ?string $from, ?string $to, ?string $opening, ?string $corrects, string $sourceType, string $sourceKey, array $user): array
     {

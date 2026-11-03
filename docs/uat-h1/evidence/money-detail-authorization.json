@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "paymentAccountAndBatchRedacted": true,
+  "moneyApiDenied": true,
+  "laborBalanceStillVisible": true,
+  "productionContacted": false
+}

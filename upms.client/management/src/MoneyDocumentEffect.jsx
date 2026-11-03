@@ -11,6 +11,7 @@ export function MoneyAccountField({payload,amount,accounts=[],value,onChange,err
 }
 export function MoneyDocumentEffect({detail,accounts=[]}){
  if(!detail.moneyIntegrationEnabled)return null;
+ if(detail.moneyMovementRedacted)return <p>Money-account detail access is not granted.</p>;
  const p=detail.payload,m=detail.moneyMovement,effect=moneyEffect(p,detail.status==='POSTED'?detail.total:documentMoneyAmount(detail),accounts);
  if(m)return <section className="money-document-effect"><h3>Linked money movement</h3><p>{m.accountName} · PKR {m.amount} · MA-{String(m.id).padStart(6,'0')}</p><a href={'/management/money-accounts?view=statement&account='+(m.from_account_id||m.to_account_id)}>View corresponding money movement</a></section>;
  if(detail.status==='POSTED')return <p>Historical document: no money-account allocation was inferred or backfilled.</p>;

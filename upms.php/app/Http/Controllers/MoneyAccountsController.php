@@ -13,7 +13,10 @@ final class MoneyAccountsController
     {
         if ($request->method() === 'GET') {
             $result = $db->transaction(function () use ($request, $commands, $money, $db) {
-                $commands->operator($request->attributes->get('upms.session'));
+                [$user] = $commands->operator($request->attributes->get('upms.session'));
+                if (config('upms.employee_hafta_enabled', false)) {
+                    \App\Upms\EmployeeHafta::permit($user, 'money.accounts.view');
+                }
                 MoneySchema::ready($db);
                 return $request->route('id') !== null ? $money->statement($request->route('id'), $request->query()) : $money->overview();
             });
@@ -24,6 +27,9 @@ final class MoneyAccountsController
         };
         $input = json_decode($request->getContent(), false, 512, JSON_THROW_ON_ERROR);
         $r = $commands->run($request->attributes->get('upms.session'), $request->header('idempotency-key'), 'money.'.$operation, $input, function ($user) use ($money, $input, $operation) {
+            if (config('upms.employee_hafta_enabled', false)) {
+                \App\Upms\EmployeeHafta::permit($user, 'money.accounts.view');
+            }
             if (!is_object($input)) {
                 throw new ApiError(400, 'INVALID_INPUT');
             }return $money->post($operation, $input, $user);

@@ -38,11 +38,12 @@ final class V1Input
         ]);
     }
 
-    public static function document(object $input, bool $moneyEnabled = false, bool $expenseEnabled = false): array
+    public static function document(object $input, bool $moneyEnabled = false, bool $expenseEnabled = false, bool $laborEnabled = false): array
     {
         $errors = [];
         $aborted = false;
         $parsed = self::parse($input, [
+            ...($laborEnabled ? ['productionEmployeeId' => ['id','optional']] : []),
             ...($expenseEnabled ? ['categoryId' => ['id','optional'],'employeeId' => ['id','optional'],'businessExpenseConfirmed' => ['bool','optional'],'expensePurpose' => ['enum',['BUSINESS_EXPENSE'],'optional']] : []),
             ...($moneyEnabled ? ['moneyAccountId' => ['id', 'optional']] : []),
             'kind' => ['enum', array_keys(SimpleV1::EVENTS)], 'date' => ['date'], 'partyId' => ['id', 'nullable', 'default', null], 'originalId' => ['id', 'optional'],
@@ -53,7 +54,7 @@ final class V1Input
             'paymentStatus' => ['enum', ['PAID'], 'optional'], 'direction' => ['enum', ['OWED_TO_COMPANY', 'OWED_BY_COMPANY'], 'optional'], 'method' => ['enum', ['CASH', 'BANK_TRANSFER', 'CHEQUE_RECEIVED'], 'optional'],
             'chequeReference' => ['text', 150, 0, 'default', ''], 'correctsId' => ['id', 'optional'], 'vehicle' => ['text', 100, 0, 'default', ''], 'driver' => ['text', 100, 0, 'default', ''],
             'time' => ['time', 5, 0, 'default', ''], 'address' => ['text', 1000, 0, 'default', ''], 'paidImmediately' => ['bool', 'default', false], 'lines' => ['lines', 'default', []],
-        ], parentErrors: $errors, aborted: $aborted);
+        ], parentErrors: $errors, aborted: $aborted, laborEnabled: $laborEnabled);
         if (!$aborted && in_array($parsed['kind'], ['STOCK_CORRECTION', 'PAYMENT_REVERSAL', 'OPENING_CORRECTION'], true) && strlen(mb_convert_encoding($parsed['reason'], 'UTF-16LE', 'UTF-8')) / 2 < 3) {
             self::issue($errors, 'reason');
         }
@@ -87,7 +88,7 @@ final class V1Input
         $errors[$path ?: 'form'] = (self::LABELS[$last] ?? 'Field').' is missing or invalid. Please check this field.';
     }
 
-    private static function parse(object $input, array $schema, string $prefix = '', bool $strict = true, ?array &$parentErrors = null, ?bool &$aborted = null): array
+    private static function parse(object $input, array $schema, string $prefix = '', bool $strict = true, ?array &$parentErrors = null, ?bool &$aborted = null, bool $laborEnabled = false): array
     {
         $aborted ??= false;
         $errors = [];
@@ -168,7 +169,10 @@ final class V1Input
                                 $aborted = true;
                                 continue;
                             }
-                            $lines[] = self::parse($line, ['itemId' => ['id'], 'originalLineId' => ['id', 'optional'], 'quantity' => ['string'], 'rate' => ['string', 'default', '0'], 'reviewedItemVersion' => ['version', 'optional']], $path.'.'.$i.'.', false, $errors, $aborted);
+                            if (!$laborEnabled && (isset($line->laborRate) || isset($line->laborZeroConfirmed))) {
+                                self::field($path.'.'.$i.'.laborRate', 'Employee Hafta is disabled.', 'EMPLOYEE_HAFTA_DISABLED');
+                            }
+                            $lines[] = self::parse($line, [...($laborEnabled ? ['laborRate' => ['string','optional'],'laborZeroConfirmed' => ['bool','optional']] : []),'itemId' => ['id'], 'originalLineId' => ['id', 'optional'], 'quantity' => ['string'], 'rate' => ['string', 'default', '0'], 'reviewedItemVersion' => ['version', 'optional']], $path.'.'.$i.'.', false, $errors, $aborted, $laborEnabled);
                         }
                         $v = $lines;
                     }

@@ -19,7 +19,7 @@ final class Integrity
         return is_string($v) && preg_match('/^(?!0000)(\d{4})-(\d{2})-(\d{2})$/D', $v, $m) && checkdate((int) $m[2], (int) $m[3], (int) $m[1]);
     }
 
-    public static function inspect(array $docs, array $commands, array $users, array $items, array $parties, array $audit = [], array $moneyBatches = [], array $expenseAudit = []): array
+    public static function inspect(array $docs, array $commands, array $users, array $items, array $parties, array $audit = [], array $moneyBatches = [], array $expenseAudit = [], array $laborData = []): array
     {
         $findings = $invalid = $receipts = $keys = [];
         $add = function ($code, $entity, $id, $field, $message, $severity = 'error') use (&$findings, &$invalid): void {
@@ -132,6 +132,12 @@ final class Integrity
             }
             try {
                 $r = json_decode($c['result'], false, 512, JSON_THROW_ON_ERROR);
+                if ($r instanceof \stdClass && property_exists($r, 'employeeHaftaVersion')) {
+                    if (!EmployeeHafta::validReceipt($r, (string)$c['actor_id'], $laborData)) {
+                        $add('COMMAND_LABOR_RESULT_INVALID', 'command', $key, 'result', 'Labor receipt must exactly match its immutable opening/settlement hash, source money batch and posting actor.');
+                    }
+                    continue;
+                }
                 if (! $r instanceof \stdClass || ! self::id($r->id ?? null)) {
                     throw new \RuntimeException();
                 }
