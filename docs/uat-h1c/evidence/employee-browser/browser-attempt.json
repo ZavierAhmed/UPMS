@@ -1,0 +1,740 @@
+{
+  "errors": [],
+  "responses": [
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/current",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/expense-directory",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/employee-hafta",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/expense-directory",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/employee-hafta",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/current",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/expense-directory",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/stock-readiness",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/expense-masters/employees",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents/62",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/stock-readiness",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/expense-directory",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/current",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/current",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/current",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/current",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/employee-hafta",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/expense-directory",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/employee-hafta/payments",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/expense-directory",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/employee-hafta/payments/900d0ee9-6ce3-5ae7-8d2c-220a67904015",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/current",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/expense-directory",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/employee-hafta",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/current",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/employee-hafta",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/expense-directory",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/current",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/employee-hafta",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/expense-directory",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/current",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/expense-directory",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/employee-hafta/payments/900d0ee9-6ce3-5ae7-8d2c-220a67904015",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/session/current",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/hafta",
+      "status": 200
+    }
+  ]
+}

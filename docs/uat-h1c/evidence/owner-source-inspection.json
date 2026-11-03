@@ -1,0 +1,19 @@
+{
+  "readOnly": true,
+  "sources": [
+    {
+      "id": "3",
+      "amount": "1200.00",
+      "date": "2026-11-03",
+      "employeeId": "1",
+      "employeeName": "Ahmed",
+      "retainedEmployeeSnapshot": true,
+      "businessPurpose": "BUSINESS_EXPENSE",
+      "canonicalBatchCount": 1,
+      "moneyVersion": "p32b1",
+      "refundCount": 0
+    }
+  ],
+  "administratorCredentialsRead": false,
+  "productionContacted": false
+}

@@ -85,8 +85,15 @@ final class ExpenseReports
                 $claims[substr($b['source_ref'], 9)] = $b;
             }
         }
+        $allocations = LaborExtensionSchema::enabled() ? array_column($this->db->rows('SELECT * FROM labor_expense_allocations'), null, 'expense_id') : [];
         $records = [];
+        $reportDocuments = [];
         foreach ($documents as $d) {
+            $a = $allocations[$d['id']] ?? null;
+            $reportDocuments[] = [$d, $a, false];
+            if ($a) { $adjustment = $d; $adjustment['date'] = $a['date']; $reportDocuments[] = [$adjustment, $a, true]; }
+        }
+        foreach ($reportDocuments as [$d,$allocation,$adjustment]) {
             $p = SimpleV1::payload($d);
             $mapped = isset($p['expenseMasterVersion']);
             $category = $mapped ? $p['categorySnapshot'] : null;
@@ -96,9 +103,10 @@ final class ExpenseReports
             if ((isset($filters['from']) && $d['date'] < $filters['from']) || (isset($filters['to']) && $d['date'] > $filters['to']) || (!empty($input['categoryId']) && $input['categoryId'] !== ($category['id'] ?? 'legacy')) || (!empty($input['employeeId']) && $input['employeeId'] !== ($employee['id'] ?? 'none')) || (!empty($input['moneyAccountId']) && $input['moneyAccountId'] !== $account)) {
                 continue;
             }
-            $records[] = ['documentId' => (string)$d['id'],'reference' => $p['reference'],'date' => $d['date'],'categoryId' => $category['id'] ?? null,'categoryName' => $category['name'] ?? 'Legacy / unmapped','legacyCategory' => $mapped ? null : $p['category'],'employeeId' => $employee['id'] ?? null,'employeeName' => $employee['name'] ?? null,'description' => $p['description'],'payee' => $p['payee'],'amount' => $d['kind'] === FinancialCorrections::KIND ? '-'.$d['total'] : $d['total'],...($d['kind'] === FinancialCorrections::KIND ? ['kind' => FinancialCorrections::KIND,'originalDocumentId' => $p['originalId']] : []),'method' => $p['method'],'moneyAccountId' => $account,'moneyAccountName' => array_values(array_filter($money, fn ($a) => $a['id'] === $account))[0]['name'] ?? null];
+            $records[] = [...($allocation ? ['laborAllocationId' => (string)$allocation['id'],'classificationDate' => $allocation['date'],'rowKey' => ($adjustment ? 'allocation-' : 'expense-').$d['id'],'classification' => $adjustment ? 'HAFTA_NONCASH_CLASSIFICATION' : 'ORIGINAL_CASH_APPLIED_TO_HAFTA'] : []),'documentId' => (string)$d['id'],'reference' => $p['reference'],'date' => $d['date'],'categoryId' => $category['id'] ?? null,'categoryName' => $category['name'] ?? 'Legacy / unmapped','legacyCategory' => $mapped ? null : $p['category'],'employeeId' => $employee['id'] ?? null,'employeeName' => $employee['name'] ?? null,'description' => ($adjustment ? 'Noncash Hafta classification: ' : '').$p['description'],'payee' => $p['payee'],'amount' => ($adjustment || $d['kind'] === FinancialCorrections::KIND) ? '-'.$d['total'] : $d['total'],...($d['kind'] === FinancialCorrections::KIND ? ['kind' => FinancialCorrections::KIND,'originalDocumentId' => $p['originalId']] : []),'method' => $p['method'],'moneyAccountId' => $account,'moneyAccountName' => array_values(array_filter($money, fn ($a) => $a['id'] === $account))[0]['name'] ?? null];
         }
+        usort($records, fn ($a,$b) => strcmp($a['date'],$b['date']) ?: strcmp($a['rowKey'] ?? $a['documentId'],$b['rowKey'] ?? $b['documentId']));
         $refundCount = count(array_filter($records, fn ($r) => ($r['kind'] ?? '') === FinancialCorrections::KIND));
-        return [...($refundCount ? ['refundsCount' => $refundCount,'expenseCoverage' => 'Signed rows: original paid expenses positive; evidenced full refunds negative. Originals remain visible.'] : []),'company' => 'Unique Plastic Industry','currency' => 'PKR','filters' => $input,'records' => $records,...self::summarize($records),'coverage' => 'Posted paid business expenses only. Legacy categories are unmapped; historical names are retained. This is not payroll or a profit-and-loss report.','snapshotReconciliation' => $evidence,'draftsExcluded' => (int)$this->db->one("SELECT COUNT(*) n FROM v1_documents WHERE kind='EXPENSE' AND status='DRAFT'")['n']];
+        return [...($refundCount ? ['refundsCount' => $refundCount,'expenseCoverage' => 'Signed rows: original paid expenses positive; evidenced full refunds negative. Originals remain visible.'] : []),'company' => 'Unique Plastic Industry','currency' => 'PKR','filters' => $input,'records' => $records,...self::summarize($records),...(LaborExtensionSchema::enabled() ? ['classificationPolicy' => 'Original expense remains positive on its original date. Approved Hafta allocations add a signed negative noncash classification adjustment on the selected effective date. They do not represent refunds or new cash movements.'] : []), 'coverage' => 'Posted paid business expenses only. Legacy categories are unmapped; historical names are retained. This is not payroll or a profit-and-loss report.','snapshotReconciliation' => $evidence,'draftsExcluded' => (int)$this->db->one("SELECT COUNT(*) n FROM v1_documents WHERE kind='EXPENSE' AND status='DRAFT'")['n']];
     }
 }

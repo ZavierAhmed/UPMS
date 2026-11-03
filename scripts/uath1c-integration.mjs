@@ -1,0 +1,61 @@
+import assert from 'node:assert/strict';
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {randomUUID,createHash} from 'node:crypto';
+import knex from 'knex';
+import {provisionClassifiedWorkspace,extensionHelper} from './uath1c-workspace.mjs';
+import {phpBridge} from './uath1-preview.mjs';
+
+const fixture=await provisionClassifiedWorkspace(),{binding,envPath}=fixture;
+const engine=JSON.parse(await readFile('tmp/php-runtime/php2-engine.json','utf8'));
+const db=knex({client:'mysql2',connection:{host:'127.0.0.1',port:3330,database:binding.schema,user:'php2_test_admin',password:engine.password,dateStrings:true},pool:{min:0,max:1}});
+const evidence='docs/uat-h1c/evidence';await mkdir(evidence,{recursive:true});const checks=[];
+let cookies={},csrf='';
+async function call(method,path,body,options={}) {
+ const r=await phpBridge(options.envPath||envPath,{method,path:'/api/v1/management'+path,cookies:options.anonymous?{}:cookies,headers:{...(method!=='GET'?{origin:'https://app.unique-plastic.test','x-csrf-token':csrf,'idempotency-key':options.key||randomUUID()}:{}),...options.headers},raw:method==='GET'?null:JSON.stringify(body??{})});
+ r.body=r.raw?JSON.parse(r.raw):null;if(!options.anonymous){Object.assign(cookies,r.cookies);if(r.body?.csrfToken)csrf=r.body.csrfToken;}return r;
+}
+const request=(method,path,body,options)=>call(method,'/simple-v1'+path,body,options);
+const ok=async(method,path,body,options)=>{const r=await request(method,path,body,options);assert.ok([200,201].includes(r.status),path+' '+JSON.stringify(r.body));return r.body;};
+const deny=async(method,path,body,status=409,options)=>{const r=await request(method,path,body,options);assert.equal(r.status,status,path+' '+JSON.stringify(r.body));return r;};
+const draft=body=>ok('POST','/documents',body);
+const document=async body=>{const d=await draft(body),detail=await ok('GET','/documents/'+d.id);return ok('POST','/documents/'+d.id+'/post',{version:detail.version});};
+const fingerprint=async(tables)=>{const data={};for(const t of tables)data[t]=(await db(t)).map(r=>JSON.stringify(r)).sort();return createHash('sha256').update(JSON.stringify(data)).digest('hex');};
+const today=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Karachi',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+try {
+ await call('GET','/session/csrf');assert.equal((await call('POST','/session/login',{username:'php-admin',password:fixture.password})).status,200);fixture.password='';
+ assert.equal((await ok('GET','/state')).laborClassificationEnabled,true);
+ const employee=await ok('POST','/expense-masters/employees',{name:'Ahmed synthetic H1C'});
+ const item=await ok('POST','/items',{description:'H1C first production bottle',sellingPrice:'7.00'});
+ await ok('POST','/employee-hafta/openings',{employeeId:employee.id,date:today,amount:'0.00',reference:'H1C-REVIEWED-OPENING',reason:'Reviewed synthetic no earlier wages',approved:true});
+ const production=await draft({kind:'PRODUCTION',date:today,reference:'H1C-FIRST-200',productionEmployeeId:employee.id,lines:[{itemId:item.id,quantity:'200',rate:'0',laborRate:'10.00'}]});
+ const detail=await ok('GET','/documents/'+production.id),post={version:detail.version,initialStockOpenings:[{itemId:item.id,date:today,confirmed:true}]};
+ const before=await fingerprint(['v1_documents','v1_stock_journal','labor_earnings','stock_initializations']);
+ await deny('POST','/documents/'+production.id+'/post',{...post,initialStockOpenings:[{itemId:item.id,date:today,confirmed:false}]},400);
+ assert.equal(await fingerprint(['v1_documents','v1_stock_journal','labor_earnings','stock_initializations']),before);
+ const key=randomUUID(),receipts=await Promise.all([ok('POST','/documents/'+production.id+'/post',post,{key}),ok('POST','/documents/'+production.id+'/post',post,{key})]);assert.deepEqual(receipts[0],receipts[1]);
+ assert.equal(receipts[0].operation,'FIRST_PRODUCTION');assert.equal((await db('v1_stock').where({item_id:item.id}).first()).quantity,'200');assert.equal((await db('stock_initializations')).length,1);
+ checks.push('Explicit first production zero opening and production committed atomically; exact concurrent idempotent retry has one stock/earning effect; missing confirmation has no mutation');
+ const report=()=>ok('GET','/employee-hafta?'+new URLSearchParams({employeeId:employee.id,from:today,to:today}));assert.equal((await report()).blocks[0].closing,'2000.00');
+ const overview=await ok('GET','/money'),account=overview.accounts.find(a=>a.code==='HARIS_CASH');
+ await ok('POST','/money/openings',{date:today,approved:true,reason:'Verified synthetic opening funds',accountId:account.id,amount:'5000.00',reference:'H1C-CASH-OPEN'});
+ const category=await ok('POST','/expense-masters/categories',{name:'Synthetic employee payment review',employeeBased:true});
+ const expense=await document({kind:'EXPENSE',date:today,amount:'1200.00',paymentStatus:'PAID',method:'CASH',moneyAccountId:account.id,categoryId:category.id,employeeId:employee.id,businessExpenseConfirmed:true,expensePurpose:'BUSINESS_EXPENSE',description:'Existing synthetic employee cash payment',reference:'H1C-EXISTING-1200',payee:''});
+ assert.equal((await report()).blocks[0].closing,'2000.00');
+ const immutable=await fingerprint(['v1_documents','money_batches','money_movements','money_audit','v1_stock_journal','v1_party_journal']);
+ const candidates=await ok('GET','/employee-hafta/expense-allocations?employeeId='+employee.id);assert.equal(candidates.records[0].eligible,true,JSON.stringify(candidates));
+ const allocate={expenseId:expense.id,employeeId:employee.id,date:today,reason:'Administrator approved existing cash as earned labor settlement',approved:true};
+ await deny('POST','/employee-hafta/expense-allocations',{...allocate,approved:false},400);
+ await deny('POST','/employee-hafta/expense-allocations',{...allocate,reason:'short'},400);
+ await deny('POST','/employee-hafta/expense-allocations',allocate,403,{headers:{'x-csrf-token':'wrong'}});
+ const allocationKey=randomUUID(),allocated=await ok('POST','/employee-hafta/expense-allocations',allocate,{key:allocationKey});assert.deepEqual(await ok('POST','/employee-hafta/expense-allocations',allocate,{key:allocationKey}),allocated);
+ assert.equal(await fingerprint(['v1_documents','money_batches','money_movements','money_audit','v1_stock_journal','v1_party_journal']),immutable);
+ const final=await report();assert.equal(final.blocks[0].closing,'800.00');assert.equal(final.blocks[0].allocatedPaid,'1200.00');assert.equal(final.blocks[0].directPaid,'0.00');assert.equal(final.businessExpenses.length,0);
+ assert.equal((await ok('GET','/expense-reports?from='+today+'&to='+today)).overall,'0.00');
+ await deny('POST','/employee-hafta/expense-allocations',allocate);assert.equal((await db('labor_expense_allocations')).length,1);
+ checks.push('Verified opening 0 + earned 2000 - approved existing payment 1200 = payable 800; original expense and cash/stock/ledger hashes unchanged; allocation retry exact and duplicate source rejected');
+ const reconciliation=await ok('GET','/reconciliation');assert.equal(reconciliation.matched,true,JSON.stringify(reconciliation));
+ const proof=await extensionHelper(binding,'verify');assert.equal(proof.guards.totalGuards,103);
+ await writeFile(binding.directory+'/scenario.json',JSON.stringify({cookies,employeeId:employee.id,itemId:item.id,productionId:production.id,expenseId:expense.id,allocationId:allocated.id,date:today}));
+ await writeFile(evidence+'/integration.json',JSON.stringify({passed:true,checks,tables:38,guards:103,report:final,reconciliation,productionContacted:false,ownerDataMutated:false,verifiedUtc:new Date().toISOString()},null,2));
+ console.log(JSON.stringify({passed:true,checks:checks.length,tables:38,guards:103,closing:'800.00'}));
+} finally {fixture.password='';await db.destroy();}

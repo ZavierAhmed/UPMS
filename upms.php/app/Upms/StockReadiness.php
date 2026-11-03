@@ -27,7 +27,11 @@ final class StockReadiness
             $item = $this->db->one('SELECT i.id,i.code,i.description,i.active,i.version,s.verified,s.quantity FROM v1_items i LEFT JOIN v1_stock s ON s.item_id=i.id WHERE i.id=?', [$id]);
             $opening = $this->db->one("SELECT d.id,d.date FROM v1_documents d JOIN v1_stock_journal j ON j.document_id=d.id WHERE j.item_id=? AND d.kind='STOCK_OPENING' AND d.status='POSTED' ORDER BY d.id LIMIT 1", [$id]);
             $status = !$item ? 'UNKNOWN' : (!$item['active'] ? 'INACTIVE' : (!$item['verified'] ? 'MISSING' : (!$opening ? 'INCONSISTENT' : ($opening['date'] > $date ? 'LATER' : 'READY'))));
-            $records[] = ['itemId' => $id,'code' => $item['code'] ?? null,'description' => $item['description'] ?? null,'version' => $item['version'] ?? null,'status' => $status,'verified' => (bool)($item['verified'] ?? false),'openingDate' => $opening['date'] ?? null,'openingDocumentId' => isset($opening['id']) ? (string)$opening['id'] : null];
+            $eligible = LaborExtensionSchema::enabled() && $status === 'MISSING' && $item['quantity'] === '0' && !$opening
+                && !$this->db->one('SELECT id FROM v1_stock_journal WHERE item_id=? LIMIT 1', [$id])
+                && !$this->db->one("SELECT l.id FROM v1_lines l JOIN v1_documents d ON d.id=l.document_id WHERE l.item_id=? AND d.status='POSTED' LIMIT 1", [$id])
+                && !$this->db->one('SELECT id FROM stock_initializations WHERE item_id=?', [$id]);
+            $records[] = [...(LaborExtensionSchema::enabled() ? ['initialZeroEligible' => $eligible] : []),'itemId' => $id,'code' => $item['code'] ?? null,'description' => $item['description'] ?? null,'version' => $item['version'] ?? null,'status' => $status,'verified' => (bool)($item['verified'] ?? false),'openingDate' => $opening['date'] ?? null,'openingDocumentId' => isset($opening['id']) ? (string)$opening['id'] : null];
         }
         return ['date' => $date,'ready' => !array_filter($records, fn ($r) => $r['status'] !== 'READY'),'records' => $records];
     }

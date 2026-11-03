@@ -1,0 +1,11 @@
+# Hafta reconciliation — UAT-H1C
+
+The verified synthetic example is opening payable 0.00 + production labor 2,000.00 - approved existing employee payment 1,200.00 = closing payable 800.00. Direct Hafta cash payment is 0.00; existing payment applied is 1,200.00. Allocating the original source does not add another cash debit. Original expense and canonical money/stock/ledger hashes are unchanged.
+
+New extension reconciliation verifies original expense purpose, retained employee/category provenance, canonical batch and movement, full amount, original cash date, source hashes, opening coverage, chronology, uniqueness, immutable approval audit and exact command receipt. Existing employee reconciliation includes allocation deductions in chronological nonnegative payable calculations. Direct payments also account for prior allocations before allowing further payment. Generic integrity inspection understands compound first-production receipts and covers both opening and production documents.
+
+The negative suite covers multiple sources, retained names after employee rename, unverified coverage, wrong employee, nonemployee expense, refunded source, refund-after-allocation, duplicate sources, authorization/CSRF, unsupported advances, fault rollback and weekly carry. Ordinary transport remains an expense and does not reduce payable. Direct payments create one debit and one labor event.
+
+Recovery uses the distinct `UPMS_EMPLOYEE_HAFTA_CLASSIFIED_SNAPSHOT_V1` format and exact 38-table/103-guard manifest. It validates supported DDL before any restore writes, recreates all native guards, compares all rows, scans foreign-key orphans and reruns financial/labor/extension/integrity evidence. Older consumers reject this format and the new consumer rejects older formats before writes. Corrupt ciphertext, wrong recipient, changed allocation/source fields, missing links/audits/receipts and altered DDL are negative cases. Operational off-host backup infrastructure remains unchanged and is NOT claimed compatible with this extension.
+
+Evidence: `evidence/integration.json`, `evidence/negative-integration.json`, `evidence/recovery.json`, prior regression logs and browser/PDF/Excel verification. Reconciliation reports `authenticityVerified:false`; this is consistency proof, not payment authenticity or SQL row isolation.

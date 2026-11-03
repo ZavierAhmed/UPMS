@@ -1,0 +1,167 @@
+{
+  "passed": true,
+  "php": "8.3.36",
+  "mariadb": "10.11.19",
+  "checks": [
+    "unauthenticated document access rejected",
+    "forward additive 29-table/72-guard extension preserves original legacy expense snapshot",
+    "master creation, case-insensitive normalized duplicate names and idempotent retry",
+    "normal and employee expenses retain one atomic money debit each; concurrent identical retries post once",
+    "required category/employee, business-expense confirmation, unexpected employee and advances/loan/forged snapshots rejected",
+    "posted category, employee, date and overall totals include explicit legacy bucket and reconcile exactly",
+    "drafts excluded; identity/date/account filters and exact empty results; invalid ranges rejected",
+    "versioned rename preserves historical display snapshots and blocks stale drafts",
+    "inactive employees cannot enter new expenses while historical snapshots remain reportable",
+    "inactive categories rejected without deleting or remapping historical identities",
+    "Employee-Based flag changes affect future drafts only, never old expense meaning",
+    "expense-master-only mode posts without claiming money effects and excludes unsupported account filter",
+    "disabled feature hides new APIs and cannot silently post integration-marked drafts",
+    "money-only mode on verified 29-table schema preserves P3.2B1 debit and keeps expense category explicitly legacy",
+    "installed expense tables require 72-guard money proof even with expense UI disabled",
+    "master audit failure rolls back master version and command receipt",
+    "money failure rolls back expense, source claim, movement, audit and command atomically",
+    "concurrent duplicate master creation produces one stable identity",
+    "actual CRUD-only runtime denies master deletion, history/receipt mutation, version skipping and DDL/GRANT",
+    "runtime has no global, table, column or grant-option privileges",
+    "master/history mismatch blocks reporting and mutation, without automatic repair",
+    "full financial, expense master/snapshot and money reconciliation match",
+    "explicit 29-table verifier accepts 72 guards; original 25-table/60-guard verifier still rejects extensions",
+    "stale 60-guard readiness proof cannot authorize the new extension",
+    "forged historical category snapshot blocks financial report totals without repair",
+    "authenticated encrypted 29-table restore verifies all 72 guards, rows, FKs, master history and financial source snapshots; nonempty target refused",
+    "mandatory password rotation blocks reporting and master mutation",
+    "CSRF and revoked administrator gates protect masters, reports and document access"
+  ],
+  "checkCount": 28,
+  "tables": 29,
+  "baseGuards": 60,
+  "expenseGuards": 12,
+  "totalGuards": 72,
+  "reconciliation": {
+    "expense": {
+      "matched": true,
+      "masters": {
+        "matched": true,
+        "findings": [],
+        "categories": 4,
+        "employees": 1,
+        "historyEvents": 10
+      },
+      "documents": {
+        "matched": true,
+        "findings": [],
+        "mappedExpenses": 3,
+        "legacyUnmappedExpenses": 2
+      }
+    },
+    "matched": true,
+    "mismatches": [],
+    "repairPerformed": false,
+    "documents": 5,
+    "sourceLines": 0,
+    "stockEntries": 0,
+    "ledgerEntries": 0,
+    "integrityFindings": [],
+    "reviewRequired": false,
+    "authenticityVerified": false,
+    "money": {
+      "matched": true,
+      "findings": [],
+      "balances": {
+        "1": "99.48",
+        "2": "0.00",
+        "3": "1000.00",
+        "4": "10.00"
+      },
+      "openings": {
+        "1": "2026-10-30",
+        "2": "2026-10-30",
+        "3": "2026-10-30",
+        "4": "2026-10-30"
+      },
+      "batches": 7,
+      "movements": 7,
+      "sourceCoverage": "Money batches plus canonical p32b1 document claims; historical V1 payments and expenses are not backfilled.",
+      "authenticity": "Shape and arithmetic consistency, not proof of physical funds or protection against fabricated SQL inserts.",
+      "documentIntegration": {
+        "matched": true,
+        "findings": [],
+        "linkedDocuments": 3,
+        "historicalUnlinkedDocuments": 2,
+        "coverage": "Only p32b1-marked posted documents require canonical money effects. Historical documents are not backfilled."
+      }
+    }
+  },
+  "report": {
+    "overall": "0.63",
+    "count": 5
+  },
+  "restore": {
+    "expenseMasterReconciliation": {
+      "matched": true,
+      "findings": [],
+      "categories": 4,
+      "employees": 1,
+      "historyEvents": 10
+    },
+    "expenseDocumentReconciliation": {
+      "matched": true,
+      "findings": [],
+      "mappedExpenses": 3,
+      "legacyUnmappedExpenses": 2
+    },
+    "passed": true,
+    "format": "UPMS_EXPENSE_SNAPSHOT_V1",
+    "tables": 29,
+    "rows": 138,
+    "guards": {
+      "passed": true,
+      "baseGuards": 45,
+      "additionalGuards": 15,
+      "totalGuards": 72,
+      "baseHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+      "moneyHash": "a7767e03bb68d40390685d37b47864d14754cd99733ffe2cf72970d78b9e8213",
+      "definer": null,
+      "definerPrivilegesVerified": false,
+      "expenseGuards": 12,
+      "expenseHash": "fe333ad7e9efa81946769d28a61164b560ad8c8930d13f79e9e01e988585040f"
+    },
+    "schema": {
+      "passed": true,
+      "planHash": "ef265791f848fea7543dc4d0de899fe9ab7d6d082ca8fc9a7dc478a17ee343ea",
+      "tables": 29,
+      "totalGuards": 72
+    },
+    "moneyReconciliation": {
+      "matched": true,
+      "findings": [],
+      "balances": {
+        "1": "99.48",
+        "2": "0.00",
+        "3": "1000.00",
+        "4": "10.00"
+      },
+      "openings": {
+        "1": "2026-10-30",
+        "2": "2026-10-30",
+        "3": "2026-10-30",
+        "4": "2026-10-30"
+      },
+      "batches": 7,
+      "movements": 7,
+      "sourceCoverage": "Money batches plus canonical p32b1 document claims; historical V1 payments and expenses are not backfilled.",
+      "authenticity": "Shape and arithmetic consistency, not proof of physical funds or protection against fabricated SQL inserts.",
+      "documentIntegration": {
+        "matched": true,
+        "findings": [],
+        "linkedDocuments": 3,
+        "historicalUnlinkedDocuments": 2,
+        "coverage": "Only p32b1-marked posted documents require canonical money effects. Historical documents are not backfilled."
+      }
+    },
+    "productionContacted": false,
+    "sourceTargetHashPreserved": true
+  },
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-03T09:46:21.869Z"
+}

@@ -34,6 +34,9 @@ Route::get('/readyz', function () {
 Route::prefix('/api/v1/management')->middleware(UpmsBoundary::class)->group(function () {
     Route::get('/simple-v1/stock-readiness', SimpleV1Controller::class);
     Route::get('/session/csrf', [SessionController::class, 'csrf']);
+    Route::get('/simple-v1/employee-hafta/expense-allocations', \App\Http\Controllers\LaborExpenseAllocationController::class);
+    Route::get('/simple-v1/employee-hafta/expense-allocations/{id}', \App\Http\Controllers\LaborExpenseAllocationController::class);
+    Route::post('/simple-v1/employee-hafta/expense-allocations', \App\Http\Controllers\LaborExpenseAllocationController::class);
     Route::get('/simple-v1/employee-hafta', \App\Http\Controllers\EmployeeHaftaController::class);
     Route::get('/simple-v1/employee-hafta/payments/{id}', \App\Http\Controllers\EmployeeHaftaController::class);
     Route::post('/simple-v1/employee-hafta/{operation}', \App\Http\Controllers\EmployeeHaftaController::class)->whereIn('operation', ['openings','payments']);

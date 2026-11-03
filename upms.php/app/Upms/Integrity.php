@@ -132,6 +132,15 @@ final class Integrity
             }
             try {
                 $r = json_decode($c['result'], false, 512, JSON_THROW_ON_ERROR);
+                if ($r instanceof \stdClass && property_exists($r, 'laborExtensionVersion')) {
+                    if (!LaborExtensionReceipts::valid($r, (string)$c['actor_id'], $laborData)) {
+                        $add('COMMAND_LABOR_EXTENSION_INVALID', 'command', $key, 'result', 'Classification/initialization receipt must exactly match immutable source hashes and actor evidence.');
+                    } elseif ($r->operation === 'FIRST_PRODUCTION') {
+                        $receipts[$r->id] = true;
+                        foreach ($r->initializations as $initialization) { $receipts[$initialization->opening->id] = true; }
+                    }
+                    continue;
+                }
                 if ($r instanceof \stdClass && property_exists($r, 'employeeHaftaVersion')) {
                     if (!EmployeeHafta::validReceipt($r, (string)$c['actor_id'], $laborData)) {
                         $add('COMMAND_LABOR_RESULT_INVALID', 'command', $key, 'result', 'Labor receipt must exactly match its immutable opening/settlement hash, source money batch and posting actor.');

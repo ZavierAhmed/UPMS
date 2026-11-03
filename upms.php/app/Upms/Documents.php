@@ -154,7 +154,14 @@ final class Documents
 
     public function post(array $user, array $control, object $input, string $id): array
     {
-        $parsed = V1Input::posting($input);
+        $hasInitial = property_exists($input, 'initialStockOpenings');
+        $initialInput = $input->initialStockOpenings ?? null;
+        $postingInput = clone $input;
+        unset($postingInput->initialStockOpenings);
+        if ($hasInitial && !LaborExtensionSchema::enabled()) {
+            throw new ApiError(503, 'H1C_DISABLED');
+        }
+        $parsed = V1Input::posting($postingInput);
         $d = $this->db->one('SELECT * FROM v1_documents WHERE id=?', [$id]);
         if (! $d) {
             throw new ApiError(404, 'NOT_FOUND');
@@ -167,6 +174,7 @@ final class Documents
             throw new ApiError(409, 'IMMUTABLE_DOCUMENT');
         }
         $p = SimpleV1::payload($d);
+        if ($hasInitial && $p['kind'] !== 'PRODUCTION') { throw new ApiError(400,'FIRST_PRODUCTION_INPUT_REQUIRED'); }
         ChallanNumbers::beforePost($this->db, $p);
         (new EmployeeHafta($this->db))->beforePost($p, $user);
         (new ExpenseMasters($this->db))->beforePost($p);
@@ -181,6 +189,7 @@ final class Documents
             V1Input::field('time', 'Choose a valid local time in HH:mm format.', 'INVALID_LOCAL_TIME');
         }
         V1Input::uniqueLines($p['lines']);
+        $initial = $hasInitial ? (new FirstProduction($this->db, $this))->initialize($d, $p, $user, $control, $initialInput) : [];
         $party = null;
         $total = BigInteger::zero();
         $discount = null;
@@ -319,6 +328,9 @@ final class Documents
 
         if ($money !== null && !(new MoneyAccounts($this->db))->reconciliation()['matched']) {
             throw new ApiError(409, 'MONEY_DOCUMENT_RECONCILIATION_FAILED');
+        }
+        if ($initial) {
+            return (new FirstProduction($this->db, $this))->complete($d, $p, $user, $initial);
         }
         return [...($money !== null ? ['moneyMovement' => $money] : []), 'id' => (string) $d['id'], 'status' => 'POSTED', 'official_number' => $number, 'total' => Exact::money($total)];
     }

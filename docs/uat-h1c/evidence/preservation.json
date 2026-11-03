@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "bindingsUnchanged": true,
+  "allOriginalBusinessIdentityAndPermissionRowsUnchanged": true,
+  "differences": [],
+  "preservedFiles": {
+    "consolidated.json": true,
+    "labor-integration.json": true,
+    "labor-oracle.json": true,
+    "uath1-base-contracts.json": true
+  },
+  "sessionsAndLoginAttemptsExcluded": true,
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-03T12:34:16.549Z"
+}

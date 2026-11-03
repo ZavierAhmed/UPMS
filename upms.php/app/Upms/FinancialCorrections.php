@@ -74,6 +74,9 @@ final class FinancialCorrections
         $batch = $this->db->one("SELECT * FROM money_batches WHERE source_type='DOCUMENT' AND source_key=?", [MoneyAccounts::sourceKey($id)]);
         $old = $this->db->one("SELECT id FROM v1_documents WHERE corrects_id=? AND status='POSTED'", [$id]);
         $reason = $policy['reason'];
+        if (LaborExtensionSchema::enabled() && $this->db->one('SELECT id FROM labor_expense_allocations WHERE expense_id=?', [$id])) {
+            $reason = 'This original expense is allocated to Hafta. Refunding it requires a separately reviewed labor correction policy; the original cash movement is retained.';
+        }
         if ($reason === '') {
             if ($source['status'] !== 'POSTED' || ($p['moneyIntegrationVersion'] ?? '') !== MoneyDocuments::VERSION || !$batch || !in_array($p['method'] ?? '', ['CASH','BANK_TRANSFER'], true)) {
                 $reason = 'This source has no verified integrated cash/bank effect. Historical/unlinked and cheque entries cannot be refunded by inference.';

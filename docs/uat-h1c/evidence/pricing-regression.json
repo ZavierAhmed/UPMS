@@ -1,0 +1,34 @@
+{
+  "passed": true,
+  "httpComparisons": 83,
+  "snapshotComparisons": 4,
+  "checks": [
+    {
+      "name": "PHP76 concurrent custom posting exactly once",
+      "tables": 10,
+      "sha256": "39147e3f6923652fd93e81405a2c69b85e5294f4a271fdc38fbd4d829df0eb4b"
+    },
+    {
+      "name": "PHP76 exact custom pricing payloads lines journals audit commands",
+      "tables": 10,
+      "sha256": "df0b12ac1b305bc6764e033307ac6a3a13b16f0272a9cc91693a6beeb2e18c4d"
+    },
+    {
+      "name": "unknown COMMIT result replays one durable custom challan outcome",
+      "tables": 10,
+      "sha256": "0b2ee2cd00a9f449bf867d00161254e189314fdd9089b0517c74b1b2a2fdac53"
+    },
+    {
+      "name": "PHP76 custom-rate lost COMMIT acknowledgements",
+      "dropped": 2,
+      "serverCommitted": true,
+      "replayWithoutDuplicates": true
+    },
+    {
+      "name": "PHP76 final all ten business tables",
+      "tables": 10,
+      "sha256": "0b2ee2cd00a9f449bf867d00161254e189314fdd9089b0517c74b1b2a2fdac53"
+    }
+  ],
+  "productionContacted": false
+}

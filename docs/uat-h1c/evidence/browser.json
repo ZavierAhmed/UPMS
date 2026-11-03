@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "actualChrome": true,
+  "actualPhp": true,
+  "fixture": {
+    "employee": {
+      "id": "3",
+      "expenseMaster": "EMPLOYEE",
+      "version": 1,
+      "record": {
+        "id": "3",
+        "name": "Chrome H1C Ahmed 1793708406292",
+        "version": 1,
+        "active": true,
+        "designation": "",
+        "phone": "",
+        "notes": "",
+        "actorId": "1",
+        "createdUtc": "2026-11-03 12:20:06.884000",
+        "updatedUtc": "2026-11-03 12:20:06.884000"
+      }
+    },
+    "item": {
+      "id": "3",
+      "code": "ITM-0003"
+    },
+    "production": {
+      "id": "7"
+    }
+  },
+  "sourceId": "9",
+  "date": "2026-11-03",
+  "checks": [
+    "Explicit inline zero confirmation/date and atomic production",
+    "Existing expense reviewed and explicitly applied through UI",
+    "Refresh retains 800.00 payable",
+    "Original expense source link and classification audit visible",
+    "Desktop and mobile no overflow",
+    "Chrome PDF and actual Excel downloads"
+  ],
+  "errors": [],
+  "productionContacted": false
+}

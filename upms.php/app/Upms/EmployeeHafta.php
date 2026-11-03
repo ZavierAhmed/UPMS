@@ -215,7 +215,7 @@ final class EmployeeHafta
         }
         $balance = Exact::cents($opening['amount'], zero:true);
         $latest = $opening['date'];
-        foreach (['labor_earnings' => 1,'labor_payments' => -1] as $table => $sign) {
+        foreach (['labor_earnings' => 1,'labor_payments' => -1,...(LaborExtensionSchema::enabled() ? ['labor_expense_allocations' => -1] : [])] as $table => $sign) {
             foreach ($this->db->rows('SELECT date,amount FROM `'.$table.'` WHERE employee_id=?', [$e['id']]) as $row) {
                 $balance = $balance->plus(Exact::cents($row['amount'], zero:true)->multipliedBy($sign));
                 $latest = max($latest, $row['date']);
@@ -244,14 +244,15 @@ final class EmployeeHafta
     public function data(): array
     {
         $data = [];
-        foreach (['labor_openings','labor_earnings','labor_payments','labor_audit','v1_documents','v1_lines','v1_audit','v1_commands','v1_items','v1_parties','users','expense_master_audit','money_batches','money_accounts'] as $table) {
+        foreach (['labor_openings','labor_earnings','labor_payments','labor_audit','v1_documents','v1_lines','v1_audit','v1_commands','v1_items','v1_parties','users','expense_master_audit','money_batches','money_accounts',...(LaborExtensionSchema::enabled() ? ['labor_extension_receipts','labor_expense_allocations','stock_initializations','labor_extension_audit','money_movements','money_audit','v1_stock_journal'] : [])] as $table) {
             $data[$table] = $this->db->rows('SELECT * FROM `'.$table.'`');
         }
         return $data;
     }
     public function requireReconciled(): void
     {
-        if (!EmployeeHaftaReconciliation::run($this->data())['matched']) {
+        $data = $this->data();
+        if (!EmployeeHaftaReconciliation::run($data)['matched'] || (LaborExtensionSchema::enabled() && !LaborExtensionReconciliation::run($data)['matched'])) {
             throw new ApiError(409, 'LABOR_RECONCILIATION_REQUIRED');
         }
     }
@@ -269,6 +270,7 @@ final class EmployeeHafta
         }
         $data = $this->data();
         $proof = EmployeeHaftaReconciliation::run($data);
+        if (LaborExtensionSchema::enabled()) { $proof['extension'] = LaborExtensionReconciliation::run($data, true); $proof['matched'] = $proof['matched'] && $proof['extension']['matched']; }
         $blocks = [];
         foreach ($this->db->rows('SELECT * FROM employees ORDER BY id') as $e) {
             $id = (string)$e['id'];
@@ -277,10 +279,10 @@ final class EmployeeHafta
             }
             $opening = array_values(array_filter($data['labor_openings'], fn ($r) => (string)$r['employee_id'] === $id))[0] ?? null;
             $before = $closing = $opening ? Exact::cents($opening['amount'], zero:true) : N::zero();
-            $earned = $paid = N::zero();
+            $earned = $paid = $directPaid = $allocatedPaid = N::zero();
             $records = [];
             $names = [];
-            foreach (['labor_earnings' => 'EARNING','labor_payments' => 'PAYMENT'] as $table => $type) {
+            foreach (['labor_earnings' => 'EARNING','labor_payments' => 'PAYMENT',...(LaborExtensionSchema::enabled() ? ['labor_expense_allocations' => 'EXPENSE_ALLOCATION'] : [])] as $table => $type) {
                 foreach ($data[$table] as $r) {
                     if ((string)$r['employee_id'] !== $id) {
                         continue;
@@ -299,16 +301,17 @@ final class EmployeeHafta
                         $earned = $earned->plus($n);
                     } else {
                         $paid = $paid->plus($n);
+                        if ($type === 'PAYMENT') { $directPaid = $directPaid->plus($n); } else { $allocatedPaid = $allocatedPaid->plus($n); }
                     }
                     $item = $type === 'EARNING' ? json_decode($r['item_snapshot'], true, 32, JSON_THROW_ON_ERROR) : null;
-                    $records[] = ['id' => (string)$r['id'],'type' => $type,'date' => $r['date'],'description' => $item['description'] ?? 'Hafta payment','employeeName' => $snap['name'],'quantity' => $r['quantity'] ?? '','laborRate' => $r['labor_rate'] ?? '','earned' => $type === 'EARNING' ? $r['amount'] : '','paid' => $type === 'PAYMENT' ? $r['amount'] : '','documentId' => isset($r['document_id']) ? (string)$r['document_id'] : null,'paymentId' => $type === 'PAYMENT' ? $r['id'] : null,'reference' => $r['reference'] ?? 'Production '.$r['document_id']];
+                    $records[] = ['id' => (string)$r['id'],'type' => $type,'date' => $r['date'],'description' => $item['description'] ?? ($type === 'EXPENSE_ALLOCATION' ? 'Existing expense applied to Hafta (no new cash)' : 'Hafta payment'),'employeeName' => $snap['name'],'quantity' => $r['quantity'] ?? '','laborRate' => $r['labor_rate'] ?? '','earned' => $type === 'EARNING' ? $r['amount'] : '','paid' => $type !== 'EARNING' ? $r['amount'] : '','documentId' => isset($r['document_id']) ? (string)$r['document_id'] : (isset($r['expense_id']) ? (string)$r['expense_id'] : null),'paymentId' => $type === 'PAYMENT' ? $r['id'] : null,'reference' => $r['reference'] ?? 'Production '.$r['document_id']];
                 }
             }
             usort($records, fn ($a, $b) => strcmp($a['date'], $b['date']) ?: strcmp($a['type'], $b['type']) ?: strcmp($a['id'], $b['id']));
             if (!$names) {
                 $names[$opening ? json_decode($opening['employee_snapshot'], true)['name'] : $e['name']] = true;
             }
-            $blocks[] = ['employeeId' => $id,'names' => array_keys($names),'currentName' => $e['name'],'active' => (bool)$e['active'],'verified' => $proof['matched'] && $opening !== null && $from >= $opening['date'],'opening' => $proof['matched'] && $opening && $from >= $opening['date'] ? Exact::money($before) : null,'earned' => Exact::money($earned),'paid' => Exact::money($paid),'closing' => $proof['matched'] && $opening && $to >= $opening['date'] ? Exact::money($closing) : null,'coverageDate' => $opening['date'] ?? null,'records' => $records];
+            $blocks[] = ['employeeId' => $id,'names' => array_keys($names),'currentName' => $e['name'],'active' => (bool)$e['active'],'verified' => $proof['matched'] && $opening !== null && $from >= $opening['date'],'opening' => $proof['matched'] && $opening && $from >= $opening['date'] ? Exact::money($before) : null,'earned' => Exact::money($earned),'paid' => Exact::money($paid),...(LaborExtensionSchema::enabled() ? ['directPaid' => Exact::money($directPaid),'allocatedPaid' => Exact::money($allocatedPaid)] : []),'closing' => $proof['matched'] && $opening && $to >= $opening['date'] ? Exact::money($closing) : null,'coverageDate' => $opening['date'] ?? null,'records' => $records];
         }
         $sum = static function ($key) use ($blocks) {
             $n = N::zero();
@@ -319,8 +322,8 @@ final class EmployeeHafta
             }return Exact::money($n);
         };
         $expenses = (new ExpenseReports($this->db))->generate(['from' => $from,'to' => $to,...(!empty($input['employeeId']) ? ['employeeId' => $input['employeeId']] : [])]);
-        $associated = array_map(fn ($r) => array_intersect_key($r, array_flip(['documentId','employeeId','employeeName','date','description','amount','reference'])), array_values(array_filter($expenses['records'], fn ($r) => $r['employeeId'] !== null)));
+        $associated = array_map(fn ($r) => array_intersect_key($r, array_flip(['documentId','employeeId','employeeName','date','description','amount','reference'])), array_values(array_filter($expenses['records'], fn ($r) => $r['employeeId'] !== null && (!isset($r['laborAllocationId']) || $r['classificationDate'] > $to))));
         $unallocated = array_values(array_filter($data['v1_documents'], fn ($d) => $d['kind'] === 'PRODUCTION' && $d['status'] === 'POSTED' && $d['date'] >= $from && $d['date'] <= $to && (SimpleV1::payload($d)['laborAllocation'] ?? '') !== 'ASSIGNED'));
-        return ['title' => 'Employee Hafta','from' => $from,'to' => $to,'currency' => 'PKR','blocks' => $blocks,'totals' => ['opening' => $sum('opening'),'earned' => $sum('earned'),'paid' => $sum('paid'),'closing' => $sum('closing')],'businessExpenses' => $associated,'businessExpensePolicy' => 'Employee-associated business expenses — Not deducted from labor balance. Historical wage reclassification is not enabled.','unallocatedProductions' => array_map(fn ($d) => ['id' => (string)$d['id'],'date' => $d['date'],'label' => 'Labor not allocated'], $unallocated),'coverage' => 'Balances require explicit evidenced employee openings. Historical unallocated production is not assumed to have zero labor. No advances or automatic expense reclassification.','reconciliation' => $proof];
+        return ['title' => 'Employee Hafta','from' => $from,'to' => $to,'currency' => 'PKR','blocks' => $blocks,'totals' => ['opening' => $sum('opening'),'earned' => $sum('earned'),'paid' => $sum('paid'),...(LaborExtensionSchema::enabled() ? ['directPaid' => $sum('directPaid'),'allocatedPaid' => $sum('allocatedPaid')] : []),'closing' => $sum('closing')],'businessExpenses' => $associated,'businessExpensePolicy' => LaborExtensionSchema::enabled() ? 'Ordinary employee-associated business expenses are not deducted. Only explicitly approved existing-payment allocations reduce Hafta; original cash movements remain unchanged.' : 'Employee-associated business expenses — Not deducted from labor balance. Historical wage reclassification is not enabled.','unallocatedProductions' => array_map(fn ($d) => ['id' => (string)$d['id'],'date' => $d['date'],'label' => 'Labor not allocated'], $unallocated),'coverage' => 'Balances require explicit evidenced employee openings. Historical unallocated production is not assumed to have zero labor. No advances or automatic expense reclassification.','reconciliation' => $proof];
     }
 }

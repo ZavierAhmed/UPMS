@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "actualChromePdfs": [
+    {
+      "file": "output/pdf/uath1c-production.pdf",
+      "pages": 1,
+      "sha256": "1a0f408053f04ed60431bec1037bb71721e60a5fd1e2ed93334e53ef77f21c52",
+      "textAndTotalsVerified": true
+    },
+    {
+      "file": "output/pdf/uath1c-hafta.pdf",
+      "pages": 1,
+      "sha256": "6e45e93be57d6d72441f7ab1133eef11adde414ab90e2e7adf292f8506f46f80",
+      "textAndTotalsVerified": true
+    },
+    {
+      "file": "output/pdf/uath1c-expense-classification.pdf",
+      "pages": 1,
+      "sha256": "38eb0870ab6892a724f9279840fcda0546259e481b1597be66bb028574b47442",
+      "textAndTotalsVerified": true
+    }
+  ],
+  "actualCompletedExcelDownloads": [
+    {
+      "file": "UPMS-Employee-Hafta.xlsx",
+      "sha256": "17caf644c3afdfa15ebe83c1f3d7a21798a8d1840885ad639a7a9d621a076531"
+    },
+    {
+      "file": "UPMS-Expense-Classification.xlsx",
+      "sha256": "35726f44e60ea55951b4b5f68260a517159d0bd29903e0ae029486d7b5735a4d"
+    }
+  ],
+  "earned": "2000.00",
+  "existingPaymentApplied": "1200.00",
+  "closing": "800.00",
+  "expenseSignedAmounts": [
+    "1200.00",
+    "-1200.00"
+  ],
+  "expenseNet": "0.00",
+  "laborMoneyCellsNumeric": true,
+  "formulaErrorsOrMacrosIntroduced": false,
+  "nativeExcelApplicationRun": false,
+  "visualReview": "All three one-page Chrome PDFs rendered with Poppler and inspected; logo, labels, exact amounts and signatures legible."
+}

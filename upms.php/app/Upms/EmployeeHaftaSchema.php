@@ -46,6 +46,10 @@ final class EmployeeHaftaSchema
                 throw new \RuntimeException('LABOR_ISOLATED_ONLY');
             }
             MoneySchema::ready($db);
+            if (LaborExtensionSchema::enabled()) {
+                LaborExtensionSchema::runtimeReady($db);
+                return;
+            }
             self::verify($db->pdo());
             $runtime = explode('@', $db->pdo()->query('SELECT CURRENT_USER()')->fetchColumn())[0];
             $path = config('upms.employee_hafta_guard_evidence');

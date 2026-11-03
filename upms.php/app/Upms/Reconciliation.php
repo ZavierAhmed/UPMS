@@ -130,6 +130,10 @@ final class Reconciliation
             $labor = EmployeeHaftaReconciliation::run((new EmployeeHafta($this->db))->data());
             $labor['commands'] = EmployeeHaftaReconciliation::commands((new EmployeeHafta($this->db))->data());
             $labor['matched'] = $labor['matched'] && $labor['commands']['matched'];
+            if (LaborExtensionSchema::enabled()) {
+                $labor['extension'] = LaborExtensionReconciliation::run((new EmployeeHafta($this->db))->data(), true);
+                $labor['matched'] = $labor['matched'] && $labor['extension']['matched'];
+            }
             if (!$labor['matched']) {
                 $mismatches[] = 'Employee labor source/audit mismatch';
             }

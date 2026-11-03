@@ -17,7 +17,10 @@ final class EmployeeHaftaReconciliation
         foreach ($data['v1_commands'] ?? [] as $c) {
             try {
                 $r = json_decode($c['result'], false, 512, JSON_THROW_ON_ERROR);
-                if (isset($r->employeeHaftaVersion)) {
+                if (isset($r->laborExtensionVersion)) {
+                    if (!LaborExtensionReceipts::valid($r, (string)$c['actor_id'], $data)) { throw new \RuntimeException(); }
+                    if ($r->operation === 'FIRST_PRODUCTION') { $production[(string)$r->id][] = [$r->production,(string)$c['actor_id']]; }
+                } elseif (isset($r->employeeHaftaVersion)) {
                     if (!EmployeeHafta::validReceipt($r, (string)$c['actor_id'], $data)) {
                         throw new \RuntimeException();
                     }$claims[$r->entryType.'|'.$r->id] = ($claims[$r->entryType.'|'.$r->id] ?? 0) + 1;
@@ -184,6 +187,13 @@ final class EmployeeHaftaReconciliation
             if (!isset($audits[$key])) {
                 $fail('LABOR_AUDIT_MISSING', $key);
             }
+        }
+        foreach ($data['labor_expense_allocations'] ?? [] as $r) {
+            $o = $open[(string)$r['employee_id']] ?? null;
+            try {
+                if (!$o || $r['source_date'] < $o['date'] || $r['date'] < $r['source_date']) { throw new \RuntimeException(); }
+                $events[(string)$r['employee_id']][] = ['date' => $r['date'],'order' => 2,'delta' => Exact::cents($r['amount'])->negated()];
+            } catch (\Throwable) { $fail('LABOR_ALLOCATION_INVALID', $r['id']); }
         }
         $balances = [];
         foreach ($events as $id => $rows) {
