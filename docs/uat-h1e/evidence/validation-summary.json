@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "php": {
+    "tests": 166,
+    "assertions": 1906
+  },
+  "react": {
+    "tests": 288,
+    "suites": 40,
+    "finalFocusedOpeningTests": 13
+  },
+  "financial": {
+    "httpComparisons": 83,
+    "snapshots": 4
+  },
+  "priorStockLabor": {
+    "operations": 34,
+    "laborChecks": 13,
+    "restoredRows": 270,
+    "laborRestoredRows": 656
+  },
+  "priorEmployeeChrome": {
+    "requests": 158,
+    "pdfs": 5,
+    "excel": 4,
+    "screenshots": 13
+  },
+  "startupChrome": {
+    "checks": 7,
+    "requests": 267
+  },
+  "classifiedRecovery": {
+    "tables": 38,
+    "guards": 103,
+    "restoredRows": 292,
+    "authenticatedDecryptionVerified": true
+  },
+  "newOpeningScenarios": 4,
+  "openingRollbackAndConcurrentConflictPassed": true,
+  "actualOwnerOpening": {
+    "id": "1",
+    "date": "2026-11-03",
+    "amount": "1000.00"
+  },
+  "ownerClosing": "1800.00",
+  "schemaChanged": false,
+  "ownerFinancialTransactionsPosted": false,
+  "productionDeployed": false,
+  "originalFailedRequestReferenceAvailable": false,
+  "secretScanPassed": true
+}

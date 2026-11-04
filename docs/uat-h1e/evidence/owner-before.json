@@ -1,0 +1,294 @@
+{
+  "readOnly": true,
+  "database": "upms_test_php_money_1793691451921",
+  "runtime": "money_rt_1793691451921@localhost",
+  "tableCount": 38,
+  "guards": {
+    "passed": true,
+    "baseGuards": 45,
+    "additionalGuards": 15,
+    "totalGuards": 103,
+    "baseHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+    "moneyHash": "f451d533e26c54dabe55d5637b41fbf949cd63572b42b0920759bf62378b5b26",
+    "definer": "php2_test_admin@127.0.0.1",
+    "definerPrivilegesVerified": false,
+    "expenseHash": "b49ea8a1faf741e88d7066f72dc5e5ab8a7522f74e0a65e849d2de7036695729",
+    "laborHash": "3befd6487d9c99b13a983f60732f9b8d4719f05be6b76c869e82be4693732205",
+    "extensionHash": "fe3272e06ff111ef9bf7a41efbfd321cedf4b18b1a33c3272aadcc3499043f8c",
+    "extensionGuards": 15
+  },
+  "openings": [
+    {
+      "id": "1",
+      "employee_id": "1",
+      "date": "2026-11-03",
+      "amount": "1000.00",
+      "reference": "no amount need to be paid",
+      "reason": "employee opening balance",
+      "actor_id": "1",
+      "created_at": "2026-11-03 14:34:55.062000"
+    }
+  ],
+  "openingAudit": [
+    {
+      "id": "2",
+      "entry_type": "OPENING",
+      "entry_id": "1",
+      "employee_id": "1",
+      "payload_hash": "68c8838632010a8be4897c1bd02f51209d1124f449ad6532351e840b2d3a5cf0",
+      "actor_id": "1",
+      "created_at": "2026-11-03 14:34:55.062000"
+    }
+  ],
+  "allocations": [
+    {
+      "id": "1",
+      "expense_id": "3",
+      "employee_id": "1",
+      "date": "2026-11-03",
+      "amount": "1200.00",
+      "reference": "advance on weekly payment",
+      "created_at": "2026-11-03 14:36:12.851000"
+    }
+  ],
+  "earnings": [
+    {
+      "id": "1",
+      "document_id": "1",
+      "employee_id": "1",
+      "date": "2026-11-03",
+      "amount": "2000.00"
+    }
+  ],
+  "report": {
+    "title": "Employee Hafta",
+    "from": "2026-11-02",
+    "to": "2026-11-08",
+    "currency": "PKR",
+    "blocks": [
+      {
+        "employeeId": "1",
+        "names": [
+          "Ahmed"
+        ],
+        "currentName": "Ahmed",
+        "active": true,
+        "verified": false,
+        "opening": null,
+        "earned": "2000.00",
+        "paid": "1200.00",
+        "directPaid": "0.00",
+        "allocatedPaid": "1200.00",
+        "closing": "1800.00",
+        "coverageDate": "2026-11-03",
+        "records": [
+          {
+            "id": "1",
+            "type": "EARNING",
+            "date": "2026-11-03",
+            "description": "Test Bottle",
+            "employeeName": "Ahmed",
+            "quantity": "200",
+            "laborRate": "10.00",
+            "earned": "2000.00",
+            "paid": "",
+            "documentId": "1",
+            "paymentId": null,
+            "reference": "Production 1"
+          },
+          {
+            "id": "1",
+            "type": "EXPENSE_ALLOCATION",
+            "date": "2026-11-03",
+            "description": "Existing expense applied to Hafta (no new cash)",
+            "employeeName": "Ahmed",
+            "quantity": "",
+            "laborRate": "",
+            "earned": "",
+            "paid": "1200.00",
+            "documentId": "3",
+            "paymentId": null,
+            "reference": "advance on weekly payment"
+          }
+        ]
+      }
+    ],
+    "totals": {
+      "opening": null,
+      "earned": "2000.00",
+      "paid": "1200.00",
+      "directPaid": "0.00",
+      "allocatedPaid": "1200.00",
+      "closing": "1800.00"
+    },
+    "businessExpenses": [],
+    "businessExpensePolicy": "Ordinary employee-associated business expenses are not deducted. Only explicitly approved existing-payment allocations reduce Hafta; original cash movements remain unchanged.",
+    "unallocatedProductions": [],
+    "coverage": "Balances require explicit evidenced employee openings. Historical unallocated production is not assumed to have zero labor. No advances or automatic expense reclassification.",
+    "reconciliation": {
+      "matched": true,
+      "findings": [],
+      "balances": {
+        "1": "1800.00"
+      },
+      "earnings": 1,
+      "payments": 0,
+      "openings": 1,
+      "authenticityVerified": false,
+      "coverage": "Canonical source/snapshot/arithmetic/audit consistency; not proof of physical funds or protection against fabricated consistent SQL inserts.",
+      "extension": {
+        "matched": true,
+        "findings": [],
+        "allocations": 1,
+        "initializations": 0,
+        "authenticityVerified": false
+      }
+    }
+  },
+  "fingerprints": {
+    "employees": {
+      "rows": 1,
+      "hash": "155ac5965f0954ffd9c17d65905db4a99057f54a2e8c728ac2404136463d58e5"
+    },
+    "expense_categories": {
+      "rows": 1,
+      "hash": "215383d6ac5e209368463866d41efedb2be25540a744cf7bd291cca61f702c20"
+    },
+    "expense_master_audit": {
+      "rows": 2,
+      "hash": "e5c88f479439929ce7622969764f6fab4904f55e0b1167744f8349aee7349ee9"
+    },
+    "expense_schema_receipts": {
+      "rows": 1,
+      "hash": "68e83c9a69f315795cc0db773ede7d84b271ee5de95c82dd2a9384a82ed603e3"
+    },
+    "identity_audit_events": {
+      "rows": 7,
+      "hash": "07cc284a617df4504b8c113bdbadca3119fbec2296c517f610c66ee5ca183b03"
+    },
+    "identity_guard": {
+      "rows": 1,
+      "hash": "0635b2cca1554f32b15b8f159e5d09f0aa4ff5598340841247227a86eb7cc475"
+    },
+    "labor_audit": {
+      "rows": 2,
+      "hash": "1bf3f52c2066866cff33eddb0ad502c55534e2aae2505f4a1a9cbba43e75b354"
+    },
+    "labor_earnings": {
+      "rows": 1,
+      "hash": "a0b5e5669dc90326e69f6154e00b6a0faf3524e199c3bf616e0461c1e8c58576"
+    },
+    "labor_expense_allocations": {
+      "rows": 1,
+      "hash": "ce99a1f75dc658cf505cc973c7429f303c3d2d6d2e2c2fbf6e687ea37d05c039"
+    },
+    "labor_extension_audit": {
+      "rows": 1,
+      "hash": "b406b1d596df82c7b8d60b0513131c93951fbab1851828476223d3b07227704c"
+    },
+    "labor_extension_receipts": {
+      "rows": 1,
+      "hash": "629e9f16676b6f7e2902dc7300ec74837d19b1bf8681be8f5f592a52230dde88"
+    },
+    "labor_openings": {
+      "rows": 1,
+      "hash": "b649e3a475d714660f38f7a61656e821f26999816d97b354bcce2e4f256cd359"
+    },
+    "labor_payments": {
+      "rows": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "labor_schema_receipts": {
+      "rows": 1,
+      "hash": "f90e3e855b1e7434665d5eb87e375d9382fad59cb61385726707c10460a1ed0f"
+    },
+    "money_accounts": {
+      "rows": 4,
+      "hash": "19b65b195a312e51408e469b4e8bb606294bbab18f5df75de764f41636576403"
+    },
+    "money_audit": {
+      "rows": 2,
+      "hash": "fbb4026f87803f5b43a6273f383593661cd052eff6f5610e425e7e0f5ab44851"
+    },
+    "money_batches": {
+      "rows": 2,
+      "hash": "4e708ff886fc1e206491c0646a2b6db54c123f43b87650a2bc6432276dd8e45e"
+    },
+    "money_movements": {
+      "rows": 2,
+      "hash": "254bb35813ba4d0b8a01e48bf36d43cbfa428862309c28b00ded5c13b59a5688"
+    },
+    "money_schema_receipts": {
+      "rows": 1,
+      "hash": "680bc0cc740ec9a7710d824388c549a79ffb5371e06802f0bba7270488f3b8ad"
+    },
+    "permissions": {
+      "rows": 19,
+      "hash": "de08f3f0cce1656187e4b66e5cd81a709bf005cb104357d5b9379767ce5ed915"
+    },
+    "role_permissions": {
+      "rows": 30,
+      "hash": "f14f201841f3685834cb20f49b197f449572f0fc8d23944b8622597c6e8d3aa2"
+    },
+    "roles": {
+      "rows": 4,
+      "hash": "4b8cfbd8c934179b17790dc6386c87d695686866342209cf7be1ca96c448999f"
+    },
+    "stock_initializations": {
+      "rows": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "upms_production_migrations": {
+      "rows": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "user_roles": {
+      "rows": 1,
+      "hash": "7635f307f95e4b072fe51f4f73d4186b86ad14b88f296815a3bf7c851da9bc61"
+    },
+    "users": {
+      "rows": 1,
+      "hash": "98813a5511b6412d2c51d44e49d75d0e17016cdec1140bf2a16209401e370f9d"
+    },
+    "v1_audit": {
+      "rows": 8,
+      "hash": "f19d5cea7a3dc78b1e5e97dd3aa12d2ea071859bad5c6e0b4b1a78f11bfd2f74"
+    },
+    "v1_commands": {
+      "rows": 13,
+      "hash": "7c272d8a2dc1a5cc36697572ffe69a712ff7bc51fadea8a03f7bdd4e660edef4"
+    },
+    "v1_control": {
+      "rows": 1,
+      "hash": "f4a1073304fda8a7133895423528e7d309bcaa9bd963d29908e7d96fa4b40f8d"
+    },
+    "v1_documents": {
+      "rows": 3,
+      "hash": "1a30bbd74ede0959846cb45e2b0f41ed3d65d08435f548b1f1c1e5fb6994c3ba"
+    },
+    "v1_items": {
+      "rows": 1,
+      "hash": "db1b2bc48f2bd0eead8bffcab8b5d7757dfd0cc059d190b3775733e7923a1bbc"
+    },
+    "v1_lines": {
+      "rows": 2,
+      "hash": "12dacfd6d9281aaf7fc60531ddca3417db459e1bbde7f31879b6389e8cd788fd"
+    },
+    "v1_parties": {
+      "rows": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "v1_party_journal": {
+      "rows": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "v1_stock": {
+      "rows": 1,
+      "hash": "0cc57da51381665f31a0467a414e6d77a8f358c900172e87f822935e31142dc0"
+    },
+    "v1_stock_journal": {
+      "rows": 2,
+      "hash": "f9bab4d17d91c09a40a0eb50c9121f33143d289fa103cdfe5e7fcfc8c5269db7"
+    }
+  }
+}

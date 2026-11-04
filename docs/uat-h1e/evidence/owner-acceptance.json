@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "ownerReadOnly": true,
+  "ownerCurrentOpening": {
+    "id": "1",
+    "date": "2026-11-03",
+    "amount": "1000.00"
+  },
+  "oneExistingAllocation": "1200.00",
+  "ownerFinancialAndAdministratorTablesUnchanged": [
+    "labor_openings",
+    "labor_earnings",
+    "labor_payments",
+    "labor_audit",
+    "labor_expense_allocations",
+    "labor_extension_receipts",
+    "labor_extension_audit",
+    "v1_commands",
+    "v1_documents",
+    "money_batches",
+    "money_movements",
+    "money_audit",
+    "v1_stock",
+    "v1_stock_journal",
+    "v1_party_journal",
+    "users",
+    "user_roles"
+  ],
+  "ownerSchema": {
+    "tables": 38,
+    "guards": 103
+  },
+  "actualOwnerBrowserLoginPerformedByOwner": true,
+  "actualOwnerFullAndPartialViewsVerified": true,
+  "duplicateOwnerOpeningFormPrevented": true,
+  "ownerFinancialPostRequestsSent": 0,
+  "original5173BindingUnchanged": true,
+  "original5173DatabaseConnected": false,
+  "originalFailedRequestReference": "UNAVAILABLE_NOT_INVENTED",
+  "productionConnected": false,
+  "priorUncommittedEvidencePreserved": true
+}

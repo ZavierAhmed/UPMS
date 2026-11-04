@@ -1,0 +1,13 @@
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 80 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/management/assets/unique_plastic-Bg-VSvfO.svg    13.76 kB │ gzip:   5.20 kB
+dist/management/index.html                            16.22 kB │ gzip:   5.94 kB
+dist/management/assets/index-cjctSbNU.css             98.41 kB │ gzip:  18.28 kB
+dist/management/assets/rolldown-runtime-WkwZ5CU-.js    0.59 kB │ gzip:   0.36 kB
+dist/management/assets/vendor-Dph6fTCk.js            218.76 kB │ gzip:  68.26 kB
+dist/management/assets/index-CoJFS84O.js             430.27 kB │ gzip: 107.30 kB
+
+✓ built in 208ms

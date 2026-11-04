@@ -1,0 +1,462 @@
+{
+  "passed": true,
+  "syntheticOnly": true,
+  "tables": 38,
+  "guards": 103,
+  "scenarios": [
+    {
+      "label": "Full zero",
+      "duplicate": {
+        "status": 409,
+        "code": "LABOR_OPENING_ALREADY_VERIFIED",
+        "reference": "aa449763-89d6-4c8a-afd8-90b87d714f12"
+      },
+      "fixture": {
+        "employeeId": "1",
+        "itemId": "1",
+        "productionId": "1",
+        "expenseId": "3",
+        "allocationId": "1"
+      },
+      "report": {
+        "coverageState": "FULL",
+        "closingAsOf": "2026-11-08",
+        "title": "Employee Hafta",
+        "from": "2026-11-02",
+        "to": "2026-11-08",
+        "currency": "PKR",
+        "blocks": [
+          {
+            "coverageState": "FULL",
+            "closingVerified": true,
+            "closingAsOf": "2026-11-08",
+            "existingOpening": {
+              "id": "1",
+              "employeeId": "1",
+              "date": "2026-11-01",
+              "amount": "0.00",
+              "reference": "H1E-Full zero",
+              "reason": "Reviewed independent synthetic opening evidence",
+              "createdAt": "2026-11-04 10:19:19.566000",
+              "verified": true,
+              "immutable": true
+            },
+            "employeeId": "1",
+            "names": [
+              "H1E Full zero"
+            ],
+            "currentName": "H1E Full zero",
+            "active": true,
+            "verified": true,
+            "opening": "0.00",
+            "earned": "2000.00",
+            "paid": "1200.00",
+            "directPaid": "0.00",
+            "allocatedPaid": "1200.00",
+            "closing": "800.00",
+            "coverageDate": "2026-11-01",
+            "records": [
+              {
+                "id": "1",
+                "type": "EARNING",
+                "date": "2026-11-03",
+                "description": "H1E Full zero bottle",
+                "employeeName": "H1E Full zero",
+                "quantity": "200",
+                "laborRate": "10.00",
+                "earned": "2000.00",
+                "paid": "",
+                "documentId": "1",
+                "paymentId": null,
+                "reference": "Production 1"
+              },
+              {
+                "id": "1",
+                "type": "EXPENSE_ALLOCATION",
+                "date": "2026-11-03",
+                "description": "Existing expense applied to Hafta (no new cash)",
+                "employeeName": "H1E Full zero",
+                "quantity": "",
+                "laborRate": "",
+                "earned": "",
+                "paid": "1200.00",
+                "documentId": "3",
+                "paymentId": null,
+                "reference": "H1E-1200-Full zero"
+              }
+            ]
+          }
+        ],
+        "totals": {
+          "opening": "0.00",
+          "earned": "2000.00",
+          "paid": "1200.00",
+          "directPaid": "0.00",
+          "allocatedPaid": "1200.00",
+          "closing": "800.00"
+        },
+        "businessExpenses": [],
+        "businessExpensePolicy": "Ordinary employee-associated business expenses are not deducted. Only explicitly approved existing-payment allocations reduce Hafta; original cash movements remain unchanged.",
+        "unallocatedProductions": [],
+        "coverage": "Balances require explicit evidenced employee openings. Historical unallocated production is not assumed to have zero labor. No advances or automatic expense reclassification.",
+        "reconciliation": {
+          "matched": true,
+          "findings": [],
+          "balances": {
+            "1": "800.00"
+          },
+          "earnings": 1,
+          "payments": 0,
+          "openings": 1,
+          "authenticityVerified": false,
+          "coverage": "Canonical source/snapshot/arithmetic/audit consistency; not proof of physical funds or protection against fabricated consistent SQL inserts.",
+          "extension": {
+            "matched": true,
+            "findings": [],
+            "allocations": 1,
+            "initializations": 1,
+            "authenticityVerified": false
+          }
+        }
+      }
+    },
+    {
+      "label": "Partial thousand",
+      "duplicate": {
+        "status": 409,
+        "code": "LABOR_OPENING_ALREADY_VERIFIED",
+        "reference": "47258eee-a8eb-4124-8401-9cea262ca285"
+      },
+      "fixture": {
+        "employeeId": "2",
+        "itemId": "2",
+        "productionId": "4",
+        "expenseId": "6",
+        "allocationId": "2"
+      },
+      "report": {
+        "coverageState": "PARTIAL",
+        "closingAsOf": "2026-11-08",
+        "title": "Employee Hafta",
+        "from": "2026-11-02",
+        "to": "2026-11-08",
+        "currency": "PKR",
+        "blocks": [
+          {
+            "coverageState": "PARTIAL",
+            "closingVerified": true,
+            "closingAsOf": "2026-11-08",
+            "existingOpening": {
+              "id": "2",
+              "employeeId": "2",
+              "date": "2026-11-03",
+              "amount": "1000.00",
+              "reference": "H1E-Partial thousand",
+              "reason": "Reviewed independent synthetic opening evidence",
+              "createdAt": "2026-11-04 10:19:37.754000",
+              "verified": true,
+              "immutable": true
+            },
+            "employeeId": "2",
+            "names": [
+              "H1E Partial thousand"
+            ],
+            "currentName": "H1E Partial thousand",
+            "active": true,
+            "verified": false,
+            "opening": null,
+            "earned": "2000.00",
+            "paid": "1200.00",
+            "directPaid": "0.00",
+            "allocatedPaid": "1200.00",
+            "closing": "1800.00",
+            "coverageDate": "2026-11-03",
+            "records": [
+              {
+                "id": "2",
+                "type": "EARNING",
+                "date": "2026-11-03",
+                "description": "H1E Partial thousand bottle",
+                "employeeName": "H1E Partial thousand",
+                "quantity": "200",
+                "laborRate": "10.00",
+                "earned": "2000.00",
+                "paid": "",
+                "documentId": "4",
+                "paymentId": null,
+                "reference": "Production 4"
+              },
+              {
+                "id": "2",
+                "type": "EXPENSE_ALLOCATION",
+                "date": "2026-11-03",
+                "description": "Existing expense applied to Hafta (no new cash)",
+                "employeeName": "H1E Partial thousand",
+                "quantity": "",
+                "laborRate": "",
+                "earned": "",
+                "paid": "1200.00",
+                "documentId": "6",
+                "paymentId": null,
+                "reference": "H1E-1200-Partial thousand"
+              }
+            ]
+          }
+        ],
+        "totals": {
+          "opening": null,
+          "earned": "2000.00",
+          "paid": "1200.00",
+          "directPaid": "0.00",
+          "allocatedPaid": "1200.00",
+          "closing": "1800.00"
+        },
+        "businessExpenses": [],
+        "businessExpensePolicy": "Ordinary employee-associated business expenses are not deducted. Only explicitly approved existing-payment allocations reduce Hafta; original cash movements remain unchanged.",
+        "unallocatedProductions": [],
+        "coverage": "Balances require explicit evidenced employee openings. Historical unallocated production is not assumed to have zero labor. No advances or automatic expense reclassification.",
+        "reconciliation": {
+          "matched": true,
+          "findings": [],
+          "balances": {
+            "1": "800.00",
+            "2": "1800.00"
+          },
+          "earnings": 2,
+          "payments": 0,
+          "openings": 2,
+          "authenticityVerified": false,
+          "coverage": "Canonical source/snapshot/arithmetic/audit consistency; not proof of physical funds or protection against fabricated consistent SQL inserts.",
+          "extension": {
+            "matched": true,
+            "findings": [],
+            "allocations": 2,
+            "initializations": 2,
+            "authenticityVerified": false
+          }
+        }
+      }
+    },
+    {
+      "label": "Full thousand",
+      "duplicate": {
+        "status": 409,
+        "code": "LABOR_OPENING_ALREADY_VERIFIED",
+        "reference": "be332673-0696-4e90-96b7-a4bef5778bbf"
+      },
+      "fixture": {
+        "employeeId": "3",
+        "itemId": "3",
+        "productionId": "7",
+        "expenseId": "9",
+        "allocationId": "3"
+      },
+      "report": {
+        "coverageState": "FULL",
+        "closingAsOf": "2026-11-08",
+        "title": "Employee Hafta",
+        "from": "2026-11-02",
+        "to": "2026-11-08",
+        "currency": "PKR",
+        "blocks": [
+          {
+            "coverageState": "FULL",
+            "closingVerified": true,
+            "closingAsOf": "2026-11-08",
+            "existingOpening": {
+              "id": "3",
+              "employeeId": "3",
+              "date": "2026-11-01",
+              "amount": "1000.00",
+              "reference": "H1E-Full thousand",
+              "reason": "Reviewed independent synthetic opening evidence",
+              "createdAt": "2026-11-04 10:19:53.328000",
+              "verified": true,
+              "immutable": true
+            },
+            "employeeId": "3",
+            "names": [
+              "H1E Full thousand"
+            ],
+            "currentName": "H1E Full thousand",
+            "active": true,
+            "verified": true,
+            "opening": "1000.00",
+            "earned": "2000.00",
+            "paid": "1200.00",
+            "directPaid": "0.00",
+            "allocatedPaid": "1200.00",
+            "closing": "1800.00",
+            "coverageDate": "2026-11-01",
+            "records": [
+              {
+                "id": "3",
+                "type": "EARNING",
+                "date": "2026-11-03",
+                "description": "H1E Full thousand bottle",
+                "employeeName": "H1E Full thousand",
+                "quantity": "200",
+                "laborRate": "10.00",
+                "earned": "2000.00",
+                "paid": "",
+                "documentId": "7",
+                "paymentId": null,
+                "reference": "Production 7"
+              },
+              {
+                "id": "3",
+                "type": "EXPENSE_ALLOCATION",
+                "date": "2026-11-03",
+                "description": "Existing expense applied to Hafta (no new cash)",
+                "employeeName": "H1E Full thousand",
+                "quantity": "",
+                "laborRate": "",
+                "earned": "",
+                "paid": "1200.00",
+                "documentId": "9",
+                "paymentId": null,
+                "reference": "H1E-1200-Full thousand"
+              }
+            ]
+          }
+        ],
+        "totals": {
+          "opening": "1000.00",
+          "earned": "2000.00",
+          "paid": "1200.00",
+          "directPaid": "0.00",
+          "allocatedPaid": "1200.00",
+          "closing": "1800.00"
+        },
+        "businessExpenses": [],
+        "businessExpensePolicy": "Ordinary employee-associated business expenses are not deducted. Only explicitly approved existing-payment allocations reduce Hafta; original cash movements remain unchanged.",
+        "unallocatedProductions": [],
+        "coverage": "Balances require explicit evidenced employee openings. Historical unallocated production is not assumed to have zero labor. No advances or automatic expense reclassification.",
+        "reconciliation": {
+          "matched": true,
+          "findings": [],
+          "balances": {
+            "1": "800.00",
+            "2": "1800.00",
+            "3": "1800.00"
+          },
+          "earnings": 3,
+          "payments": 0,
+          "openings": 3,
+          "authenticityVerified": false,
+          "coverage": "Canonical source/snapshot/arithmetic/audit consistency; not proof of physical funds or protection against fabricated consistent SQL inserts.",
+          "extension": {
+            "matched": true,
+            "findings": [],
+            "allocations": 3,
+            "initializations": 3,
+            "authenticityVerified": false
+          }
+        }
+      }
+    },
+    {
+      "label": "No opening",
+      "fixture": {
+        "employeeId": "4",
+        "itemId": "4",
+        "productionId": "10"
+      },
+      "report": {
+        "coverageState": "UNVERIFIED",
+        "closingAsOf": null,
+        "title": "Employee Hafta",
+        "from": "2026-11-02",
+        "to": "2026-11-08",
+        "currency": "PKR",
+        "blocks": [
+          {
+            "coverageState": "UNVERIFIED",
+            "closingVerified": false,
+            "closingAsOf": null,
+            "existingOpening": null,
+            "employeeId": "4",
+            "names": [
+              "H1E No opening"
+            ],
+            "currentName": "H1E No opening",
+            "active": true,
+            "verified": false,
+            "opening": null,
+            "earned": "2000.00",
+            "paid": "0.00",
+            "directPaid": "0.00",
+            "allocatedPaid": "0.00",
+            "closing": null,
+            "coverageDate": null,
+            "records": [
+              {
+                "id": "4",
+                "type": "EARNING",
+                "date": "2026-11-03",
+                "description": "H1E No opening bottle",
+                "employeeName": "H1E No opening",
+                "quantity": "200",
+                "laborRate": "10.00",
+                "earned": "2000.00",
+                "paid": "",
+                "documentId": "10",
+                "paymentId": null,
+                "reference": "Production 10"
+              }
+            ]
+          }
+        ],
+        "totals": {
+          "opening": null,
+          "earned": "2000.00",
+          "paid": "0.00",
+          "directPaid": "0.00",
+          "allocatedPaid": "0.00",
+          "closing": null
+        },
+        "businessExpenses": [],
+        "businessExpensePolicy": "Ordinary employee-associated business expenses are not deducted. Only explicitly approved existing-payment allocations reduce Hafta; original cash movements remain unchanged.",
+        "unallocatedProductions": [],
+        "coverage": "Balances require explicit evidenced employee openings. Historical unallocated production is not assumed to have zero labor. No advances or automatic expense reclassification.",
+        "reconciliation": {
+          "matched": true,
+          "findings": [],
+          "balances": {
+            "1": "800.00",
+            "2": "1800.00",
+            "3": "1800.00",
+            "4": null
+          },
+          "earnings": 4,
+          "payments": 0,
+          "openings": 3,
+          "authenticityVerified": false,
+          "coverage": "Canonical source/snapshot/arithmetic/audit consistency; not proof of physical funds or protection against fabricated consistent SQL inserts.",
+          "extension": {
+            "matched": true,
+            "findings": [],
+            "allocations": 3,
+            "initializations": 4,
+            "authenticityVerified": false
+          }
+        }
+      }
+    }
+  ],
+  "aggregate": {
+    "opening": null,
+    "earned": "8000.00",
+    "paid": "3600.00",
+    "directPaid": "0.00",
+    "allocatedPaid": "3600.00",
+    "closing": null
+  },
+  "reconciled": true,
+  "concurrentIdempotency": true,
+  "duplicateOpeningNoMutation": true,
+  "safeDiagnosticReferencesCorrelated": true,
+  "duplicateAllocationRejected": true,
+  "noSecondCashDebit": true,
+  "ownerDataWritten": false
+}

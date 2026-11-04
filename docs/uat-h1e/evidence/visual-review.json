@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "finalPdfPages": 8,
+  "artifacts": [
+    {
+      "file": "output/pdf/uath1e-full-zero.pdf",
+      "pages": 1,
+      "sha256": "824fbe78ddc988b82704986cdc5e5215a0230204e7a5858f412f5ce77cc3a985"
+    },
+    {
+      "file": "output/pdf/uath1e-partial-thousand.pdf",
+      "pages": 1,
+      "sha256": "cc24117a2fda2a1e32241545c557b695bc68b71d70d1b44e0ec3f591f3d60f62"
+    },
+    {
+      "file": "output/pdf/uath1e-full-thousand.pdf",
+      "pages": 1,
+      "sha256": "11a72bfb876915d1e8405ddffb1c3ce0313b97de93821568bd2f8ee2afd6500e"
+    },
+    {
+      "file": "output/pdf/uath1e-no-opening.pdf",
+      "pages": 1,
+      "sha256": "66d9c9fc5ded3faaa06a86a4801ecede30c7bf7614b0b79534461d2ea07b030f"
+    },
+    {
+      "file": "output/pdf/uath1e-all-employees.pdf",
+      "pages": 4,
+      "sha256": "21605850a0fc74749a930919051d0bdbabaca2e3b8276d662e6f37726e4dd507"
+    }
+  ],
+  "partialStatementOnePage": true,
+  "interactiveDisclosureOmittedFromPrint": true,
+  "approvedBrandingOnly": true,
+  "coverageAndSignatureLayoutReviewed": true
+}

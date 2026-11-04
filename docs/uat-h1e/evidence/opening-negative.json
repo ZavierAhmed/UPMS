@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "syntheticOnly": true,
+  "fieldSpecificReferenceError": true,
+  "auditInsertionFailureRolledBackAllOpeningHistory": true,
+  "failedKeyCanBeRetriedAfterRecovery": true,
+  "distinctConcurrentRequests": [
+    201,
+    409
+  ],
+  "oneImmutableOpeningPerEmployee": true,
+  "reportBeforeCoverageUnverified": true,
+  "reconciled": true,
+  "tables": 38,
+  "guards": 103,
+  "ownerRecordsWritten": false
+}

@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "actualChrome": true,
+  "syntheticOnly": true,
+  "beforeFrontend": "1d4fad005a308abfa955207da7abd41966b096cb EmployeeHafta.jsx with current API; same isolated records",
+  "artifacts": [
+    {
+      "scenario": "Full zero",
+      "state": "FULL",
+      "pdf": "output/pdf/uath1e-full-zero.pdf",
+      "excel": "docs/uat-h1e/evidence/full-zero.xlsx"
+    },
+    {
+      "scenario": "Partial thousand",
+      "state": "PARTIAL",
+      "pdf": "output/pdf/uath1e-partial-thousand.pdf",
+      "excel": "docs/uat-h1e/evidence/partial-thousand.xlsx"
+    },
+    {
+      "scenario": "Full thousand",
+      "state": "FULL",
+      "pdf": "output/pdf/uath1e-full-thousand.pdf",
+      "excel": "docs/uat-h1e/evidence/full-thousand.xlsx"
+    },
+    {
+      "scenario": "No opening",
+      "state": "UNVERIFIED",
+      "pdf": "output/pdf/uath1e-no-opening.pdf",
+      "excel": "docs/uat-h1e/evidence/no-opening.xlsx"
+    }
+  ],
+  "pdfs": 5,
+  "excelDownloads": 5,
+  "duplicateFormPrevented": true,
+  "mobileNoOverflow": true,
+  "ownerTransactionsPosted": false
+}

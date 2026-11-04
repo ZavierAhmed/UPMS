@@ -178,10 +178,20 @@ final class EmployeeHafta
             }$p[$field] = V1Input::trim($input->$field);
         }
         V1Input::reportFilters(['from' => $p['date']]);
-        if ($p['date'] > SimpleV1::today() || !preg_match('/^[1-9][0-9]*$/D', $p['employeeId']) || mb_strlen($p['reason']) < 3 || mb_strlen($p['reason']) > 500 || mb_strlen($p['reference']) < 1 || mb_strlen($p['reference']) > 150) {
-            throw new ApiError(400, 'LABOR_EVIDENCE_REQUIRED');
-        }
+        if ($p['date'] > SimpleV1::today()) { throw new ApiError(400, 'FUTURE_DATE_NOT_ALLOWED'); }
+        if (!preg_match('/^[1-9][0-9]*$/D', $p['employeeId'])) { V1Input::field('employeeId', 'Select an employee.'); }
+        if (mb_strlen($p['reason']) < 3 || mb_strlen($p['reason']) > 500) { V1Input::field('reason', 'Enter reviewed evidence between 3 and 500 characters.'); }
+        if (mb_strlen($p['reference']) < 1 || mb_strlen($p['reference']) > 150) { V1Input::field('reference', 'Enter an opening or payment reference up to 150 characters.'); }
         return $p;
+    }
+    public static function openingDetail(array $row, bool $verified): array
+    {
+        return ['id' => (string)$row['id'],'employeeId' => (string)$row['employee_id'],'date' => $row['date'],'amount' => $row['amount'],'reference' => $row['reference'],'reason' => $row['reason'],'createdAt' => $row['created_at'],'verified' => $verified,'immutable' => true];
+    }
+    public static function periodCoverage(?array $opening, bool $reconciled, string $from, string $to): string
+    {
+        if (!$reconciled || !$opening || $opening['date'] > $to) { return 'UNVERIFIED'; }
+        return $opening['date'] <= $from ? 'FULL' : 'PARTIAL';
     }
     public function opening(object $input, array $user): array
     {
@@ -189,8 +199,12 @@ final class EmployeeHafta
         $this->requireReconciled();
         $p = self::input($input, ['employeeId','date','amount','reference','reason']);
         $e = $this->employee($p['employeeId']);
-        if ($this->db->one('SELECT id FROM labor_openings WHERE employee_id=?', [$e['id']]) || $this->db->one('SELECT id FROM labor_earnings WHERE employee_id=? AND date<?', [$e['id'],$p['date']])) {
-            throw new ApiError(409, 'LABOR_OPENING_CONFLICT');
+        $existing = $this->db->one('SELECT * FROM labor_openings WHERE employee_id=?', [$e['id']]);
+        if ($existing) {
+            throw new ApiError(409, 'LABOR_OPENING_ALREADY_VERIFIED', publicMessage:'Employee labor opening already verified.', details:['opening' => self::openingDetail($existing, true)]);
+        }
+        if ($this->db->one('SELECT id FROM labor_earnings WHERE employee_id=? AND date<?', [$e['id'],$p['date']])) {
+            throw new ApiError(409, 'LABOR_OPENING_PRECEDES_HISTORY_REQUIRED', fieldErrors:['date' => 'Choose a coverage date on or before the earliest recorded production earning.'], publicMessage:'Opening coverage cannot begin after existing labor earnings.');
         }
         $id = $this->insert('labor_openings', ['employee_id' => $e['id'],'employee_snapshot' => BusinessCommand::json(ExpenseMasters::snapshot($e, 'EMPLOYEE')),'date' => $p['date'],'amount' => Exact::money(Exact::cents($p['amount'], zero:true)),'reference' => $p['reference'],'reason' => $p['reason'],'actor_id' => $user['id'],'created_at' => BusinessCommand::timestamp()]);
         $this->audit('labor_openings', $id, 'OPENING');
@@ -311,9 +325,11 @@ final class EmployeeHafta
             if (!$names) {
                 $names[$opening ? json_decode($opening['employee_snapshot'], true)['name'] : $e['name']] = true;
             }
-            $blocks[] = ['employeeId' => $id,'names' => array_keys($names),'currentName' => $e['name'],'active' => (bool)$e['active'],'verified' => $proof['matched'] && $opening !== null && $from >= $opening['date'],'opening' => $proof['matched'] && $opening && $from >= $opening['date'] ? Exact::money($before) : null,'earned' => Exact::money($earned),'paid' => Exact::money($paid),...(LaborExtensionSchema::enabled() ? ['directPaid' => Exact::money($directPaid),'allocatedPaid' => Exact::money($allocatedPaid)] : []),'closing' => $proof['matched'] && $opening && $to >= $opening['date'] ? Exact::money($closing) : null,'coverageDate' => $opening['date'] ?? null,'records' => $records];
+            $coverageState = self::periodCoverage($opening, $proof['matched'], $from, $to);
+            $blocks[] = ['coverageState' => $coverageState,'closingVerified' => $coverageState !== 'UNVERIFIED','closingAsOf' => $coverageState !== 'UNVERIFIED' ? $to : null,'existingOpening' => $opening ? self::openingDetail($opening, $proof['matched']) : null,'employeeId' => $id,'names' => array_keys($names),'currentName' => $e['name'],'active' => (bool)$e['active'],'verified' => $proof['matched'] && $opening !== null && $from >= $opening['date'],'opening' => $proof['matched'] && $opening && $from >= $opening['date'] ? Exact::money($before) : null,'earned' => Exact::money($earned),'paid' => Exact::money($paid),...(LaborExtensionSchema::enabled() ? ['directPaid' => Exact::money($directPaid),'allocatedPaid' => Exact::money($allocatedPaid)] : []),'closing' => $proof['matched'] && $opening && $to >= $opening['date'] ? Exact::money($closing) : null,'coverageDate' => $opening['date'] ?? null,'records' => $records];
         }
         $sum = static function ($key) use ($blocks) {
+            if (!$blocks && in_array($key, ['opening','closing'], true)) { return null; }
             $n = N::zero();
             foreach ($blocks as $b) {
                 if ($b[$key] === null) {
@@ -324,6 +340,8 @@ final class EmployeeHafta
         $expenses = (new ExpenseReports($this->db))->generate(['from' => $from,'to' => $to,...(!empty($input['employeeId']) ? ['employeeId' => $input['employeeId']] : [])]);
         $associated = array_map(fn ($r) => array_intersect_key($r, array_flip(['documentId','employeeId','employeeName','date','description','amount','reference'])), array_values(array_filter($expenses['records'], fn ($r) => $r['employeeId'] !== null && (!isset($r['laborAllocationId']) || $r['classificationDate'] > $to))));
         $unallocated = array_values(array_filter($data['v1_documents'], fn ($d) => $d['kind'] === 'PRODUCTION' && $d['status'] === 'POSTED' && $d['date'] >= $from && $d['date'] <= $to && (SimpleV1::payload($d)['laborAllocation'] ?? '') !== 'ASSIGNED'));
-        return ['title' => 'Employee Hafta','from' => $from,'to' => $to,'currency' => 'PKR','blocks' => $blocks,'totals' => ['opening' => $sum('opening'),'earned' => $sum('earned'),'paid' => $sum('paid'),...(LaborExtensionSchema::enabled() ? ['directPaid' => $sum('directPaid'),'allocatedPaid' => $sum('allocatedPaid')] : []),'closing' => $sum('closing')],'businessExpenses' => $associated,'businessExpensePolicy' => LaborExtensionSchema::enabled() ? 'Ordinary employee-associated business expenses are not deducted. Only explicitly approved existing-payment allocations reduce Hafta; original cash movements remain unchanged.' : 'Employee-associated business expenses — Not deducted from labor balance. Historical wage reclassification is not enabled.','unallocatedProductions' => array_map(fn ($d) => ['id' => (string)$d['id'],'date' => $d['date'],'label' => 'Labor not allocated'], $unallocated),'coverage' => 'Balances require explicit evidenced employee openings. Historical unallocated production is not assumed to have zero labor. No advances or automatic expense reclassification.','reconciliation' => $proof];
+        $coverageStates = array_column($blocks, 'coverageState');
+        $overallCoverage = !$blocks || in_array('UNVERIFIED', $coverageStates, true) ? 'UNVERIFIED' : (in_array('PARTIAL', $coverageStates, true) ? 'PARTIAL' : 'FULL');
+        return ['coverageState' => $overallCoverage,'closingAsOf' => $sum('closing') !== null && $blocks ? $to : null,'title' => 'Employee Hafta','from' => $from,'to' => $to,'currency' => 'PKR','blocks' => $blocks,'totals' => ['opening' => $sum('opening'),'earned' => $sum('earned'),'paid' => $sum('paid'),...(LaborExtensionSchema::enabled() ? ['directPaid' => $sum('directPaid'),'allocatedPaid' => $sum('allocatedPaid')] : []),'closing' => $sum('closing')],'businessExpenses' => $associated,'businessExpensePolicy' => LaborExtensionSchema::enabled() ? 'Ordinary employee-associated business expenses are not deducted. Only explicitly approved existing-payment allocations reduce Hafta; original cash movements remain unchanged.' : 'Employee-associated business expenses — Not deducted from labor balance. Historical wage reclassification is not enabled.','unallocatedProductions' => array_map(fn ($d) => ['id' => (string)$d['id'],'date' => $d['date'],'label' => 'Labor not allocated'], $unallocated),'coverage' => 'Balances require explicit evidenced employee openings. Historical unallocated production is not assumed to have zero labor. No advances or automatic expense reclassification.','reconciliation' => $proof];
     }
 }

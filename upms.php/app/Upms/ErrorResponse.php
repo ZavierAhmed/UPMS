@@ -24,6 +24,10 @@ final class ErrorResponse
             \Illuminate\Support\Facades\Log::warning('upms.request.failed', ['reference' => $reference, 'type' => get_class($error)]);
         }
         $status = $known ? $error->status : 503;
+        if ($known && str_starts_with($error->apiCode, 'LABOR_OPENING_')) {
+            // Correlatable diagnostics only: never log input, credentials or financial rows.
+            \Illuminate\Support\Facades\Log::notice('upms.labor.opening.rejected', ['reference' => $reference,'code' => $error->apiCode,'status' => $status]);
+        }
         $body = ['code' => $known ? $error->apiCode : 'IDENTITY_UNAVAILABLE'];
         if ($known && $error->entry && $request->is('api/v1/management/simple-v1/*') && in_array($status, [400, 409], true) && !in_array($error->apiCode, ['IDENTITY_CONFLICT', 'INVALID_REFERENCE_OR_CONSTRAINT'], true)) {
             $fields = $error->fieldErrors;

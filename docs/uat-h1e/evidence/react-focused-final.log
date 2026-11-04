@@ -1,0 +1,8 @@
+
+ RUN  v5.0.5 C:/Users/zasah/source/repos/UPMS/upms.client
+
+
+ Test Files  1 passed (1)
+      Tests  12 passed (12)
+   Start at  15:22:10
+   Duration  1.65s (environment 48%, tests 30%, setup 9%, transform 9%, import 3%)

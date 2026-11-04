@@ -1,0 +1,28 @@
+
+ RUN  v5.0.5 C:/Users/zasah/source/repos/UPMS/upms.client
+
+ ❯ src/test/EmployeeHafta.test.jsx (11 tests | 1 failed) 894ms
+   × partial coverage qualifies numeric closing consistently in statement and workbook 25ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/test/EmployeeHafta.test.jsx > partial coverage qualifies numeric closing consistently in statement and workbook
+AssertionError: expected 'Closing Employee Payable · PKR' to contain 'verified as of 2026-11-08'
+
+Expected: "verified as of 2026-11-08"
+Received: "Closing Employee Payable · PKR"
+
+ ❯ src/test/EmployeeHafta.test.jsx:26:176
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 39 passed (40)
+      Tests  1 failed | 285 passed (286)
+   Start at  19:58:30
+   Duration  67.55s (environment 54%, tests 26%, setup 10%, import 5%, transform 5%)
+
+Environment  jsdom was created 40 times · 66.38s total, 54% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
