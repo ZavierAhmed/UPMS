@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "checks": [
+    "Distinct concurrent first productions: one success, one conflict, one zero opening and one stock increment",
+    "Existing nonzero opening/history cannot reinitialize; normal production retains opening and adds stock",
+    "Missing opening permission, CSRF and inconsistent projection rejected; injected earning/link/audit/receipt insert failures roll back opening, production, stock and earnings completely",
+    "Wrong employee, revoked classification/view/money permission rejected; allocation/audit/command faults rollback; multiple sources and rename retain original identities; category named Advance and ordinary transport never imply wages",
+    "Unverified coverage, nonemployee source, refunded source, refund-after-allocation and unsupported advances rejected; direct payment has one debit/one event; weekly carry remains exact"
+  ],
+  "protectedAttempts": 10,
+  "targetDatabasePrivileges": [
+    "SELECT",
+    "INSERT",
+    "UPDATE",
+    "DELETE"
+  ],
+  "inheritedEnginePublicTestGrants": "Existing PUBLIC grants on test and test\\_% apply only to unrelated disposable test namespaces; not changed. Target UPMS namespace has no DDL.",
+  "ownerDataMutated": false,
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-04T16:21:31.373Z"
+}

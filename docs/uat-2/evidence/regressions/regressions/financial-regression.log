@@ -1,0 +1,5 @@
+foundation money regression passed
+documents money regression passed
+expenses money regression passed
+refunds money regression passed
+Existing financial differential: 83 HTTP comparisons, 4 snapshots passed

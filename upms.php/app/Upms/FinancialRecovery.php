@@ -10,7 +10,7 @@ use PDO;
 final class FinancialRecovery
 {
     public const FORMAT = 'UPMS_FINANCIAL_SNAPSHOT_V1';
-    public static function evidence(array $snapshot): array
+    public static function evidence(array $snapshot, bool $allowCheques = false): array
     {
         $rows = static function ($t) use ($snapshot) {
             $records = $snapshot['tables'][$t]['rows'];
@@ -25,6 +25,17 @@ final class FinancialRecovery
                 usort($records, fn ($a, $b) => \Brick\Math\BigInteger::of((string)$a['id'])->compareTo((string)$b['id']));
             }return $records;
         };
+        // A caller cannot relabel/strip the new schema and reinterpret its retained
+        // instruments or clearance receipts as a pre-cheque financial snapshot.
+        if (!$allowCheques) {
+            foreach ($rows('v1_documents') as $document) {
+                $p=SimpleV1::payload($document);
+                if (isset($p['chequeRecognitionVersion']) || ($p['method']??'')==='CHEQUE_CLEARED') { throw new \RuntimeException('CHEQUE_RECOVERY_FORMAT_REQUIRED'); }
+            }
+            foreach ($rows('v1_commands') as $command) {
+                if (isset(json_decode($command['result'])->chequeVersion)) { throw new \RuntimeException('CHEQUE_RECOVERY_FORMAT_REQUIRED'); }
+            }
+        }
         $refunds = FinancialCorrections::reconcile($rows('v1_documents'), $rows('money_batches'), $rows('v1_party_journal'), $rows('v1_lines'), $rows('v1_stock_journal'));
         $money = MoneyAccounts::reconcile($rows('money_accounts'), $rows('money_batches'), $rows('money_movements'), $rows('money_audit'));
         $sources = MoneyDocuments::reconcile($rows('v1_documents'), $rows('money_batches'), $rows('money_accounts'), array_values(array_filter($rows('v1_audit'), fn ($event) => $event['action'] === 'document.posted')));

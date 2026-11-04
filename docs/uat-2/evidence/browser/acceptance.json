@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "realChrome": true,
+  "firstTimeSetup": true,
+  "freshPasswordLogin": true,
+  "exactRedirect": true,
+  "registrationDepositClearance": true,
+  "desktopMobile": true,
+  "mobileScrollableColumns": {
+    "viewport": 356,
+    "content": 1100,
+    "firstColumn": 115.78125
+  },
+  "companyTransactionOnce": true,
+  "customerPaymentOnce": true,
+  "actualChromePdfs": 5,
+  "completedExcelDownloads": 3,
+  "requests": 251,
+  "pageErrors": [],
+  "cookieIsolation": true,
+  "productionContacted": false,
+  "ownerDataMutated": false,
+  "verifiedUtc": "2026-11-04T16:39:19.945Z"
+}

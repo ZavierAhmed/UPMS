@@ -27,10 +27,10 @@ final class MoneyDocuments
     public static function validate(array $p): void
     {
         if (($p['method'] ?? '') === 'CHEQUE_RECEIVED' || $p['kind'] === 'PAYMENT_REVERSAL') {
-            V1Input::field('method', 'Cheque receipts and payment reversals are unavailable with Money Accounts enabled. The cheque lifecycle requires P3.2C.', 'MONEY_CHEQUE_PENDING');
+            V1Input::field('method', 'Legacy cheque receipt posting and payment reversal are blocked with Money Accounts enabled. Use the separately enabled cheque lifecycle; receipt/deposit do not settle the customer balance.', 'MONEY_CHEQUE_PENDING');
         }
         if (self::required($p)) {
-            if (!in_array($p['method'] ?? '', ['CASH', 'BANK_TRANSFER'], true)) {
+            if (!in_array($p['method'] ?? '', ['CASH', 'BANK_TRANSFER'], true) && !self::cheque($p)) {
                 V1Input::field('method', 'Choose cash or bank transfer.');
             }
             if (!is_string($p['moneyAccountId'] ?? null) || !preg_match('/^[1-9][0-9]{0,19}$/D', $p['moneyAccountId'])) {
@@ -39,6 +39,11 @@ final class MoneyDocuments
         } elseif (isset($p['moneyAccountId'])) {
             V1Input::field('moneyAccountId', 'This document has no immediate money effect. Do not select an account.');
         }
+    }
+
+    public static function cheque(array $p): bool
+    {
+        return ($p['method']??'')==='CHEQUE_CLEARED' && $p['kind']==='CLIENT_PAYMENT' && ($p['chequeRecognitionVersion']??'')===ChequeSchema::VERSION && isset($p['chequeSource']['id'],$p['chequeSource']['depositEventId']);
     }
 
     public function prepare(array $p): array
@@ -81,8 +86,14 @@ final class MoneyDocuments
             V1Input::field('moneyAccountId', 'Edit and save this draft with a verified money account before posting.', 'MONEY_DRAFT_REVIEW_REQUIRED');
         }
         $this->account($p);
-        $r = (new MoneyAccounts($this->db))->reconciliation();
-        if (!$r['matched'] || !(new Reconciliation($this->db))->run()['matched']) {
+        if (ChequeSchema::enabled() && !self::cheque($p) && ($p['reference']??'')!=='' && (str_starts_with(strtolower($p['reference']),'upms-cheque:') || $this->db->one('SELECT id FROM cheque_instruments WHERE reference=?',[$p['reference']]))) {
+            throw new ApiError(409,'CHEQUE_LIFECYCLE_SOURCE_RESERVED',publicMessage:'This reference identifies a cheque instrument. Its customer and bank credit can be recognized only by evidenced clearance.');
+        }
+        $r = (new MoneyAccounts($this->db))->reconciliation(!self::cheque($p));
+        // Clearance has a transient DRAFT before its claim/event/command are inserted.
+        // Full cheque reconciliation runs before work and after the command receipt,
+        // inside the same transaction; all existing financial checks still run here.
+        if (!$r['matched'] || !(new Reconciliation($this->db))->run(!self::cheque($p))['matched']) {
             throw new ApiError(409, 'MONEY_RECONCILIATION_REQUIRED', publicMessage: 'Money and document evidence do not reconcile. No document was posted.');
         }
         // Manual evidence cannot later be claimed again by a document using the same reference.
@@ -127,7 +138,7 @@ final class MoneyDocuments
             $posting = array_values(array_filter($audits, fn ($e) => $e['reference'] === (string)($d['official_number'] ?? $id)));
             $poster = count($posting) === 1 ? (string)$posting[0]['actor_id'] : null;
             if (!$d || $d['status'] !== 'POSTED' || ($p['moneyIntegrationVersion'] ?? '') !== self::VERSION || !self::required($p)
-                || !in_array($p['method'] ?? '', ['CASH', 'BANK_TRANSFER'], true)
+                || (!in_array($p['method'] ?? '', ['CASH', 'BANK_TRANSFER'], true) && !self::cheque($p))
                 || ($types[$account] ?? '') !== (($p['method'] ?? '') === 'CASH' ? 'CASH_HOLDER' : 'BANK')
                 || $b['source_key'] !== MoneyAccounts::sourceKey($id) || $b['date'] !== $d['date'] || $b['amount'] !== $d['total']
                 || (string)$b['actor_id'] !== $poster || $b['kind'] !== ($credit ? 'SOURCE_CREDIT' : 'SOURCE_DEBIT')

@@ -14,6 +14,7 @@ Route::get('/healthz', fn () => response()->json(['status' => 'ok']));
 Route::get('/readyz', function () {
     try {
         Schema::verify(app(Database::class));
+        if (\App\Upms\ChequeSchema::enabled()) { \App\Upms\ChequeSchema::ready(app(Database::class)); }
         if (config('upms.employee_hafta_enabled', false)) {
             \App\Upms\EmployeeHaftaSchema::ready(app(Database::class));
         }
@@ -32,6 +33,9 @@ Route::get('/readyz', function () {
     }
 });
 Route::prefix('/api/v1/management')->middleware(UpmsBoundary::class)->group(function () {
+    Route::get('/simple-v1/cheques', \App\Http\Controllers\ChequeController::class);
+    Route::post('/simple-v1/cheques', \App\Http\Controllers\ChequeController::class);
+    Route::post('/simple-v1/cheques/{id}/{operation}', \App\Http\Controllers\ChequeController::class)->whereIn('operation',['deposited','cleared','dishonoured','returned','cancelled']);
     Route::get('/simple-v1/stock-readiness', SimpleV1Controller::class);
     Route::get('/session/csrf', [SessionController::class, 'csrf']);
     Route::get('/simple-v1/employee-hafta/expense-allocations', \App\Http\Controllers\LaborExpenseAllocationController::class);

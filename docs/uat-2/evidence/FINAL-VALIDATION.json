@@ -1,0 +1,185 @@
+{
+  "passed": true,
+  "baseline": "53b95ecee5f500dc1da0ffda57eb682c8f358726",
+  "branch": "feature/upms-uat2-cheque-management",
+  "tables": 44,
+  "guards": 124,
+  "originalGuardsPreserved": 103,
+  "php": {
+    "tests": 166,
+    "assertions": 1906
+  },
+  "react": {
+    "tests": 304,
+    "files": 42
+  },
+  "negativeChecks": 50,
+  "additionalBankOpeningNegativeChecks": 2,
+  "nativeProtectionAttempts": 18,
+  "sqlInsertFaultPoints": 8,
+  "recoveryNegativeTests": 20,
+  "recoveredRows": 239,
+  "authenticatedDecryptionVerified": true,
+  "actualChromePdfs": 5,
+  "completedExcelDownloads": 3,
+  "visualReview": {
+    "passed": true,
+    "reviewedPages": 5,
+    "desktopMobile": true
+  },
+  "originalSourcesVerified": [
+    {
+      "path": "upms.php/app/Upms/CrudGuards.php",
+      "sha256": "d025fefbc014da0e5e47fa9a8f9beb7302368331800736648f987830f2ed7d5b"
+    },
+    {
+      "path": "upms.php/app/Upms/MoneyGuards.php",
+      "sha256": "6a7cb4bcb4596b25171a16cc4cb66f2475ad4c08c5de9228ba1f25d813dc78d9"
+    },
+    {
+      "path": "upms.php/app/Upms/ExpenseGuards.php",
+      "sha256": "55aec73abe451d776d6201ee54bc3aa475b14536eb3e302495ac587216fae63a"
+    },
+    {
+      "path": "upms.php/app/Upms/EmployeeHaftaGuards.php",
+      "sha256": "85f6aea743d3bf05f917d6a9a8e13784df0918223218b611d9facf19767fe701"
+    },
+    {
+      "path": "upms.php/app/Upms/LaborExtensionGuards.php",
+      "sha256": "6ee5c17135c0d68191ca7fecc8f3059f65f3b93dee489469be3f44d1b410f18c"
+    },
+    {
+      "path": "upms.php/resources/production-schema.json",
+      "sha256": "a73464334f83594885fb4f10d5a33c2c60e05aec7387d278a2e5cacc4dcf0ed1"
+    },
+    {
+      "path": "upms.php/resources/production-receipt-schema.json",
+      "sha256": "0be823a6d6df44622edfbf67142876ae523dde3da8bbaa03303f52ec438935e0"
+    },
+    {
+      "path": "upms.php/resources/money-accounts-schema.json",
+      "sha256": "d85be5a3939a705251b063afec6f227a8b0a27859f7895d05c92fbde215b956c"
+    },
+    {
+      "path": "upms.php/resources/money-schema-hashes.json",
+      "sha256": "32568ff539260bc1e13d66e1cc29d717185b344eec790d1fbc3bd3bc3ca9b19e"
+    },
+    {
+      "path": "upms.php/resources/expense-masters-schema.json",
+      "sha256": "09e901d58e581e0953f3ce10d693bc013ed2dea6b763f583eb24a52190156910"
+    },
+    {
+      "path": "upms.php/resources/expense-schema-hashes.json",
+      "sha256": "c561b1f5d6ca425002f447e538caf20d7860235861431e7c8533431ccec6deee"
+    },
+    {
+      "path": "upms.php/resources/employee-hafta-schema.json",
+      "sha256": "02d5206294f464a46610065f8dabb30c39c870f073f735d8770d1d3c02d9591f"
+    },
+    {
+      "path": "upms.php/resources/employee-hafta-schema-hashes.json",
+      "sha256": "0e78b325f1a093119429c0a831d7d70355e945d5da004087fc7d36aab820a58b"
+    },
+    {
+      "path": "upms.php/resources/labor-extension-schema.json",
+      "sha256": "ec7eb062b6c8500036e2b46ebabfc47765126fc3e2e96ff04b3be64a6fbdcabb"
+    },
+    {
+      "path": "upms.php/resources/labor-extension-schema-hashes.json",
+      "sha256": "78490e50eeca541ab337cd85433cc6cc6f86b3d2b63c7a90dc561cf01ab746c2"
+    },
+    {
+      "path": "deployment/operations/backup-offhost.ps1",
+      "sha256": "97572e3e9928e77401ecc7ac06d1c56ee907036d4375e9019d90f902c8477556"
+    }
+  ],
+  "liveNativeDefinitionsVerified": true,
+  "artifacts": [
+    {
+      "path": "output/pdf/uat2-cheque-acknowledgment.pdf",
+      "pages": 1,
+      "sha256": "e88125ab0e3151d1f89907664c0d4e3e43a24aa8e98e431e954bb7f858877c0d"
+    },
+    {
+      "path": "output/pdf/uat2-cheque-register.pdf",
+      "pages": 1,
+      "sha256": "34f1487a3c2606b797c37c2811b7fd6540df8aef691c719b8654895f05387914"
+    },
+    {
+      "path": "output/pdf/uat2-bank-statement.pdf",
+      "pages": 1,
+      "sha256": "0cb8bf8acef433f9e73c3310a00adff840eeab01b977bd4a19de2ab522f4c2eb"
+    },
+    {
+      "path": "output/pdf/uat2-customer-ledger.pdf",
+      "pages": 1,
+      "sha256": "1e6fa35ddc997a10fdba24b821734240e89412621645d0c1f915964e356ed68b"
+    },
+    {
+      "path": "output/pdf/uat2-cleared-customer-receipt.pdf",
+      "pages": 1,
+      "sha256": "a4c5fd815fb5e33756ec1083681a57d3fe1405bab8c9d0123574a98003ccd790"
+    },
+    {
+      "path": "docs/uat-2/evidence/browser/Incoming-Cheque-Register.xlsx",
+      "archiveVerified": true,
+      "numericMoneyVerified": true,
+      "sha256": "c5f66b4ebe791c47cd8d5a695c1d2aaeca169c5b1ba220865d039c5d318b0c4f"
+    },
+    {
+      "path": "docs/uat-2/evidence/browser/Receiving-Bank-Statement.xlsx",
+      "archiveVerified": true,
+      "numericMoneyVerified": true,
+      "sha256": "916ef7c8f382c32fc2abfc10c0f4843156690624aea81dc8c0f7ef9238d65108"
+    },
+    {
+      "path": "docs/uat-2/evidence/browser/Customer-Ledger.xlsx",
+      "archiveVerified": true,
+      "numericMoneyVerified": true,
+      "sha256": "9d516dcc2d8340545484e551993b62e4a53e95b9cd18615b0844514b9ef9ad37"
+    }
+  ],
+  "build": [
+    {
+      "path": "upms.client/dist/management/assets/index-CV31f2kZ.js",
+      "sha256": "5a02e0cf41781443a490ec0104f1ed4d4af96a2defc0a688a59a5cfdb27b1d24"
+    },
+    {
+      "path": "upms.client/dist/management/assets/index-DoG-eht0.css",
+      "sha256": "a15896f5a78a553cf9c7c8f2bee8765a9b1f9c02dcc54c774014a5e9255356bd"
+    },
+    {
+      "path": "upms.client/dist/management/assets/rolldown-runtime-WkwZ5CU-.js",
+      "sha256": "2629f2ad3cb75a57d98de697127f5af7d777ef572bbcdfa6e3ce8f438cd4527e"
+    },
+    {
+      "path": "upms.client/dist/management/assets/unique_plastic-Bg-VSvfO.svg",
+      "sha256": "c66124004874f8e90978158bbd960fcf36938bbaf29c2792e30cdac01bb49774"
+    },
+    {
+      "path": "upms.client/dist/management/assets/vendor-Dph6fTCk.js",
+      "sha256": "b3fb9753a098770a0bff61170086b70f94e9e44b6d8adda9b74a7e19d5c7b0c9"
+    }
+  ],
+  "manualWorkspace": {
+    "passed": true,
+    "url": "http://127.0.0.1:5196/management",
+    "managementHttpStatus": 200,
+    "state": "WAITING",
+    "stage": "awaiting-password",
+    "applicationRuntimeReady": false,
+    "setupPageAvailable": true,
+    "awaitingOwnerChosenSyntheticPassword": true,
+    "identifiedLauncherStopTestPassed": true,
+    "restartVerified": true,
+    "ownerDataMutated": false,
+    "productionContacted": false,
+    "verifiedUtc": "2026-11-04T16:42:22.724Z"
+  },
+  "productionDeployed": false,
+  "ownerWorkspaceUpgraded": false,
+  "productionBackupInfrastructureChanged": false,
+  "operationalActivationBlocked": true,
+  "operationalApproval": "PENDING_OWNER_ACCOUNTANT_POLICY_APPROVAL",
+  "verifiedUtc": "2026-11-04T16:56:58.587Z"
+}

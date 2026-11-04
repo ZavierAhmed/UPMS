@@ -261,6 +261,7 @@ final class EmployeeHafta
         foreach (['labor_openings','labor_earnings','labor_payments','labor_audit','v1_documents','v1_lines','v1_audit','v1_commands','v1_items','v1_parties','users','expense_master_audit','money_batches','money_accounts',...(LaborExtensionSchema::enabled() ? ['labor_extension_receipts','labor_expense_allocations','stock_initializations','labor_extension_audit','money_movements','money_audit','v1_stock_journal'] : [])] as $table) {
             $data[$table] = $this->db->rows('SELECT * FROM `'.$table.'`');
         }
+        if (ChequeSchema::enabled()) { foreach (array_keys(ChequeSchema::plan()['tables']) as $table) { $data[$table]=$this->db->rows('SELECT * FROM `'.$table.'`'); } $data['v1_party_journal']=$this->db->rows('SELECT * FROM v1_party_journal'); }
         return $data;
     }
     public function requireReconciled(): void

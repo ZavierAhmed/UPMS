@@ -38,7 +38,7 @@ final class V1Input
         ]);
     }
 
-    public static function document(object $input, bool $moneyEnabled = false, bool $expenseEnabled = false, bool $laborEnabled = false): array
+    public static function document(object $input, bool $moneyEnabled = false, bool $expenseEnabled = false, bool $laborEnabled = false, bool $chequeClearance = false): array
     {
         $errors = [];
         $aborted = false;
@@ -51,7 +51,7 @@ final class V1Input
             'reference' => ['text', 150, 0, 'default', ''], 'remarks' => ['text', 1000, 0, 'default', ''], 'reason' => ['text', 500, 0, 'default', ''],
             'amount' => ['string', 'default', '0'], 'discountMode' => ['enum', ['NONE', 'FIXED', 'PERCENT'], 'default', 'NONE'], 'discountValue' => ['string', 'default', '0'],
             'category' => ['text', 100, 0, 'default', ''], 'description' => ['text', 500, 0, 'default', ''], 'payee' => ['text', 150, 0, 'default', ''],
-            'paymentStatus' => ['enum', ['PAID'], 'optional'], 'direction' => ['enum', ['OWED_TO_COMPANY', 'OWED_BY_COMPANY'], 'optional'], 'method' => ['enum', ['CASH', 'BANK_TRANSFER', 'CHEQUE_RECEIVED'], 'optional'],
+            'paymentStatus' => ['enum', ['PAID'], 'optional'], 'direction' => ['enum', ['OWED_TO_COMPANY', 'OWED_BY_COMPANY'], 'optional'], 'method' => ['enum', ['CASH', 'BANK_TRANSFER', 'CHEQUE_RECEIVED', ...($chequeClearance ? ['CHEQUE_CLEARED'] : [])], 'optional'],
             'chequeReference' => ['text', 150, 0, 'default', ''], 'correctsId' => ['id', 'optional'], 'vehicle' => ['text', 100, 0, 'default', ''], 'driver' => ['text', 100, 0, 'default', ''],
             'time' => ['time', 5, 0, 'default', ''], 'address' => ['text', 1000, 0, 'default', ''], 'paidImmediately' => ['bool', 'default', false], 'lines' => ['lines', 'default', []],
         ], parentErrors: $errors, aborted: $aborted, laborEnabled: $laborEnabled);

@@ -1,0 +1,64 @@
+{
+  "passed": true,
+  "chromePdfs": 5,
+  "excelDownloads": 3,
+  "sourceLinksVerified": true,
+  "fullDrawerAccountExcluded": true,
+  "renderedForVisualReview": true,
+  "files": [
+    {
+      "path": "output/pdf/uat2-cheque-acknowledgment.pdf",
+      "pages": 1,
+      "sha256": "e88125ab0e3151d1f89907664c0d4e3e43a24aa8e98e431e954bb7f858877c0d"
+    },
+    {
+      "path": "output/pdf/uat2-cheque-register.pdf",
+      "pages": 1,
+      "sha256": "34f1487a3c2606b797c37c2811b7fd6540df8aef691c719b8654895f05387914"
+    },
+    {
+      "path": "output/pdf/uat2-bank-statement.pdf",
+      "pages": 1,
+      "sha256": "0cb8bf8acef433f9e73c3310a00adff840eeab01b977bd4a19de2ab522f4c2eb"
+    },
+    {
+      "path": "output/pdf/uat2-customer-ledger.pdf",
+      "pages": 1,
+      "sha256": "1e6fa35ddc997a10fdba24b821734240e89412621645d0c1f915964e356ed68b"
+    },
+    {
+      "path": "output/pdf/uat2-cleared-customer-receipt.pdf",
+      "pages": 1,
+      "sha256": "a4c5fd815fb5e33756ec1083681a57d3fe1405bab8c9d0123574a98003ccd790"
+    },
+    {
+      "path": "docs/uat-2/evidence/browser/Incoming-Cheque-Register.xlsx",
+      "archiveVerified": true,
+      "numericMoneyVerified": true,
+      "sha256": "c5f66b4ebe791c47cd8d5a695c1d2aaeca169c5b1ba220865d039c5d318b0c4f"
+    },
+    {
+      "path": "docs/uat-2/evidence/browser/Receiving-Bank-Statement.xlsx",
+      "archiveVerified": true,
+      "numericMoneyVerified": true,
+      "sha256": "916ef7c8f382c32fc2abfc10c0f4843156690624aea81dc8c0f7ef9238d65108"
+    },
+    {
+      "path": "docs/uat-2/evidence/browser/Customer-Ledger.xlsx",
+      "archiveVerified": true,
+      "numericMoneyVerified": true,
+      "sha256": "9d516dcc2d8340545484e551993b62e4a53e95b9cd18615b0844514b9ef9ad37"
+    }
+  ],
+  "visualInspection": {
+    "passed": true,
+    "reviewedPages": 5,
+    "desktopMobile": true,
+    "notes": [
+      "Acknowledgment has conditional receipt wording, masked account and signatures",
+      "Cleared customer receipt hides internal money block and source reference",
+      "Register and bank/client statements retain exact amounts and source links",
+      "Mobile register scrolls with readable 1100px content inside a 356px viewport"
+    ]
+  }
+}

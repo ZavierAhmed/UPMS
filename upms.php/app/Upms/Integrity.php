@@ -132,6 +132,12 @@ final class Integrity
             }
             try {
                 $r = json_decode($c['result'], false, 512, JSON_THROW_ON_ERROR);
+                if ($r instanceof \stdClass && property_exists($r, 'chequeVersion')) {
+                    if (!Cheques::validReceipt($r,(string)$c['actor_id'],$laborData)) {
+                        $add('COMMAND_CHEQUE_INVALID','command',$key,'result','Cheque receipt must match its immutable instrument, event, actor and canonical financial source.');
+                    } elseif ($r->status==='CLEARED') { $receipts[$r->payment->id]=true; }
+                    continue;
+                }
                 if ($r instanceof \stdClass && property_exists($r, 'laborExtensionVersion')) {
                     if (!LaborExtensionReceipts::valid($r, (string)$c['actor_id'], $laborData)) {
                         $add('COMMAND_LABOR_EXTENSION_INVALID', 'command', $key, 'result', 'Classification/initialization receipt must exactly match immutable source hashes and actor evidence.');

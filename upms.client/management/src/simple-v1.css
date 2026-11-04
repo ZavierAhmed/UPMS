@@ -71,3 +71,7 @@
 
 @media print{.simple-v1.management .v1-challan .business-table th:nth-child(7){width:14%!important}.simple-v1.management .v1-challan .business-table th:nth-child(8){width:15%!important}}
 .simple-v1 .bottle-row .line-field>small{display:block;margin-top:4px}
+
+.cheque-facts,.cheque-totals{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}.cheque-filters{display:flex;flex-wrap:wrap;gap:12px}.cheque-facts dd,.cheque-totals dd{margin:4px 0;font-weight:700}.cheque-workspace td{overflow-wrap:anywhere}.cheque-workspace table{width:100%}
+.money-statement .cheque-source-link{display:block}
+@media screen{.simple-v1 .cheque-workspace{min-width:0}.simple-v1 .cheque-workspace .table-wrap table{min-width:1100px;table-layout:auto}.simple-v1 .cheque-workspace .table-wrap td,.simple-v1 .cheque-workspace .table-wrap th{overflow-wrap:normal;word-break:normal}}

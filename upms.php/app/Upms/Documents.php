@@ -52,7 +52,7 @@ final class Documents
         }
     }
 
-    public function draft(array $user, array $control, object $input, ?string $id): array
+    public function draft(array $user, array $control, object $input, ?string $id, ?array $cheque = null): array
     {
         // Version is intentionally outside documentInput, just as in Express.
         $version = $input->version ?? null;
@@ -61,7 +61,8 @@ final class Documents
         }
         $raw = clone $input;
         unset($raw->version);
-        $p = V1Input::document($raw, (bool) config('upms.money_accounts_enabled', false), (bool) config('upms.expense_masters_enabled', false), (bool) config('upms.employee_hafta_enabled', false));
+        $p = V1Input::document($raw, (bool) config('upms.money_accounts_enabled', false), (bool) config('upms.expense_masters_enabled', false), (bool) config('upms.employee_hafta_enabled', false), $cheque !== null);
+        if ($cheque !== null) { $p['chequeRecognitionVersion']=ChequeSchema::VERSION; $p['chequeSource']=$cheque; (new Cheques($this->db))->validatePayment($p); }
         self::supported($p['kind']);
         V1Input::uniqueLines($p['lines']);
         if ($p['kind'] === 'CHALLAN_RETURN') {
@@ -152,7 +153,7 @@ final class Documents
         };
     }
 
-    public function post(array $user, array $control, object $input, string $id): array
+    public function post(array $user, array $control, object $input, string $id, bool $chequeClearance = false): array
     {
         $hasInitial = property_exists($input, 'initialStockOpenings');
         $initialInput = $input->initialStockOpenings ?? null;
@@ -170,6 +171,10 @@ final class Documents
             throw new ApiError(409, 'STALE_DOCUMENT');
         }
         self::supported($d['kind']);
+        if ((SimpleV1::payload($d)['method'] ?? '') === 'CHEQUE_CLEARED') {
+            if (!$chequeClearance) { throw new ApiError(403,'CHEQUE_LIFECYCLE_REQUIRED'); }
+            (new Cheques($this->db))->validatePayment(SimpleV1::payload($d));
+        }
         if ($d['status'] !== 'DRAFT') {
             throw new ApiError(409, 'IMMUTABLE_DOCUMENT');
         }
@@ -326,7 +331,7 @@ final class Documents
         $this->commands->audit($user, 'document.posted', $number ?? (string) $d['id'], $p['reason']);
         (new EmployeeHafta($this->db))->posted($d, $p, $user);
 
-        if ($money !== null && !(new MoneyAccounts($this->db))->reconciliation()['matched']) {
+        if ($money !== null && !(new MoneyAccounts($this->db))->reconciliation(!$chequeClearance)['matched']) {
             throw new ApiError(409, 'MONEY_DOCUMENT_RECONCILIATION_FAILED');
         }
         if ($initial) {

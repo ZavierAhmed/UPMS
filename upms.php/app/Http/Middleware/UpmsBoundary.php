@@ -63,6 +63,11 @@ final class UpmsBoundary
                 $response->headers->setCookie(self::cookie($request->cookie(config('upms.cookie'))));
             }
         } catch (\Throwable $error) {
+            // Auth preflight/session touch also serialize on identity_guard. A cheque
+            // retry may encounter contention outside its controller; preserve its key.
+            if ($request->is('api/v1/management/simple-v1/cheques*') && $error instanceof \PDOException && in_array((int)($error->errorInfo[1]??0),[1205,1213],true)) {
+                $error=new ApiError(409,'CHEQUE_CONCURRENT_RETRY',publicMessage:'Another command is being verified. Refresh and retry with the same idempotency key to retrieve the committed result or safely retry.');
+            }
             $response = \App\Upms\ErrorResponse::render($error, $request, $reference);
         }
         $response->headers->add(['Cache-Control' => 'no-store', 'X-Robots-Tag' => 'noindex, nofollow', 'Vary' => 'Cookie', 'X-Content-Type-Options' => 'nosniff']);

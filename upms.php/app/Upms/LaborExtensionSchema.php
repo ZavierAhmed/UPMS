@@ -14,7 +14,7 @@ final class LaborExtensionSchema
     public static function plan(): array { return json_decode(file_get_contents(dirname(__DIR__, 2).'/resources/labor-extension-schema.json'), true, 32, JSON_THROW_ON_ERROR); }
     public static function hash(): string { return hash('sha256', json_encode(self::plan(), JSON_THROW_ON_ERROR)); }
     public static function hashes(PDO $pdo): array { $hashes=[];foreach (array_keys(self::plan()['tables']) as $table) { $hashes[$table]=hash('sha256', CleanInitialization::normalize($pdo->query('SHOW CREATE TABLE `'.$table.'`')->fetch(PDO::FETCH_NUM)[1])); }return $hashes; }
-    public static function verify(PDO $pdo): array
+    public static function verify(PDO $pdo, bool $chequeExtension = false): array
     {
         EmployeeHaftaSchema::verify($pdo);
         $expected=json_decode(file_get_contents(dirname(__DIR__, 2).'/resources/labor-extension-schema-hashes.json'), true, 32, JSON_THROW_ON_ERROR);
@@ -22,7 +22,7 @@ final class LaborExtensionSchema
         $receipt=$pdo->query('SELECT * FROM labor_extension_receipts WHERE id=1')->fetch(PDO::FETCH_ASSOC);
         if (!$receipt||$receipt['version']!==self::VERSION||$receipt['plan_hash']!==self::hash()) { throw new \RuntimeException('H1C_SCHEMA_RECEIPT_REJECTED'); }
         $tables=$pdo->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN);
-        $expectedTables=[...EmployeeHaftaRecovery::tables(),...array_keys(self::plan()['tables'])];sort($tables);sort($expectedTables);
+        $expectedTables=[...EmployeeHaftaRecovery::tables(),...array_keys(self::plan()['tables']),...($chequeExtension ? array_keys(ChequeSchema::plan()['tables']) : [])];sort($tables);sort($expectedTables);
         if ($tables!==$expectedTables) { throw new \RuntimeException('H1C_EXACT_TABLE_SET_REQUIRED'); }
         return ['passed'=>true,'tables'=>38,'version'=>self::VERSION,'planHash'=>self::hash()];
     }
@@ -33,6 +33,7 @@ final class LaborExtensionSchema
     }
     public static function runtimeReady(Database $db): void
     {
+        if (ChequeSchema::enabled()) { ChequeSchema::ready($db); return; }
         if (!self::enabled()||config('upms.production_profile')) { throw new \RuntimeException('H1C_ISOLATED_ONLY'); }
         self::verify($db->pdo());$runtime=$db->pdo()->query('SELECT CURRENT_USER()')->fetchColumn();$name=explode('@',$runtime)[0];$path=config('upms.labor_extension_guard_evidence');
         if (!is_string($path)||!is_file($path)||is_link($path)) { throw new \RuntimeException('H1C_GUARD_EVIDENCE_REQUIRED'); }

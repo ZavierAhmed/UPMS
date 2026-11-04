@@ -121,9 +121,10 @@ final class Reconciliation
         return $computed;
     }
 
-    public function run(): array
+    public function run(bool $chequeChecks = true): array
     {
         $mismatches = [];
+        if ($chequeChecks && ChequeSchema::enabled() && !ChequeReconciliation::run((new Cheques($this->db))->data())['matched']) { $mismatches[]='Cheque lifecycle/source evidence mismatch'; }
         $labor = null;
         if (config('upms.employee_hafta_enabled', false)) {
             EmployeeHaftaSchema::ready($this->db);

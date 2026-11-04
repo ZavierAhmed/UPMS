@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "realChrome": true,
+  "checks": [
+    "Both owner bindings rejected before any target connection or listener replacement",
+    "Invalid password length rejected before provisioning",
+    "Exact Host/Origin enforced; localhost GET canonical redirect only",
+    "Interrupted setup reports failure and preserves completed fixture without a false success redirect",
+    "Same-password retry reuses one administrator and the fixed 44-table database",
+    "Restart reuses binding, native readiness and dashboard HTTP 200 without provisioning"
+  ],
+  "ownerDataMutated": false,
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-04T16:09:15.937Z"
+}

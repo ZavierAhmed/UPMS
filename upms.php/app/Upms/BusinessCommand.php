@@ -48,12 +48,12 @@ final class BusinessCommand
         return [$user, $control];
     }
 
-    public function run(?array $session, mixed $key, string $operation, mixed $input, callable $work, ?callable $scope = null): array
+    public function run(?array $session, mixed $key, string $operation, mixed $input, callable $work, ?callable $scope = null, ?callable $validate = null): array
     {
         if (!is_string($key) || !preg_match('/^(?:[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$/D', $key)) {
             throw new ApiError(400, 'IDEMPOTENCY_KEY_REQUIRED');
         }
-        return $this->db->transaction(function () use ($session, $key, $operation, $input, $work, $scope): array {
+        return $this->db->transaction(function () use ($session, $key, $operation, $input, $work, $scope, $validate): array {
             [$user, $control] = $this->operator($session);
             if ($scope !== null) {
                 $scope();
@@ -64,6 +64,7 @@ final class BusinessCommand
                 if ((string) $existing['actor_id'] !== $user['id'] || $existing['fingerprint'] !== $hash) {
                     throw new ApiError(409, 'IDEMPOTENCY_CONFLICT');
                 }
+                if ($validate !== null) { $validate(); }
                 return json_decode($existing['result'], true, 512, JSON_THROW_ON_ERROR);
             }
             if ($control['state'] !== 'READY') {
@@ -72,6 +73,7 @@ final class BusinessCommand
             // No bypass: Database validates the independently selected profile.
             $result = $work($user, $control);
             $this->db->execute('INSERT INTO v1_commands(`key`,actor_id,fingerprint,result) VALUES(?,?,?,?)', [$key, $user['id'], $hash, self::json($result)]);
+            if ($validate !== null) { $validate(); }
             return $result;
         });
     }

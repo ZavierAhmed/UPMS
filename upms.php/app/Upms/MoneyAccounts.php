@@ -55,12 +55,14 @@ final class MoneyAccounts
     {
         return [$this->db->rows('SELECT * FROM money_accounts ORDER BY id'),$this->db->rows('SELECT * FROM money_batches ORDER BY id'),$this->db->rows('SELECT * FROM money_movements ORDER BY id'),$this->db->rows('SELECT * FROM money_audit ORDER BY id')];
     }
-    public function reconciliation(): array
+    public function reconciliation(bool $chequeChecks = true): array
     {
         [$a,$b,$m,$audit] = $this->data();
         $r = self::reconcile($a, $b, $m, $audit);
         $linked = MoneyDocuments::reconcile($this->db->rows('SELECT * FROM v1_documents ORDER BY id'), $b, $a, $this->db->rows("SELECT * FROM v1_audit WHERE action='document.posted'"));
-        return [...$r, 'matched' => $r['matched'] && $linked['matched'], 'findings' => [...$r['findings'], ...$linked['findings']], 'documentIntegration' => $linked];
+        $cheques=['matched'=>true,'findings'=>[]];
+        if($chequeChecks && ChequeSchema::enabled()) { ChequeSchema::ready($this->db);$cheques=ChequeReconciliation::run((new Cheques($this->db))->data()); }
+        return [...$r, 'matched' => $r['matched'] && $linked['matched'] && $cheques['matched'], 'findings' => [...$r['findings'], ...$linked['findings'],...$cheques['findings']], 'documentIntegration' => $linked,...($chequeChecks&&ChequeSchema::enabled()?['chequeIntegration'=>$cheques]:[])];
     }
     public static function reconcile(array $accounts, array $batches, array $movements, array $audits): array
     {
@@ -212,7 +214,8 @@ final class MoneyAccounts
                 continue;
             }
             $change = $change->plus($delta);
-            $rows[] = ['id' => (string)$b['id'],'movementId' => (string)$movement['id'],'reference' => 'MA-'.str_pad((string)$b['id'], 6, '0', STR_PAD_LEFT),'date' => $b['date'],'kind' => $b['kind'],'sourceReference' => $b['source_ref'],...(isset($originals[substr($b['source_ref'], 9)]) ? ['originalDocumentId' => $originals[substr($b['source_ref'], 9)]] : []),'documentId' => $b['source_type'] === 'DOCUMENT' ? substr($b['source_ref'], 9) : null,'correctsId' => $b['corrects_id'],'reason' => $b['reason'],'actorId' => (string)$b['actor_id'],'createdUtc' => $b['created_at'],'delta' => $movement['delta'],'balance' => $r['matched'] && $opened ? Exact::money($sum) : null];
+            $cheque = ChequeSchema::enabled() ? $this->db->one('SELECT cheque_id,event_id FROM cheque_clearances WHERE batch_id=?', [$b['id']]) : null;
+            $rows[] = [...($cheque ? ['chequeId'=>(string)$cheque['cheque_id'],'clearanceEventId'=>(string)$cheque['event_id']] : []),'id' => (string)$b['id'],'movementId' => (string)$movement['id'],'reference' => 'MA-'.str_pad((string)$b['id'], 6, '0', STR_PAD_LEFT),'date' => $b['date'],'kind' => $b['kind'],'sourceReference' => $b['source_ref'],...(isset($originals[substr($b['source_ref'], 9)]) ? ['originalDocumentId' => $originals[substr($b['source_ref'], 9)]] : []),'documentId' => $b['source_type'] === 'DOCUMENT' ? substr($b['source_ref'], 9) : null,'correctsId' => $b['corrects_id'],'reason' => $b['reason'],'actorId' => (string)$b['actor_id'],'createdUtc' => $b['created_at'],'delta' => $movement['delta'],'balance' => $r['matched'] && $opened ? Exact::money($sum) : null];
         }
         return ['account' => $a,'from' => $f['from'] ?? '','to' => $f['to'] ?? '','currency' => 'PKR','opening' => $r['matched'] && $openingAtStart ? Exact::money($prior) : null,'movement' => Exact::money($change),'closing' => $r['matched'] && $opened ? Exact::money($sum) : null,'verified' => $r['matched'] && $opened,'records' => $rows,'reconciliationMatched' => $r['matched'],'coverage' => 'An explicit opening starts verified coverage on its recorded date. Earlier holdings are unknown. Transfers do not affect party ledgers, revenue or expenses.'];
     }
@@ -245,6 +248,9 @@ final class MoneyAccounts
             'opening' => ['accountId','amount','reference'],'transfer' => ['fromAccountId','toAccountId','amount','reference'],'source' => ['accountId','direction','amount','reference'],'reversal' => ['batchId'],default => throw new ApiError(404, 'NOT_FOUND')
         };
         $p = self::input($input, $fields);
+        if (in_array($operation,['source','transfer'],true) && ChequeSchema::enabled() && (str_starts_with(strtolower($p['reference']),'upms-cheque:') || $this->db->one('SELECT id FROM cheque_instruments WHERE reference=?',[$p['reference']]))) {
+            self::fail('MONEY_RESERVED_SOURCE','Cheque instruments can produce money only through evidenced bank clearance.');
+        }
         $kind = '';
         $from = $to = $opening = $corrects = null;
         if ($operation === 'opening') {

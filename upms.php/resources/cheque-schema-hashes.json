@@ -1,0 +1,8 @@
+{
+  "cheque_schema_receipts": "114bfe6ced3d00e8848e78b8fcde504c2dcc3b9fe939706cfcbe09027a2d8a58",
+  "cheque_issuing_banks": "06356e5253468288739c8f84aa22a8108c3f0d7822091136246215ae2b1e76b2",
+  "cheque_instruments": "39d8b2a18383c2773485e1c82d7ea8315cebdf50a862bf6186c8f8eee35a3942",
+  "cheque_events": "9ce9454bca22a1c4e653378fd77800360adacd636a1b6c9717a44221a97fe205",
+  "cheque_audit": "4d29cfee467504e169421db4cf378af172e9f1506cdd6ab0fbab712fa5244150",
+  "cheque_clearances": "7fdbbb357efd053463f42073d17fde08f54399ea7aabfedc529f90fbccbcffb0"
+}

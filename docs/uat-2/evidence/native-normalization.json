@@ -1,0 +1,6 @@
+{
+  "passed": true,
+  "engine": "10.11.19-MariaDB",
+  "scope": "Constant expression only; no records read",
+  "asciiBinaryUppercasePatternRejectsLowercase": true
+}

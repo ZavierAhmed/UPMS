@@ -1,0 +1,1525 @@
+{
+  "passed": true,
+  "checks": [
+    "first-time: invalid length, setup CSRF, forged Host, null/missing/cross-origin and localhost alias boundaries",
+    "first-time: exact dashboard redirect after readiness, actual php-admin login/cookie, production employee/rate fields and Hafta navigation; invalid PHP CSRF rejected",
+    "first-time: successful restart reuses fixed binding, user credentials, existing records and session",
+    "failure-retry: invalid length, setup CSRF, forged Host, null/missing/cross-origin and localhost alias boundaries",
+    "failed after administrator creation -> retry reuses same schema/admin/password without resetting or duplicate initialization",
+    "failure-retry: exact dashboard redirect after readiness, actual php-admin login/cookie, production employee/rate fields and Hafta navigation; invalid PHP CSRF rejected",
+    "failure-retry: successful restart reuses fixed binding, user credentials, existing records and session"
+  ],
+  "http": [
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/management",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "POST",
+      "path": "/setup",
+      "status": 202,
+      "origin": "http://127.0.0.1:5193"
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/favicon.ico",
+      "status": 404
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/management",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/management",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/management/assets/rolldown-runtime-WkwZ5CU-.js",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/management/assets/index-C9Q0rQCw.css",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/management/assets/vendor-Dph6fTCk.js",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/management/assets/index-B_NvA3WT.js",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/session/current",
+      "status": 401
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/management/assets/unique_plastic-Bg-VSvfO.svg",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "POST",
+      "path": "/api/v1/management/session/login",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/management/stock-in/new",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/management/assets/index-C9Q0rQCw.css",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/management/assets/rolldown-runtime-WkwZ5CU-.js",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/management/assets/vendor-Dph6fTCk.js",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/management/assets/index-B_NvA3WT.js",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/session/current",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJXaW5kb3dUZXh0IiBkPSJNMjAgM2gtMVYxaC0ydjJIN1YxSDV2Mkg0Yy0xLjEgMC0yIC45LTIgMnYxNmMwIDEuMS45IDIgMiAyaDE2YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6bTAgMThINFY4aDE2djEzeiIvPjxwYXRoIGZpbGw9Im5vbmUiIGQ9Ik0wIDBoMjR2MjRIMHoiLz48L3N2Zz4=",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/expense-directory",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/expense-masters/employees",
+      "status": 201
+    },
+    {
+      "scenario": "first-time",
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 201
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/management/stock-in/new",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/management/assets/index-C9Q0rQCw.css",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/management/assets/rolldown-runtime-WkwZ5CU-.js",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/management/assets/vendor-Dph6fTCk.js",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/management/assets/index-B_NvA3WT.js",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/session/current",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJXaW5kb3dUZXh0IiBkPSJNMjAgM2gtMVYxaC0ydjJIN1YxSDV2Mkg0Yy0xLjEgMC0yIC45LTIgMnYxNmMwIDEuMS45IDIgMiAyaDE2YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6bTAgMThINFY4aDE2djEzeiIvPjxwYXRoIGZpbGw9Im5vbmUiIGQ9Ik0wIDBoMjR2MjRIMHoiLz48L3N2Zz4=",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/expense-directory",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/stock-readiness",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/expense-directory",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/employee-hafta",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/management/assets/unique_plastic-Bg-VSvfO.svg",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 403
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/management/employee-hafta",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/management/assets/rolldown-runtime-WkwZ5CU-.js",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/management/assets/index-C9Q0rQCw.css",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/management/assets/vendor-Dph6fTCk.js",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/management/assets/index-B_NvA3WT.js",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/session/current",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJXaW5kb3dUZXh0IiBkPSJNMjAgM2gtMVYxaC0ydjJIN1YxSDV2Mkg0Yy0xLjEgMC0yIC45LTIgMnYxNmMwIDEuMS45IDIgMiAyaDE2YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6bTAgMThINFY4aDE2djEzeiIvPjxwYXRoIGZpbGw9Im5vbmUiIGQ9Ik0wIDBoMjR2MjRIMHoiLz48L3N2Zz4=",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/employee-hafta",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/management/assets/unique_plastic-Bg-VSvfO.svg",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/expense-directory",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "scenario": "first-time",
+      "method": "POST",
+      "path": "/api/v1/management/session/logout",
+      "status": 204
+    },
+    {
+      "scenario": "first-time",
+      "method": "GET",
+      "path": "/api/v1/management/session/current",
+      "status": 401
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/management",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "POST",
+      "path": "/setup",
+      "status": 202,
+      "origin": "http://127.0.0.1:5193"
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "POST",
+      "path": "/setup",
+      "status": 202,
+      "origin": "http://127.0.0.1:5193"
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "POST",
+      "path": "/setup",
+      "status": 202,
+      "origin": "http://127.0.0.1:5193"
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/setup/status",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/management",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/management",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/management/assets/index-C9Q0rQCw.css",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/management/assets/rolldown-runtime-WkwZ5CU-.js",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/management/assets/index-B_NvA3WT.js",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/management/assets/vendor-Dph6fTCk.js",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/session/current",
+      "status": 401
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/management/assets/unique_plastic-Bg-VSvfO.svg",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "POST",
+      "path": "/api/v1/management/session/login",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/management/stock-in/new",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/management/assets/index-C9Q0rQCw.css",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/management/assets/rolldown-runtime-WkwZ5CU-.js",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/management/assets/index-B_NvA3WT.js",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/management/assets/vendor-Dph6fTCk.js",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/session/current",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJXaW5kb3dUZXh0IiBkPSJNMjAgM2gtMVYxaC0ydjJIN1YxSDV2Mkg0Yy0xLjEgMC0yIC45LTIgMnYxNmMwIDEuMS45IDIgMiAyaDE2YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6bTAgMThINFY4aDE2djEzeiIvPjxwYXRoIGZpbGw9Im5vbmUiIGQ9Ik0wIDBoMjR2MjRIMHoiLz48L3N2Zz4=",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/expense-directory",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/expense-masters/employees",
+      "status": 201
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 201
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/management/stock-in/new",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/management/assets/index-C9Q0rQCw.css",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/management/assets/rolldown-runtime-WkwZ5CU-.js",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/management/assets/index-B_NvA3WT.js",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/management/assets/vendor-Dph6fTCk.js",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/session/current",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJXaW5kb3dUZXh0IiBkPSJNMjAgM2gtMVYxaC0ydjJIN1YxSDV2Mkg0Yy0xLjEgMC0yIC45LTIgMnYxNmMwIDEuMS45IDIgMiAyaDE2YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6bTAgMThINFY4aDE2djEzeiIvPjxwYXRoIGZpbGw9Im5vbmUiIGQ9Ik0wIDBoMjR2MjRIMHoiLz48L3N2Zz4=",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/expense-directory",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/stock-readiness",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/expense-directory",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/employee-hafta",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/management/assets/unique_plastic-Bg-VSvfO.svg",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "POST",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 403
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/management/employee-hafta",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/management/assets/index-C9Q0rQCw.css",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/management/assets/rolldown-runtime-WkwZ5CU-.js",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/management/assets/index-B_NvA3WT.js",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/management/assets/vendor-Dph6fTCk.js",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/session/current",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/state",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/overview",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/documents",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/items",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/movements",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/money",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJXaW5kb3dUZXh0IiBkPSJNMjAgM2gtMVYxaC0ydjJIN1YxSDV2Mkg0Yy0xLjEgMC0yIC45LTIgMnYxNmMwIDEuMS45IDIgMiAyaDE2YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6bTAgMThINFY4aDE2djEzeiIvPjxwYXRoIGZpbGw9Im5vbmUiIGQ9Ik0wIDBoMjR2MjRIMHoiLz48L3N2Zz4=",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/employee-hafta",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/expense-directory",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/management/assets/unique_plastic-Bg-VSvfO.svg",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/session/csrf",
+      "status": 200
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "POST",
+      "path": "/api/v1/management/session/logout",
+      "status": 204
+    },
+    {
+      "scenario": "failure-retry",
+      "method": "GET",
+      "path": "/api/v1/management/session/current",
+      "status": 401
+    }
+  ],
+  "errors": [],
+  "port": 5193,
+  "realPhp": true,
+  "realMariaDB": true,
+  "passwordsStored": false,
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-04T16:18:51.291Z"
+}

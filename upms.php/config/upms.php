@@ -14,6 +14,8 @@ return [
     'expense_masters_enabled' => env('UPMS_EXPENSE_MASTERS_ENABLED', false),
     'expense_guard_evidence' => env('UPMS_EXPENSE_GUARD_EVIDENCE', ''),
     'expense_release_approval' => env('UPMS_EXPENSE_RELEASE_APPROVAL', ''),
+    'cheque_management_enabled' => env('UPMS_CHEQUE_MANAGEMENT_ENABLED', false),
+    'cheque_guard_evidence' => env('UPMS_CHEQUE_GUARD_EVIDENCE', ''),
     'money_accounts_enabled' => env('UPMS_MONEY_ACCOUNTS_ENABLED', false),
     'money_guard_evidence' => env('UPMS_MONEY_GUARD_EVIDENCE'),
     'money_release_approval' => env('UPMS_MONEY_RELEASE_APPROVAL'),

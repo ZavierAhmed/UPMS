@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "baselineTables": 38,
+  "baselineGuards": 103,
+  "tables": 44,
+  "guards": 124,
+  "baselineRowsPreserved": true,
+  "legacyLedgerOutstanding": "30000.00",
+  "legacyIdentityPreserved": true,
+  "legacyBankEffects": 0,
+  "ambiguousNumberAndReferenceRejected": true,
+  "newIndependentCustodyEffect": 0,
+  "ownerDataMutated": false,
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-04T16:10:46.011Z"
+}

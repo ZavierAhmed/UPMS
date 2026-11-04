@@ -25,6 +25,10 @@ final class SimpleV1Controller
                 throw new ApiError(403, 'V1_OPERATOR_ONLY');
             }
             $path = substr($request->path(), strlen('api/v1/management/simple-v1/'));
+            if (\App\Upms\ChequeSchema::enabled() && (str_starts_with($path,'ledgers/') || in_array($path,['register','overview'],true))) {
+                \App\Upms\ChequeSchema::ready($db);
+                if (!\App\Upms\ChequeReconciliation::run((new \App\Upms\Cheques($db))->data())['matched']) { throw new ApiError(409,'CHEQUE_RECONCILIATION_REQUIRED'); }
+            }
             $id = $request->route('id');
             if ($id !== null && !preg_match('/^[1-9][0-9]*$/D', $id)) {
                 throw new ApiError(400, 'INVALID_INPUT');

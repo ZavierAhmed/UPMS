@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "url": "http://127.0.0.1:5196/management",
+  "managementHttpStatus": 200,
+  "state": "WAITING",
+  "stage": "awaiting-password",
+  "applicationRuntimeReady": false,
+  "setupPageAvailable": true,
+  "awaitingOwnerChosenSyntheticPassword": true,
+  "identifiedLauncherStopTestPassed": true,
+  "restartVerified": true,
+  "ownerDataMutated": false,
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-04T16:42:22.724Z"
+}
