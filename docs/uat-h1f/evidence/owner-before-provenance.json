@@ -1,0 +1,8 @@
+{
+  "source": "docs/uat-h1e/evidence/owner-after-partial.png",
+  "baseline": "f73a898585aa669d882c394391d3e45001fc1f73",
+  "actualOwnerScreenshotFromPriorMilestone": true,
+  "newBeforeInspection": "owner-before.json",
+  "financialValuesReverifiedReadOnly": true,
+  "sha256": "946ce4d267b327eb2ca80898f4e77583f22c1be29463e9b9611c71b1a37c5b09"
+}

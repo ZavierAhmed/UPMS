@@ -1,0 +1,122 @@
+{
+  "passed": true,
+  "format": "UPMS_EMPLOYEE_HAFTA_CLASSIFIED_SNAPSHOT_V1",
+  "tables": 38,
+  "rows": 292,
+  "guards": {
+    "passed": true,
+    "baseGuards": 45,
+    "additionalGuards": 15,
+    "totalGuards": 103,
+    "baseHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+    "moneyHash": "848654ecdd95510c025ab58ffac20e9c5659b24434fac755d77d7d2dd4692216",
+    "definer": "php2_test_admin@127.0.0.1",
+    "definerPrivilegesVerified": false,
+    "expenseHash": "45d2c8f93e629fdfc85d668f6aaff18f8e28cb5e05743ed0f3a3b08e7856baab",
+    "laborHash": "5636c1b0f4e62d088464d7d05d7e670e9e3a92f3f9afb9d748ec6b63a922a902",
+    "extensionHash": "443607160b029a7590c837805400791cc9507ba242d1b0b4edf6659ad945e210",
+    "extensionGuards": 15
+  },
+  "reconciliation": {
+    "matched": true,
+    "financial": {
+      "matched": true,
+      "customChallanNumbers": {
+        "matched": true,
+        "findings": []
+      },
+      "refunds": {
+        "matched": true,
+        "findings": [],
+        "postedRefunds": 1,
+        "policyVersion": "p32b3-full-same-account-v1",
+        "authenticity": "Operator attestation and consistency evidence, not proof that physical funds moved or protection against fabricated SQL inserts."
+      },
+      "money": {
+        "matched": true,
+        "findings": [],
+        "balances": {
+          "1": "2160.00",
+          "2": "0.00",
+          "3": "0.00",
+          "4": "0.00"
+        },
+        "openings": {
+          "1": "2026-11-04"
+        },
+        "batches": 11,
+        "movements": 11,
+        "sourceCoverage": "Money batches plus canonical p32b1 document claims; historical V1 payments and expenses are not backfilled.",
+        "authenticity": "Shape and arithmetic consistency, not proof of physical funds or protection against fabricated SQL inserts."
+      },
+      "sources": {
+        "matched": true,
+        "findings": [],
+        "linkedDocuments": 9,
+        "historicalUnlinkedDocuments": 0,
+        "coverage": "Only p32b1-marked posted documents require canonical money effects. Historical documents are not backfilled."
+      },
+      "masters": {
+        "matched": true,
+        "findings": [],
+        "categories": 3,
+        "employees": 4,
+        "historyEvents": 8
+      },
+      "expenses": {
+        "matched": true,
+        "findings": [],
+        "mappedExpenses": 8,
+        "legacyUnmappedExpenses": 0
+      }
+    },
+    "labor": {
+      "matched": true,
+      "findings": [],
+      "balances": {
+        "1": "800.00",
+        "2": "650.00",
+        "4": "800.00"
+      },
+      "earnings": 3,
+      "payments": 1,
+      "openings": 3,
+      "authenticityVerified": false,
+      "coverage": "Canonical source/snapshot/arithmetic/audit consistency; not proof of physical funds or protection against fabricated consistent SQL inserts."
+    },
+    "commands": {
+      "matched": true,
+      "findings": []
+    },
+    "extension": {
+      "matched": true,
+      "findings": [],
+      "allocations": 4,
+      "initializations": 3,
+      "authenticityVerified": false
+    },
+    "integrity": {
+      "findings": [],
+      "invalid": []
+    }
+  },
+  "negativeTests": {
+    "wrong recipient": true,
+    "corrupted ciphertext": true,
+    "altered allocation amount": true,
+    "altered allocation employee_id": true,
+    "altered allocation source_hash": true,
+    "altered allocation source_batch_id": true,
+    "altered allocation source_movement_id": true,
+    "altered allocation date": true,
+    "missing labor_expense_allocations": true,
+    "missing stock_initializations": true,
+    "missing labor_extension_audit": true,
+    "missing allocation and compound posting commands": true,
+    "old consumer rejects classified format": true,
+    "new consumer rejects older format": true,
+    "altered DDL rejected before writes": true
+  },
+  "authenticatedDecryptionVerified": true,
+  "productionContacted": false
+}

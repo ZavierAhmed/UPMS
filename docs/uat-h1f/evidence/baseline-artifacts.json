@@ -1,0 +1,16 @@
+[
+  {
+    "source": "output/pdf/uath1e-partial-thousand.pdf",
+    "file": "output/pdf/uath1f-before-partial.pdf",
+    "baselineCommit": "f73a898585aa669d882c394391d3e45001fc1f73",
+    "actualPriorChromeOrExcelArtifact": true,
+    "sha256": "cc24117a2fda2a1e32241545c557b695bc68b71d70d1b44e0ec3f591f3d60f62"
+  },
+  {
+    "source": "docs/uat-h1e/evidence/partial-thousand.xlsx",
+    "file": "docs/uat-h1f/evidence/before-partial.xlsx",
+    "baselineCommit": "f73a898585aa669d882c394391d3e45001fc1f73",
+    "actualPriorChromeOrExcelArtifact": true,
+    "sha256": "75db0f3638f783b4196ae94c6da0b3fcff9ae676de5d65b3287c3a782a8a2e5f"
+  }
+]

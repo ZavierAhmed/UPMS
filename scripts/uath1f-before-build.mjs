@@ -1,0 +1,8 @@
+import {readFile,writeFile,unlink} from 'node:fs/promises';import {resolve,sep} from 'node:path';import {spawn} from 'node:child_process';import {randomUUID} from 'node:crypto';
+export async function buildH1fBefore(){
+ const root=resolve('.'),client=resolve('upms.client'),out=resolve('tmp/h1f-baseline-management');if(!out.startsWith(resolve('tmp')+sep))throw Error('H1F_BASELINE_PRIVATE_OUTPUT_REQUIRED');
+ const id=randomUUID(),component=resolve(client,'management/src/.h1f-'+id+'.jsx'),config=resolve(client,'.h1f-'+id+'.config.mjs');
+ const run=(exe,args,cwd)=>new Promise((done,fail)=>{const p=spawn(exe,args,{cwd,windowsHide:true,stdio:['ignore','pipe','pipe']});let stdout='',stderr='';p.stdout.on('data',b=>stdout+=b);p.stderr.on('data',b=>stderr+=b);p.on('error',fail);p.on('close',code=>code?fail(Error('H1F_BASELINE_BUILD_FAILED')):done(stdout));});
+ try{const source=await run('git',['show','f73a898585aa669d882c394391d3e45001fc1f73:upms.client/management/src/EmployeeHafta.jsx'],root);await writeFile(component,source,{flag:'wx'});await writeFile(config,"import {defineConfig} from 'vite';import react from '@vitejs/plugin-react';export default defineConfig({root:'management',base:'/management/',plugins:[react()],resolve:{alias:[{find:'./EmployeeHafta.jsx',replacement:"+JSON.stringify(component.replaceAll('\\','/'))+"}]},build:{outDir:"+JSON.stringify(out.replaceAll('\\','/'))+",emptyOutDir:true,sourcemap:false}});",{flag:'wx'});await run(process.execPath,['node_modules/vite/bin/vite.js','build','--config',config],client);await readFile(resolve(out,'index.html'));}
+ finally{await unlink(component).catch(e=>{if(e.code!=='ENOENT')throw e;});await unlink(config).catch(e=>{if(e.code!=='ENOENT')throw e;});}
+}

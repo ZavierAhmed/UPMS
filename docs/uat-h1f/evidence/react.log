@@ -1,0 +1,31 @@
+
+ RUN  v5.0.5 C:/Users/zasah/source/repos/UPMS/upms.client
+
+ ❯ src/test/HaftaClassification.test.jsx (6 tests | 1 failed) 428ms
+   × Excel distinguishes direct payment and existing noncash allocation without inventing an additional cash row 6ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/test/HaftaClassification.test.jsx > Excel distinguishes direct payment and existing noncash allocation without inventing an additional cash row
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/test/HaftaClassification.test.jsx:41:63
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 40 passed (41)
+      Tests  1 failed | 297 passed (298)
+   Start at  15:57:38
+   Duration  47.19s (environment 51%, tests 27%, setup 9%, import 6%, transform 6%)
+
+Environment  jsdom was created 41 times · 44.41s total, 51% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments

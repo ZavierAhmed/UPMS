@@ -186,7 +186,7 @@ final class EmployeeHafta
     }
     public static function openingDetail(array $row, bool $verified): array
     {
-        return ['id' => (string)$row['id'],'employeeId' => (string)$row['employee_id'],'date' => $row['date'],'amount' => $row['amount'],'reference' => $row['reference'],'reason' => $row['reason'],'createdAt' => $row['created_at'],'verified' => $verified,'immutable' => true];
+        return ['employeeName' => json_decode($row['employee_snapshot'], true, 32, JSON_THROW_ON_ERROR)['name'],'id' => (string)$row['id'],'employeeId' => (string)$row['employee_id'],'date' => $row['date'],'amount' => $row['amount'],'reference' => $row['reference'],'reason' => $row['reason'],'createdAt' => $row['created_at'],'verified' => $verified,'immutable' => true];
     }
     public static function periodCoverage(?array $opening, bool $reconciled, string $from, string $to): string
     {

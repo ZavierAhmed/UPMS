@@ -1,0 +1,12 @@
+
+ RUN  v5.0.5 C:/Users/zasah/source/repos/UPMS/upms.client
+
+
+ Test Files  3 passed (3)
+      Tests  29 passed (29)
+   Start at  16:21:13
+   Duration  26.37s (environment 79%, setup 16%, tests 3%, transform 1%)
+
+Environment  jsdom was created 3 times · 39.48s total, 79% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments

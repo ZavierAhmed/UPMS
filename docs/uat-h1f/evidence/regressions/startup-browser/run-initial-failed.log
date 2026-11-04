@@ -1,0 +1,22 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ 'http://127.0.0.1:5193/setup'
+- 'http://127.0.0.1:5193/management'
+                         ^
+
+    at file:///C:/Users/zasah/source/repos/UPMS/scripts/.h1b-browser-6cd41bc9-6569-4e77-9eed-05406ccb9aa3.mjs:44:10
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 'http://127.0.0.1:5193/setup',
+  expected: 'http://127.0.0.1:5193/management',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v26.4.0

@@ -1,0 +1,129 @@
+{
+  "passed": true,
+  "pdfs": [
+    {
+      "file": "output/pdf/uath1f-full-zero.pdf",
+      "pages": 1,
+      "sha256": "41bd25293e79adc48e572627bf474bb6078e6d8d7d71f2da6307855d0431e395"
+    },
+    {
+      "file": "output/pdf/uath1f-partial-thousand.pdf",
+      "pages": 1,
+      "sha256": "d773fc0a1a18de1ee4618da6914b38e39ed5291c3de2b88e1aea8c0dcf6b97cd"
+    },
+    {
+      "file": "output/pdf/uath1f-full-thousand.pdf",
+      "pages": 1,
+      "sha256": "d36de3b0a018b1eea65a63dc22c23810c3c5ad5536f6260971294e20d882f69e"
+    },
+    {
+      "file": "output/pdf/uath1f-no-opening.pdf",
+      "pages": 1,
+      "sha256": "eadb33c87e623980e49b0a7e60689ad50c66270eef4ad2e44f66925ec59917ac"
+    },
+    {
+      "file": "output/pdf/uath1f-multiple-activity.pdf",
+      "pages": 1,
+      "sha256": "9f9874a1143d72bb8d90b821762cd71e865c9e6a0d0d6abb4bcf6179c2efe55a"
+    },
+    {
+      "file": "output/pdf/uath1f-opening-on-start.pdf",
+      "pages": 1,
+      "sha256": "527a06683a3c3e1dd114c5c6997a2a5d5b79aca09e12ddf41c8b70ea3e1a4155"
+    },
+    {
+      "file": "output/pdf/uath1f-following-week.pdf",
+      "pages": 1,
+      "sha256": "33a54257e5fce87c65363c765af2a2eb7c6171618d67e88f9095b30259daa467"
+    },
+    {
+      "file": "output/pdf/uath1f-before-coverage.pdf",
+      "pages": 1,
+      "sha256": "3848c635f0b218f6eeb80e8b3b023ad4c608646c708c518edab3cc526eef84bb"
+    },
+    {
+      "file": "output/pdf/uath1f-all-employees.pdf",
+      "pages": 5,
+      "sha256": "96b6c7b0ee0d0b66e6d33c92a1953342b927e3686d7a9fea11374632bb9af7e0"
+    }
+  ],
+  "syntheticExcel": [
+    {
+      "file": "docs/uat-h1f/evidence/full-zero.xlsx",
+      "sha256": "0682380e1ee6f4ec2de76748d80b6368330a186b77e3d63a4ce7fc0e3f9cdf16",
+      "openingRows": 1,
+      "earned": "2000.00",
+      "paid": "1200.00",
+      "closing": "800.00"
+    },
+    {
+      "file": "docs/uat-h1f/evidence/partial-thousand.xlsx",
+      "sha256": "3500915f48b37b4e289baff4f411c256e2385bbc08c83e7ee452694e75cf0cc9",
+      "openingRows": 1,
+      "earned": "2000.00",
+      "paid": "1200.00",
+      "closing": "1800.00"
+    },
+    {
+      "file": "docs/uat-h1f/evidence/full-thousand.xlsx",
+      "sha256": "83a19e97ec20313f1c23fea29e02d2d273f5ce30a4315d5a3bc5b1f54a1e0962",
+      "openingRows": 1,
+      "earned": "2000.00",
+      "paid": "1200.00",
+      "closing": "1800.00"
+    },
+    {
+      "file": "docs/uat-h1f/evidence/no-opening.xlsx",
+      "sha256": "fd6d5efb9a27e48950302c66fb59c8b48d402c5c9283ff6492b2ec6b5d0480b1",
+      "openingRows": 0,
+      "earned": "2000.00",
+      "paid": "0.00",
+      "closing": null
+    },
+    {
+      "file": "docs/uat-h1f/evidence/multiple-activity.xlsx",
+      "sha256": "5b00294fcbfe23401cbb5fb88db8fadd7727c970483a31374301d89b1ee731ec",
+      "openingRows": 1,
+      "earned": "2000.00",
+      "paid": "1200.00",
+      "closing": "1800.00"
+    },
+    {
+      "file": "docs/uat-h1f/evidence/opening-on-start.xlsx",
+      "sha256": "362b9b37705f967bce28d80db97a9f3091f01411e74bf614a0ca2457663689d9",
+      "openingRows": 1,
+      "earned": "2000.00",
+      "paid": "1200.00",
+      "closing": "1800.00"
+    },
+    {
+      "file": "docs/uat-h1f/evidence/following-week.xlsx",
+      "sha256": "a96da6b783d2132eebf7bba40184695975f299456fcd459143b578c0dfb4bd6d",
+      "openingRows": 1,
+      "earned": "0.00",
+      "paid": "0.00",
+      "closing": "1800.00"
+    },
+    {
+      "file": "docs/uat-h1f/evidence/before-coverage.xlsx",
+      "sha256": "99cd9185e2f44010c78b4395b994c2b1d763590df20a3e4c0aa814fc0e9dfaaf",
+      "openingRows": 0,
+      "earned": "0.00",
+      "paid": "0.00",
+      "closing": null
+    }
+  ],
+  "allEmployeeExcelVerified": true,
+  "actualOwnerExcel": {
+    "file": "docs/uat-h1f/evidence/owner-partial.xlsx",
+    "sha256": "dd203b83af26db666f4c0b3c479c8923a8d84664760cbf0e0e34f0cc1bd402aa",
+    "openingRows": 1,
+    "earned": "2000.00",
+    "paid": "1200.00",
+    "closing": "1800.00"
+  },
+  "exactMoneyCellsNumeric": true,
+  "openingNotCountedAsEarnedOrPaid": true,
+  "noFormulasOrMacros": true,
+  "visualReview": "All final 13 pages reviewed after Poppler rendering. Each individual case fits one page; mixed five-employee report is five pages. Unknown opening has no invented date or verified label; payable, logo, tables and signatures are legible."
+}

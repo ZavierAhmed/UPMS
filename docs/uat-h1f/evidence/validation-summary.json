@@ -1,0 +1,58 @@
+{
+  "passed": true,
+  "php": {
+    "tests": 166,
+    "assertions": 1906
+  },
+  "react": {
+    "tests": 298,
+    "suites": 41,
+    "focusedStatementRelatedTests": 29
+  },
+  "financial": {
+    "httpComparisons": 83,
+    "snapshots": 4
+  },
+  "stockLabor": {
+    "operations": 34,
+    "laborChecks": 13,
+    "recoveryRows": [
+      270,
+      656
+    ]
+  },
+  "employeeChrome": {
+    "requests": 158,
+    "pdfs": 5,
+    "excel": 4,
+    "screenshots": 13
+  },
+  "startupChrome": {
+    "initialRetryPassed": false,
+    "initialSafeStage": "base-guards",
+    "initialSafeCode": "STARTUP_FAILED",
+    "failedEvidencePreserved": true,
+    "freshRecheckPassed": true,
+    "checks": 7,
+    "requests": 240
+  },
+  "classifiedRecovery": {
+    "passed": true,
+    "rows": 292,
+    "tables": 38,
+    "guards": 103,
+    "authenticatedDecryptionVerified": true
+  },
+  "newStatementChrome": {
+    "pdfs": 9,
+    "pages": 13,
+    "excelDownloads": 9,
+    "mobileNoPageOverflow": true,
+    "allScenarioMoneyComparedIndependently": true
+  },
+  "actualOwnerExcelVerified": true,
+  "ownerFinancialRecordsUnchanged": true,
+  "accountingCalculationsChanged": false,
+  "schemaChanged": false,
+  "productionDeployed": false
+}

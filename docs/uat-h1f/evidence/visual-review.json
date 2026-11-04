@@ -1,0 +1,57 @@
+{
+  "passed": true,
+  "reviewedPages": 13,
+  "artifacts": [
+    {
+      "file": "output/pdf/uath1f-full-zero.pdf",
+      "pages": 1,
+      "sha256": "41bd25293e79adc48e572627bf474bb6078e6d8d7d71f2da6307855d0431e395"
+    },
+    {
+      "file": "output/pdf/uath1f-partial-thousand.pdf",
+      "pages": 1,
+      "sha256": "d773fc0a1a18de1ee4618da6914b38e39ed5291c3de2b88e1aea8c0dcf6b97cd"
+    },
+    {
+      "file": "output/pdf/uath1f-full-thousand.pdf",
+      "pages": 1,
+      "sha256": "d36de3b0a018b1eea65a63dc22c23810c3c5ad5536f6260971294e20d882f69e"
+    },
+    {
+      "file": "output/pdf/uath1f-no-opening.pdf",
+      "pages": 1,
+      "sha256": "eadb33c87e623980e49b0a7e60689ad50c66270eef4ad2e44f66925ec59917ac"
+    },
+    {
+      "file": "output/pdf/uath1f-multiple-activity.pdf",
+      "pages": 1,
+      "sha256": "9f9874a1143d72bb8d90b821762cd71e865c9e6a0d0d6abb4bcf6179c2efe55a"
+    },
+    {
+      "file": "output/pdf/uath1f-opening-on-start.pdf",
+      "pages": 1,
+      "sha256": "527a06683a3c3e1dd114c5c6997a2a5d5b79aca09e12ddf41c8b70ea3e1a4155"
+    },
+    {
+      "file": "output/pdf/uath1f-following-week.pdf",
+      "pages": 1,
+      "sha256": "33a54257e5fce87c65363c765af2a2eb7c6171618d67e88f9095b30259daa467"
+    },
+    {
+      "file": "output/pdf/uath1f-before-coverage.pdf",
+      "pages": 1,
+      "sha256": "3848c635f0b218f6eeb80e8b3b023ad4c608646c708c518edab3cc526eef84bb"
+    },
+    {
+      "file": "output/pdf/uath1f-all-employees.pdf",
+      "pages": 5,
+      "sha256": "96b6c7b0ee0d0b66e6d33c92a1953342b927e3686d7a9fea11374632bb9af7e0"
+    }
+  ],
+  "individualCasesOnePage": true,
+  "allEmployeesPages": 5,
+  "openingAndEarnedPaidColumnsSeparate": true,
+  "finalPayableProminent": true,
+  "unverifiedLabelsAndDatesCorrect": true,
+  "logoAndSignaturesPreserved": true
+}

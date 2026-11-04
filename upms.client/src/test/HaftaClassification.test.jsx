@@ -37,9 +37,9 @@ it('unsupported existing payments show the reason and cannot be submitted as lab
 });
 it('Excel distinguishes direct payment and existing noncash allocation without inventing an additional cash row',()=>{
  const w=employeeHaftaWorkbook({from:'2026-11-03',to:'2026-11-03',blocks:[{names:['Ahmed'],verified:true,opening:'0.00',earned:'2000.00',paid:'1200.00',directPaid:'0.00',allocatedPaid:'1200.00',closing:'800.00',records:[{type:'EXPENSE_ALLOCATION',employeeName:'Ahmed',date:'2026-11-03',description:'Existing expense applied to Hafta (no new cash)',earned:'',paid:'1200.00'}]}]});
- expect(w.rows.some(r=>r[2]==='Closing payable: 800.00')).toBe(true);
- expect(w.rows.some(r=>r[2]==='Direct Hafta payments: 0.00')).toBe(true);
- expect(w.rows.some(r=>r[2]==='Existing payments applied (noncash classification): 1200.00')).toBe(true);
+ expect(w.rows.find(r=>String(r[2]).startsWith('Closing payable / Amount owed'))[8]).toBe('800.00');
+ expect(w.rows.find(r=>r[2]==='Direct Hafta payments')[8]).toBe('0.00');
+ expect(w.rows.find(r=>r[2]==='Existing expenses applied to Hafta')[8]).toBe('1200.00');expect(w.rows.filter(r=>r[1]==='2026-11-03'&&r[6]==='1200.00')).toHaveLength(1);
 });
 it('downloaded labor money cells are numeric so Excel totals can use earned and paid amounts',async()=>{
  const file=workbook(['Employee','Labor Rate · PKR','Earned · PKR','Paid · PKR'],[['Ahmed','10.00','2000.00','1200.00']]);
