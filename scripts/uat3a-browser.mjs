@@ -48,12 +48,25 @@ try{
   await page.click('a[download]');await finished;
   const file=resolve(downloadPath,doc.filename),bytes=await readFile(file);assert.equal(bytes.length,doc.bytes);assert.equal(createHash('sha256').update(bytes).digest('hex'),doc.sha256);
   const http=await fetch(origin+doc.url);assert.equal(http.headers.get('content-type'),'application/pdf');assert.equal(http.headers.get('content-disposition'),`attachment; filename="${doc.filename}"`);
+  const priorTargets=new Set(browser.targets());
   const viewer=await browser.newPage();await viewer.goto(pathToFileURL(file).href,{waitUntil:'domcontentloaded'});
   // Chrome renders PDFs in an out-of-process extension frame, not the page DOM.
-  await browser.waitForTarget(t=>t.url().startsWith('chrome-extension://mhjfbmdgcfjbbpaeojofohoefgiehjai/'),{timeout:15000});
-  await new Promise(r=>setTimeout(r,1200));
+  const target=await browser.waitForTarget(t=>!priorTargets.has(t)&&t.url().startsWith('chrome-extension://mhjfbmdgcfjbbpaeojofohoefgiehjai/'),{timeout:15000});
+  const viewerSession=await target.createCDPSession();
+  let viewerState;
+  const deadline=Date.now()+30000;
+  do {
+   const result=await viewerSession.send('Runtime.evaluate',{expression:`JSON.stringify({state:document.querySelector('pdf-viewer')?.loadState_,pages:document.querySelector('pdf-viewer')?.docLength_,progress:document.querySelector('pdf-viewer')?.loadProgress_})`,returnByValue:true});
+   viewerState=JSON.parse(result.result.value||'{}');
+   if(viewerState.state==='success')break;
+   if(viewerState.state==='failed')throw Error('Chrome PDF viewer failed '+id);
+   await new Promise(r=>setTimeout(r,200));
+  } while(Date.now()<deadline);
+  assert.equal(viewerState.state,'success',id+' viewer must finish loading');
+  assert.equal(viewerState.pages,doc.pages||1,id+' viewer page count');
+  await new Promise(r=>setTimeout(r,400));
   await viewer.screenshot({path:resolve(evidence,'pdf-viewer-'+id+'.jpg'),type:'jpeg',quality:80});
-  report.downloads.push({id,filename:doc.filename,bytes:bytes.length,sha256:doc.sha256,mime:http.headers.get('content-type'),disposition:http.headers.get('content-disposition'),chromeViewer:true,viewerUrl:viewer.url()});await viewer.close();
+  report.downloads.push({id,filename:doc.filename,bytes:bytes.length,sha256:doc.sha256,mime:http.headers.get('content-type'),disposition:http.headers.get('content-disposition'),chromeViewer:true,viewerState,viewerUrl:viewer.url()});await viewer.close();
  }
  // Every responsive image variant is available and correctly mapped in this runtime.
  const images=JSON.parse(await readFile('upms.client/src/data/ownerProductImages.json','utf8'));report.imageVariants=[];

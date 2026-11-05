@@ -1,7 +1,7 @@
 {
   "label": "vite",
   "chrome": "Chrome/156.0.8078.80",
-  "origin": "http://127.0.0.1:63536",
+  "origin": "http://127.0.0.1:49202",
   "viewports": [],
   "downloads": [
     {
@@ -12,6 +12,11 @@
       "mime": "application/pdf",
       "disposition": "attachment; filename=\"Bucket.pdf\"",
       "chromeViewer": true,
+      "viewerState": {
+        "state": "success",
+        "pages": 3,
+        "progress": 100
+      },
       "viewerUrl": "file:///C:/Users/zasah/source/repos/UPMS/tmp/uat3a/downloads/catalog-update/vite/Bucket.pdf"
     },
     {
@@ -22,6 +27,11 @@
       "mime": "application/pdf",
       "disposition": "attachment; filename=\"Company_Profile_New_HD_Bottles (1).pdf\"",
       "chromeViewer": true,
+      "viewerState": {
+        "state": "success",
+        "pages": 25,
+        "progress": 100
+      },
       "viewerUrl": "file:///C:/Users/zasah/source/repos/UPMS/tmp/uat3a/downloads/catalog-update/vite/Company_Profile_New_HD_Bottles%20(1).pdf"
     },
     {
@@ -32,6 +42,11 @@
       "mime": "application/pdf",
       "disposition": "attachment; filename=\"Company_Profile_New_HD_Bottles (1).pdf\"",
       "chromeViewer": true,
+      "viewerState": {
+        "state": "success",
+        "pages": 25,
+        "progress": 100
+      },
       "viewerUrl": "file:///C:/Users/zasah/source/repos/UPMS/tmp/uat3a/downloads/catalog-update/vite/Company_Profile_New_HD_Bottles%20(1).pdf"
     }
   ],
