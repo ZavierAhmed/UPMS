@@ -388,6 +388,7 @@ docs/uat-3/evidence/regressions/initial-cheque-browser.log
 docs/uat-3/evidence/regressions/lint.log
 docs/uat-3/evidence/regressions/management-browser.log
 docs/uat-3/evidence/regressions/management-build.log
+docs/uat-3/evidence/regressions/navigation-history.log
 docs/uat-3/evidence/regressions/node-backend.log
 docs/uat-3/evidence/regressions/package-parity.log
 docs/uat-3/evidence/regressions/php-fixtures.log
