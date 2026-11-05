@@ -3,6 +3,8 @@ import PageHero from "../components/ui/PageHero";
 import Contact from "../components/sections/Contact";
 import { process } from "../data/pages";
 import machine from "../assets/products/manufacturing.jpg";
+import CompanyWork from "../components/sections/CompanyWork";
+import BlowMoulding from "../components/sections/BlowMoulding";
 export default function Manufacturing() {
   return (
     <>
@@ -54,6 +56,8 @@ export default function Manufacturing() {
           </Link>
         </div>
       </section>
+      <CompanyWork />
+      <BlowMoulding />
       <section className="products-section section">
         <div className="container">
           <div className="section-heading reveal">

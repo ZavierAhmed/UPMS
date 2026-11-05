@@ -16,6 +16,7 @@ import "./styles/site.css";
 import "./styles/pages.css";
 import "./styles/polish.css";
 import "./styles/unified.css";
+import "./styles/content.css";
 function RouteEffects() {
   const { pathname } = useLocation();
   useEffect(() => {

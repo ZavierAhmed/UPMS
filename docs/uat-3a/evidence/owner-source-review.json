@@ -1,0 +1,50 @@
+[
+  {
+    "file": "4fffd507-1733-4696-bfec-cd6122bf54db.png",
+    "bytes": 2627215,
+    "width": 1086,
+    "height": 1448,
+    "sha256": "7bfa5f6aa9023e8a98f446932a2a8a66a9bb4a48dc54bb51cc075e8c6c8b8172",
+    "published": true
+  },
+  {
+    "file": "9c876f8c-ce11-40c6-8113-ca03f6b5ab0b.png",
+    "bytes": 1948392,
+    "width": 1086,
+    "height": 1448,
+    "sha256": "95bd48121845b7c61d94aea9eb47398719300188754ebc47cbd036f0d5f0f5c1",
+    "published": true
+  },
+  {
+    "file": "c8c4fe89-9463-4a28-9175-94f4aa358a2e.png",
+    "bytes": 2736244,
+    "width": 1086,
+    "height": 1448,
+    "sha256": "d37ee64ec459262aa58497466242399ef25b6c124289a6c936a1fe561ec8d92f",
+    "published": true
+  },
+  {
+    "file": "e1d15181-3574-4018-95b1-8755fce0a1d2.png",
+    "bytes": 1620120,
+    "width": 1281,
+    "height": 1227,
+    "sha256": "5a207efe9f941a7dca20486743b6eadf9cf48be0dc9f6ee97b78ebc11cde056f",
+    "published": false
+  },
+  {
+    "file": "f3383ac2-ec9a-4830-bf4d-170946afd090.png",
+    "bytes": 2503567,
+    "width": 1281,
+    "height": 1227,
+    "sha256": "01532d7e599cc884b7315a611b50058203fb543dc0802e4fe1a80021c6f623e0",
+    "published": true
+  },
+  {
+    "file": "open-empty-box.jpg.jpeg",
+    "bytes": 4601178,
+    "width": 3369,
+    "height": 2255,
+    "sha256": "13d6124bb1fa876c3fa9a42d37f649beff8008c81821ee825f07a8ced0f539ef",
+    "published": true
+  }
+]

@@ -1,0 +1,83 @@
+{
+  "label": "vite",
+  "chrome": "Chrome/156.0.8078.80",
+  "origin": "http://127.0.0.1:51743",
+  "viewports": [],
+  "downloads": [
+    {
+      "id": "buckets",
+      "filename": "unique-plastic-buckets-product-information.pdf",
+      "bytes": 810898,
+      "sha256": "f84f3d23e1eb58165cb3a3b1f31a27a8d34238a79a5a6a0ee6e8919f9ee4d90e",
+      "mime": "application/pdf",
+      "disposition": "attachment; filename=\"unique-plastic-buckets-product-information.pdf\"",
+      "chromeViewer": true,
+      "viewerUrl": "file:///C:/Users/zasah/source/repos/UPMS/tmp/uat3a/downloads/vite/unique-plastic-buckets-product-information.pdf"
+    },
+    {
+      "id": "cans",
+      "filename": "unique-plastic-cans-product-information.pdf",
+      "bytes": 439989,
+      "sha256": "806e26046f46c5d9bf0165737ae6d27fa7cd7035f67a84903e84ee6ff09da571",
+      "mime": "application/pdf",
+      "disposition": "attachment; filename=\"unique-plastic-cans-product-information.pdf\"",
+      "chromeViewer": true,
+      "viewerUrl": "file:///C:/Users/zasah/source/repos/UPMS/tmp/uat3a/downloads/vite/unique-plastic-cans-product-information.pdf"
+    },
+    {
+      "id": "containers",
+      "filename": "unique-plastic-containers-product-information.pdf",
+      "bytes": 702362,
+      "sha256": "a55a92b9de4e5b2c2fc206c5efb6b15c52ff92116ba41660d84645253e80cff2",
+      "mime": "application/pdf",
+      "disposition": "attachment; filename=\"unique-plastic-containers-product-information.pdf\"",
+      "chromeViewer": true,
+      "viewerUrl": "file:///C:/Users/zasah/source/repos/UPMS/tmp/uat3a/downloads/vite/unique-plastic-containers-product-information.pdf"
+    },
+    {
+      "id": "stickers",
+      "filename": "unique-plastic-stickers-product-information.pdf",
+      "bytes": 3053913,
+      "sha256": "0b51c50e976ff326bc47cd595ef44423e284f9ee2218382de2f9c2273f90622a",
+      "mime": "application/pdf",
+      "disposition": "attachment; filename=\"unique-plastic-stickers-product-information.pdf\"",
+      "chromeViewer": true,
+      "viewerUrl": "file:///C:/Users/zasah/source/repos/UPMS/tmp/uat3a/downloads/vite/unique-plastic-stickers-product-information.pdf"
+    },
+    {
+      "id": "cartons",
+      "filename": "unique-plastic-cartons-product-information.pdf",
+      "bytes": 1293752,
+      "sha256": "6588e475cea32ec58ce31e5d0bfea9c76c7e2877db30b577270f755de6fda2f3",
+      "mime": "application/pdf",
+      "disposition": "attachment; filename=\"unique-plastic-cartons-product-information.pdf\"",
+      "chromeViewer": true,
+      "viewerUrl": "file:///C:/Users/zasah/source/repos/UPMS/tmp/uat3a/downloads/vite/unique-plastic-cartons-product-information.pdf"
+    }
+  ],
+  "consoleErrors": [],
+  "requestFailures": [],
+  "imageVariants": [
+    "/assets/owner-uat3a-label-yellow-160.webp",
+    "/assets/owner-uat3a-label-yellow-320.webp",
+    "/assets/owner-uat3a-label-yellow-640.webp",
+    "/assets/owner-uat3a-label-yellow-1086.webp",
+    "/assets/owner-uat3a-label-blue-160.webp",
+    "/assets/owner-uat3a-label-blue-320.webp",
+    "/assets/owner-uat3a-label-blue-640.webp",
+    "/assets/owner-uat3a-label-blue-1086.webp",
+    "/assets/owner-uat3a-label-grey-160.webp",
+    "/assets/owner-uat3a-label-grey-320.webp",
+    "/assets/owner-uat3a-label-grey-640.webp",
+    "/assets/owner-uat3a-label-grey-1086.webp",
+    "/assets/owner-uat3a-plain-carton-160.webp",
+    "/assets/owner-uat3a-plain-carton-320.webp",
+    "/assets/owner-uat3a-plain-carton-640.webp",
+    "/assets/owner-uat3a-plain-carton-1200.webp",
+    "/assets/owner-uat3a-open-carton-160.webp",
+    "/assets/owner-uat3a-open-carton-320.webp",
+    "/assets/owner-uat3a-open-carton-640.webp",
+    "/assets/owner-uat3a-open-carton-1200.webp"
+  ],
+  "passed": true
+}

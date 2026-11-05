@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { resolve, sep } from "node:path";
 import express from "express";
+import {productDocuments, productDownloadHeaders} from './product-documents.js';
 export const escape = (value) =>
   value
     .replaceAll("&", "&amp;")
@@ -26,6 +27,7 @@ export function website(config) {
   }
   const documents = new Map(manifest.pages.map((p) => [p.path, read(p.file)]));
   const missing = read(manifest.notFoundFile);
+  const downloads = productDocuments(config.root);
   router.use((req, res, next) => {
     let decoded;
     try {
@@ -39,6 +41,12 @@ export function website(config) {
         .some((segment) => segment === "." || segment === "..")
     )
       return res.status(404).end();
+    const download = downloads.get(req.path);
+    if (download) {
+      if (!['GET', 'HEAD'].includes(req.method)) return res.set('Allow', 'GET, HEAD').status(405).end();
+      res.set(productDownloadHeaders(download));
+      return res.sendFile(download.file);
+    }
     if (!(
       /^\/(assets|licenses)(\/|$)/.test(req.path) ||
       ["/icons.svg", "/favicon.svg"].includes(req.path)

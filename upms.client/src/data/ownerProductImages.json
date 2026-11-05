@@ -1,0 +1,221 @@
+{
+  "stickers": [
+    {
+      "id": "label-yellow",
+      "categoryId": "stickers",
+      "sourceFile": "4fffd507-1733-4696-bfec-cd6122bf54db.png",
+      "sourceSha256": "7bfa5f6aa9023e8a98f446932a2a8a66a9bb4a48dc54bb51cc075e8c6c8b8172",
+      "approval": "Owner explicitly authorized website use of Downloads/New folder in UAT-3A.",
+      "imageKind": "owner-supplied representative packaging image",
+      "alt": "Label application on a yellow bottle; representative packaging example",
+      "caption": "Owner-supplied representative label application on a container. Third-party branding is not a Unique Plastic Industry brand or lubricant product.",
+      "width": 1086,
+      "height": 1448,
+      "originalWidth": 1086,
+      "originalHeight": 1448,
+      "src": "/assets/owner-uat3a-label-yellow-1086.webp",
+      "thumbnail": "/assets/owner-uat3a-label-yellow-160.webp",
+      "srcSet": "/assets/owner-uat3a-label-yellow-320.webp 320w, /assets/owner-uat3a-label-yellow-640.webp 640w, /assets/owner-uat3a-label-yellow-1086.webp 1086w",
+      "variants": [
+        {
+          "src": "/assets/owner-uat3a-label-yellow-160.webp",
+          "width": 160,
+          "height": 213,
+          "bytes": 10812
+        },
+        {
+          "src": "/assets/owner-uat3a-label-yellow-320.webp",
+          "width": 320,
+          "height": 427,
+          "bytes": 32626
+        },
+        {
+          "src": "/assets/owner-uat3a-label-yellow-640.webp",
+          "width": 640,
+          "height": 853,
+          "bytes": 99314
+        },
+        {
+          "src": "/assets/owner-uat3a-label-yellow-1086.webp",
+          "width": 1086,
+          "height": 1448,
+          "bytes": 220662
+        }
+      ]
+    },
+    {
+      "id": "label-blue",
+      "categoryId": "stickers",
+      "sourceFile": "9c876f8c-ce11-40c6-8113-ca03f6b5ab0b.png",
+      "sourceSha256": "95bd48121845b7c61d94aea9eb47398719300188754ebc47cbd036f0d5f0f5c1",
+      "approval": "Owner explicitly authorized website use of Downloads/New folder in UAT-3A.",
+      "imageKind": "owner-supplied representative packaging image",
+      "alt": "Label application on a black bottle; representative packaging example",
+      "caption": "Owner-supplied representative label application on a container. Third-party branding is not a Unique Plastic Industry brand or lubricant product.",
+      "width": 1086,
+      "height": 1448,
+      "originalWidth": 1086,
+      "originalHeight": 1448,
+      "src": "/assets/owner-uat3a-label-blue-1086.webp",
+      "thumbnail": "/assets/owner-uat3a-label-blue-160.webp",
+      "srcSet": "/assets/owner-uat3a-label-blue-320.webp 320w, /assets/owner-uat3a-label-blue-640.webp 640w, /assets/owner-uat3a-label-blue-1086.webp 1086w",
+      "variants": [
+        {
+          "src": "/assets/owner-uat3a-label-blue-160.webp",
+          "width": 160,
+          "height": 213,
+          "bytes": 7064
+        },
+        {
+          "src": "/assets/owner-uat3a-label-blue-320.webp",
+          "width": 320,
+          "height": 427,
+          "bytes": 20452
+        },
+        {
+          "src": "/assets/owner-uat3a-label-blue-640.webp",
+          "width": 640,
+          "height": 853,
+          "bytes": 54956
+        },
+        {
+          "src": "/assets/owner-uat3a-label-blue-1086.webp",
+          "width": 1086,
+          "height": 1448,
+          "bytes": 109402
+        }
+      ]
+    },
+    {
+      "id": "label-grey",
+      "categoryId": "stickers",
+      "sourceFile": "c8c4fe89-9463-4a28-9175-94f4aa358a2e.png",
+      "sourceSha256": "d37ee64ec459262aa58497466242399ef25b6c124289a6c936a1fe561ec8d92f",
+      "approval": "Owner explicitly authorized website use of Downloads/New folder in UAT-3A.",
+      "imageKind": "owner-supplied representative packaging image",
+      "alt": "Label application on a grey bottle; representative packaging example",
+      "caption": "Owner-supplied representative label application on a container. Third-party branding is not a Unique Plastic Industry brand or lubricant product.",
+      "width": 1086,
+      "height": 1448,
+      "originalWidth": 1086,
+      "originalHeight": 1448,
+      "src": "/assets/owner-uat3a-label-grey-1086.webp",
+      "thumbnail": "/assets/owner-uat3a-label-grey-160.webp",
+      "srcSet": "/assets/owner-uat3a-label-grey-320.webp 320w, /assets/owner-uat3a-label-grey-640.webp 640w, /assets/owner-uat3a-label-grey-1086.webp 1086w",
+      "variants": [
+        {
+          "src": "/assets/owner-uat3a-label-grey-160.webp",
+          "width": 160,
+          "height": 213,
+          "bytes": 10694
+        },
+        {
+          "src": "/assets/owner-uat3a-label-grey-320.webp",
+          "width": 320,
+          "height": 427,
+          "bytes": 33834
+        },
+        {
+          "src": "/assets/owner-uat3a-label-grey-640.webp",
+          "width": 640,
+          "height": 853,
+          "bytes": 108280
+        },
+        {
+          "src": "/assets/owner-uat3a-label-grey-1086.webp",
+          "width": 1086,
+          "height": 1448,
+          "bytes": 254344
+        }
+      ]
+    }
+  ],
+  "cartons": [
+    {
+      "id": "plain-carton",
+      "categoryId": "cartons",
+      "sourceFile": "f3383ac2-ec9a-4830-bf4d-170946afd090.png",
+      "sourceSha256": "01532d7e599cc884b7315a611b50058203fb543dc0802e4fe1a80021c6f623e0",
+      "approval": "Owner explicitly authorized website use of Downloads/New folder in UAT-3A.",
+      "imageKind": "owner-supplied representative packaging image",
+      "alt": "Closed unbranded brown carton, representative packaging example",
+      "caption": "Owner-supplied representative carton packaging image. Confirm the format and specifications for your order.",
+      "width": 1200,
+      "height": 1149,
+      "originalWidth": 1281,
+      "originalHeight": 1227,
+      "src": "/assets/owner-uat3a-plain-carton-1200.webp",
+      "thumbnail": "/assets/owner-uat3a-plain-carton-160.webp",
+      "srcSet": "/assets/owner-uat3a-plain-carton-320.webp 320w, /assets/owner-uat3a-plain-carton-640.webp 640w, /assets/owner-uat3a-plain-carton-1200.webp 1200w",
+      "variants": [
+        {
+          "src": "/assets/owner-uat3a-plain-carton-160.webp",
+          "width": 160,
+          "height": 153,
+          "bytes": 1396
+        },
+        {
+          "src": "/assets/owner-uat3a-plain-carton-320.webp",
+          "width": 320,
+          "height": 307,
+          "bytes": 3990
+        },
+        {
+          "src": "/assets/owner-uat3a-plain-carton-640.webp",
+          "width": 640,
+          "height": 613,
+          "bytes": 22946
+        },
+        {
+          "src": "/assets/owner-uat3a-plain-carton-1200.webp",
+          "width": 1200,
+          "height": 1149,
+          "bytes": 112850
+        }
+      ]
+    },
+    {
+      "id": "open-carton",
+      "categoryId": "cartons",
+      "sourceFile": "open-empty-box.jpg.jpeg",
+      "sourceSha256": "13d6124bb1fa876c3fa9a42d37f649beff8008c81821ee825f07a8ced0f539ef",
+      "approval": "Owner explicitly authorized website use of Downloads/New folder in UAT-3A.",
+      "imageKind": "owner-supplied representative packaging image",
+      "alt": "Open unbranded corrugated carton, representative packaging example",
+      "caption": "Owner-supplied representative carton packaging image. Confirm the format and specifications for your order.",
+      "width": 1200,
+      "height": 803,
+      "originalWidth": 3369,
+      "originalHeight": 2255,
+      "src": "/assets/owner-uat3a-open-carton-1200.webp",
+      "thumbnail": "/assets/owner-uat3a-open-carton-160.webp",
+      "srcSet": "/assets/owner-uat3a-open-carton-320.webp 320w, /assets/owner-uat3a-open-carton-640.webp 640w, /assets/owner-uat3a-open-carton-1200.webp 1200w",
+      "variants": [
+        {
+          "src": "/assets/owner-uat3a-open-carton-160.webp",
+          "width": 160,
+          "height": 107,
+          "bytes": 1244
+        },
+        {
+          "src": "/assets/owner-uat3a-open-carton-320.webp",
+          "width": 320,
+          "height": 214,
+          "bytes": 2872
+        },
+        {
+          "src": "/assets/owner-uat3a-open-carton-640.webp",
+          "width": 640,
+          "height": 428,
+          "bytes": 9506
+        },
+        {
+          "src": "/assets/owner-uat3a-open-carton-1200.webp",
+          "width": 1200,
+          "height": 803,
+          "bytes": 42176
+        }
+      ]
+    }
+  ]
+}

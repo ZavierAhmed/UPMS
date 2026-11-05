@@ -3,6 +3,9 @@
 ###############################################################################
 * text=auto
 
+# Product PDFs contain offset tables; never apply Windows text conversion.
+/upms.client/public/downloads/**/*.pdf binary
+
 ###############################################################################
 # Set default behavior for command prompt diff.
 #

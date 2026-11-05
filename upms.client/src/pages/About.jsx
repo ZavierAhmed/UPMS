@@ -6,6 +6,7 @@ import { values } from "../data/pages";
 import { company, products } from "../data/company";
 import CatalogImage from "../components/ui/CatalogImage";
 import {capabilitiesImage} from "../data/capabilities";
+import CompanyWork from "../components/sections/CompanyWork";
 export default function About() {
   return (
     <>
@@ -140,6 +141,7 @@ export default function About() {
           </div>
         </div>
       </section>
+      <CompanyWork />
       <Contact />
     </>
   );

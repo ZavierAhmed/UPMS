@@ -1,6 +1,7 @@
 import stickerIllustration from "../assets/products/stickers-illustration.svg";
 import cartonIllustration from "../assets/products/cartons-illustration.svg";
 import {catalogGalleries} from "./catalog";
+import ownerProductImages from './ownerProductImages.json';
 export const company = {
   name: "Unique Plastic Industry",
   email: "uniqueplastic56@gmail.com",
@@ -116,7 +117,7 @@ export const products = [
     source: "Owner-approved category brief; temporary original illustration",
   },
 ].map(product=>{
- const gallery=product.id==='containers'?[...catalogGalleries.containers].reverse():catalogGalleries[product.id]||[];
+ const gallery=ownerProductImages[product.id]||(product.id==='containers'?[...catalogGalleries.containers].reverse():catalogGalleries[product.id]||[]);
  return {...product,gallery,catalogImage:gallery[0]||null,hoverImage:gallery[1]||null,image:gallery[0]?.src||product.image,alt:gallery[0]?.alt||product.alt};
 });
 export const features = [

@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "documents": {
+    "buckets": {
+      "title": "Plastic Buckets",
+      "url": "/downloads/products/v1/unique-plastic-buckets-product-information.pdf",
+      "filename": "unique-plastic-buckets-product-information.pdf",
+      "mime": "application/pdf",
+      "bytes": 810898,
+      "sha256": "f84f3d23e1eb58165cb3a3b1f31a27a8d34238a79a5a6a0ee6e8919f9ee4d90e",
+      "imageKind": "approved catalog photograph",
+      "imageSource": "/assets/catalog-w07-bucket-20l-front-960.webp",
+      "catalogSource": "Bucket.pdf pages 1–2"
+    },
+    "cans": {
+      "title": "Lubricant Cans",
+      "url": "/downloads/products/v1/unique-plastic-cans-product-information.pdf",
+      "filename": "unique-plastic-cans-product-information.pdf",
+      "mime": "application/pdf",
+      "bytes": 439989,
+      "sha256": "806e26046f46c5d9bf0165737ae6d27fa7cd7035f67a84903e84ee6ff09da571",
+      "imageKind": "approved catalog photograph",
+      "imageSource": "/assets/catalog-w07-blow-design-02-960.webp",
+      "catalogSource": "Company_Profile_New_HD_Bottles (1).pdf pages 2–25"
+    },
+    "containers": {
+      "title": "Plastic Cans",
+      "url": "/downloads/products/v1/unique-plastic-containers-product-information.pdf",
+      "filename": "unique-plastic-containers-product-information.pdf",
+      "mime": "application/pdf",
+      "bytes": 702362,
+      "sha256": "a55a92b9de4e5b2c2fc206c5efb6b15c52ff92116ba41660d84645253e80cff2",
+      "imageKind": "approved catalog photograph",
+      "imageSource": "/assets/catalog-w07-jerrycan-20l-960.webp",
+      "catalogSource": "Bucket.pdf page 3"
+    },
+    "stickers": {
+      "title": "Stickers",
+      "url": "/downloads/products/v1/unique-plastic-stickers-product-information.pdf",
+      "filename": "unique-plastic-stickers-product-information.pdf",
+      "mime": "application/pdf",
+      "bytes": 3053913,
+      "sha256": "0b51c50e976ff326bc47cd595ef44423e284f9ee2218382de2f9c2273f90622a",
+      "imageKind": "owner-supplied representative packaging image",
+      "imageSource": "/assets/owner-uat3a-label-yellow-1086.webp",
+      "catalogSource": "Owner-approved category brief; temporary original illustration"
+    },
+    "cartons": {
+      "title": "Cartons",
+      "url": "/downloads/products/v1/unique-plastic-cartons-product-information.pdf",
+      "filename": "unique-plastic-cartons-product-information.pdf",
+      "mime": "application/pdf",
+      "bytes": 1293752,
+      "sha256": "6588e475cea32ec58ce31e5d0bfea9c76c7e2877db30b577270f755de6fda2f3",
+      "imageKind": "owner-supplied representative packaging image",
+      "imageSource": "/assets/owner-uat3a-plain-carton-1200.webp",
+      "catalogSource": "Owner-approved category brief; temporary original illustration"
+    }
+  }
+}

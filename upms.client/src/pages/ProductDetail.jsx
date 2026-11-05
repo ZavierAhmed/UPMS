@@ -7,10 +7,12 @@ import ProductCard from "../components/ui/ProductCard";
 import ProductGallery from "../components/ui/ProductGallery";
 import Contact from "../components/sections/Contact";
 import NotFound from "./NotFound";
+import productDocuments from "../data/productDocuments.json";
 export default function ProductDetail() {
   const { id } = useParams();
   const product = products.find((p) => p.id === id);
   if (!product) return <NotFound />;
+  const pdf = productDocuments.documents[product.id];
   return (
     <>
       <PageHero
@@ -64,6 +66,10 @@ export default function ProductDetail() {
             >
               <WhatsAppIcon /> Contact on WhatsApp
             </a>
+          </div>
+          <div className="product-pdf">
+            <a className="button button-outline" href={pdf.url} download={pdf.filename}>Download Product PDF ↓</a>
+            <small>PDF · {Math.ceil(pdf.bytes / 1024)} KB · Product information</small>
           </div>
         </div>
       </section>

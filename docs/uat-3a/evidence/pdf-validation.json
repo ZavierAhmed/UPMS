@@ -1,0 +1,77 @@
+{
+  "passed": true,
+  "deterministicRegeneration": true,
+  "manifestCopiesMatch": true,
+  "documents": [
+    {
+      "id": "buckets",
+      "pages": 1,
+      "paper": "A4",
+      "selectableTextCharacters": 945,
+      "contactAndCapacityChecks": true,
+      "images": 2,
+      "links": [
+        "https://wa.me/923142113472",
+        "mailto:uniqueplastic56@gmail.com"
+      ],
+      "sha256": "f84f3d23e1eb58165cb3a3b1f31a27a8d34238a79a5a6a0ee6e8919f9ee4d90e",
+      "bytes": 810898
+    },
+    {
+      "id": "cans",
+      "pages": 1,
+      "paper": "A4",
+      "selectableTextCharacters": 984,
+      "contactAndCapacityChecks": true,
+      "images": 2,
+      "links": [
+        "https://wa.me/923142113472",
+        "mailto:uniqueplastic56@gmail.com"
+      ],
+      "sha256": "806e26046f46c5d9bf0165737ae6d27fa7cd7035f67a84903e84ee6ff09da571",
+      "bytes": 439989
+    },
+    {
+      "id": "containers",
+      "pages": 1,
+      "paper": "A4",
+      "selectableTextCharacters": 953,
+      "contactAndCapacityChecks": true,
+      "images": 2,
+      "links": [
+        "https://wa.me/923142113472",
+        "mailto:uniqueplastic56@gmail.com"
+      ],
+      "sha256": "a55a92b9de4e5b2c2fc206c5efb6b15c52ff92116ba41660d84645253e80cff2",
+      "bytes": 702362
+    },
+    {
+      "id": "stickers",
+      "pages": 1,
+      "paper": "A4",
+      "selectableTextCharacters": 1053,
+      "contactAndCapacityChecks": true,
+      "images": 2,
+      "links": [
+        "https://wa.me/923142113472",
+        "mailto:uniqueplastic56@gmail.com"
+      ],
+      "sha256": "0b51c50e976ff326bc47cd595ef44423e284f9ee2218382de2f9c2273f90622a",
+      "bytes": 3053913
+    },
+    {
+      "id": "cartons",
+      "pages": 1,
+      "paper": "A4",
+      "selectableTextCharacters": 1042,
+      "contactAndCapacityChecks": true,
+      "images": 2,
+      "links": [
+        "https://wa.me/923142113472",
+        "mailto:uniqueplastic56@gmail.com"
+      ],
+      "sha256": "6588e475cea32ec58ce31e5d0bfea9c76c7e2877db30b577270f755de6fda2f3",
+      "bytes": 1293752
+    }
+  ]
+}

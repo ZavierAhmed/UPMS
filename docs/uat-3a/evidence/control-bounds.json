@@ -1,0 +1,202 @@
+[
+  {
+    "id": "buckets",
+    "width": 354,
+    "x": 18,
+    "right": 372,
+    "parentWidth": 354,
+    "viewport": 390
+  },
+  {
+    "id": "cans",
+    "width": 354,
+    "x": 18,
+    "right": 372,
+    "parentWidth": 354,
+    "viewport": 390
+  },
+  {
+    "id": "containers",
+    "width": 354,
+    "x": 18,
+    "right": 372,
+    "parentWidth": 354,
+    "viewport": 390
+  },
+  {
+    "id": "stickers",
+    "width": 354,
+    "x": 18,
+    "right": 372,
+    "parentWidth": 354,
+    "viewport": 390
+  },
+  {
+    "id": "cartons",
+    "width": 354,
+    "x": 18,
+    "right": 372,
+    "parentWidth": 354,
+    "viewport": 390
+  },
+  {
+    "id": "buckets",
+    "width": 209.390625,
+    "x": 30.71875,
+    "right": 240.109375,
+    "parentWidth": 706.546875,
+    "viewport": 768
+  },
+  {
+    "id": "cans",
+    "width": 209.390625,
+    "x": 30.71875,
+    "right": 240.109375,
+    "parentWidth": 706.546875,
+    "viewport": 768
+  },
+  {
+    "id": "containers",
+    "width": 209.390625,
+    "x": 30.71875,
+    "right": 240.109375,
+    "parentWidth": 706.546875,
+    "viewport": 768
+  },
+  {
+    "id": "stickers",
+    "width": 209.390625,
+    "x": 30.71875,
+    "right": 240.109375,
+    "parentWidth": 706.546875,
+    "viewport": 768
+  },
+  {
+    "id": "cartons",
+    "width": 209.390625,
+    "x": 30.71875,
+    "right": 240.109375,
+    "parentWidth": 706.546875,
+    "viewport": 768
+  },
+  {
+    "id": "buckets",
+    "width": 209.390625,
+    "x": 513.125,
+    "right": 722.515625,
+    "parentWidth": 469.90625,
+    "viewport": 1024
+  },
+  {
+    "id": "cans",
+    "width": 209.390625,
+    "x": 513.125,
+    "right": 722.515625,
+    "parentWidth": 469.90625,
+    "viewport": 1024
+  },
+  {
+    "id": "containers",
+    "width": 209.390625,
+    "x": 513.125,
+    "right": 722.515625,
+    "parentWidth": 469.90625,
+    "viewport": 1024
+  },
+  {
+    "id": "stickers",
+    "width": 209.390625,
+    "x": 513.125,
+    "right": 722.515625,
+    "parentWidth": 469.90625,
+    "viewport": 1024
+  },
+  {
+    "id": "cartons",
+    "width": 209.390625,
+    "x": 513.125,
+    "right": 722.515625,
+    "parentWidth": 469.90625,
+    "viewport": 1024
+  },
+  {
+    "id": "buckets",
+    "width": 209.390625,
+    "x": 727.84375,
+    "right": 937.234375,
+    "parentWidth": 652.15625,
+    "viewport": 1440
+  },
+  {
+    "id": "cans",
+    "width": 209.390625,
+    "x": 727.84375,
+    "right": 937.234375,
+    "parentWidth": 652.15625,
+    "viewport": 1440
+  },
+  {
+    "id": "containers",
+    "width": 209.390625,
+    "x": 727.84375,
+    "right": 937.234375,
+    "parentWidth": 652.15625,
+    "viewport": 1440
+  },
+  {
+    "id": "stickers",
+    "width": 209.390625,
+    "x": 727.84375,
+    "right": 937.234375,
+    "parentWidth": 652.15625,
+    "viewport": 1440
+  },
+  {
+    "id": "cartons",
+    "width": 209.390625,
+    "x": 727.84375,
+    "right": 937.234375,
+    "parentWidth": 652.15625,
+    "viewport": 1440
+  },
+  {
+    "id": "buckets",
+    "width": 209.390625,
+    "x": 967.84375,
+    "right": 1177.234375,
+    "parentWidth": 652.15625,
+    "viewport": 1920
+  },
+  {
+    "id": "cans",
+    "width": 209.390625,
+    "x": 967.84375,
+    "right": 1177.234375,
+    "parentWidth": 652.15625,
+    "viewport": 1920
+  },
+  {
+    "id": "containers",
+    "width": 209.390625,
+    "x": 967.84375,
+    "right": 1177.234375,
+    "parentWidth": 652.15625,
+    "viewport": 1920
+  },
+  {
+    "id": "stickers",
+    "width": 209.390625,
+    "x": 967.84375,
+    "right": 1177.234375,
+    "parentWidth": 652.15625,
+    "viewport": 1920
+  },
+  {
+    "id": "cartons",
+    "width": 209.390625,
+    "x": 967.84375,
+    "right": 1177.234375,
+    "parentWidth": 652.15625,
+    "viewport": 1920
+  }
+]
