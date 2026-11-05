@@ -16,9 +16,9 @@ export default function Home() {
               <span className="orange-line" /> BUILT AROUND YOUR BUSINESS
             </p>
             <h1>
-              Precision in every product.
+              Plastic packaging.
               <br />
-              <em>Quality in every detail.</em>
+              <em>Built around your business.</em>
             </h1>
             <p className="lead">
               Plastic packaging with a purpose. We manufacture buckets, plastic cans,

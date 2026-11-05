@@ -1,0 +1,51 @@
+/* UAT-3: retain approved catalog compositions; refine shared public surfaces. */
+:root{--focus:#9b4709;--surface:#fffdf8;--ink:#252a30;--muted:#5b5c60}
+html{scroll-padding-top:100px}
+body{background:var(--paper);color:var(--ink)}
+main{min-width:0}
+.container{max-width:1320px}
+.button{min-height:48px;align-items:center;justify-content:center;gap:10px;line-height:1.4}
+:is(a,button,input,select,textarea):focus-visible{outline:3px solid var(--focus);outline-offset:4px}
+.header{border-bottom:1px solid #ded9cf;background:#fffdf9}
+.header .nav>a:not(.button){min-height:44px;display:flex;align-items:center;position:relative}
+.header .nav>a.active:not(.button){color:#8b3f08}
+.header .nav>a.active:not(.button)::after{content:"";height:2px;background:#be590c;position:absolute;bottom:3px;left:0;right:0}
+.hero-copy .lead{font-size:clamp(17px,1.4vw,20px);line-height:1.7;max-width:52ch;color:#e7e3db}
+.hero .actions{gap:14px;flex-wrap:wrap}
+.hero-note{border-top:1px solid #ffffff2e;padding-top:24px;margin-top:32px}
+.page-hero h1{max-width:22ch;text-wrap:balance}
+.section-heading h2,.split-content h2{max-width:24ch;text-wrap:balance}
+.catalog-controls{background:#fffdf8;border:1px solid #ded8cd;border-radius:12px;padding:20px;align-items:end;gap:20px}
+.catalog-controls label,.inquiry-form label{color:#414247;font-weight:600}
+.catalog-controls :is(input,select),.inquiry-form :is(input,select,textarea){min-height:48px;border:1px solid #aaa79f;border-radius:8px;background:white;color:#252a30;font:inherit;max-width:100%;box-sizing:border-box}
+.product-grid{align-items:stretch}
+.product-card .product-card-copy{height:100%;display:flex;flex-direction:column}
+.product-card .product-details-link{margin-top:auto;padding-top:18px;min-height:44px}
+.gallery-thumbs button{min-width:48px;min-height:48px}
+.detail-grid>*{min-width:0}
+.contact-method{border-top:1px solid #dcd5c8;padding:24px 0;margin:0}
+.contact-method h3{font-size:16px;margin:0 0 12px;color:#55514a}
+.contact-method>a{display:flex;flex-direction:column;align-items:flex-start;gap:3px;padding:8px 0;overflow-wrap:anywhere}
+.contact-method small,.contact-details a small,footer a small{display:block;font-size:12px;font-weight:500;line-height:1.5}
+.contact-method small{color:#5b5c60}
+.contact-details>a{line-height:1.35}
+.contact-details a small{margin-bottom:5px}
+.inquiry-form{padding:32px;border:1px solid #ded7ca;border-radius:16px;background:#fffdf8;align-self:start;box-shadow:0 8px 30px #252a3006}
+.inquiry-form :is([role=status],[role=alert]){line-height:1.6}
+footer .footer-grid{gap:36px}
+footer a{padding-block:6px;line-height:1.5}
+footer address{font-style:normal;line-height:1.75}
+.mobile-call{display:none}
+@media(max-width:980px){.header .nav>a:not(.button){padding:10px 12px}.header .nav>a.active:not(.button)::after{display:none}.header .nav>a.active:not(.button){background:#fff0df;border-radius:6px}}
+@media(max-width:650px){
+ .container{width:calc(100% - 36px)}
+ .hero-grid{gap:32px}.hero-copy h1{font-size:clamp(36px,10vw,48px);line-height:1.12;letter-spacing:-.035em}
+ .hero-copy .lead{font-size:17px;line-height:1.65}.hero .actions{display:grid;grid-template-columns:1fr}.hero-note{margin-top:26px}
+ .hero-visual{margin-inline:0}.page-hero{padding-top:44px}.page-hero h1{font-size:38px;line-height:1.15}
+ .catalog-controls{padding:18px;gap:16px}.catalog-controls>*{min-width:0}.catalog-controls input,.catalog-controls select{width:100%}
+ .contact-page-grid{gap:32px}.contact-method>a{font-size:20px}.contact-method a[href^="mailto:"]{font-size:18px}
+ .inquiry-form{padding:22px 18px}.contact-grid{gap:32px}.contact-details .email{font-size:17px}
+ footer{padding-bottom:100px}footer .footer-grid{gap:28px}.footer-bottom{gap:14px;line-height:1.6}
+ .mobile-call{display:flex;position:fixed;left:18px;bottom:22px;z-index:40;min-height:48px;align-items:center;justify-content:center;padding:12px 18px;background:#252a30;color:#fffdf8;border-radius:30px;font-size:14px;font-weight:650;box-shadow:0 4px 20px #252a3026;text-decoration:none}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
