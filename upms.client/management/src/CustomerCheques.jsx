@@ -1,3 +1,4 @@
+import {readViewFilters,rememberViewFilters,returnList} from './viewNavigation.js';
 import './cheques.css';
 import {ChequeLifecycleForm} from './ChequeLifecycleForm.jsx';
 import {ChequeRegistration} from './ChequeRegistration.jsx';
@@ -13,8 +14,9 @@ const today=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Karachi',year:'n
 const columns=['Reference','Received date','Cheque date','Client','Cheque number','Issuing bank','Drawer account','Receiving bank','Status','Amount · PKR'];
 export function CustomerCheques({api,command,run,go,user,busy,path,refreshToken,drafts}) {
  const params=new URLSearchParams(path.split('?')[1]),id=params.get('id'),creating=params.get('new')==='1';
- const [data,setData]=useState(null),[filters,setFilters]=useState({from:'',to:'',clientId:'',number:'',reference:'',issuingBankId:'',bankId:'',status:''}),[action,setAction]=useState('');
+ const [data,setData]=useState(null),[filters,setFilterState]=useState(()=>readViewFilters(['from','to','clientId','number','reference','issuingBankId','bankId','status'],path.split('?')[1]||'')),[action,setAction]=useState('');
  const [registration,setRegistration]=useState(()=>drafts?.get('cheque-registration')||{clientId:params.get('party')||'',issuingBankId:'',chequeDate:today(),receivedDate:today()});
+ function setFilters(next){setFilterState(next);rememberViewFilters(next);}
  const errors=useContext(EntryErrors),can=cap=>user.permissions.includes('cheques.'+cap),apiRef=useRef(api);const [loadError,setLoadError]=useState('');
  useEffect(()=>{apiRef.current=api;},[api]);
  useEffect(()=>{let live=true;const q=new URLSearchParams(Object.entries(filters).filter(([,v])=>v));apiRef.current('/simple-v1/cheques?'+q).then(r=>{if(live){setData(r);setLoadError('');}}).catch(e=>{if(live){setData(null);setLoadError(e.message);}});return()=>{live=false;};},[filters,refreshToken]);
@@ -24,7 +26,7 @@ export function CustomerCheques({api,command,run,go,user,busy,path,refreshToken,
  const selected=data?.records.find(c=>c.id===id);
  const reportAction=work=>run(async()=>{await api('/simple-v1/cheques?'+new URLSearchParams({...Object.fromEntries(Object.entries(filters).filter(([,v])=>v)),report:'1'})).then(report=>work(report));});
 
- return <section className="cheque-workspace"><header className="workflow-heading no-print"><div><p className="eyebrow">People &amp; payments</p><h1>Cheques</h1></div><ActionToolbar>{can('receive')&&<ActionButton onClick={()=>go('/management/cheques?new=1')}>Register New Cheque</ActionButton>}<ActionButton onClick={()=>go('/management/cheques')}>Cheque register</ActionButton></ActionToolbar></header><p className="no-print">Proposed isolated UAT policy — operational owner/accountant approval pending. Received and deposited cheques do not settle receivables or increase spendable funds.</p>
+ return <section className="cheque-workspace"><header className="workflow-heading no-print"><div><p className="eyebrow">People &amp; payments</p><h1>Cheques</h1></div><ActionToolbar>{can('receive')&&<ActionButton onClick={()=>go('/management/cheques?new=1')}>Register New Cheque</ActionButton>}<ActionButton onClick={()=>go(returnList('/management/cheques'))}>Cheque register</ActionButton></ActionToolbar></header><p className="no-print">Proposed isolated UAT policy — operational owner/accountant approval pending. Received and deposited cheques do not settle receivables or increase spendable funds.</p>
  {loadError?<p role="alert">{loadError}</p>:!data&&<p role="status">Loading verified cheque evidence…</p>}
  {data&&creating&&<ChequeRegistration canCreateBank={user.roles?.includes('administrator')} createBank={body=>command('/cheque-banks','POST',body)} onBankCreated={bank=>setData(current=>({...current,issuers:[...current.issuers,bank]}))} api={api} data={data} draft={registration} setDraft={next=>{const value=typeof next==='function'?next(registration):next;drafts?.set('cheque-registration',value);setRegistration(value);}} errors={errors} busy={busy} submit={body=>run(async()=>{const result=await command('/cheques','POST',body);drafts?.delete('cheque-registration');setRegistration({clientId:'',issuingBankId:'',chequeDate:today(),receivedDate:today()});go('/management/cheques?id='+result.id);})}/>}
 
