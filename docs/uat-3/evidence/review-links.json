@@ -1,0 +1,8 @@
+{
+  "publicHttp": 200,
+  "managementHttp": 200,
+  "state": "WAITING",
+  "stage": "awaiting-password",
+  "smtpEnabled": false,
+  "ownerDatabasesChanged": false
+}

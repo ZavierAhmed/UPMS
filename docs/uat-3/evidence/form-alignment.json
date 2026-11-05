@@ -1,0 +1,302 @@
+{
+  "passed": true,
+  "ownerFailure": "Form fields and buttons not aligned",
+  "ownerAcceptance": "PENDING_RETEST",
+  "results": [
+    {
+      "width": 390,
+      "fieldPairsAligned": true,
+      "controlsMinimum44px": true,
+      "dialogAndButtonsAligned": true,
+      "attachmentActionAligned": true,
+      "rects": {
+        "clientId": {
+          "x": 59,
+          "y": 643.5,
+          "width": 272,
+          "height": 48
+        },
+        "number": {
+          "x": 59,
+          "y": 737.5,
+          "width": 272,
+          "height": 48
+        },
+        "issuingBankId": {
+          "x": 59,
+          "y": 831.5,
+          "width": 272,
+          "height": 48
+        },
+        "drawerName": {
+          "x": 59,
+          "y": 983.5,
+          "width": 272,
+          "height": 48
+        },
+        "drawerAccount": {
+          "x": 59,
+          "y": 1077.5,
+          "width": 272,
+          "height": 48
+        },
+        "amount": {
+          "x": 59,
+          "y": 1171.5,
+          "width": 272,
+          "height": 48
+        }
+      }
+    },
+    {
+      "width": 768,
+      "fieldPairsAligned": true,
+      "controlsMinimum44px": true,
+      "dialogAndButtonsAligned": true,
+      "attachmentActionAligned": true,
+      "rects": {
+        "clientId": {
+          "x": 94.03125,
+          "y": 497.671875,
+          "width": 280.96875,
+          "height": 48
+        },
+        "number": {
+          "x": 393,
+          "y": 497.671875,
+          "width": 280.96875,
+          "height": 48
+        },
+        "issuingBankId": {
+          "x": 94.03125,
+          "y": 611.671875,
+          "width": 280.96875,
+          "height": 48
+        },
+        "drawerName": {
+          "x": 393,
+          "y": 611.671875,
+          "width": 280.96875,
+          "height": 48
+        },
+        "drawerAccount": {
+          "x": 94.03125,
+          "y": 783.671875,
+          "width": 280.96875,
+          "height": 48
+        },
+        "amount": {
+          "x": 393,
+          "y": 783.671875,
+          "width": 280.96875,
+          "height": 48
+        }
+      }
+    },
+    {
+      "width": 1024,
+      "fieldPairsAligned": true,
+      "controlsMinimum44px": true,
+      "dialogAndButtonsAligned": true,
+      "attachmentActionAligned": true,
+      "rects": {
+        "clientId": {
+          "x": 369,
+          "y": 446.640625,
+          "width": 264,
+          "height": 48
+        },
+        "number": {
+          "x": 651,
+          "y": 446.640625,
+          "width": 264,
+          "height": 48
+        },
+        "issuingBankId": {
+          "x": 369,
+          "y": 560.640625,
+          "width": 264,
+          "height": 48
+        },
+        "drawerName": {
+          "x": 651,
+          "y": 560.640625,
+          "width": 264,
+          "height": 48
+        },
+        "drawerAccount": {
+          "x": 369,
+          "y": 732.640625,
+          "width": 264,
+          "height": 48
+        },
+        "amount": {
+          "x": 651,
+          "y": 732.640625,
+          "width": 264,
+          "height": 48
+        }
+      }
+    },
+    {
+      "width": 1440,
+      "fieldPairsAligned": true,
+      "controlsMinimum44px": true,
+      "dialogAndButtonsAligned": true,
+      "attachmentActionAligned": true,
+      "rects": {
+        "clientId": {
+          "x": 369,
+          "y": 446.640625,
+          "width": 472,
+          "height": 48
+        },
+        "number": {
+          "x": 859,
+          "y": 446.640625,
+          "width": 472,
+          "height": 48
+        },
+        "issuingBankId": {
+          "x": 369,
+          "y": 560.640625,
+          "width": 472,
+          "height": 48
+        },
+        "drawerName": {
+          "x": 859,
+          "y": 560.640625,
+          "width": 472,
+          "height": 48
+        },
+        "drawerAccount": {
+          "x": 369,
+          "y": 732.640625,
+          "width": 472,
+          "height": 48
+        },
+        "amount": {
+          "x": 859,
+          "y": 732.640625,
+          "width": 472,
+          "height": 48
+        }
+      }
+    },
+    {
+      "width": 1920,
+      "fieldPairsAligned": true,
+      "controlsMinimum44px": true,
+      "dialogAndButtonsAligned": true,
+      "attachmentActionAligned": true,
+      "rects": {
+        "clientId": {
+          "x": 369,
+          "y": 446.640625,
+          "width": 712,
+          "height": 48
+        },
+        "number": {
+          "x": 1099,
+          "y": 446.640625,
+          "width": 712,
+          "height": 48
+        },
+        "issuingBankId": {
+          "x": 369,
+          "y": 560.640625,
+          "width": 712,
+          "height": 48
+        },
+        "drawerName": {
+          "x": 1099,
+          "y": 560.640625,
+          "width": 712,
+          "height": 48
+        },
+        "drawerAccount": {
+          "x": 369,
+          "y": 732.640625,
+          "width": 712,
+          "height": 48
+        },
+        "amount": {
+          "x": 1099,
+          "y": 732.640625,
+          "width": 712,
+          "height": 48
+        }
+      }
+    },
+    {
+      "width": 390,
+      "workflow": "deposit",
+      "pairedFieldsAligned": true,
+      "actionsAligned": true,
+      "noPostAttempted": true
+    },
+    {
+      "width": 768,
+      "workflow": "deposit",
+      "pairedFieldsAligned": true,
+      "actionsAligned": true,
+      "noPostAttempted": true
+    },
+    {
+      "width": 1024,
+      "workflow": "deposit",
+      "pairedFieldsAligned": true,
+      "actionsAligned": true,
+      "noPostAttempted": true
+    },
+    {
+      "width": 1440,
+      "workflow": "deposit",
+      "pairedFieldsAligned": true,
+      "actionsAligned": true,
+      "noPostAttempted": true
+    },
+    {
+      "width": 1920,
+      "workflow": "deposit",
+      "pairedFieldsAligned": true,
+      "actionsAligned": true,
+      "noPostAttempted": true
+    },
+    {
+      "width": 390,
+      "workflow": "clearance",
+      "pairedFieldsAligned": true,
+      "actionsAligned": true,
+      "noPostAttempted": true
+    },
+    {
+      "width": 768,
+      "workflow": "clearance",
+      "pairedFieldsAligned": true,
+      "actionsAligned": true,
+      "noPostAttempted": true
+    },
+    {
+      "width": 1024,
+      "workflow": "clearance",
+      "pairedFieldsAligned": true,
+      "actionsAligned": true,
+      "noPostAttempted": true
+    },
+    {
+      "width": 1440,
+      "workflow": "clearance",
+      "pairedFieldsAligned": true,
+      "actionsAligned": true,
+      "noPostAttempted": true
+    },
+    {
+      "width": 1920,
+      "workflow": "clearance",
+      "pairedFieldsAligned": true,
+      "actionsAligned": true,
+      "noPostAttempted": true
+    }
+  ]
+}

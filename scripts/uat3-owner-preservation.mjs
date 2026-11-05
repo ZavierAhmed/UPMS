@@ -1,0 +1,9 @@
+import {readFile,writeFile} from 'node:fs/promises';import {createHash} from 'node:crypto';import knex from 'knex';
+const mode=process.argv.includes('--verify')?'after':'before',engine=JSON.parse(await readFile('tmp/php-runtime/php2-engine.json','utf8')),results=[];
+for(const name of ['owner-uat-binding.json','uath1-owner-binding.json','uat2-owner-binding.json','uat2a-manual-binding.json']){
+ let raw;try{raw=await readFile('tmp/php-runtime/'+name)}catch(e){if(e.code==='ENOENT'){results.push({binding:name,exists:false});continue;}throw e;}
+ const b=JSON.parse(raw),db=knex({client:'mysql2',connection:{host:'127.0.0.1',port:3330,database:b.schema,user:'php2_test_admin',password:engine.password}});
+ try{const tables=(await db('information_schema.tables').where({TABLE_SCHEMA:b.schema,TABLE_TYPE:'BASE TABLE'}).select('TABLE_NAME')).map(r=>r.TABLE_NAME).sort(),h=createHash('sha256');let rows=0;for(const t of tables){const values=(await db(t)).map(r=>JSON.stringify(r)).sort();rows+=values.length;h.update(t+JSON.stringify(values));}const guards=await db('information_schema.triggers').where({TRIGGER_SCHEMA:b.schema}).count('* as count');results.push({binding:name,bindingSha256:createHash('sha256').update(raw).digest('hex'),tables:tables.length,guards:Number(guards[0].count),rows,recordsSha256:h.digest('hex')});}finally{await db.destroy();}
+}
+if(mode==='after'){const original=JSON.parse(await readFile('tmp/uat3/owner-before.json','utf8'));if(JSON.stringify(original)!==JSON.stringify(results))throw Error('Owner workspace preservation requires investigation');await writeFile('docs/uat-3/evidence/owner-preservation.json',JSON.stringify({passed:true,workspaces:results.map(({recordsSha256,...r})=>({...r,rowsAndBindingsUnchanged:true})),productionContacted:false},null,2));}else await writeFile('tmp/uat3/owner-before.json',JSON.stringify(results));
+console.log('Owner '+mode+' read-only fingerprint check passed');

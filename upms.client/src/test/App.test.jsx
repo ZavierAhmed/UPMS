@@ -18,7 +18,7 @@ function open(path = "/") {
 }
 describe("public routes", () => {
   it.each([
-    ["/", "Precision in every product.Quality in every detail."],
+    ["/", "Plastic packaging.Built around your business."],
     ["/about", "Built on care.Made for business."],
     ["/products", "The right shape.A stronger starting point."],
     ["/manufacturing", "Care in the process.Consistency in the product."],

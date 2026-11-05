@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "workspaces": [
+    {
+      "binding": "owner-uat-binding.json",
+      "bindingSha256": "ae01df94326cf30d217f0724da2186d5c5122b27ec02c29eaeaadcf1ede86581",
+      "tables": 29,
+      "guards": 72,
+      "rows": 288,
+      "rowsAndBindingsUnchanged": true
+    },
+    {
+      "binding": "uath1-owner-binding.json",
+      "bindingSha256": "890392f6f086752955c6abe178bd0f806e969efcb569577b3c2ad0e9aaf1d989",
+      "tables": 38,
+      "guards": 103,
+      "rows": 136,
+      "rowsAndBindingsUnchanged": true
+    },
+    {
+      "binding": "uat2-owner-binding.json",
+      "bindingSha256": "46ccf264f9e58ddc17de3f2a5937e4f0ef994fb6f7227d25f711cdd202940d7a",
+      "tables": 44,
+      "guards": 124,
+      "rows": 127,
+      "rowsAndBindingsUnchanged": true
+    },
+    {
+      "binding": "uat2a-manual-binding.json",
+      "bindingSha256": "c2e052f5d0af362d767d9e7e1a6c2ff657663c05937be32f5205a06242f9ad4b",
+      "tables": 47,
+      "guards": 133,
+      "rows": 134,
+      "rowsAndBindingsUnchanged": true
+    }
+  ],
+  "productionContacted": false
+}

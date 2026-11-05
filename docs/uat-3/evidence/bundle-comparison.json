@@ -1,0 +1,91 @@
+{
+  "public": {
+    "before": {
+      "files": [
+        {
+          "name": "index-C9c62GkN.css",
+          "bytes": 32285,
+          "gzip": 7185
+        },
+        {
+          "name": "index-DIegzPpm.js",
+          "bytes": 342597,
+          "gzip": 101654
+        }
+      ],
+      "bytes": 374882,
+      "gzip": 108839
+    },
+    "after": {
+      "files": [
+        {
+          "name": "index-CZYREo6a.css",
+          "bytes": 36332,
+          "gzip": 8027
+        },
+        {
+          "name": "index-D-vBsJ0o.js",
+          "bytes": 342890,
+          "gzip": 101726
+        }
+      ],
+      "bytes": 379222,
+      "gzip": 109753
+    }
+  },
+  "management": {
+    "before": {
+      "files": [
+        {
+          "name": "index-C19fQ_Zv.css",
+          "bytes": 104014,
+          "gzip": 18941
+        },
+        {
+          "name": "index-DwIqBoed.js",
+          "bytes": 456786,
+          "gzip": 114414
+        },
+        {
+          "name": "rolldown-runtime-WkwZ5CU-.js",
+          "bytes": 599,
+          "gzip": 368
+        },
+        {
+          "name": "vendor-Dph6fTCk.js",
+          "bytes": 218766,
+          "gzip": 67534
+        }
+      ],
+      "bytes": 780165,
+      "gzip": 201257
+    },
+    "after": {
+      "files": [
+        {
+          "name": "index-BcteECY0.css",
+          "bytes": 115874,
+          "gzip": 20860
+        },
+        {
+          "name": "index-DVUbpqUz.js",
+          "bytes": 458098,
+          "gzip": 114754
+        },
+        {
+          "name": "rolldown-runtime-WkwZ5CU-.js",
+          "bytes": 599,
+          "gzip": 368
+        },
+        {
+          "name": "vendor-Dph6fTCk.js",
+          "bytes": 218766,
+          "gzip": 67534
+        }
+      ],
+      "bytes": 793337,
+      "gzip": 203516
+    }
+  },
+  "newDependencies": 0
+}

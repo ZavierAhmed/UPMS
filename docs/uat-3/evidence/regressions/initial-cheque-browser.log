@@ -1,0 +1,13 @@
+file:///C:/Users/zasah/source/repos/UPMS/node_modules/puppeteer-core/lib/puppeteer/common/WaitTask.js:46
+            this.#timeoutError = new TimeoutError(`Waiting failed: ${options.timeout}ms exceeded`);
+                                 ^
+
+TimeoutError: Waiting failed: 30000ms exceeded
+    at new WaitTask (file:///C:/Users/zasah/source/repos/UPMS/node_modules/puppeteer-core/lib/puppeteer/common/WaitTask.js:46:34)
+    at IsolatedWorld.waitForFunction (file:///C:/Users/zasah/source/repos/UPMS/node_modules/puppeteer-core/lib/puppeteer/api/Realm.js:49:26)
+    at CdpFrame.waitForFunction (file:///C:/Users/zasah/source/repos/UPMS/node_modules/puppeteer-core/lib/puppeteer/api/Frame.js:585:43)
+    at CdpFrame.<anonymous> (file:///C:/Users/zasah/source/repos/UPMS/node_modules/puppeteer-core/lib/puppeteer/util/decorators.js:101:27)
+    at CdpPage.waitForFunction (file:///C:/Users/zasah/source/repos/UPMS/node_modules/puppeteer-core/lib/puppeteer/api/Page.js:1542:37)
+    at file:///C:/Users/zasah/source/repos/UPMS/scripts/.uat3-uat2a-browser.mjs:29:143
+
+Node.js v26.4.0

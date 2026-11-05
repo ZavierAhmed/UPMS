@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "checks": [
+    "Mandatory first-login password change blocks cheque reads and mutations",
+    "Real password change invalidates the prior session",
+    "New password independently logs in; invalid CSRF and cross-origin mutation rejected",
+    "Expired authenticated session cannot read or mutate cheques",
+    "Logout revokes cheque access"
+  ],
+  "syntheticAdministratorOnly": true,
+  "credentialsRecorded": false,
+  "ownerDataMutated": false,
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-05T11:23:57.114Z"
+}

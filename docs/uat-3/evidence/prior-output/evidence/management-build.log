@@ -1,0 +1,13 @@
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 90 modules transformed.
+rendering chunks...
+computing gzip size...
+../tmp/php-runtime/uat3-assets/assets/unique_plastic-Bg-VSvfO.svg    13.76 kB │ gzip:   5.20 kB
+../tmp/php-runtime/uat3-assets/index.html                            16.22 kB │ gzip:   5.94 kB
+../tmp/php-runtime/uat3-assets/assets/index-CbMJfIYi.css            111.39 kB │ gzip:  20.33 kB
+../tmp/php-runtime/uat3-assets/assets/rolldown-runtime-WkwZ5CU-.js    0.59 kB │ gzip:   0.36 kB
+../tmp/php-runtime/uat3-assets/assets/vendor-Dph6fTCk.js            218.76 kB │ gzip:  68.26 kB
+../tmp/php-runtime/uat3-assets/assets/index-YuG4suOl.js             457.61 kB │ gzip: 115.11 kB
+
+✓ built in 1.30s

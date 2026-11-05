@@ -1,0 +1,10 @@
+Loading /cheques
+Printing cheque-register
+Exporting Excel
+Loading /cheques?id=1
+Printing cheque-acknowledgment
+Loading /documents/2
+Printing customer-receipt
+Loading /money-accounts?view=statement&account=3
+Printing bank-statement
+Four Chrome PDFs and two Excel exports match independent synthetic amounts

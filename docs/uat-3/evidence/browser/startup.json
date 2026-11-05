@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "realChrome": true,
+  "checks": [
+    "All four existing owner bindings rejected before listener replacement or database modification",
+    "Invalid password length and mismatched setup origin rejected before provisioning",
+    "Real Chrome setup reaches verified dashboard HTTP 200, logs in independently and exposes the new cheque form",
+    "Restart reuses the same binding and account with all 47 tables and 133 guards"
+  ],
+  "tables": 47,
+  "guards": 133,
+  "existingOwnerMigrated": false,
+  "productionContacted": false
+}

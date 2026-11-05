@@ -1,0 +1,1756 @@
+TAP version 13
+# Subtest: unit quantities reject excess precision without rounding or floating point
+ok 1 - unit quantities reject excess precision without rounding or floating point
+  ---
+  duration_ms: 9.3941
+  type: 'test'
+  ...
+# Subtest: canonical command payloads are order-independent and reject floating point
+ok 2 - canonical command payloads are order-independent and reject floating point
+  ---
+  duration_ms: 4.39
+  type: 'test'
+  ...
+# Subtest: staff cannot self-approve even if explicitly delegated approval permission
+ok 3 - staff cannot self-approve even if explicitly delegated approval permission
+  ---
+  duration_ms: 1.6468
+  type: 'test'
+  ...
+# Subtest: numbering calendar boundary uses Pakistan time rather than UTC year
+ok 4 - numbering calendar boundary uses Pakistan time rather than UTC year
+  ---
+  duration_ms: 90.4814
+  type: 'test'
+  ...
+# Subtest: department defaults separate inventory, financial masters and approval authority
+ok 5 - department defaults separate inventory, financial masters and approval authority
+  ---
+  duration_ms: 0.6681
+  type: 'test'
+  ...
+# Subtest: master inputs normalize codes and reject automatic balances or variant packing
+ok 6 - master inputs normalize codes and reject automatic balances or variant packing
+  ---
+  duration_ms: 15.1407
+  type: 'test'
+  ...
+# Subtest: discount allocation telescopes across selected lines and every partial return partition
+ok 7 - discount allocation telescopes across selected lines and every partial return partition
+  ---
+  duration_ms: 11.1995
+  type: 'test'
+  ...
+# Subtest: positive quantities, original line and item identity, remaining limit and malformed sources
+ok 8 - positive quantities, original line and item identity, remaining limit and malformed sources
+  ---
+  duration_ms: 1.1239
+  type: 'test'
+  ...
+# Subtest: DCR identities use never-reused shared document IDs without a DC counter change
+ok 9 - DCR identities use never-reused shared document IDs without a DC counter change
+  ---
+  duration_ms: 0.471
+  type: 'test'
+  ...
+# Subtest: strict return input rejects client-controlled credit or snapshot
+ok 10 - strict return input rejects client-controlled credit or snapshot
+  ---
+  duration_ms: 12.0413
+  type: 'test'
+  ...
+# Subtest: cPanel remains fail closed without approved connectivity and TLS evidence
+ok 11 - cPanel remains fail closed without approved connectivity and TLS evidence
+  ---
+  duration_ms: 2.1334
+  type: 'test'
+  ...
+# Subtest: return register retains original DC, separate credit and net sales including paid clients
+ok 12 - return register retains original DC, separate credit and net sales including paid clients
+  ---
+  duration_ms: 0.961
+  type: 'test'
+  ...
+# Subtest: leading-zero quantities normalize before immutable posting evidence is stored
+ok 13 - leading-zero quantities normalize before immutable posting evidence is stored
+  ---
+  duration_ms: 0.3381
+  type: 'test'
+  ...
+# Subtest: Accounts cheque operations exclude approval, dishonour posting and configuration
+ok 14 - Accounts cheque operations exclude approval, dishonour posting and configuration
+  ---
+  duration_ms: 3.0495
+  type: 'test'
+  ...
+# Subtest: cheque source and compensations have append-only runtime grants
+ok 15 - cheque source and compensations have append-only runtime grants
+  ---
+  duration_ms: 0.6271
+  type: 'test'
+  ...
+# Subtest: cheque metadata accepts varied instrument lengths without account secrets
+ok 16 - cheque metadata accepts varied instrument lengths without account secrets
+  ---
+  duration_ms: 5.8635
+  type: 'test'
+  ...
+# Subtest: clearance and dishonour require explicit bank evidence and exact versions
+ok 17 - clearance and dishonour require explicit bank evidence and exact versions
+  ---
+  duration_ms: 12.2205
+  type: 'test'
+  ...
+# Subtest: cheque policy is immediate recognition, deposit-required and explicitly synthetic only
+ok 18 - cheque policy is immediate recognition, deposit-required and explicitly synthetic only
+  ---
+  duration_ms: 8.9105
+  type: 'test'
+  ...
+# Subtest: actual database name blocks live cheque activation independently of environment flags
+ok 19 - actual database name blocks live cheque activation independently of environment flags
+  ---
+  duration_ms: 4.4681
+  type: 'test'
+  ...
+# Subtest: manual GST is an exact additional amount and never an assumed rate
+ok 20 - manual GST is an exact additional amount and never an assumed rate
+  ---
+  duration_ms: 4.4658
+  type: 'test'
+  ...
+# Subtest: NON_GST cannot carry charged GST; GST zero is representable only as draft arithmetic
+ok 21 - NON_GST cannot carry charged GST; GST zero is representable only as draft arithmetic
+  ---
+  duration_ms: 1.0056
+  type: 'test'
+  ...
+# Subtest: classified opening authorization and drafts reject missing and ambiguous dimensions
+ok 22 - classified opening authorization and drafts reject missing and ambiguous dimensions
+  ---
+  duration_ms: 8.8874
+  type: 'test'
+  ...
+# Subtest: classification policy cannot accept real scope, inferred rates or separate numbering
+ok 23 - classification policy cannot accept real scope, inferred rates or separate numbering
+  ---
+  duration_ms: 2.0514
+  type: 'test'
+  ...
+# Subtest: the database-name gate blocks owner schemas independently of environment flags
+ok 24 - the database-name gate blocks owner schemas independently of environment flags
+  ---
+  duration_ms: 2.6386
+  type: 'test'
+  ...
+# Subtest: future receipt allocation requires one classification and bounded exact positive amount
+ok 25 - future receipt allocation requires one classification and bounded exact positive amount
+  ---
+  duration_ms: 1.8231
+  type: 'test'
+  ...
+# Subtest: financial settlement retains overpayment and legitimate credit through dishonour
+ok 26 - financial settlement retains overpayment and legitimate credit through dishonour
+  ---
+  duration_ms: 1.5382
+  type: 'test'
+  ...
+# Subtest: real database identity cannot activate synthetic credit policy
+ok 27 - real database identity cannot activate synthetic credit policy
+  ---
+  duration_ms: 0.9616
+  type: 'test'
+  ...
+# Subtest: credit API rejects unrestricted journal, tax percentage and refund fields
+ok 28 - credit API rejects unrestricted journal, tax percentage and refund fields
+  ---
+  duration_ms: 6.2129
+  type: 'test'
+  ...
+# Subtest: credit authority and append-only grants never authorize Inventory financial corrections
+ok 29 - credit authority and append-only grants never authorize Inventory financial corrections
+  ---
+  duration_ms: 0.4625
+  type: 'test'
+  ...
+# Subtest: database preflight refuses wrong endpoints, recovery modes and unavailable engines
+ok 30 - database preflight refuses wrong endpoints, recovery modes and unavailable engines
+  ---
+  duration_ms: 4.7219
+  type: 'test'
+  ...
+# Subtest: preflight reads only and refuses partial schema or unknown migration state
+ok 31 - preflight reads only and refuses partial schema or unknown migration state
+  ---
+  duration_ms: 6.7698
+  type: 'test'
+  ...
+# Subtest: preflight diagnostics withhold raw SQL, credentials and unexpected exception text
+ok 32 - preflight diagnostics withhold raw SQL, credentials and unexpected exception text
+  ---
+  duration_ms: 0.5097
+  type: 'test'
+  ...
+# Subtest: production Disabled without SMTP never succeeds
+ok 33 - production Disabled without SMTP never succeeds
+  ---
+  duration_ms: 11.8009
+  type: 'test'
+  ...
+# Subtest: production DevelopmentFile without SMTP never succeeds
+ok 34 - production DevelopmentFile without SMTP never succeeds
+  ---
+  duration_ms: 0.793
+  type: 'test'
+  ...
+# Subtest: production Smtp without SMTP never succeeds
+ok 35 - production Smtp without SMTP never succeeds
+  ---
+  duration_ms: 0.2992
+  type: 'test'
+  ...
+# Subtest: development file transport is atomic and private with explicit outcome
+ok 36 - development file transport is atomic and private with explicit outcome
+  ---
+  duration_ms: 30.5377
+  type: 'test'
+  ...
+# Subtest: fixed plain text message, validated reply-to, no CC/BCC or HTML
+ok 37 - fixed plain text message, validated reply-to, no CC/BCC or HTML
+  ---
+  duration_ms: 0.9653
+  type: 'test'
+  ...
+# Subtest: disconnect failure cannot undo confirmed SMTP acceptance
+ok 38 - disconnect failure cannot undo confirmed SMTP acceptance
+  ---
+  duration_ms: 1.1227
+  type: 'test'
+  ...
+# Subtest: real Nodemailer connection closes on cancellation before SMTP greeting
+ok 39 - real Nodemailer connection closes on cancellation before SMTP greeting
+  ---
+  duration_ms: 25.4895
+  type: 'test'
+  ...
+# Subtest: SMTP transport state {"code":"EAUTH"}
+ok 40 - SMTP transport state {"code":"EAUTH"}
+  ---
+  duration_ms: 1.1398
+  type: 'test'
+  ...
+# Subtest: SMTP transport state {"command":"CONN"}
+ok 41 - SMTP transport state {"command":"CONN"}
+  ---
+  duration_ms: 0.6267
+  type: 'test'
+  ...
+# Subtest: SMTP transport state {"responseCode":550}
+ok 42 - SMTP transport state {"responseCode":550}
+  ---
+  duration_ms: 0.89
+  type: 'test'
+  ...
+# Subtest: SMTP transport state {"code":"ETIMEDOUT","command":"DATA"}
+ok 43 - SMTP transport state {"code":"ETIMEDOUT","command":"DATA"}
+  ---
+  duration_ms: 0.6565
+  type: 'test'
+  ...
+# Subtest: SMTP transport state {"code":"ESOCKET","command":"DATA"}
+ok 44 - SMTP transport state {"code":"ESOCKET","command":"DATA"}
+  ---
+  duration_ms: 0.5288
+  type: 'test'
+  ...
+# Subtest: SMTP transport state null
+ok 45 - SMTP transport state null
+  ---
+  duration_ms: 0.3149
+  type: 'test'
+  ...
+# Subtest: UAT capability requires exact actual schema and explicit matching flag and cannot activate main
+ok 46 - UAT capability requires exact actual schema and explicit matching flag and cannot activate main
+  ---
+  duration_ms: 1.8288
+  type: 'test'
+  ...
+# Subtest: expense contract rejects unsupported tax, arbitrary journals, advances and imprecise amounts
+ok 47 - expense contract rejects unsupported tax, arbitrary journals, advances and imprecise amounts
+  ---
+  duration_ms: 28.9562
+  type: 'test'
+  ...
+# Subtest: controlled startup rejects mode absent before marker or database access
+ok 48 - controlled startup rejects mode absent before marker or database access
+  ---
+  duration_ms: 2.7036
+  type: 'test'
+  ...
+# Subtest: controlled startup rejects production mode before marker or database access
+ok 49 - controlled startup rejects production mode before marker or database access
+  ---
+  duration_ms: 0.2126
+  type: 'test'
+  ...
+# Subtest: controlled startup rejects lifecycle unconfirmed before marker or database access
+ok 50 - controlled startup rejects lifecycle unconfirmed before marker or database access
+  ---
+  duration_ms: 0.1496
+  type: 'test'
+  ...
+# Subtest: controlled startup rejects ephemeral storage before marker or database access
+ok 51 - controlled startup rejects ephemeral storage before marker or database access
+  ---
+  duration_ms: 0.1488
+  type: 'test'
+  ...
+# Subtest: controlled startup rejects sharing unacknowledged before marker or database access
+ok 52 - controlled startup rejects sharing unacknowledged before marker or database access
+  ---
+  duration_ms: 0.1466
+  type: 'test'
+  ...
+# Subtest: controlled startup rejects missing password before marker or database access
+ok 53 - controlled startup rejects missing password before marker or database access
+  ---
+  duration_ms: 0.4925
+  type: 'test'
+  ...
+# Subtest: controlled startup rejects missing private state before marker or database access
+ok 54 - controlled startup rejects missing private state before marker or database access
+  ---
+  duration_ms: 0.3796
+  type: 'test'
+  ...
+# Subtest: controlled startup rejects wrong host before marker or database access
+ok 55 - controlled startup rejects wrong host before marker or database access
+  ---
+  duration_ms: 0.2772
+  type: 'test'
+  ...
+# Subtest: controlled startup rejects unexpected DB fallback before marker or database access
+ok 56 - controlled startup rejects unexpected DB fallback before marker or database access
+  ---
+  duration_ms: 0.5816
+  type: 'test'
+  ...
+# Subtest: controlled startup rejects unexpected diagnostic bypass before marker or database access
+ok 57 - controlled startup rejects unexpected diagnostic bypass before marker or database access
+  ---
+  duration_ms: 0.5397
+  type: 'test'
+  ...
+# Subtest: controlled startup rejects live posting flag before marker or database access
+ok 58 - controlled startup rejects live posting flag before marker or database access
+  ---
+  duration_ms: 0.2704
+  type: 'test'
+  ...
+# Subtest: controlled startup rejects management flag even false before marker or database access
+ok 59 - controlled startup rejects management flag even false before marker or database access
+  ---
+  duration_ms: 0.1359
+  type: 'test'
+  ...
+# Subtest: controlled startup rejects legacy profile before marker or database access
+ok 60 - controlled startup rejects legacy profile before marker or database access
+  ---
+  duration_ms: 0.1173
+  type: 'test'
+  ...
+# Subtest: controlled startup rejects alternate URL before marker or database access
+ok 61 - controlled startup rejects alternate URL before marker or database access
+  ---
+  duration_ms: 0.1038
+  type: 'test'
+  ...
+# Subtest: controlled startup rejects invalid release before marker or database access
+ok 62 - controlled startup rejects invalid release before marker or database access
+  ---
+  duration_ms: 0.1037
+  type: 'test'
+  ...
+# Subtest: controlled startup rejects missing review before marker or database access
+ok 63 - controlled startup rejects missing review before marker or database access
+  ---
+  duration_ms: 0.1067
+  type: 'test'
+  ...
+# Subtest: controlled startup rejects missing app identity before marker or database access
+ok 64 - controlled startup rejects missing app identity before marker or database access
+  ---
+  duration_ms: 0.1535
+  type: 'test'
+  ...
+# Subtest: controlled startup rejects trust-all before marker or database access
+ok 65 - controlled startup rejects trust-all before marker or database access
+  ---
+  duration_ms: 4.6787
+  type: 'test'
+  ...
+# Subtest: actual Node version and unsupported runtime are reported without connecting
+ok 66 - actual Node version and unsupported runtime are reported without connecting
+  ---
+  duration_ms: 0.6671
+  type: 'test'
+  ...
+# Subtest: ordered gates verify release and CA, consume run, then call the existing read-only assessor
+ok 67 - ordered gates verify release and CA, consume run, then call the existing read-only assessor
+  ---
+  duration_ms: 3.0212
+  type: 'test'
+  ...
+# Subtest: release failure and private CA error cannot create marker or reach the database
+ok 68 - release failure and private CA error cannot create marker or reach the database
+  ---
+  duration_ms: 0.6053
+  type: 'test'
+  ...
+# Subtest: already consumed attempt skips without assessor; unknown filesystem errors have no raw log output
+ok 69 - already consumed attempt skips without assessor; unknown filesystem errors have no raw log output
+  ---
+  duration_ms: 0.5418
+  type: 'test'
+  ...
+# Subtest: real exclusive marker allows one concurrent claimant and prevents restart replay
+ok 70 - real exclusive marker allows one concurrent claimant and prevents restart replay
+  ---
+  duration_ms: 26.7783
+  type: 'test'
+  ...
+# Subtest: state directory must exist outside package and public trees; relative and missing paths fail closed
+ok 71 - state directory must exist outside package and public trees; relative and missing paths fail closed
+  ---
+  duration_ms: 4.129
+  type: 'test'
+  ...
+# Subtest: assessment failure still consumes the one-shot marker; an automatic retry never reconnects
+ok 72 - assessment failure still consumes the one-shot marker; an automatic retry never reconnects
+  ---
+  duration_ms: 7.6717
+  type: 'test'
+  ...
+# Subtest: standalone success collects only fixed SELECT/SHOW metadata after authenticated TLS
+ok 73 - standalone success collects only fixed SELECT/SHOW metadata after authenticated TLS
+  ---
+  duration_ms: 20.8041
+  type: 'test'
+  ...
+# Subtest: each missing injected credential blocks without connecting or printing its values
+ok 74 - each missing injected credential blocks without connecting or printing its values
+  ---
+  duration_ms: 1.4954
+  type: 'test'
+  ...
+# Subtest: independent expected endpoint is mandatory; wrong host, wrong port, URI and IP endpoints fail before connection
+ok 75 - independent expected endpoint is mandatory; wrong host, wrong port, URI and IP endpoints fail before connection
+  ---
+  duration_ms: 1.255
+  type: 'test'
+  ...
+# Subtest: system CA defaults remain strict; malformed custom CA and trust-all environment are rejected
+ok 76 - system CA defaults remain strict; malformed custom CA and trust-all environment are rejected
+  ---
+  duration_ms: 1.152
+  type: 'test'
+  ...
+# Subtest: plaintext cannot query engine, identity, tables or grants
+ok 77 - plaintext cannot query engine, identity, tables or grants
+  ---
+  duration_ms: 0.6314
+  type: 'test'
+  ...
+# Subtest: encrypted only cannot query engine, identity, tables or grants
+ok 78 - encrypted only cannot query engine, identity, tables or grants
+  ---
+  duration_ms: 0.2997
+  type: 'test'
+  ...
+# Subtest: old TLS cannot query engine, identity, tables or grants
+ok 79 - old TLS cannot query engine, identity, tables or grants
+  ---
+  duration_ms: 0.407
+  type: 'test'
+  ...
+# Subtest: wrong certificate hostname cannot query engine, identity, tables or grants
+ok 80 - wrong certificate hostname cannot query engine, identity, tables or grants
+  ---
+  duration_ms: 0.3782
+  type: 'test'
+  ...
+# Subtest: missing certificate cannot query engine, identity, tables or grants
+ok 81 - missing certificate cannot query engine, identity, tables or grants
+  ---
+  duration_ms: 0.5996
+  type: 'test'
+  ...
+# Subtest: missing cipher cannot query engine, identity, tables or grants
+ok 82 - missing cipher cannot query engine, identity, tables or grants
+  ---
+  duration_ms: 0.9078
+  type: 'test'
+  ...
+# Subtest: driver certificate and no-SSL failures stay safe and never fall back to plaintext
+ok 83 - driver certificate and no-SSL failures stay safe and never fall back to plaintext
+  ---
+  duration_ms: 1.0682
+  type: 'test'
+  ...
+# Subtest: short connection deadline destroys a late connection without permitting identity queries
+ok 84 - short connection deadline destroys a late connection without permitting identity queries
+  ---
+  duration_ms: 49.5292
+  type: 'test'
+  ...
+# Subtest: query and overall deadlines close the connection without continuing to subsequent statements
+ok 85 - query and overall deadlines close the connection without continuing to subsequent statements
+  ---
+  duration_ms: 16.0755
+  type: 'test'
+  ...
+# Subtest: engine mismatch reports full permitted version and stops before schema/account identity
+ok 86 - engine mismatch reports full permitted version and stops before schema/account identity
+  ---
+  duration_ms: 1.8677
+  type: 'test'
+  ...
+# Subtest: schema and current account mismatch stop before table metadata and grants
+ok 87 - schema and current account mismatch stop before table metadata and grants
+  ---
+  duration_ms: 0.9867
+  type: 'test'
+  ...
+# Subtest: unsupported UUID is explicitly reported; denied UUID and grants are not misrepresented as absent
+ok 88 - unsupported UUID is explicitly reported; denied UUID and grants are not misrepresented as absent
+  ---
+  duration_ms: 2.1274
+  type: 'test'
+  ...
+# Subtest: grant redaction removes identities, hashes, roles, authentication clauses and unknown scopes
+ok 89 - grant redaction removes identities, hashes, roles, authentication clauses and unknown scopes
+  ---
+  duration_ms: 0.3506
+  type: 'test'
+  ...
+# Subtest: safe reports redact secret canaries and connection URIs even in server-provided metadata
+ok 90 - safe reports redact secret canaries and connection URIs even in server-provided metadata
+  ---
+  duration_ms: 0.6002
+  type: 'test'
+  ...
+# Subtest: operational local and GoDaddy gates retain their original restrictions
+ok 91 - operational local and GoDaddy gates retain their original restrictions
+  ---
+  duration_ms: 0.5276
+  type: 'test'
+  ...
+# Subtest: CLI missing credentials, explicit invocation and non-server start emit only non-secret diagnostics
+ok 92 - CLI missing credentials, explicit invocation and non-server start emit only non-secret diagnostics
+  ---
+  duration_ms: 693.7646
+  type: 'test'
+  ...
+# Subtest: real mysql2 CLI handshake timeout terminates within the fixed deadline and sends no SQL
+ok 93 - real mysql2 CLI handshake timeout terminates within the fixed deadline and sends no SQL
+  ---
+  duration_ms: 3342.7742
+  type: 'test'
+  ...
+# Subtest: real mysql2 refuses a simulated MySQL server without TLS before sending authentication or SQL
+ok 94 - real mysql2 refuses a simulated MySQL server without TLS before sending authentication or SQL
+  ---
+  duration_ms: 27.3917
+  type: 'test'
+  ...
+# Subtest: unverified managed profile never opens the legacy or production database path
+ok 95 - unverified managed profile never opens the legacy or production database path
+  ---
+  duration_ms: 7.5945
+  type: 'test'
+  ...
+# Subtest: assessment rejects shared database, shared credential and unproven isolation
+ok 96 - assessment rejects shared database, shared credential and unproven isolation
+  ---
+  duration_ms: 1.6251
+  type: 'test'
+  ...
+# Subtest: TLS options require one exact DNS endpoint and CA; verification cannot be disabled
+ok 97 - TLS options require one exact DNS endpoint and CA; verification cannot be disabled
+  ---
+  duration_ms: 7.9808
+  type: 'test'
+  ...
+# Subtest: plain, unauthenticated or obsolete TLS sessions are rejected before SQL
+ok 98 - plain, unauthenticated or obsolete TLS sessions are rejected before SQL
+  ---
+  duration_ms: 0.5766
+  type: 'test'
+  ...
+# Subtest: assessment pins actual MySQL instance, schema, account, version and TLS cipher
+ok 99 - assessment pins actual MySQL instance, schema, account, version and TLS cipher
+  ---
+  duration_ms: 2.0704
+  type: 'test'
+  ...
+# Subtest: managed account assessment permits only the original exact table rights
+ok 100 - managed account assessment permits only the original exact table rights
+  ---
+  duration_ms: 3.5397
+  type: 'test'
+  ...
+# Subtest: blocked preview requires exact host, HTTPS origin and no posting or private credentials
+ok 101 - blocked preview requires exact host, HTTPS origin and no posting or private credentials
+  ---
+  duration_ms: 1.0903
+  type: 'test'
+  ...
+# Subtest: preview root routes only to a disabled management login with no session cookie
+ok 102 - preview root routes only to a disabled management login with no session cookie
+  ---
+  duration_ms: 86.8898
+  type: 'test'
+  ...
+# Subtest: all management API methods remain unavailable and private/public routes stay hidden
+ok 103 - all management API methods remain unavailable and private/public routes stay hidden
+  ---
+  duration_ms: 68.2406
+  type: 'test'
+  ...
+# Subtest: preview rejects unknown hosts and ignores forwarded HTTPS from untrusted peers
+ok 104 - preview rejects unknown hosts and ignores forwarded HTTPS from untrusted peers
+  ---
+  duration_ms: 13.4401
+  type: 'test'
+  ...
+# Subtest: management compliance mode tolerates injected DB credentials without making them usable
+ok 105 - management compliance mode tolerates injected DB credentials without making them usable
+  ---
+  duration_ms: 95.5111
+  type: 'test'
+  ...
+# Subtest: known management deep links return only the same disabled shell
+ok 106 - known management deep links return only the same disabled shell
+  ---
+  duration_ms: 128.8253
+  type: 'test'
+  ...
+# Subtest: every management API method stays blocked including auth, returns and operational posts
+ok 107 - every management API method stays blocked including auth, returns and operational posts
+  ---
+  duration_ms: 47.1967
+  type: 'test'
+  ...
+# Subtest: fixed approved management origins do not become an arbitrary host allowlist
+ok 108 - fixed approved management origins do not become an arbitrary host allowlist
+  ---
+  duration_ms: 17.678
+  type: 'test'
+  ...
+# Subtest: operational, credential and one-shot selectors cannot change the persistent disabled mode
+ok 109 - operational, credential and one-shot selectors cannot change the persistent disabled mode
+  ---
+  duration_ms: 0.7256
+  type: 'test'
+  ...
+# Subtest: platform PORT is explicit, canonical and bounded without development fallback
+ok 110 - platform PORT is explicit, canonical and bounded without development fallback
+  ---
+  duration_ms: 0.4143
+  type: 'test'
+  ...
+# Subtest: native TLS integration accepts a trusted matching certificate and rejects wrong host and CA
+ok 111 - native TLS integration accepts a trusted matching certificate and rejects wrong host and CA
+  ---
+  duration_ms: 564.19
+  type: 'test'
+  ...
+# Subtest: MariaDB local acceptance remains explicit, versioned and separate from Oracle MySQL
+ok 112 - MariaDB local acceptance remains explicit, versioned and separate from Oracle MySQL
+  ---
+  duration_ms: 6.3871
+  type: 'test'
+  ...
+# Subtest: MariaDB production use is blocked even with explicit local opt-in
+ok 113 - MariaDB production use is blocked even with explicit local opt-in
+  ---
+  duration_ms: 0.305
+  type: 'test'
+  ...
+# Subtest: reviewed runtime grant allowlist is accepted and password-bearing suffix is withheld
+ok 114 - reviewed runtime grant allowlist is accepted and password-bearing suffix is withheld
+  ---
+  duration_ms: 12.9731
+  type: 'test'
+  ...
+# Subtest: global/schema-wide/foreign/DDL/audit/catalog grants are rejected
+ok 115 - global/schema-wide/foreign/DDL/audit/catalog grants are rejected
+  ---
+  duration_ms: 7.1967
+  type: 'test'
+  ...
+# Subtest: delegated roles, grant option, wildcard hosts and missing required privileges fail closed
+ok 116 - delegated roles, grant option, wildcard hosts and missing required privileges fail closed
+  ---
+  duration_ms: 4.0345
+  type: 'test'
+  ...
+# Subtest: a persisted session must belong to the authenticated identity it authorizes
+ok 117 - a persisted session must belong to the authenticated identity it authorizes
+  ---
+  duration_ms: 1.1679
+  type: 'test'
+  ...
+# Subtest: temporary administrator sessions cannot use administration until a durable password change
+ok 118 - temporary administrator sessions cannot use administration until a durable password change
+  ---
+  duration_ms: 0.9545
+  type: 'test'
+  ...
+# Subtest: Argon2id salts are unique and verification rejects an incorrect password
+ok 119 - Argon2id salts are unique and verification rejects an incorrect password
+  ---
+  duration_ms: 283.9299
+  type: 'test'
+  ...
+# Subtest: hashing concurrency is bounded with immediate overload rejection
+ok 120 - hashing concurrency is bounded with immediate overload rejection
+  ---
+  duration_ms: 88.0273
+  type: 'test'
+  ...
+# Subtest: management defaults disabled; production cannot enable HTTP
+ok 121 - management defaults disabled; production cannot enable HTTP
+  ---
+  duration_ms: 1.2365
+  type: 'test'
+  ...
+# Subtest: database configuration has explicit local-only target and no fallback
+ok 122 - database configuration has explicit local-only target and no fallback
+  ---
+  duration_ms: 0.5017
+  type: 'test'
+  ...
+# Subtest: only four confirmed roles exist; staff cannot administer identities
+ok 123 - only four confirmed roles exist; staff cannot administer identities
+  ---
+  duration_ms: 1.6873
+  type: 'test'
+  ...
+# Subtest: input allowlists reject escalation fields and weak passwords
+ok 124 - input allowlists reject escalation fields and weak passwords
+  ---
+  duration_ms: 23.3264
+  type: 'test'
+  ...
+# Subtest: session hashes are fixed-length and contain no bearer token
+ok 125 - session hashes are fixed-length and contain no bearer token
+  ---
+  duration_ms: 1.5773
+  type: 'test'
+  ...
+# Subtest: management origin, CSRF, private shell and outage handling are isolated from public APIs
+ok 126 - management origin, CSRF, private shell and outage handling are isolated from public APIs
+  ---
+  duration_ms: 162.9178
+  type: 'test'
+  ...
+# Subtest: explicit test acceptance and correlation contract
+ok 127 - explicit test acceptance and correlation contract
+  ---
+  duration_ms: 56.091
+  type: 'test'
+  ...
+# Subtest: required fields and exact field error messages
+ok 128 - required fields and exact field error messages
+  ---
+  duration_ms: 14.8847
+  type: 'test'
+  ...
+# Subtest: reject invalid email: not-an-email
+ok 129 - reject invalid email: not-an-email
+  ---
+  duration_ms: 12.2234
+  type: 'test'
+  ...
+# Subtest: reject invalid email: Name <person@example.test
+ok 130 - reject invalid email: Name <person@example.test
+  ---
+  duration_ms: 19.5987
+  type: 'test'
+  ...
+# Subtest: reject invalid email: a@example.test\\r\\nBcc: hidd
+ok 131 - reject invalid email: a@example.test\\r\\nBcc: hidd
+  ---
+  duration_ms: 8.2604
+  type: 'test'
+  ...
+# Subtest: reject invalid customerName: Buyer\\r\\nInjected
+ok 132 - reject invalid customerName: Buyer\\r\\nInjected
+  ---
+  duration_ms: 6.4836
+  type: 'test'
+  ...
+# Subtest: reject invalid phone: abc123
+ok 133 - reject invalid phone: abc123
+  ---
+  duration_ms: 17.7085
+  type: 'test'
+  ...
+# Subtest: reject invalid productCategory: unknown
+ok 134 - reject invalid productCategory: unknown
+  ---
+  duration_ms: 15.3729
+  type: 'test'
+  ...
+# Subtest: reject invalid productCategory: Buckets
+ok 135 - reject invalid productCategory: Buckets
+  ---
+  duration_ms: 7.4925
+  type: 'test'
+  ...
+# Subtest: reject invalid productCategory: constructor
+ok 136 - reject invalid productCategory: constructor
+  ---
+  duration_ms: 7.4003
+  type: 'test'
+  ...
+# Subtest: reject invalid message: short
+ok 137 - reject invalid message: short
+  ---
+  duration_ms: 20.4871
+  type: 'test'
+  ...
+# Subtest: reject invalid customerName: xxxxxxxxxxxxxxxxxxxxxxxxx
+ok 138 - reject invalid customerName: xxxxxxxxxxxxxxxxxxxxxxxxx
+  ---
+  duration_ms: 8.1303
+  type: 'test'
+  ...
+# Subtest: reject invalid companyName: xxxxxxxxxxxxxxxxxxxxxxxxx
+ok 139 - reject invalid companyName: xxxxxxxxxxxxxxxxxxxxxxxxx
+  ---
+  duration_ms: 5.6581
+  type: 'test'
+  ...
+# Subtest: reject invalid email: xxxxxxxxxxxxxxxxxxxxxxxxx
+ok 140 - reject invalid email: xxxxxxxxxxxxxxxxxxxxxxxxx
+  ---
+  duration_ms: 5.4748
+  type: 'test'
+  ...
+# Subtest: reject invalid phone: 1111111111111111111111111
+ok 141 - reject invalid phone: 1111111111111111111111111
+  ---
+  duration_ms: 7.4956
+  type: 'test'
+  ...
+# Subtest: reject invalid quantity: xxxxxxxxxxxxxxxxxxxxxxxxx
+ok 142 - reject invalid quantity: xxxxxxxxxxxxxxxxxxxxxxxxx
+  ---
+  duration_ms: 9.0341
+  type: 'test'
+  ...
+# Subtest: reject invalid capacity: xxxxxxxxxxxxxxxxxxxxxxxxx
+ok 143 - reject invalid capacity: xxxxxxxxxxxxxxxxxxxxxxxxx
+  ---
+  duration_ms: 10.5069
+  type: 'test'
+  ...
+# Subtest: reject invalid message: xxxxxxxxxxxxxxxxxxxxxxxxx
+ok 144 - reject invalid message: xxxxxxxxxxxxxxxxxxxxxxxxx
+  ---
+  duration_ms: 5.867
+  type: 'test'
+  ...
+# Subtest: reject invalid website: spam.example
+ok 145 - reject invalid website: spam.example
+  ---
+  duration_ms: 8.8061
+  type: 'test'
+  ...
+# Subtest: retired jars category is rejected without delivery
+ok 146 - retired jars category is rejected without delivery
+  ---
+  duration_ms: 26.6849
+  type: 'test'
+  ...
+# Subtest: accept category buckets
+ok 147 - accept category buckets
+  ---
+  duration_ms: 7.6099
+  type: 'test'
+  ...
+# Subtest: accept category cans
+ok 148 - accept category cans
+  ---
+  duration_ms: 8.8127
+  type: 'test'
+  ...
+# Subtest: accept category containers
+ok 149 - accept category containers
+  ---
+  duration_ms: 20.1198
+  type: 'test'
+  ...
+# Subtest: accept category custom
+ok 150 - accept category custom
+  ---
+  duration_ms: 10.0457
+  type: 'test'
+  ...
+# Subtest: concurrent duplicates share work/reference; changed data conflicts; UUID case normalizes
+ok 151 - concurrent duplicates share work/reference; changed data conflicts; UUID case normalizes
+  ---
+  duration_ms: 57.7905
+  type: 'test'
+  ...
+# Subtest: cache Unavailable retry outcome
+ok 152 - cache Unavailable retry outcome
+  ---
+  duration_ms: 23.9301
+  type: 'test'
+  ...
+# Subtest: cache Rejected retry outcome
+ok 153 - cache Rejected retry outcome
+  ---
+  duration_ms: 11.3789
+  type: 'test'
+  ...
+# Subtest: cache Unknown retry outcome
+ok 154 - cache Unknown retry outcome
+  ---
+  duration_ms: 12.5746
+  type: 'test'
+  ...
+# Subtest: exceptions and ordinary logs disclose no sensitive data
+ok 155 - exceptions and ordinary logs disclose no sensitive data
+  ---
+  duration_ms: 10.751
+  type: 'test'
+  ...
+# Subtest: bounded timeout is uncertain, cached and cancellation signaled
+ok 156 - bounded timeout is uncertain, cached and cancellation signaled
+  ---
+  duration_ms: 1039.7988
+  type: 'test'
+  ...
+# Subtest: shutdown cancels pending delivery conservatively
+ok 157 - shutdown cancels pending delivery conservatively
+  ---
+  duration_ms: 9.2463
+  type: 'test'
+  ...
+# Subtest: rate limits fixed window and expires; duplicate attempts consume permits
+ok 158 - rate limits fixed window and expires; duplicate attempts consume permits
+  ---
+  duration_ms: 51.5441
+  type: 'test'
+  ...
+# Subtest: origin boundary covers alternate casing/trailing slash without CORS or permit consumption
+ok 159 - origin boundary covers alternate casing/trailing slash without CORS or permit consumption
+  ---
+  duration_ms: 43.9168
+  type: 'test'
+  ...
+# Subtest: SMTP acceptance does not claim inbox receipt
+ok 160 - SMTP acceptance does not claim inbox receipt
+  ---
+  duration_ms: 9.1452
+  type: 'test'
+  ...
+# Subtest: invalid keys, JSON types/depth, content encoding/media and sizes
+ok 161 - invalid keys, JSON types/depth, content encoding/media and sizes
+  ---
+  duration_ms: 94.0887
+  type: 'test'
+  ...
+# Subtest: normalization trims and accepts case insensitive properties and null optionals
+ok 162 - normalization trims and accepts case insensitive properties and null optionals
+  ---
+  duration_ms: 8.5241
+  type: 'test'
+  ...
+# Subtest: bounded submission capacity, expiry and pending protection
+ok 163 - bounded submission capacity, expiry and pending protection
+  ---
+  duration_ms: 146.55
+  type: 'test'
+  ...
+# Subtest: stock arithmetic is exact at unit precision and DECIMAL boundaries
+ok 164 - stock arithmetic is exact at unit precision and DECIMAL boundaries
+  ---
+  duration_ms: 13.7731
+  type: 'test'
+  ...
+# Subtest: stock commands require explicit lifecycle attestation and bounded exact lines
+ok 165 - stock commands require explicit lifecycle attestation and bounded exact lines
+  ---
+  duration_ms: 12.5178
+  type: 'test'
+  ...
+# Subtest: stock permission defaults separate direct posting from administrator approval and immutable journal rights
+ok 166 - stock permission defaults separate direct posting from administrator approval and immutable journal rights
+  ---
+  duration_ms: 1.7
+  type: 'test'
+  ...
+# Subtest: private deep links serve the management entry while API and static misses stay outside SPA fallback
+ok 167 - private deep links serve the management entry while API and static misses stay outside SPA fallback
+  ---
+  duration_ms: 160.7896
+  type: 'test'
+  ...
+# Subtest: public routes retain their prerendered entry and never become private SPA fallbacks
+ok 168 - public routes retain their prerendered entry and never become private SPA fallbacks
+  ---
+  duration_ms: 27.5342
+  type: 'test'
+  ...
+# Subtest: runtime policy covers the tested release lines and rejects unsupported floors
+ok 169 - runtime policy covers the tested release lines and rejects unsupported floors
+  ---
+  duration_ms: 2.1712
+  type: 'test'
+  ...
+# Subtest: real production profile binds origin, schema, account, server and local endpoint
+ok 170 - real production profile binds origin, schema, account, server and local endpoint
+  ---
+  duration_ms: 1.3462
+  type: 'test'
+  ...
+# Subtest: new production support never silently activates legacy synthetic schemas
+ok 171 - new production support never silently activates legacy synthetic schemas
+  ---
+  duration_ms: 0.5076
+  type: 'test'
+  ...
+# Subtest: production grants retain exact table permissions and read-only release metadata
+ok 172 - production grants retain exact table permissions and read-only release metadata
+  ---
+  duration_ms: 2.4118
+  type: 'test'
+  ...
+# Subtest: opening phase permits explicit setup but blocks operations and wrong dates
+ok 173 - opening phase permits explicit setup but blocks operations and wrong dates
+  ---
+  duration_ms: 1.1237
+  type: 'test'
+  ...
+# Subtest: live operations require both reviewed database state and explicit environment approval
+ok 174 - live operations require both reviewed database state and explicit environment approval
+  ---
+  duration_ms: 0.3635
+  type: 'test'
+  ...
+# Subtest: real opening activation refuses missing owner approval before issuing SQL
+ok 175 - real opening activation refuses missing owner approval before issuing SQL
+  ---
+  duration_ms: 0.7598
+  type: 'test'
+  ...
+# Subtest: management-only boundary exposes minimal health and no mirrored website or files
+ok 176 - management-only boundary exposes minimal health and no mirrored website or files
+  ---
+  duration_ms: 117.3152
+  type: 'test'
+  ...
+# Subtest: purchase decimal arithmetic preserves ties, large values and per-line rounding
+ok 177 - purchase decimal arithmetic preserves ties, large values and per-line rounding
+  ---
+  duration_ms: 2.6515
+  type: 'test'
+  ...
+# Subtest: financial policy has no inferred currency, precision, instrument or deficit defaults
+ok 178 - financial policy has no inferred currency, precision, instrument or deficit defaults
+  ---
+  duration_ms: 3.6059
+  type: 'test'
+  ...
+# Subtest: purchasing grants separate departments, activation and deficit authority; journals append only
+ok 179 - purchasing grants separate departments, activation and deficit authority; journals append only
+  ---
+  duration_ms: 1.0505
+  type: 'test'
+  ...
+# Subtest: ordinary Accounts receipt authority is independent of Administrator correction decisions
+ok 180 - ordinary Accounts receipt authority is independent of Administrator correction decisions
+  ---
+  duration_ms: 2.2592
+  type: 'test'
+  ...
+# Subtest: receipt sources, allocations and credit journals are immutable SQL scopes
+ok 181 - receipt sources, allocations and credit journals are immutable SQL scopes
+  ---
+  duration_ms: 0.7393
+  type: 'test'
+  ...
+# Subtest: receipt policy cannot infer instruments, legal tax treatment or cross-ledger allocation
+ok 182 - receipt policy cannot infer instruments, legal tax treatment or cross-ledger allocation
+  ---
+  duration_ms: 23.0565
+  type: 'test'
+  ...
+# Subtest: real receipt activation is blocked by actual SQL database identity
+ok 183 - real receipt activation is blocked by actual SQL database identity
+  ---
+  duration_ms: 1.526
+  type: 'test'
+  ...
+# Subtest: receipt JSON requires exact strings, classified scope and bounded allocation lines
+ok 184 - receipt JSON requires exact strings, classified scope and bounded allocation lines
+  ---
+  duration_ms: 3.7763
+  type: 'test'
+  ...
+# Subtest: cash-holder is a supported settled method while cheque states have no receipt contract
+ok 185 - cash-holder is a supported settled method while cheque states have no receipt contract
+  ---
+  duration_ms: 0.2714
+  type: 'test'
+  ...
+# Subtest: remote selection is independent of production and synthetic
+ok 186 - remote selection is independent of production and synthetic
+  ---
+  duration_ms: 8.6372
+  type: 'test'
+  ...
+# Subtest: reject changed remote target NODE_ENV
+ok 187 - reject changed remote target NODE_ENV
+  ---
+  duration_ms: 3.8433
+  type: 'test'
+  ...
+# Subtest: reject changed remote target DB_HOST
+ok 188 - reject changed remote target DB_HOST
+  ---
+  duration_ms: 0.8367
+  type: 'test'
+  ...
+# Subtest: reject changed remote target DB_PORT
+ok 189 - reject changed remote target DB_PORT
+  ---
+  duration_ms: 0.797
+  type: 'test'
+  ...
+# Subtest: reject changed remote target DB_NAME
+ok 190 - reject changed remote target DB_NAME
+  ---
+  duration_ms: 1.5408
+  type: 'test'
+  ...
+# Subtest: reject changed remote target DB_USER
+ok 191 - reject changed remote target DB_USER
+  ---
+  duration_ms: 0.6799
+  type: 'test'
+  ...
+# Subtest: reject changed remote target UPMS_SIMPLE_V1
+ok 192 - reject changed remote target UPMS_SIMPLE_V1
+  ---
+  duration_ms: 1.3032
+  type: 'test'
+  ...
+# Subtest: reject changed remote target UPMS_PRODUCTION_POSTING
+ok 193 - reject changed remote target UPMS_PRODUCTION_POSTING
+  ---
+  duration_ms: 0.8805
+  type: 'test'
+  ...
+# Subtest: HTTP is strictly loopback and exact origin
+ok 194 - HTTP is strictly loopback and exact origin
+  ---
+  duration_ms: 1.8015
+  type: 'test'
+  ...
+# Subtest: remote writable pools cannot be enabled by environment flags
+ok 195 - remote writable pools cannot be enabled by environment flags
+  ---
+  duration_ms: 1.807
+  type: 'test'
+  ...
+# Subtest: legacy local and GoDaddy production restrictions remain
+ok 196 - legacy local and GoDaddy production restrictions remain
+  ---
+  duration_ms: 0.6454
+  type: 'test'
+  ...
+# Subtest: generic public startup rejects remote profile even with management disabled
+ok 197 - generic public startup rejects remote profile even with management disabled
+  ---
+  duration_ms: 1570.4672
+  type: 'test'
+  ...
+# Subtest: MariaDB target line only; no Oracle or old MariaDB acceptance
+ok 198 - MariaDB target line only; no Oracle or old MariaDB acceptance
+  ---
+  duration_ms: 0.6348
+  type: 'test'
+  ...
+# Subtest: missing TLS advertisement never authenticates
+ok 199 - missing TLS advertisement never authenticates
+  ---
+  duration_ms: 0.8746
+  type: 'test'
+  ...
+# Subtest: missing credentials and missing approved hostname fail before authentication
+ok 200 - missing credentials and missing approved hostname fail before authentication
+  ---
+  duration_ms: 3.9085
+  type: 'test'
+  ...
+# Subtest: encrypted but unauthorized or wrong-name TLS never queries identity
+ok 201 - encrypted but unauthorized or wrong-name TLS never queries identity
+  ---
+  duration_ms: 2.0987
+  type: 'test'
+  ...
+# Subtest: safe successful read-only simulation redacts grant authentication material
+ok 202 - safe successful read-only simulation redacts grant authentication material
+  ---
+  duration_ms: 0.8658
+  type: 'test'
+  ...
+# Subtest: wrong schema, account and engine close connection
+ok 203 - wrong schema, account and engine close connection
+  ---
+  duration_ms: 0.9904
+  type: 'test'
+  ...
+# Subtest: authentication, timeout and disconnect errors are sanitized
+ok 204 - authentication, timeout and disconnect errors are sanitized
+  ---
+  duration_ms: 15.4614
+  type: 'test'
+  ...
+# Subtest: untrusted errors never enter logs
+ok 205 - untrusted errors never enter logs
+  ---
+  duration_ms: 3.8576
+  type: 'test'
+  ...
+# Subtest: initializer rejects real remote target before SQL or migrations
+ok 206 - initializer rejects real remote target before SQL or migrations
+  ---
+  duration_ms: 0.6388
+  type: 'test'
+  ...
+# Subtest: one-time remote initialization requires exact explicit endpoint and account confirmations
+ok 207 - one-time remote initialization requires exact explicit endpoint and account confirmations
+  ---
+  duration_ms: 0.9822
+  type: 'test'
+  ...
+# Subtest: actual TCP greeting parser handles fragmented packets and timeout without client writes
+ok 208 - actual TCP greeting parser handles fragmented packets and timeout without client writes
+  ---
+  duration_ms: 90.8537
+  type: 'test'
+  ...
+# Subtest: authentication-only SQL permits existing session, throttle, audit and password-change statements
+ok 209 - authentication-only SQL permits existing session, throttle, audit and password-change statements
+  ---
+  duration_ms: 36.7806
+  type: 'test'
+  ...
+# Subtest: authentication-only SQL rejects business changes, schema changes and account administration
+ok 210 - authentication-only SQL rejects business changes, schema changes and account administration
+  ---
+  duration_ms: 0.3672
+  type: 'test'
+  ...
+# Subtest: HTTP boundary exposes only explicitly approved login, session and password routes
+ok 211 - HTTP boundary exposes only explicitly approved login, session and password routes
+  ---
+  duration_ms: 0.4637
+  type: 'test'
+  ...
+# Subtest: plaintext authentication requires explicit option and remains development/endpoint restricted
+ok 212 - plaintext authentication requires explicit option and remains development/endpoint restricted
+  ---
+  duration_ms: 1.1745
+  type: 'test'
+  ...
+# Subtest: full remote development permits the existing Simple V1 table privileges while authentication-only stays restricted
+ok 213 - full remote development permits the existing Simple V1 table privileges while authentication-only stays restricted
+  ---
+  duration_ms: 31.0058
+  type: 'test'
+  ...
+# Subtest: append-only journal, audit and idempotency tables cannot be changed through upserts
+ok 214 - append-only journal, audit and idempotency tables cannot be changed through upserts
+  ---
+  duration_ms: 1.54
+  type: 'test'
+  ...
+# Subtest: management HTTP exposes Simple V1 features and authentication without legacy ERP or destructive routes
+ok 215 - management HTTP exposes Simple V1 features and authentication without legacy ERP or destructive routes
+  ---
+  duration_ms: 2.8658
+  type: 'test'
+  ...
+# Subtest: management pool requires the explicit plaintext option and rejects production or changed endpoints
+ok 216 - management pool requires the explicit plaintext option and rejects production or changed endpoints
+  ---
+  duration_ms: 3.8534
+  type: 'test'
+  ...
+# Subtest: activation requires the exact confirmed target, existing operator and remote-development database
+ok 217 - activation requires the exact confirmed target, existing operator and remote-development database
+  ---
+  duration_ms: 1.8922
+  type: 'test'
+  ...
+# Subtest: return department authority separates request, receipt and administrator release
+ok 218 - return department authority separates request, receipt and administrator release
+  ---
+  duration_ms: 3.4096
+  type: 'test'
+  ...
+# Subtest: only return allowance and quarantine projections permit runtime updates
+ok 219 - only return allowance and quarantine projections permit runtime updates
+  ---
+  duration_ms: 0.5511
+  type: 'test'
+  ...
+# Subtest: physical return policy cannot accept real financial release or implicit disposition authority
+ok 220 - physical return policy cannot accept real financial release or implicit disposition authority
+  ---
+  duration_ms: 15.7084
+  type: 'test'
+  ...
+# Subtest: return draft contract forbids money, tax, arbitrary variant and unsupported correction fields
+ok 221 - return draft contract forbids money, tax, arbitrary variant and unsupported correction fields
+  ---
+  duration_ms: 13.6641
+  type: 'test'
+  ...
+# Subtest: actual SQL database identity keeps owner return activation blocked
+ok 222 - actual SQL database identity keeps owner return activation blocked
+  ---
+  duration_ms: 1.4238
+  type: 'test'
+  ...
+# Subtest: sales inherits exact per-line money rounding and rejects inferred operational policies
+ok 223 - sales inherits exact per-line money rounding and rejects inferred operational policies
+  ---
+  duration_ms: 5.6477
+  type: 'test'
+  ...
+# Subtest: ordinary dispatch authority is independent of correction approval and financial read authority
+ok 224 - ordinary dispatch authority is independent of correction approval and financial read authority
+  ---
+  duration_ms: 1.3576
+  type: 'test'
+  ...
+# Subtest: sales requests reject extra classifications and unbounded reads; decisions bind a hash
+ok 225 - sales requests reject extra classifications and unbounded reads; decisions bind a hash
+  ---
+  duration_ms: 6.8273
+  type: 'test'
+  ...
+# Subtest: V1 exact approved numbering and blocked unapproved rollover
+ok 226 - V1 exact approved numbering and blocked unapproved rollover
+  ---
+  duration_ms: 1.8027
+  type: 'test'
+  ...
+# Subtest: V1 exact decimals, signed balance and whole bottle quantities
+ok 227 - V1 exact decimals, signed balance and whole bottle quantities
+  ---
+  duration_ms: 0.6256
+  type: 'test'
+  ...
+# Subtest: V1 cookies are isolated from legacy ports and protected main cannot enable V1
+ok 228 - V1 cookies are isolated from legacy ports and protected main cannot enable V1
+  ---
+  duration_ms: 1.0484
+  type: 'test'
+  ...
+# Subtest: Excel export preserves zero-prefixed references and treats formulas as inert text
+ok 229 - Excel export preserves zero-prefixed references and treats formulas as inert text
+  ---
+  duration_ms: 3.877
+  type: 'test'
+  ...
+# Subtest: malformed trailing bytes after compressed JSON are rejected without terminating the server
+ok 230 - malformed trailing bytes after compressed JSON are rejected without terminating the server
+  ---
+  duration_ms: 113.0268
+  type: 'test'
+  ...
+# Subtest: ordinary schemas permit omitted reasons while exceptions require justification
+ok 231 - ordinary schemas permit omitted reasons while exceptions require justification
+  ---
+  duration_ms: 12.2187
+  type: 'test'
+  ...
+# Subtest: canonical register never duplicates purchase journals or invents combined cash balances
+ok 232 - canonical register never duplicates purchase journals or invents combined cash balances
+  ---
+  duration_ms: 42.4011
+  type: 'test'
+  ...
+# Subtest: V1.1 runtime account exception requires exact schema and exact reviewed privileges
+ok 233 - V1.1 runtime account exception requires exact schema and exact reviewed privileges
+  ---
+  duration_ms: 2.317
+  type: 'test'
+  ...
+# Subtest: V1.2 exact percent/fixed contract and UI preview agree including half-up cents
+ok 234 - V1.2 exact percent/fixed contract and UI preview agree including half-up cents
+  ---
+  duration_ms: 3.5992
+  type: 'test'
+  ...
+# Subtest: duplicate validation returns a safe per-line explanation without consolidating rows
+ok 235 - duplicate validation returns a safe per-line explanation without consolidating rows
+  ---
+  duration_ms: 0.6891
+  type: 'test'
+  ...
+# Subtest: safe structured Zod validation identifies fields without raw values or internals
+ok 236 - safe structured Zod validation identifies fields without raw values or internals
+  ---
+  duration_ms: 5.0315
+  type: 'test'
+  ...
+# Subtest: V1.2 cookies isolate the new UAT from old demos and main activation remains blocked
+ok 237 - V1.2 cookies isolate the new UAT from old demos and main activation remains blocked
+  ---
+  duration_ms: 1.1038
+  type: 'test'
+  ...
+# Subtest: V1.2A synthetic access remains bounded to exact targets and matching localhost runtime accounts
+ok 238 - V1.2A synthetic access remains bounded to exact targets and matching localhost runtime accounts
+  ---
+  duration_ms: 14.0969
+  type: 'test'
+  ...
+# Subtest: PKR grouping formats exact large decimal strings without rounding
+ok 239 - PKR grouping formats exact large decimal strings without rounding
+  ---
+  duration_ms: 3.1287
+  type: 'test'
+  ...
+# Subtest: payment identities use immutable shared document IDs without touching DC sequence or annual state
+ok 240 - payment identities use immutable shared document IDs without touching DC sequence or annual state
+  ---
+  duration_ms: 3.3275
+  type: 'test'
+  ...
+# Subtest: challan time schema accepts only optional local HH:mm with no timezone conversion
+ok 241 - challan time schema accepts only optional local HH:mm with no timezone conversion
+  ---
+  duration_ms: 11.4842
+  type: 'test'
+  ...
+# Subtest: known payment business failures have safe actionable messages and V1.2B target access stays bounded
+ok 242 - known payment business failures have safe actionable messages and V1.2B target access stays bounded
+  ---
+  duration_ms: 1.3936
+  type: 'test'
+  ...
+# Subtest: official payment identity does not hide separately retained external references from register search
+ok 243 - official payment identity does not hide separately retained external references from register search
+  ---
+  duration_ms: 1.763
+  type: 'test'
+  ...
+# Subtest: real entry fails closed: missing production hosts
+ok 244 - real entry fails closed: missing production hosts
+  ---
+  duration_ms: 1649.6778
+  type: 'test'
+  ...
+# Subtest: real entry fails closed: wildcard hosts
+ok 245 - real entry fails closed: wildcard hosts
+  ---
+  duration_ms: 1527.2454
+  type: 'test'
+  ...
+# Subtest: real entry fails closed: bad port
+ok 246 - real entry fails closed: bad port
+  ---
+  duration_ms: 1537.1699
+  type: 'test'
+  ...
+# Subtest: real entry fails closed: missing build
+ok 247 - real entry fails closed: missing build
+  ---
+  duration_ms: 1387.6876
+  type: 'test'
+  ...
+# Subtest: real entry fails closed: trust-all shortcut
+ok 248 - real entry fails closed: trust-all shortcut
+  ---
+  duration_ms: 1214.9643
+  type: 'test'
+  ...
+# Subtest: real entry fails closed: unsafe origin
+ok 249 - real entry fails closed: unsafe origin
+  ---
+  duration_ms: 1817.8044
+  type: 'test'
+  ...
+# Subtest: real production entry honors PORT, serves all routes/security/API and shuts down cleanly
+ok 250 - real production entry honors PORT, serves all routes/security/API and shuts down cleanly
+  ---
+  duration_ms: 2685.3048
+  type: 'test'
+  ...
+# Subtest: occupied production PORT fails clearly with nonzero exit
+ok 251 - occupied production PORT fails clearly with nonzero exit
+  ---
+  duration_ms: 1331.6964
+  type: 'test'
+  ...
+# Subtest: prerendered metadata, links and company identity /
+ok 252 - prerendered metadata, links and company identity /
+  ---
+  duration_ms: 108.3397
+  type: 'test'
+  ...
+# Subtest: prerendered metadata, links and company identity /about
+ok 253 - prerendered metadata, links and company identity /about
+  ---
+  duration_ms: 14.3393
+  type: 'test'
+  ...
+# Subtest: prerendered metadata, links and company identity /products
+ok 254 - prerendered metadata, links and company identity /products
+  ---
+  duration_ms: 8.6452
+  type: 'test'
+  ...
+# Subtest: prerendered metadata, links and company identity /manufacturing
+ok 255 - prerendered metadata, links and company identity /manufacturing
+  ---
+  duration_ms: 20.5219
+  type: 'test'
+  ...
+# Subtest: prerendered metadata, links and company identity /industries
+ok 256 - prerendered metadata, links and company identity /industries
+  ---
+  duration_ms: 10.8545
+  type: 'test'
+  ...
+# Subtest: prerendered metadata, links and company identity /contact
+ok 257 - prerendered metadata, links and company identity /contact
+  ---
+  duration_ms: 8.2249
+  type: 'test'
+  ...
+# Subtest: prerendered metadata, links and company identity /products/buckets
+ok 258 - prerendered metadata, links and company identity /products/buckets
+  ---
+  duration_ms: 21.2126
+  type: 'test'
+  ...
+# Subtest: prerendered metadata, links and company identity /products/cans
+ok 259 - prerendered metadata, links and company identity /products/cans
+  ---
+  duration_ms: 16.5777
+  type: 'test'
+  ...
+# Subtest: prerendered metadata, links and company identity /products/containers
+ok 260 - prerendered metadata, links and company identity /products/containers
+  ---
+  duration_ms: 33.4767
+  type: 'test'
+  ...
+# Subtest: prerendered metadata, links and company identity /products/stickers
+ok 261 - prerendered metadata, links and company identity /products/stickers
+  ---
+  duration_ms: 12.1126
+  type: 'test'
+  ...
+# Subtest: prerendered metadata, links and company identity /products/cartons
+ok 262 - prerendered metadata, links and company identity /products/cartons
+  ---
+  duration_ms: 7.3718
+  type: 'test'
+  ...
+# Subtest: HTML 404 /missing
+ok 263 - HTML 404 /missing
+  ---
+  duration_ms: 9.4516
+  type: 'test'
+  ...
+# Subtest: HTML 404 /ABOUT
+ok 264 - HTML 404 /ABOUT
+  ---
+  duration_ms: 16.6694
+  type: 'test'
+  ...
+# Subtest: HTML 404 /products/missing
+ok 265 - HTML 404 /products/missing
+  ---
+  duration_ms: 10.7704
+  type: 'test'
+  ...
+# Subtest: HTML 404 /products/buckets/extra
+ok 266 - HTML 404 /products/buckets/extra
+  ---
+  duration_ms: 8.787
+  type: 'test'
+  ...
+# Subtest: private/reserved paths /assets/missing.js
+ok 267 - private/reserved paths /assets/missing.js
+  ---
+  duration_ms: 10.0907
+  type: 'test'
+  ...
+# Subtest: private/reserved paths /assets/missing
+ok 268 - private/reserved paths /assets/missing
+  ---
+  duration_ms: 26.8946
+  type: 'test'
+  ...
+# Subtest: private/reserved paths /index.html
+ok 269 - private/reserved paths /index.html
+  ---
+  duration_ms: 6.4763
+  type: 'test'
+  ...
+# Subtest: private/reserved paths /public-routes.json
+ok 270 - private/reserved paths /public-routes.json
+  ---
+  duration_ms: 4.3882
+  type: 'test'
+  ...
+# Subtest: private/reserved paths /_pages/home.html
+ok 271 - private/reserved paths /_pages/home.html
+  ---
+  duration_ms: 5.6988
+  type: 'test'
+  ...
+# Subtest: private/reserved paths /appsettings.json
+ok 272 - private/reserved paths /appsettings.json
+  ---
+  duration_ms: 7.003
+  type: 'test'
+  ...
+# Subtest: private/reserved paths /management/orders
+ok 273 - private/reserved paths /management/orders
+  ---
+  duration_ms: 22.9879
+  type: 'test'
+  ...
+# Subtest: private/reserved paths /admin/users
+ok 274 - private/reserved paths /admin/users
+  ---
+  duration_ms: 6.1092
+  type: 'test'
+  ...
+# Subtest: private/reserved paths /.env
+ok 275 - private/reserved paths /.env
+  ---
+  duration_ms: 4.9771
+  type: 'test'
+  ...
+# Subtest: private/reserved paths /server/.local/inquiry-outbox/file.txt
+ok 276 - private/reserved paths /server/.local/inquiry-outbox/file.txt
+  ---
+  duration_ms: 8.7614
+  type: 'test'
+  ...
+# Subtest: private/reserved paths /src/app.js
+ok 277 - private/reserved paths /src/app.js
+  ---
+  duration_ms: 9.9306
+  type: 'test'
+  ...
+# Subtest: private/reserved paths /assets/%2e%2e%2f_pages/home.html
+ok 278 - private/reserved paths /assets/%2e%2e%2f_pages/home.html
+  ---
+  duration_ms: 15.0684
+  type: 'test'
+  ...
+# Subtest: static asset types caching compression, license accessibility and HEAD
+ok 279 - static asset types caching compression, license accessibility and HEAD
+  ---
+  duration_ms: 200.7436
+  type: 'test'
+  ...
+# Subtest: sitemap and robots registry; unconfigured origin indexing safety
+ok 280 - sitemap and robots registry; unconfigured origin indexing safety
+  ---
+  duration_ms: 45.3064
+  type: 'test'
+  ...
+# Subtest: API JSON 404, confidentiality and no compression
+ok 281 - API JSON 404, confidentiality and no compression
+  ---
+  duration_ms: 34.1849
+  type: 'test'
+  ...
+# Subtest: security headers, exact host validation, HTTPS redirects and trusted peer
+ok 282 - security headers, exact host validation, HTTPS redirects and trusted peer
+  ---
+  duration_ms: 37.2038
+  type: 'test'
+  ...
+# Subtest: reject unsafe canonical http://www.example.test
+ok 283 - reject unsafe canonical http://www.example.test
+  ---
+  duration_ms: 0.6468
+  type: 'test'
+  ...
+# Subtest: reject unsafe canonical https://localhost
+ok 284 - reject unsafe canonical https://localhost
+  ---
+  duration_ms: 0.144
+  type: 'test'
+  ...
+# Subtest: reject unsafe canonical https://127.0.0.1
+ok 285 - reject unsafe canonical https://127.0.0.1
+  ---
+  duration_ms: 0.2193
+  type: 'test'
+  ...
+# Subtest: reject unsafe canonical https://www.example.test/path
+ok 286 - reject unsafe canonical https://www.example.test/path
+  ---
+  duration_ms: 0.3639
+  type: 'test'
+  ...
+# Subtest: reject unsafe canonical https://www.example.test?x=1
+ok 287 - reject unsafe canonical https://www.example.test?x=1
+  ---
+  duration_ms: 0.1624
+  type: 'test'
+  ...
+# Subtest: reject unsafe canonical https://user:password@www.example.test
+ok 288 - reject unsafe canonical https://user:password@www.example.test
+  ---
+  duration_ms: 0.2552
+  type: 'test'
+  ...
+# Subtest: reject unsafe canonical https://www.example.test:8443
+ok 289 - reject unsafe canonical https://www.example.test:8443
+  ---
+  duration_ms: 0.1104
+  type: 'test'
+  ...
+# Subtest: unsafe startup settings fail closed; missing build fails
+ok 290 - unsafe startup settings fail closed; missing build fails
+  ---
+  duration_ms: 1.1251
+  type: 'test'
+  ...
+# Subtest: legacy sample weather API contract preserved
+ok 291 - legacy sample weather API contract preserved
+  ---
+  duration_ms: 8.4737
+  type: 'test'
+  ...
+1..291
+# tests 291
+# suites 0
+# pass 291
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 30730.9508

@@ -1,0 +1,95 @@
+{
+  "passed": true,
+  "publicRoutes": [
+    {
+      "route": "/",
+      "primaryPhone": true,
+      "secondaryPhone": true,
+      "whatsappUnchanged": true,
+      "soleIdentity": true
+    },
+    {
+      "route": "/about",
+      "primaryPhone": true,
+      "secondaryPhone": true,
+      "whatsappUnchanged": true,
+      "soleIdentity": true
+    },
+    {
+      "route": "/products",
+      "primaryPhone": true,
+      "secondaryPhone": true,
+      "whatsappUnchanged": true,
+      "soleIdentity": true
+    },
+    {
+      "route": "/manufacturing",
+      "primaryPhone": true,
+      "secondaryPhone": true,
+      "whatsappUnchanged": true,
+      "soleIdentity": true
+    },
+    {
+      "route": "/industries",
+      "primaryPhone": true,
+      "secondaryPhone": true,
+      "whatsappUnchanged": true,
+      "soleIdentity": true
+    },
+    {
+      "route": "/contact",
+      "primaryPhone": true,
+      "secondaryPhone": true,
+      "whatsappUnchanged": true,
+      "soleIdentity": true
+    },
+    {
+      "route": "/products/buckets",
+      "primaryPhone": true,
+      "secondaryPhone": true,
+      "whatsappUnchanged": true,
+      "soleIdentity": true
+    },
+    {
+      "route": "/products/cans",
+      "primaryPhone": true,
+      "secondaryPhone": true,
+      "whatsappUnchanged": true,
+      "soleIdentity": true
+    },
+    {
+      "route": "/products/containers",
+      "primaryPhone": true,
+      "secondaryPhone": true,
+      "whatsappUnchanged": true,
+      "soleIdentity": true
+    },
+    {
+      "route": "/products/stickers",
+      "primaryPhone": true,
+      "secondaryPhone": true,
+      "whatsappUnchanged": true,
+      "soleIdentity": true
+    },
+    {
+      "route": "/products/cartons",
+      "primaryPhone": true,
+      "secondaryPhone": true,
+      "whatsappUnchanged": true,
+      "soleIdentity": true
+    },
+    {
+      "route": "/missing",
+      "primaryPhone": true,
+      "secondaryPhone": true,
+      "whatsappUnchanged": true,
+      "soleIdentity": true
+    }
+  ],
+  "primary": "tel:+923152209511",
+  "secondary": "tel:+923142113472",
+  "whatsapp": "https://wa.me/923142113472",
+  "managementSnapshotsUnchanged": true,
+  "unapprovedBrochuresPublished": false,
+  "newPhotographsInvented": false
+}

@@ -1,0 +1,816 @@
+{
+  "employeeA": "2",
+  "employeeB": "3",
+  "from": "2026-10-08",
+  "to": "2026-11-05",
+  "currentWeek": {
+    "from": "2026-11-02",
+    "to": "2026-11-08"
+  },
+  "alice": {
+    "earned": "108.35",
+    "paid": "95.00",
+    "closing": "13.35"
+  },
+  "bob": {
+    "earned": "10005.00",
+    "paid": "0.00",
+    "closing": "10005.00"
+  },
+  "total": {
+    "earned": "10113.35",
+    "paid": "95.00",
+    "closing": null,
+    "knownVerifiedClosing": "10018.35"
+  },
+  "report": {
+    "coverageState": "UNVERIFIED",
+    "closingAsOf": null,
+    "title": "Employee Hafta",
+    "from": "2026-10-08",
+    "to": "2026-11-05",
+    "currency": "PKR",
+    "blocks": [
+      {
+        "coverageState": "UNVERIFIED",
+        "closingVerified": false,
+        "closingAsOf": null,
+        "existingOpening": null,
+        "employeeId": "1",
+        "names": [
+          "Updated Synthetic Employee"
+        ],
+        "currentName": "Updated Synthetic Employee",
+        "active": true,
+        "verified": false,
+        "opening": null,
+        "earned": "0.00",
+        "paid": "0.00",
+        "closing": null,
+        "coverageDate": null,
+        "records": []
+      },
+      {
+        "coverageState": "FULL",
+        "closingVerified": true,
+        "closingAsOf": "2026-11-05",
+        "existingOpening": {
+          "employeeName": "Labor Alice",
+          "id": "1",
+          "employeeId": "2",
+          "date": "2026-10-08",
+          "amount": "0.00",
+          "reference": "ALICE-OPENING",
+          "reason": "Reviewed no earlier synthetic labor liability",
+          "createdAt": "2026-11-05 11:29:43.932000",
+          "verified": true,
+          "immutable": true
+        },
+        "employeeId": "2",
+        "names": [
+          "Labor Alice",
+          "Labor Alice Renamed"
+        ],
+        "currentName": "Labor Alice Renamed",
+        "active": true,
+        "verified": true,
+        "opening": "0.00",
+        "earned": "108.35",
+        "paid": "95.00",
+        "closing": "13.35",
+        "coverageDate": "2026-10-08",
+        "records": [
+          {
+            "id": "1",
+            "type": "EARNING",
+            "date": "2026-10-15",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice",
+            "quantity": "10",
+            "laborRate": "10.00",
+            "earned": "100.00",
+            "paid": "",
+            "documentId": "24",
+            "paymentId": null,
+            "reference": "Production 24"
+          },
+          {
+            "id": "2",
+            "type": "EARNING",
+            "date": "2026-10-22",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice",
+            "quantity": "3",
+            "laborRate": "1.25",
+            "earned": "3.75",
+            "paid": "",
+            "documentId": "26",
+            "paymentId": null,
+            "reference": "Production 26"
+          },
+          {
+            "id": "3",
+            "type": "EARNING",
+            "date": "2026-10-22",
+            "description": "Labor second item",
+            "employeeName": "Labor Alice",
+            "quantity": "2",
+            "laborRate": "2.10",
+            "earned": "4.20",
+            "paid": "",
+            "documentId": "26",
+            "paymentId": null,
+            "reference": "Production 26"
+          },
+          {
+            "id": "4",
+            "type": "EARNING",
+            "date": "2026-10-29",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice",
+            "quantity": "4",
+            "laborRate": "0.10",
+            "earned": "0.40",
+            "paid": "",
+            "documentId": "27",
+            "paymentId": null,
+            "reference": "Production 27"
+          },
+          {
+            "id": "10",
+            "type": "EARNING",
+            "date": "2026-11-05",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice Renamed",
+            "quantity": "1",
+            "laborRate": "0.00",
+            "earned": "0.00",
+            "paid": "",
+            "documentId": "39",
+            "paymentId": null,
+            "reference": "Production 39"
+          },
+          {
+            "id": "11",
+            "type": "EARNING",
+            "date": "2026-11-05",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice Renamed",
+            "quantity": "1",
+            "laborRate": "0.00",
+            "earned": "0.00",
+            "paid": "",
+            "documentId": "40",
+            "paymentId": null,
+            "reference": "Production 40"
+          },
+          {
+            "id": "12",
+            "type": "EARNING",
+            "date": "2026-11-05",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice Renamed",
+            "quantity": "1",
+            "laborRate": "0.00",
+            "earned": "0.00",
+            "paid": "",
+            "documentId": "41",
+            "paymentId": null,
+            "reference": "Production 41"
+          },
+          {
+            "id": "13",
+            "type": "EARNING",
+            "date": "2026-11-05",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice Renamed",
+            "quantity": "1",
+            "laborRate": "0.00",
+            "earned": "0.00",
+            "paid": "",
+            "documentId": "42",
+            "paymentId": null,
+            "reference": "Production 42"
+          },
+          {
+            "id": "14",
+            "type": "EARNING",
+            "date": "2026-11-05",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice Renamed",
+            "quantity": "1",
+            "laborRate": "0.00",
+            "earned": "0.00",
+            "paid": "",
+            "documentId": "43",
+            "paymentId": null,
+            "reference": "Production 43"
+          },
+          {
+            "id": "15",
+            "type": "EARNING",
+            "date": "2026-11-05",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice Renamed",
+            "quantity": "1",
+            "laborRate": "0.00",
+            "earned": "0.00",
+            "paid": "",
+            "documentId": "44",
+            "paymentId": null,
+            "reference": "Production 44"
+          },
+          {
+            "id": "16",
+            "type": "EARNING",
+            "date": "2026-11-05",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice Renamed",
+            "quantity": "1",
+            "laborRate": "0.00",
+            "earned": "0.00",
+            "paid": "",
+            "documentId": "45",
+            "paymentId": null,
+            "reference": "Production 45"
+          },
+          {
+            "id": "17",
+            "type": "EARNING",
+            "date": "2026-11-05",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice Renamed",
+            "quantity": "1",
+            "laborRate": "0.00",
+            "earned": "0.00",
+            "paid": "",
+            "documentId": "46",
+            "paymentId": null,
+            "reference": "Production 46"
+          },
+          {
+            "id": "18",
+            "type": "EARNING",
+            "date": "2026-11-05",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice Renamed",
+            "quantity": "1",
+            "laborRate": "0.00",
+            "earned": "0.00",
+            "paid": "",
+            "documentId": "47",
+            "paymentId": null,
+            "reference": "Production 47"
+          },
+          {
+            "id": "19",
+            "type": "EARNING",
+            "date": "2026-11-05",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice Renamed",
+            "quantity": "1",
+            "laborRate": "0.00",
+            "earned": "0.00",
+            "paid": "",
+            "documentId": "48",
+            "paymentId": null,
+            "reference": "Production 48"
+          },
+          {
+            "id": "20",
+            "type": "EARNING",
+            "date": "2026-11-05",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice Renamed",
+            "quantity": "1",
+            "laborRate": "0.00",
+            "earned": "0.00",
+            "paid": "",
+            "documentId": "49",
+            "paymentId": null,
+            "reference": "Production 49"
+          },
+          {
+            "id": "21",
+            "type": "EARNING",
+            "date": "2026-11-05",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice Renamed",
+            "quantity": "1",
+            "laborRate": "0.00",
+            "earned": "0.00",
+            "paid": "",
+            "documentId": "50",
+            "paymentId": null,
+            "reference": "Production 50"
+          },
+          {
+            "id": "22",
+            "type": "EARNING",
+            "date": "2026-11-05",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice Renamed",
+            "quantity": "1",
+            "laborRate": "0.00",
+            "earned": "0.00",
+            "paid": "",
+            "documentId": "51",
+            "paymentId": null,
+            "reference": "Production 51"
+          },
+          {
+            "id": "23",
+            "type": "EARNING",
+            "date": "2026-11-05",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice Renamed",
+            "quantity": "1",
+            "laborRate": "0.00",
+            "earned": "0.00",
+            "paid": "",
+            "documentId": "52",
+            "paymentId": null,
+            "reference": "Production 52"
+          },
+          {
+            "id": "24",
+            "type": "EARNING",
+            "date": "2026-11-05",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice Renamed",
+            "quantity": "1",
+            "laborRate": "0.00",
+            "earned": "0.00",
+            "paid": "",
+            "documentId": "53",
+            "paymentId": null,
+            "reference": "Production 53"
+          },
+          {
+            "id": "25",
+            "type": "EARNING",
+            "date": "2026-11-05",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice Renamed",
+            "quantity": "1",
+            "laborRate": "0.00",
+            "earned": "0.00",
+            "paid": "",
+            "documentId": "54",
+            "paymentId": null,
+            "reference": "Production 54"
+          },
+          {
+            "id": "26",
+            "type": "EARNING",
+            "date": "2026-11-05",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice Renamed",
+            "quantity": "1",
+            "laborRate": "0.00",
+            "earned": "0.00",
+            "paid": "",
+            "documentId": "55",
+            "paymentId": null,
+            "reference": "Production 55"
+          },
+          {
+            "id": "27",
+            "type": "EARNING",
+            "date": "2026-11-05",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice Renamed",
+            "quantity": "1",
+            "laborRate": "0.00",
+            "earned": "0.00",
+            "paid": "",
+            "documentId": "56",
+            "paymentId": null,
+            "reference": "Production 56"
+          },
+          {
+            "id": "28",
+            "type": "EARNING",
+            "date": "2026-11-05",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice Renamed",
+            "quantity": "1",
+            "laborRate": "0.00",
+            "earned": "0.00",
+            "paid": "",
+            "documentId": "57",
+            "paymentId": null,
+            "reference": "Production 57"
+          },
+          {
+            "id": "29",
+            "type": "EARNING",
+            "date": "2026-11-05",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice Renamed",
+            "quantity": "1",
+            "laborRate": "0.00",
+            "earned": "0.00",
+            "paid": "",
+            "documentId": "58",
+            "paymentId": null,
+            "reference": "Production 58"
+          },
+          {
+            "id": "30",
+            "type": "EARNING",
+            "date": "2026-11-05",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice Renamed",
+            "quantity": "1",
+            "laborRate": "0.00",
+            "earned": "0.00",
+            "paid": "",
+            "documentId": "59",
+            "paymentId": null,
+            "reference": "Production 59"
+          },
+          {
+            "id": "31",
+            "type": "EARNING",
+            "date": "2026-11-05",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice Renamed",
+            "quantity": "1",
+            "laborRate": "0.00",
+            "earned": "0.00",
+            "paid": "",
+            "documentId": "60",
+            "paymentId": null,
+            "reference": "Production 60"
+          },
+          {
+            "id": "32",
+            "type": "EARNING",
+            "date": "2026-11-05",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice Renamed",
+            "quantity": "1",
+            "laborRate": "0.00",
+            "earned": "0.00",
+            "paid": "",
+            "documentId": "61",
+            "paymentId": null,
+            "reference": "Production 61"
+          },
+          {
+            "id": "5",
+            "type": "EARNING",
+            "date": "2026-11-05",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice",
+            "quantity": "1",
+            "laborRate": "0.00",
+            "earned": "0.00",
+            "paid": "",
+            "documentId": "28",
+            "paymentId": null,
+            "reference": "Production 28"
+          },
+          {
+            "id": "8",
+            "type": "EARNING",
+            "date": "2026-11-05",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice Renamed",
+            "quantity": "1",
+            "laborRate": "0.00",
+            "earned": "0.00",
+            "paid": "",
+            "documentId": "37",
+            "paymentId": null,
+            "reference": "Production 37"
+          },
+          {
+            "id": "9",
+            "type": "EARNING",
+            "date": "2026-11-05",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Alice Renamed",
+            "quantity": "1",
+            "laborRate": "0.00",
+            "earned": "0.00",
+            "paid": "",
+            "documentId": "38",
+            "paymentId": null,
+            "reference": "Production 38"
+          },
+          {
+            "id": "3c9996ff-fa6d-f250-aa69-4f7757f6fd08",
+            "type": "PAYMENT",
+            "date": "2026-11-05",
+            "description": "Hafta payment",
+            "employeeName": "Labor Alice Renamed",
+            "quantity": "",
+            "laborRate": "",
+            "earned": "",
+            "paid": "5.00",
+            "documentId": null,
+            "paymentId": "3c9996ff-fa6d-f250-aa69-4f7757f6fd08",
+            "reference": "ALICE-HAFTA-2"
+          },
+          {
+            "id": "41cfd72e-c8d6-2a5a-1398-b2a84bda8096",
+            "type": "PAYMENT",
+            "date": "2026-11-05",
+            "description": "Hafta payment",
+            "employeeName": "Labor Alice Renamed",
+            "quantity": "",
+            "laborRate": "",
+            "earned": "",
+            "paid": "60.00",
+            "documentId": null,
+            "paymentId": "41cfd72e-c8d6-2a5a-1398-b2a84bda8096",
+            "reference": "ALICE-CONCURRENT-A"
+          },
+          {
+            "id": "cc3d1efb-c385-eaa3-33a0-803fe736813b",
+            "type": "PAYMENT",
+            "date": "2026-11-05",
+            "description": "Hafta payment",
+            "employeeName": "Labor Alice",
+            "quantity": "",
+            "laborRate": "",
+            "earned": "",
+            "paid": "30.00",
+            "documentId": null,
+            "paymentId": "cc3d1efb-c385-eaa3-33a0-803fe736813b",
+            "reference": "ALICE-HAFTA-1"
+          }
+        ]
+      },
+      {
+        "coverageState": "FULL",
+        "closingVerified": true,
+        "closingAsOf": "2026-11-05",
+        "existingOpening": {
+          "employeeName": "Labor Bob",
+          "id": "2",
+          "employeeId": "3",
+          "date": "2026-10-08",
+          "amount": "0.00",
+          "reference": "BOB-OPENING",
+          "reason": "Reviewed no earlier synthetic labor liability",
+          "createdAt": "2026-11-05 11:30:48.312000",
+          "verified": true,
+          "immutable": true
+        },
+        "employeeId": "3",
+        "names": [
+          "Labor Bob"
+        ],
+        "currentName": "Labor Bob",
+        "active": true,
+        "verified": true,
+        "opening": "0.00",
+        "earned": "10005.00",
+        "paid": "0.00",
+        "closing": "10005.00",
+        "coverageDate": "2026-10-08",
+        "records": [
+          {
+            "id": "6",
+            "type": "EARNING",
+            "date": "2026-11-05",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Bob",
+            "quantity": "2",
+            "laborRate": "2.50",
+            "earned": "5.00",
+            "paid": "",
+            "documentId": "31",
+            "paymentId": null,
+            "reference": "Production 31"
+          },
+          {
+            "id": "7",
+            "type": "EARNING",
+            "date": "2026-11-05",
+            "description": "Synthetic consolidated bottle",
+            "employeeName": "Labor Bob",
+            "quantity": "2000",
+            "laborRate": "5.00",
+            "earned": "10000.00",
+            "paid": "",
+            "documentId": "33",
+            "paymentId": null,
+            "reference": "Production 33"
+          }
+        ]
+      }
+    ],
+    "totals": {
+      "opening": null,
+      "earned": "10113.35",
+      "paid": "95.00",
+      "closing": null
+    },
+    "businessExpenses": [
+      {
+        "documentId": "13",
+        "reference": "B4-EXPENSE",
+        "date": "2026-10-08",
+        "employeeId": "1",
+        "employeeName": "Synthetic Consolidated Employee",
+        "description": "Synthetic actual business transport",
+        "amount": "5.43"
+      },
+      {
+        "documentId": "16",
+        "reference": "B4-REFUND-13",
+        "date": "2026-11-05",
+        "employeeId": "1",
+        "employeeName": "Synthetic Consolidated Employee",
+        "description": "Synthetic actual business transport",
+        "amount": "-5.43"
+      },
+      {
+        "documentId": "17",
+        "reference": "B4-LOST-RESPONSE",
+        "date": "2026-11-05",
+        "employeeId": "1",
+        "employeeName": "Synthetic Consolidated Employee",
+        "description": "Synthetic actual business transport",
+        "amount": "0.07"
+      },
+      {
+        "documentId": "21",
+        "reference": "UAT1-DERIVED",
+        "date": "2026-11-05",
+        "employeeId": "1",
+        "employeeName": "Updated Synthetic Employee",
+        "description": "Synthetic actual business transport",
+        "amount": "0.13"
+      },
+      {
+        "documentId": "35",
+        "reference": "NOT-A-WAGE",
+        "date": "2026-11-05",
+        "employeeId": "2",
+        "employeeName": "Labor Alice Renamed",
+        "description": "Synthetic employee-associated transport",
+        "amount": "0.11"
+      }
+    ],
+    "businessExpensePolicy": "Employee-associated business expenses — Not deducted from labor balance. Historical wage reclassification is not enabled.",
+    "unallocatedProductions": [
+      {
+        "id": "4",
+        "date": "2026-10-08",
+        "label": "Labor not allocated"
+      },
+      {
+        "id": "29",
+        "date": "2026-11-05",
+        "label": "Labor not allocated"
+      }
+    ],
+    "coverage": "Balances require explicit evidenced employee openings. Historical unallocated production is not assumed to have zero labor. No advances or automatic expense reclassification.",
+    "reconciliation": {
+      "matched": true,
+      "findings": [],
+      "balances": {
+        "2": "13.35",
+        "3": "10005.00"
+      },
+      "earnings": 32,
+      "payments": 3,
+      "openings": 2,
+      "authenticityVerified": false,
+      "coverage": "Canonical source/snapshot/arithmetic/audit consistency; not proof of physical funds or protection against fabricated consistent SQL inserts."
+    }
+  },
+  "productionId": "24",
+  "multipleProductionId": "26",
+  "paymentId": "cc3d1efb-c385-eaa3-33a0-803fe736813b",
+  "protectedAttempts": 11,
+  "proof": {
+    "schema": {
+      "passed": true,
+      "version": "uath1-v1",
+      "planHash": "56ee871967be3ec5ac3fb7208261767596fb20c03cb7abbef03bd19bededafcb",
+      "tables": 34
+    },
+    "guards": {
+      "passed": true,
+      "baseGuards": 45,
+      "additionalGuards": 15,
+      "totalGuards": 88,
+      "baseHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+      "moneyHash": "d645a3680e9d65f02a81d8a27dc899527caa1cfce026a1da5eddcf0fe037bb0c",
+      "definer": "php2_test_admin@127.0.0.1",
+      "definerPrivilegesVerified": false,
+      "expenseHash": "94de30ac02e3d00868c381f3bbaa356c1cc264a93db5afe6ae5959a5a997e7d5",
+      "laborHash": "96e269b6792b7efe7105f59f13d4604f0dc50715da4ccfcec8a486f7ab830853",
+      "laborGuards": 16
+    }
+  },
+  "restored": {
+    "passed": true,
+    "format": "UPMS_EMPLOYEE_HAFTA_SNAPSHOT_V1",
+    "tables": 34,
+    "rows": 656,
+    "guards": {
+      "passed": true,
+      "baseGuards": 45,
+      "additionalGuards": 15,
+      "totalGuards": 88,
+      "baseHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+      "moneyHash": "d645a3680e9d65f02a81d8a27dc899527caa1cfce026a1da5eddcf0fe037bb0c",
+      "definer": "php2_test_admin@127.0.0.1",
+      "definerPrivilegesVerified": false,
+      "expenseHash": "94de30ac02e3d00868c381f3bbaa356c1cc264a93db5afe6ae5959a5a997e7d5",
+      "laborHash": "96e269b6792b7efe7105f59f13d4604f0dc50715da4ccfcec8a486f7ab830853",
+      "laborGuards": 16
+    },
+    "reconciliation": {
+      "matched": true,
+      "financial": {
+        "matched": true,
+        "customChallanNumbers": {
+          "matched": true,
+          "findings": []
+        },
+        "refunds": {
+          "matched": true,
+          "findings": [],
+          "postedRefunds": 3,
+          "policyVersion": "p32b3-full-same-account-v1",
+          "authenticity": "Operator attestation and consistency evidence, not proof that physical funds moved or protection against fabricated SQL inserts."
+        },
+        "money": {
+          "matched": true,
+          "findings": [],
+          "balances": {
+            "1": "946.79",
+            "2": "163.63",
+            "3": "3015.51",
+            "4": "40.64"
+          },
+          "openings": {
+            "1": "2026-10-08",
+            "2": "2026-10-08",
+            "3": "2026-10-08",
+            "4": "2026-10-08"
+          },
+          "batches": 19,
+          "movements": 20,
+          "sourceCoverage": "Money batches plus canonical p32b1 document claims; historical V1 payments and expenses are not backfilled.",
+          "authenticity": "Shape and arithmetic consistency, not proof of physical funds or protection against fabricated SQL inserts."
+        },
+        "sources": {
+          "matched": true,
+          "findings": [],
+          "linkedDocuments": 11,
+          "historicalUnlinkedDocuments": 0,
+          "coverage": "Only p32b1-marked posted documents require canonical money effects. Historical documents are not backfilled."
+        },
+        "masters": {
+          "matched": true,
+          "findings": [],
+          "categories": 3,
+          "employees": 3,
+          "historyEvents": 10
+        },
+        "expenses": {
+          "matched": true,
+          "findings": [],
+          "mappedExpenses": 4,
+          "legacyUnmappedExpenses": 0
+        }
+      },
+      "labor": {
+        "matched": true,
+        "findings": [],
+        "balances": {
+          "2": "13.35",
+          "3": "10005.00"
+        },
+        "earnings": 32,
+        "payments": 3,
+        "openings": 2,
+        "authenticityVerified": false,
+        "coverage": "Canonical source/snapshot/arithmetic/audit consistency; not proof of physical funds or protection against fabricated consistent SQL inserts."
+      },
+      "commands": {
+        "matched": true,
+        "findings": []
+      }
+    },
+    "oldConsumerRejected": true
+  },
+  "archiveNegativeTests": {
+    "wrong recipient": true,
+    "corrupted ciphertext": true,
+    "altered earning amount": true,
+    "altered earning employee_id": true,
+    "altered earning quantity": true,
+    "duplicate earning": true,
+    "missing settlement": true
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "passed": true,
+  "tables": 47,
+  "guards": 133,
+  "effectiveRuntimeCrudVerified": true
+}

@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "recordCount": 27,
+  "totals": {
+    "RECEIVED": "2962.80",
+    "DEPOSITED": "42.25",
+    "CLEARED": "51000.00",
+    "DISHONOURED": "0.00",
+    "RETURNED": "0.00",
+    "CANCELLED": "0.00"
+  },
+  "independentTotalsMatch": true,
+  "canonicalReceipt": "2",
+  "knownClearanceAmount": "50000.00",
+  "knownBankOpening": "0.00",
+  "otherKnownSyntheticClearance": "1000.00",
+  "knownBankClosing": "51000.00",
+  "exactlyOneLinkedBankCredit": true,
+  "browserHeadersFooters": false,
+  "applicationHeaders": true,
+  "files": [
+    "output/pdf/uat3-cheque-register.pdf",
+    "output/pdf/uat3-cheque-acknowledgment.pdf",
+    "output/pdf/uat3-customer-receipt.pdf",
+    "output/pdf/uat3-bank-statement.pdf"
+  ],
+  "ownerDataChanged": false
+}

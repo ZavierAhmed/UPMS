@@ -1,0 +1,54 @@
+{
+  "passed": true,
+  "files": [
+    {
+      "path": "output/pdf/uat3-cheque-register.pdf",
+      "pages": 6,
+      "sha256": "1e9e6ca606fc580dc90d68f0b4bb91c49d117fb2bd18f73148bed2903fb49362"
+    },
+    {
+      "path": "output/pdf/uat3-cheque-acknowledgment.pdf",
+      "pages": 1,
+      "sha256": "ea068c1c9c5362feb6fba263ade91d16a804932c3424e75802cce84f284ed114"
+    },
+    {
+      "path": "output/pdf/uat3-customer-receipt.pdf",
+      "pages": 1,
+      "sha256": "b7ba4269ed649d57d15f60d0b51d7ab46a75b81541e6c78400c9584947f6467f"
+    },
+    {
+      "path": "output/pdf/uat3-bank-statement.pdf",
+      "pages": 1,
+      "sha256": "ee428658a63a54f0d0a3c80ae4f4edb1adddbbee5560ca1f636578d1ab3022d4"
+    },
+    {
+      "path": "output/pdf/uat3-regression-expense-classification.pdf",
+      "pages": 1,
+      "sha256": "2c3ac4731c4d726e77b0a41e3ec9dffa710d1d06cc2f17991d926238973e11d0"
+    },
+    {
+      "path": "output/pdf/uat3-regression-hafta.pdf",
+      "pages": 1,
+      "sha256": "9be3ac4c34eb9392f1a615d5027cdc43e3b4d0659a071dc32986d62a4fdeb0cb"
+    },
+    {
+      "path": "output/pdf/uat3-regression-production.pdf",
+      "pages": 1,
+      "sha256": "16ecdfaa476c6e8abb689c355d6a7c8f260cbdc2954a8b31a7e377e76376a68f"
+    },
+    {
+      "path": "docs/uat-3/evidence/browser/Incoming-Cheque-Register.xlsx",
+      "sha256": "27bd2ba2c527d14c6cd5ff412e6267a8dae6da0b06032699796859d835733e1d",
+      "numericValuesMatch": true,
+      "noFormulasMacrosExternalLinks": true
+    },
+    {
+      "path": "docs/uat-3/evidence/browser/Bank-Statement.xlsx",
+      "sha256": "919074fd9ab4ca5a8cf693f087f542d3e00c6a2c79a127ea20319b290e1f9fd9",
+      "numericValuesMatch": true,
+      "noFormulasMacrosExternalLinks": true
+    }
+  ],
+  "visualInspection": "PASSED",
+  "browserHeadersFooters": false
+}

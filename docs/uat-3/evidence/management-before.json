@@ -1,0 +1,76 @@
+{
+  "passed": true,
+  "readOnly": true,
+  "results": [
+    {
+      "width": 390,
+      "path": "/cheques",
+      "overflow": false,
+      "heading": "Cheques",
+      "alerts": []
+    },
+    {
+      "width": 390,
+      "path": "/cheques?new=1",
+      "overflow": false,
+      "heading": "Cheques",
+      "alerts": []
+    },
+    {
+      "width": 768,
+      "path": "/cheques",
+      "overflow": false,
+      "heading": "Cheques",
+      "alerts": []
+    },
+    {
+      "width": 768,
+      "path": "/cheques?new=1",
+      "overflow": false,
+      "heading": "Cheques",
+      "alerts": []
+    },
+    {
+      "width": 1024,
+      "path": "/cheques",
+      "overflow": false,
+      "heading": "Cheques",
+      "alerts": []
+    },
+    {
+      "width": 1024,
+      "path": "/cheques?new=1",
+      "overflow": false,
+      "heading": "Cheques",
+      "alerts": []
+    },
+    {
+      "width": 1440,
+      "path": "/cheques",
+      "overflow": false,
+      "heading": "Cheques",
+      "alerts": []
+    },
+    {
+      "width": 1440,
+      "path": "/cheques?new=1",
+      "overflow": false,
+      "heading": "Cheques",
+      "alerts": []
+    },
+    {
+      "width": 1920,
+      "path": "/cheques",
+      "overflow": false,
+      "heading": "Cheques",
+      "alerts": []
+    },
+    {
+      "width": 1920,
+      "path": "/cheques?new=1",
+      "overflow": false,
+      "heading": "Cheques",
+      "alerts": []
+    }
+  ]
+}

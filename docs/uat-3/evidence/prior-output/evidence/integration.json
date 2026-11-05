@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "checks": [
+    "Rejected /cheques: CHEQUE_DUPLICATE_INSTRUMENT",
+    "Rejected /cheques/1/cleared: CHEQUE_INVALID_TRANSITION",
+    "Rejected /cheques/1/cleared: CHEQUE_SEPARATE_APPROVAL_REQUIRED",
+    "Rejected /cheques/1/cleared: CHEQUE_INVALID_TRANSITION",
+    "Rejected /cheques/1/cancelled: CHEQUE_INVALID_TRANSITION",
+    "Rejected /cheques/1/dishonoured: CHEQUE_INVALID_TRANSITION",
+    "Receive/deposit PKR 50000: receivable 50000, bank 0. Complete clearance: receivable 0, bank 50000, exactly one canonical payment; concurrent same-key retry returns original receipt",
+    "Dishonoured 20000: receivable 50000, bank unchanged 50000. Separate complete 20000 instrument settles customer partially: receivable 30000, bank 70000"
+  ],
+  "tables": 44,
+  "guards": 124,
+  "normalOutstanding": "0.00",
+  "partialOutstanding": "30000.00",
+  "bankBalance": "70000.00",
+  "productionContacted": false,
+  "ownerDataMutated": false,
+  "verifiedUtc": "2026-11-05T11:15:44.818Z"
+}

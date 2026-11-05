@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "isolated": true,
+  "recordsCreated": 24,
+  "perInstrumentAmount": "123.45",
+  "expectedAdditionalCustody": "2962.80",
+  "noPaymentRecognized": true,
+  "ownerRecordsChanged": false
+}
