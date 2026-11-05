@@ -25,12 +25,12 @@ if(release.kind==='godaddy-management-disabled-preview'){
 const routes = JSON.parse(
   await readFile(resolve(root, "upms.client/dist/public-routes.json"), "utf8"),
 );
-const expectedPaths = ['/', '/about', '/products', '/manufacturing', '/industries', '/contact', '/products/buckets', '/products/cans', '/products/containers', '/products/custom'];
+const expectedPaths = ['/', '/about', '/products', '/manufacturing', '/industries', '/contact', '/products/buckets', '/products/cans', '/products/containers', '/products/stickers', '/products/cartons'];
 if (routes.pages.length !== expectedPaths.length ||
     JSON.stringify(routes.pages.map(p=>p.path).sort()) !== JSON.stringify(expectedPaths.sort()))
-  throw new Error("Expected the ten approved public routes.");
+  throw new Error("Expected the eleven approved public routes.");
 console.log(
-  `Verified ${Object.keys(release.files).length} release files and ten prerendered routes.`,
+  `Verified ${Object.keys(release.files).length} release files and eleven prerendered routes.`,
 );
 
 }

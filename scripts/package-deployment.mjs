@@ -40,7 +40,7 @@ if(godaddy){
 }
 if(cpanel)for(const name of ['GODADDY-CPANEL-DATABASE.md','GODADDY-CPANEL-COMPATIBILITY.md','UPMS-RETURN-DEPLOYMENT-PLAN.md','GODADDY-CPANEL-PREVIEW-VARIABLES.txt'])put(name,await readFile('docs/deployment/'+name));
 await collect("upms.client/dist", (name) =>
-  /^upms\.client\/dist\/(?:assets\/[^/]+\.(?:js|css|svg|jpg|jpeg|png|webp|avif|woff2)|management\/(?:index\.html|assets\/[^/]+\.(?:js|css))|licenses\/[A-Za-z0-9-]+\.txt|_pages\/[A-Za-z0-9-]+\.html|index\.html|public-routes\.json|icons\.svg|favicon\.svg)$/.test(
+  /^upms\.client\/dist\/(?:assets\/[^/]+\.(?:js|css|svg|jpg|jpeg|png|webp|avif|woff2)|management\/(?:index\.html|assets\/[^/]+\.(?:js|css|svg))|licenses\/[A-Za-z0-9-]+\.txt|_pages\/[A-Za-z0-9-]+\.html|index\.html|public-routes\.json|icons\.svg|favicon\.svg)$/.test(
     name,
   ),
 );
@@ -64,10 +64,10 @@ put(".nvmrc", nodeMajor?(nodeMajor==='22'?'22.23.4\n':'24.22.0\n'):await readFil
 const routes = JSON.parse(
   files.get("upms.client/dist/public-routes.json").toString("utf8"),
 );
-const expectedPaths = ['/', '/about', '/products', '/manufacturing', '/industries', '/contact', '/products/buckets', '/products/cans', '/products/containers', '/products/custom'];
+const expectedPaths = ['/', '/about', '/products', '/manufacturing', '/industries', '/contact', '/products/buckets', '/products/cans', '/products/containers', '/products/stickers', '/products/cartons'];
 if (routes.pages.length !== expectedPaths.length ||
     JSON.stringify(routes.pages.map(p=>p.path).sort()) !== JSON.stringify(expectedPaths.sort()))
-  throw new Error("Expected the ten approved public routes.");
+  throw new Error("Expected the eleven approved public routes.");
 for (const file of [...routes.pages.map((p) => p.file), routes.notFoundFile]) {
   if (!files.has(`upms.client/dist/${file}`))
     throw new Error("A prerendered document is missing.");
