@@ -23,8 +23,8 @@ export function ChequeAttachments({files,onChange,onBusy,disabled=false,fieldErr
   finally {if(sequence.current===request&&completed)onBusy?.(false);}
  }
  return <fieldset className="v1-wide" data-entry-field="attachments" disabled={disabled}><legend>Supporting Documents</legend>
-  <label>Optional cheque evidence<input ref={input} type="file" accept=".pdf,.jpg,.jpeg,.png" multiple onChange={select} aria-invalid={Boolean(error||fieldError)}/></label>
-  <button type="button" onClick={()=>{sequence.current++;if(input.current)input.current.value='';onChange([]);setError('');onBusy?.(false);}}>Clear selected attachments</button>
+  <label><span className="cheque-field-label">Optional cheque evidence</span><input ref={input} type="file" accept=".pdf,.jpg,.jpeg,.png" multiple onChange={select} aria-invalid={Boolean(error||fieldError)}/></label>
+  <button className="cheque-clear-files" type="button" onClick={()=>{sequence.current++;if(input.current)input.current.value='';onChange([]);setError('');onBusy?.(false);}}>Clear selected attachments</button>
   <p>Up to two files per event, 256 KiB each. Textual bank evidence remains required. Content validation is performed on the server. Malware scanning is unavailable in this synthetic UAT environment.</p>
   {files?.map((file,index)=><p key={file.filename+index}>{file.filename} · selected</p>)}
   {(error||fieldError)&&<p role="alert">{error||fieldError}</p>}

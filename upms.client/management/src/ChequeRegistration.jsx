@@ -24,7 +24,7 @@ export function ChequeRegistration({api,data,draft,setDraft,errors,busy,submit,c
   return()=>{clearTimeout(timer);live=false;};
  },[number,drawerAccount,issuingBankId,identityKey]);
  const update=(key,value)=>setDraft(current=>({...current,[key]:value}));
- const field=(name,label,props={})=><label data-entry-field={name}>{label}<input name={name} value={draft[name]||''} onChange={event=>update(name,event.target.value)} aria-invalid={Boolean(errors[name])} {...props}/>{errors[name]&&<span className="field-error" role="alert">{errors[name]}</span>}</label>;
+ const field=(name,label,props={})=><label data-entry-field={name}><span className="cheque-field-label">{label}</span><input name={name} value={draft[name]||''} onChange={event=>update(name,event.target.value)} aria-invalid={Boolean(errors[name])} {...props}/>{errors[name]&&<span className="field-error" role="alert">{errors[name]}</span>}</label>;
  const preview=chequeReferencePreview(draft.number||'',data.clients.find(c=>String(c.id)===draft.clientId)?.name||'',draft.amount||'');
  return <><form className="card v1-form no-print" onSubmit={event=>{
   event.preventDefault();
@@ -34,8 +34,8 @@ export function ChequeRegistration({api,data,draft,setDraft,errors,busy,submit,c
   <fieldset disabled={busy}><legend>Customer &amp; Cheque</legend>
    <SearchableEntitySelect name="clientId" label="Client" value={draft.clientId} onChange={value=>update('clientId',value)} records={data.clients} required error={errors.clientId}/>
    {field('number','Cheque number',{required:true,inputMode:'numeric',pattern:'[0-9]{1,30}',maxLength:30})}
-   <SearchableEntitySelect name="issuingBankId" label="Issuing bank" value={draft.issuingBankId} onChange={value=>update('issuingBankId',value)} records={data.issuers} formatLabel={bank=>`${bank.name} · ${bank.code||'Synthetic UAT issuer'}`} required error={errors.issuingBankId}/>
-   {data.extrasEnabled&&canCreateBank&&<ActionButton type="button" onClick={()=>setBankPopup(true)}>+ Add Issuing Bank</ActionButton>}
+   <div className="cheque-issuer-field"><SearchableEntitySelect name="issuingBankId" label="Issuing bank" value={draft.issuingBankId} onChange={value=>update('issuingBankId',value)} records={data.issuers} formatLabel={bank=>`${bank.name} · ${bank.code||'Synthetic UAT issuer'}`} required error={errors.issuingBankId}/>
+   {data.extrasEnabled&&canCreateBank&&<ActionButton type="button" onClick={()=>setBankPopup(true)}>+ Add Issuing Bank</ActionButton>}</div>
    {field('drawerName','Drawer name',{required:true,maxLength:150})}
    {field('drawerAccount','Full drawer account identity',{required:true,minLength:6,maxLength:34,autoComplete:'off'})}
    {field('amount','Amount · PKR',{required:true,inputMode:'decimal'})}
@@ -50,11 +50,11 @@ export function ChequeRegistration({api,data,draft,setDraft,errors,busy,submit,c
   <fieldset disabled={busy}><legend>Dates &amp; Reference</legend>
    {field('chequeDate','Cheque date',{type:'date',required:true})}
    {field('receivedDate','Received date',{type:'date',required:true,max:new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Karachi'}).format(new Date())})}
-   <label>Generated business reference<output aria-label="Generated business reference">{preview||'Complete the client, cheque number and amount.'}</output><small>A unique suffix is assigned on registration.</small></label>
+   <label><span className="cheque-field-label">Generated business reference</span><output aria-label="Generated business reference">{preview||'Complete the client, cheque number and amount.'}</output><small>A unique suffix is assigned on registration.</small></label>
   </fieldset>
   {data.extrasEnabled&&<ChequeAttachments fieldError={errors.attachments} disabled={busy} files={draft.attachments||[]} onChange={files=>update('attachments',files)} onBusy={setReading}/>}
   <p>Receiving a cheque does not mark the customer's payment as cleared.</p>
   <p>Synthetic issuer directory. Added names require operational bank identity approval.</p>
-  <ActionButton type="submit" disabled={busy||reading||identity?.checking||identity?.available===false}>Register cheque in custody</ActionButton>
+  <ActionButton variant="primary" type="submit" disabled={busy||reading||identity?.checking||identity?.available===false}>Register cheque in custody</ActionButton>
  </form>{bankPopup&&<ChequeBankDialog save={createBank} onCancel={()=>setBankPopup(false)} onSaved={bank=>{onBankCreated(bank);update('issuingBankId',String(bank.id));setBankPopup(false);}}/>}</>;
 }

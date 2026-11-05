@@ -28,6 +28,17 @@
  .simple-v1 .directory-filters{padding:16px;background:#f6f3ed;border:1px solid #e1dbd1;border-radius:10px}
  .simple-v1 .action-button{min-height:44px;line-height:1.4;padding:10px 15px;border-radius:8px;white-space:normal}
  .simple-v1 .action-primary,.simple-v1 .action-create{background:#f58220;color:#252a30;border-color:#d56b0b;font-weight:750}
+ .simple-v1.management .cheque-workspace .v1-form{gap:24px}
+ .simple-v1.management .cheque-workspace .v1-form fieldset{margin:0}
+ .simple-v1.management .cheque-workspace .v1-form>p{margin:0}
+ .simple-v1.management .cheque-workspace .v1-form>[aria-live]:empty{display:none}
+ .simple-v1.management .v1-form .action-primary{background:#f58220;color:#252a30;border-color:#c9610b}
+ .simple-v1.management .cheque-workspace .cheque-clear-files{margin:48px 0 0;min-height:48px;align-self:start}
+ .simple-v1.management .cheque-workspace input[type=file]{height:48px;min-height:48px}
+ .simple-v1.management .cheque-lifecycle-actions{grid-column:1/-1;display:flex;align-items:stretch;gap:12px;flex-wrap:wrap}
+ .simple-v1.management .cheque-lifecycle-actions>.action-button{margin:0;min-height:48px}
+ @media(max-width:600px){.simple-v1.management .cheque-lifecycle-actions{display:grid;grid-template-columns:minmax(0,1fr)}.simple-v1.management .cheque-lifecycle-actions>.action-button{width:100%}}
+ @media(max-width:600px){.simple-v1.management .cheque-workspace .cheque-clear-files{margin:0}}
  .simple-v1 .table-wrap,.simple-v1 .money-table-wrap{max-width:100%;overflow:auto;border-radius:10px;border:1px solid #e0dbd2;overscroll-behavior-x:contain}
  .simple-v1 :is(.business-table,table) th{background:#f2eee6;color:#454443;font-size:12px;letter-spacing:.015em;padding:13px 14px}
  .simple-v1 :is(.business-table,table) td{padding:13px 14px;vertical-align:top;font-variant-numeric:tabular-nums}
@@ -39,6 +50,8 @@
  .simple-v1 .field-error{color:#922b31;font-size:13px}
  .simple-v1 dialog{width:min(600px,calc(100vw - 32px));max-height:calc(100dvh - 32px);overflow:auto;box-sizing:border-box;border:1px solid #d7cfc2;border-radius:14px;padding:24px;box-shadow:0 20px 70px #252a3026}
  .simple-v1 dialog::backdrop{background:#252a3070}
+ .simple-v1.management dialog.expense-master-dialog form{display:grid;grid-template-columns:minmax(0,1fr);gap:20px}
+ .simple-v1.management dialog.expense-master-dialog form>fieldset,.simple-v1.management dialog.expense-master-dialog form>footer{grid-column:1/-1;width:100%;min-width:0;box-sizing:border-box}
  .simple-v1 .entity-select{min-width:0}.simple-v1 .entity-select [role=listbox]{max-height:250px;overflow:auto;overscroll-behavior:contain}
  @media(min-width:981px){.simple-v1.management main{margin-left:260px}}
  @media(max-width:980px){.simple-v1.management main{margin:0;padding:86px 24px 32px}.simple-v1 .sidebar{width:min(300px,calc(100vw - 44px))}.simple-v1 .mobile-toggle{position:fixed;top:14px;left:16px;z-index:45;box-shadow:0 2px 12px #252a3015}}

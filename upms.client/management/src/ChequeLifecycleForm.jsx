@@ -11,7 +11,7 @@ export function ChequeLifecycleForm({action,selected,data,api,user,errors,busy,d
  const [draft,setDraft]=useState(()=>drafts?.get(key)||{date:today(),reference:'',reason:'',evidence:'',bankId:'',approved:false,selfApprovalReason:'',attachments:[]});
  const [reading,setReading]=useState(false),[readiness,setReadiness]=useState(null);
  const update=(name,value)=>{const next={...draft,[name]:value};drafts?.set(key,next);setDraft(next);};
- const field=(name,label,props={})=><label data-entry-field={name}>{label}<input name={name} value={draft[name]} onChange={event=>update(name,event.target.value)} aria-invalid={Boolean(errors[name])} {...props}/>{errors[name]&&<span className="field-error" role="alert">{errors[name]}</span>}</label>;
+ const field=(name,label,props={})=><label data-entry-field={name}><span className="cheque-field-label">{label}</span><input name={name} value={draft[name]} onChange={event=>update(name,event.target.value)} aria-invalid={Boolean(errors[name])} {...props}/>{errors[name]&&<span className="field-error" role="alert">{errors[name]}</span>}</label>;
  const involved=selected.events.some(event=>String(event.actor_id)===String(user.id));
  const blocked=action==='CLEARED'&&(readiness?.clearanceDate!==draft.date||Boolean(readiness?.blocker));
  return <form className="card v1-form" onSubmit={event=>{
@@ -27,7 +27,7 @@ export function ChequeLifecycleForm({action,selected,data,api,user,errors,busy,d
    {field('reference','Bank / disposition reference',{required:true,maxLength:150})}
    {field('reason','Reason',{required:true,minLength:10,maxLength:500})}
    {field('evidence','Supporting evidence reference',{required:true,minLength:10,maxLength:1000})}
-   {action==='DEPOSITED'&&<label>Verified receiving bank<select name="bankId" required value={draft.bankId} onChange={event=>update('bankId',event.target.value)}><option value="">Choose receiving BANK</option>{data.banks.map(bank=><option key={bank.id} value={bank.id}>{bank.name}</option>)}</select></label>}
+   {action==='DEPOSITED'&&<label><span className="cheque-field-label">Verified receiving bank</span><select name="bankId" required value={draft.bankId} onChange={event=>update('bankId',event.target.value)}><option value="">Choose receiving BANK</option>{data.banks.map(bank=><option key={bank.id} value={bank.id}>{bank.name}</option>)}</select></label>}
    {action==='CLEARED'&&<>
     <ChequeReadiness api={api} selected={selected} date={draft.date} onResult={setReadiness}/>
     <label data-entry-field="approved"><input type="checkbox" name="approved" required checked={draft.approved} aria-invalid={Boolean(errors.approved)} onChange={event=>update('approved',event.target.checked)}/>I confirm actual bank clearance evidence for the complete instrument.{errors.approved&&<span className="field-error" role="alert">{errors.approved}</span>}</label>
@@ -36,7 +36,7 @@ export function ChequeLifecycleForm({action,selected,data,api,user,errors,busy,d
    </>}
   </fieldset>
   {data.extrasEnabled&&['DEPOSITED','CLEARED'].includes(action)&&<ChequeAttachments fieldError={errors.attachments} disabled={busy} files={draft.attachments} onChange={files=>update('attachments',files)} onBusy={setReading}/>}
-  <ActionButton type="submit" disabled={busy||reading||blocked}>Record {title(action)}</ActionButton>
-  <ActionButton type="button" disabled={busy} onClick={cancel}>Dismiss action</ActionButton>
+  <div className="cheque-lifecycle-actions"><ActionButton type="submit" disabled={busy||reading||blocked}>Record {title(action)}</ActionButton>
+  <ActionButton type="button" disabled={busy} onClick={cancel}>Dismiss action</ActionButton></div>
  </form>;
 }
