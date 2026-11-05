@@ -1,0 +1,24 @@
+{
+  "baseline": "8a4d78823c9bc376e7ed091d7a144b531af3d6b1",
+  "cases": [
+    {
+      "scenario": "Missing self-approval justification",
+      "status": 403,
+      "error": {
+        "code": "CHEQUE_SEPARATE_APPROVAL_REQUIRED",
+        "reference": "c4af64a9-32db-44a5-8d0f-f95469dd103f"
+      }
+    },
+    {
+      "scenario": "Postdated cheque with valid justification",
+      "status": 409,
+      "error": {
+        "code": "CHEQUE_CLEARANCE_DATE_INVALID",
+        "message": "This entry cannot be saved. Review the values and try again.",
+        "reference": "0c8dd6a6-ae14-4219-957c-a0b423824d11"
+      }
+    }
+  ],
+  "isolatedFixture": true,
+  "ownerDataMutated": false
+}

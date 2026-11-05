@@ -32,7 +32,8 @@ final class UpmsBoundary
             if ($unsafe && strtolower(explode(';', $request->header('content-type', ''))[0]) !== 'application/json') {
                 throw new ApiError(415, 'JSON_REQUIRED');
             }
-            if (strlen($request->getContent()) > 12288) {
+            $evidenceRequest=\App\Upms\ChequeExtras::enabled()&&$request->isMethod('POST')&&preg_match('#^api/v1/management/simple-v1/cheques(?:/[1-9][0-9]{0,19}/(?:deposited|cleared))?$#D',$request->path());
+            if (strlen($request->getContent()) > ($evidenceRequest?720896:12288)) {
                 throw new ApiError(413, 'REQUEST_TOO_LARGE');
             }
             if ($unsafe) {

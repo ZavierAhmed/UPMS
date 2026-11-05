@@ -10,9 +10,10 @@ use PDO;
 final class ChequeRecovery
 {
     public const FORMAT = 'UPMS_INCOMING_CHEQUE_CLEARANCE_SNAPSHOT_V1';
+    private static function format(): string { return ChequeExtras::enabled()?'UPMS_CHEQUE_EVIDENCE_SNAPSHOT_V2':self::FORMAT; }
     private static function manifest(array $s): bool
     {
-        return ($s['format']??'')===self::FORMAT && ($s['chequeVersion']??'')===ChequeSchema::VERSION && ($s['chequePlanHash']??'')===ChequeSchema::hash()
+        return ($s['format']??'')===self::format() && ($s['chequeVersion']??'')===ChequeSchema::VERSION && ($s['chequePlanHash']??'')===ChequeSchema::hash()
             && ($s['basePlanHash']??'')===CleanInitialization::hash() && ($s['moneyPlanHash']??'')===MoneySchema::hash() && ($s['expensePlanHash']??'')===ExpenseSchema::hash()
             && ($s['refundPolicyVersion']??'')===FinancialCorrections::VERSION && ($s['documentIntegrationVersion']??'')===MoneyDocuments::VERSION
             && ($s['laborVersion']??'')===EmployeeHafta::VERSION && ($s['laborPlanHash']??'')===EmployeeHaftaSchema::hash()
@@ -20,7 +21,7 @@ final class ChequeRecovery
     }
     public static function tables(): array
     {
-        $tables = [...LaborExtensionRecovery::tables(),...array_keys(ChequeSchema::plan()['tables'])];
+        $tables = [...LaborExtensionRecovery::tables(),...array_keys(ChequeSchema::plan()['tables']),...(ChequeExtras::enabled()?array_keys(ChequeExtras::plan()):[])];
         sort($tables);
         return $tables;
     }
@@ -29,6 +30,10 @@ final class ChequeRecovery
         $data = [];
         foreach (self::tables() as $t) {
             $data[$t] = $s['tables'][$t]['rows'] ?? throw new \RuntimeException('CHEQUE_BACKUP_TABLE_REQUIRED');
+        }
+        if(ChequeExtras::enabled()) {
+            $extra=$data['cheque_extra_receipts'];
+            if(count($extra)!==1||$extra[0]['version']!==ChequeExtras::VERSION||$extra[0]['plan_hash']!==ChequeExtras::hash()) { throw new \RuntimeException('CHEQUE_EXTRA_BACKUP_RECEIPT_REJECTED'); }
         }
         $receipts=$data['labor_extension_receipts'];
         if (count($receipts)!==1 || (string)$receipts[0]['id']!=='1' || $receipts[0]['version']!==LaborExtensionSchema::VERSION || $receipts[0]['plan_hash']!==LaborExtensionSchema::hash()) { throw new \RuntimeException('CHEQUE_BACKUP_SCHEMA_RECEIPT_REJECTED'); }
@@ -63,7 +68,7 @@ final class ChequeRecovery
                 $pdo->rollBack();
             }throw $e;
         }
-        $s = ['format' => self::FORMAT,'chequeVersion'=>ChequeSchema::VERSION,'chequePlanHash'=>ChequeSchema::hash(),'extensionVersion' => LaborExtensionSchema::VERSION,'extensionPlanHash' => LaborExtensionSchema::hash(),'laborVersion' => EmployeeHafta::VERSION,'laborPlanHash' => EmployeeHaftaSchema::hash(),'refundPolicyVersion' => FinancialCorrections::VERSION,'documentIntegrationVersion' => MoneyDocuments::VERSION,'basePlanHash' => CleanInitialization::hash(),'moneyPlanHash' => MoneySchema::hash(),'expensePlanHash' => ExpenseSchema::hash(),'runtime' => $runtime,'guards' => $guards,'triggerDefinitions' => $triggers,'sourceTargetHash' => CleanInitialization::target($pdo),'createdUtc' => gmdate('c'),'tables' => $data];
+        $s = ['format' => self::format(),'chequeVersion'=>ChequeSchema::VERSION,'chequePlanHash'=>ChequeSchema::hash(),'extensionVersion' => LaborExtensionSchema::VERSION,'extensionPlanHash' => LaborExtensionSchema::hash(),'laborVersion' => EmployeeHafta::VERSION,'laborPlanHash' => EmployeeHaftaSchema::hash(),'refundPolicyVersion' => FinancialCorrections::VERSION,'documentIntegrationVersion' => MoneyDocuments::VERSION,'basePlanHash' => CleanInitialization::hash(),'moneyPlanHash' => MoneySchema::hash(),'expensePlanHash' => ExpenseSchema::hash(),'runtime' => $runtime,'guards' => $guards,'triggerDefinitions' => $triggers,'sourceTargetHash' => CleanInitialization::target($pdo),'createdUtc' => gmdate('c'),'tables' => $data];
         if (!self::evidence($s)['matched']) {
             throw new \RuntimeException('CHEQUE_BACKUP_EVIDENCE_REJECTED');
         }
@@ -106,7 +111,7 @@ final class ChequeRecovery
         foreach (CleanInitialization::plan()['tables'] as $t) { $base[$t['table']] = $t['sql']; }
         $base[CleanInitialization::RECEIPT] = CleanInitialization::receiptDdl();
         $hashes = [];
-        foreach (['money','expense','employee-hafta','labor-extension','cheque'] as $resource) {
+        foreach (['money','expense','employee-hafta','labor-extension','cheque',...(ChequeExtras::enabled()?['cheque-extra']:[])] as $resource) {
             $hashes = [...$hashes,...json_decode(file_get_contents(dirname(__DIR__,2).'/resources/'.$resource.'-schema-hashes.json'),true,32,JSON_THROW_ON_ERROR)];
         }
         // Authenticate every table definition before any DDL or insert is executed.
@@ -160,6 +165,6 @@ final class ChequeRecovery
         if (!$e['matched']) {
             throw new \RuntimeException('CHEQUE_RESTORED_EVIDENCE_REJECTED');
         }ChequeSchema::verify($pdo);
-        return ['passed' => true,'format' => self::FORMAT,'tables' => count(self::tables()),'rows' => $count,'guards' => ChequeGuards::verify($pdo, $runtime, (string)$pdo->query('SELECT CURRENT_USER()')->fetchColumn()),'reconciliation' => $e];
+        return ['passed' => true,'format' => self::format(),'tables' => count(self::tables()),'rows' => $count,'guards' => ChequeGuards::verify($pdo, $runtime, (string)$pdo->query('SELECT CURRENT_USER()')->fetchColumn()),'reconciliation' => $e];
     }
 }

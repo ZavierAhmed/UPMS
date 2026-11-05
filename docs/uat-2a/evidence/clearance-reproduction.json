@@ -1,0 +1,15 @@
+{
+  "status": 409,
+  "error": {
+    "code": "CHEQUE_CLEARANCE_DATE_INVALID",
+    "message": "Cheque date is November 6, 2026. Clearance cannot be recorded before this date. No clearance was committed.",
+    "fieldErrors": {
+      "date": "Clearance cannot be recorded before November 6, 2026."
+    },
+    "reference": "81c7e423-f49e-496c-93e5-45bc52e4c181"
+  },
+  "financialAndCommandRowsUnchanged": true,
+  "productionContacted": false,
+  "ownerDataMutated": false,
+  "verifiedUtc": "2026-11-05T05:53:59.340Z"
+}

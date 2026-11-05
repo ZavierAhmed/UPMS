@@ -135,7 +135,7 @@ final class Integrity
                 if ($r instanceof \stdClass && property_exists($r, 'chequeVersion')) {
                     if (!Cheques::validReceipt($r,(string)$c['actor_id'],$laborData)) {
                         $add('COMMAND_CHEQUE_INVALID','command',$key,'result','Cheque receipt must match its immutable instrument, event, actor and canonical financial source.');
-                    } elseif ($r->status==='CLEARED') { $receipts[$r->payment->id]=true; }
+                    } elseif (($r->status??null)==='CLEARED') { $receipts[$r->payment->id]=true; }
                     continue;
                 }
                 if ($r instanceof \stdClass && property_exists($r, 'laborExtensionVersion')) {

@@ -35,6 +35,9 @@ Route::get('/readyz', function () {
 Route::prefix('/api/v1/management')->middleware(UpmsBoundary::class)->group(function () {
     Route::get('/simple-v1/cheques', \App\Http\Controllers\ChequeController::class);
     Route::post('/simple-v1/cheques', \App\Http\Controllers\ChequeController::class);
+    Route::post('/simple-v1/cheque-identity', [\App\Http\Controllers\ChequeController::class, 'identity']);
+    Route::post('/simple-v1/cheque-banks', [\App\Http\Controllers\ChequeController::class, 'bank']);
+    Route::get('/simple-v1/cheque-attachments/{id}', [\App\Http\Controllers\ChequeController::class, 'attachment']);
     Route::post('/simple-v1/cheques/{id}/{operation}', \App\Http\Controllers\ChequeController::class)->whereIn('operation',['deposited','cleared','dishonoured','returned','cancelled']);
     Route::get('/simple-v1/stock-readiness', SimpleV1Controller::class);
     Route::get('/session/csrf', [SessionController::class, 'csrf']);

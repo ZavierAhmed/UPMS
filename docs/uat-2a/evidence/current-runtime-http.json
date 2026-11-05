@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "authenticatedEffectiveGrantReadiness": true,
+  "metadataBoundAttachmentDownload": true,
+  "attachmentContentAndCiphertextOmitted": true,
+  "exactAggregateTotalsVerified": true,
+  "ownerDataMutated": false,
+  "productionContacted": false
+}

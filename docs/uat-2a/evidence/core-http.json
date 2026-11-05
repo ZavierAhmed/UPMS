@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "checks": [
+    "Read-only readiness verifies dated bank opening, balance, approval and postdate blocker without financial mutation",
+    "Identity lookup normalizes leading zeros and respects distinct issuing banks and drawer accounts",
+    "Server reference includes normalized cheque/client/amount and independent random suffix across accounts; same-key retry preserves original receipt",
+    "Authoritative duplicate registration rolls back every business row",
+    "Missing exceptional justification produces safe explicit 403 and request reference with full rollback",
+    "Valid clearance creates exactly one canonical customer and bank credit; identical retry returns original receipt"
+  ],
+  "productionContacted": false,
+  "ownerDataMutated": false,
+  "verifiedUtc": "2026-11-05T05:59:29.456Z"
+}

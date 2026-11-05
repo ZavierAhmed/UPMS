@@ -1,0 +1,256 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "path": "/cheques",
+      "status": 409,
+      "code": "CHEQUE_DUPLICATE_INSTRUMENT"
+    },
+    {
+      "path": "/cheques/5/deposited",
+      "status": 409,
+      "code": "CHEQUE_INVALID_TRANSITION"
+    },
+    {
+      "path": "/cheques/8/cleared",
+      "status": 409,
+      "code": "CHEQUE_INVALID_TRANSITION"
+    },
+    {
+      "path": "/cheques?number=abc",
+      "status": 400,
+      "code": "ENTRY_VALIDATION"
+    },
+    {
+      "path": "/cheques?status=UNKNOWN",
+      "status": 400,
+      "code": "ENTRY_VALIDATION"
+    },
+    {
+      "path": "/cheques?clientId[]=1",
+      "status": 400,
+      "code": "CHEQUE_FILTER_INVALID"
+    },
+    {
+      "path": "/cheques?from=2026-02-30",
+      "status": 400,
+      "code": "ENTRY_VALIDATION"
+    },
+    {
+      "custodyDispositionsAndCompositeIdentity": "Different issuer/account may share a number; normalized duplicate is blocked; cancel/return preserve all financial/stock/labor rows"
+    },
+    {
+      "path": "/money/sources",
+      "status": 409,
+      "code": "MONEY_RESERVED_SOURCE"
+    },
+    {
+      "path": "/documents/5/post",
+      "status": 409,
+      "code": "CHEQUE_LIFECYCLE_SOURCE_RESERVED"
+    },
+    {
+      "path": "/cheques",
+      "status": 400,
+      "code": "ENTRY_VALIDATION"
+    },
+    {
+      "path": "/cheques",
+      "status": 400,
+      "code": "ENTRY_VALIDATION"
+    },
+    {
+      "path": "/cheques",
+      "status": 400,
+      "code": "INVALID_AMOUNT"
+    },
+    {
+      "path": "/cheques",
+      "status": 400,
+      "code": "CHEQUE_CLIENT_OR_ISSUER_INVALID"
+    },
+    {
+      "path": "/cheques",
+      "status": 400,
+      "code": "CHEQUE_CLIENT_OR_ISSUER_INVALID"
+    },
+    {
+      "path": "/cheques",
+      "status": 403,
+      "code": "CSRF_REJECTED"
+    },
+    {
+      "path": "/cheques",
+      "status": 401,
+      "code": "AUTH_REQUIRED"
+    },
+    {
+      "path": "/cheques",
+      "status": 403,
+      "code": "CHEQUE_PERMISSION_REQUIRED"
+    },
+    {
+      "path": "/cheques",
+      "status": 403,
+      "code": "CHEQUE_PERMISSION_REQUIRED"
+    },
+    {
+      "path": "/cheques/4/deposited",
+      "status": 403,
+      "code": "CHEQUE_PERMISSION_REQUIRED"
+    },
+    {
+      "path": "/cheques/4/cleared",
+      "status": 403,
+      "code": "CHEQUE_PERMISSION_REQUIRED"
+    },
+    {
+      "path": "/cheques/4/dishonoured",
+      "status": 403,
+      "code": "CHEQUE_PERMISSION_REQUIRED"
+    },
+    {
+      "path": "/cheques/4/returned",
+      "status": 403,
+      "code": "CHEQUE_PERMISSION_REQUIRED"
+    },
+    {
+      "path": "/cheques?report=1",
+      "status": 403,
+      "code": "CHEQUE_PERMISSION_REQUIRED"
+    },
+    {
+      "path": "/cheques/4/deposited",
+      "status": 400,
+      "code": "CHEQUE_BANK_OPENING_REQUIRED"
+    },
+    {
+      "path": "/cheques/4/deposited",
+      "status": 400,
+      "code": "CHEQUE_BANK_OPENING_REQUIRED"
+    },
+    {
+      "path": "/cheques/4/cleared",
+      "status": 400,
+      "code": "CHEQUE_INPUT_INVALID"
+    },
+    {
+      "path": "/cheques/4/cleared",
+      "status": 400,
+      "code": "CHEQUE_INPUT_INVALID"
+    },
+    {
+      "path": "/cheques/4/cleared",
+      "status": 400,
+      "code": "ENTRY_VALIDATION"
+    },
+    {
+      "path": "/cheques/4/cleared",
+      "status": 409,
+      "code": "CHEQUE_BACKDATED_EVENT"
+    },
+    {
+      "path": "/cheques/4/cleared",
+      "status": 400,
+      "code": "ENTRY_VALIDATION"
+    },
+    {
+      "path": "/cheques/10/cleared",
+      "status": 409,
+      "code": "CHEQUE_CLEARANCE_DATE_INVALID"
+    },
+    {
+      "path": "/cheques/11/cleared",
+      "status": 409,
+      "code": "CHEQUE_RECEIVABLE_INSUFFICIENT"
+    },
+    {
+      "path": "/cheques/12/cleared",
+      "status": 409,
+      "code": "CHEQUE_CLIENT_OPENING_REQUIRED"
+    },
+    {
+      "injectedInsertDenial": "v1_party_journal",
+      "allFinancialAndCustodyRowsUnchanged": true
+    },
+    {
+      "injectedInsertDenial": "money_batches",
+      "allFinancialAndCustodyRowsUnchanged": true
+    },
+    {
+      "injectedInsertDenial": "money_movements",
+      "allFinancialAndCustodyRowsUnchanged": true
+    },
+    {
+      "injectedInsertDenial": "money_audit",
+      "allFinancialAndCustodyRowsUnchanged": true
+    },
+    {
+      "injectedInsertDenial": "cheque_events",
+      "allFinancialAndCustodyRowsUnchanged": true
+    },
+    {
+      "injectedInsertDenial": "cheque_audit",
+      "allFinancialAndCustodyRowsUnchanged": true
+    },
+    {
+      "injectedInsertDenial": "cheque_clearances",
+      "allFinancialAndCustodyRowsUnchanged": true
+    },
+    {
+      "injectedInsertDenial": "v1_commands",
+      "allFinancialAndCustodyRowsUnchanged": true
+    },
+    {
+      "distinctConcurrentClearance": "one success, one conflict, one claim"
+    },
+    {
+      "path": "/cheques",
+      "status": 403,
+      "code": "CHEQUE_PERMISSION_REQUIRED"
+    },
+    {
+      "path": "/documents",
+      "status": 400,
+      "code": "INVALID_INPUT"
+    },
+    {
+      "path": "/documents",
+      "status": 400,
+      "code": "MONEY_CHEQUE_PENDING"
+    },
+    {
+      "path": "/money/sources",
+      "status": 409,
+      "code": "MONEY_RESERVED_SOURCE"
+    },
+    {
+      "path": "/cheques",
+      "status": 409,
+      "code": "CHEQUE_RECONCILIATION_REQUIRED"
+    },
+    {
+      "path": "/ledgers/2",
+      "status": 409,
+      "code": "CHEQUE_RECONCILIATION_REQUIRED"
+    },
+    {
+      "path": "/register",
+      "status": 409,
+      "code": "CHEQUE_RECONCILIATION_REQUIRED"
+    }
+  ],
+  "protectedAttempts": 18,
+  "tables": 44,
+  "guards": 124,
+  "authenticatedRuntimeVerified": true,
+  "targetDatabasePrivileges": [
+    "SELECT",
+    "INSERT",
+    "UPDATE",
+    "DELETE"
+  ],
+  "ownerDataMutated": false,
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-05T06:25:30.683Z"
+}

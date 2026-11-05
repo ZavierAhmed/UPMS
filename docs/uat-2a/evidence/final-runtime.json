@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "tables": 47,
+  "guards": 133,
+  "effectiveRuntimeCrudVerified": true,
+  "verifiedUtc": "2026-11-05T08:13:08.562Z"
+}

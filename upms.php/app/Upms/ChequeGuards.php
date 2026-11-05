@@ -31,6 +31,10 @@ final class ChequeGuards
             $add('v1_documents',$op,"(JSON_UNQUOTE(JSON_EXTRACT(NEW.payload,'$.method'))='CHEQUE_CLEARED' AND (NEW.kind<>'CLIENT_PAYMENT' OR COALESCE(JSON_UNQUOTE(JSON_EXTRACT(NEW.payload,'$.chequeRecognitionVersion')),'')<>'uat2-v1' OR NOT EXISTS(SELECT 1 FROM cheque_instruments c JOIN cheque_events e ON e.cheque_id=c.id WHERE BINARY CAST(c.id AS CHAR)=BINARY JSON_UNQUOTE(JSON_EXTRACT(NEW.payload,'$.chequeSource.id')) AND BINARY CAST(e.id AS CHAR)=BINARY JSON_UNQUOTE(JSON_EXTRACT(NEW.payload,'$.chequeSource.depositEventId')) AND e.type='DEPOSITED' AND e.ordinal=(SELECT MAX(x.ordinal) FROM cheque_events x WHERE x.cheque_id=c.id) AND c.client_id=NEW.party_id AND c.amount=CAST(JSON_UNQUOTE(JSON_EXTRACT(NEW.payload,'$.amount')) AS DECIMAL(18,2)) AND NEW.date>=c.cheque_date AND NEW.date>=e.date AND BINARY CAST(e.bank_id AS CHAR)=BINARY JSON_UNQUOTE(JSON_EXTRACT(NEW.payload,'$.moneyAccountId'))))) OR (NEW.kind IN('FINANCIAL_REFUND','PAYMENT_REVERSAL') AND EXISTS(SELECT 1 FROM cheque_clearances x WHERE x.document_id=COALESCE(NEW.corrects_id,CAST(JSON_UNQUOTE(JSON_EXTRACT(NEW.payload,'$.originalId')) AS UNSIGNED))))");
         }
         $add('money_batches','INSERT',"(NEW.source_type='EXTERNAL' AND (LOWER(NEW.source_ref) LIKE 'upms-cheque:%' OR EXISTS(SELECT 1 FROM cheque_instruments c WHERE c.reference=NEW.source_ref))) OR (NEW.corrects_id IS NOT NULL AND EXISTS(SELECT 1 FROM cheque_clearances c WHERE c.batch_id=NEW.corrects_id))");
+        if(ChequeExtras::enabled()) {
+            $rules['upmscq_cheque_issuing_banks_insert']['body']="BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='$runtime' AND NOT EXISTS(SELECT 1 FROM cheque_bank_creations b WHERE b.id=NEW.id AND BINARY b.code=BINARY NEW.code AND BINARY b.name=BINARY NEW.name) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_DIRECTORY_REQUIRED'; END IF; END";
+            $rules=[...$rules,...ChequeExtras::guards($runtime)];
+        }
         ksort($rules);return $rules;
     }
     public static function hash(string $runtime): string { return hash('sha256',json_encode(self::plan($runtime),JSON_THROW_ON_ERROR)); }

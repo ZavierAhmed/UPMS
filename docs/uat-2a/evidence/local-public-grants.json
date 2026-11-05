@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "pinnedLocalEngine": true,
+  "matchingExistingTables": 0,
+  "removedScopes": [
+    "test",
+    "test\\_%"
+  ],
+  "accountSpecificGrantsUnchanged": true,
+  "allThreeOwnerRowFingerprintsUnchanged": true,
+  "ownerDatabaseMigrated": false,
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-05T07:30:35.465Z"
+}

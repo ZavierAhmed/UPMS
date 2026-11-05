@@ -1,0 +1,133 @@
+{
+  "passed": true,
+  "format": "UPMS_INCOMING_CHEQUE_CLEARANCE_SNAPSHOT_V1",
+  "tables": 44,
+  "rows": 239,
+  "guards": {
+    "passed": true,
+    "baseGuards": 45,
+    "additionalGuards": 15,
+    "totalGuards": 124,
+    "baseHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+    "moneyHash": "88c0a0a819f1ef5c164354dece469c85cfa0b49e3ccab6903f87fb34908dfa4b",
+    "definer": "php2_test_admin@127.0.0.1",
+    "definerPrivilegesVerified": false,
+    "expenseHash": "0cd33aa0664d59983de0d6eaa8eb9bee46ee6165553d7eb52b314f82322f73b7",
+    "laborHash": "0d12ec6def46fbbf6b5d180d71d344d889ec25c4917c8263cbbc74c158e944d9",
+    "extensionHash": "4089d98c338c6dde3d2a59f279ffed725fda6aaafd41096a6a88bc1669f6d4c4",
+    "chequeHash": "4b921f924236dc6aa3662ccc7c1f79fa57aef4c799729750c3460b4db9a75681",
+    "chequeGuards": 21
+  },
+  "reconciliation": {
+    "matched": true,
+    "cheques": {
+      "matched": true,
+      "findings": [],
+      "instruments": 13,
+      "events": 28,
+      "cleared": 3,
+      "policy": "No recognition until complete bank clearance; pending custody is not spendable money"
+    },
+    "financial": {
+      "matched": true,
+      "customChallanNumbers": {
+        "matched": true,
+        "findings": []
+      },
+      "refunds": {
+        "matched": true,
+        "findings": [],
+        "postedRefunds": 0,
+        "policyVersion": "p32b3-full-same-account-v1",
+        "authenticity": "Operator attestation and consistency evidence, not proof that physical funds moved or protection against fabricated SQL inserts."
+      },
+      "money": {
+        "matched": true,
+        "findings": [],
+        "balances": {
+          "1": "0.00",
+          "2": "0.00",
+          "3": "70100.00",
+          "4": "0.00"
+        },
+        "openings": {
+          "3": "2026-11-05"
+        },
+        "batches": 4,
+        "movements": 4,
+        "sourceCoverage": "Money batches plus canonical p32b1 document claims; historical V1 payments and expenses are not backfilled.",
+        "authenticity": "Shape and arithmetic consistency, not proof of physical funds or protection against fabricated SQL inserts."
+      },
+      "sources": {
+        "matched": true,
+        "findings": [],
+        "linkedDocuments": 3,
+        "historicalUnlinkedDocuments": 0,
+        "coverage": "Only p32b1-marked posted documents require canonical money effects. Historical documents are not backfilled."
+      },
+      "masters": {
+        "matched": true,
+        "findings": [],
+        "categories": 0,
+        "employees": 0,
+        "historyEvents": 0
+      },
+      "expenses": {
+        "matched": true,
+        "findings": [],
+        "mappedExpenses": 0,
+        "legacyUnmappedExpenses": 0
+      }
+    },
+    "labor": {
+      "matched": true,
+      "findings": [],
+      "balances": [],
+      "earnings": 0,
+      "payments": 0,
+      "openings": 0,
+      "authenticityVerified": false,
+      "coverage": "Canonical source/snapshot/arithmetic/audit consistency; not proof of physical funds or protection against fabricated consistent SQL inserts."
+    },
+    "commands": {
+      "matched": true,
+      "findings": []
+    },
+    "extension": {
+      "matched": true,
+      "findings": [],
+      "allocations": 0,
+      "initializations": 0,
+      "authenticityVerified": false
+    },
+    "integrity": {
+      "findings": [],
+      "invalid": []
+    }
+  },
+  "negativeTests": {
+    "wrong recipient": true,
+    "corrupt ciphertext": true,
+    "missing cheque_instruments": true,
+    "missing cheque_events": true,
+    "missing cheque_audit": true,
+    "missing cheque_clearances": true,
+    "missing v1_party_journal": true,
+    "missing money_movements": true,
+    "missing cheque command": true,
+    "missing opening journal": true,
+    "altered instrument amount": true,
+    "altered instrument client_id": true,
+    "altered instrument number": true,
+    "altered instrument drawer_account_key": true,
+    "altered lifecycle state": true,
+    "duplicate clearance claim": true,
+    "older consumer rejects new schema": true,
+    "retagged older format rejects retained cheque evidence": true,
+    "incompatible version": true,
+    "altered DDL before writes": true
+  },
+  "authenticatedDecryptionVerified": true,
+  "ciphertextSha256": "99f5729844c8c3531827373cd6e88af6f0d667c70bb877143555a1406ffa2f85",
+  "productionContacted": false
+}

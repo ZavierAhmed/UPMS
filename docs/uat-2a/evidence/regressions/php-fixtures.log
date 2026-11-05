@@ -1,0 +1,7 @@
+{"event":"simple-entry.validation","reference":"99bb467d-8f9f-424e-88f1-0f50f2195494","code":"INVALID_PARTY_KIND","fields":[]}
+{"event":"simple-entry.validation","reference":"885ce533-0f22-4fbc-846f-5e9de011425a","code":"INVALID_DOCUMENT_KIND","fields":[]}
+{"event":"simple-entry.validation","reference":"97c489ea-85e3-4604-a22d-a80e2d79b6be","code":"INVALID_INPUT","fields":["form"]}
+{"event":"simple-entry.validation","reference":"2d083be4-631c-40c9-8640-8b47e5bb45a5","code":"INVALID_INPUT","fields":["form"]}
+{"event":"simple-entry.validation","reference":"e35d2bfd-f2be-4517-8493-aea2bbadf243","code":"INVALID_INPUT","fields":["form"]}
+{"event":"simple-entry.validation","reference":"9407c253-7be6-4bba-916a-9260662a616b","code":"INVALID_DATE_RANGE","fields":[]}
+{"database":"upms_test_php_1793873616919","engine":"10.11.19-MariaDB","contracts":39,"ownerDatabaseAccessed":false}

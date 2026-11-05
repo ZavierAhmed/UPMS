@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "maxReferenceLength": 100,
+  "suffixRandomBits": 128,
+  "exactAmountPreserved": true,
+  "idempotentReferencePreserved": true,
+  "clientReferenceOverrideRejected": true,
+  "productionContacted": false,
+  "ownerDataMutated": false
+}

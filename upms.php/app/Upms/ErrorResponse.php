@@ -21,20 +21,35 @@ final class ErrorResponse
         }
         $known = $error instanceof ApiError;
         if (!$known) {
-            \Illuminate\Support\Facades\Log::warning('upms.request.failed', ['reference' => $reference, 'type' => get_class($error)]);
+            \Illuminate\Support\Facades\Log::warning('upms.request.failed', ['reference' => $reference, 'type' => get_class($error),...($error instanceof \PDOException?['sqlState'=>$error->errorInfo[0]??null,'nativeCode'=>$error->errorInfo[1]??null]:[])]);
         }
         $status = $known ? $error->status : 503;
+        if ($known && str_starts_with($error->apiCode, 'CHEQUE_')) {
+            \Illuminate\Support\Facades\Log::notice('upms.cheque.rejected', ['reference' => $reference, 'code' => $error->apiCode, 'status' => $status]);
+        }
         if ($known && str_starts_with($error->apiCode, 'LABOR_OPENING_')) {
             // Correlatable diagnostics only: never log input, credentials or financial rows.
             \Illuminate\Support\Facades\Log::notice('upms.labor.opening.rejected', ['reference' => $reference,'code' => $error->apiCode,'status' => $status]);
         }
         $body = ['code' => $known ? $error->apiCode : 'IDENTITY_UNAVAILABLE'];
-        if ($known && $error->entry && $request->is('api/v1/management/simple-v1/*') && in_array($status, [400, 409], true) && !in_array($error->apiCode, ['IDENTITY_CONFLICT', 'INVALID_REFERENCE_OR_CONSTRAINT'], true)) {
+        if(!$known&&$request->isMethod('POST')&&$request->is('api/v1/management/simple-v1/cheques*')) {
+            $body['message']='The result could not be confirmed. Keep this form and retry the same entry to retrieve its recorded result or safely retry it. Retain the diagnostic reference for review.';
+        }
+        if ($known && $error->entry && $request->is('api/v1/management/simple-v1/*') && (in_array($status, [400, 409], true) || ($status === 403 && $error->apiCode === 'CHEQUE_SEPARATE_APPROVAL_REQUIRED')) && !in_array($error->apiCode, ['IDENTITY_CONFLICT', 'INVALID_REFERENCE_OR_CONSTRAINT'], true)) {
             $fields = $error->fieldErrors;
             if ($error->apiCode === 'INVALID_INPUT' && $fields === null) {
                 $fields = ['form' => 'Field is missing or invalid. Please check this field.'];
             }
             $messages = [
+                'CHEQUE_SEPARATE_APPROVAL_REQUIRED' => 'An independent authorized operator must approve clearance. An administrator involved in receipt or deposit must provide an exceptional self-approval justification of at least 10 characters. No clearance was committed.',
+                'CHEQUE_CLEARANCE_DATE_INVALID' => 'Clearance must be on or after the cheque and deposit dates and no later than today. No clearance was committed.',
+                'CHEQUE_BACKDATED_EVENT' => 'The event date precedes receipt or a later lifecycle event. Choose a date covering the existing history.',
+                'CHEQUE_BACKDATED_RECOGNITION' => 'Later customer or receiving-bank activity exists. Backdated clearance requires a separately approved policy. No clearance was committed.',
+                'CHEQUE_CLIENT_OPENING_REQUIRED' => 'The active customer needs a verified opening covering the clearance date. No clearance was committed.',
+                'CHEQUE_RECEIVABLE_INSUFFICIENT' => 'The customer receivable is less than the complete cheque amount. Partial clearance and overpayments are unavailable. No clearance was committed.',
+                'CHEQUE_INVALID_TRANSITION' => 'This action is unavailable for the current cheque status. Review the lifecycle timeline before continuing.',
+                'CHEQUE_DUPLICATE_INSTRUMENT' => 'This issuing bank, drawer account and cheque number already identify a registered instrument.',
+                'CHEQUE_RECONCILIATION_REQUIRED' => 'Financial reconciliation requires review before this action can proceed. No clearance was committed.',
                 'PARTY_KIND_MISMATCH' => 'Select a client for a client receipt or a vendor for a vendor payment.',
                 'FUTURE_DATE_NOT_ALLOWED' => 'Choose today or an earlier business date.',
                 'INVALID_AMOUNT' => 'Enter an amount greater than zero with up to two decimal places.',

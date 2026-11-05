@@ -1,0 +1,16 @@
+import {readFile,writeFile} from 'node:fs/promises';
+import {execFileSync,spawn} from 'node:child_process';
+import {resolve} from 'node:path';
+import {randomUUID} from 'node:crypto';
+import assert from 'node:assert/strict';
+const f=JSON.parse(await readFile('tmp/php-runtime/uat2a-repro.json','utf8'));
+const root=resolve('tmp/php-runtime/uat2a-baseline');await (await import('node:fs/promises')).mkdir(root,{recursive:true});
+for(const name of ['Cheques','ErrorResponse'])await writeFile(root+'/'+name+'.php',execFileSync('git',['show','8a4d78823c9bc376e7ed091d7a144b531af3d6b1:upms.php/app/Upms/'+name+'.php']));
+const quote=value=>"'"+value.replaceAll('\\','/').replaceAll("'","\\'")+"'";
+await writeFile(root+'/bridge.php','<?php require '+quote(resolve('upms.php/vendor/autoload.php'))+'; require '+quote(root+'/Cheques.php')+'; require '+quote(root+'/ErrorResponse.php')+'; require '+quote(resolve('upms.php/tests/Support/http-bridge.php'))+';');
+const call=body=>new Promise((done,fail)=>{const p=spawn(resolve('tmp/php-runtime/bin/php.exe'),[root+'/bridge.php'],{windowsHide:true,env:{...process.env,UPMS_PRODUCTION_PROFILE:'',UPMS_PHP2_ENV:f.envPath},stdio:['pipe','pipe','pipe']});let out='';p.stdout.on('data',b=>out+=b);p.on('error',fail);p.on('close',code=>code?fail(Error('BASELINE_HTTP_FAILED')):done(JSON.parse(out)));p.stdin.end(JSON.stringify({method:'POST',path:'/api/v1/management/simple-v1/cheques/'+f.chequeId+'/cleared',cookies:f.cookies,headers:{origin:'https://app.unique-plastic.test','x-csrf-token':f.csrf,'idempotency-key':randomUUID()},raw:JSON.stringify(body)}));});
+const body={date:'2026-11-05',reference:'UAT2A-BASELINE-EVIDENCE',reason:'Synthetic baseline isolated reproduction',evidence:'Synthetic bank acknowledgment evidence',approved:true};
+const noApproval=await call(body),postdated=await call({...body,selfApprovalReason:'Synthetic exceptional administrator justification'});
+const cases=[{scenario:'Missing self-approval justification',status:noApproval.status,error:JSON.parse(noApproval.raw).error},{scenario:'Postdated cheque with valid justification',status:postdated.status,error:JSON.parse(postdated.raw).error}];
+assert.equal(cases[0].status,403);assert.equal(cases[0].error.code,'CHEQUE_SEPARATE_APPROVAL_REQUIRED');assert.equal(cases[0].error.message,undefined);assert.equal(cases[1].status,409);assert.equal(cases[1].error.code,'CHEQUE_CLEARANCE_DATE_INVALID');
+await writeFile('docs/uat-2a/evidence/baseline-clearance.json',JSON.stringify({baseline:'8a4d78823c9bc376e7ed091d7a144b531af3d6b1',cases,isolatedFixture:true,ownerDataMutated:false},null,2));console.log(JSON.stringify(cases));

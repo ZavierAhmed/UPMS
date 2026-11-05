@@ -12,13 +12,13 @@ export function phpBridge(envPath,input){return new Promise((done,fail)=>{
  const p=spawn(resolve('tmp/php-runtime/bin/php.exe'),['upms.php/tests/Support/http-bridge.php'],{windowsHide:true,env:{...Object.fromEntries(Object.entries(process.env).filter(([k])=>!k.startsWith('UPMS_'))),UPMS_PRODUCTION_PROFILE:'',UPMS_PHP2_ENV:envPath},stdio:['pipe','pipe','pipe']});let out='';p.stdout.on('data',b=>out+=b);p.stderr.on('data',()=>{});p.on('error',()=>fail(Error('PHP_START_FAILED')));const timer=setTimeout(()=>{p.kill();fail(Error('PHP_TIMEOUT'));},30000);p.on('close',code=>{clearTimeout(timer);if(code)return fail(Error('PHP_FAILED'));try{done(JSON.parse(out));}catch{fail(Error('PHP_RESPONSE_FAILED'));}});p.stdin.on('error',()=>{});p.stdin.end(JSON.stringify(input));
 });}
 export async function bodyText(req,limit=12288){let size=0;const chunks=[];for await(const b of req){size+=b.length;if(size>limit)throw Error('REQUEST_TOO_LARGE');chunks.push(b);}return Buffer.concat(chunks).toString('utf8');}
-export async function employeePreview(bindingPath,{port=5180,cookieName='upms_employee_uat'}={}){
+export async function employeePreview(bindingPath,{port=5180,cookieName='upms_employee_uat',assetRoot}={}){
  await verifyUatEngine();const setup=JSON.parse(await readFile(await privatePath(bindingPath),'utf8')),original=JSON.parse(await readFile(resolve(privateRoot,'owner-uat-binding.json'),'utf8'));
  if(setup.schema===original.schema||!/^upms_test_php_money_[0-9]+$/.test(setup.schema)||!/^money_rt_[0-9]+$/.test(setup.runtime))throw Error('DISTINCT_ISOLATED_EMPLOYEE_UAT_REQUIRED');
  const directory=await privatePath(setup.directory),fixture=JSON.parse(await readFile(resolve(directory,'browser.json'),'utf8')),envPath=await privatePath(fixture.envPath),env=await readFile(envPath,'utf8');
  for(const [k,v] of Object.entries({UPMS_DB_HOST:'127.0.0.1',UPMS_DB_PORT:'3330',UPMS_DB_DATABASE:setup.schema,UPMS_DB_USERNAME:setup.runtime,UPMS_EMPLOYEE_HAFTA_ENABLED:'true'}))if(!env.split(/\r?\n/).includes(k+'='+v))throw Error('EMPLOYEE_UAT_PROFILE_REJECTED');
  const ready=await phpBridge(envPath,{method:'GET',path:'/readyz'});if(ready.status!==200)throw Error('EMPLOYEE_UAT_NOT_READY');
- const root=resolve('upms.client/dist/management');await readFile(resolve(root,'index.html'));
+ const root=assetRoot?await privatePath(assetRoot):resolve('upms.client/dist/management');await readFile(resolve(root,'index.html'));
  let inFlightWrites=0;
  return {setup,envPath,directory,metrics:()=>({inFlightWrites}),checkReadiness:async()=>{const maintenance=await workspaceMaintenance(directory);if(maintenance)return {ready:false,maintenance};const r=await phpBridge(envPath,{method:'GET',path:'/readyz'});return {ready:r.status===200};},handler:async(req,res)=>{
   if(!['127.0.0.1:'+port,'localhost:'+port].includes(req.headers.host)){res.writeHead(403);return res.end('Local Host rejected.');}
@@ -28,10 +28,11 @@ export async function employeePreview(bindingPath,{port=5180,cookieName='upms_em
    if(unsafe&&await workspaceMaintenance(directory)){res.writeHead(503,{'Content-Type':'application/json'});return res.end(JSON.stringify({error:{code:'OWNER_UAT_UPGRADE_MAINTENANCE',message:'Owner UAT upgrade is in maintenance. No entry was posted. Existing records and diagnostic evidence are preserved.'}}));}
    if(unsafe)inFlightWrites++;
    try {
-   const body=await bodyText(req),cookies={};for(const part of (req.headers.cookie||'').split(';')){const [name,...value]=part.trim().split('=');if(name===cookieName)cookies['__Host-upms-php']=decodeURIComponent(value.join('='));}
+   const evidenceRequest=req.method==='POST'&&/^\/api\/v1\/management\/simple-v1\/cheques(?:\/[1-9][0-9]{0,19}\/(?:deposited|cleared))?$/.test(u.pathname);
+   const body=await bodyText(req,evidenceRequest?720896:12288),cookies={};for(const part of (req.headers.cookie||'').split(';')){const [name,...value]=part.trim().split('=');if(name===cookieName)cookies['__Host-upms-php']=decodeURIComponent(value.join('='));}
    const r=await phpBridge(envPath,{method:req.method,path:u.pathname+u.search,cookies,headers:unsafe?{origin:'https://app.unique-plastic.test','x-csrf-token':req.headers['x-csrf-token']||'','idempotency-key':req.headers['idempotency-key']||''}:{},raw:body||null});
    if(Object.hasOwn(r.cookies||{},'__Host-upms-php')){const token=r.cookies['__Host-upms-php'];res.setHeader('Set-Cookie',cookieName+'='+encodeURIComponent(token||'')+'; Path=/; HttpOnly; SameSite=Strict'+(!token?'; Max-Age=0':''));}
-   res.writeHead(r.status,{'Content-Type':'application/json'});return res.end(r.raw);
+   res.writeHead(r.status,{'Content-Type':'application/json',...(r.binary?r.downloadHeaders:{})});return res.end(r.binary?Buffer.from(r.raw,'base64'):r.raw);
    }finally{if(unsafe)inFlightWrites--;}
   }
   if(!['GET','HEAD'].includes(req.method)){res.writeHead(405);return res.end();}

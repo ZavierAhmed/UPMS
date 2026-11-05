@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "negativeChecks": 2,
+  "actualBankIdentity": true,
+  "missingOpeningRejected": true,
+  "dateBeforeOpeningRejected": true,
+  "eligibleDepositAfterOpening": true,
+  "bankBalance": "0.00",
+  "customerCreditsCreated": 0,
+  "ownerDataMutated": false,
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-05T06:28:29.359Z"
+}

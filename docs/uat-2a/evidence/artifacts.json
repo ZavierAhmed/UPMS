@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "realChromePdfs": 2,
+  "excelExports": 1,
+  "files": [
+    {
+      "path": "output/pdf/uat2a-cheque-acknowledgment.pdf",
+      "pages": 1,
+      "sha256": "2ad0afa3f28947e56af0b3b770d530f1571a95b6cb065ce1b6233044edf45c1b"
+    },
+    {
+      "path": "output/pdf/uat2a-cheque-register.pdf",
+      "pages": 3,
+      "sha256": "9d66e86c246226f3dbfec2e72226938b10de64206fb5de06077199f6875f49ab"
+    },
+    {
+      "path": "docs/uat-2a/evidence/browser/Incoming-Cheque-Register.xlsx",
+      "sha256": "29d11bd3350fe997955458ec03ae9b615e59377d111cf265437233e71637f051",
+      "referenceAndAmountMatch": true,
+      "noFormulasOrMacros": true
+    }
+  ],
+  "visualInspection": "PASSED"
+}

@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "tables": 44,
+  "guards": 124,
+  "archiveSha256": "974e133cfca19bc3817bddf40c8fbe74c6b6527babccf9586652f1f06e1354c6",
+  "authenticatedDecryptionVerified": true,
+  "independentRestorePassed": true,
+  "restoredRows": 127,
+  "sourceRowsUnchanged": true,
+  "rehearsal": {
+    "passed": true,
+    "tables": 47,
+    "guards": 133,
+    "originalRowsPreserved": true,
+    "originalGuardDefinitionsPreserved": 123,
+    "intentionallyReplacedGuard": "upmscq_cheque_issuing_banks_insert",
+    "ownerDatabaseMigrated": false
+  },
+  "ownerDatabaseMigrated": false,
+  "productionContacted": false,
+  "verifiedUtc": "2026-11-05T11:32:31+05:00"
+}

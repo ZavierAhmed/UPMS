@@ -29,5 +29,11 @@ $cookies = [];
 foreach ($response->headers->getCookies() as $cookie) {
     $cookies[$cookie->getName()] = $cookie->getValue();
 }
-echo json_encode(['status' => $response->getStatusCode(), 'raw' => $response->getContent(), 'cookies' => $cookies], JSON_THROW_ON_ERROR);
+$binary=$response->headers->get('Content-Type')==='application/octet-stream';
+$payload=['status'=>$response->getStatusCode(),'raw'=>$binary?base64_encode($response->getContent()):$response->getContent(),'cookies'=>$cookies];
+if($binary) {
+    $payload['binary']=true;
+    foreach(['Content-Type','Content-Disposition','Content-Security-Policy','X-Content-Type-Options'] as $header) { $payload['downloadHeaders'][$header]=$response->headers->get($header); }
+}
+echo json_encode($payload,JSON_THROW_ON_ERROR);
 $kernel->terminate($request, $response);

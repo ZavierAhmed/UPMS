@@ -22,7 +22,7 @@ final class LaborExtensionSchema
         $receipt=$pdo->query('SELECT * FROM labor_extension_receipts WHERE id=1')->fetch(PDO::FETCH_ASSOC);
         if (!$receipt||$receipt['version']!==self::VERSION||$receipt['plan_hash']!==self::hash()) { throw new \RuntimeException('H1C_SCHEMA_RECEIPT_REJECTED'); }
         $tables=$pdo->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN);
-        $expectedTables=[...EmployeeHaftaRecovery::tables(),...array_keys(self::plan()['tables']),...($chequeExtension ? array_keys(ChequeSchema::plan()['tables']) : [])];sort($tables);sort($expectedTables);
+        $expectedTables=[...EmployeeHaftaRecovery::tables(),...array_keys(self::plan()['tables']),...($chequeExtension ? array_keys(ChequeSchema::plan()['tables']) : []),...($chequeExtension&&ChequeExtras::enabled()?array_keys(ChequeExtras::plan()):[])];sort($tables);sort($expectedTables);
         if ($tables!==$expectedTables) { throw new \RuntimeException('H1C_EXACT_TABLE_SET_REQUIRED'); }
         return ['passed'=>true,'tables'=>38,'version'=>self::VERSION,'planHash'=>self::hash()];
     }

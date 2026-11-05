@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "realChrome": true,
+  "checks": [
+    "Real popup cancel/save preserves cheque draft and selects the created synthetic issuer",
+    "Browser Back restores registration fields and issuing bank selection",
+    "Live normalized duplicate lookup shows authorized source link and disables submission",
+    "Postdated clearance panel shows exact date blocker, impacts, dated bank opening and required approval, and disables posting",
+    "Actual local HTTP attachment download uses authorization, attachment disposition, octet-stream and nosniff; anonymous download rejected",
+    "Interrupted real HTTP upload creates no instrument or orphan attachment and releases in-flight write state",
+    "Exact local Host/Origin enforcement remains active"
+  ],
+  "widths": [
+    390,
+    768,
+    1024,
+    1440,
+    1920
+  ],
+  "registeredReference": "1793865774077-ATTACHMENT-TEST-CLIENT-42-25-A6AF48D31D0A5DDC968B79A5CD0749C1",
+  "consoleErrors": [],
+  "productionContacted": false,
+  "ownerWorkspaceMutated": false
+}

@@ -1,0 +1,10 @@
+{
+  "protection": "Windows DPAPI CurrentUser",
+  "tamperingRejected": true,
+  "verifiedUtc": "2026-11-05T07:48:20.8684857+00:00",
+  "secretsPrinted": false,
+  "passed": true,
+  "wrongContextRejected": true,
+  "plaintextRecoveryFileWritten": false,
+  "applicationKeyAndEnvironmentRecovered": true
+}

@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "checks": [
+    "After readiness, customer balance changed and stale clearance was blocked; bank credit used its changed current balance without losing the intervening movement",
+    "Concurrent normalized same-account registration accepts one instrument; identical numbers in different accounts are accepted",
+    "Generated reference search normalizes case and generated-number lookup normalizes leading zeros",
+    "Actual authenticated runtime has exactly target-database CRUD plus global USAGE, with no grant option or DDL capability"
+  ],
+  "productionContacted": false,
+  "ownerDataMutated": false
+}

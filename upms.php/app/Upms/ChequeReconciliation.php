@@ -92,6 +92,17 @@ final class ChequeReconciliation
         foreach($d['cheque_clearances']??[] as $c) { if(!isset($seenClaims[$c['id']])) { $add('CHEQUE_ORPHAN_CLAIM',$c['id']); } }
         foreach($docs as $doc) { $p=SimpleV1::payload($doc);if(($p['method']??'')==='CHEQUE_CLEARED'&&!isset($seenDocuments[$doc['id']])) { $add('CHEQUE_UNCLAIMED_PAYMENT',$doc['id']); } }
         foreach($batches as $b) { if($b['source_type']==='EXTERNAL'&&(str_starts_with(strtolower($b['source_ref']),'upms-cheque:')||isset($references[strtoupper(V1Input::trim($b['source_ref']))]))) { $add('CHEQUE_NONCANONICAL_BANK_EFFECT',$b['id']); } }
+        foreach($d['cheque_bank_creations']??[] as $bank) {
+            $issuer=$issuers[$bank['id']]??null;
+            if(!$issuer||$issuer['name']!==$bank['name']||$issuer['code']!==$bank['code']||!isset($receipts['bank:'.$bank['id']])) { $add('CHEQUE_DIRECTORY_EVIDENCE_INVALID',$bank['id']); }
+        }
+        $fileCounts=[];
+        foreach($d['cheque_attachments']??[] as $file) {
+            $event=$events[$file['event_id']]??null;
+            $fileCounts[$file['event_id']]=($fileCounts[$file['event_id']]??0)+1;
+            if(!$event||(string)$event['cheque_id']!==(string)$file['cheque_id']||(string)$event['actor_id']!==(string)$file['actor_id']||!in_array($event['type'],['RECEIVED','DEPOSITED','CLEARED'],true)||$fileCounts[$file['event_id']]>2) { $add('CHEQUE_ATTACHMENT_LINK_INVALID',$file['id']); }
+            try { ChequeExtras::decrypt($file); } catch(\Throwable) { $add('CHEQUE_ATTACHMENT_INTEGRITY_INVALID',$file['id']); }
+        }
         return ['matched'=>!$errors,'findings'=>$errors,'instruments'=>count($instruments),'events'=>count($events),'cleared'=>count($seenClaims),'policy'=>'No recognition until complete bank clearance; pending custody is not spendable money'];
     }
 }

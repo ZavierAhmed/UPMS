@@ -19,7 +19,8 @@ final class ChequeSchema
         $expected=json_decode(file_get_contents(dirname(__DIR__,2).'/resources/cheque-schema-hashes.json'),true,32,JSON_THROW_ON_ERROR);
         $r=$pdo->query('SELECT * FROM cheque_schema_receipts WHERE id=1')->fetch(PDO::FETCH_ASSOC);
         if(self::hashes($pdo)!==$expected||!$r||$r['version']!==self::VERSION||$r['plan_hash']!==self::hash()||$r['reference']!=='ISOLATED-UAT2-ONLY') { throw new \RuntimeException('CHEQUE_SCHEMA_REJECTED'); }
-        return ['passed'=>true,'tables'=>44,'version'=>self::VERSION,'planHash'=>self::hash()];
+        if(ChequeExtras::enabled()) { ChequeExtras::verify($pdo); }
+        return ['passed'=>true,'tables'=>ChequeExtras::enabled()?47:44,'version'=>self::VERSION,'planHash'=>self::hash()];
     }
     public static function ready(Database $db): void
     {
@@ -29,6 +30,7 @@ final class ChequeSchema
         $request=app('request');$connection=$db->pdo();
         if($request->attributes->get('upms.cheque.ready')===$connection) { return; }
         self::verify($db->pdo());
+        if(ChequeExtras::enabled()) { ChequeExtras::runtimePrivileges($db->pdo()); }
         $path=config('upms.cheque_guard_evidence');
         if(!is_string($path)||!is_file($path)||is_link($path)) { throw new ApiError(503,'CHEQUE_GUARD_EVIDENCE_REQUIRED',entry:false); }
         $g=json_decode(file_get_contents($path),true,32,JSON_THROW_ON_ERROR);$runtime=(string)$db->pdo()->query('SELECT CURRENT_USER()')->fetchColumn();
