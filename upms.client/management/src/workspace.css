@@ -52,6 +52,7 @@
  .simple-v1 dialog::backdrop{background:#252a3070}
  .simple-v1.management dialog.expense-master-dialog form{display:grid;grid-template-columns:minmax(0,1fr);gap:20px}
  .simple-v1.management dialog.expense-master-dialog form>fieldset,.simple-v1.management dialog.expense-master-dialog form>footer{grid-column:1/-1;width:100%;min-width:0;box-sizing:border-box}
+ @media(max-width:600px){.simple-v1.management dialog.expense-master-dialog form>footer{display:grid;grid-template-columns:minmax(0,1fr)}.simple-v1.management dialog.expense-master-dialog form>footer>button.action-button{width:100%;min-height:48px}}
  .simple-v1 .entity-select{min-width:0}.simple-v1 .entity-select [role=listbox]{max-height:250px;overflow:auto;overscroll-behavior:contain}
  @media(min-width:981px){.simple-v1.management main{margin-left:260px}}
  @media(max-width:980px){.simple-v1.management main{margin:0;padding:86px 24px 32px}.simple-v1 .sidebar{width:min(300px,calc(100vw - 44px))}.simple-v1 .mobile-toggle{position:fixed;top:14px;left:16px;z-index:45;box-shadow:0 2px 12px #252a3015}}
