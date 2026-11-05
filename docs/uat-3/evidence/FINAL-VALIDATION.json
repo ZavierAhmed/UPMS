@@ -4,8 +4,8 @@
   "ownerFailure": "Form fields and buttons not aligned",
   "phpTests": 169,
   "phpAssertions": 1912,
-  "reactTests": 311,
-  "reactFiles": 45,
+  "reactTests": 316,
+  "reactFiles": 46,
   "nodeTests": 291,
   "nodeRuntime": "22.23.4",
   "phpRuntime": "8.3.36",
@@ -22,7 +22,7 @@
   ],
   "publicRouteViewportCases": 65,
   "managementReadOnlyViewportCases": 60,
-  "restoredSyntheticRows": 276,
+  "restoredSyntheticRows": 279,
   "recoveredAttachments": 5,
   "recoveryNegativeChecks": 19,
   "tables": 47,
@@ -37,5 +37,7 @@
   "productionContacted": false,
   "productionDeployed": false,
   "smtpEnabled": false,
-  "operationalAttachmentsEnabled": false
+  "operationalAttachmentsEnabled": false,
+  "navigationHistoryChromeCases": 3,
+  "fixtureSessionFactoryOwnerTargetsRejected": 4
 }

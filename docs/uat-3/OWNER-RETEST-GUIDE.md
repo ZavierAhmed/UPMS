@@ -42,6 +42,7 @@ node scripts/uat3-run.mjs uat2a-extras-http.mjs
 node scripts/uat3-cheque-browser.mjs
 node scripts/uat3-form-alignment.mjs
 node scripts/uat3-management-browser.mjs
+node scripts/uat3-navigation-browser.mjs
 node scripts/uat3-public-browser.mjs
 node scripts/uat3-lighthouse.mjs
 node scripts/uat3-report-artifacts.mjs
@@ -59,3 +60,5 @@ The isolated review package is generated with `scripts/uat3-package.mjs` using N
 ```
 
 These are review artifacts, not a production release package. A future approved deployment must regenerate its manifest from the approved release commit.
+
+For a long-running isolated test whose session has expired, `node scripts/uat3-fixture-session.mjs` renews only the bound disposable UI-test session. It rejects owner bindings and never resets a password. Real password-login acceptance is performed by `uat3-startup-browser.mjs`, not by this factory. Retest filtering a cheque register, following its receipt, and returning through both explicit buttons and browser Back/Forward. Repeat from filtered Company Transactions and Client Payments.

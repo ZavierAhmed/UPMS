@@ -298,6 +298,7 @@ docs/uat-3/evidence/browser/final-public-products-viewport-390.png
 docs/uat-3/evidence/browser/final-runtime-diagnostic.png
 docs/uat-3/evidence/browser/issuing-bank-popup-desktop.png
 docs/uat-3/evidence/browser/issuing-bank-popup-mobile.png
+docs/uat-3/evidence/browser/navigation-filtered-cheques.png
 docs/uat-3/evidence/browser/registration-1024.png
 docs/uat-3/evidence/browser/registration-1440.png
 docs/uat-3/evidence/browser/registration-1920.png
@@ -315,6 +316,7 @@ docs/uat-3/evidence/lighthouse.json
 docs/uat-3/evidence/management-after.json
 docs/uat-3/evidence/management-before.json
 docs/uat-3/evidence/multirow-fixture.json
+docs/uat-3/evidence/navigation-history.json
 docs/uat-3/evidence/owner-preservation.json
 docs/uat-3/evidence/package-parity.json
 docs/uat-3/evidence/prior-output/evidence/auth-boundary.json
@@ -402,6 +404,7 @@ docs/uat-3/evidence/regressions/uat2a-regressions.mjs.log
 docs/uat-3/evidence/report-browser-diagnostic.json
 docs/uat-3/evidence/report-values.json
 docs/uat-3/evidence/review-links.json
+docs/uat-3/evidence/session-factory-guards.json
 output/pdf/uat3-bank-statement.pdf
 output/pdf/uat3-cheque-acknowledgment.pdf
 output/pdf/uat3-cheque-register.pdf
@@ -416,9 +419,11 @@ scripts/uat3-artifact-check.py
 scripts/uat3-cheque-browser.mjs
 scripts/uat3-contact-verification.mjs
 scripts/uat3-final-recovery.mjs
+scripts/uat3-fixture-session.mjs
 scripts/uat3-form-alignment.mjs
 scripts/uat3-lighthouse.mjs
 scripts/uat3-management-browser.mjs
+scripts/uat3-navigation-browser.mjs
 scripts/uat3-owner-preservation.mjs
 scripts/uat3-package.mjs
 scripts/uat3-preview.mjs
@@ -432,10 +437,12 @@ upms.client/management/src/ChequeAttachments.jsx
 upms.client/management/src/ChequeLifecycleForm.jsx
 upms.client/management/src/ChequeRegistration.jsx
 upms.client/management/src/CustomerCheques.jsx
+upms.client/management/src/PaymentDocument.jsx
 upms.client/management/src/SimpleV1.jsx
 upms.client/management/src/WorkspaceNavigation.jsx
 upms.client/management/src/cheques.css
 upms.client/management/src/main.jsx
+upms.client/management/src/viewNavigation.js
 upms.client/management/src/workspace.css
 upms.client/src/App.jsx
 upms.client/src/components/layout/Layout.jsx
@@ -448,5 +455,7 @@ upms.client/src/test/App.test.jsx
 upms.client/src/test/ContactRoles.test.jsx
 upms.client/src/test/CustomerCheques.test.jsx
 upms.client/src/test/Php77Public.test.jsx
+upms.client/src/test/ViewNavigation.test.js
 upms.client/src/test/WhatsApp.test.jsx
 upms.client/src/test/WorkspaceNavigation.test.jsx
+upms.php/tests/Support/uat3-session.php

@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "realChrome": true,
+  "readOnly": true,
+  "checks": [
+    "Filtered register → cheque → canonical receipt → cheque → filtered register, Back/Forward and correct payment navigation",
+    "/company-transactions filter survives detail return and Back/Forward",
+    "/client-payments filter survives detail return and Back/Forward"
+  ],
+  "ownerDataChanged": false
+}

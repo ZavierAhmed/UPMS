@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "cliFixtureOnly": true,
+  "ownerTargetsRejected": [
+    {
+      "binding": "owner-uat-binding.json",
+      "rejectedBeforeDatabaseAccess": true
+    },
+    {
+      "binding": "uath1-owner-binding.json",
+      "rejectedBeforeDatabaseAccess": true
+    },
+    {
+      "binding": "uat2-owner-binding.json",
+      "rejectedBeforeDatabaseAccess": true
+    },
+    {
+      "binding": "uat2a-manual-binding.json",
+      "rejectedBeforeDatabaseAccess": true
+    }
+  ],
+  "passwordsChanged": false,
+  "authenticationAcceptance": "Separate real-password setup/login tests passed; fixture factory is not login acceptance"
+}

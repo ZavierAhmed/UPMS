@@ -68,9 +68,9 @@
           "gzip": 20860
         },
         {
-          "name": "index-DVUbpqUz.js",
-          "bytes": 458098,
-          "gzip": 114754
+          "name": "index-DeJFiCBp.js",
+          "bytes": 459417,
+          "gzip": 115188
         },
         {
           "name": "rolldown-runtime-WkwZ5CU-.js",
@@ -83,8 +83,8 @@
           "gzip": 67534
         }
       ],
-      "bytes": 793337,
-      "gzip": 203516
+      "bytes": 794656,
+      "gzip": 203950
     }
   },
   "newDependencies": 0

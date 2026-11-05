@@ -2,7 +2,7 @@
   "passed": true,
   "tables": 47,
   "guards": 133,
-  "restoredRows": 276,
+  "restoredRows": 279,
   "authenticatedDecryptionVerified": true,
   "attachmentCount": 5,
   "protectedApplicationKeyRequired": true,

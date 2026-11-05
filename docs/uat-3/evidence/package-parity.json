@@ -1,7 +1,7 @@
 {
   "node": "v22.23.4",
   "packagedFiles": 225,
-  "archiveSha256": "cc657d14dc63cfe766e851233c6b928142b93f1d476603a1552e35e467bb0dc8",
+  "archiveSha256": "d3476fc17113ce2284fcb14dcfb2f82af588469ff24a88298097952347627677",
   "corruptionRejected": true,
   "productionOnlyInstall": true,
   "routes": [

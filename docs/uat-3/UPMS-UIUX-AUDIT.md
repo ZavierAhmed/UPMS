@@ -17,3 +17,5 @@
 | Empty/error/loading | Mixed visual treatment | Consistent empty cards, alerts, field errors and live loading messages; errors are not hidden |
 
 No posting algorithm, balance, source link, permission or security gate was changed. Browser evidence contains loaded screenshots, mobile Back/Forward checks and reduced-motion verification. Screenshots with `aligned-` names are the final targeted cheque form review after owner clarification; general `after-management-` screenshots show the shared design-system pass.
+
+Filtered-list return correction: URL-backed cheque/transaction/register filters and nested document parent history were verified in actual Chrome. The sidebar now identifies the business workspace for document details. This extends view metadata within the existing route events and preserves draft/authorization checks.
