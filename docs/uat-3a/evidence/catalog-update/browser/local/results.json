@@ -1,0 +1,136 @@
+{
+  "label": "local",
+  "chrome": "Chrome/156.0.8078.80",
+  "origin": "http://127.0.0.1:63705",
+  "viewports": [
+    {
+      "path": "/products/buckets",
+      "width": 390,
+      "overflow": false,
+      "brokenImages": [],
+      "canonical": "https://unique-plastic.com/products/buckets",
+      "title": "Plastic Buckets | Unique Plastic Industry",
+      "h1": 1,
+      "pdf": "/downloads/products/v2/Bucket.pdf",
+      "hdpe": false,
+      "screenshot": "products-buckets-390.jpg"
+    },
+    {
+      "path": "/products/cans",
+      "width": 390,
+      "overflow": false,
+      "brokenImages": [],
+      "canonical": "https://unique-plastic.com/products/cans",
+      "title": "Lubricant Cans | Unique Plastic Industry",
+      "h1": 1,
+      "pdf": "/downloads/products/v2/Company_Profile_New_HD_Bottles.pdf",
+      "hdpe": false,
+      "screenshot": "products-cans-390.jpg"
+    },
+    {
+      "path": "/products/containers",
+      "width": 390,
+      "overflow": false,
+      "brokenImages": [],
+      "canonical": "https://unique-plastic.com/products/containers",
+      "title": "Plastic Cans | Unique Plastic Industry",
+      "h1": 1,
+      "pdf": "/downloads/products/v2/Company_Profile_New_HD_Bottles.pdf",
+      "hdpe": false,
+      "screenshot": "products-containers-390.jpg"
+    },
+    {
+      "path": "/products/buckets",
+      "width": 1440,
+      "overflow": false,
+      "brokenImages": [],
+      "canonical": "https://unique-plastic.com/products/buckets",
+      "title": "Plastic Buckets | Unique Plastic Industry",
+      "h1": 1,
+      "pdf": "/downloads/products/v2/Bucket.pdf",
+      "hdpe": false,
+      "screenshot": "products-buckets-1440.jpg"
+    },
+    {
+      "path": "/products/cans",
+      "width": 1440,
+      "overflow": false,
+      "brokenImages": [],
+      "canonical": "https://unique-plastic.com/products/cans",
+      "title": "Lubricant Cans | Unique Plastic Industry",
+      "h1": 1,
+      "pdf": "/downloads/products/v2/Company_Profile_New_HD_Bottles.pdf",
+      "hdpe": false,
+      "screenshot": "products-cans-1440.jpg"
+    },
+    {
+      "path": "/products/containers",
+      "width": 1440,
+      "overflow": false,
+      "brokenImages": [],
+      "canonical": "https://unique-plastic.com/products/containers",
+      "title": "Plastic Cans | Unique Plastic Industry",
+      "h1": 1,
+      "pdf": "/downloads/products/v2/Company_Profile_New_HD_Bottles.pdf",
+      "hdpe": false,
+      "screenshot": "products-containers-1440.jpg"
+    }
+  ],
+  "downloads": [
+    {
+      "id": "buckets",
+      "filename": "Bucket.pdf",
+      "bytes": 10870502,
+      "sha256": "7bfd18a028647affa58c8485ae3871b600ce6cfaae1a5d785ccc9d5faaa6ff65",
+      "mime": "application/pdf",
+      "disposition": "attachment; filename=\"Bucket.pdf\"",
+      "chromeViewer": true,
+      "viewerUrl": "file:///C:/Users/zasah/source/repos/UPMS/tmp/uat3a/downloads/catalog-update/local/Bucket.pdf"
+    },
+    {
+      "id": "cans",
+      "filename": "Company_Profile_New_HD_Bottles (1).pdf",
+      "bytes": 34249461,
+      "sha256": "a535f1c654f5d0d306d3706253c22564fc6cff9d86bbed787c90f854169f37f9",
+      "mime": "application/pdf",
+      "disposition": "attachment; filename=\"Company_Profile_New_HD_Bottles (1).pdf\"",
+      "chromeViewer": true,
+      "viewerUrl": "file:///C:/Users/zasah/source/repos/UPMS/tmp/uat3a/downloads/catalog-update/local/Company_Profile_New_HD_Bottles%20(1).pdf"
+    },
+    {
+      "id": "containers",
+      "filename": "Company_Profile_New_HD_Bottles (1).pdf",
+      "bytes": 34249461,
+      "sha256": "a535f1c654f5d0d306d3706253c22564fc6cff9d86bbed787c90f854169f37f9",
+      "mime": "application/pdf",
+      "disposition": "attachment; filename=\"Company_Profile_New_HD_Bottles (1).pdf\"",
+      "chromeViewer": true,
+      "viewerUrl": "file:///C:/Users/zasah/source/repos/UPMS/tmp/uat3a/downloads/catalog-update/local/Company_Profile_New_HD_Bottles%20(1).pdf"
+    }
+  ],
+  "consoleErrors": [],
+  "requestFailures": [],
+  "imageVariants": [
+    "/assets/owner-uat3a-label-yellow-160.webp",
+    "/assets/owner-uat3a-label-yellow-320.webp",
+    "/assets/owner-uat3a-label-yellow-640.webp",
+    "/assets/owner-uat3a-label-yellow-1086.webp",
+    "/assets/owner-uat3a-label-blue-160.webp",
+    "/assets/owner-uat3a-label-blue-320.webp",
+    "/assets/owner-uat3a-label-blue-640.webp",
+    "/assets/owner-uat3a-label-blue-1086.webp",
+    "/assets/owner-uat3a-label-grey-160.webp",
+    "/assets/owner-uat3a-label-grey-320.webp",
+    "/assets/owner-uat3a-label-grey-640.webp",
+    "/assets/owner-uat3a-label-grey-1086.webp",
+    "/assets/owner-uat3a-plain-carton-160.webp",
+    "/assets/owner-uat3a-plain-carton-320.webp",
+    "/assets/owner-uat3a-plain-carton-640.webp",
+    "/assets/owner-uat3a-plain-carton-1200.webp",
+    "/assets/owner-uat3a-open-carton-160.webp",
+    "/assets/owner-uat3a-open-carton-320.webp",
+    "/assets/owner-uat3a-open-carton-640.webp",
+    "/assets/owner-uat3a-open-carton-1200.webp"
+  ],
+  "passed": true
+}

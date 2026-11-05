@@ -1,5 +1,8 @@
 # UAT-3A technical report
 
+> **Owner catalog update — 2026-11-05:** Plastic Buckets now downloads the supplied 3-page `Bucket.pdf`; Lubricant Cans and Plastic Cans share the supplied 25-page bottles brochure (web-optimized copies). See [current update and evidence](CATALOG-DOWNLOAD-UPDATE.md). Earlier information-sheet URLs remain available.
+
+
 Date: 2026-11-05. Baseline verified locally and against origin: `80e30710fbbe119be7554e017a5d26487052388f`. Branch: `feature/upms-uat3a-website-content-completion`.
 
 ## IMPLEMENTED

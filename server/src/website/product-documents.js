@@ -7,11 +7,16 @@ export function productDocuments(root) {
  if(!existsSync(manifestPath)) return new Map(); // Compatibility with earlier releases.
  const manifest=JSON.parse(readFileSync(manifestPath,'utf8'));
  const ids=['buckets','cans','containers','stickers','cartons'];
- if(manifest.version!==1||Object.keys(manifest.documents||{}).sort().join()!==[...ids].sort().join())throw Error('Invalid product document manifest');
- return new Map(ids.map(id=>{
-  const doc=manifest.documents[id],filename=`unique-plastic-${id}-product-information.pdf`;
-  if(doc.filename!==filename||doc.url!==`/downloads/products/v1/${filename}`||doc.mime!=='application/pdf'||!Number.isSafeInteger(doc.bytes)||!/^[a-f0-9]{64}$/.test(doc.sha256))throw Error('Invalid product document entry');
-  const file=resolve(root,'downloads/products/v1',filename),bytes=readFileSync(file);
+ if(![1,2].includes(manifest.version)||Object.keys(manifest.documents||{}).sort().join()!==[...ids].sort().join())throw Error('Invalid product document manifest');
+ const retained=Object.entries(manifest.retainedDocuments||{});
+ if(retained.some(([id])=>!['buckets','cans','containers'].includes(id)))throw Error('Invalid retained product document');
+ return new Map([...ids.map(id=>[id,manifest.documents[id],false]),...retained.map(([id,doc])=>[id,doc,true])].map(([id,doc,legacy])=>{
+  const original=`unique-plastic-${id}-product-information.pdf`;
+  const supplied=id==='buckets'?['/downloads/products/v2/Bucket.pdf','Bucket.pdf']:['/downloads/products/v2/Company_Profile_New_HD_Bottles.pdf','Company_Profile_New_HD_Bottles (1).pdf'];
+  const generated=doc.filename===original&&doc.url===`/downloads/products/v1/${original}`;
+  const catalog=!legacy&&['buckets','cans','containers'].includes(id)&&doc.url===supplied[0]&&doc.filename===supplied[1];
+  if(!(generated||catalog)||doc.mime!=='application/pdf'||!Number.isSafeInteger(doc.bytes)||!/^[a-f0-9]{64}$/.test(doc.sha256))throw Error('Invalid product document entry');
+  const file=resolve(root,doc.url.slice(1)),bytes=readFileSync(file);
   if(bytes.length!==doc.bytes||bytes.subarray(0,5).toString()!=='%PDF-'||createHash('sha256').update(bytes).digest('hex')!==doc.sha256)throw Error('Product PDF integrity check failed');
   return [doc.url,{...doc,file}];
  }));

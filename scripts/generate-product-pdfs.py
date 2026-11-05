@@ -58,6 +58,15 @@ for p in data['products']:
  c.setFillColor(muted);c.setFont('Helvetica',7.5);c.drawString(40,28,'Confirm current availability, specifications and suitability directly with our team.');c.drawRightString(W-40,28,'1 / 1')
  c.showPage();c.save();blob=path.read_bytes();(delivery/name).write_bytes(blob)
  manifest['documents'][p['id']]={'title':p['title'],'url':'/downloads/products/v1/'+name,'filename':name,'mime':'application/pdf','bytes':len(blob),'sha256':hashlib.sha256(blob).hexdigest(),'imageKind':p['catalogImage'].get('imageKind','approved catalog photograph') if p['catalogImage'] else 'illustration','imageSource':p['image'],'catalogSource':p['source']}
+overrides_path=ROOT/'upms.client/src/data/productCatalogOverrides.json'
+if overrides_path.exists():
+ overrides=json.loads(overrides_path.read_text(encoding='utf8'))
+ manifest['version']=2
+ manifest['retainedDocuments']={key:manifest['documents'][key] for key in overrides}
+ for key,entry in overrides.items():
+  blob=(ROOT/('upms.client/public'+entry['url'])).read_bytes()
+  assert len(blob)==entry['bytes'] and hashlib.sha256(blob).hexdigest()==entry['sha256']
+  manifest['documents'][key]={**manifest['documents'][key],**entry}
 encoded=json.dumps(manifest,indent=2,ensure_ascii=False)+'\n'
 for target in ['upms.client/public/product-documents.json','upms.client/src/data/productDocuments.json']:(ROOT/target).write_text(encoded,encoding='utf8')
 print('Generated five deterministic A4 product PDFs and synchronized manifest.')

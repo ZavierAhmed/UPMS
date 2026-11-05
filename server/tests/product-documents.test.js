@@ -7,6 +7,11 @@ import {createHash} from 'node:crypto';
 import {fixture} from './helpers.js';
 import {productDocuments} from '../src/website/product-documents.js';
 const manifest=JSON.parse(readFileSync('upms.client/public/product-documents.json','utf8'));
+for(const [id,doc] of Object.entries(manifest.retainedDocuments||{}))test('retained information-sheet URL remains downloadable '+id,async()=>{
+ const r=await fixture({management:null}).api.get(doc.url).set('Host','localhost');
+ assert.equal(r.status,200);assert.equal(r.headers['content-type'],'application/pdf');
+ assert.equal(createHash('sha256').update(r.body).digest('hex'),doc.sha256);
+});
 for(const [id,doc] of Object.entries(manifest.documents))test('verified PDF attachment and category link '+id,async()=>{
  const api=fixture({management:null}).api;
  const r=await api.get(doc.url).set('Host','localhost');
@@ -27,8 +32,8 @@ test('manifest rejects path substitution, missing files and byte tampering',()=>
   const copy=structuredClone(manifest);copy.documents.buckets.url='/downloads/../../private.pdf';writeFileSync(resolve(root,'product-documents.json'),JSON.stringify(copy));assert.throws(()=>productDocuments(root),/Invalid product document entry/);
   writeFileSync(resolve(root,'product-documents.json'),JSON.stringify(manifest));assert.throws(()=>productDocuments(root),/ENOENT/);
   mkdirSync(resolve(root,'downloads/products/v1'),{recursive:true});
-  for(const doc of Object.values(manifest.documents))writeFileSync(resolve(root,'downloads/products/v1',doc.filename),readFileSync('upms.client/public'+doc.url));
-  assert.equal(productDocuments(root).size,5);
-  writeFileSync(resolve(root,'downloads/products/v1',manifest.documents.buckets.filename),'%PDF-tampered');assert.throws(()=>productDocuments(root),/integrity/);
+  for(const doc of [...Object.values(manifest.documents),...Object.values(manifest.retainedDocuments||{})]){const path=resolve(root,doc.url.slice(1));mkdirSync(resolve(path,'..'),{recursive:true});writeFileSync(path,readFileSync('upms.client/public'+doc.url));}
+  assert.equal(productDocuments(root).size,7);
+  writeFileSync(resolve(root,manifest.documents.buckets.url.slice(1)),'%PDF-tampered');assert.throws(()=>productDocuments(root),/integrity/);
  }finally{rmSync(root,{recursive:true,force:true});}
 });

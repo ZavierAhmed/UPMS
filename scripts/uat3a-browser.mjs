@@ -15,7 +15,7 @@ if(vite)await vite.listen();
 const server=vite?vite.httpServer:createApp({config,management:null,delivery:async()=> 'Unavailable'}).listen(0,'127.0.0.1');
 if(!vite)await new Promise(r=>server.once('listening',r));
 const origin='http://127.0.0.1:'+server.address().port;
-const evidence=resolve('docs/uat-3a/evidence/browser/'+label),downloadPath=resolve('tmp/uat3a/downloads/'+label);
+const evidence=resolve('docs/uat-3a/evidence/'+(process.env.UAT3A_EVIDENCE_SET?process.env.UAT3A_EVIDENCE_SET+'/':'')+'browser/'+label),downloadPath=resolve('tmp/uat3a/downloads/'+(process.env.UAT3A_EVIDENCE_SET||'initial')+'/'+label);
 await mkdir(evidence,{recursive:true});await mkdir(downloadPath,{recursive:true});
 const browser=await puppeteer.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});
 const report={label,chrome:await browser.version(),origin,viewports:[],downloads:[],consoleErrors:[],requestFailures:[]};
@@ -23,9 +23,11 @@ try{
  const page=await browser.newPage();
  page.on('pageerror',e=>report.consoleErrors.push(e.message));page.on('requestfailed',r=>report.requestFailures.push({url:r.url(),error:r.failure()?.errorText}));
  const manifest=JSON.parse(await readFile('upms.client/public/product-documents.json','utf8'));
- for(const width of viteMode?[]:[390,768,1024,1440,1920]){
+ const catalogsOnly=process.argv.includes('--catalogs-only');
+ const categories=catalogsOnly?['buckets','cans','containers']:Object.keys(manifest.documents);
+ for(const width of viteMode?[]:catalogsOnly?[390,1440]:[390,768,1024,1440,1920]){
   await page.setViewport({width,height:1000,deviceScaleFactor:1});
-  for(const path of [...Object.keys(manifest.documents).map(id=>'/products/'+id),'/manufacturing','/about']){
+  for(const path of [...categories.map(id=>'/products/'+id),...catalogsOnly?[]:['/manufacturing','/about']]){
    const response=await page.goto(origin+path,{waitUntil:'networkidle0'});assert.equal(response.status(),200);
    await page.evaluate(async()=>{for(let y=0;y<document.body.scrollHeight;y+=700){window.scrollTo(0,y);await new Promise(r=>setTimeout(r,20));}await Promise.all([...document.images].map(i=>i.decode().catch(()=>{})));window.scrollTo(0,0);});
    const checks=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth,brokenImages:[...document.images].filter(i=>!i.complete||i.naturalWidth===0).map(i=>i.src),canonical:document.querySelector('link[rel=canonical]')?.href,title:document.title,h1:document.querySelectorAll('h1').length,pdf:document.querySelector('a[download]')?.getAttribute('href'),hdpe:!!document.getElementById('hdpe-title')}));
@@ -39,7 +41,8 @@ try{
  const cdp=await browser.target().createCDPSession();
  await cdp.send('Browser.setDownloadBehavior',{behavior:'allow',downloadPath,eventsEnabled:true});
  await page.setViewport({width:1440,height:1000,deviceScaleFactor:1});
- for(const [id,doc] of Object.entries(manifest.documents)){
+ for(const id of categories){
+  const doc=manifest.documents[id];
   await page.goto(origin+'/products/'+id,{waitUntil:'networkidle0'});
   const finished=new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('Download timeout '+id)),20000);function progress(e){if(e.state==='completed'){clearTimeout(timer);cdp.off('Browser.downloadProgress',progress);resolve(e);}else if(e.state==='canceled'){clearTimeout(timer);reject(Error('Download canceled'));}}cdp.on('Browser.downloadProgress',progress);});
   await page.click('a[download]');await finished;
@@ -58,4 +61,4 @@ try{
  assert.deepEqual(report.consoleErrors,[]);assert.deepEqual(report.requestFailures,[]);
  report.passed=true;
 }finally{await writeFile(resolve(evidence,'results.json'),JSON.stringify(report,null,2)+'\n');await browser.close();server.closeAllConnections();if(vite)await vite.close();else await new Promise(r=>server.close(r));}
-console.log(label+': '+report.viewports.length+' responsive pages, 5 Chrome downloads/viewers, 20 image variants passed.');
+console.log(label+': '+report.viewports.length+' responsive pages, '+report.downloads.length+' Chrome downloads/viewers, 20 image variants passed.');

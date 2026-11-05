@@ -1,0 +1,145 @@
+{
+  "passed": true,
+  "pages": [
+    {
+      "page": "cans-01.jpg",
+      "maxChannelRms": 1.1788656881837483,
+      "sameDimensions": true
+    },
+    {
+      "page": "cans-02.jpg",
+      "maxChannelRms": 0.799008929200159,
+      "sameDimensions": true
+    },
+    {
+      "page": "cans-03.jpg",
+      "maxChannelRms": 0.8231305240659726,
+      "sameDimensions": true
+    },
+    {
+      "page": "cans-04.jpg",
+      "maxChannelRms": 0.7880346759326868,
+      "sameDimensions": true
+    },
+    {
+      "page": "cans-05.jpg",
+      "maxChannelRms": 0.5266888980184907,
+      "sameDimensions": true
+    },
+    {
+      "page": "cans-06.jpg",
+      "maxChannelRms": 0.8296742492920383,
+      "sameDimensions": true
+    },
+    {
+      "page": "cans-07.jpg",
+      "maxChannelRms": 0.8979981163270515,
+      "sameDimensions": true
+    },
+    {
+      "page": "cans-08.jpg",
+      "maxChannelRms": 0.5313608212357421,
+      "sameDimensions": true
+    },
+    {
+      "page": "cans-09.jpg",
+      "maxChannelRms": 0.8536588146860938,
+      "sameDimensions": true
+    },
+    {
+      "page": "cans-10.jpg",
+      "maxChannelRms": 0.8278202055124735,
+      "sameDimensions": true
+    },
+    {
+      "page": "cans-11.jpg",
+      "maxChannelRms": 0.4510639052468523,
+      "sameDimensions": true
+    },
+    {
+      "page": "cans-12.jpg",
+      "maxChannelRms": 0.44660534383339356,
+      "sameDimensions": true
+    },
+    {
+      "page": "cans-13.jpg",
+      "maxChannelRms": 0.4616714672436011,
+      "sameDimensions": true
+    },
+    {
+      "page": "cans-14.jpg",
+      "maxChannelRms": 0.4711822621003334,
+      "sameDimensions": true
+    },
+    {
+      "page": "cans-15.jpg",
+      "maxChannelRms": 0.5473563715658514,
+      "sameDimensions": true
+    },
+    {
+      "page": "cans-16.jpg",
+      "maxChannelRms": 0.46725017913498684,
+      "sameDimensions": true
+    },
+    {
+      "page": "cans-17.jpg",
+      "maxChannelRms": 0.41719361319729736,
+      "sameDimensions": true
+    },
+    {
+      "page": "cans-18.jpg",
+      "maxChannelRms": 0.5587380090118074,
+      "sameDimensions": true
+    },
+    {
+      "page": "cans-19.jpg",
+      "maxChannelRms": 0.47156262881787897,
+      "sameDimensions": true
+    },
+    {
+      "page": "cans-20.jpg",
+      "maxChannelRms": 0.2881504009314742,
+      "sameDimensions": true
+    },
+    {
+      "page": "cans-21.jpg",
+      "maxChannelRms": 0.5088800799805796,
+      "sameDimensions": true
+    },
+    {
+      "page": "cans-22.jpg",
+      "maxChannelRms": 0.5170656183432072,
+      "sameDimensions": true
+    },
+    {
+      "page": "cans-23.jpg",
+      "maxChannelRms": 0.5469370695861879,
+      "sameDimensions": true
+    },
+    {
+      "page": "cans-24.jpg",
+      "maxChannelRms": 0.5686664494674816,
+      "sameDimensions": true
+    },
+    {
+      "page": "cans-25.jpg",
+      "maxChannelRms": 0.6282102823567003,
+      "sameDimensions": true
+    },
+    {
+      "page": "bucket-1.png",
+      "maxChannelRms": 0.0,
+      "sameDimensions": true
+    },
+    {
+      "page": "bucket-2.png",
+      "maxChannelRms": 0.0,
+      "sameDimensions": true
+    },
+    {
+      "page": "bucket-3.png",
+      "maxChannelRms": 0.0,
+      "sameDimensions": true
+    }
+  ]
+}

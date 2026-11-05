@@ -1,0 +1,38 @@
+{
+  "buckets": {
+    "url": "/downloads/products/v2/Bucket.pdf",
+    "filename": "Bucket.pdf",
+    "mime": "application/pdf",
+    "bytes": 10870502,
+    "sha256": "7bfd18a028647affa58c8485ae3871b600ce6cfaae1a5d785ccc9d5faaa6ff65",
+    "documentKind": "owner-authorized source catalog, web-optimized",
+    "sourceFile": "Bucket.pdf",
+    "sourceSha256": "31ac761c47481272ae9498344713caa5bf36f57c4ed0de989f8f752d1161fbf2",
+    "pages": 3,
+    "optimization": "RGB image streams JPEG quality 94, 4:4:4; no resizing; original masks, vector artwork, text and page geometry preserved"
+  },
+  "cans": {
+    "url": "/downloads/products/v2/Company_Profile_New_HD_Bottles.pdf",
+    "filename": "Company_Profile_New_HD_Bottles (1).pdf",
+    "mime": "application/pdf",
+    "bytes": 34249461,
+    "sha256": "a535f1c654f5d0d306d3706253c22564fc6cff9d86bbed787c90f854169f37f9",
+    "documentKind": "owner-authorized source catalog, web-optimized",
+    "sourceFile": "Company_Profile_New_HD_Bottles (1).pdf",
+    "sourceSha256": "c62a5215fcdeb031f2a0e13e497a8cc4e5b2600f894a59f33b5a473debd26ca7",
+    "pages": 25,
+    "optimization": "RGB image streams JPEG quality 94, 4:4:4; no resizing; original masks, vector artwork, text and page geometry preserved"
+  },
+  "containers": {
+    "url": "/downloads/products/v2/Company_Profile_New_HD_Bottles.pdf",
+    "filename": "Company_Profile_New_HD_Bottles (1).pdf",
+    "mime": "application/pdf",
+    "bytes": 34249461,
+    "sha256": "a535f1c654f5d0d306d3706253c22564fc6cff9d86bbed787c90f854169f37f9",
+    "documentKind": "owner-authorized source catalog, web-optimized",
+    "sourceFile": "Company_Profile_New_HD_Bottles (1).pdf",
+    "sourceSha256": "c62a5215fcdeb031f2a0e13e497a8cc4e5b2600f894a59f33b5a473debd26ca7",
+    "pages": 25,
+    "optimization": "RGB image streams JPEG quality 94, 4:4:4; no resizing; original masks, vector artwork, text and page geometry preserved"
+  }
+}

@@ -41,9 +41,9 @@ if(godaddy){
 }
 if(cpanel)for(const name of ['GODADDY-CPANEL-DATABASE.md','GODADDY-CPANEL-COMPATIBILITY.md','UPMS-RETURN-DEPLOYMENT-PLAN.md','GODADDY-CPANEL-PREVIEW-VARIABLES.txt'])put(name,await readFile('docs/deployment/'+name));
 const approvedPdfs=productDocuments(resolve('upms.client/dist'));
-if(approvedPdfs.size!==5)throw Error('Five verified product PDFs are required');
+if(approvedPdfs.size<4||approvedPdfs.size>7)throw Error('Five category downloads and their retained PDFs must be verified');
 await collect("upms.client/dist", (name) =>
-  /^upms\.client\/dist\/(?:assets\/[^/]+\.(?:js|css|svg|jpg|jpeg|png|webp|avif|woff2)|management\/(?:index\.html|assets\/[^/]+\.(?:js|css|svg))|downloads\/products\/v1\/unique-plastic-(?:buckets|cans|containers|stickers|cartons)-product-information\.pdf|product-documents\.json|licenses\/[A-Za-z0-9-]+\.txt|_pages\/[A-Za-z0-9-]+\.html|index\.html|public-routes\.json|icons\.svg|favicon\.svg)$/.test(
+  /^upms\.client\/dist\/(?:assets\/[^/]+\.(?:js|css|svg|jpg|jpeg|png|webp|avif|woff2)|management\/(?:index\.html|assets\/[^/]+\.(?:js|css|svg))|downloads\/products\/(?:v1\/unique-plastic-(?:buckets|cans|containers|stickers|cartons)-product-information\.pdf|v2\/(?:Bucket|Company_Profile_New_HD_Bottles)\.pdf)|product-documents\.json|licenses\/[A-Za-z0-9-]+\.txt|_pages\/[A-Za-z0-9-]+\.html|index\.html|public-routes\.json|icons\.svg|favicon\.svg)$/.test(
     name,
   ),
 );

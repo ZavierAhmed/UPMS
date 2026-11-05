@@ -7,6 +7,13 @@ import documents from '../data/productDocuments.json';
 import ownerImages from '../data/ownerProductImages.json';
 import {existsSync,readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
+it('uses the owner-requested bucket and shared bottle catalogs on the correct categories',()=>{
+ expect(documents.documents.buckets.filename).toBe('Bucket.pdf');
+ expect(documents.documents.cans.filename).toBe('Company_Profile_New_HD_Bottles (1).pdf');
+ expect(documents.documents.containers.url).toBe(documents.documents.cans.url);
+ expect(documents.documents.buckets.pages).toBe(3);expect(documents.documents.cans.pages).toBe(25);
+ expect(Object.keys(documents.retainedDocuments).sort()).toEqual(['buckets','cans','containers']);
+});
 it.each(products)('offers a valid approved PDF for $title',p=>{
  render(<MemoryRouter initialEntries={['/products/'+p.id]}><App/></MemoryRouter>);
  const a=screen.getByRole('link',{name:/Download Product PDF/}),doc=documents.documents[p.id];

@@ -69,7 +69,7 @@ export default function ProductDetail() {
           </div>
           <div className="product-pdf">
             <a className="button button-outline" href={pdf.url} download={pdf.filename}>Download Product PDF ↓</a>
-            <small>PDF · {Math.ceil(pdf.bytes / 1024)} KB · Product information</small>
+            <small>PDF · {pdf.bytes >= 1024 * 1024 ? `${(pdf.bytes / (1024 * 1024)).toFixed(1)} MB` : `${Math.ceil(pdf.bytes / 1024)} KB`} · {pdf.documentKind ? 'Product catalog' : 'Product information'}</small>
           </div>
         </div>
       </section>

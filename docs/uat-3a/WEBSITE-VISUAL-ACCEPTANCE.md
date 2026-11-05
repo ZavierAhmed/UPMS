@@ -1,5 +1,8 @@
 # Website visual acceptance
 
+> **Owner catalog update — 2026-11-05:** Plastic Buckets now downloads the supplied 3-page `Bucket.pdf`; Lubricant Cans and Plastic Cans share the supplied 25-page bottles brochure (web-optimized copies). See [current update and evidence](CATALOG-DOWNLOAD-UPDATE.md). Earlier information-sheet URLs remain available.
+
+
 ## TESTED
 
 Chrome 156.0.8078.80, Windows; widths 390, 768, 1024, 1440 and 1920, CSS pixels, DPR1.

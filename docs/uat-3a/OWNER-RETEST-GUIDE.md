@@ -1,9 +1,12 @@
 # UAT-3A owner retest guide
 
+> **Owner catalog update — 2026-11-05:** Plastic Buckets now downloads the supplied 3-page `Bucket.pdf`; Lubricant Cans and Plastic Cans share the supplied 25-page bottles brochure (web-optimized copies). See [current update and evidence](CATALOG-DOWNLOAD-UPDATE.md). Earlier information-sheet URLs remain available.
+
+
 Open **http://127.0.0.1:3126/**. This is the public-only updated website preview; it does not use your management database, administrators or SMTP. Do not use this milestone package as a production deployment.
 
 1. Open Products and each of Plastic Buckets, Lubricant Cans, Plastic Cans, Stickers and Cartons.
-2. On every category click **Download Product PDF**. Open the downloaded file. Confirm the official company logo, correct category image/caption, description, inquiry guidance and contacts. Confirm there is one readable A4 page and text can be selected/searched.
+2. On every category click **Download Product PDF**. Open the downloaded file. Confirm the official company logo, correct category image/caption, description, inquiry guidance and contacts. Expect 3 pages for Plastic Buckets, 25 pages for Lubricant Cans and Plastic Cans, and a one-page A4 information sheet for Stickers and Cartons. Text remains selectable/searchable.
 3. Confirm bucket capacities 8L/10L/16L/20L, lubricant-can capacities 700ml/1L/3L/4L/5L and plastic-can capacities 20L/30L. Availability/specifications still require company confirmation. Stickers/cartons have no invented dimension/material/price list.
 4. Browse the three sticker label examples and two carton examples. Confirm the images and captions are suitable. Label brands are representative examples, not Unique Plastic lubricant products. The branded carton reference was not published.
 5. On About and Manufacturing, review manufacturing vs packaging support and custom-quotation wording. Confirm it matches your actual work.

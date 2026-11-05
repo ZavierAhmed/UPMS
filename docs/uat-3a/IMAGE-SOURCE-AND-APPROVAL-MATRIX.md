@@ -1,5 +1,8 @@
 # Image source and approval matrix
 
+> **Owner catalog update — 2026-11-05:** Plastic Buckets now downloads the supplied 3-page `Bucket.pdf`; Lubricant Cans and Plastic Cans share the supplied 25-page bottles brochure (web-optimized copies). See [current update and evidence](CATALOG-DOWNLOAD-UPDATE.md). Earlier information-sheet URLs remain available.
+
+
 ## Owner authorization
 
 During UAT-3A the owner answered the image-source/publication question: `C:\Users\zasah\Downloads\New folder` — “this folder have sticker and carton images which can be user for website”. That explicit approval authorizes use of its images for this task. Original files remain unchanged and private. The independent `Downloads/open-empty-box.jpg.jpeg` was reviewed but only the folder copy is used by the reproducible optimizer.
