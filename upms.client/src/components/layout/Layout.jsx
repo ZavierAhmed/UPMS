@@ -86,6 +86,7 @@ export function Header() {
 export function Footer() {
   return (
     <footer>
+      <a className="mobile-call" href={company.phones[0].href}>Call our team</a>
       <div className="container footer-grid">
         <div>
           <Brand />

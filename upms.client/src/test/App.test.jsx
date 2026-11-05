@@ -192,7 +192,7 @@ describe("navigation controls and contact", () => {
     open("/contact");
     const main = within(screen.getByRole("main"));
     expect(
-      main.getByRole("link", { name: "0314-2113472 ↗" }).getAttribute("href"),
+      main.getByRole("link", { name: /Secondary phone.*\+92 314 2113472/ }).getAttribute("href"),
     ).toBe("tel:+923142113472");
     expect(
       main

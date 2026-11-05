@@ -22,7 +22,7 @@ export default function Contact({ page = false }) {
         </div>
         <div className="contact-details">
           <span>CONTACT OUR TEAM</span>
-          {company.phones.map(phone=><a key={phone.href} href={phone.href}>{phone.label} ↗</a>)}
+          {company.phones.map(phone=><a key={phone.href} href={phone.href}><small>{phone.purpose}</small>{phone.label} ↗</a>)}
           <a className="email" href={email}>
             {company.email}
           </a>

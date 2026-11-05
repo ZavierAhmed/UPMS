@@ -31,7 +31,7 @@ export default function ContactPage() {
             <h3>Call us</h3>
             {company.phones.map((phone) => (
               <a href={phone.href} key={phone.href}>
-                {phone.label} ↗
+                <small>{phone.purpose}</small>{phone.label} ↗
               </a>
             ))}
           </div>
@@ -42,7 +42,7 @@ export default function ContactPage() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              +{company.whatsappNumber} ↗
+              {company.whatsappLabel} ↗
             </a>
             <p>Opens WhatsApp with a draft for you to review and send.</p>
           </div>

@@ -5,10 +5,12 @@ export const company = {
   name: "Unique Plastic Industry",
   email: "uniqueplastic56@gmail.com",
   whatsappNumber: "923142113472",
+  whatsappLabel: "+92 314 2113472",
   // Company owner confirmed this premises address in W03.3.
   address: "F-260/A, Wali Road, Metroville, S.I.T.E., Karachi 75700, Pakistan",
   phones: [
-    { label: "0314-2113472", href: "tel:+923142113472" },
+    { label: "+92 315 2209511", href: "tel:+923152209511", purpose: "Primary phone" },
+    { label: "+92 314 2113472", href: "tel:+923142113472", purpose: "Secondary phone" },
   ],
   map: "https://maps.app.goo.gl/KJGy7zo7cQhsFwsF6",
   // Pin coordinates from the supplied destination, not its map viewport center.

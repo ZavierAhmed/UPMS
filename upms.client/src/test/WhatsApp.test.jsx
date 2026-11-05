@@ -9,9 +9,9 @@ const label = "Contact Unique Plastic Industry on WhatsApp";
 describe("WhatsApp contact", () => {
   it("adds the configured contact method without replacing phone or email", () => {
     open("/contact");
-    const link = screen.getByRole("link", { name: "+923142113472 ↗" });
+    const link = screen.getByRole("link", { name: "+92 314 2113472 ↗" });
     expect(link.getAttribute("href")).toBe(buildWhatsAppLink(defaultWhatsAppMessage));
-    expect(screen.getByRole("link", { name: "0314-2113472 ↗" }).getAttribute("href")).toBe("tel:+923142113472");
+    expect(screen.getAllByRole("link", { name: /Secondary phone.*\+92 314 2113472/ })[0].getAttribute("href")).toBe("tel:+923142113472");
     expect(screen.getByRole("link", { name: "uniqueplastic56@gmail.com ↗" }).getAttribute("href")).toContain("mailto:");
   });
   it("uses the approved canonical number and optional encoded draft", () => {
@@ -44,3 +44,4 @@ describe("WhatsApp contact", () => {
     expect(screen.getByRole("combobox", { name: /product category/i }).value).toBe(product.id);
   });
 });
+
