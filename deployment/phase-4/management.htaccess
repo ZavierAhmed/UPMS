@@ -1,0 +1,26 @@
+# REVIEW CANDIDATE ONLY. Requires provider staging and final release authorization.
+Options -Indexes -MultiViews
+DirectoryIndex index.html
+RewriteEngine On
+RewriteCond %{HTTP_HOST} !^app\.unique-plastic\.com$ [NC]
+RewriteRule ^ - [R=404,END]
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://app.unique-plastic.com%{REQUEST_URI} [R=307,END]
+RewriteRule ^(?:\.|vendor|storage|bootstrap|app|config|routes|resources|tests|scripts|database|private)(?:/|$) - [R=404,END,NC]
+RewriteRule ^(?:composer\.(?:json|lock)|artisan|package(?:-lock)?\.json)$ - [R=404,END,NC]
+RewriteCond %{THE_REQUEST} \s/+gateway\.php(?:[?\s]) [NC]
+RewriteRule ^gateway\.php$ - [R=404,END]
+RewriteRule ^api/v1/management(?:/|$) gateway.php [END,QSA]
+RewriteRule ^api(?:/|$) - [R=404,END,NC]
+RewriteRule ^management/assets/([^/]+\.(?:js|css|svg))$ assets/$1 [END]
+RewriteRule ^assets/[^/]+\.(?:js|css|svg)$ - [END]
+RewriteRule ^(?:management(?:/.*)?|index\.html)?$ index.html [END]
+RewriteRule ^ - [R=404,END]
+<IfModule mod_headers.c>
+ Header always set X-Content-Type-Options "nosniff"
+ Header always set X-Frame-Options "DENY"
+ Header always set Referrer-Policy "same-origin"
+ Header always set Cache-Control "no-store"
+ Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'"
+ Header always set Strict-Transport-Security "max-age=15552000"
+</IfModule>

@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "ownerApproved": true,
+  "approvalDate": "2026-11-05",
+  "timezone": "Asia/Karachi",
+  "hourlyHours": 48,
+  "dailyDays": 35,
+  "weeklyWeeks": 12,
+  "monthlyMonths": 12,
+  "preservePreReleaseAndIncidentHolds": true,
+  "retroactiveDeletionAuthorized": false,
+  "deletionEnabled": false,
+  "independentRecoveryRequiredBeforePruning": true
+}

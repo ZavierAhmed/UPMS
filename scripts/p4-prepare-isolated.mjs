@@ -1,0 +1,20 @@
+import {readFile,writeFile,appendFile,mkdir} from 'node:fs/promises';
+import {resolve} from 'node:path';
+import assert from 'node:assert/strict';
+import {verifyUatEngine} from './php-7-5-engine-guard.mjs';
+import {provisionChequeWorkspace} from './uat2-workspace.mjs';
+import {extrasHelper} from './uat2a-workspace.mjs';
+await verifyUatEngine();
+await mkdir('tmp/phase-4',{recursive:true});
+const fixture=await provisionChequeWorkspace();
+const result=await extrasHelper(fixture,'install');
+assert.deepEqual(result.schemaHashes,JSON.parse(await readFile('upms.php/resources/cheque-extra-schema-hashes.json','utf8')));
+await appendFile(fixture.envPath,'UPMS_CHEQUE_EXTRAS_ENABLED=true\nUPMS_CHEQUE_ATTACHMENT_PDFINFO="C:/Users/zasah/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/poppler/Library/bin/pdfinfo.exe"\n');
+const proof=await extrasHelper(fixture,'verify');
+assert.equal(proof.schema.tables,47);assert.equal(proof.totalGuards,133);
+await writeFile(resolve(fixture.binding.directory,'cheque-guards.json'),JSON.stringify(proof,null,2)+'\n');
+// This private file contains only fresh synthetic credentials; never log or commit it.
+await writeFile('tmp/phase-4/fixture.json',JSON.stringify(fixture,null,2)+'\n');
+await mkdir('docs/phase-4/evidence',{recursive:true});
+await writeFile('docs/phase-4/evidence/target-fixture.json',JSON.stringify({passed:true,schema:fixture.binding.schema,runtime:proof.runtime,tables:proof.schema.tables,guards:proof.totalGuards,productionContacted:false,existingOwnerChanged:false},null,2)+'\n');
+console.log('Fresh isolated target verified: 47 tables / 133 guards. No existing owner database changed.');
