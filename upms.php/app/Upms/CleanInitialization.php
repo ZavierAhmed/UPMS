@@ -74,9 +74,20 @@ final class CleanInitialization
         } finally {
             fclose($f);
         }
-        if (!$first && !rename($temp, $path)) {
-            throw new \RuntimeException('PRIVATE_RECEIPT_FINALIZE_FAILED');
+        if ($first) {
+            return;
         }
+        // Windows can briefly deny replacement while another process holds the file open.
+        $attempts = PHP_OS_FAMILY === 'Windows' ? 8 : 1;
+        for ($attempt = 1; $attempt <= $attempts; $attempt++) {
+            if (@rename($temp, $path)) {
+                return;
+            }
+            if ($attempt < $attempts) {
+                usleep(50000 * $attempt);
+            }
+        }
+        throw new \RuntimeException('PRIVATE_RECEIPT_FINALIZE_FAILED');
     }
     private static function state(PDO $pdo, string $state, string $step): void
     {
