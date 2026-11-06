@@ -15,3 +15,5 @@ CloudLinux Node selector returned `selector_enabled:false`, empty `available_ver
 Existing source release is `c0d05b340cbaa136464015669fe650060e450f12`; 6070 source and 120 published files matched pinned manifests. Both certificates validated. Latest HTTP route/asset/redirect checks failed; see exact timestamped receipt. Do not infer exposed secrets merely from an HTTP 200 response, or infer application health from a trusted certificate.
 
 Cron entitlement is observed; actual recurring provider cron schedule and end-to-end failure alert delivery remain unverified in this assessment. No jobs were created or changed.
+
+The current served responses changed between probes. The first probe matched known frontend assets and HTTPS redirects, with several unexpected management HTTP 200 responses. The latest probe returned HTTP 200 without recognizable frontend assets or HTTP redirects on either surface. The latest strict verdict remains FAIL. Resolve the response path with the provider before hosted acceptance.

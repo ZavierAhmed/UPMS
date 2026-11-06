@@ -20,6 +20,10 @@ Assessment date: 2026-11-05. **Release BLOCKED. No deployment or activation auth
 | Current hosted Symfony dependencies | FAIL | Existing hosted 7.4.21 packages correspond to fresh advisory findings. Candidate lock patched to 7.4.23; live host unchanged. |
 | Candidate dependency audit | PASS | `composer-audit-after.json` and `npm-runtime-audit.json`; no reported advisories. |
 | Isolated regressions | PASS | PHP 169 tests / 1912 assertions, React 324 tests, final Node 304 tests; financial scenario evidence includes failures retained and successful retries. |
+| Extracted release files | PASS | release-verification.json verifies every extracted file in both committed-source archives. Public Node process and PHP vendor autoload started locally. |
+| Extracted public Chrome | PASS | 35 responsive cases, five PDF downloads/viewers, 20 image variants. |
+| Financial PDF and Excel | PASS | Four Chrome PDFs, 11 pages visually inspected, two Excel exports with no formulas, macros or external links. Synthetic bank closing PKR 52,100. |
+| Local management browser | FAIL | Layout passed 60 cases with no overflow, plus mobile navigation and reduced motion. Three request-error banners at 768 px require diagnosis. |
 | Real hosted isolated staging | BLOCKED | Distinct HTTPS staging, runtime lifecycle and separate reviewed secrets/database not established. Local browser evidence cannot substitute. |
 | Operational attachments | BLOCKED | No approved operational malware scanner or independently recovered attachment application key. Keep disabled. |
 | SMTP | NOT APPLICABLE | Disabled; no inquiry-delivery acceptance or enablement authorized. |
