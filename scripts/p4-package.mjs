@@ -38,6 +38,7 @@ async function finish(kind,files,metadata){
  await writeFile(resolve(output,name),bytes);await writeFile(resolve(output,name+'.sha256'),hash(bytes)+'  '+name+'\n');
  manifests.push({kind,sourceCommit:sha,archive:name,bytes:bytes.length,sha256:hash(bytes),fileCount:files.size,operationalReady:false});
 }
+if (!process.argv.includes('--management-only')) {
 const website=new Map();
 for(const directory of ['config','middleware','inquiries','website'])await tree(website,'server/src/'+directory,'server/src/'+directory,name=>name.endsWith('.js'));
 for(const name of ['public-app.js','production/runtime.js'])await add(website,'server/src/'+name,'server/src/'+name);
@@ -52,6 +53,7 @@ const pkg=JSON.parse(await readFile('package.json','utf8'));pkg.main='server/src
 website.set('package.json',Buffer.from(JSON.stringify(pkg,null,2)+'\n'));await add(website,'package-lock.json','package-lock.json');await add(website,'scripts/check-deployment.mjs','scripts/check-deployment.mjs');
 await add(website,'website.env.disabled.example','deployment/phase-4/website.env.disabled.example');
 await finish('website',website,{surface:'public-website-only',entrySource:'server/src/public-index.js',managementBackendIncluded:false,inquiryDelivery:'Disabled',targetHosting:'BLOCKED - GoDaddy selector disabled and no Node versions available'});
+}
 const management=new Map();
 for(const directory of ['app','bootstrap','config','routes','resources'])await tree(management,'upms.php/'+directory,'private/backend/'+directory,name=>!name.startsWith('private/backend/bootstrap/cache/')&&!/\.(?:log|sql|sqlite|env|key|pem|pfx|xlsx|pdf)$/i.test(name));
 for(const name of ['artisan','composer.json','composer.lock'])await add(management,'private/backend/'+name,'upms.php/'+name);
