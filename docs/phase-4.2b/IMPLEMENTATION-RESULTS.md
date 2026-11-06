@@ -1,0 +1,12 @@
+# P4.2B initializer review
+
+The private PHP bootstrap creates the 47-table catalog and 133 native guards on a pinned, empty MariaDB target. It records DDL progress in a private journal and binds a cumulative pending receipt to the schema, server, plan and release. The bootstrap seeds base identity and control state and enrolls two administrators through the existing audited enrollment service. Business posting stays disabled.
+
+The SQL identities are distinct and scoped to the exact target schema. The installer requires CREATE, REFERENCES, SELECT, INSERT and UPDATE. The guard definer requires SELECT and TRIGGER. The runtime requires SELECT, INSERT, UPDATE and DELETE. The packaged entry point requires private production profiles, an approved exact target, the verified private release manifest and administrator credentials supplied over standard input.
+
+The first isolated MariaDB 10.11.19 rehearsal passed interruption after DDL, journal-based restart, idempotent enrollment and catalog verification. Both synthetic administrators authenticated through isolated Laravel with overlapping sessions. Both had mandatory rotation flagged, business access and invalid CSRF rejected, and logout followed by rejection of the revoked session cookie. A repeat rehearsal encountered a Windows journal replacement failure. A bounded atomic replacement retry was added. A fresh rehearsal from the corrected source passed the same interruption, resume, catalog, enrollment and session checks. The PHP regression suite passed 169 tests and 1,912 assertions before that follow-up change.
+
+The production startup gate remains blocked. The production runtime still expects the earlier schema and does not accept the cumulative pending receipt. Genuine cumulative feature seeds and receipts, production-configured business workflow acceptance, backup V2 and independent USB recovery are outstanding. The review package must stay out of production. Hosted databases, credentials, deployment, posting, SMTP and existing backup infrastructure were left intact.
+
+The management review archive was built from commit e4a0681f4a1692a0e858ce31c9919434d4ef4150. Its SHA-256 is 63981a181536d3f16a846aa50d307fe9e43b63d1fe951d003e5082bf498e20e4. All 5,981 archive entries were accounted for and every payload hash matched the release manifest. The existing public candidate hash remains 6f3ef919bacb29139c21bc165ec2891978912c70746e07ca5d1de7982a394525.
+

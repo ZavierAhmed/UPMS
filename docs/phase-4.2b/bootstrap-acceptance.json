@@ -1,0 +1,35 @@
+{
+  "schema": "upms_test_php_p42b_1793973169877",
+  "tables": 47,
+  "guards": 133,
+  "state": "CUMULATIVE_PENDING",
+  "adminIds": {
+    "admin": "1",
+    "haris": "2"
+  },
+  "businessPostingEnabled": false,
+  "productionStartupEnabled": false,
+  "passed": true,
+  "interruptedAfterDdlBeforeReceipt": true,
+  "idempotentResume": true,
+  "applicationMode": "isolated Laravel identity boundary",
+  "distinctAdministrators": 2,
+  "sessions": [
+    {
+      "login": 200,
+      "forcedRotation": true,
+      "businessBlocked": 403,
+      "badCsrf": 403,
+      "logout": 204,
+      "revoked": 401
+    },
+    {
+      "login": 200,
+      "forcedRotation": true,
+      "businessBlocked": 403,
+      "badCsrf": 403,
+      "logout": 204,
+      "revoked": 401
+    }
+  ]
+}
