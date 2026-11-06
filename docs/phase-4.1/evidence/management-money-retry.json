@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "readOnly": true,
+  "results": [
+    {
+      "width": 1920,
+      "path": "/money-accounts",
+      "overflow": false,
+      "heading": "Money Accounts",
+      "alerts": []
+    }
+  ],
+  "failures": [],
+  "filters": [],
+  "unsafeRequests": []
+}

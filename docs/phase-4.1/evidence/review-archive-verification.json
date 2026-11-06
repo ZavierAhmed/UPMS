@@ -1,20 +1,20 @@
 [
   {
     "kind": "website",
-    "sourceCommit": "eee4767748a3eb4a604d27318051eea34b5bb38b",
+    "sourceCommit": "3ce5e00f5c5c6950b7c61b27695d22169ac849b8",
     "archive": "upms-p4-public-node.zip",
-    "bytes": 50971627,
-    "sha256": "167d51ea2f46b3920f513541367ef0e0b9e9d13ac9a525f4fd48077777bb8630",
+    "bytes": 50971629,
+    "sha256": "99d5f461b70784c0b8f765b012f6e3ee96a77c28013bd5fb6f5085f95ce52315",
     "fileCount": 156,
     "operationalReady": false,
     "allArchiveEntriesVerified": true
   },
   {
     "kind": "management",
-    "sourceCommit": "eee4767748a3eb4a604d27318051eea34b5bb38b",
+    "sourceCommit": "3ce5e00f5c5c6950b7c61b27695d22169ac849b8",
     "archive": "upms-p4-management-php.zip",
-    "bytes": 8141973,
-    "sha256": "b1d9924e709b1618e3d4673f971b0671742a8988a232fa9f42d27050634e0ebe",
+    "bytes": 8141977,
+    "sha256": "cf6c09708d4d2040b8fa08c5832644df150722b2ffe6ddae198cd318e9572e5d",
     "fileCount": 5978,
     "operationalReady": false,
     "allArchiveEntriesVerified": true

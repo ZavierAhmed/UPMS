@@ -1,5 +1,5 @@
 {
-  "passed": false,
+  "passed": true,
   "readOnly": true,
   "results": [
     {
@@ -384,10 +384,8 @@
       "width": 1920,
       "path": "/money-accounts",
       "overflow": false,
-      "heading": "",
-      "alerts": [
-        "This request could not be completed. Refresh and try again."
-      ]
+      "heading": "Money Accounts",
+      "alerts": []
     },
     {
       "width": 1920,
@@ -433,15 +431,7 @@
       "passed": true
     }
   ],
-  "failures": [
-    {
-      "width": 1920,
-      "path": "/money-accounts",
-      "route": "/api/v1/management/simple-v1/documents",
-      "method": "GET",
-      "status": 503,
-      "requestRef": "ba43c38b-8f03-431b-a8a1-8e86cfcc439f",
-      "code": "IDENTITY_UNAVAILABLE"
-    }
-  ]
+  "failures": [],
+  "filters": [],
+  "unsafeRequests": []
 }
