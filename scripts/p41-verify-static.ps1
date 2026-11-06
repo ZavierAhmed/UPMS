@@ -1,4 +1,4 @@
-param([string]$ApacheRoot='C:/xampp/apache')
+param([string]$ApacheRoot='C:/xampp/apache',[switch]$Browser)
 $ErrorActionPreference='Stop'
 $base=(Resolve-Path 'tmp/phase-4.1/static').Path.Replace('\','/')
 $root="$base/apache-site-$([Guid]::NewGuid().ToString('N'))"
@@ -85,6 +85,10 @@ try {
  $checks+=Probe '/api/v1/management/probe' 200 'https' 5228 'app.unique-plastic.com'
  if((Get-Content "$base/response.tmp" -Raw).Trim() -ne 'GATEWAY_ROUTE_FIXTURE'){throw 'Management API did not reach fixture gateway'}
  @{passed=$true;localTestCertificate=$true;gatewayRoutingFixtureOnly=$true;archiveSha256=$zipHash.ToLowerInvariant();onlineInquiry=$false;checks=$checks}|ConvertTo-Json -Depth 5|Set-Content docs/phase-4.1/evidence/static-apache.json
+ if($Browser){
+  & './tmp/production-readiness/node22/node_modules/node/bin/node.exe' scripts/p41-static-browser.mjs
+  if($LASTEXITCODE){throw 'Static Chrome checks failed'}
+ }
 }finally{
  if(!$worker.HasExited){Stop-Process -Id $worker.Id}
 }

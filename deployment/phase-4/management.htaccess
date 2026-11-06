@@ -1,6 +1,7 @@
 # REVIEW CANDIDATE ONLY. Requires provider staging and final release authorization.
 Options -Indexes -MultiViews
 DirectoryIndex index.html
+DirectorySlash Off
 RewriteEngine On
 RewriteCond %{HTTP_HOST} !^app\.unique-plastic\.com$ [NC]
 RewriteRule ^ - [R=404,END]
