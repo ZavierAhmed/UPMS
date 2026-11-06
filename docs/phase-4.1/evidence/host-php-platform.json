@@ -1,0 +1,99 @@
+{
+  "passed": true,
+  "source": "verified P4.0 hosted CLI inventory",
+  "webSapiVerified": false,
+  "checks": [
+    {
+      "present": true,
+      "extension": "ext-ctype",
+      "constraint": "*"
+    },
+    {
+      "present": true,
+      "extension": "ext-curl",
+      "constraint": "*"
+    },
+    {
+      "present": true,
+      "extension": "ext-dom",
+      "constraint": "*"
+    },
+    {
+      "present": true,
+      "extension": "ext-fileinfo",
+      "constraint": "*"
+    },
+    {
+      "present": true,
+      "extension": "ext-filter",
+      "constraint": "*"
+    },
+    {
+      "present": true,
+      "extension": "ext-hash",
+      "constraint": "*"
+    },
+    {
+      "present": true,
+      "extension": "ext-iconv",
+      "constraint": "*"
+    },
+    {
+      "present": true,
+      "extension": "ext-json",
+      "constraint": "*"
+    },
+    {
+      "present": true,
+      "extension": "ext-libxml",
+      "constraint": "*"
+    },
+    {
+      "present": true,
+      "extension": "ext-mbstring",
+      "constraint": "*"
+    },
+    {
+      "present": true,
+      "extension": "ext-openssl",
+      "constraint": "*"
+    },
+    {
+      "present": true,
+      "extension": "ext-pcre",
+      "constraint": "*"
+    },
+    {
+      "present": true,
+      "extension": "ext-pdo",
+      "constraint": "*"
+    },
+    {
+      "present": true,
+      "extension": "ext-pdo_mysql",
+      "constraint": "*"
+    },
+    {
+      "present": true,
+      "extension": "ext-session",
+      "constraint": "*"
+    },
+    {
+      "present": true,
+      "extension": "ext-sodium",
+      "constraint": "*"
+    },
+    {
+      "present": true,
+      "extension": "ext-tokenizer",
+      "constraint": "*"
+    },
+    {
+      "present": true,
+      "extension": "ext-xml",
+      "constraint": "*"
+    }
+  ],
+  "sapi": "cli",
+  "phpVersion": "8.3.36"
+}

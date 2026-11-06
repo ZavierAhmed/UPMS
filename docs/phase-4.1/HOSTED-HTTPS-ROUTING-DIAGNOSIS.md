@@ -1,0 +1,13 @@
+# Hosted HTTPS and routing diagnosis
+
+External P4.1 checks validated both certificates, matched published asset hashes and observed both HTTPS redirects. Management private and wrong-host API paths still returned unexpected HTTP 200 responses. They did not contain the recognized React mount, matching JS/CSS set, or source/secret signatures. The response is neither a confirmed SPA fallback nor evidence of private-file disclosure. The external denial gate remains FAIL.
+
+Read-only SSH inspection confirmed the live public and dashboard rewrite files. Public SHA-256 79d38fd4059b35a290ff6236571eef27fb24849f20ff83e17361bce038c2436d. Dashboard SHA-256 e5a1fb5728817c8e5b7dea42d8e070e52385c6f36e3c4b31a509b5f525134236. Both put ACME and HTTPS handling first. Public skips its own routing for the dashboard hostname, denies private and wrong-surface paths before its existing-file check, then falls back to index.html. Dashboard denies private paths, rewrites management API to gateway.php, denies other API paths, then falls back for remaining misses.
+
+From the hosting network, both roots returned 200 HTML and both HTTP roots redirected with 307. Vendor and storage paths returned 403 on both hosts. Public management CSRF and dashboard public inquiry returned 403. A GET to the correct dashboard CSRF endpoint returned 200 JSON. That probe can initialize an anonymous session. Future diagnostic probes should use wrong-host paths or an explicitly non-mutating management endpoint.
+
+The discrepancy suggests a response path outside the observed origin rules. Obtain provider edge/cache/WAF request correlation and compare identical request fingerprints before changing live routing. Prepare the strict allowlist/fallback behavior in staging, preserve certificate challenges, and validate external denial and direct gateway rejection with the provider. Private server log correlation and privileged Apache vhost configuration are still unverified.
+
+The isolated Apache reproduction passes explicit 404 for private names, nested dotfiles, direct gateway and wrong-surface API requests. The ACME allowlist stays ahead of redirects and denials. A management route reaches the shell and an authorized management path reaches a placeholder gateway, which tests rewrite selection only. Production PHP routing is still subject to hosted staging.
+
+The second external sample with a fixed user agent and no-cache request headers again returned distinct HTML fingerprints for all four denial paths. The approved title marker, PHP source, Laravel trace and Composer metadata checks found no match. Preserve the body fingerprints in evidence/host-response-classification.jsonl and request provider-side correlation before editing origin rules.

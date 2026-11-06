@@ -1,0 +1,729 @@
+{
+  "passed": false,
+  "readOnly": true,
+  "results": [
+    {
+      "width": 390,
+      "path": "",
+      "overflow": false,
+      "heading": "Dashboard",
+      "alerts": []
+    },
+    {
+      "width": 390,
+      "path": "/items",
+      "overflow": false,
+      "heading": "Items",
+      "alerts": []
+    },
+    {
+      "width": 390,
+      "path": "/stock-in/new",
+      "overflow": false,
+      "heading": "Production stock in",
+      "alerts": []
+    },
+    {
+      "width": 390,
+      "path": "/challans",
+      "overflow": false,
+      "heading": "Delivery Challans",
+      "alerts": []
+    },
+    {
+      "width": 390,
+      "path": "/clients",
+      "overflow": false,
+      "heading": "Clients",
+      "alerts": []
+    },
+    {
+      "width": 390,
+      "path": "/vendors",
+      "overflow": false,
+      "heading": "Vendors",
+      "alerts": []
+    },
+    {
+      "width": 390,
+      "path": "/money-accounts",
+      "overflow": false,
+      "heading": "Money Accounts",
+      "alerts": []
+    },
+    {
+      "width": 390,
+      "path": "/employee-hafta",
+      "overflow": false,
+      "heading": "Employee Hafta",
+      "alerts": []
+    },
+    {
+      "width": 390,
+      "path": "/expenses",
+      "overflow": false,
+      "heading": "Business Expenses",
+      "alerts": []
+    },
+    {
+      "width": 390,
+      "path": "/reports",
+      "overflow": false,
+      "heading": "stock report",
+      "alerts": []
+    },
+    {
+      "width": 390,
+      "path": "/cheques",
+      "overflow": false,
+      "heading": "Cheques",
+      "alerts": []
+    },
+    {
+      "width": 390,
+      "path": "/cheques?new=1",
+      "overflow": false,
+      "heading": "",
+      "alerts": [
+        "This request could not be completed. Refresh and try again."
+      ]
+    },
+    {
+      "width": 768,
+      "path": "",
+      "overflow": false,
+      "heading": "Dashboard",
+      "alerts": []
+    },
+    {
+      "width": 768,
+      "path": "/items",
+      "overflow": false,
+      "heading": "",
+      "alerts": [
+        "This request could not be completed. Refresh and try again."
+      ]
+    },
+    {
+      "width": 768,
+      "path": "/stock-in/new",
+      "overflow": false,
+      "heading": "",
+      "alerts": [
+        "This request could not be completed. Refresh and try again."
+      ]
+    },
+    {
+      "width": 768,
+      "path": "/challans",
+      "overflow": false,
+      "heading": "Delivery Challans",
+      "alerts": []
+    },
+    {
+      "width": 768,
+      "path": "/clients",
+      "overflow": false,
+      "heading": "",
+      "alerts": [
+        "This request could not be completed. Refresh and try again."
+      ]
+    },
+    {
+      "width": 768,
+      "path": "/vendors",
+      "overflow": false,
+      "heading": "Vendors",
+      "alerts": []
+    },
+    {
+      "width": 768,
+      "path": "/money-accounts",
+      "overflow": false,
+      "heading": "",
+      "alerts": [
+        "This request could not be completed. Refresh and try again."
+      ]
+    },
+    {
+      "width": 768,
+      "path": "/employee-hafta",
+      "overflow": false,
+      "heading": "",
+      "alerts": [
+        "This request could not be completed. Refresh and try again."
+      ]
+    },
+    {
+      "width": 768,
+      "path": "/expenses",
+      "overflow": false,
+      "heading": "",
+      "alerts": [
+        "This request could not be completed. Refresh and try again."
+      ]
+    },
+    {
+      "width": 768,
+      "path": "/reports",
+      "overflow": false,
+      "heading": "stock report",
+      "alerts": []
+    },
+    {
+      "width": 768,
+      "path": "/cheques",
+      "overflow": false,
+      "heading": "Cheques",
+      "alerts": []
+    },
+    {
+      "width": 768,
+      "path": "/cheques?new=1",
+      "overflow": false,
+      "heading": "Cheques",
+      "alerts": []
+    },
+    {
+      "width": 1024,
+      "path": "",
+      "overflow": false,
+      "heading": "Dashboard",
+      "alerts": []
+    },
+    {
+      "width": 1024,
+      "path": "/items",
+      "overflow": false,
+      "heading": "Items",
+      "alerts": []
+    },
+    {
+      "width": 1024,
+      "path": "/stock-in/new",
+      "overflow": false,
+      "heading": "Production stock in",
+      "alerts": []
+    },
+    {
+      "width": 1024,
+      "path": "/challans",
+      "overflow": false,
+      "heading": "Delivery Challans",
+      "alerts": []
+    },
+    {
+      "width": 1024,
+      "path": "/clients",
+      "overflow": false,
+      "heading": "Clients",
+      "alerts": []
+    },
+    {
+      "width": 1024,
+      "path": "/vendors",
+      "overflow": false,
+      "heading": "Vendors",
+      "alerts": []
+    },
+    {
+      "width": 1024,
+      "path": "/money-accounts",
+      "overflow": false,
+      "heading": "Money Accounts",
+      "alerts": []
+    },
+    {
+      "width": 1024,
+      "path": "/employee-hafta",
+      "overflow": false,
+      "heading": "Employee Hafta",
+      "alerts": []
+    },
+    {
+      "width": 1024,
+      "path": "/expenses",
+      "overflow": false,
+      "heading": "Business Expenses",
+      "alerts": []
+    },
+    {
+      "width": 1024,
+      "path": "/reports",
+      "overflow": false,
+      "heading": "stock report",
+      "alerts": []
+    },
+    {
+      "width": 1024,
+      "path": "/cheques",
+      "overflow": false,
+      "heading": "Cheques",
+      "alerts": []
+    },
+    {
+      "width": 1024,
+      "path": "/cheques?new=1",
+      "overflow": false,
+      "heading": "Cheques",
+      "alerts": []
+    },
+    {
+      "width": 1440,
+      "path": "",
+      "overflow": false,
+      "heading": "Dashboard",
+      "alerts": []
+    },
+    {
+      "width": 1440,
+      "path": "/items",
+      "overflow": false,
+      "heading": "Items",
+      "alerts": []
+    },
+    {
+      "width": 1440,
+      "path": "/stock-in/new",
+      "overflow": false,
+      "heading": "Production stock in",
+      "alerts": []
+    },
+    {
+      "width": 1440,
+      "path": "/challans",
+      "overflow": false,
+      "heading": "Delivery Challans",
+      "alerts": []
+    },
+    {
+      "width": 1440,
+      "path": "/clients",
+      "overflow": false,
+      "heading": "Clients",
+      "alerts": []
+    },
+    {
+      "width": 1440,
+      "path": "/vendors",
+      "overflow": false,
+      "heading": "Vendors",
+      "alerts": []
+    },
+    {
+      "width": 1440,
+      "path": "/money-accounts",
+      "overflow": false,
+      "heading": "Money Accounts",
+      "alerts": []
+    },
+    {
+      "width": 1440,
+      "path": "/employee-hafta",
+      "overflow": false,
+      "heading": "Employee Hafta",
+      "alerts": []
+    },
+    {
+      "width": 1440,
+      "path": "/expenses",
+      "overflow": false,
+      "heading": "Business Expenses",
+      "alerts": []
+    },
+    {
+      "width": 1440,
+      "path": "/reports",
+      "overflow": false,
+      "heading": "stock report",
+      "alerts": []
+    },
+    {
+      "width": 1440,
+      "path": "/cheques",
+      "overflow": false,
+      "heading": "Cheques",
+      "alerts": []
+    },
+    {
+      "width": 1440,
+      "path": "/cheques?new=1",
+      "overflow": false,
+      "heading": "Cheques",
+      "alerts": []
+    },
+    {
+      "width": 1920,
+      "path": "",
+      "overflow": false,
+      "heading": "Dashboard",
+      "alerts": []
+    },
+    {
+      "width": 1920,
+      "path": "/items",
+      "overflow": false,
+      "heading": "Items",
+      "alerts": []
+    },
+    {
+      "width": 1920,
+      "path": "/stock-in/new",
+      "overflow": false,
+      "heading": "Production stock in",
+      "alerts": []
+    },
+    {
+      "width": 1920,
+      "path": "/challans",
+      "overflow": false,
+      "heading": "Delivery Challans",
+      "alerts": []
+    },
+    {
+      "width": 1920,
+      "path": "/clients",
+      "overflow": false,
+      "heading": "Clients",
+      "alerts": []
+    },
+    {
+      "width": 1920,
+      "path": "/vendors",
+      "overflow": false,
+      "heading": "Vendors",
+      "alerts": []
+    },
+    {
+      "width": 1920,
+      "path": "/money-accounts",
+      "overflow": false,
+      "heading": "Money Accounts",
+      "alerts": []
+    },
+    {
+      "width": 1920,
+      "path": "/employee-hafta",
+      "overflow": false,
+      "heading": "Employee Hafta",
+      "alerts": []
+    },
+    {
+      "width": 1920,
+      "path": "/expenses",
+      "overflow": false,
+      "heading": "Business Expenses",
+      "alerts": []
+    },
+    {
+      "width": 1920,
+      "path": "/reports",
+      "overflow": false,
+      "heading": "stock report",
+      "alerts": []
+    },
+    {
+      "width": 1920,
+      "path": "/cheques",
+      "overflow": false,
+      "heading": "Cheques",
+      "alerts": []
+    },
+    {
+      "width": 1920,
+      "path": "/cheques?new=1",
+      "overflow": false,
+      "heading": "Cheques",
+      "alerts": []
+    },
+    {
+      "navigation": "mobile searchable menu, Back and Forward",
+      "passed": true
+    },
+    {
+      "reducedMotion": true,
+      "passed": true
+    }
+  ],
+  "failures": [
+    {
+      "width": 390,
+      "path": "/cheques?new=1",
+      "route": "/api/v1/management/simple-v1/items",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 390,
+      "path": "/cheques?new=1",
+      "route": "/api/v1/management/simple-v1/documents",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 390,
+      "path": "/cheques?new=1",
+      "route": "/api/v1/management/simple-v1/parties",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 390,
+      "path": "/cheques?new=1",
+      "route": "/api/v1/management/simple-v1/parties",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 390,
+      "path": "/cheques?new=1",
+      "route": "/api/v1/management/simple-v1/overview",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 768,
+      "path": "/items",
+      "route": "/api/v1/management/simple-v1/parties",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 768,
+      "path": "/items",
+      "route": "/api/v1/management/simple-v1/documents",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 768,
+      "path": "/items",
+      "route": "/api/v1/management/simple-v1/parties",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 768,
+      "path": "/items",
+      "route": "/api/v1/management/simple-v1/overview",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 768,
+      "path": "/items",
+      "route": "/api/v1/management/simple-v1/items",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 768,
+      "path": "/stock-in/new",
+      "route": "/api/v1/management/simple-v1/overview",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 768,
+      "path": "/stock-in/new",
+      "route": "/api/v1/management/simple-v1/parties",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 768,
+      "path": "/stock-in/new",
+      "route": "/api/v1/management/simple-v1/parties",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 768,
+      "path": "/stock-in/new",
+      "route": "/api/v1/management/simple-v1/documents",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 768,
+      "path": "/clients",
+      "route": "/api/v1/management/simple-v1/items",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 768,
+      "path": "/clients",
+      "route": "/api/v1/management/simple-v1/documents",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 768,
+      "path": "/clients",
+      "route": "/api/v1/management/simple-v1/parties",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 768,
+      "path": "/clients",
+      "route": "/api/v1/management/simple-v1/parties",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 768,
+      "path": "/clients",
+      "route": "/api/v1/management/simple-v1/state",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 768,
+      "path": "/money-accounts",
+      "route": "/api/v1/management/simple-v1/money",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 768,
+      "path": "/employee-hafta",
+      "route": "/api/v1/management/simple-v1/parties",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 768,
+      "path": "/employee-hafta",
+      "route": "/api/v1/management/simple-v1/items",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 768,
+      "path": "/employee-hafta",
+      "route": "/api/v1/management/simple-v1/state",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 768,
+      "path": "/employee-hafta",
+      "route": "/api/v1/management/simple-v1/parties",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 768,
+      "path": "/employee-hafta",
+      "route": "/api/v1/management/simple-v1/documents",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 768,
+      "path": "/employee-hafta",
+      "route": "/api/v1/management/simple-v1/overview",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 768,
+      "path": "/expenses",
+      "route": "/api/v1/management/simple-v1/parties",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 768,
+      "path": "/expenses",
+      "route": "/api/v1/management/simple-v1/items",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 768,
+      "path": "/expenses",
+      "route": "/api/v1/management/simple-v1/documents",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 768,
+      "path": "/expenses",
+      "route": "/api/v1/management/simple-v1/parties",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    },
+    {
+      "width": 768,
+      "path": "/expenses",
+      "route": "/api/v1/management/simple-v1/state",
+      "method": "GET",
+      "status": 503,
+      "requestRef": null,
+      "code": "IDENTITY_UNAVAILABLE"
+    }
+  ]
+}

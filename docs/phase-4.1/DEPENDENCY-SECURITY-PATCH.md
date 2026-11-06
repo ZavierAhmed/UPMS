@@ -1,0 +1,11 @@
+# Dependency security update
+
+The verified deployed source and P4 candidate differ in three production package versions. Symfony http-foundation, http-kernel and routing move from 7.4.21 to 7.4.23. Hosted PHP CLI was 8.3.36. Candidate runtime validation must include real web PHP and the extensions required by the lock.
+
+Apply no live patch until the deployed vendor baseline and generated Composer files are verified, the changed-file manifest is reviewed and the exact candidate has passed staging. Preserve the prior vendor tree and composer.lock as a matched pair in protected storage. Use a reviewed maintenance cutover with old and new tree hashes. Roll back the paired lock and vendor tree if authentication, CSRF, API denial or readiness fails. This dependency update requires its own owner publication approval.
+
+Do not overlay a complete P4 management build onto the current application to perform a dependency-only fix. The old application and production database are separate release boundaries.
+
+The isolated dependency-only ZIP contains 38 before/after entries under the lock, Composer metadata and three Symfony trees. The ZIP carries a SHA-256 receipt and explicit production parity and publication flags. Reproduction: install the deployed c0d05b340cbaa136464015669fe650060e450f12 composer.json and composer.lock in tmp/phase-4.1/security-baseline with Composer 2.10.3 install --no-dev --no-scripts --prefer-dist --optimize-autoloader, then run scripts/p41-package-security.mjs against the verified P4 production-only vendor stage. A fresh candidate Composer audit reported zero advisories. The hosted hash comparison attempt timed out on SSH, so actual target-byte preconditions remain unverified.
+
+The lock's required extensions are present in the verified hosted PHP 8.3.36 CLI inventory. The isolated CLI platform and PHP suite passed. The web SAPI and exact deployed before hashes remain pending. For the next review, compare every manifest before hash and absence marker against the hosted release, stage replacements in a separate cloned release tree, verify every after hash and run Composer platform checks and the actual web readiness/session/CSRF checks there. Preserve the original tree for rollback. Do not apply the ZIP to a mismatched tree.

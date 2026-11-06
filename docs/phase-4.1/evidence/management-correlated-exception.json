@@ -1,0 +1,1 @@
+{"isolated":true,"route":"/api/v1/management/simple-v1/documents","method":"GET","status":503,"width":1920,"workspace":"/money-accounts","requestReference":"ba43c38b-8f03-431b-a8a1-8e86cfcc439f","exception":"PDOException","sqlState":"HY000","nativeCode":1205,"timeUtc":"2026-11-06T07:16:16Z"}

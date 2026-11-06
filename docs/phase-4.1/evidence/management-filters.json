@@ -1,0 +1,60 @@
+{
+  "passed": true,
+  "readOnly": true,
+  "results": [
+    {
+      "width": 768,
+      "path": "/challans",
+      "overflow": false,
+      "heading": "Delivery Challans",
+      "alerts": []
+    },
+    {
+      "width": 768,
+      "path": "/vendors",
+      "overflow": false,
+      "heading": "Vendors",
+      "alerts": []
+    },
+    {
+      "width": 768,
+      "path": "/cheques",
+      "overflow": false,
+      "heading": "Cheques",
+      "alerts": []
+    },
+    {
+      "navigation": "mobile searchable menu, Back and Forward",
+      "passed": true
+    },
+    {
+      "reducedMotion": true,
+      "passed": true
+    }
+  ],
+  "failures": [],
+  "filters": [
+    {
+      "path": "/challans",
+      "width": 768,
+      "initialRows": 0,
+      "emptyFilterMatched": true,
+      "clearedFilterRestored": true
+    },
+    {
+      "path": "/vendors",
+      "width": 768,
+      "initialRows": 0,
+      "emptyFilterMatched": true,
+      "clearedFilterRestored": true
+    },
+    {
+      "path": "/cheques",
+      "width": 768,
+      "initialRows": 32,
+      "emptyFilterMatched": true,
+      "clearedFilterRestored": true
+    }
+  ],
+  "unsafeRequests": []
+}

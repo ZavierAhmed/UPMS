@@ -1,0 +1,200 @@
+{
+  "baselineSource": "c0d05b340cbaa136464015669fe650060e450f12",
+  "candidateSource": "2899adb90ba66600776ef8324a0480f03082dede",
+  "platform": "local Composer rehearsal",
+  "productionBaselineParityVerified": false,
+  "publicationAuthorized": false,
+  "changes": [
+    {
+      "path": "composer.lock",
+      "before": "1e4c929cd7e6c3196a0f654acdd60e7eb83f5244e49c3c6ab94db08fb1747e21",
+      "after": "9d9c68ff043f301df0c61dac211f36fda85fd3d9d20668ded5d85f3f49cccae6"
+    },
+    {
+      "path": "vendor/composer/installed.json",
+      "before": "c3f7cc3d205075d5f576c32ea6a695c6744079b871871aa2ef24fe076749b958",
+      "after": "97b3f7895e5ed411da27654d0aacfa72547bc1b1de845ab2544c3d6dd75c8176"
+    },
+    {
+      "path": "vendor/composer/installed.php",
+      "before": "85c16330f677da290f39ba63deb362b8eb3011d9f4f5bc7add9b0cf6ae4bca57",
+      "after": "d540fd79dcb767206bc4ff41e478c95fd8d7008ffc1530182759819afc23bc5a"
+    },
+    {
+      "path": "vendor/symfony/http-foundation/BinaryFileResponse.php",
+      "before": "b40c8a1abee8750be858b36c9f0b2d423970f07af2f7a7106d48ef3169f69ca9",
+      "after": "d9ab5edc3b916307f945fccd272b49c30b31532719c9d22323b9145d7d2fa420"
+    },
+    {
+      "path": "vendor/symfony/http-foundation/CHANGELOG.md",
+      "before": "fb8efc9f0e0165119afe52f22ccc316930df610babcebbd34ca978ddcf780d64",
+      "after": "55a8eff661e5eacae5a610b0d046d489bb878d7c47a1f52960110d33cd924ee1"
+    },
+    {
+      "path": "vendor/symfony/http-foundation/Cookie.php",
+      "before": "a8f4fd7e5fa3fe3ed68a374476c63e4695819dcc74b7ac97c9b66dc5e8dfdb1a",
+      "after": "92d259dbf852ca354c7a6638d036549ba9af7eb19f24903c4ec647f350e876de"
+    },
+    {
+      "path": "vendor/symfony/http-foundation/HeaderUtils.php",
+      "before": "7bce7b1f51acafae82f051ba95af3bebedfa7d185b3ea050f66f3f656b104983",
+      "after": "3482d80504d6fe310d32ad7f4a156d569c30cbc0f6f213f61cd868bfe6065ad2"
+    },
+    {
+      "path": "vendor/symfony/http-foundation/InputBag.php",
+      "before": "9175bf975a0601a6a3eeab4bc0d5f87aaf3778fe89f02e4a63981e0ca76c3229",
+      "after": "3c43087fc26635dafbe1934fd79059e5629725dfcf843ada6d6f7d00e8a6301e"
+    },
+    {
+      "path": "vendor/symfony/http-foundation/IpUtils.php",
+      "before": "73b58a81feb6f2145578573a63a66d1e5f409dade5b664d619142b7876aea9de",
+      "after": "0d7f1a04fb094cd98a7e01b895183c5affa4518189cf8dfae7a18c67e57835d8"
+    },
+    {
+      "path": "vendor/symfony/http-foundation/ParameterBag.php",
+      "before": "7e7e3defe87edde7c5a33e141d7959f5caf1259e64611cec97ac82cab79232ff",
+      "after": "f7558a8f9aeefed1701cde5f3e1a7085105d3685547b14b4a7914dc3e9d3247c"
+    },
+    {
+      "path": "vendor/symfony/http-foundation/Request.php",
+      "before": "a08711c706aa2898d4de402e8bd9c8f19932bb49b2ddc390b489de2bea1aa9f4",
+      "after": "268a5e5ae4a9ce9ab5f56a75c70f24cc5d49665a59c20c3a7f8d57b1506e6704"
+    },
+    {
+      "path": "vendor/symfony/http-foundation/RequestMatcher/MethodRequestMatcher.php",
+      "before": "235921e247ff75d28d564049722b15bbac00814582d544001cf8c598c0d070df",
+      "after": "f97824b293f458866e43158f77f211dc7109de9a5e9f4244ce35132f42fe3bbc"
+    },
+    {
+      "path": "vendor/symfony/http-foundation/Session/Storage/Handler/AbstractSessionHandler.php",
+      "before": "33c8579bec8b1c196206cb20746e0d879599032849d69d72c0ec45d12cb74a2e",
+      "after": "d348cd1ba6e37e873db38ab360e492cbe8aa2d48595ac71f9fd8e67a7ca4d879"
+    },
+    {
+      "path": "vendor/symfony/http-foundation/Session/Storage/Handler/MarshallingSessionHandler.php",
+      "before": "c6c0833ee798ae62595791a873e39afea9f917749d94ce9fdc14324940ea33c2",
+      "after": "fd77c0536d41fdb6b3b9f372a3553a4e8a86ff3bb516718a3fafb76036530ee8"
+    },
+    {
+      "path": "vendor/symfony/http-foundation/Session/Storage/Handler/MemcachedSessionHandler.php",
+      "before": "65b653f273a6b7e2e161608988b8287c40b861d0ab787dc050b536482963c6ca",
+      "after": "8db99267a39b378a3783bdb934780c90d411554e89c43738fd8b2b121f6f88f1"
+    },
+    {
+      "path": "vendor/symfony/http-foundation/Session/Storage/Handler/MongoDbSessionHandler.php",
+      "before": "f18bc9c201f55530b727a59a33f39f9fd671daf948959f60370c9ed1a5ef9357",
+      "after": "d6d45f48ff3a599857f0abb0e688d45f09379be1d870b213ce88412f90336341"
+    },
+    {
+      "path": "vendor/symfony/http-foundation/Session/Storage/Handler/NullSessionHandler.php",
+      "before": "30097c966d2ed5ef044043ca627882a205db06d01e4757a1835dd4233b038bde",
+      "after": "921f9a5a705154a0202ec83dd0eb394e0737aea7245bd5d678b8a59890359ede"
+    },
+    {
+      "path": "vendor/symfony/http-foundation/Session/Storage/Handler/PdoSessionHandler.php",
+      "before": "e88292cf80ee41c0d422c5c8df162778bc1fc21d467bef755a15b47d75149b79",
+      "after": "3aaf1ee162b7d38171e98445f6157eccbb7cb9c57bad8482d68774af9f697822"
+    },
+    {
+      "path": "vendor/symfony/http-foundation/Session/Storage/Handler/RedisSessionHandler.php",
+      "before": "611d2ea2d5dbebc3b96953e126d1e0e07303ad84e92f98f10d62823bdfc4fd5d",
+      "after": "e133c34b056eb0505fe1ef4a80cb474844ceec96623937109108a2a75090a571"
+    },
+    {
+      "path": "vendor/symfony/http-foundation/Session/Storage/Handler/SessionHandlerFactory.php",
+      "before": "c43dab9e85f2a65afef2414dac92871398de9612240edfda8d01fa342017036a",
+      "after": "919a58af4ca2fc261baa28c31001f75d3136b84eaf580bfd4dc7282159bce703"
+    },
+    {
+      "path": "vendor/symfony/http-foundation/Session/Storage/NativeSessionStorage.php",
+      "before": "85a7942eca1c207c658dd04ea3edee3e5204e9d72c90f1c52fc04e80d45afc87",
+      "after": "cc75fc17f47d1a35c5bac99eeb27450d286c2f093c19ece0d27d4090778ff9e5"
+    },
+    {
+      "path": "vendor/symfony/http-foundation/UrlHelper.php",
+      "before": "22dbde8346d3ba24e4a3e894f488c033c7c3dcf5d63d7daecfa3989ab8ab884c",
+      "after": "ec5934ac02887b25f8e2cc2aec21ccb750acc40d8b807c6c2c5bd40cac386021"
+    },
+    {
+      "path": "vendor/symfony/http-kernel/Attribute/MapRequestPayload.php",
+      "before": "8e417709ebfeccf7fea15ce7f7a48ccd3f47ae9af291eeb61254c2e726e0fef1",
+      "after": "ec2d0de7e38fb39239d819fa6bc02fd9d7c6e26da658fab1c1b5660fe630ec58"
+    },
+    {
+      "path": "vendor/symfony/http-kernel/Controller/ArgumentResolver/RequestPayloadValueResolver.php",
+      "before": "3e4cf3c4b5687ed44303f5495567c3528c69ae5e2c3346b489465d0de9e811ae",
+      "after": "aa7ff9b8aaa213c699230abae3230d2d407e87654a7d92830ce0ea440040eccb"
+    },
+    {
+      "path": "vendor/symfony/http-kernel/DependencyInjection/LoggerPass.php",
+      "before": "06ac382a77dd5eafad91af9f3cb96fffb43a50bcb76f525cffe1d3f90a3235f1",
+      "after": "76e541c88b32e58b7cdceb0c6bd0f2c80c38dd110d488ba23a1857c5c2f912e1"
+    },
+    {
+      "path": "vendor/symfony/http-kernel/EventListener/CacheAttributeListener.php",
+      "before": "4b60b18866caffa08b0e30c7f101aa83d87927cc8005c14b954daecd5f56fb58",
+      "after": "67d6c701770cfdd858e1885efae27d4bc6591fabd958b880a0b5ed83920a814a"
+    },
+    {
+      "path": "vendor/symfony/http-kernel/EventListener/RouterListener.php",
+      "before": "265c470c1f8d5ae4348e43b979d93a1e751c4cfe2e0263988ed75f0abc59b7a7",
+      "after": "1c4dfde1b318260d7a7728a9f3cf4998842d24e91aad851dbba745a0503e7147"
+    },
+    {
+      "path": "vendor/symfony/http-kernel/HttpCache/HttpCache.php",
+      "before": "b1abb85afedb78e9395cb6c7dbd4e9da902f28d4df7f438538758b130565309b",
+      "after": "a28b32e7a8a843cb7f9cb6c9f86f54ba4237aa1e3832c62ee8c2988e3add58e7"
+    },
+    {
+      "path": "vendor/symfony/http-kernel/HttpCache/Store.php",
+      "before": "e564dda2fa696fd2ea813d3564c2406cc683cb0122360cbb80698ff3b1d09029",
+      "after": "1431fe74a5b21eb6e3c7260b9c47c888d383141a2c6613a768bd4f4c8506ba38"
+    },
+    {
+      "path": "vendor/symfony/http-kernel/HttpKernel.php",
+      "before": "3f73123c13bbc763cd897d8631fb36023711556a7c0c03b83481d3c83ab8d2c3",
+      "after": "6431259f95b0e4e74f8d194047404be13349edb4453e69c3d9c49ea8b851939b"
+    },
+    {
+      "path": "vendor/symfony/http-kernel/Kernel.php",
+      "before": "3960c7120016e90658daf7b1a8e0374e45a08c80abd5482e6924617f941b1cea",
+      "after": "0ed252854939e5bc4fe71d39b7f66cd9f62a6fbc52cbc81fc1738a26809c5c87"
+    },
+    {
+      "path": "vendor/symfony/http-kernel/Profiler/FileProfilerStorage.php",
+      "before": "ac082b7de4e12b262fd7eae55c4ec7256c552c9bbc80e1c2beed5b57b3996842",
+      "after": "7875975d338ed8ccbc8ece4b1d124b7c09dde8b04f99c02417ea4798872e05a4"
+    },
+    {
+      "path": "vendor/symfony/routing/Loader/schema/routing.schema.json",
+      "before": "f9a31c6b1b98ac661bfb1f58e3cfd223f6519d9e5c58c907d672ef4b3bda2cac",
+      "after": "2a51f49b7ee8b78433150945959144fdf664111a21e9239c648950a75592161a"
+    },
+    {
+      "path": "vendor/symfony/routing/Matcher/Dumper/CompiledUrlMatcherDumper.php",
+      "before": "654a48981b96488482630428f4b66e9a71d908becd8e7cde0861a588e1b00169",
+      "after": "71676be7be067271f1d09738547fa2bb8560cd13594f263c704d48a140b02b74"
+    },
+    {
+      "path": "vendor/symfony/routing/Matcher/Dumper/CompiledUrlMatcherTrait.php",
+      "before": "dfbac9b297b681577860017b8b5b990dcd72cfee4e0a10462a5bd0a0616b3f28",
+      "after": "453ccb58fcec58d3d3d0ba16a82027bf1c7f806480f544d71e864f2c1e60675a"
+    },
+    {
+      "path": "vendor/symfony/routing/Matcher/RedirectableUrlMatcher.php",
+      "before": "72e5b1e57e328b4b5dce431c2fb870a0ee760bff56d36d4d1e76ecbf0205e75b",
+      "after": "5dae9154a0994768c9acd53268d4c9fdb6091c0b2d699dc4ec5ca54d606fa4ba"
+    },
+    {
+      "path": "vendor/symfony/routing/Matcher/TraceableUrlMatcher.php",
+      "before": "408f70a7b7996d194c5c0347b21bf2f2fba07ccb1aa252d4de0dfd543dd92090",
+      "after": "78b90b3620b344ac5cc4d74518684f284fb692abacd46c2764d1b69cc54daf31"
+    },
+    {
+      "path": "vendor/symfony/routing/Matcher/UrlMatcher.php",
+      "before": "cf9261af64596d99430e576bc563c06bba33945ad29dd9d611060e8a4e8d4fc4",
+      "after": "f4652f3491cf063491d9eecb13763f879e74d0fd81cda753e8d5daad98f6e4e4"
+    }
+  ],
+  "archiveSha256": "4ba656f4eded61359caf93bd58f1a7feeef6f185643d925b46de90f004216ed6"
+}

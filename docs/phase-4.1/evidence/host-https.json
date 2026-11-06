@@ -1,0 +1,236 @@
+{
+  "verifiedUtc": "2026-11-06T06:51:28.041Z",
+  "tlsValidationBypassed": false,
+  "credentialsSent": false,
+  "databaseMutationsRequested": false,
+  "surfaces": {
+    "public": {
+      "host": "unique-plastic.com",
+      "ipv4": [
+        "184.168.100.110"
+      ],
+      "status": 200,
+      "htmlSha256": "b2bc1a7e11661dcfd4e960ec9fcdd1a330fd482952c23dd76958bccd94ed4db8",
+      "certificate": {
+        "authorized": true,
+        "protocol": "TLSv1.2",
+        "subject": {
+          "CN": "unique-plastic.com"
+        },
+        "issuer": {
+          "C": "US",
+          "O": "GoDaddy.com",
+          "CN": "GoDaddy TLS Intermediate CA DV - R1v1"
+        },
+        "validFrom": "Oct 24 18:32:39 2026 GMT",
+        "validTo": "May 10 18:32:39 2027 GMT",
+        "fingerprint256": "16:14:82:AF:96:9D:09:B2:03:5D:21:FD:DD:17:16:10:D4:3F:D9:E9:AF:EB:33:84:F0:A7:F9:A0:15:04:1A:C1"
+      },
+      "headers": {
+        "content-security-policy": null,
+        "x-frame-options": "DENY",
+        "x-content-type-options": "nosniff",
+        "strict-transport-security": null,
+        "cache-control": null,
+        "location": null,
+        "server": "Apache"
+      },
+      "httpStatus": 307,
+      "httpLocation": "https://unique-plastic.com/",
+      "assets": [
+        {
+          "path": "/assets/index-DIegzPpm.js",
+          "status": 200,
+          "sha256": "6dee70cc21eb5079de8fdbdae76ffec2dc88d048874d60212daf790f9493f005",
+          "matchesHostedRelease": true
+        },
+        {
+          "path": "/assets/index-C9c62GkN.css",
+          "status": 200,
+          "sha256": "15c553b9a9db26c45dd820c795a6b84c7dc1ce972b7eaa11278a1a4c569bfb08",
+          "matchesHostedRelease": true
+        }
+      ],
+      "privatePaths": [
+        {
+          "path": "/.env",
+          "status": 403,
+          "denied": true,
+          "bytes": 10851,
+          "contentType": "text/html",
+          "bodySha256": "331616aad805f29f192eec0a5b5274677f72f453564d4d5945f52b0dc52cf995",
+          "exactRootBody": false,
+          "reactRootMarkup": false,
+          "sameFrontendAssetSet": false,
+          "sourceOrSecretSignature": false
+        },
+        {
+          "path": "/composer.json",
+          "status": 403,
+          "denied": true,
+          "bytes": 13,
+          "contentType": "text/html; charset=iso-8859-1",
+          "bodySha256": "58404bdf6dc25c24fedd979469e69bfb8dc9ebca64a469929a858a12b12b9c30",
+          "exactRootBody": false,
+          "reactRootMarkup": false,
+          "sameFrontendAssetSet": false,
+          "sourceOrSecretSignature": false
+        },
+        {
+          "path": "/vendor/autoload.php",
+          "status": 403,
+          "denied": true,
+          "bytes": 13,
+          "contentType": "text/html; charset=iso-8859-1",
+          "bodySha256": "58404bdf6dc25c24fedd979469e69bfb8dc9ebca64a469929a858a12b12b9c30",
+          "exactRootBody": false,
+          "reactRootMarkup": false,
+          "sameFrontendAssetSet": false,
+          "sourceOrSecretSignature": false
+        },
+        {
+          "path": "/storage/logs/laravel.log",
+          "status": 403,
+          "denied": true,
+          "bytes": 13,
+          "contentType": "text/html; charset=iso-8859-1",
+          "bodySha256": "58404bdf6dc25c24fedd979469e69bfb8dc9ebca64a469929a858a12b12b9c30",
+          "exactRootBody": false,
+          "reactRootMarkup": false,
+          "sameFrontendAssetSet": false,
+          "sourceOrSecretSignature": false
+        }
+      ],
+      "isolation": {
+        "path": "/api/v1/management/session/csrf",
+        "status": 403,
+        "denied": true,
+        "bytes": 13,
+        "contentType": "text/html; charset=iso-8859-1",
+        "bodySha256": "58404bdf6dc25c24fedd979469e69bfb8dc9ebca64a469929a858a12b12b9c30",
+        "exactRootBody": false,
+        "reactRootMarkup": false,
+        "sameFrontendAssetSet": false,
+        "sourceOrSecretSignature": false
+      }
+    },
+    "management": {
+      "host": "app.unique-plastic.com",
+      "ipv4": [
+        "184.168.100.110"
+      ],
+      "status": 200,
+      "htmlSha256": "dabcbca9bdda499f2717a7b178feec2902ae0c10e4b25f048a9019164022a07a",
+      "certificate": {
+        "authorized": true,
+        "protocol": "TLSv1.2",
+        "subject": {
+          "CN": "app.unique-plastic.com"
+        },
+        "issuer": {
+          "C": "US",
+          "O": "Let's Encrypt",
+          "CN": "YR2"
+        },
+        "validFrom": "Oct 30 00:26:03 2026 GMT",
+        "validTo": "Jan 28 00:26:02 2027 GMT",
+        "fingerprint256": "57:4B:BE:4B:BD:32:BF:EE:66:29:0E:6C:46:83:E3:2A:7B:61:06:10:FB:C8:C7:7A:D0:EF:15:51:5B:38:8E:ED"
+      },
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
+        "x-frame-options": "DENY",
+        "x-content-type-options": "nosniff",
+        "strict-transport-security": null,
+        "cache-control": "no-store",
+        "location": null,
+        "server": "Apache"
+      },
+      "httpStatus": 307,
+      "httpLocation": "https://app.unique-plastic.com/",
+      "assets": [
+        {
+          "path": "/management/assets/index-DHvRfyov.js",
+          "status": 200,
+          "sha256": "6d0d76e447b88c0a8cffa0fa4817a4c41ed44d0c1145791940b555694b03e0e9",
+          "matchesHostedRelease": true
+        },
+        {
+          "path": "/management/assets/index-UzaSqto8.css",
+          "status": 200,
+          "sha256": "9a355d6031796b9d406dc50f3f1107a8fb0e3643e9b2339b60bf2f35327239c8",
+          "matchesHostedRelease": true
+        }
+      ],
+      "privatePaths": [
+        {
+          "path": "/.env",
+          "status": 403,
+          "denied": true,
+          "bytes": 10867,
+          "contentType": "text/html",
+          "bodySha256": "d377209f93ce3f7a8ed30da03451e04e198bc6141a2c67796c7b7084b6a3422b",
+          "exactRootBody": false,
+          "reactRootMarkup": false,
+          "sameFrontendAssetSet": false,
+          "sourceOrSecretSignature": false
+        },
+        {
+          "path": "/composer.json",
+          "status": 200,
+          "denied": false,
+          "bytes": 7102,
+          "contentType": "text/html; charset=utf-8",
+          "bodySha256": "7f10a3ea4521b5bffc0c31050421d4a3f8ca74ed4e11f478acddd16c991bf4f8",
+          "exactRootBody": false,
+          "reactRootMarkup": false,
+          "sameFrontendAssetSet": false,
+          "sourceOrSecretSignature": false
+        },
+        {
+          "path": "/vendor/autoload.php",
+          "status": 200,
+          "denied": false,
+          "bytes": 7100,
+          "contentType": "text/html; charset=utf-8",
+          "bodySha256": "2982fbefa783104e453416e31f066b115e3ad4a7eb084de27286d79ab74f25c0",
+          "exactRootBody": false,
+          "reactRootMarkup": false,
+          "sameFrontendAssetSet": false,
+          "sourceOrSecretSignature": false
+        },
+        {
+          "path": "/storage/logs/laravel.log",
+          "status": 200,
+          "denied": false,
+          "bytes": 7229,
+          "contentType": "text/html; charset=utf-8",
+          "bodySha256": "08dc1bbcc697d18fb36713202048270479935d7e28542662e3a08c4bd71a3dde",
+          "exactRootBody": false,
+          "reactRootMarkup": false,
+          "sameFrontendAssetSet": false,
+          "sourceOrSecretSignature": false
+        }
+      ],
+      "isolation": {
+        "path": "/api/v1/public/inquiries",
+        "status": 200,
+        "denied": false,
+        "bytes": 7140,
+        "contentType": "text/html; charset=utf-8",
+        "bodySha256": "580414e9fd7b36ce8b0302e806e2d415f3390e858d8cb1b13bf1c773f85ae984",
+        "exactRootBody": false,
+        "reactRootMarkup": false,
+        "sameFrontendAssetSet": false,
+        "sourceOrSecretSignature": false
+      }
+    }
+  },
+  "checks": {
+    "trustedHttps": true,
+    "servedAssetHashes": true,
+    "privatePathsDenied": false,
+    "apiHostIsolation": false,
+    "httpsRedirects": true
+  },
+  "passed": false
+}
