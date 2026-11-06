@@ -1,0 +1,19 @@
+# P4.2 deployment readiness
+
+P4.2 verified the requested local and remote baseline 3cc56b3373483f02d5ec8072aab7b335f970c6e5 before branching. Catalogue-only on GoDaddy Apache is the chosen public release. Management remains PHP/Laravel, React and MariaDB.
+
+The live deployment verifier passed for source c0d05b340cbaa136464015669fe650060e450f12 and manifest SHA-256 059da290b1b4c9f13732daa15b958bb0c5d6db78471d797f62e32bce9ecfb037. The public root contains .htaccess, index.html, icons.svg, favicon.svg, public-routes.json, inquiry.php, _pages, assets and licenses. The nested dashboard and cgi-bin are outside the public cutover scope. The public rewrite SHA-256 is 79d38fd4059b35a290ff6236571eef27fb24849f20ff83e17361bce038c2436d. The dashboard rewrite SHA-256 is e5a1fb5728817c8e5b7dea42d8e070e52385c6f36e3c4b31a509b5f525134236.
+
+The exact P4.1B catalogue ZIP is reused. SHA-256 6a48e97c578bdf8daa15326ced0b08f66717f25d6c391b9ba068d09e41938f58. It contains 141 files including seven approved PDFs. Catalogue mode disables online inquiry and retains the primary phone, email and WhatsApp alternatives. The existing live inquiry.php needs to move to protected rollback custody during an approved static cutover because it is a legacy executable outside the new manifest.
+
+External probe at 2026-11-06 17:36 PKT passed certificate validation and failed asset identity, redirect, denial and host separation checks. The origin-network comparison attempt timed out at SSH port 22. Prior origin results and the fresh live file inventory cannot attribute the external responses to Apache, the edge or a WAF.
+
+## Provider support request draft
+
+Please correlate public HTTPS responses for unique-plastic.com and app.unique-plastic.com at 2026-11-06 12:36:01 UTC. On app.unique-plastic.com, GET /.env returned 403, GET /composer.json returned HTML 200 with body SHA-256 66740cd95e50bafa182cfbd705fdb9a8521971f9e141b7ae7ee7bb7f488bc56c and GET /vendor/autoload.php returned HTML 200 with SHA-256 7cee9dad94eb4030bb49ea634fe2e1e029959c22c2ded62357ba7eed3d42824a. GET /storage/logs/laravel.log returned HTML 200 with SHA-256 0b5416668a4a3224c70067f76ff72ec00106e78b41fde8f0b09c01d2dbe66a0f. Wrong-host APIs returned 200. Confirm the responding layer, vhost and document root, request correlation IDs, origin status, and edge/cache/WAF policy for these paths. Provide a method to verify direct-origin and public-edge responses with valid TLS and restore explicit denials. No confirmed source or secret disclosure was observed.
+
+The P4.1 Symfony patch archive remains the reviewed security-only candidate. A separate publication requires live before-hash parity, web SAPI compatibility, isolated staging and a verified rollback pair. PHP CLI inventory is evidence for CLI only.
+
+The reused catalogue passed 152 isolated Apache checks and Chrome verified gallery navigation, disabled inquiry, the primary telephone and WhatsApp. The PHP management ZIP built from 535a1495070bca6136529313028b0a7493783f0b contains 5,978 files and has SHA-256 b7a7cf5289f7820084e0270384e9b4ab7442aa3fbffd669eeae004065c956f92. Every archive entry matched its manifest, and the Composer lock matched the checkout. The package remains marked operationalReady=false and automaticDatabaseMigration=false. Fresh PHP passed 169 tests and 1,912 assertions. Fresh React passed 325 tests. Prior P4.1B financial and concurrency evidence remains the accepted baseline. No new distinct-user or in-flight revocation result was established.
+
+Both public rollback stream attempts failed at SSH connection establishment. The partial zero-byte files are not rollback evidence. The exact live Symfony before-hash comparison timed out too. The existing private release still passed the pinned integrity check. Before authorizing publication, capture and independently verify the exact current public rollback payload and confirm stable provider access.
