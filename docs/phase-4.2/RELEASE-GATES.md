@@ -1,20 +1,17 @@
 # Release gates
 
-| Gate | State | Smallest next action |
+| Gate | State | Evidence or next action |
 |---|---|---|
-| Live inventory and existing release integrity | PASS | Fresh read-only inventory and pinned release verification completed. |
-| External HTTPS identity and denial | FAIL | GoDaddy must correlate unexpected 200 responses and prove redirects, assets and hard denials. |
-| Public rollback | BLOCKED | Capture and verify the live rollback archive over stable SSH. |
-| Catalogue-only publication | BLOCKED | Require external gate, rollback archive, hosted staging and explicit website approval. |
-| Fresh recurring protected backup | FAIL | Collector hash matched during a successful connection, then the backup stopped at the collector integrity stage. Restore stable SSH and run the existing owner-authorized backup. |
-| Independent recovery | BLOCKED | Actual owner USB custody, separate operator and signed 20/45 restore receipt. |
-| Symfony production patch | BLOCKED | Live before hashes, web-SAPI proof, isolated security staging and separate publication approval. |
-| Management multi-user | BLOCKED | Distinct authenticated operators and revocation during a live read still need isolated acceptance. P4.1B same-operator concurrency evidence is retained. |
-| Operational migration | BLOCKED | Production profile and guard contract, signed historical treatment, independently restored rehearsal and durable receipts. |
-| Hosted staging | BLOCKED | Establish separate HTTPS and isolated writable database. |
-| Management cutover and financial activation | BLOCKED | Separate approvals for the rehearsed migration, PHP publication and resuming operations. |
-| SMTP and operational attachments | NOT APPLICABLE | Keep disabled in this rollout. |
+| Existing account, schema and release | PASS | Fresh strict SSH inventory, upms_v1 with 20 tables, 45 guards, 144 rows, restricted grants and verified release. |
+| Fresh protected recovery point | PASS | New encrypted archive passed checksum and authenticated decryption. Current hosted release preserved and public rollback bytes captured. |
+| Independent restore | BLOCKED | Separate operator, offline key custody and signed archive-specific recovery acceptance. |
+| External HTTPS identity and denial | FAIL | Compare fresh external and direct-origin probes. Provider correlation still required for the response differences. |
+| Catalogue publication | BLOCKED | External denial and hosted acceptance must pass, then obtain separate owner approval. |
+| Production-compatible clean initializer | BLOCKED | Exact 47/133 production profile, definer/runtime grants, durable receipts and isolated rehearsal required. |
+| Proposed separate schema and identities | BLOCKED | Confirm exact cPanel target, availability, empty state and grants before requesting approval to provision. |
+| Distinct-user and in-flight revocation | BLOCKED | Retain P4.1B isolated evidence and complete distinct-operator staging. |
+| Symfony live security patch | BLOCKED | Verify deployed before hashes and web SAPI, stage and obtain separate approval if pursued. |
+| Management cutover and financial operation | BLOCKED | Review exact new-schema scope and initializer, independently verify recovery and staging, then obtain separate publication and operation approvals. |
+| SMTP and operational attachments | NOT APPLICABLE | Disabled for this release. |
 
-Owner approval actions are separate: catalogue-only website publication, security-only vendor publication if pursued, production migration, matching PHP/React publication and resuming financial operations. The historical accounting decisions and signed independent recovery receipt are mandatory inputs before requesting management cutover approval.
-
-Local catalogue package and PHP management archive byte verification passed. Catalogue live publication remains blocked. The current management package can support isolated review. The operational migration and hosted staging gates remain mandatory.
+The owner confirmed disposable test history. The recommended new-schema cutover proposes zero drops in upms_v1. Scope clarification does not authorize provision, credential reset, publication, rebuild or financial activation. A same-schema rebuild requires separate exact destructive approval.
