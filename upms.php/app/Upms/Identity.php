@@ -96,10 +96,11 @@ final class Identity
         return ['token' => $token, 'csrfToken' => $csrf];
     }
 
-    public function read(?array $session, string $permission, callable $action): mixed
+    public function read(?array $session, string $permission, callable $action, bool $shared = false): mixed
     {
         try {
-            return $this->db->transaction(fn () => $action($this->authorize($session, $permission)));
+            $work = fn () => $action($this->authorize($session, $permission));
+            return $shared ? $this->db->readTransaction($work) : $this->db->transaction($work);
         } catch (ApiError $error) {
             if ($error->apiCode === 'ACCESS_DENIED') {
                 $this->db->transaction(fn () => $this->audit($session['data']['userId'], 'authorization.denied', ['permission' => $permission]));
@@ -116,7 +117,7 @@ final class Identity
     public function touch(array $session): void
     {
         $now = self::now();
-        $this->db->execute('UPDATE sessions SET idle_expires=? WHERE token_hash=? AND revoked=0 AND idle_expires>? AND absolute_expires>?', [$now + config('upms.idle_ms'), $session['hash'], $now, $now]);
+        $this->db->execute('UPDATE sessions SET idle_expires=GREATEST(idle_expires,?) WHERE token_hash=? AND revoked=0 AND idle_expires>? AND absolute_expires>?', [$now + config('upms.idle_ms'), $session['hash'], $now, $now]);
     }
 
     public function revoke(array $session): void

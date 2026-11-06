@@ -16,7 +16,7 @@ final class ChequeController
     }
     public function attachment(Request $request,Database $db,BusinessCommand $commands): mixed
     {
-        return $db->transaction(function() use($request,$db,$commands) {
+        return $db->readTransaction(function() use($request,$db,$commands) {
             [$user]=$commands->operator($request->attributes->get('upms.session'));ChequeSchema::ready($db);Cheques::permit($user,'view');
             $id=$request->route('id');
             if(!\App\Upms\ChequeExtras::enabled()||!is_string($id)||!preg_match('/^[a-f0-9]{32}$/D',$id)) { throw new ApiError(404,'CHEQUE_NOT_FOUND'); }
@@ -39,7 +39,7 @@ final class ChequeController
     {
         $session=$request->attributes->get('upms.session');$service=new Cheques($db);
         if($request->isMethod('GET')) {
-            return response()->json($db->transaction(function() use($commands,$session,$db,$service,$request) {
+            return response()->json($db->readTransaction(function() use($commands,$session,$db,$service,$request) {
                 [$user]=$commands->operator($session);ChequeSchema::ready($db);$query=$request->query();
                 if(isset($query['readiness'])) {
                     if(array_diff(array_keys($query),['readiness','date'])||!is_string($query['readiness'])||!preg_match('/^[1-9][0-9]{0,19}$/D',$query['readiness'])||!is_string($query['date']??null)) { throw new ApiError(400,'CHEQUE_FILTER_INVALID'); }

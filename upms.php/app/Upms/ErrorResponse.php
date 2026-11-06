@@ -32,6 +32,10 @@ final class ErrorResponse
             \Illuminate\Support\Facades\Log::notice('upms.labor.opening.rejected', ['reference' => $reference,'code' => $error->apiCode,'status' => $status]);
         }
         $body = ['code' => $known ? $error->apiCode : 'IDENTITY_UNAVAILABLE'];
+        if (!$known && $request->isMethodSafe() && $error instanceof \PDOException
+            && in_array((int) ($error->errorInfo[1] ?? 0), [1205, 1213], true)) {
+            $body = ['code' => 'READ_BUSY', 'message' => 'The workspace is busy. Refresh to load current records.'];
+        }
         if(!$known&&$request->isMethod('POST')&&$request->is('api/v1/management/simple-v1/cheques*')) {
             $body['message']='The result could not be confirmed. Keep this form and retry the same entry to retrieve its recorded result or safely retry it. Retain the diagnostic reference for review.';
         }

@@ -115,10 +115,20 @@ final class Database
 
     public function transaction(callable $action): mixed
     {
+        return $this->guardedTransaction($action, 'FOR UPDATE');
+    }
+
+    public function readTransaction(callable $action): mixed
+    {
+        return $this->guardedTransaction($action, 'LOCK IN SHARE MODE');
+    }
+
+    private function guardedTransaction(callable $action, string $lock): mixed
+    {
         $pdo = $this->pdo();
         $pdo->beginTransaction();
         try {
-            if (!$this->one('SELECT id FROM identity_guard WHERE id=1 FOR UPDATE')) {
+            if (!$this->one('SELECT id FROM identity_guard WHERE id=1 '.$lock)) {
                 throw new ApiError(503, 'SCHEMA_INCOMPATIBLE');
             }
             $result = $action();

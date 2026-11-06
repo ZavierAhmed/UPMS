@@ -61,7 +61,7 @@ final class SessionController
     public function current(Request $request): mixed
     {
         $session = $request->attributes->get('upms.session');
-        $user = $this->identity->read($session, 'profile.read', fn ($user) => $user);
+        $user = $this->identity->read($session, 'profile.read', fn ($user) => $user, shared: true);
         return response()->json(['user' => $user, 'csrfToken' => $this->identity->csrf($session)]);
     }
 

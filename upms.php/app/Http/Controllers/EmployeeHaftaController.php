@@ -14,7 +14,7 @@ final class EmployeeHaftaController
         $service = new EmployeeHafta($db);
         $session = $request->attributes->get('upms.session');
         if ($request->isMethod('GET')) {
-            $result = $db->transaction(function () use ($request, $db, $commands, $service, $session) {
+            $result = $db->readTransaction(function () use ($request, $db, $commands, $service, $session) {
                 [$user] = $commands->operator($session);
                 EmployeeHaftaSchema::ready($db);
                 EmployeeHafta::permit($user, 'employee_labor.view');

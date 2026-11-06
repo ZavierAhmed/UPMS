@@ -29,7 +29,7 @@ export const pageMeta = {
   "/contact": {
     title: "Contact Us",
     description:
-      `Contact ${company.name} in ${company.address}. Call 0314-2113472 or email uniqueplastic56@gmail.com for packaging inquiries.`,
+      `Contact ${company.name} in ${company.address}. Call +92 315 2209511 or email uniqueplastic56@gmail.com for packaging inquiries.`,
   },
 };
 export const notFoundMeta = {

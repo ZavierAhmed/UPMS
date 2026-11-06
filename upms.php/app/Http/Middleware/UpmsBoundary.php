@@ -53,20 +53,25 @@ final class UpmsBoundary
             $path = $request->path();
             $base = 'api/v1/management/';
             if (!in_array($path, [$base.'session/csrf', $base.'session/login'], true)) {
-                $identity->read($session, 'portal.access', fn () => null);
+                $identity->read($session, 'portal.access', fn () => null, shared: !$unsafe);
             }
             if ($unsafe && (!$session || !hash_equals($identity->csrf($session), $request->header('x-csrf-token', '')))) {
                 throw new ApiError(403, 'CSRF_REJECTED');
             }
             $response = $next($request);
             if ($session && !in_array($path, [$base.'session/login', $base.'session/logout', $base.'profile/password'], true)) {
-                $db->transaction(fn () => $identity->touch($session));
+                if ($unsafe) {
+                    $db->transaction(fn () => $identity->touch($session));
+                } else {
+                    // The conditional update locks only this session and cannot revive a revoked one.
+                    $identity->touch($session);
+                }
                 $response->headers->setCookie(self::cookie($request->cookie(config('upms.cookie'))));
             }
         } catch (\Throwable $error) {
             // Auth preflight/session touch also serialize on identity_guard. A cheque
             // retry may encounter contention outside its controller; preserve its key.
-            if ($request->is('api/v1/management/simple-v1/cheques*') && $error instanceof \PDOException && in_array((int)($error->errorInfo[1]??0),[1205,1213],true)) {
+            if (!$request->isMethodSafe() && $request->is('api/v1/management/simple-v1/cheques*') && $error instanceof \PDOException && in_array((int)($error->errorInfo[1]??0),[1205,1213],true)) {
                 $error=new ApiError(409,'CHEQUE_CONCURRENT_RETRY',publicMessage:'Another command is being verified. Refresh and retry with the same idempotency key to retrieve the committed result or safely retry.');
             }
             $response = \App\Upms\ErrorResponse::render($error, $request, $reference);

@@ -56,11 +56,13 @@ export function SimpleV1(){
  useEffect(()=>{if(!drawer)return;const prior=document.activeElement,panel=sidebar.current,first=panel?.querySelector('button');first?.focus();const key=e=>{if(e.key==='Escape'){setDrawer(false);return;}if(e.key==='Tab'){const nodes=[...panel.querySelectorAll('button,a')].filter(n=>!n.disabled),a=nodes[0],b=nodes.at(-1);if(e.shiftKey&&document.activeElement===a){e.preventDefault();b.focus();}else if(!e.shiftKey&&document.activeElement===b){e.preventDefault();a.focus();}}};document.addEventListener('keydown',key);return()=>{document.removeEventListener('keydown',key);if(prior?.isConnected)prior.focus();};},[drawer]);
  const parts=path.split('?')[0].slice(root.length).split('/').filter(Boolean),page=parts[0]||'',recordId=parts[1],editing=parts[2]==='edit',creating=recordId==='new';
  useEffect(()=>{const before=e=>{if(location.pathname.startsWith(root+'/items/')&&drafts.current.has(locationPath())&&!window.confirm('Leave this item with unsaved changes? Your draft will be kept until you sign out.'))e.preventDefault();};window.addEventListener('v1beforeleave',before);const route=()=>{setReading(true);setPath(locationPath());setRevision(n=>n+1);setDrawer(false);setMessage('');setDiagnosticReference('');setFieldErrors({});};window.addEventListener('popstate',route);window.addEventListener('v1route',route);const warn=e=>{if(drafts.current.size){e.preventDefault();e.returnValue='';}};window.addEventListener('beforeunload',warn);return()=>{window.removeEventListener('v1beforeleave',before);window.removeEventListener('popstate',route);window.removeEventListener('v1route',route);window.removeEventListener('beforeunload',warn);};},[]);
- async function api(endpoint,method='GET',body){if(method!=='GET'&&endpoint.startsWith('/simple-v1')&&interfaceVersion.current!=='simple-v1.2')throw Error('This page and API are different versions. Use the V1.2 UAT address on port3112 and sign in again.');const signature=JSON.stringify([endpoint,method,body]);if(method!=='GET'&&!keys.current.has(signature))keys.current.set(signature,crypto.randomUUID());const response=await fetch('/api/v1/management'+endpoint,{method,credentials:'same-origin',cache:'no-store',headers:{...(method!=='GET'?{'Content-Type':'application/json','X-CSRF-Token':csrf.current,'Idempotency-Key':keys.current.get(signature)}:{})},...(body?{body:JSON.stringify(body)}:{})});if(response.status===401){setUser(null);setData(null);drafts.current.clear();keys.current.clear();csrf.current='';setToken('');}if(!response.ok){const result=await response.json().catch(()=>({}));const failure=Error(result.error?.code==='INVALID_CREDENTIALS'?'The username or password is incorrect. Please try again.':['SESSION_EXPIRED','AUTH_REQUIRED'].includes(result.error?.code)?'Your session has ended. Sign in again to continue.':result.error?.code==='LOGIN_THROTTLED'?'Too many sign-in attempts. Please wait before trying again.':result.error?.message||'This request could not be completed. Refresh and try again.');failure.fieldErrors=result.error?.fieldErrors||{};failure.details=result.error?.details;failure.reference=result.error?.reference??response.headers?.get('x-request-id');throw failure;}if(method!=='GET')keys.current.delete(signature);return response.status===204?null:response.json();}
+ async function api(endpoint,method='GET',body,signal){if(method!=='GET'&&endpoint.startsWith('/simple-v1')&&interfaceVersion.current!=='simple-v1.2')throw Error('This page and API are different versions. Use the V1.2 UAT address on port3112 and sign in again.');const signature=JSON.stringify([endpoint,method,body]);if(method!=='GET'&&!keys.current.has(signature))keys.current.set(signature,crypto.randomUUID());const response=await fetch('/api/v1/management'+endpoint,{method,signal,credentials:'same-origin',cache:'no-store',headers:{...(method!=='GET'?{'Content-Type':'application/json','X-CSRF-Token':csrf.current,'Idempotency-Key':keys.current.get(signature)}:{})},...(body?{body:JSON.stringify(body)}:{})});signal?.throwIfAborted();if(response.status===401){setUser(null);setData(null);drafts.current.clear();keys.current.clear();csrf.current='';setToken('');}if(!response.ok){const result=await response.json().catch(()=>({}));const failure=Error(result.error?.code==='INVALID_CREDENTIALS'?'The username or password is incorrect. Please try again.':['SESSION_EXPIRED','AUTH_REQUIRED'].includes(result.error?.code)?'Your session has ended. Sign in again to continue.':result.error?.code==='LOGIN_THROTTLED'?'Too many sign-in attempts. Please wait before trying again.':result.error?.message||'This request could not be completed. Refresh and try again.');failure.fieldErrors=result.error?.fieldErrors||{};failure.details=result.error?.details;failure.reference=result.error?.reference??response.headers?.get('x-request-id');throw failure;}if(method!=='GET')keys.current.delete(signature);return response.status===204?null:response.json();}
  useEffect(()=>{let live=true;Promise.resolve().then(async()=>{try{const result=await api('/session/current');if(live){setUser(result.user);csrf.current=result.csrfToken;setToken(result.csrfToken);}}catch{try{const result=await api('/session/csrf');if(live){csrf.current=result.csrfToken;setToken(result.csrfToken);}}catch{if(live)setMessage('Unable to connect. Please retry.');}}finally{if(live)setReady(true);}});return()=>{live=false;};},[]);
  useEffect(() => {
    if (!user || user.passwordChangeRequired) return;
    let live = true;
+   const controller = new AbortController();
+   const get = endpoint => api(endpoint, 'GET', undefined, controller.signal);
    async function loadWorkspace() {
      setReading(true);
      try {
@@ -69,21 +71,21 @@ export function SimpleV1(){
        // between requests from one navigation without changing that guard.
        for (const endpoint of ['/state', '/items', '/parties?kind=CLIENT', '/parties?kind=VENDOR', '/documents', '/overview', '/movements']) {
          if (!live) return;
-         records.push(await api('/simple-v1' + endpoint));
+         records.push(await get('/simple-v1' + endpoint));
        }
        if (!live) return;
        const [state, items, clients, vendors, docs, overview, movements] = records;
        const canLoadMoney = state.moneyAccountsEnabled &&
          (!state.employeeHaftaEnabled || user.permissions.includes('money.accounts.view'));
-       const money = canLoadMoney ? await api('/simple-v1/money') : null;
+       const money = canLoadMoney ? await get('/simple-v1/money') : null;
        if (!live) return;
        const detail = page === 'documents' && /^\d+$/.test(recordId || '')
-         ? await api('/simple-v1/documents/' + recordId) : null;
+         ? await get('/simple-v1/documents/' + recordId) : null;
        if (!live) return;
        let returnSource = null;
        if (page === 'challan-returns' && creating) {
          const original = new URLSearchParams(location.search).get('original');
-         if (/^\d+$/.test(original || '')) returnSource = await api('/simple-v1/documents/' + original);
+         if (/^\d+$/.test(original || '')) returnSource = await get('/simple-v1/documents/' + original);
        }
        if (live) {
          interfaceVersion.current = state.interfaceVersion || '';
@@ -101,7 +103,7 @@ export function SimpleV1(){
      }
    }
    Promise.resolve().then(() => { if (live) return loadWorkspace(); });
-   return () => { live = false; };
+   return () => { live = false; controller.abort(); };
  }, [user, path, revision, page, recordId, creating]);
  async function run(fn){if(active.current)return;active.current=true;setBusy(true);setMessage('');setDiagnosticReference('');setFieldErrors({});try{await fn();setReading(true);setRevision(n=>n+1);}catch(e){setMessage(e.message);setDiagnosticReference(e.reference||'');setFieldErrors(e.fieldErrors||{});if(e.details?.itemId&&e.details.available!==undefined)setData(old=>old?{...old,items:old.items.map(i=>String(i.id)===e.details.itemId?{...i,quantity:e.details.available}:i)}:old);requestAnimationFrame(()=>{const first=Object.keys(e.fieldErrors||{})[0],field=[...document.querySelectorAll('[data-entry-field]')].find(el=>el.dataset.entryField===first);(field?.querySelector('input:not([type=hidden]),select,textarea')||document.querySelector('[role=alert]'))?.focus();});}finally{active.current=false;setBusy(false);}}
  async function command(p,method,body){return api('/simple-v1'+p,method,body);}

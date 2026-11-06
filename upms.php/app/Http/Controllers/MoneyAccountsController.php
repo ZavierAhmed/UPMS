@@ -12,7 +12,7 @@ final class MoneyAccountsController
     public function __invoke(Request $request, Database $db, BusinessCommand $commands, MoneyAccounts $money): mixed
     {
         if ($request->method() === 'GET') {
-            $result = $db->transaction(function () use ($request, $commands, $money, $db) {
+            $result = $db->readTransaction(function () use ($request, $commands, $money, $db) {
                 [$user] = $commands->operator($request->attributes->get('upms.session'));
                 if (config('upms.employee_hafta_enabled', false)) {
                     \App\Upms\EmployeeHafta::permit($user, 'money.accounts.view');

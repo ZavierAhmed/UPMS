@@ -13,7 +13,7 @@ final class ExpenseController
     {
         $service = new ExpenseMasters($db);
         if ($request->isMethod('GET')) {
-            $result = $db->transaction(function () use ($request, $db, $commands, $service) {
+            $result = $db->readTransaction(function () use ($request, $db, $commands, $service) {
                 [$user] = $commands->operator($request->attributes->get('upms.session'));
                 ExpenseSchema::ready($db);
                 $answer = str_ends_with($request->path(), 'expense-reports') ? (new ExpenseReports($db))->generate($request->query()) : $service->directory();

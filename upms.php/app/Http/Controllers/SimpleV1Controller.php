@@ -15,7 +15,7 @@ final class SimpleV1Controller
 {
     public function __invoke(Request $request, Database $db, Identity $identity, SimpleV1 $service): mixed
     {
-        $result = $db->transaction(function () use ($request, $db, $identity, $service): array {
+        $result = $db->readTransaction(function () use ($request, $db, $identity, $service): array {
             $user = $identity->authorize($request->attributes->get('upms.session'), 'portal.access');
             $control = $db->one('SELECT * FROM v1_control WHERE id=1');
             if ($user['passwordChangeRequired'] ?? false) {
