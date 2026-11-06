@@ -21,10 +21,13 @@ function html(source,path){
  return source.replace('<!--site-url-->',meta).replace('Online inquiry submission requires JavaScript.','Online inquiry delivery is disabled in this static website.');
 }
 let rules='Options -Indexes -MultiViews\nDirectoryIndex index.html\nErrorDocument 404 /404.html\nRewriteEngine On\n';
+// The existing dashboard virtual host has a document root inside public_html.
+// Give its own .htaccess the first chance to handle the dashboard hostname.
+rules+='RewriteCond %{HTTP_HOST} ^app\\.unique-plastic\\.com$ [NC]\nRewriteRule ^ - [L]\n';
 rules+='RewriteCond %{HTTP_HOST} !^unique-plastic\\.com$ [NC]\nRewriteRule ^ - [R=404,END]\n';
 rules+='RewriteRule ^\\.well-known/acme-challenge/[A-Za-z0-9_-]+$ - [END]\n';
 rules+='RewriteCond %{HTTPS} !=on\nRewriteRule ^ https://unique-plastic.com%{REQUEST_URI} [R=307,END]\n';
-rules+='RewriteRule ^(?:api|management|admin|server|node_modules|\\.git|\\.env)(?:/|$) - [R=404,END,NC]\n';
+rules+='RewriteRule ^(?:api|dashboard|management|admin|server|node_modules|\\.git|\\.env)(?:/|$) - [R=404,END,NC]\n';
 rules+='RewriteRule (?:^|/)(?:\\.[^/]+|vendor|storage|private|config|bootstrap|composer\\.(?:json|lock))(?:/|$) - [R=404,END,NC]\n';
 rules+='RewriteRule ^release-manifest\\.json$ - [F,END]\n';
 rules+='RewriteCond %{THE_REQUEST} "\\s/+_site/" [NC]\nRewriteRule ^_site/ - [R=404,END]\n';

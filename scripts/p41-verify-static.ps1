@@ -9,7 +9,7 @@ Expand-Archive "$base/upms-public-static.zip" $root
 $manifest=Get-Content "$root/release-manifest.json" -Raw|ConvertFrom-Json
 foreach($file in $manifest.files.PSObject.Properties){if((Get-FileHash -LiteralPath "$root/$($file.Name)").Hash -ne $file.Value){throw "Manifest mismatch $($file.Name)"}}
 $conf="$base/httpd.conf"
-$management="$root-management"
+$management="$root/dashboard"
 New-Item -ItemType Directory -Path $management | Out-Null
 Copy-Item 'deployment/phase-4/management.htaccess' "$management/.htaccess"
 Set-Content "$management/index.html" 'MANAGEMENT_ROUTE_FIXTURE'
@@ -78,7 +78,7 @@ try {
   if($file.Name -match '-[A-Za-z0-9_-]{8}\.(js|css|svg|png|webp|avif|jpe?g|woff2)$' -and !(Select-String -LiteralPath "$base/headers.tmp" -Pattern '^Cache-Control: public, max-age=31536000, immutable')){throw "Missing asset cache policy $($file.Name)"}
   $checks+=$probe
  }
- foreach($path in '/vendor/autoload.php','/storage/logs/laravel.log','/.env','/api/v1/public/inquiries','/api/v1/management','/management','/_site/about.html','/missing'){$checks+=Probe $path 404}
+ foreach($path in '/vendor/autoload.php','/storage/logs/laravel.log','/.env','/api/v1/public/inquiries','/api/v1/management','/management','/dashboard','/dashboard/gateway.php','/_site/about.html','/missing'){$checks+=Probe $path 404}
  $checks+=Probe '/' 307 'http' 5227
  foreach($path in '/.env','/management/.env','/vendor/autoload.php','/storage/logs/laravel.log','/api/v1/public/inquiries','/gateway.php'){$checks+=Probe $path 404 'https' 5228 'app.unique-plastic.com'}
  $checks+=Probe '/management/challans' 200 'https' 5228 'app.unique-plastic.com'
