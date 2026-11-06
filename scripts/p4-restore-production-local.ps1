@@ -26,6 +26,7 @@ function Invoke-PrivatePhp([string]$Script,[object]$Request){
 }
 if($Capsule){
  if(!$Archive -or $ExpectedArchiveSha256 -notmatch '^[a-fA-F0-9]{64}$' -or !$EngineConfig){throw 'INDEPENDENT_ARCHIVE_CHECKSUM_AND_ENGINE_REQUIRED'}
+ if(!(Test-Path -LiteralPath $root -PathType Container)){throw 'OWNER_PROTECTED_RESTORE_DIRECTORY_REQUIRED'}
  $last=@{archive=(Resolve-Path -LiteralPath $Archive).Path;sha256=$ExpectedArchiveSha256.ToLowerInvariant();passed=$true;offHost=$true;authenticatedDecryptionVerified=$true;tables=20;triggers=45}
 }else{$last=Get-Content -LiteralPath (Join-Path $root 'last-success.json') -Raw|ConvertFrom-Json}
 if(!$last.passed -or !$last.offHost -or !$last.authenticatedDecryptionVerified -or $last.tables -ne 20 -or $last.triggers -ne 45 -or (Get-FileHash -LiteralPath $last.archive -Algorithm SHA256).Hash.ToLowerInvariant() -ne $last.sha256){throw 'VERIFIED_PRODUCTION_BACKUP_REQUIRED'}
@@ -41,9 +42,10 @@ if($Capsule){
 }
 try{
  $engine=Get-Content -LiteralPath $(if($EngineConfig){$EngineConfig}else{Join-Path $repo 'tmp/php-runtime/php2-engine.json'}) -Raw|ConvertFrom-Json
- $report=Invoke-PrivatePhp (Join-Path $repo 'scripts/p4-restore-production-local.php') @{engine=$engine;stream=$stream;archiveSha256=$last.sha256}
+ $report=Invoke-PrivatePhp (Join-Path $repo 'scripts/p4-restore-production-local.php') @{engine=$engine;stream=$stream;archiveSha256=$last.sha256;portableCapsuleUsed=[bool]$Capsule}
  $safe=$report|ConvertFrom-Json
  if(!$safe.passed){throw 'LOCAL_RESTORE_REJECTED'}
- [IO.File]::WriteAllText((Join-Path $repo 'docs/phase-4/evidence/production-restore-local.json'),$report,[Text.UTF8Encoding]::new($false))
+ $reportPath=if($Capsule){Join-Path $root ('independent-restore-'+[Guid]::NewGuid().ToString('N')+'.json')}else{Join-Path $repo 'docs/phase-4/evidence/production-restore-local.json'}
+ [IO.File]::WriteAllText($reportPath,$report,[Text.UTF8Encoding]::new($false))
  $safe|Select-Object passed,isolatedTarget,tables,guards,rows,sourceAndTargetRowsAndDefinitionsMatched,productionDatabaseWrites,independentOperatorGate|ConvertTo-Json
 }finally{$stream=$null;$engine=$null}

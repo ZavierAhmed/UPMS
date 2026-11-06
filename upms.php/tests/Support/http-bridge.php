@@ -31,6 +31,9 @@ foreach ($response->headers->getCookies() as $cookie) {
 }
 $binary=$response->headers->get('Content-Type')==='application/octet-stream';
 $payload=['status'=>$response->getStatusCode(),'raw'=>$binary?base64_encode($response->getContent()):$response->getContent(),'cookies'=>$cookies];
+if ($response->headers->has('X-Request-ID')) {
+    $payload['requestReference'] = $response->headers->get('X-Request-ID');
+}
 if($binary) {
     $payload['binary']=true;
     foreach(['Content-Type','Content-Disposition','Content-Security-Policy','X-Content-Type-Options'] as $header) { $payload['downloadHeaders'][$header]=$response->headers->get($header); }

@@ -4,9 +4,10 @@ DirectoryIndex index.html
 RewriteEngine On
 RewriteCond %{HTTP_HOST} !^app\.unique-plastic\.com$ [NC]
 RewriteRule ^ - [R=404,END]
+RewriteRule ^\.well-known/acme-challenge/[A-Za-z0-9_-]+$ - [END]
 RewriteCond %{HTTPS} !=on
 RewriteRule ^ https://app.unique-plastic.com%{REQUEST_URI} [R=307,END]
-RewriteRule ^(?:\.|vendor|storage|bootstrap|app|config|routes|resources|tests|scripts|database|private)(?:/|$) - [R=404,END,NC]
+RewriteRule (?:^|/)(?:\.[^/]+|vendor|storage|bootstrap|app|config|routes|resources|tests|scripts|database|private)(?:/|$) - [R=404,END,NC]
 RewriteRule ^(?:composer\.(?:json|lock)|artisan|package(?:-lock)?\.json)$ - [R=404,END,NC]
 RewriteCond %{THE_REQUEST} \s/+gateway\.php(?:[?\s]) [NC]
 RewriteRule ^gateway\.php$ - [R=404,END]

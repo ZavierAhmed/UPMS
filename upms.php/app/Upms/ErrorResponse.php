@@ -79,6 +79,11 @@ final class ErrorResponse
             }
         }
         $body['reference'] = $reference;
-        return response()->json(['error' => $body], $status)->withHeaders(['Cache-Control' => 'no-store', 'X-Robots-Tag' => 'noindex, nofollow', 'Vary' => 'Cookie']);
+        return response()->json(['error' => $body], $status)->withHeaders([
+            'Cache-Control' => 'no-store',
+            'X-Robots-Tag' => 'noindex, nofollow',
+            'Vary' => 'Cookie',
+            'X-Request-ID' => $reference,
+        ]);
     }
 }

@@ -32,7 +32,8 @@ export async function employeePreview(bindingPath,{port=5180,cookieName='upms_em
    const body=await bodyText(req,evidenceRequest?720896:12288),cookies={};for(const part of (req.headers.cookie||'').split(';')){const [name,...value]=part.trim().split('=');if(name===cookieName)cookies['__Host-upms-php']=decodeURIComponent(value.join('='));}
    const r=await phpBridge(envPath,{method:req.method,path:u.pathname+u.search,cookies,headers:unsafe?{origin:'https://app.unique-plastic.test','x-csrf-token':req.headers['x-csrf-token']||'','idempotency-key':req.headers['idempotency-key']||''}:{},raw:body||null});
    if(Object.hasOwn(r.cookies||{},'__Host-upms-php')){const token=r.cookies['__Host-upms-php'];res.setHeader('Set-Cookie',cookieName+'='+encodeURIComponent(token||'')+'; Path=/; HttpOnly; SameSite=Strict'+(!token?'; Max-Age=0':''));}
-   res.writeHead(r.status,{'Content-Type':'application/json',...(r.binary?r.downloadHeaders:{})});return res.end(r.binary?Buffer.from(r.raw,'base64'):r.raw);
+   const referenceHeaders = r.requestReference ? {'X-Request-ID': r.requestReference} : {};
+   res.writeHead(r.status,{'Content-Type':'application/json',...referenceHeaders,...(r.binary?r.downloadHeaders:{})});return res.end(r.binary?Buffer.from(r.raw,'base64'):r.raw);
    }finally{if(unsafe)inFlightWrites--;}
   }
   if(!['GET','HEAD'].includes(req.method)){res.writeHead(405);return res.end();}
