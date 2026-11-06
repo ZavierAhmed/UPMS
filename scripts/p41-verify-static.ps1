@@ -17,6 +17,8 @@ Set-Content "$management/gateway.php" 'GATEWAY_ROUTE_FIXTURE'
 if($DenyExecutables){
  Set-Content "$root/gateway.php" 'PUBLIC_EXECUTABLE_PATH_MUST_BE_DENIED'
  Set-Content "$root/inquiry.php" 'PUBLIC_EXECUTABLE_PATH_MUST_BE_DENIED'
+ New-Item -ItemType Directory -Path "$root/.well-known/acme-challenge" -Force | Out-Null
+ Set-Content "$root/.well-known/acme-challenge/p42a-check" 'ACME_ROUTE_FIXTURE'
 }
 @"
 ServerRoot "$ApacheRoot"
@@ -85,6 +87,10 @@ try {
  foreach($path in '/vendor/autoload.php','/storage/logs/laravel.log','/.env','/api/v1/public/inquiries','/api/v1/management','/management','/dashboard','/dashboard/gateway.php','/_site/about.html','/missing'){$checks+=Probe $path 404}
  if($DenyExecutables){foreach($path in '/gateway.php','/gateway.php/path-info','/inquiry.php'){$checks+=Probe $path 404}}
  $checks+=Probe '/' 307 'http' 5227
+ if($DenyExecutables){
+  $checks+=Probe '/.well-known/acme-challenge/p42a-check' 200 'http' 5227
+  if((Get-Content "$base/response.tmp" -Raw).Trim() -ne 'ACME_ROUTE_FIXTURE'){throw 'ACME challenge did not reach the fixture'}
+ }
  foreach($path in '/.env','/management/.env','/vendor/autoload.php','/storage/logs/laravel.log','/api/v1/public/inquiries','/gateway.php'){$checks+=Probe $path 404 'https' 5228 'app.unique-plastic.com'}
  $checks+=Probe '/management/challans' 200 'https' 5228 'app.unique-plastic.com'
  $checks+=Probe '/api/v1/management/probe' 200 'https' 5228 'app.unique-plastic.com'
