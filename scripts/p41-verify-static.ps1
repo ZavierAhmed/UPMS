@@ -1,4 +1,4 @@
-param([string]$ApacheRoot='C:/xampp/apache',[switch]$Browser,[string]$Evidence='docs/phase-4.1/evidence',[string]$ArchiveRoot='tmp/phase-4.1/static')
+param([string]$ApacheRoot='C:/xampp/apache',[switch]$Browser,[string]$Evidence='docs/phase-4.1/evidence',[string]$ArchiveRoot='tmp/phase-4.1/static',[switch]$DenyExecutables)
 $ErrorActionPreference='Stop'
 $base=(Resolve-Path -LiteralPath $ArchiveRoot).Path.Replace('\','/')
 $root="$base/apache-site-$([Guid]::NewGuid().ToString('N'))"
@@ -14,6 +14,10 @@ New-Item -ItemType Directory -Path $management | Out-Null
 Copy-Item 'deployment/phase-4/management.htaccess' "$management/.htaccess"
 Set-Content "$management/index.html" 'MANAGEMENT_ROUTE_FIXTURE'
 Set-Content "$management/gateway.php" 'GATEWAY_ROUTE_FIXTURE'
+if($DenyExecutables){
+ Set-Content "$root/gateway.php" 'PUBLIC_EXECUTABLE_PATH_MUST_BE_DENIED'
+ Set-Content "$root/inquiry.php" 'PUBLIC_EXECUTABLE_PATH_MUST_BE_DENIED'
+}
 @"
 ServerRoot "$ApacheRoot"
 Listen 127.0.0.1:5227
@@ -79,6 +83,7 @@ try {
   $checks+=$probe
  }
  foreach($path in '/vendor/autoload.php','/storage/logs/laravel.log','/.env','/api/v1/public/inquiries','/api/v1/management','/management','/dashboard','/dashboard/gateway.php','/_site/about.html','/missing'){$checks+=Probe $path 404}
+ if($DenyExecutables){foreach($path in '/gateway.php','/gateway.php/path-info','/inquiry.php'){$checks+=Probe $path 404}}
  $checks+=Probe '/' 307 'http' 5227
  foreach($path in '/.env','/management/.env','/vendor/autoload.php','/storage/logs/laravel.log','/api/v1/public/inquiries','/gateway.php'){$checks+=Probe $path 404 'https' 5228 'app.unique-plastic.com'}
  $checks+=Probe '/management/challans' 200 'https' 5228 'app.unique-plastic.com'

@@ -6,7 +6,8 @@ import {createHash} from 'node:crypto';
 import {deterministicZip} from './lib/deterministic-zip.mjs';
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const sha=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
-const out=process.argv.includes('--p41b')?'tmp/phase-4.1b/static':'tmp/phase-4.1/static';
+const out=process.argv.includes('--p42a')?'tmp/phase-4.2a/static':
+ process.argv.includes('--p41b')?'tmp/phase-4.1b/static':'tmp/phase-4.1/static';
 const dist='upms.client/dist',origin='https://unique-plastic.com';
 await mkdir(out,{recursive:true});
 const routes=JSON.parse(await readFile(dist+'/public-routes.json','utf8'));
@@ -28,6 +29,7 @@ rules+='RewriteCond %{HTTP_HOST} ^app\\.unique-plastic\\.com$ [NC]\nRewriteRule 
 rules+='RewriteCond %{HTTP_HOST} !^unique-plastic\\.com$ [NC]\nRewriteRule ^ - [R=404,END]\n';
 rules+='RewriteRule ^\\.well-known/acme-challenge/[A-Za-z0-9_-]+$ - [END]\n';
 rules+='RewriteCond %{HTTPS} !=on\nRewriteRule ^ https://unique-plastic.com%{REQUEST_URI} [R=307,END]\n';
+rules+='RewriteRule (?:^|/)[^/]*\\.(?:php[0-9]*|phtml|phar|cgi|pl)(?:[./;]|$) - [R=404,END,NC]\n';
 rules+='RewriteRule ^(?:api|dashboard|management|admin|server|node_modules|\\.git|\\.env)(?:/|$) - [R=404,END,NC]\n';
 rules+='RewriteRule (?:^|/)(?:\\.[^/]+|vendor|storage|private|config|bootstrap|composer\\.(?:json|lock))(?:/|$) - [R=404,END,NC]\n';
 rules+='RewriteRule ^release-manifest\\.json$ - [F,END]\n';
