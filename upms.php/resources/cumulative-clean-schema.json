@@ -1,0 +1,1118 @@
+{
+  "version": 1,
+  "tables": {
+    "cheque_attachments": "CREATE TABLE `cheque_attachments` (\n  `id` char(32) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,\n  `event_id` bigint(20) unsigned NOT NULL,\n  `cheque_id` bigint(20) unsigned NOT NULL,\n  `filename` varchar(150) NOT NULL,\n  `mime` varchar(32) NOT NULL,\n  `bytes` int(10) unsigned NOT NULL,\n  `sha256` char(64) NOT NULL,\n  `ciphertext` longtext NOT NULL,\n  `actor_id` bigint(20) unsigned NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  KEY `cq_attachment_event` (`event_id`),\n  KEY `cq_attachment_instrument` (`cheque_id`),\n  KEY `cq_attachment_actor` (`actor_id`),\n  CONSTRAINT `cq_attachment_actor` FOREIGN KEY (`actor_id`) REFERENCES `users` (`id`),\n  CONSTRAINT `cq_attachment_event` FOREIGN KEY (`event_id`) REFERENCES `cheque_events` (`id`),\n  CONSTRAINT `cq_attachment_instrument` FOREIGN KEY (`cheque_id`) REFERENCES `cheque_instruments` (`id`),\n  CONSTRAINT `cq_attachment_size` CHECK (`bytes` > 0 and `bytes` <= 262144)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "cheque_audit": "CREATE TABLE `cheque_audit` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `event_id` bigint(20) unsigned NOT NULL,\n  `payload_hash` char(64) NOT NULL,\n  `actor_id` bigint(20) unsigned NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `cq_audit_once` (`event_id`),\n  KEY `cq_audit_actor` (`actor_id`),\n  CONSTRAINT `cq_audit_actor` FOREIGN KEY (`actor_id`) REFERENCES `users` (`id`),\n  CONSTRAINT `cq_audit_event` FOREIGN KEY (`event_id`) REFERENCES `cheque_events` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "cheque_bank_creations": "CREATE TABLE `cheque_bank_creations` (\n  `id` bigint(20) unsigned NOT NULL,\n  `code` varchar(32) NOT NULL,\n  `name` varchar(150) NOT NULL,\n  `description` varchar(500) NOT NULL,\n  `actor_id` bigint(20) unsigned NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `cq_new_bank_code` (`code`),\n  KEY `cq_new_bank_actor` (`actor_id`),\n  CONSTRAINT `cq_new_bank_actor` FOREIGN KEY (`actor_id`) REFERENCES `users` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "cheque_clearances": "CREATE TABLE `cheque_clearances` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `cheque_id` bigint(20) unsigned NOT NULL,\n  `event_id` bigint(20) unsigned NOT NULL,\n  `document_id` bigint(20) unsigned NOT NULL,\n  `batch_id` bigint(20) unsigned NOT NULL,\n  `movement_id` bigint(20) unsigned NOT NULL,\n  `instrument_hash` char(64) NOT NULL,\n  `event_hash` char(64) NOT NULL,\n  `document_hash` char(64) NOT NULL,\n  `batch_hash` char(64) NOT NULL,\n  `movement_hash` char(64) NOT NULL,\n  `actor_id` bigint(20) unsigned NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `cq_claim_cheque_id` (`cheque_id`),\n  UNIQUE KEY `cq_claim_event_id` (`event_id`),\n  UNIQUE KEY `cq_claim_document_id` (`document_id`),\n  UNIQUE KEY `cq_claim_batch_id` (`batch_id`),\n  UNIQUE KEY `cq_claim_movement_id` (`movement_id`),\n  KEY `cq_claim_actor_id` (`actor_id`),\n  CONSTRAINT `cq_claim_actor_id` FOREIGN KEY (`actor_id`) REFERENCES `users` (`id`),\n  CONSTRAINT `cq_claim_batch_id` FOREIGN KEY (`batch_id`) REFERENCES `money_batches` (`id`),\n  CONSTRAINT `cq_claim_cheque_id` FOREIGN KEY (`cheque_id`) REFERENCES `cheque_instruments` (`id`),\n  CONSTRAINT `cq_claim_document_id` FOREIGN KEY (`document_id`) REFERENCES `v1_documents` (`id`),\n  CONSTRAINT `cq_claim_event_id` FOREIGN KEY (`event_id`) REFERENCES `cheque_events` (`id`),\n  CONSTRAINT `cq_claim_movement_id` FOREIGN KEY (`movement_id`) REFERENCES `money_movements` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "cheque_events": "CREATE TABLE `cheque_events` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `cheque_id` bigint(20) unsigned NOT NULL,\n  `ordinal` int(10) unsigned NOT NULL,\n  `type` enum('RECEIVED','DEPOSITED','CLEARED','DISHONOURED','RETURNED','CANCELLED') NOT NULL,\n  `date` date NOT NULL,\n  `bank_id` bigint(20) unsigned DEFAULT NULL,\n  `reference` varchar(150) NOT NULL,\n  `reason` varchar(500) NOT NULL,\n  `evidence` varchar(1000) NOT NULL,\n  `self_approval_reason` varchar(500) NOT NULL,\n  `previous_hash` char(64) NOT NULL,\n  `document_id` bigint(20) unsigned DEFAULT NULL,\n  `batch_id` bigint(20) unsigned DEFAULT NULL,\n  `actor_id` bigint(20) unsigned NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `cq_ordinal` (`cheque_id`,`ordinal`),\n  KEY `cq_event_bank` (`bank_id`),\n  KEY `cq_event_doc` (`document_id`),\n  KEY `cq_event_batch` (`batch_id`),\n  KEY `cq_event_actor` (`actor_id`),\n  CONSTRAINT `cq_event_actor` FOREIGN KEY (`actor_id`) REFERENCES `users` (`id`),\n  CONSTRAINT `cq_event_bank` FOREIGN KEY (`bank_id`) REFERENCES `money_accounts` (`id`),\n  CONSTRAINT `cq_event_batch` FOREIGN KEY (`batch_id`) REFERENCES `money_batches` (`id`),\n  CONSTRAINT `cq_event_doc` FOREIGN KEY (`document_id`) REFERENCES `v1_documents` (`id`),\n  CONSTRAINT `cq_event_instrument` FOREIGN KEY (`cheque_id`) REFERENCES `cheque_instruments` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "cheque_extra_receipts": "CREATE TABLE `cheque_extra_receipts` (\n  `id` tinyint(3) unsigned NOT NULL,\n  `version` varchar(32) NOT NULL,\n  `plan_hash` char(64) NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "cheque_instruments": "CREATE TABLE `cheque_instruments` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `reference` varchar(100) NOT NULL,\n  `client_id` bigint(20) unsigned NOT NULL,\n  `client_snapshot` longtext NOT NULL,\n  `issuing_bank_id` bigint(20) unsigned NOT NULL,\n  `drawer_name` varchar(150) NOT NULL,\n  `drawer_account_key` varchar(34) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,\n  `number` varchar(30) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,\n  `cheque_date` date NOT NULL,\n  `received_date` date NOT NULL,\n  `amount` decimal(18,2) NOT NULL,\n  `actor_id` bigint(20) unsigned NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `cq_reference` (`reference`),\n  UNIQUE KEY `cq_identity` (`issuing_bank_id`,`drawer_account_key`,`number`),\n  KEY `cq_client` (`client_id`),\n  KEY `cq_actor` (`actor_id`),\n  CONSTRAINT `cq_actor` FOREIGN KEY (`actor_id`) REFERENCES `users` (`id`),\n  CONSTRAINT `cq_client` FOREIGN KEY (`client_id`) REFERENCES `v1_parties` (`id`),\n  CONSTRAINT `cq_issuer` FOREIGN KEY (`issuing_bank_id`) REFERENCES `cheque_issuing_banks` (`id`),\n  CONSTRAINT `cq_snapshot_json` CHECK (json_valid(`client_snapshot`)),\n  CONSTRAINT `cq_positive` CHECK (`amount` > 0)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "cheque_issuing_banks": "CREATE TABLE `cheque_issuing_banks` (\n  `id` bigint(20) unsigned NOT NULL,\n  `code` varchar(32) NOT NULL,\n  `name` varchar(150) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `cq_bank_code` (`code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "cheque_schema_receipts": "CREATE TABLE `cheque_schema_receipts` (\n  `id` tinyint(3) unsigned NOT NULL,\n  `version` varchar(32) NOT NULL,\n  `plan_hash` char(64) NOT NULL,\n  `reference` varchar(100) NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "employees": "CREATE TABLE `employees` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `name` varchar(150) NOT NULL,\n  `name_key` char(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,\n  `designation` varchar(150) NOT NULL DEFAULT '',\n  `phone` varchar(64) NOT NULL DEFAULT '',\n  `notes` varchar(1000) NOT NULL DEFAULT '',\n  `active` tinyint(1) NOT NULL DEFAULT 1,\n  `version` int(11) NOT NULL DEFAULT 1,\n  `actor_id` bigint(20) unsigned NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  `updated_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `employees_name` (`name_key`),\n  KEY `employees_actor` (`actor_id`),\n  CONSTRAINT `employees_actor` FOREIGN KEY (`actor_id`) REFERENCES `users` (`id`),\n  CONSTRAINT `employees_state` CHECK (`active` in (0,1) and `version` > 0)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "expense_categories": "CREATE TABLE `expense_categories` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `name` varchar(150) NOT NULL,\n  `name_key` char(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,\n  `employee_based` tinyint(1) NOT NULL DEFAULT 0,\n  `active` tinyint(1) NOT NULL DEFAULT 1,\n  `version` int(11) NOT NULL DEFAULT 1,\n  `actor_id` bigint(20) unsigned NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  `updated_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `expense_categories_name` (`name_key`),\n  KEY `expense_categories_actor` (`actor_id`),\n  CONSTRAINT `expense_categories_actor` FOREIGN KEY (`actor_id`) REFERENCES `users` (`id`),\n  CONSTRAINT `expense_category_flag` CHECK (`employee_based` in (0,1)),\n  CONSTRAINT `expense_categories_state` CHECK (`active` in (0,1) and `version` > 0)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "expense_master_audit": "CREATE TABLE `expense_master_audit` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `entity` enum('CATEGORY','EMPLOYEE') NOT NULL,\n  `entity_id` bigint(20) unsigned NOT NULL,\n  `version` int(11) NOT NULL,\n  `actor_id` bigint(20) unsigned NOT NULL,\n  `action` enum('CREATE','UPDATE') NOT NULL,\n  `snapshot` longtext NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `expense_master_version` (`entity`,`entity_id`,`version`),\n  KEY `expense_audit_actor` (`actor_id`),\n  CONSTRAINT `expense_audit_actor` FOREIGN KEY (`actor_id`) REFERENCES `users` (`id`),\n  CONSTRAINT `expense_snapshot_json` CHECK (json_valid(`snapshot`))\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "expense_schema_receipts": "CREATE TABLE `expense_schema_receipts` (\n  `id` int(11) NOT NULL,\n  `version` varchar(32) NOT NULL,\n  `plan_hash` char(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,\n  `reference` varchar(150) NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  CONSTRAINT `expense_receipt_one` CHECK (`id` = 1)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "identity_audit_events": "CREATE TABLE `identity_audit_events` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `actor_id` bigint(20) unsigned DEFAULT NULL,\n  `target_id` bigint(20) unsigned DEFAULT NULL,\n  `action` varchar(64) NOT NULL,\n  `correlation` varchar(64) NOT NULL,\n  `details` text NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  KEY `identity_audit_events_actor_id_foreign` (`actor_id`),\n  KEY `identity_audit_events_target_id_id_index` (`target_id`,`id`),\n  CONSTRAINT `identity_audit_events_actor_id_foreign` FOREIGN KEY (`actor_id`) REFERENCES `users` (`id`),\n  CONSTRAINT `identity_audit_events_target_id_foreign` FOREIGN KEY (`target_id`) REFERENCES `users` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "identity_guard": "CREATE TABLE `identity_guard` (\n  `id` int(11) NOT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "labor_audit": "CREATE TABLE `labor_audit` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `entry_type` enum('OPENING','EARNING','PAYMENT') NOT NULL,\n  `entry_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,\n  `employee_id` bigint(20) unsigned NOT NULL,\n  `payload_hash` char(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,\n  `actor_id` bigint(20) unsigned NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `labor_one_audit` (`entry_type`,`entry_id`),\n  KEY `labor_audit_employee_fk` (`employee_id`),\n  KEY `labor_audit_actor_fk` (`actor_id`),\n  CONSTRAINT `labor_audit_actor_fk` FOREIGN KEY (`actor_id`) REFERENCES `users` (`id`),\n  CONSTRAINT `labor_audit_employee_fk` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "labor_earnings": "CREATE TABLE `labor_earnings` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `document_id` bigint(20) unsigned NOT NULL,\n  `line_id` bigint(20) unsigned NOT NULL,\n  `employee_id` bigint(20) unsigned NOT NULL,\n  `employee_snapshot` longtext NOT NULL,\n  `item_id` bigint(20) unsigned NOT NULL,\n  `item_snapshot` longtext NOT NULL,\n  `date` date NOT NULL,\n  `quantity` varchar(32) NOT NULL,\n  `labor_rate` decimal(18,2) NOT NULL,\n  `amount` decimal(18,2) NOT NULL,\n  `actor_id` bigint(20) unsigned NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `labor_one_line` (`line_id`),\n  KEY `labor_earning_document_fk` (`document_id`),\n  KEY `labor_earning_employee_fk` (`employee_id`),\n  KEY `labor_earning_item_fk` (`item_id`),\n  KEY `labor_earning_actor_fk` (`actor_id`),\n  CONSTRAINT `labor_earning_actor_fk` FOREIGN KEY (`actor_id`) REFERENCES `users` (`id`),\n  CONSTRAINT `labor_earning_document_fk` FOREIGN KEY (`document_id`) REFERENCES `v1_documents` (`id`),\n  CONSTRAINT `labor_earning_employee_fk` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`),\n  CONSTRAINT `labor_earning_item_fk` FOREIGN KEY (`item_id`) REFERENCES `v1_items` (`id`),\n  CONSTRAINT `labor_earning_line_fk` FOREIGN KEY (`line_id`) REFERENCES `v1_lines` (`id`),\n  CONSTRAINT `labor_exact_earning` CHECK (`quantity` regexp '^[1-9][0-9]*$' and `labor_rate` >= 0 and `amount` >= 0 and `amount` = cast(`quantity` as decimal(20,0)) * `labor_rate`),\n  CONSTRAINT `labor_earning_snapshots` CHECK (json_valid(`employee_snapshot`) and json_valid(`item_snapshot`))\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "labor_expense_allocations": "CREATE TABLE `labor_expense_allocations` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `expense_id` bigint(20) unsigned NOT NULL,\n  `source_batch_id` bigint(20) unsigned NOT NULL,\n  `source_movement_id` bigint(20) unsigned NOT NULL,\n  `employee_id` bigint(20) unsigned NOT NULL,\n  `employee_snapshot` longtext NOT NULL,\n  `source_date` date NOT NULL,\n  `date` date NOT NULL,\n  `amount` decimal(18,2) NOT NULL,\n  `source_hash` char(64) NOT NULL,\n  `batch_hash` char(64) NOT NULL,\n  `movement_hash` char(64) NOT NULL,\n  `reference` varchar(150) NOT NULL,\n  `reason` varchar(500) NOT NULL,\n  `actor_id` bigint(20) unsigned NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `h1c_expense_once` (`expense_id`),\n  UNIQUE KEY `h1c_batch_once` (`source_batch_id`),\n  UNIQUE KEY `h1c_movement_once` (`source_movement_id`),\n  KEY `h1c_alloc_employee_fk` (`employee_id`),\n  KEY `h1c_alloc_actor_fk` (`actor_id`),\n  CONSTRAINT `h1c_alloc_actor_fk` FOREIGN KEY (`actor_id`) REFERENCES `users` (`id`),\n  CONSTRAINT `h1c_alloc_batch_fk` FOREIGN KEY (`source_batch_id`) REFERENCES `money_batches` (`id`),\n  CONSTRAINT `h1c_alloc_employee_fk` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`),\n  CONSTRAINT `h1c_alloc_expense_fk` FOREIGN KEY (`expense_id`) REFERENCES `v1_documents` (`id`),\n  CONSTRAINT `h1c_alloc_movement_fk` FOREIGN KEY (`source_movement_id`) REFERENCES `money_movements` (`id`),\n  CONSTRAINT `h1c_alloc_json` CHECK (json_valid(`employee_snapshot`)),\n  CONSTRAINT `h1c_alloc_amount` CHECK (`amount` > 0),\n  CONSTRAINT `h1c_alloc_date` CHECK (`date` >= `source_date`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "labor_extension_audit": "CREATE TABLE `labor_extension_audit` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `entry_type` enum('EXPENSE_ALLOCATION','STOCK_INITIALIZATION') NOT NULL,\n  `entry_id` bigint(20) unsigned NOT NULL,\n  `payload_hash` char(64) NOT NULL,\n  `actor_id` bigint(20) unsigned NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `h1c_audit_once` (`entry_type`,`entry_id`),\n  KEY `h1c_audit_actor_fk` (`actor_id`),\n  CONSTRAINT `h1c_audit_actor_fk` FOREIGN KEY (`actor_id`) REFERENCES `users` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "labor_extension_receipts": "CREATE TABLE `labor_extension_receipts` (\n  `id` tinyint(3) unsigned NOT NULL,\n  `version` varchar(32) NOT NULL,\n  `plan_hash` char(64) NOT NULL,\n  `reference` varchar(100) NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "labor_openings": "CREATE TABLE `labor_openings` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `employee_id` bigint(20) unsigned NOT NULL,\n  `employee_snapshot` longtext NOT NULL,\n  `date` date NOT NULL,\n  `amount` decimal(18,2) NOT NULL,\n  `reference` varchar(150) NOT NULL,\n  `reason` varchar(500) NOT NULL,\n  `actor_id` bigint(20) unsigned NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `labor_one_opening` (`employee_id`),\n  KEY `labor_open_actor_fk` (`actor_id`),\n  CONSTRAINT `labor_open_actor_fk` FOREIGN KEY (`actor_id`) REFERENCES `users` (`id`),\n  CONSTRAINT `labor_open_employee_fk` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`),\n  CONSTRAINT `labor_open_amount` CHECK (`amount` >= 0),\n  CONSTRAINT `labor_open_snapshot` CHECK (json_valid(`employee_snapshot`))\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "labor_payments": "CREATE TABLE `labor_payments` (\n  `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,\n  `employee_id` bigint(20) unsigned NOT NULL,\n  `employee_snapshot` longtext NOT NULL,\n  `date` date NOT NULL,\n  `amount` decimal(18,2) NOT NULL,\n  `money_account_id` bigint(20) unsigned NOT NULL,\n  `money_batch_id` bigint(20) unsigned NOT NULL,\n  `method` enum('CASH','BANK_TRANSFER') NOT NULL,\n  `reference` varchar(150) NOT NULL,\n  `reference_key` char(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,\n  `reason` varchar(500) NOT NULL,\n  `actor_id` bigint(20) unsigned NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `labor_one_money_batch` (`money_batch_id`),\n  UNIQUE KEY `labor_payment_reference` (`employee_id`,`reference_key`),\n  KEY `labor_payment_account_fk` (`money_account_id`),\n  KEY `labor_payment_actor_fk` (`actor_id`),\n  CONSTRAINT `labor_payment_account_fk` FOREIGN KEY (`money_account_id`) REFERENCES `money_accounts` (`id`),\n  CONSTRAINT `labor_payment_actor_fk` FOREIGN KEY (`actor_id`) REFERENCES `users` (`id`),\n  CONSTRAINT `labor_payment_batch_fk` FOREIGN KEY (`money_batch_id`) REFERENCES `money_batches` (`id`),\n  CONSTRAINT `labor_payment_employee_fk` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`),\n  CONSTRAINT `labor_payment_positive` CHECK (`amount` > 0),\n  CONSTRAINT `labor_payment_snapshot` CHECK (json_valid(`employee_snapshot`))\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "labor_schema_receipts": "CREATE TABLE `labor_schema_receipts` (\n  `id` int(11) NOT NULL,\n  `version` varchar(32) NOT NULL,\n  `plan_hash` char(64) NOT NULL,\n  `reference` varchar(150) NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  CONSTRAINT `labor_receipt_one` CHECK (`id` = 1)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "login_attempts": "CREATE TABLE `login_attempts` (\n  `bucket` varchar(64) NOT NULL,\n  `window_start` bigint(20) NOT NULL,\n  `attempts` int(10) unsigned NOT NULL,\n  PRIMARY KEY (`bucket`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "money_accounts": "CREATE TABLE `money_accounts` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,\n  `name` varchar(150) NOT NULL,\n  `type` enum('CASH_HOLDER','BANK','CHEQUE_CUSTODY') NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `money_account_code` (`code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "money_audit": "CREATE TABLE `money_audit` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `batch_id` bigint(20) unsigned NOT NULL,\n  `actor_id` bigint(20) unsigned NOT NULL,\n  `action` varchar(64) NOT NULL,\n  `reason` varchar(500) NOT NULL,\n  `evidence` longtext NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `money_audit_batch` (`batch_id`),\n  KEY `money_audit_actor_fk` (`actor_id`),\n  CONSTRAINT `money_audit_actor_fk` FOREIGN KEY (`actor_id`) REFERENCES `users` (`id`),\n  CONSTRAINT `money_audit_batch_fk` FOREIGN KEY (`batch_id`) REFERENCES `money_batches` (`id`),\n  CONSTRAINT `money_evidence_json` CHECK (json_valid(`evidence`))\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "money_batches": "CREATE TABLE `money_batches` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `kind` enum('OPENING','TRANSFER','SOURCE_CREDIT','SOURCE_DEBIT','REVERSAL') NOT NULL,\n  `date` date NOT NULL,\n  `source_type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,\n  `source_key` char(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,\n  `source_ref` varchar(150) NOT NULL,\n  `from_account_id` bigint(20) unsigned DEFAULT NULL,\n  `to_account_id` bigint(20) unsigned DEFAULT NULL,\n  `opening_account_id` bigint(20) unsigned DEFAULT NULL,\n  `amount` decimal(18,2) NOT NULL,\n  `corrects_id` bigint(20) unsigned DEFAULT NULL,\n  `actor_id` bigint(20) unsigned NOT NULL,\n  `reason` varchar(500) NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `money_source_claim` (`source_type`,`source_key`),\n  UNIQUE KEY `money_one_opening` (`opening_account_id`),\n  UNIQUE KEY `money_one_reversal` (`corrects_id`),\n  KEY `money_from_fk` (`from_account_id`),\n  KEY `money_to_fk` (`to_account_id`),\n  KEY `money_actor_fk` (`actor_id`),\n  CONSTRAINT `money_actor_fk` FOREIGN KEY (`actor_id`) REFERENCES `users` (`id`),\n  CONSTRAINT `money_correction_fk` FOREIGN KEY (`corrects_id`) REFERENCES `money_batches` (`id`),\n  CONSTRAINT `money_from_fk` FOREIGN KEY (`from_account_id`) REFERENCES `money_accounts` (`id`),\n  CONSTRAINT `money_opening_fk` FOREIGN KEY (`opening_account_id`) REFERENCES `money_accounts` (`id`),\n  CONSTRAINT `money_to_fk` FOREIGN KEY (`to_account_id`) REFERENCES `money_accounts` (`id`),\n  CONSTRAINT `money_amount_check` CHECK (`amount` >= 0 and (`kind` = 'OPENING' or `amount` > 0)),\n  CONSTRAINT `money_distinct_accounts` CHECK (`from_account_id` is null or `to_account_id` is null or `from_account_id` <> `to_account_id`),\n  CONSTRAINT `money_legs_check` CHECK (`kind` = 'OPENING' and `from_account_id` is null and `to_account_id` is not null and `to_account_id` = `opening_account_id` and `opening_account_id` is not null and `corrects_id` is null or `kind` = 'TRANSFER' and `from_account_id` is not null and `to_account_id` is not null and `opening_account_id` is null and `corrects_id` is null or `kind` = 'SOURCE_CREDIT' and `from_account_id` is null and `to_account_id` is not null and `opening_account_id` is null and `corrects_id` is null or `kind` = 'SOURCE_DEBIT' and `from_account_id` is not null and `to_account_id` is null and `opening_account_id` is null and `corrects_id` is null or `kind` = 'REVERSAL' and (`from_account_id` is not null or `to_account_id` is not null) and `opening_account_id` is null and `corrects_id` is not null)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "money_movements": "CREATE TABLE `money_movements` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `batch_id` bigint(20) unsigned NOT NULL,\n  `account_id` bigint(20) unsigned NOT NULL,\n  `delta` decimal(18,2) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `money_one_leg` (`batch_id`,`account_id`),\n  KEY `money_movement_account_fk` (`account_id`),\n  CONSTRAINT `money_movement_account_fk` FOREIGN KEY (`account_id`) REFERENCES `money_accounts` (`id`),\n  CONSTRAINT `money_movement_batch_fk` FOREIGN KEY (`batch_id`) REFERENCES `money_batches` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "money_schema_receipts": "CREATE TABLE `money_schema_receipts` (\n  `id` int(11) NOT NULL,\n  `version` varchar(32) NOT NULL,\n  `plan_hash` char(64) NOT NULL,\n  `accounts_hash` char(64) NOT NULL,\n  `reference` varchar(150) NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  CONSTRAINT `money_receipt_one` CHECK (`id` = 1)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "permissions": "CREATE TABLE `permissions` (\n  `code` varchar(64) NOT NULL,\n  PRIMARY KEY (`code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "role_permissions": "CREATE TABLE `role_permissions` (\n  `role_code` varchar(32) NOT NULL,\n  `permission_code` varchar(64) NOT NULL,\n  PRIMARY KEY (`role_code`,`permission_code`),\n  KEY `role_permissions_permission_code_foreign` (`permission_code`),\n  CONSTRAINT `role_permissions_permission_code_foreign` FOREIGN KEY (`permission_code`) REFERENCES `permissions` (`code`),\n  CONSTRAINT `role_permissions_role_code_foreign` FOREIGN KEY (`role_code`) REFERENCES `roles` (`code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "roles": "CREATE TABLE `roles` (\n  `code` varchar(32) NOT NULL,\n  `name` varchar(64) NOT NULL,\n  PRIMARY KEY (`code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "sessions": "CREATE TABLE `sessions` (\n  `token_hash` varchar(64) NOT NULL,\n  `user_id` bigint(20) unsigned DEFAULT NULL,\n  `data` text NOT NULL,\n  `idle_expires` bigint(20) NOT NULL,\n  `absolute_expires` bigint(20) NOT NULL,\n  `revoked` tinyint(1) NOT NULL DEFAULT 0,\n  PRIMARY KEY (`token_hash`),\n  KEY `sessions_user_id_index` (`user_id`),\n  KEY `sessions_idle_expires_index` (`idle_expires`),\n  KEY `sessions_absolute_expires_index` (`absolute_expires`),\n  CONSTRAINT `sessions_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "stock_initializations": "CREATE TABLE `stock_initializations` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `item_id` bigint(20) unsigned NOT NULL,\n  `production_document_id` bigint(20) unsigned NOT NULL,\n  `opening_document_id` bigint(20) unsigned NOT NULL,\n  `opening_date` date NOT NULL,\n  `production_date` date NOT NULL,\n  `opening_hash` char(64) NOT NULL,\n  `production_hash` char(64) NOT NULL,\n  `approved` tinyint(3) unsigned NOT NULL,\n  `actor_id` bigint(20) unsigned NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `h1c_initial_item_once` (`item_id`),\n  UNIQUE KEY `h1c_initial_opening_once` (`opening_document_id`),\n  KEY `h1c_initial_production_fk` (`production_document_id`),\n  KEY `h1c_initial_actor_fk` (`actor_id`),\n  CONSTRAINT `h1c_initial_actor_fk` FOREIGN KEY (`actor_id`) REFERENCES `users` (`id`),\n  CONSTRAINT `h1c_initial_item_fk` FOREIGN KEY (`item_id`) REFERENCES `v1_items` (`id`),\n  CONSTRAINT `h1c_initial_opening_fk` FOREIGN KEY (`opening_document_id`) REFERENCES `v1_documents` (`id`),\n  CONSTRAINT `h1c_initial_production_fk` FOREIGN KEY (`production_document_id`) REFERENCES `v1_documents` (`id`),\n  CONSTRAINT `h1c_initial_approved` CHECK (`approved` = 1),\n  CONSTRAINT `h1c_initial_dates` CHECK (`opening_date` <= `production_date`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "upms_production_migrations": "CREATE TABLE `upms_production_migrations` (\n  `id` int(11) NOT NULL,\n  `reference` varchar(64) NOT NULL,\n  `plan_hash` char(64) NOT NULL,\n  `target_hash` char(64) NOT NULL,\n  `state` varchar(32) NOT NULL,\n  `step` varchar(64) NOT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "user_roles": "CREATE TABLE `user_roles` (\n  `user_id` bigint(20) unsigned NOT NULL,\n  `role_code` varchar(32) NOT NULL,\n  PRIMARY KEY (`user_id`,`role_code`),\n  KEY `user_roles_role_code_foreign` (`role_code`),\n  CONSTRAINT `user_roles_role_code_foreign` FOREIGN KEY (`role_code`) REFERENCES `roles` (`code`),\n  CONSTRAINT `user_roles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "users": "CREATE TABLE `users` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `login_key` varchar(64) NOT NULL,\n  `display_name` varchar(100) NOT NULL,\n  `password_hash` varchar(255) NOT NULL,\n  `enabled` tinyint(1) NOT NULL DEFAULT 1,\n  `authorization_version` int(10) unsigned NOT NULL DEFAULT 1,\n  `created_at` datetime(6) NOT NULL,\n  `updated_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `users_login_key_unique` (`login_key`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "v1_audit": "CREATE TABLE `v1_audit` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `actor_id` bigint(20) unsigned NOT NULL,\n  `action` varchar(64) NOT NULL,\n  `reference` varchar(100) NOT NULL,\n  `reason` text NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  KEY `v1_audit_actor_id_foreign` (`actor_id`),\n  CONSTRAINT `v1_audit_actor_id_foreign` FOREIGN KEY (`actor_id`) REFERENCES `users` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "v1_commands": "CREATE TABLE `v1_commands` (\n  `key` varchar(36) NOT NULL,\n  `actor_id` bigint(20) unsigned NOT NULL,\n  `fingerprint` varchar(64) NOT NULL,\n  `result` longtext NOT NULL,\n  PRIMARY KEY (`key`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "v1_control": "CREATE TABLE `v1_control` (\n  `id` int(11) NOT NULL,\n  `version` int(11) NOT NULL,\n  `operator_id` bigint(20) unsigned DEFAULT NULL,\n  `state` varchar(20) NOT NULL,\n  `next_dc` int(10) unsigned NOT NULL,\n  `cutover_evidence` text DEFAULT NULL,\n  `entry_version` int(11) NOT NULL DEFAULT 2,\n  `next_item_code` bigint(20) unsigned NOT NULL DEFAULT 1,\n  PRIMARY KEY (`id`),\n  KEY `v1_control_operator_id_foreign` (`operator_id`),\n  CONSTRAINT `v1_control_operator_id_foreign` FOREIGN KEY (`operator_id`) REFERENCES `users` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "v1_documents": "CREATE TABLE `v1_documents` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `kind` varchar(30) NOT NULL,\n  `date` date NOT NULL,\n  `party_id` bigint(20) unsigned DEFAULT NULL,\n  `status` varchar(12) NOT NULL,\n  `version` int(11) NOT NULL,\n  `payload` longtext NOT NULL,\n  `official_number` varchar(24) DEFAULT NULL,\n  `sequence` int(10) unsigned DEFAULT NULL,\n  `total` decimal(18,2) NOT NULL DEFAULT 0.00,\n  `corrects_id` bigint(20) unsigned DEFAULT NULL,\n  `actor_id` bigint(20) unsigned NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  `sale_subtotal` decimal(18,2) DEFAULT NULL,\n  `discount_mode` varchar(12) DEFAULT NULL,\n  `discount_value` decimal(18,2) DEFAULT NULL,\n  `discount_amount` decimal(18,2) DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `v1_documents_official_number_unique` (`official_number`),\n  UNIQUE KEY `v1_documents_sequence_unique` (`sequence`),\n  UNIQUE KEY `v1_documents_corrects_id_unique` (`corrects_id`),\n  KEY `v1_documents_party_id_foreign` (`party_id`),\n  KEY `v1_documents_actor_id_foreign` (`actor_id`),\n  CONSTRAINT `v1_documents_actor_id_foreign` FOREIGN KEY (`actor_id`) REFERENCES `users` (`id`),\n  CONSTRAINT `v1_documents_corrects_id_foreign` FOREIGN KEY (`corrects_id`) REFERENCES `v1_documents` (`id`),\n  CONSTRAINT `v1_documents_party_id_foreign` FOREIGN KEY (`party_id`) REFERENCES `v1_parties` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "v1_items": "CREATE TABLE `v1_items` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `code` varchar(64) NOT NULL,\n  `description` varchar(200) NOT NULL,\n  `quality` varchar(100) NOT NULL,\n  `colour` varchar(100) NOT NULL,\n  `packing` varchar(100) NOT NULL,\n  `remarks` text NOT NULL,\n  `active` tinyint(1) NOT NULL,\n  `version` int(11) NOT NULL,\n  `selling_price` decimal(18,2) DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `v1_items_code_unique` (`code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "v1_lines": "CREATE TABLE `v1_lines` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `document_id` bigint(20) unsigned NOT NULL,\n  `line_no` int(11) NOT NULL,\n  `item_id` bigint(20) unsigned NOT NULL,\n  `snapshot` text NOT NULL,\n  `quantity` decimal(18,0) NOT NULL,\n  `rate` decimal(18,2) NOT NULL,\n  `amount` decimal(18,2) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `v1_lines_document_id_line_no_unique` (`document_id`,`line_no`),\n  KEY `v1_lines_item_id_foreign` (`item_id`),\n  CONSTRAINT `v1_lines_document_id_foreign` FOREIGN KEY (`document_id`) REFERENCES `v1_documents` (`id`),\n  CONSTRAINT `v1_lines_item_id_foreign` FOREIGN KEY (`item_id`) REFERENCES `v1_items` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "v1_parties": "CREATE TABLE `v1_parties` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `kind` varchar(10) NOT NULL,\n  `name` varchar(150) NOT NULL,\n  `phone` varchar(64) NOT NULL,\n  `address` text NOT NULL,\n  `remarks` text NOT NULL,\n  `active` tinyint(1) NOT NULL,\n  `opening_verified` tinyint(1) NOT NULL DEFAULT 0,\n  `version` int(11) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `v1_parties_kind_name_unique` (`kind`,`name`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "v1_party_journal": "CREATE TABLE `v1_party_journal` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `document_id` bigint(20) unsigned NOT NULL,\n  `party_id` bigint(20) unsigned NOT NULL,\n  `debit` decimal(18,2) NOT NULL,\n  `credit` decimal(18,2) NOT NULL,\n  `particulars` varchar(200) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `v1_party_journal_document_id_party_id_unique` (`document_id`,`party_id`),\n  KEY `v1_party_journal_party_id_foreign` (`party_id`),\n  CONSTRAINT `v1_party_journal_document_id_foreign` FOREIGN KEY (`document_id`) REFERENCES `v1_documents` (`id`),\n  CONSTRAINT `v1_party_journal_party_id_foreign` FOREIGN KEY (`party_id`) REFERENCES `v1_parties` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "v1_stock": "CREATE TABLE `v1_stock` (\n  `item_id` bigint(20) unsigned NOT NULL,\n  `quantity` decimal(18,0) NOT NULL DEFAULT 0,\n  `verified` tinyint(1) NOT NULL DEFAULT 0,\n  PRIMARY KEY (`item_id`),\n  CONSTRAINT `v1_stock_item_id_foreign` FOREIGN KEY (`item_id`) REFERENCES `v1_items` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "v1_stock_journal": "CREATE TABLE `v1_stock_journal` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `document_id` bigint(20) unsigned NOT NULL,\n  `item_id` bigint(20) unsigned NOT NULL,\n  `delta` decimal(18,0) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `v1_stock_journal_document_id_item_id_unique` (`document_id`,`item_id`),\n  KEY `v1_stock_journal_item_id_foreign` (`item_id`),\n  CONSTRAINT `v1_stock_journal_document_id_foreign` FOREIGN KEY (`document_id`) REFERENCES `v1_documents` (`id`),\n  CONSTRAINT `v1_stock_journal_item_id_foreign` FOREIGN KEY (`item_id`) REFERENCES `v1_items` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+  },
+  "guards": [
+    {
+      "name": "upms32b2_employees_delete",
+      "table": "employees",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_EXPENSE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms32b2_employees_insert",
+      "table": "employees",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (NEW.version<>1 OR CHAR_LENGTH(TRIM(NEW.name))<1 OR NEW.created_at<>NEW.updated_at OR NEW.name_key NOT REGEXP '^[a-f0-9]{64}$') THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_EXPENSE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms32b2_employees_update",
+      "table": "employees",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (NEW.id<>OLD.id OR NEW.created_at<>OLD.created_at OR NEW.version<>OLD.version+1 OR NEW.updated_at<OLD.updated_at OR CHAR_LENGTH(TRIM(NEW.name))<1 OR NEW.name_key NOT REGEXP '^[a-f0-9]{64}$') THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_EXPENSE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms32b2_expense_categories_delete",
+      "table": "expense_categories",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_EXPENSE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms32b2_expense_categories_insert",
+      "table": "expense_categories",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (NEW.version<>1 OR CHAR_LENGTH(TRIM(NEW.name))<1 OR NEW.created_at<>NEW.updated_at OR NEW.name_key NOT REGEXP '^[a-f0-9]{64}$') THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_EXPENSE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms32b2_expense_categories_update",
+      "table": "expense_categories",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (NEW.id<>OLD.id OR NEW.created_at<>OLD.created_at OR NEW.version<>OLD.version+1 OR NEW.updated_at<OLD.updated_at OR CHAR_LENGTH(TRIM(NEW.name))<1 OR NEW.name_key NOT REGEXP '^[a-f0-9]{64}$') THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_EXPENSE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms32b2_expense_master_audit_delete",
+      "table": "expense_master_audit",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_EXPENSE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms32b2_expense_master_audit_insert",
+      "table": "expense_master_audit",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND ((NEW.action='CREATE' AND NEW.version<>1) OR (NEW.action='UPDATE' AND NEW.version<2) OR NOT ((NEW.entity='CATEGORY' AND EXISTS(SELECT 1 FROM expense_categories m WHERE m.id=NEW.entity_id AND m.version=NEW.version AND m.actor_id=NEW.actor_id AND m.updated_at=NEW.created_at AND BINARY m.name=BINARY JSON_UNQUOTE(JSON_EXTRACT(NEW.snapshot,'$.name')) AND JSON_UNQUOTE(JSON_EXTRACT(NEW.snapshot,'$.id'))=CAST(m.id AS CHAR))) OR (NEW.entity='EMPLOYEE' AND EXISTS(SELECT 1 FROM employees m WHERE m.id=NEW.entity_id AND m.version=NEW.version AND m.actor_id=NEW.actor_id AND m.updated_at=NEW.created_at AND BINARY m.name=BINARY JSON_UNQUOTE(JSON_EXTRACT(NEW.snapshot,'$.name')) AND JSON_UNQUOTE(JSON_EXTRACT(NEW.snapshot,'$.id'))=CAST(m.id AS CHAR))))) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_EXPENSE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms32b2_expense_master_audit_update",
+      "table": "expense_master_audit",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_EXPENSE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms32b2_expense_schema_receipts_delete",
+      "table": "expense_schema_receipts",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_EXPENSE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms32b2_expense_schema_receipts_insert",
+      "table": "expense_schema_receipts",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_EXPENSE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms32b2_expense_schema_receipts_update",
+      "table": "expense_schema_receipts",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_EXPENSE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms32_money_accounts_delete",
+      "table": "money_accounts",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_MONEY_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms32_money_accounts_insert",
+      "table": "money_accounts",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_MONEY_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms32_money_accounts_update",
+      "table": "money_accounts",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_MONEY_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms32_money_audit_delete",
+      "table": "money_audit",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_MONEY_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms32_money_audit_insert",
+      "table": "money_audit",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (NOT EXISTS(SELECT 1 FROM money_batches b WHERE b.id=NEW.batch_id AND b.actor_id=NEW.actor_id AND BINARY b.reason=BINARY NEW.reason AND b.created_at=NEW.created_at)) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_MONEY_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms32_money_audit_update",
+      "table": "money_audit",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_MONEY_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms32_money_batches_delete",
+      "table": "money_batches",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_MONEY_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms32_money_batches_insert",
+      "table": "money_batches",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (CHAR_LENGTH(TRIM(NEW.reason))<3 OR CHAR_LENGTH(TRIM(NEW.source_ref))<1 OR NEW.date>DATE(UTC_TIMESTAMP()+INTERVAL 5 HOUR) OR (NEW.kind<>'OPENING' AND EXISTS(SELECT 1 FROM money_accounts a WHERE a.type='CHEQUE_CUSTODY' AND a.id IN(NEW.from_account_id,NEW.to_account_id))) OR (NEW.kind='REVERSAL' AND NOT EXISTS(SELECT 1 FROM money_batches b WHERE b.id=NEW.corrects_id AND b.kind IN('TRANSFER','SOURCE_CREDIT','SOURCE_DEBIT') AND b.amount=NEW.amount AND (b.from_account_id <=> NEW.to_account_id) AND (b.to_account_id <=> NEW.from_account_id) AND NEW.date>=b.date))) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_MONEY_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms32_money_batches_update",
+      "table": "money_batches",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_MONEY_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms32_money_movements_delete",
+      "table": "money_movements",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_MONEY_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms32_money_movements_insert",
+      "table": "money_movements",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (NOT EXISTS(SELECT 1 FROM money_batches b WHERE b.id=NEW.batch_id AND ((NEW.account_id=b.from_account_id AND NEW.delta=-b.amount) OR (NEW.account_id=b.to_account_id AND NEW.delta=b.amount)))) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_MONEY_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms32_money_movements_update",
+      "table": "money_movements",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_MONEY_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms32_money_schema_receipts_delete",
+      "table": "money_schema_receipts",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_MONEY_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms32_money_schema_receipts_insert",
+      "table": "money_schema_receipts",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_MONEY_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms32_money_schema_receipts_update",
+      "table": "money_schema_receipts",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_MONEY_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_identity_audit_events_delete",
+      "table": "identity_audit_events",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_identity_audit_events_update",
+      "table": "identity_audit_events",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_identity_guard_delete",
+      "table": "identity_guard",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_identity_guard_insert",
+      "table": "identity_guard",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_identity_guard_update",
+      "table": "identity_guard",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_permissions_delete",
+      "table": "permissions",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_permissions_insert",
+      "table": "permissions",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_permissions_update",
+      "table": "permissions",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_roles_delete",
+      "table": "roles",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_roles_insert",
+      "table": "roles",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_roles_update",
+      "table": "roles",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_role_permissions_delete",
+      "table": "role_permissions",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_role_permissions_insert",
+      "table": "role_permissions",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_role_permissions_update",
+      "table": "role_permissions",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_upms_production_migrations_delete",
+      "table": "upms_production_migrations",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_upms_production_migrations_insert",
+      "table": "upms_production_migrations",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_upms_production_migrations_update",
+      "table": "upms_production_migrations",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_users_delete",
+      "table": "users",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_users_insert",
+      "table": "users",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_users_update",
+      "table": "users",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (NOT ((BINARY NEW.`id` <=> BINARY OLD.`id`) AND (BINARY NEW.`login_key` <=> BINARY OLD.`login_key`) AND (BINARY NEW.`display_name` <=> BINARY OLD.`display_name`) AND (BINARY NEW.`enabled` <=> BINARY OLD.`enabled`) AND (BINARY NEW.`created_at` <=> BINARY OLD.`created_at`)) OR NEW.authorization_version <> OLD.authorization_version + 1) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_user_roles_delete",
+      "table": "user_roles",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_user_roles_insert",
+      "table": "user_roles",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_user_roles_update",
+      "table": "user_roles",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_v1_audit_delete",
+      "table": "v1_audit",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_v1_audit_update",
+      "table": "v1_audit",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_v1_commands_delete",
+      "table": "v1_commands",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_v1_commands_update",
+      "table": "v1_commands",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_v1_control_delete",
+      "table": "v1_control",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_v1_control_insert",
+      "table": "v1_control",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_v1_control_update",
+      "table": "v1_control",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (NOT ((BINARY NEW.`id` <=> BINARY OLD.`id`) AND (BINARY NEW.`version` <=> BINARY OLD.`version`) AND (BINARY NEW.`operator_id` <=> BINARY OLD.`operator_id`) AND (BINARY NEW.`state` <=> BINARY OLD.`state`) AND (BINARY NEW.`entry_version` <=> BINARY OLD.`entry_version`) AND (BINARY NEW.`cutover_evidence` <=> BINARY OLD.`cutover_evidence`)) OR NEW.next_dc < OLD.next_dc OR NEW.next_dc > OLD.next_dc + 1 OR NEW.next_item_code < OLD.next_item_code) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_v1_documents_delete",
+      "table": "v1_documents",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_v1_documents_insert",
+      "table": "v1_documents",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (NEW.status <> 'DRAFT') THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_v1_documents_update",
+      "table": "v1_documents",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (OLD.status <> 'DRAFT' OR NOT ((BINARY NEW.`id` <=> BINARY OLD.`id`) AND (BINARY NEW.`actor_id` <=> BINARY OLD.`actor_id`) AND (BINARY NEW.`created_at` <=> BINARY OLD.`created_at`)) OR NEW.status NOT IN ('DRAFT','POSTED','CANCELLED')) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_v1_items_delete",
+      "table": "v1_items",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_v1_items_update",
+      "table": "v1_items",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (NOT ((BINARY NEW.`id` <=> BINARY OLD.`id`) AND (BINARY NEW.`code` <=> BINARY OLD.`code`))) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_v1_lines_delete",
+      "table": "v1_lines",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_v1_lines_update",
+      "table": "v1_lines",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_v1_parties_delete",
+      "table": "v1_parties",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_v1_parties_update",
+      "table": "v1_parties",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (NOT ((BINARY NEW.`id` <=> BINARY OLD.`id`) AND (BINARY NEW.`kind` <=> BINARY OLD.`kind`))) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_v1_party_journal_delete",
+      "table": "v1_party_journal",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_v1_party_journal_update",
+      "table": "v1_party_journal",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_v1_stock_delete",
+      "table": "v1_stock",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_v1_stock_journal_delete",
+      "table": "v1_stock_journal",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_v1_stock_journal_update",
+      "table": "v1_stock_journal",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upms85_v1_stock_update",
+      "table": "v1_stock",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = '__UPMS_RUNTIME__' AND (NOT ((BINARY NEW.`item_id` <=> BINARY OLD.`item_id`))) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscqa_cheque_attachments_delete",
+      "table": "cheque_attachments",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_EXTRA_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscqa_cheque_attachments_insert",
+      "table": "cheque_attachments",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (NEW.id NOT REGEXP '^[a-f0-9]{32}$' OR NEW.sha256 NOT REGEXP '^[a-f0-9]{64}$' OR NEW.bytes>262144 OR NEW.bytes=0 OR NEW.mime NOT IN('application/pdf','image/jpeg','image/png') OR NOT EXISTS(SELECT 1 FROM cheque_events e WHERE e.id=NEW.event_id AND e.cheque_id=NEW.cheque_id AND e.actor_id=NEW.actor_id AND e.type IN('RECEIVED','DEPOSITED','CLEARED')) OR EXISTS(SELECT 1 FROM cheque_audit a WHERE a.event_id=NEW.event_id) OR (SELECT COUNT(*) FROM cheque_attachments a WHERE a.event_id=NEW.event_id)>=2) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_EXTRA_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscqa_cheque_attachments_update",
+      "table": "cheque_attachments",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_EXTRA_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscqa_cheque_bank_creations_delete",
+      "table": "cheque_bank_creations",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_EXTRA_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscqa_cheque_bank_creations_insert",
+      "table": "cheque_bank_creations",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (NEW.code NOT REGEXP '^[A-Z0-9][A-Z0-9_-]{1,31}$' OR CHAR_LENGTH(TRIM(NEW.name))<2 OR NOT EXISTS(SELECT 1 FROM users u JOIN user_roles ur ON ur.user_id=u.id WHERE u.id=NEW.actor_id AND u.enabled=1 AND ur.role_code='administrator')) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_EXTRA_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscqa_cheque_bank_creations_update",
+      "table": "cheque_bank_creations",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_EXTRA_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscqa_cheque_extra_receipts_delete",
+      "table": "cheque_extra_receipts",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_EXTRA_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscqa_cheque_extra_receipts_insert",
+      "table": "cheque_extra_receipts",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_EXTRA_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscqa_cheque_extra_receipts_update",
+      "table": "cheque_extra_receipts",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_EXTRA_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscq_cheque_audit_delete",
+      "table": "cheque_audit",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscq_cheque_audit_insert",
+      "table": "cheque_audit",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (NEW.payload_hash NOT REGEXP '^[a-f0-9]{64}$' OR NOT EXISTS(SELECT 1 FROM cheque_events e WHERE e.id=NEW.event_id AND e.actor_id=NEW.actor_id AND e.created_at=NEW.created_at)) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscq_cheque_audit_update",
+      "table": "cheque_audit",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscq_cheque_clearances_delete",
+      "table": "cheque_clearances",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscq_cheque_clearances_insert",
+      "table": "cheque_clearances",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (NOT EXISTS(SELECT 1 FROM users u JOIN user_roles ur ON ur.user_id=u.id JOIN role_permissions rp ON rp.role_code=ur.role_code WHERE u.id=NEW.actor_id AND u.enabled=1 AND rp.permission_code='cheques.clear') OR NEW.instrument_hash NOT REGEXP '^[a-f0-9]{64}$' OR NEW.event_hash NOT REGEXP '^[a-f0-9]{64}$' OR NEW.document_hash NOT REGEXP '^[a-f0-9]{64}$' OR NEW.batch_hash NOT REGEXP '^[a-f0-9]{64}$' OR NEW.movement_hash NOT REGEXP '^[a-f0-9]{64}$' OR NOT EXISTS(SELECT 1 FROM cheque_events e JOIN cheque_instruments c ON c.id=e.cheque_id JOIN cheque_audit a ON a.event_id=e.id JOIN money_movements m ON m.id=NEW.movement_id WHERE e.id=NEW.event_id AND e.type='CLEARED' AND e.cheque_id=NEW.cheque_id AND e.document_id=NEW.document_id AND e.batch_id=NEW.batch_id AND e.actor_id=NEW.actor_id AND e.created_at=NEW.created_at AND a.payload_hash=NEW.event_hash AND m.batch_id=NEW.batch_id AND m.account_id=e.bank_id AND m.delta=c.amount)) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscq_cheque_clearances_update",
+      "table": "cheque_clearances",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscq_cheque_events_delete",
+      "table": "cheque_events",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscq_cheque_events_insert",
+      "table": "cheque_events",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (NEW.date>DATE(UTC_TIMESTAMP()+INTERVAL 5 HOUR) OR NEW.date<(SELECT c.received_date FROM cheque_instruments c WHERE c.id=NEW.cheque_id) OR NEW.date<COALESCE((SELECT MAX(e.date) FROM cheque_events e WHERE e.cheque_id=NEW.cheque_id),NEW.date) OR NEW.ordinal<>COALESCE((SELECT MAX(e.ordinal)+1 FROM cheque_events e WHERE e.cheque_id=NEW.cheque_id),1) OR NEW.previous_hash<>COALESCE((SELECT a.payload_hash FROM cheque_events e JOIN cheque_audit a ON a.event_id=e.id WHERE e.cheque_id=NEW.cheque_id ORDER BY e.ordinal DESC LIMIT 1),REPEAT('0',64)) OR CHAR_LENGTH(TRIM(NEW.reference))<3 OR CHAR_LENGTH(TRIM(NEW.reason))<10 OR NOT COALESCE(((NEW.type='RECEIVED' AND NEW.ordinal=1 AND NEW.date=(SELECT c.received_date FROM cheque_instruments c WHERE c.id=NEW.cheque_id)) OR (NEW.type='DEPOSITED' AND (SELECT e.type FROM cheque_events e WHERE e.cheque_id=NEW.cheque_id ORDER BY e.ordinal DESC LIMIT 1)='RECEIVED') OR (NEW.type IN('CLEARED','DISHONOURED') AND (SELECT e.type FROM cheque_events e WHERE e.cheque_id=NEW.cheque_id ORDER BY e.ordinal DESC LIMIT 1)='DEPOSITED') OR (NEW.type='RETURNED' AND (SELECT e.type FROM cheque_events e WHERE e.cheque_id=NEW.cheque_id ORDER BY e.ordinal DESC LIMIT 1) IN('RECEIVED','DEPOSITED','DISHONOURED')) OR (NEW.type='CANCELLED' AND (SELECT e.type FROM cheque_events e WHERE e.cheque_id=NEW.cheque_id ORDER BY e.ordinal DESC LIMIT 1)='RECEIVED')),FALSE) OR (NEW.type='RECEIVED' AND (NOT EXISTS(SELECT 1 FROM users u JOIN user_roles ur ON ur.user_id=u.id JOIN role_permissions rp ON rp.role_code=ur.role_code WHERE u.id=NEW.actor_id AND u.enabled=1 AND rp.permission_code='cheques.receive'))) OR (NEW.type='DEPOSITED' AND (NOT EXISTS(SELECT 1 FROM users u JOIN user_roles ur ON ur.user_id=u.id JOIN role_permissions rp ON rp.role_code=ur.role_code WHERE u.id=NEW.actor_id AND u.enabled=1 AND rp.permission_code='cheques.deposit'))) OR (NEW.type='CLEARED' AND (NOT EXISTS(SELECT 1 FROM users u JOIN user_roles ur ON ur.user_id=u.id JOIN role_permissions rp ON rp.role_code=ur.role_code WHERE u.id=NEW.actor_id AND u.enabled=1 AND rp.permission_code='cheques.clear'))) OR (NEW.type='DISHONOURED' AND (NOT EXISTS(SELECT 1 FROM users u JOIN user_roles ur ON ur.user_id=u.id JOIN role_permissions rp ON rp.role_code=ur.role_code WHERE u.id=NEW.actor_id AND u.enabled=1 AND rp.permission_code='cheques.dishonour'))) OR (NEW.type='RETURNED' AND (NOT EXISTS(SELECT 1 FROM users u JOIN user_roles ur ON ur.user_id=u.id JOIN role_permissions rp ON rp.role_code=ur.role_code WHERE u.id=NEW.actor_id AND u.enabled=1 AND rp.permission_code='cheques.dispose'))) OR (NEW.type='CANCELLED' AND (NOT EXISTS(SELECT 1 FROM users u JOIN user_roles ur ON ur.user_id=u.id JOIN role_permissions rp ON rp.role_code=ur.role_code WHERE u.id=NEW.actor_id AND u.enabled=1 AND rp.permission_code='cheques.dispose'))) OR (NEW.type<>'RECEIVED' AND CHAR_LENGTH(TRIM(NEW.evidence))<10) OR (NEW.type IN('DEPOSITED','CLEARED','DISHONOURED') AND NOT EXISTS(SELECT 1 FROM money_accounts a JOIN money_batches b ON b.to_account_id=a.id AND b.kind='OPENING' WHERE a.id=NEW.bank_id AND a.type='BANK' AND b.date<=NEW.date)) OR (NEW.type NOT IN('DEPOSITED','CLEARED','DISHONOURED') AND NEW.bank_id IS NOT NULL) OR (NEW.type<>'CLEARED' AND (NEW.document_id IS NOT NULL OR NEW.batch_id IS NOT NULL)) OR (NEW.type='CLEARED' AND (NEW.date<(SELECT c.cheque_date FROM cheque_instruments c WHERE c.id=NEW.cheque_id) OR NEW.bank_id<>(SELECT e.bank_id FROM cheque_events e WHERE e.cheque_id=NEW.cheque_id ORDER BY e.ordinal DESC LIMIT 1) OR (EXISTS(SELECT 1 FROM cheque_events e WHERE e.cheque_id=NEW.cheque_id AND e.actor_id=NEW.actor_id) AND (CHAR_LENGTH(TRIM(NEW.self_approval_reason))<10 OR NOT EXISTS(SELECT 1 FROM user_roles ur WHERE ur.user_id=NEW.actor_id AND ur.role_code='administrator'))) OR NOT EXISTS(SELECT 1 FROM cheque_instruments c JOIN v1_documents d ON d.id=NEW.document_id JOIN money_batches b ON b.id=NEW.batch_id WHERE c.id=NEW.cheque_id AND d.kind='CLIENT_PAYMENT' AND d.status='POSTED' AND d.date=NEW.date AND d.party_id=c.client_id AND d.total=c.amount AND JSON_UNQUOTE(JSON_EXTRACT(d.payload,'$.method'))='CHEQUE_CLEARED' AND BINARY JSON_UNQUOTE(JSON_EXTRACT(d.payload,'$.chequeSource.id'))=BINARY CAST(c.id AS CHAR) AND b.source_type='DOCUMENT' AND BINARY b.source_ref=BINARY CONCAT('UPMS-DOC:',d.id) AND b.kind='SOURCE_CREDIT' AND b.to_account_id=NEW.bank_id AND b.amount=c.amount AND b.actor_id=NEW.actor_id))) OR (NEW.type='CLEARED' AND (NOT EXISTS(SELECT 1 FROM v1_documents o JOIN cheque_instruments c ON c.client_id=o.party_id WHERE c.id=NEW.cheque_id AND o.kind='CLIENT_OPENING' AND o.status='POSTED' AND o.date<=NEW.date) OR COALESCE((SELECT SUM(j.debit-j.credit) FROM v1_party_journal j JOIN cheque_instruments c ON c.client_id=j.party_id WHERE c.id=NEW.cheque_id),0)<0 OR EXISTS(SELECT 1 FROM v1_documents d JOIN cheque_instruments c ON c.client_id=d.party_id WHERE c.id=NEW.cheque_id AND d.status='POSTED' AND d.date>NEW.date) OR EXISTS(SELECT 1 FROM money_movements m JOIN money_batches b ON b.id=m.batch_id WHERE m.account_id=NEW.bank_id AND b.date>NEW.date)))) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscq_cheque_events_update",
+      "table": "cheque_events",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscq_cheque_instruments_delete",
+      "table": "cheque_instruments",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscq_cheque_instruments_insert",
+      "table": "cheque_instruments",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (NOT EXISTS(SELECT 1 FROM users u JOIN user_roles ur ON ur.user_id=u.id JOIN role_permissions rp ON rp.role_code=ur.role_code WHERE u.id=NEW.actor_id AND u.enabled=1 AND rp.permission_code='cheques.receive') OR NEW.reference NOT REGEXP '^[A-Z0-9][A-Z0-9_-]{2,99}$' OR NEW.number NOT REGEXP '^[1-9][0-9]{0,29}$' OR NEW.drawer_account_key NOT REGEXP '^[A-Z0-9]{6,34}$' OR CHAR_LENGTH(TRIM(NEW.drawer_name))<2 OR NEW.received_date>DATE(UTC_TIMESTAMP()+INTERVAL 5 HOUR) OR NOT EXISTS(SELECT 1 FROM v1_parties p WHERE p.id=NEW.client_id AND p.kind='CLIENT' AND p.active=1 AND BINARY JSON_UNQUOTE(JSON_EXTRACT(NEW.client_snapshot,'$.id'))=BINARY CAST(p.id AS CHAR) AND JSON_UNQUOTE(JSON_EXTRACT(NEW.client_snapshot,'$.name'))=p.name)) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscq_cheque_instruments_update",
+      "table": "cheque_instruments",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscq_cheque_issuing_banks_delete",
+      "table": "cheque_issuing_banks",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscq_cheque_issuing_banks_insert",
+      "table": "cheque_issuing_banks",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND NOT EXISTS(SELECT 1 FROM cheque_bank_creations b WHERE b.id=NEW.id AND BINARY b.code=BINARY NEW.code AND BINARY b.name=BINARY NEW.name) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_DIRECTORY_REQUIRED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscq_cheque_issuing_banks_update",
+      "table": "cheque_issuing_banks",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscq_cheque_schema_receipts_delete",
+      "table": "cheque_schema_receipts",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscq_cheque_schema_receipts_insert",
+      "table": "cheque_schema_receipts",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscq_cheque_schema_receipts_update",
+      "table": "cheque_schema_receipts",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscq_money_batches_insert",
+      "table": "money_batches",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND ((NEW.source_type='EXTERNAL' AND (LOWER(NEW.source_ref) LIKE 'upms-cheque:%' OR EXISTS(SELECT 1 FROM cheque_instruments c WHERE c.reference=NEW.source_ref))) OR (NEW.corrects_id IS NOT NULL AND EXISTS(SELECT 1 FROM cheque_clearances c WHERE c.batch_id=NEW.corrects_id))) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscq_v1_documents_insert",
+      "table": "v1_documents",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND ((JSON_UNQUOTE(JSON_EXTRACT(NEW.payload,'$.method'))='CHEQUE_CLEARED' AND (NEW.kind<>'CLIENT_PAYMENT' OR COALESCE(JSON_UNQUOTE(JSON_EXTRACT(NEW.payload,'$.chequeRecognitionVersion')),'')<>'uat2-v1' OR NOT EXISTS(SELECT 1 FROM cheque_instruments c JOIN cheque_events e ON e.cheque_id=c.id WHERE BINARY CAST(c.id AS CHAR)=BINARY JSON_UNQUOTE(JSON_EXTRACT(NEW.payload,'$.chequeSource.id')) AND BINARY CAST(e.id AS CHAR)=BINARY JSON_UNQUOTE(JSON_EXTRACT(NEW.payload,'$.chequeSource.depositEventId')) AND e.type='DEPOSITED' AND e.ordinal=(SELECT MAX(x.ordinal) FROM cheque_events x WHERE x.cheque_id=c.id) AND c.client_id=NEW.party_id AND c.amount=CAST(JSON_UNQUOTE(JSON_EXTRACT(NEW.payload,'$.amount')) AS DECIMAL(18,2)) AND NEW.date>=c.cheque_date AND NEW.date>=e.date AND BINARY CAST(e.bank_id AS CHAR)=BINARY JSON_UNQUOTE(JSON_EXTRACT(NEW.payload,'$.moneyAccountId'))))) OR (NEW.kind IN('FINANCIAL_REFUND','PAYMENT_REVERSAL') AND EXISTS(SELECT 1 FROM cheque_clearances x WHERE x.document_id=COALESCE(NEW.corrects_id,CAST(JSON_UNQUOTE(JSON_EXTRACT(NEW.payload,'$.originalId')) AS UNSIGNED))))) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmscq_v1_documents_update",
+      "table": "v1_documents",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND ((JSON_UNQUOTE(JSON_EXTRACT(NEW.payload,'$.method'))='CHEQUE_CLEARED' AND (NEW.kind<>'CLIENT_PAYMENT' OR COALESCE(JSON_UNQUOTE(JSON_EXTRACT(NEW.payload,'$.chequeRecognitionVersion')),'')<>'uat2-v1' OR NOT EXISTS(SELECT 1 FROM cheque_instruments c JOIN cheque_events e ON e.cheque_id=c.id WHERE BINARY CAST(c.id AS CHAR)=BINARY JSON_UNQUOTE(JSON_EXTRACT(NEW.payload,'$.chequeSource.id')) AND BINARY CAST(e.id AS CHAR)=BINARY JSON_UNQUOTE(JSON_EXTRACT(NEW.payload,'$.chequeSource.depositEventId')) AND e.type='DEPOSITED' AND e.ordinal=(SELECT MAX(x.ordinal) FROM cheque_events x WHERE x.cheque_id=c.id) AND c.client_id=NEW.party_id AND c.amount=CAST(JSON_UNQUOTE(JSON_EXTRACT(NEW.payload,'$.amount')) AS DECIMAL(18,2)) AND NEW.date>=c.cheque_date AND NEW.date>=e.date AND BINARY CAST(e.bank_id AS CHAR)=BINARY JSON_UNQUOTE(JSON_EXTRACT(NEW.payload,'$.moneyAccountId'))))) OR (NEW.kind IN('FINANCIAL_REFUND','PAYMENT_REVERSAL') AND EXISTS(SELECT 1 FROM cheque_clearances x WHERE x.document_id=COALESCE(NEW.corrects_id,CAST(JSON_UNQUOTE(JSON_EXTRACT(NEW.payload,'$.originalId')) AS UNSIGNED))))) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_CHEQUE_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1c_labor_expense_allocations_delete",
+      "table": "labor_expense_allocations",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_H1C_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1c_labor_expense_allocations_insert",
+      "table": "labor_expense_allocations",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (NOT EXISTS(SELECT 1 FROM user_roles ur JOIN role_permissions rp ON rp.role_code=ur.role_code WHERE ur.user_id=NEW.actor_id AND rp.permission_code='employee_labor.classify') OR CHAR_LENGTH(TRIM(NEW.reason))<10 OR NEW.date>DATE(UTC_TIMESTAMP()+INTERVAL 5 HOUR) OR NEW.source_hash NOT REGEXP '^[a-f0-9]{64}$' OR NEW.batch_hash NOT REGEXP '^[a-f0-9]{64}$' OR NEW.movement_hash NOT REGEXP '^[a-f0-9]{64}$' OR NOT EXISTS(SELECT 1 FROM v1_documents d JOIN money_batches b ON b.id=NEW.source_batch_id JOIN money_movements m ON m.id=NEW.source_movement_id WHERE d.id=NEW.expense_id AND d.kind='EXPENSE' AND d.status='POSTED' AND d.date=NEW.source_date AND d.total=NEW.amount AND JSON_UNQUOTE(JSON_EXTRACT(d.payload,'$.expensePurpose'))='BUSINESS_EXPENSE' AND JSON_UNQUOTE(JSON_EXTRACT(d.payload,'$.expenseMasterVersion'))='p32b2' AND BINARY JSON_UNQUOTE(JSON_EXTRACT(d.payload,'$.employeeSnapshot.id'))=BINARY CAST(NEW.employee_id AS CHAR) AND JSON_CONTAINS(NEW.employee_snapshot,JSON_EXTRACT(d.payload,'$.employeeSnapshot')) AND JSON_CONTAINS(JSON_EXTRACT(d.payload,'$.employeeSnapshot'),NEW.employee_snapshot) AND b.source_type='DOCUMENT' AND BINARY b.source_ref=BINARY CONCAT('UPMS-DOC:',d.id) AND b.kind='SOURCE_DEBIT' AND b.amount=NEW.amount AND b.from_account_id IS NOT NULL AND b.to_account_id IS NULL AND m.batch_id=b.id AND m.account_id=b.from_account_id AND m.delta=-NEW.amount) OR EXISTS(SELECT 1 FROM v1_documents r WHERE r.kind='FINANCIAL_REFUND' AND r.status='POSTED' AND r.corrects_id=NEW.expense_id) OR EXISTS(SELECT 1 FROM money_batches r WHERE r.corrects_id=NEW.source_batch_id) OR NOT EXISTS(SELECT 1 FROM labor_openings o WHERE o.employee_id=NEW.employee_id AND o.date<=NEW.source_date AND o.date<=NEW.date)) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_H1C_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1c_labor_expense_allocations_update",
+      "table": "labor_expense_allocations",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_H1C_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1c_labor_extension_audit_delete",
+      "table": "labor_extension_audit",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_H1C_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1c_labor_extension_audit_insert",
+      "table": "labor_extension_audit",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (NEW.payload_hash NOT REGEXP '^[a-f0-9]{64}$' OR NOT ((NEW.entry_type='EXPENSE_ALLOCATION' AND EXISTS(SELECT 1 FROM labor_expense_allocations e WHERE e.id=NEW.entry_id AND e.actor_id=NEW.actor_id AND e.created_at=NEW.created_at)) OR (NEW.entry_type='STOCK_INITIALIZATION' AND EXISTS(SELECT 1 FROM stock_initializations e WHERE e.id=NEW.entry_id AND e.actor_id=NEW.actor_id AND e.created_at=NEW.created_at)))) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_H1C_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1c_labor_extension_audit_update",
+      "table": "labor_extension_audit",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_H1C_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1c_labor_extension_receipts_delete",
+      "table": "labor_extension_receipts",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_H1C_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1c_labor_extension_receipts_insert",
+      "table": "labor_extension_receipts",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_H1C_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1c_labor_extension_receipts_update",
+      "table": "labor_extension_receipts",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_H1C_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1c_money_batches_insert",
+      "table": "money_batches",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (NEW.corrects_id IS NOT NULL AND EXISTS(SELECT 1 FROM labor_expense_allocations x WHERE x.source_batch_id=NEW.corrects_id)) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_H1C_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1c_stock_initializations_delete",
+      "table": "stock_initializations",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_H1C_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1c_stock_initializations_insert",
+      "table": "stock_initializations",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (NOT EXISTS(SELECT 1 FROM user_roles ur JOIN role_permissions rp ON rp.role_code=ur.role_code WHERE ur.user_id=NEW.actor_id AND rp.permission_code='stock.initial_opening.confirm') OR NEW.approved<>1 OR NEW.production_date>DATE(UTC_TIMESTAMP()+INTERVAL 5 HOUR) OR NEW.opening_hash NOT REGEXP '^[a-f0-9]{64}$' OR NEW.production_hash NOT REGEXP '^[a-f0-9]{64}$' OR NOT EXISTS(SELECT 1 FROM v1_documents o JOIN v1_lines ol ON ol.document_id=o.id JOIN v1_documents p ON p.id=NEW.production_document_id JOIN v1_lines pl ON pl.document_id=p.id AND pl.item_id=NEW.item_id WHERE o.id=NEW.opening_document_id AND o.kind='STOCK_OPENING' AND o.status='POSTED' AND o.date=NEW.opening_date AND ol.item_id=NEW.item_id AND CAST(ol.quantity AS DECIMAL(18,0))=0 AND p.kind='PRODUCTION' AND p.status='POSTED' AND p.date=NEW.production_date AND o.id>p.id) OR EXISTS(SELECT 1 FROM v1_stock_journal j WHERE j.item_id=NEW.item_id AND j.document_id NOT IN(NEW.opening_document_id,NEW.production_document_id)) OR NOT EXISTS(SELECT 1 FROM v1_audit a WHERE a.action='document.posted' AND BINARY a.reference=BINARY CAST(NEW.production_document_id AS CHAR) AND a.actor_id=NEW.actor_id)) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_H1C_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1c_stock_initializations_update",
+      "table": "stock_initializations",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_H1C_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1c_v1_documents_insert",
+      "table": "v1_documents",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (NEW.kind='FINANCIAL_REFUND' AND NEW.status IN ('DRAFT','POSTED') AND EXISTS(SELECT 1 FROM labor_expense_allocations x WHERE x.expense_id=COALESCE(NEW.corrects_id,CAST(JSON_UNQUOTE(JSON_EXTRACT(NEW.payload,'$.originalId')) AS UNSIGNED)))) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_H1C_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1c_v1_documents_update",
+      "table": "v1_documents",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (NEW.kind='FINANCIAL_REFUND' AND NEW.status IN ('DRAFT','POSTED') AND EXISTS(SELECT 1 FROM labor_expense_allocations x WHERE x.expense_id=COALESCE(NEW.corrects_id,CAST(JSON_UNQUOTE(JSON_EXTRACT(NEW.payload,'$.originalId')) AS UNSIGNED)))) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_H1C_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1_labor_audit_delete",
+      "table": "labor_audit",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_LABOR_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1_labor_audit_insert",
+      "table": "labor_audit",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (NEW.payload_hash NOT REGEXP '^[a-f0-9]{64}$' OR NOT ((NEW.entry_type='OPENING' AND EXISTS(SELECT 1 FROM labor_openings e WHERE BINARY CAST(e.id AS CHAR)=BINARY NEW.entry_id AND e.employee_id=NEW.employee_id AND e.actor_id=NEW.actor_id AND e.created_at=NEW.created_at)) OR (NEW.entry_type='EARNING' AND EXISTS(SELECT 1 FROM labor_earnings e WHERE BINARY CAST(e.id AS CHAR)=BINARY NEW.entry_id AND e.employee_id=NEW.employee_id AND e.actor_id=NEW.actor_id AND e.created_at=NEW.created_at)) OR (NEW.entry_type='PAYMENT' AND EXISTS(SELECT 1 FROM labor_payments e WHERE e.id=NEW.entry_id AND e.employee_id=NEW.employee_id AND e.actor_id=NEW.actor_id AND e.created_at=NEW.created_at)))) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_LABOR_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1_labor_audit_update",
+      "table": "labor_audit",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_LABOR_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1_labor_earnings_delete",
+      "table": "labor_earnings",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_LABOR_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1_labor_earnings_insert",
+      "table": "labor_earnings",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (NOT EXISTS(SELECT 1 FROM employees e WHERE e.id=NEW.employee_id AND e.active=1 AND BINARY CAST(e.id AS CHAR)=BINARY JSON_UNQUOTE(JSON_EXTRACT(NEW.employee_snapshot,'$.id')) AND e.version=JSON_EXTRACT(NEW.employee_snapshot,'$.version') AND BINARY e.name=BINARY JSON_UNQUOTE(JSON_EXTRACT(NEW.employee_snapshot,'$.name'))) OR NOT EXISTS(SELECT 1 FROM v1_lines l JOIN v1_documents d ON d.id=l.document_id JOIN v1_audit a ON BINARY a.reference=BINARY CAST(d.id AS CHAR) WHERE l.id=NEW.line_id AND d.id=NEW.document_id AND d.kind='PRODUCTION' AND d.status='POSTED' AND d.date=NEW.date AND a.action='document.posted' AND a.actor_id=NEW.actor_id AND a.created_at=NEW.created_at AND l.item_id=NEW.item_id AND BINARY l.snapshot=BINARY NEW.item_snapshot AND BINARY l.quantity=BINARY NEW.quantity AND JSON_UNQUOTE(JSON_EXTRACT(d.payload,'$.laborVersion'))='uath1-v1' AND BINARY JSON_UNQUOTE(JSON_EXTRACT(d.payload,'$.productionEmployeeId'))=BINARY CAST(NEW.employee_id AS CHAR) AND CAST(JSON_UNQUOTE(JSON_EXTRACT(d.payload,CONCAT('$.lines[',l.line_no-1,'].laborRate'))) AS DECIMAL(18,2))=NEW.labor_rate)) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_LABOR_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1_labor_earnings_update",
+      "table": "labor_earnings",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_LABOR_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1_labor_openings_delete",
+      "table": "labor_openings",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_LABOR_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1_labor_openings_insert",
+      "table": "labor_openings",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (NOT EXISTS(SELECT 1 FROM employees e WHERE e.id=NEW.employee_id AND e.active=1 AND BINARY CAST(e.id AS CHAR)=BINARY JSON_UNQUOTE(JSON_EXTRACT(NEW.employee_snapshot,'$.id')) AND e.version=JSON_EXTRACT(NEW.employee_snapshot,'$.version') AND BINARY e.name=BINARY JSON_UNQUOTE(JSON_EXTRACT(NEW.employee_snapshot,'$.name'))) OR CHAR_LENGTH(TRIM(NEW.reason))<3 OR CHAR_LENGTH(TRIM(NEW.reference))<1 OR NEW.date>DATE(UTC_TIMESTAMP()+INTERVAL 5 HOUR) OR EXISTS(SELECT 1 FROM labor_earnings x WHERE x.employee_id=NEW.employee_id AND x.date<NEW.date)) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_LABOR_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1_labor_openings_update",
+      "table": "labor_openings",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_LABOR_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1_labor_payments_delete",
+      "table": "labor_payments",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_LABOR_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1_labor_payments_insert",
+      "table": "labor_payments",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (NOT EXISTS(SELECT 1 FROM employees e WHERE e.id=NEW.employee_id AND e.active=1 AND BINARY CAST(e.id AS CHAR)=BINARY JSON_UNQUOTE(JSON_EXTRACT(NEW.employee_snapshot,'$.id')) AND e.version=JSON_EXTRACT(NEW.employee_snapshot,'$.version') AND BINARY e.name=BINARY JSON_UNQUOTE(JSON_EXTRACT(NEW.employee_snapshot,'$.name'))) OR CHAR_LENGTH(TRIM(NEW.reason))<3 OR CHAR_LENGTH(TRIM(NEW.reference))<1 OR NEW.reference_key<>SHA2(LOWER(TRIM(NEW.reference)),256) OR NOT EXISTS(SELECT 1 FROM money_batches b JOIN money_accounts a ON a.id=b.from_account_id WHERE b.id=NEW.money_batch_id AND b.from_account_id=NEW.money_account_id AND b.amount=NEW.amount AND b.date=NEW.date AND b.actor_id=NEW.actor_id AND b.kind='SOURCE_DEBIT' AND b.source_type='EXTERNAL' AND BINARY b.source_ref=BINARY CONCAT('UPMS-LABOR:',NEW.id) AND ((NEW.method='CASH' AND a.type='CASH_HOLDER') OR (NEW.method='BANK_TRANSFER' AND a.type='BANK'))) OR NOT EXISTS(SELECT 1 FROM labor_openings o WHERE o.employee_id=NEW.employee_id AND o.date<=NEW.date)) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_LABOR_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1_labor_payments_update",
+      "table": "labor_payments",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_LABOR_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1_labor_schema_receipts_delete",
+      "table": "labor_schema_receipts",
+      "event": "DELETE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_LABOR_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1_labor_schema_receipts_insert",
+      "table": "labor_schema_receipts",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_LABOR_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1_labor_schema_receipts_update",
+      "table": "labor_schema_receipts",
+      "event": "UPDATE",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_LABOR_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    },
+    {
+      "name": "upmsh1_money_batches_insert",
+      "table": "money_batches",
+      "event": "INSERT",
+      "timing": "BEFORE",
+      "body": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1)='__UPMS_RUNTIME__' AND (LOWER(NEW.source_ref) LIKE 'upms-labor:%' AND (NEW.source_ref NOT REGEXP '^UPMS-LABOR:[a-f0-9-]{36}$' OR NEW.source_type<>'EXTERNAL' OR NEW.kind<>'SOURCE_DEBIT' OR NEW.to_account_id IS NOT NULL OR NEW.corrects_id IS NOT NULL)) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_LABOR_PROTECTED'; END IF; END",
+      "sqlMode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    }
+  ]
+}

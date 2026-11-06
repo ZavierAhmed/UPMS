@@ -57,12 +57,16 @@ await finish('website',website,{surface:'public-website-only',entrySource:'serve
 const management=new Map();
 for(const directory of ['app','bootstrap','config','routes','resources'])await tree(management,'upms.php/'+directory,'private/backend/'+directory,name=>!name.startsWith('private/backend/bootstrap/cache/')&&!/\.(?:log|sql|sqlite|env|key|pem|pfx|xlsx|pdf)$/i.test(name));
 for(const name of ['artisan','composer.json','composer.lock'])await add(management,'private/backend/'+name,'upms.php/'+name);
+const cumulativeBootstrap = (await readdir('upms.php')).includes('operations');
+if (cumulativeBootstrap) {
+ await add(management,'private/backend/operations/initialize-cumulative.php','upms.php/operations/initialize-cumulative.php');
+}
 const vendor='tmp/phase-4/vendor-stage/vendor';
 await tree(management,vendor,'private/backend/vendor',name=>!name.endsWith('.bat')&&!/(^|\/)\.git(?:\/|$)/.test(name));
 await tree(management,'upms.client/dist/management','management',name=>/\.(?:html|js|css|svg)$/.test(name));
 await add(management,'management/gateway.php','deployment/phase-4/gateway.php');await add(management,'management/.htaccess','deployment/phase-4/management.htaccess');
 await add(management,'private/management.env.disabled.example','deployment/phase-4/management.env.disabled.example');
 await add(management,'review/structural-transition-plan.json','docs/phase-4/evidence/structural-transition-plan.json');
-await finish('management',management,{surface:'php-simple-v1-management',phpRequired:'^8.3',schemaTarget:{tables:47,guards:133},productionProfileStatus:'BLOCKED - cumulative features intentionally reject production profiles',featureFlags:'All disabled in example',includesProvisioningTools:false,includesSyntheticData:false,includesSecrets:false});
+await finish('management',management,{surface:'php-simple-v1-management',phpRequired:'^8.3',schemaTarget:{tables:47,guards:133},productionProfileStatus:'BLOCKED - cumulative features intentionally reject production profiles',featureFlags:'All disabled in example',includesProvisioningTools:cumulativeBootstrap,includesSyntheticData:false,includesSecrets:false});
 await writeFile(resolve(output,'artifacts.json'),JSON.stringify(manifests,null,2)+'\n');
 console.log(JSON.stringify({output:relative(process.cwd(),output),artifacts:manifests},null,2));
