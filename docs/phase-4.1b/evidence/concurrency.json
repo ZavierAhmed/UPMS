@@ -1,0 +1,418 @@
+{
+  "passed": true,
+  "independentSessions": 5,
+  "distinctActors": 1,
+  "cases": [
+    {
+      "label": "held shared guard, five sessions",
+      "results": [
+        {
+          "path": "simple-v1/documents",
+          "status": 200,
+          "ms": 868
+        },
+        {
+          "path": "simple-v1/documents",
+          "status": 200,
+          "ms": 862
+        },
+        {
+          "path": "simple-v1/documents",
+          "status": 200,
+          "ms": 851
+        },
+        {
+          "path": "simple-v1/documents",
+          "status": 200,
+          "ms": 874
+        },
+        {
+          "path": "simple-v1/documents",
+          "status": 200,
+          "ms": 869
+        }
+      ]
+    },
+    {
+      "label": "five concurrent sessions",
+      "results": [
+        {
+          "path": "simple-v1/state",
+          "status": 200,
+          "ms": 2576
+        },
+        {
+          "path": "simple-v1/state",
+          "status": 200,
+          "ms": 2398
+        },
+        {
+          "path": "simple-v1/state",
+          "status": 200,
+          "ms": 2482
+        },
+        {
+          "path": "simple-v1/state",
+          "status": 200,
+          "ms": 2407
+        },
+        {
+          "path": "simple-v1/state",
+          "status": 200,
+          "ms": 2542
+        }
+      ]
+    },
+    {
+      "label": "five concurrent sessions",
+      "results": [
+        {
+          "path": "simple-v1/documents?kind=CHALLAN",
+          "status": 200,
+          "ms": 791
+        },
+        {
+          "path": "simple-v1/documents?kind=CHALLAN",
+          "status": 200,
+          "ms": 790
+        },
+        {
+          "path": "simple-v1/documents?kind=CHALLAN",
+          "status": 200,
+          "ms": 760
+        },
+        {
+          "path": "simple-v1/documents?kind=CHALLAN",
+          "status": 200,
+          "ms": 791
+        },
+        {
+          "path": "simple-v1/documents?kind=CHALLAN",
+          "status": 200,
+          "ms": 722
+        }
+      ]
+    },
+    {
+      "label": "five concurrent sessions",
+      "results": [
+        {
+          "path": "simple-v1/parties?kind=VENDOR",
+          "status": 200,
+          "ms": 772
+        },
+        {
+          "path": "simple-v1/parties?kind=VENDOR",
+          "status": 200,
+          "ms": 856
+        },
+        {
+          "path": "simple-v1/parties?kind=VENDOR",
+          "status": 200,
+          "ms": 863
+        },
+        {
+          "path": "simple-v1/parties?kind=VENDOR",
+          "status": 200,
+          "ms": 876
+        },
+        {
+          "path": "simple-v1/parties?kind=VENDOR",
+          "status": 200,
+          "ms": 845
+        }
+      ]
+    },
+    {
+      "label": "five concurrent sessions",
+      "results": [
+        {
+          "path": "simple-v1/money",
+          "status": 200,
+          "ms": 2285
+        },
+        {
+          "path": "simple-v1/money",
+          "status": 200,
+          "ms": 2376
+        },
+        {
+          "path": "simple-v1/money",
+          "status": 200,
+          "ms": 2381
+        },
+        {
+          "path": "simple-v1/money",
+          "status": 200,
+          "ms": 2465
+        },
+        {
+          "path": "simple-v1/money",
+          "status": 200,
+          "ms": 2317
+        }
+      ]
+    },
+    {
+      "label": "five concurrent sessions",
+      "results": [
+        {
+          "path": "simple-v1/employee-hafta",
+          "status": 200,
+          "ms": 2647
+        },
+        {
+          "path": "simple-v1/employee-hafta",
+          "status": 200,
+          "ms": 2820
+        },
+        {
+          "path": "simple-v1/employee-hafta",
+          "status": 200,
+          "ms": 2669
+        },
+        {
+          "path": "simple-v1/employee-hafta",
+          "status": 200,
+          "ms": 2648
+        },
+        {
+          "path": "simple-v1/employee-hafta",
+          "status": 200,
+          "ms": 2861
+        }
+      ]
+    },
+    {
+      "label": "five concurrent sessions",
+      "results": [
+        {
+          "path": "simple-v1/cheques",
+          "status": 200,
+          "ms": 2492
+        },
+        {
+          "path": "simple-v1/cheques",
+          "status": 200,
+          "ms": 2402
+        },
+        {
+          "path": "simple-v1/cheques",
+          "status": 200,
+          "ms": 2391
+        },
+        {
+          "path": "simple-v1/cheques",
+          "status": 200,
+          "ms": 2441
+        },
+        {
+          "path": "simple-v1/cheques",
+          "status": 200,
+          "ms": 2498
+        }
+      ]
+    },
+    {
+      "label": "three parallel reads, one session",
+      "results": [
+        {
+          "path": "simple-v1/state",
+          "status": 200,
+          "ms": 1638
+        },
+        {
+          "path": "simple-v1/documents?kind=CHALLAN",
+          "status": 200,
+          "ms": 757
+        },
+        {
+          "path": "simple-v1/parties?kind=VENDOR",
+          "status": 200,
+          "ms": 751
+        }
+      ]
+    },
+    {
+      "label": "held exclusive guard",
+      "results": [
+        {
+          "path": "simple-v1/documents",
+          "status": 503,
+          "code": "READ_BUSY",
+          "reference": "a8ff9d7f-76a0-4257-b660-9ed4cc7f2091",
+          "ms": 3467
+        }
+      ]
+    },
+    {
+      "label": "logout then read",
+      "results": [
+        {
+          "path": "session/logout",
+          "status": 204,
+          "ms": 406
+        },
+        {
+          "path": "simple-v1/documents",
+          "status": 401,
+          "code": "AUTH_REQUIRED",
+          "reference": "b5043c66-35f2-4332-ab64-e5b1a80edeeb",
+          "ms": 385
+        }
+      ]
+    }
+  ],
+  "chrome": {
+    "tabs": 3,
+    "cookieContexts": 2,
+    "distinctActors": 1,
+    "navigation": [
+      {
+        "path": "",
+        "views": [
+          {
+            "heading": "Dashboard",
+            "alerts": 0
+          },
+          {
+            "heading": "Dashboard",
+            "alerts": 0
+          },
+          {
+            "heading": "Dashboard",
+            "alerts": 0
+          }
+        ],
+        "ms": 11811
+      },
+      {
+        "path": "/challans",
+        "views": [
+          {
+            "heading": "Delivery Challans",
+            "alerts": 0
+          },
+          {
+            "heading": "Delivery Challans",
+            "alerts": 0
+          },
+          {
+            "heading": "Delivery Challans",
+            "alerts": 0
+          }
+        ],
+        "ms": 13120
+      },
+      {
+        "path": "/vendors",
+        "views": [
+          {
+            "heading": "Vendors",
+            "alerts": 0
+          },
+          {
+            "heading": "Vendors",
+            "alerts": 0
+          },
+          {
+            "heading": "Vendors",
+            "alerts": 0
+          }
+        ],
+        "ms": 17176
+      },
+      {
+        "path": "/money-accounts",
+        "views": [
+          {
+            "heading": "Money Accounts",
+            "alerts": 0
+          },
+          {
+            "heading": "Money Accounts",
+            "alerts": 0
+          },
+          {
+            "heading": "Money Accounts",
+            "alerts": 0
+          }
+        ],
+        "ms": 14490
+      },
+      {
+        "path": "/ledgers",
+        "views": [
+          {
+            "heading": "Party ledger",
+            "alerts": 0
+          },
+          {
+            "heading": "Party ledger",
+            "alerts": 0
+          },
+          {
+            "heading": "Party ledger",
+            "alerts": 0
+          }
+        ],
+        "ms": 11684
+      },
+      {
+        "path": "/employee-hafta",
+        "views": [
+          {
+            "heading": "Employee Hafta",
+            "alerts": 0
+          },
+          {
+            "heading": "Employee Hafta",
+            "alerts": 0
+          },
+          {
+            "heading": "Employee Hafta",
+            "alerts": 0
+          }
+        ],
+        "ms": 13670
+      },
+      {
+        "path": "/cheques",
+        "views": [
+          {
+            "heading": "Cheques",
+            "alerts": 0
+          },
+          {
+            "heading": "Cheques",
+            "alerts": 0
+          },
+          {
+            "heading": "Cheques",
+            "alerts": 0
+          }
+        ],
+        "ms": 14371
+      },
+      {
+        "path": "/challans",
+        "views": [
+          {
+            "heading": "Delivery Challans",
+            "alerts": 0
+          },
+          {
+            "heading": "Delivery Challans",
+            "alerts": 0
+          },
+          {
+            "heading": "Delivery Challans",
+            "alerts": 0
+          }
+        ],
+        "ms": 11874
+      }
+    ],
+    "failures": []
+  }
+}

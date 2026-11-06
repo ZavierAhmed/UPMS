@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "pdfs": [
+    {
+      "file": "p41b-bank-statement.pdf",
+      "pages": 2,
+      "sha256": "aeb5a0ab8efa01393962c61ed811522778d6f448d339b027a4fe4c605b43da92"
+    },
+    {
+      "file": "p41b-cheque-acknowledgment.pdf",
+      "pages": 1,
+      "sha256": "b6c3997334f928e08d8789894ee9fd935a06f906fa3886e998a27378672f489f"
+    },
+    {
+      "file": "p41b-cheque-register.pdf",
+      "pages": 7,
+      "sha256": "4222a3b8afc6fb63e857dc64413755bdbd95923e9d194cf40e42945797e64ada"
+    },
+    {
+      "file": "p41b-customer-receipt.pdf",
+      "pages": 1,
+      "sha256": "e35f06c88f51c8aa5c5e4ea5e98817b581c6d9a324a9343e953d3d8171a54795"
+    }
+  ],
+  "excel": [
+    {
+      "file": "Bank-Statement.xlsx",
+      "cells": 53,
+      "sha256": "02b60239862479caed48b145e81eb9df5d2adeb0942a703c0d492791fe3492ba"
+    },
+    {
+      "file": "Incoming-Cheque-Register.xlsx",
+      "cells": 498,
+      "sha256": "922f5fda15a76f13c47942dd8cccb457c1e8a3db7838ae4df3811f9edc02b883"
+    }
+  ]
+}

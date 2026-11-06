@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "isolated": true,
+  "concurrentRequests": 3,
+  "postStatus": 201,
+  "readStatus": 200,
+  "replayStatus": 201,
+  "postMs": 2252,
+  "readMs": 2255,
+  "replayMs": 1321,
+  "oneMovement": true,
+  "sameReceipt": true
+}

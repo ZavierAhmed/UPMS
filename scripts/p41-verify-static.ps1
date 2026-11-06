@@ -1,6 +1,6 @@
-param([string]$ApacheRoot='C:/xampp/apache',[switch]$Browser)
+param([string]$ApacheRoot='C:/xampp/apache',[switch]$Browser,[string]$Evidence='docs/phase-4.1/evidence',[string]$ArchiveRoot='tmp/phase-4.1/static')
 $ErrorActionPreference='Stop'
-$base=(Resolve-Path 'tmp/phase-4.1/static').Path.Replace('\','/')
+$base=(Resolve-Path -LiteralPath $ArchiveRoot).Path.Replace('\','/')
 $root="$base/apache-site-$([Guid]::NewGuid().ToString('N'))"
 $zipHash=(Get-FileHash "$base/upms-public-static.zip").Hash
 $expected=(Get-Content "$base/upms-public-static.zip.sha256").Split(' ')[0]
@@ -84,9 +84,9 @@ try {
  $checks+=Probe '/management/challans' 200 'https' 5228 'app.unique-plastic.com'
  $checks+=Probe '/api/v1/management/probe' 200 'https' 5228 'app.unique-plastic.com'
  if((Get-Content "$base/response.tmp" -Raw).Trim() -ne 'GATEWAY_ROUTE_FIXTURE'){throw 'Management API did not reach fixture gateway'}
- @{passed=$true;localTestCertificate=$true;gatewayRoutingFixtureOnly=$true;archiveSha256=$zipHash.ToLowerInvariant();onlineInquiry=$false;checks=$checks}|ConvertTo-Json -Depth 5|Set-Content docs/phase-4.1/evidence/static-apache.json
+ @{passed=$true;localTestCertificate=$true;gatewayRoutingFixtureOnly=$true;archiveSha256=$zipHash.ToLowerInvariant();onlineInquiry=$false;checks=$checks}|ConvertTo-Json -Depth 5|Set-Content (Join-Path $Evidence 'static-apache.json')
  if($Browser){
-  & './tmp/production-readiness/node22/node_modules/node/bin/node.exe' scripts/p41-static-browser.mjs
+  & './tmp/production-readiness/node22/node_modules/node/bin/node.exe' scripts/p41-static-browser.mjs (Join-Path $Evidence 'static-browser.json')
   if($LASTEXITCODE){throw 'Static Chrome checks failed'}
  }
 }finally{

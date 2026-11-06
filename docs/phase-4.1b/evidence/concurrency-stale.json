@@ -1,0 +1,285 @@
+{
+  "passed": true,
+  "independentSessions": 5,
+  "distinctActors": 1,
+  "cases": [
+    {
+      "label": "held shared guard, five sessions",
+      "results": [
+        {
+          "path": "simple-v1/documents",
+          "status": 200,
+          "ms": 618
+        },
+        {
+          "path": "simple-v1/documents",
+          "status": 200,
+          "ms": 596
+        },
+        {
+          "path": "simple-v1/documents",
+          "status": 200,
+          "ms": 624
+        },
+        {
+          "path": "simple-v1/documents",
+          "status": 200,
+          "ms": 595
+        },
+        {
+          "path": "simple-v1/documents",
+          "status": 200,
+          "ms": 563
+        }
+      ]
+    },
+    {
+      "label": "five concurrent sessions",
+      "results": [
+        {
+          "path": "simple-v1/state",
+          "status": 200,
+          "ms": 2202
+        },
+        {
+          "path": "simple-v1/state",
+          "status": 200,
+          "ms": 2139
+        },
+        {
+          "path": "simple-v1/state",
+          "status": 200,
+          "ms": 2223
+        },
+        {
+          "path": "simple-v1/state",
+          "status": 200,
+          "ms": 2278
+        },
+        {
+          "path": "simple-v1/state",
+          "status": 200,
+          "ms": 2224
+        }
+      ]
+    },
+    {
+      "label": "five concurrent sessions",
+      "results": [
+        {
+          "path": "simple-v1/documents?kind=CHALLAN",
+          "status": 200,
+          "ms": 852
+        },
+        {
+          "path": "simple-v1/documents?kind=CHALLAN",
+          "status": 200,
+          "ms": 781
+        },
+        {
+          "path": "simple-v1/documents?kind=CHALLAN",
+          "status": 200,
+          "ms": 846
+        },
+        {
+          "path": "simple-v1/documents?kind=CHALLAN",
+          "status": 200,
+          "ms": 788
+        },
+        {
+          "path": "simple-v1/documents?kind=CHALLAN",
+          "status": 200,
+          "ms": 846
+        }
+      ]
+    },
+    {
+      "label": "five concurrent sessions",
+      "results": [
+        {
+          "path": "simple-v1/parties?kind=VENDOR",
+          "status": 200,
+          "ms": 668
+        },
+        {
+          "path": "simple-v1/parties?kind=VENDOR",
+          "status": 200,
+          "ms": 640
+        },
+        {
+          "path": "simple-v1/parties?kind=VENDOR",
+          "status": 200,
+          "ms": 641
+        },
+        {
+          "path": "simple-v1/parties?kind=VENDOR",
+          "status": 200,
+          "ms": 670
+        },
+        {
+          "path": "simple-v1/parties?kind=VENDOR",
+          "status": 200,
+          "ms": 686
+        }
+      ]
+    },
+    {
+      "label": "five concurrent sessions",
+      "results": [
+        {
+          "path": "simple-v1/money",
+          "status": 200,
+          "ms": 2347
+        },
+        {
+          "path": "simple-v1/money",
+          "status": 200,
+          "ms": 2327
+        },
+        {
+          "path": "simple-v1/money",
+          "status": 200,
+          "ms": 2235
+        },
+        {
+          "path": "simple-v1/money",
+          "status": 200,
+          "ms": 2278
+        },
+        {
+          "path": "simple-v1/money",
+          "status": 200,
+          "ms": 2358
+        }
+      ]
+    },
+    {
+      "label": "five concurrent sessions",
+      "results": [
+        {
+          "path": "simple-v1/employee-hafta",
+          "status": 200,
+          "ms": 2904
+        },
+        {
+          "path": "simple-v1/employee-hafta",
+          "status": 200,
+          "ms": 2949
+        },
+        {
+          "path": "simple-v1/employee-hafta",
+          "status": 200,
+          "ms": 2916
+        },
+        {
+          "path": "simple-v1/employee-hafta",
+          "status": 200,
+          "ms": 2934
+        },
+        {
+          "path": "simple-v1/employee-hafta",
+          "status": 200,
+          "ms": 2876
+        }
+      ]
+    },
+    {
+      "label": "five concurrent sessions",
+      "results": [
+        {
+          "path": "simple-v1/cheques",
+          "status": 200,
+          "ms": 2633
+        },
+        {
+          "path": "simple-v1/cheques",
+          "status": 200,
+          "ms": 2744
+        },
+        {
+          "path": "simple-v1/cheques",
+          "status": 200,
+          "ms": 2661
+        },
+        {
+          "path": "simple-v1/cheques",
+          "status": 200,
+          "ms": 2674
+        },
+        {
+          "path": "simple-v1/cheques",
+          "status": 200,
+          "ms": 2836
+        }
+      ]
+    },
+    {
+      "label": "three parallel reads, one session",
+      "results": [
+        {
+          "path": "simple-v1/state",
+          "status": 200,
+          "ms": 2064
+        },
+        {
+          "path": "simple-v1/documents?kind=CHALLAN",
+          "status": 200,
+          "ms": 849
+        },
+        {
+          "path": "simple-v1/parties?kind=VENDOR",
+          "status": 200,
+          "ms": 858
+        }
+      ]
+    },
+    {
+      "label": "held exclusive guard",
+      "results": [
+        {
+          "path": "simple-v1/documents",
+          "status": 503,
+          "code": "READ_BUSY",
+          "reference": "26dd8296-d5cb-4d26-85cc-d33eca80762c",
+          "ms": 3704
+        }
+      ]
+    },
+    {
+      "label": "logout then read",
+      "results": [
+        {
+          "path": "session/logout",
+          "status": 204,
+          "ms": 553
+        },
+        {
+          "path": "simple-v1/documents",
+          "status": 401,
+          "code": "AUTH_REQUIRED",
+          "reference": "1d379695-fa3e-499a-a6a1-b999c8b98eb9",
+          "ms": 498
+        }
+      ]
+    },
+    {
+      "label": "isolated connection refused",
+      "results": [
+        {
+          "status": 503,
+          "code": "IDENTITY_UNAVAILABLE",
+          "ms": 2635,
+          "reference": "d4d63f57-7eb6-4a6b-8a39-6bbb1729eb8a"
+        }
+      ]
+    }
+  ],
+  "chrome": {
+    "tabs": 1,
+    "cookieContexts": 1,
+    "distinctActors": 1,
+    "navigation": [],
+    "failures": [],
+    "staleReadCancelled": true
+  }
+}

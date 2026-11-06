@@ -30,9 +30,12 @@ try {
   await visit('/contact');
   await page.waitForFunction(() => document.querySelector('fieldset')?.disabled &&
     document.querySelector('[role="note"]')?.textContent?.includes('not enabled'));
+  assert.ok(await page.$('a[href="tel:+923152209511"]'));
+  assert.ok(await page.$('a[href*="wa.me/923142113472"]'));
   assert.deepEqual(failures, []);
-  await writeFile('docs/phase-4.1/evidence/static-browser.json', JSON.stringify({
+  await writeFile(process.argv[2] || 'docs/phase-4.1/evidence/static-browser.json', JSON.stringify({
     passed: true, loopback: true, galleryImageDecoded: true, galleryNavigation: true, inquiryDisabled: true,
+    primaryPhoneVerified: true, whatsappVerified: true,
   }, null, 2) + '\n');
 } finally {
   await browser.close();

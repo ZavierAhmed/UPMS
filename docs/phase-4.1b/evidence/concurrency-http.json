@@ -1,0 +1,266 @@
+{
+  "passed": true,
+  "independentSessions": 5,
+  "distinctActors": 1,
+  "cases": [
+    {
+      "label": "held shared guard, five sessions",
+      "results": [
+        {
+          "path": "simple-v1/documents",
+          "status": 200,
+          "ms": 522
+        },
+        {
+          "path": "simple-v1/documents",
+          "status": 200,
+          "ms": 517
+        },
+        {
+          "path": "simple-v1/documents",
+          "status": 200,
+          "ms": 522
+        },
+        {
+          "path": "simple-v1/documents",
+          "status": 200,
+          "ms": 505
+        },
+        {
+          "path": "simple-v1/documents",
+          "status": 200,
+          "ms": 514
+        }
+      ]
+    },
+    {
+      "label": "five concurrent sessions",
+      "results": [
+        {
+          "path": "simple-v1/state",
+          "status": 200,
+          "ms": 3920
+        },
+        {
+          "path": "simple-v1/state",
+          "status": 200,
+          "ms": 3908
+        },
+        {
+          "path": "simple-v1/state",
+          "status": 200,
+          "ms": 3899
+        },
+        {
+          "path": "simple-v1/state",
+          "status": 200,
+          "ms": 3891
+        },
+        {
+          "path": "simple-v1/state",
+          "status": 200,
+          "ms": 3885
+        }
+      ]
+    },
+    {
+      "label": "five concurrent sessions",
+      "results": [
+        {
+          "path": "simple-v1/documents?kind=CHALLAN",
+          "status": 200,
+          "ms": 536
+        },
+        {
+          "path": "simple-v1/documents?kind=CHALLAN",
+          "status": 200,
+          "ms": 513
+        },
+        {
+          "path": "simple-v1/documents?kind=CHALLAN",
+          "status": 200,
+          "ms": 522
+        },
+        {
+          "path": "simple-v1/documents?kind=CHALLAN",
+          "status": 200,
+          "ms": 505
+        },
+        {
+          "path": "simple-v1/documents?kind=CHALLAN",
+          "status": 200,
+          "ms": 485
+        }
+      ]
+    },
+    {
+      "label": "five concurrent sessions",
+      "results": [
+        {
+          "path": "simple-v1/parties?kind=VENDOR",
+          "status": 200,
+          "ms": 539
+        },
+        {
+          "path": "simple-v1/parties?kind=VENDOR",
+          "status": 200,
+          "ms": 529
+        },
+        {
+          "path": "simple-v1/parties?kind=VENDOR",
+          "status": 200,
+          "ms": 524
+        },
+        {
+          "path": "simple-v1/parties?kind=VENDOR",
+          "status": 200,
+          "ms": 530
+        },
+        {
+          "path": "simple-v1/parties?kind=VENDOR",
+          "status": 200,
+          "ms": 505
+        }
+      ]
+    },
+    {
+      "label": "five concurrent sessions",
+      "results": [
+        {
+          "path": "simple-v1/money",
+          "status": 200,
+          "ms": 1511
+        },
+        {
+          "path": "simple-v1/money",
+          "status": 200,
+          "ms": 1496
+        },
+        {
+          "path": "simple-v1/money",
+          "status": 200,
+          "ms": 1522
+        },
+        {
+          "path": "simple-v1/money",
+          "status": 200,
+          "ms": 1566
+        },
+        {
+          "path": "simple-v1/money",
+          "status": 200,
+          "ms": 1582
+        }
+      ]
+    },
+    {
+      "label": "five concurrent sessions",
+      "results": [
+        {
+          "path": "simple-v1/employee-hafta",
+          "status": 200,
+          "ms": 1805
+        },
+        {
+          "path": "simple-v1/employee-hafta",
+          "status": 200,
+          "ms": 1809
+        },
+        {
+          "path": "simple-v1/employee-hafta",
+          "status": 200,
+          "ms": 1819
+        },
+        {
+          "path": "simple-v1/employee-hafta",
+          "status": 200,
+          "ms": 1778
+        },
+        {
+          "path": "simple-v1/employee-hafta",
+          "status": 200,
+          "ms": 1770
+        }
+      ]
+    },
+    {
+      "label": "five concurrent sessions",
+      "results": [
+        {
+          "path": "simple-v1/cheques",
+          "status": 200,
+          "ms": 1454
+        },
+        {
+          "path": "simple-v1/cheques",
+          "status": 200,
+          "ms": 1446
+        },
+        {
+          "path": "simple-v1/cheques",
+          "status": 200,
+          "ms": 1499
+        },
+        {
+          "path": "simple-v1/cheques",
+          "status": 200,
+          "ms": 1435
+        },
+        {
+          "path": "simple-v1/cheques",
+          "status": 200,
+          "ms": 1467
+        }
+      ]
+    },
+    {
+      "label": "three parallel reads, one session",
+      "results": [
+        {
+          "path": "simple-v1/state",
+          "status": 200,
+          "ms": 1060
+        },
+        {
+          "path": "simple-v1/documents?kind=CHALLAN",
+          "status": 200,
+          "ms": 464
+        },
+        {
+          "path": "simple-v1/parties?kind=VENDOR",
+          "status": 200,
+          "ms": 469
+        }
+      ]
+    },
+    {
+      "label": "held exclusive guard",
+      "results": [
+        {
+          "path": "simple-v1/documents",
+          "status": 503,
+          "code": "READ_BUSY",
+          "reference": "8ec76127-5695-4e09-9d26-63affce9a36e",
+          "ms": 3402
+        }
+      ]
+    },
+    {
+      "label": "logout then read",
+      "results": [
+        {
+          "path": "session/logout",
+          "status": 204,
+          "ms": 452
+        },
+        {
+          "path": "simple-v1/documents",
+          "status": 401,
+          "code": "AUTH_REQUIRED",
+          "reference": "acf92014-f0a3-4dbf-8ae7-cc7eaf9e188c",
+          "ms": 436
+        }
+      ]
+    }
+  ]
+}
