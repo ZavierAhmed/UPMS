@@ -11,3 +11,5 @@ Current hosting does not expose a working supported Node selector for the accept
 Local PHP regressions passed 169 tests / 1912 assertions; React 324 tests; final Node 304 tests. Fresh financial and encrypted recovery suites are retained under `evidence/financial`. Candidate public-only Node and separate PHP artifacts are prepared as drafts. Final source-commit packaging, extracted-package acceptance and hosted staging remain required.
 
 Operational schema migration is blocked by current production contracts and isolated-only feature boundaries, authentic receipt/permission implementation and owner/accountant historical accounting decisions. Attachments and SMTP remain disabled. See `RELEASE-GATE-MATRIX.md` for gate-by-gate evidence. No failed, unfinished or local-only check establishes production readiness.
+
+Committed-source release archives are now available for review. Exact source and ZIP hashes are in evidence/artifacts-release.json. Public package parity passed. Four Chrome PDFs and two Excel exports were generated, with all 11 PDF pages inspected. Hosted acceptance and independent recovery remain blocked.

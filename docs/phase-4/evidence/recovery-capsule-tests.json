@@ -1,0 +1,14 @@
+{
+    "passed": true,
+    "tests": {
+        "roundtrip": true,
+        "applicationKeyPreserved": true,
+        "wrong-passphrase": true,
+        "ciphertext-tamper": true,
+        "recipient-substitution": true,
+        "kdf-abuse": true
+    },
+    "dpapiUsed": false,
+    "productionKeysUsed": false,
+    "independentOperatorGate": "BLOCKED - actual USB\/operator\/computer test still required"
+}

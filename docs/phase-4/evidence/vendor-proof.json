@@ -1,0 +1,8 @@
+{
+    "passed": true,
+    "php": "8.3.36",
+    "packageCount": 75,
+    "fileCount": 5850,
+    "sourceLockSha256": "9d9c68ff043f301df0c61dac211f36fda85fd3d9d20668ded5d85f3f49cccae6",
+    "devDependenciesIncluded": false
+}

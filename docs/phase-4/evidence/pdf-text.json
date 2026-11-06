@@ -1,0 +1,22 @@
+[
+  {
+    "file": "output\\pdf\\p4-bank-statement.pdf",
+    "pages": 2,
+    "selectableText": true
+  },
+  {
+    "file": "output\\pdf\\p4-cheque-acknowledgment.pdf",
+    "pages": 1,
+    "selectableText": true
+  },
+  {
+    "file": "output\\pdf\\p4-cheque-register.pdf",
+    "pages": 7,
+    "selectableText": true
+  },
+  {
+    "file": "output\\pdf\\p4-customer-receipt.pdf",
+    "pages": 1,
+    "selectableText": true
+  }
+]

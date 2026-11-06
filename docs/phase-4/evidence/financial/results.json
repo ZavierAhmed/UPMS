@@ -1,0 +1,58 @@
+[
+  {
+    "name": "uath1-integration.mjs",
+    "exitCode": 0
+  },
+  {
+    "name": "uath1c-integration.mjs",
+    "exitCode": 0
+  },
+  {
+    "name": "uath1c-negative.mjs",
+    "exitCode": 1
+  },
+  {
+    "name": "uath1c-negative.mjs",
+    "exitCode": 0
+  },
+  {
+    "name": "uat2-integration.mjs",
+    "exitCode": 0
+  },
+  {
+    "name": "uat2-negative.mjs",
+    "exitCode": 0
+  },
+  {
+    "name": "uat2-recovery.mjs",
+    "exitCode": 0
+  },
+  {
+    "name": "uat2a-clearance-repro.mjs",
+    "exitCode": 0
+  },
+  {
+    "name": "uat2a-core-http.mjs",
+    "exitCode": 0
+  },
+  {
+    "name": "uat2a-reference-http.mjs",
+    "exitCode": 1
+  },
+  {
+    "name": "uat2a-extras-http.mjs",
+    "exitCode": 0
+  },
+  {
+    "name": "uat2a-reference-http.mjs",
+    "exitCode": 0
+  },
+  {
+    "name": "uat2a-current-http.mjs",
+    "exitCode": 0
+  },
+  {
+    "name": "uat2a-stale-and-identity.mjs",
+    "exitCode": 0
+  }
+]

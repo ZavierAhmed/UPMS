@@ -1,0 +1,854 @@
+{
+    "format": "UPMS_P4_HOST_INVENTORY_V1",
+    "verifiedUtc": "2026-11-05T17:29:28+00:00",
+    "databaseWrites": 0,
+    "hostFilesWritten": 0,
+    "credentialsPrinted": false,
+    "identity": {
+        "version": "10.11.19-MariaDB-cll-lve",
+        "schema_name": "upms_v1",
+        "authenticated_account": "upms_runtime84@localhost",
+        "connection_account": "upms_runtime84@localhost",
+        "server_hostname": "sg2plzcpnl508885.prod.sin2.secureserver.net",
+        "socket_path": "/var/lib/mysql/mysql.sock",
+        "port": 3306,
+        "charset_name": "utf8mb4"
+    },
+    "privilegeVerification": {
+        "passed": true,
+        "policy": "godaddy_database_crud",
+        "account": "upms_runtime84@localhost",
+        "identityMatched": true,
+        "directGrantsOnly": true,
+        "expectedPrivileges": 4,
+        "actualPrivileges": 4,
+        "missing": [],
+        "unexpected": []
+    },
+    "runtimeGrants": [
+        "GRANT USAGE ON *.* TO `upms_runtime84`@`localhost` [authentication clause redacted]",
+        "GRANT SELECT, INSERT, UPDATE, DELETE ON `upms\\_v1`.* TO `upms_runtime84`@`localhost`"
+    ],
+    "guardVerification": {
+        "passed": true,
+        "triggers": 45,
+        "guardHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+        "definerPrivilegesVerified": true
+    },
+    "guards": [
+        {
+            "TRIGGER_NAME": "upms85_identity_audit_events_delete",
+            "EVENT_MANIPULATION": "DELETE",
+            "EVENT_OBJECT_TABLE": "identity_audit_events",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_identity_audit_events_update",
+            "EVENT_MANIPULATION": "UPDATE",
+            "EVENT_OBJECT_TABLE": "identity_audit_events",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_identity_guard_delete",
+            "EVENT_MANIPULATION": "DELETE",
+            "EVENT_OBJECT_TABLE": "identity_guard",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_identity_guard_insert",
+            "EVENT_MANIPULATION": "INSERT",
+            "EVENT_OBJECT_TABLE": "identity_guard",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_identity_guard_update",
+            "EVENT_MANIPULATION": "UPDATE",
+            "EVENT_OBJECT_TABLE": "identity_guard",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_permissions_delete",
+            "EVENT_MANIPULATION": "DELETE",
+            "EVENT_OBJECT_TABLE": "permissions",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_permissions_insert",
+            "EVENT_MANIPULATION": "INSERT",
+            "EVENT_OBJECT_TABLE": "permissions",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_permissions_update",
+            "EVENT_MANIPULATION": "UPDATE",
+            "EVENT_OBJECT_TABLE": "permissions",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_roles_delete",
+            "EVENT_MANIPULATION": "DELETE",
+            "EVENT_OBJECT_TABLE": "roles",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_roles_insert",
+            "EVENT_MANIPULATION": "INSERT",
+            "EVENT_OBJECT_TABLE": "roles",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_roles_update",
+            "EVENT_MANIPULATION": "UPDATE",
+            "EVENT_OBJECT_TABLE": "roles",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_role_permissions_delete",
+            "EVENT_MANIPULATION": "DELETE",
+            "EVENT_OBJECT_TABLE": "role_permissions",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_role_permissions_insert",
+            "EVENT_MANIPULATION": "INSERT",
+            "EVENT_OBJECT_TABLE": "role_permissions",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_role_permissions_update",
+            "EVENT_MANIPULATION": "UPDATE",
+            "EVENT_OBJECT_TABLE": "role_permissions",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_upms_production_migrations_delete",
+            "EVENT_MANIPULATION": "DELETE",
+            "EVENT_OBJECT_TABLE": "upms_production_migrations",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_upms_production_migrations_insert",
+            "EVENT_MANIPULATION": "INSERT",
+            "EVENT_OBJECT_TABLE": "upms_production_migrations",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_upms_production_migrations_update",
+            "EVENT_MANIPULATION": "UPDATE",
+            "EVENT_OBJECT_TABLE": "upms_production_migrations",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_users_delete",
+            "EVENT_MANIPULATION": "DELETE",
+            "EVENT_OBJECT_TABLE": "users",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_users_insert",
+            "EVENT_MANIPULATION": "INSERT",
+            "EVENT_OBJECT_TABLE": "users",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_users_update",
+            "EVENT_MANIPULATION": "UPDATE",
+            "EVENT_OBJECT_TABLE": "users",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (NOT ((BINARY NEW.`id` <=> BINARY OLD.`id`) AND (BINARY NEW.`login_key` <=> BINARY OLD.`login_key`) AND (BINARY NEW.`display_name` <=> BINARY OLD.`display_name`) AND (BINARY NEW.`enabled` <=> BINARY OLD.`enabled`) AND (BINARY NEW.`created_at` <=> BINARY OLD.`created_at`)) OR NEW.authorization_version <> OLD.authorization_version + 1) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_user_roles_delete",
+            "EVENT_MANIPULATION": "DELETE",
+            "EVENT_OBJECT_TABLE": "user_roles",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_user_roles_insert",
+            "EVENT_MANIPULATION": "INSERT",
+            "EVENT_OBJECT_TABLE": "user_roles",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_user_roles_update",
+            "EVENT_MANIPULATION": "UPDATE",
+            "EVENT_OBJECT_TABLE": "user_roles",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_v1_audit_delete",
+            "EVENT_MANIPULATION": "DELETE",
+            "EVENT_OBJECT_TABLE": "v1_audit",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_v1_audit_update",
+            "EVENT_MANIPULATION": "UPDATE",
+            "EVENT_OBJECT_TABLE": "v1_audit",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_v1_commands_delete",
+            "EVENT_MANIPULATION": "DELETE",
+            "EVENT_OBJECT_TABLE": "v1_commands",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_v1_commands_update",
+            "EVENT_MANIPULATION": "UPDATE",
+            "EVENT_OBJECT_TABLE": "v1_commands",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_v1_control_delete",
+            "EVENT_MANIPULATION": "DELETE",
+            "EVENT_OBJECT_TABLE": "v1_control",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_v1_control_insert",
+            "EVENT_MANIPULATION": "INSERT",
+            "EVENT_OBJECT_TABLE": "v1_control",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_v1_control_update",
+            "EVENT_MANIPULATION": "UPDATE",
+            "EVENT_OBJECT_TABLE": "v1_control",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (NOT ((BINARY NEW.`id` <=> BINARY OLD.`id`) AND (BINARY NEW.`version` <=> BINARY OLD.`version`) AND (BINARY NEW.`operator_id` <=> BINARY OLD.`operator_id`) AND (BINARY NEW.`state` <=> BINARY OLD.`state`) AND (BINARY NEW.`entry_version` <=> BINARY OLD.`entry_version`) AND (BINARY NEW.`cutover_evidence` <=> BINARY OLD.`cutover_evidence`)) OR NEW.next_dc < OLD.next_dc OR NEW.next_dc > OLD.next_dc + 1 OR NEW.next_item_code < OLD.next_item_code) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_v1_documents_delete",
+            "EVENT_MANIPULATION": "DELETE",
+            "EVENT_OBJECT_TABLE": "v1_documents",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_v1_documents_insert",
+            "EVENT_MANIPULATION": "INSERT",
+            "EVENT_OBJECT_TABLE": "v1_documents",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (NEW.status <> 'DRAFT') THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_v1_documents_update",
+            "EVENT_MANIPULATION": "UPDATE",
+            "EVENT_OBJECT_TABLE": "v1_documents",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (OLD.status <> 'DRAFT' OR NOT ((BINARY NEW.`id` <=> BINARY OLD.`id`) AND (BINARY NEW.`actor_id` <=> BINARY OLD.`actor_id`) AND (BINARY NEW.`created_at` <=> BINARY OLD.`created_at`)) OR NEW.status NOT IN ('DRAFT','POSTED','CANCELLED')) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_v1_items_delete",
+            "EVENT_MANIPULATION": "DELETE",
+            "EVENT_OBJECT_TABLE": "v1_items",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_v1_items_update",
+            "EVENT_MANIPULATION": "UPDATE",
+            "EVENT_OBJECT_TABLE": "v1_items",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (NOT ((BINARY NEW.`id` <=> BINARY OLD.`id`) AND (BINARY NEW.`code` <=> BINARY OLD.`code`))) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_v1_lines_delete",
+            "EVENT_MANIPULATION": "DELETE",
+            "EVENT_OBJECT_TABLE": "v1_lines",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_v1_lines_update",
+            "EVENT_MANIPULATION": "UPDATE",
+            "EVENT_OBJECT_TABLE": "v1_lines",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_v1_parties_delete",
+            "EVENT_MANIPULATION": "DELETE",
+            "EVENT_OBJECT_TABLE": "v1_parties",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_v1_parties_update",
+            "EVENT_MANIPULATION": "UPDATE",
+            "EVENT_OBJECT_TABLE": "v1_parties",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (NOT ((BINARY NEW.`id` <=> BINARY OLD.`id`) AND (BINARY NEW.`kind` <=> BINARY OLD.`kind`))) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_v1_party_journal_delete",
+            "EVENT_MANIPULATION": "DELETE",
+            "EVENT_OBJECT_TABLE": "v1_party_journal",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_v1_party_journal_update",
+            "EVENT_MANIPULATION": "UPDATE",
+            "EVENT_OBJECT_TABLE": "v1_party_journal",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_v1_stock_delete",
+            "EVENT_MANIPULATION": "DELETE",
+            "EVENT_OBJECT_TABLE": "v1_stock",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_v1_stock_journal_delete",
+            "EVENT_MANIPULATION": "DELETE",
+            "EVENT_OBJECT_TABLE": "v1_stock_journal",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_v1_stock_journal_update",
+            "EVENT_MANIPULATION": "UPDATE",
+            "EVENT_OBJECT_TABLE": "v1_stock_journal",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (TRUE) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        },
+        {
+            "TRIGGER_NAME": "upms85_v1_stock_update",
+            "EVENT_MANIPULATION": "UPDATE",
+            "EVENT_OBJECT_TABLE": "v1_stock",
+            "ACTION_TIMING": "BEFORE",
+            "ACTION_STATEMENT": "BEGIN IF SUBSTRING_INDEX(USER(),'@',1) = 'upms_runtime84' AND (NOT ((BINARY NEW.`item_id` <=> BINARY OLD.`item_id`))) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='UPMS_PROTECTED_MUTATION'; END IF; END",
+            "DEFINER": "upms_guard85@localhost",
+            "SQL_MODE": "STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION",
+            "CHARACTER_SET_CLIENT": "utf8mb4",
+            "COLLATION_CONNECTION": "utf8mb4_general_ci",
+            "DATABASE_COLLATION": "utf8mb4_unicode_ci"
+        }
+    ],
+    "tables": {
+        "identity_audit_events": {
+            "rows": 25,
+            "rowSetSha256": "34c836d7696f2db46c6cc935f1880e17b614ac0297b397ec0e1442c5be660c5b",
+            "ddlSha256": "4cf8d7549a16d414e056913b25a3ead3486510ee37d46dd6ed8aabef6ddf0206",
+            "ddl": "CREATE TABLE `identity_audit_events` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `actor_id` bigint(20) unsigned DEFAULT NULL,\n  `target_id` bigint(20) unsigned DEFAULT NULL,\n  `action` varchar(64) NOT NULL,\n  `correlation` varchar(64) NOT NULL,\n  `details` text NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  KEY `identity_audit_events_actor_id_foreign` (`actor_id`),\n  KEY `identity_audit_events_target_id_id_index` (`target_id`,`id`),\n  CONSTRAINT `identity_audit_events_actor_id_foreign` FOREIGN KEY (`actor_id`) REFERENCES `users` (`id`),\n  CONSTRAINT `identity_audit_events_target_id_foreign` FOREIGN KEY (`target_id`) REFERENCES `users` (`id`)\n) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "identity_guard": {
+            "rows": 1,
+            "rowSetSha256": "403da98014f7e3e2331fc325e1bdf00bb638190d287a7d1e95b2f8e0b99ea0f8",
+            "ddlSha256": "ba8ebaec301b0daff7610970063fda5932e0951d1f43098713a957dd16580215",
+            "ddl": "CREATE TABLE `identity_guard` (\n  `id` int(11) NOT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "login_attempts": {
+            "rows": 2,
+            "rowSetSha256": "da02ddcc8c37fc59d674a561c1e6862953ba0ec736b14e26259675c0d2812f65",
+            "ddlSha256": "e28a183d427073e61c53c960a54f5871f61f5b76cf287dd2daa2696be45472c5",
+            "ddl": "CREATE TABLE `login_attempts` (\n  `bucket` varchar(64) NOT NULL,\n  `window_start` bigint(20) NOT NULL,\n  `attempts` int(10) unsigned NOT NULL,\n  PRIMARY KEY (`bucket`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "permissions": {
+            "rows": 11,
+            "rowSetSha256": "3cc4a2d4f6cc98e86711e42b845c1a8ea33a88fe27cc867d4beb2a84dd53c259",
+            "ddlSha256": "495720bd662c981e394e87460113ff34a5fe4f486f725d7f1d2bb7fdae6af735",
+            "ddl": "CREATE TABLE `permissions` (\n  `code` varchar(64) NOT NULL,\n  PRIMARY KEY (`code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "role_permissions": {
+            "rows": 23,
+            "rowSetSha256": "d556b3ea1fa31470c94c1c9fb3d0f46a04762ade31384caf9e1c852c67ef2110",
+            "ddlSha256": "2e2bc5916098ad9bfe67bacc32b1aa5d2205eb9279bdec01d656cc8a020b3502",
+            "ddl": "CREATE TABLE `role_permissions` (\n  `role_code` varchar(32) NOT NULL,\n  `permission_code` varchar(64) NOT NULL,\n  PRIMARY KEY (`role_code`,`permission_code`),\n  KEY `role_permissions_permission_code_foreign` (`permission_code`),\n  CONSTRAINT `role_permissions_permission_code_foreign` FOREIGN KEY (`permission_code`) REFERENCES `permissions` (`code`),\n  CONSTRAINT `role_permissions_role_code_foreign` FOREIGN KEY (`role_code`) REFERENCES `roles` (`code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "roles": {
+            "rows": 4,
+            "rowSetSha256": "a17ba16000c7f4b5b0f9eb68030094e6a5295f086fd6e2c3c70daf424192573b",
+            "ddlSha256": "d20ff0063c81b05cda5c2f6174a78f0bfd3e667f07df6f2aa7033ba44fddb19e",
+            "ddl": "CREATE TABLE `roles` (\n  `code` varchar(32) NOT NULL,\n  `name` varchar(64) NOT NULL,\n  PRIMARY KEY (`code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "sessions": {
+            "rows": 1,
+            "rowSetSha256": "a4285f11b61aa79ca2ef76e4e2aa36f0dc4b5c09dcc9c69ab6340a6bd87373f6",
+            "ddlSha256": "f85d15458d6cf307c978fc56d111cd87449727b4ff4a0197ac354813aeb23d3d",
+            "ddl": "CREATE TABLE `sessions` (\n  `token_hash` varchar(64) NOT NULL,\n  `user_id` bigint(20) unsigned DEFAULT NULL,\n  `data` text NOT NULL,\n  `idle_expires` bigint(20) NOT NULL,\n  `absolute_expires` bigint(20) NOT NULL,\n  `revoked` tinyint(1) NOT NULL DEFAULT 0,\n  PRIMARY KEY (`token_hash`),\n  KEY `sessions_user_id_index` (`user_id`),\n  KEY `sessions_idle_expires_index` (`idle_expires`),\n  KEY `sessions_absolute_expires_index` (`absolute_expires`),\n  CONSTRAINT `sessions_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "upms_production_migrations": {
+            "rows": 1,
+            "rowSetSha256": "6fed2ff587caef00937e2a9f642da8cd7abf3553693863d197fd9839d4cf3627",
+            "ddlSha256": "95a125e262277f0e4ecfd912807290962e8a41df83b3f7806a58ba86c0fa7d47",
+            "ddl": "CREATE TABLE `upms_production_migrations` (\n  `id` int(11) NOT NULL,\n  `reference` varchar(64) NOT NULL,\n  `plan_hash` char(64) NOT NULL,\n  `target_hash` char(64) NOT NULL,\n  `state` varchar(32) NOT NULL,\n  `step` varchar(64) NOT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "user_roles": {
+            "rows": 2,
+            "rowSetSha256": "f3968d155185c53b462b2662d1506373eba1f813aee5689bea7df59859d3cac2",
+            "ddlSha256": "e699990fdaa67c6c75afd2bbcb9689fa2387a1df9ad9e623b5b773c9f649612a",
+            "ddl": "CREATE TABLE `user_roles` (\n  `user_id` bigint(20) unsigned NOT NULL,\n  `role_code` varchar(32) NOT NULL,\n  PRIMARY KEY (`user_id`,`role_code`),\n  KEY `user_roles_role_code_foreign` (`role_code`),\n  CONSTRAINT `user_roles_role_code_foreign` FOREIGN KEY (`role_code`) REFERENCES `roles` (`code`),\n  CONSTRAINT `user_roles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "users": {
+            "rows": 2,
+            "rowSetSha256": "b13b6aed3604f0827c30ca40c4bc5f99c7ae373616077a8957fefb2d94bd1137",
+            "ddlSha256": "9d6d6aa64d883bab96e657acf8c51b995e05407774cbc2c9e1b72cf606275a28",
+            "ddl": "CREATE TABLE `users` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `login_key` varchar(64) NOT NULL,\n  `display_name` varchar(100) NOT NULL,\n  `password_hash` varchar(255) NOT NULL,\n  `enabled` tinyint(1) NOT NULL DEFAULT 1,\n  `authorization_version` int(10) unsigned NOT NULL DEFAULT 1,\n  `created_at` datetime(6) NOT NULL,\n  `updated_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `users_login_key_unique` (`login_key`)\n) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "v1_audit": {
+            "rows": 21,
+            "rowSetSha256": "d5dfd48b57d68fc3405c47b46273f00e613587f35c4b9e82864e3e50e4e32f07",
+            "ddlSha256": "145327cc925614f1ac0cea43d22a686fe52ef86bbf522d17022133078d09dd04",
+            "ddl": "CREATE TABLE `v1_audit` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `actor_id` bigint(20) unsigned NOT NULL,\n  `action` varchar(64) NOT NULL,\n  `reference` varchar(100) NOT NULL,\n  `reason` text NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  KEY `v1_audit_actor_id_foreign` (`actor_id`),\n  CONSTRAINT `v1_audit_actor_id_foreign` FOREIGN KEY (`actor_id`) REFERENCES `users` (`id`)\n) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "v1_commands": {
+            "rows": 21,
+            "rowSetSha256": "1b01143f487ced0383e7bc451f97502e8907d211198aef6da72c22d30ded64a9",
+            "ddlSha256": "e28189276f96e739e4f05a412d3204d25025f40da66130c1471418d339a7fc81",
+            "ddl": "CREATE TABLE `v1_commands` (\n  `key` varchar(36) NOT NULL,\n  `actor_id` bigint(20) unsigned NOT NULL,\n  `fingerprint` varchar(64) NOT NULL,\n  `result` longtext NOT NULL,\n  PRIMARY KEY (`key`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "v1_control": {
+            "rows": 1,
+            "rowSetSha256": "1074aecb88cf1d96f9d3f8e6c88057420b33536356c08bff287855bd56036237",
+            "ddlSha256": "a1ea7edd0e1aa1c0af88adc49e9d25e557598b35c9be799bae71011bc94c26f5",
+            "ddl": "CREATE TABLE `v1_control` (\n  `id` int(11) NOT NULL,\n  `version` int(11) NOT NULL,\n  `operator_id` bigint(20) unsigned DEFAULT NULL,\n  `state` varchar(20) NOT NULL,\n  `next_dc` int(10) unsigned NOT NULL,\n  `cutover_evidence` text DEFAULT NULL,\n  `entry_version` int(11) NOT NULL DEFAULT 2,\n  `next_item_code` bigint(20) unsigned NOT NULL DEFAULT 1,\n  PRIMARY KEY (`id`),\n  KEY `v1_control_operator_id_foreign` (`operator_id`),\n  CONSTRAINT `v1_control_operator_id_foreign` FOREIGN KEY (`operator_id`) REFERENCES `users` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "v1_documents": {
+            "rows": 8,
+            "rowSetSha256": "86b37f9c3f759f20beb650c07a1b279a5325238179fd24de63a785c8cc1de6a7",
+            "ddlSha256": "df28ada6a356c6fe1898b0834344507070d03cb3b24a0ff29407df2d0331f9b1",
+            "ddl": "CREATE TABLE `v1_documents` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `kind` varchar(30) NOT NULL,\n  `date` date NOT NULL,\n  `party_id` bigint(20) unsigned DEFAULT NULL,\n  `status` varchar(12) NOT NULL,\n  `version` int(11) NOT NULL,\n  `payload` longtext NOT NULL,\n  `official_number` varchar(24) DEFAULT NULL,\n  `sequence` int(10) unsigned DEFAULT NULL,\n  `total` decimal(18,2) NOT NULL DEFAULT 0.00,\n  `corrects_id` bigint(20) unsigned DEFAULT NULL,\n  `actor_id` bigint(20) unsigned NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  `sale_subtotal` decimal(18,2) DEFAULT NULL,\n  `discount_mode` varchar(12) DEFAULT NULL,\n  `discount_value` decimal(18,2) DEFAULT NULL,\n  `discount_amount` decimal(18,2) DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `v1_documents_official_number_unique` (`official_number`),\n  UNIQUE KEY `v1_documents_sequence_unique` (`sequence`),\n  UNIQUE KEY `v1_documents_corrects_id_unique` (`corrects_id`),\n  KEY `v1_documents_party_id_foreign` (`party_id`),\n  KEY `v1_documents_actor_id_foreign` (`actor_id`),\n  CONSTRAINT `v1_documents_actor_id_foreign` FOREIGN KEY (`actor_id`) REFERENCES `users` (`id`),\n  CONSTRAINT `v1_documents_corrects_id_foreign` FOREIGN KEY (`corrects_id`) REFERENCES `v1_documents` (`id`),\n  CONSTRAINT `v1_documents_party_id_foreign` FOREIGN KEY (`party_id`) REFERENCES `v1_parties` (`id`)\n) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "v1_items": {
+            "rows": 1,
+            "rowSetSha256": "b6de7bfaa8354da514be7a41ced228f4daad859bbc80c2aaaef9cae55c348489",
+            "ddlSha256": "720c92274df53e373b6c156f94643113c24eda37cf9f56ca40e5d2057cfcc8e0",
+            "ddl": "CREATE TABLE `v1_items` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `code` varchar(64) NOT NULL,\n  `description` varchar(200) NOT NULL,\n  `quality` varchar(100) NOT NULL,\n  `colour` varchar(100) NOT NULL,\n  `packing` varchar(100) NOT NULL,\n  `remarks` text NOT NULL,\n  `active` tinyint(1) NOT NULL,\n  `version` int(11) NOT NULL,\n  `selling_price` decimal(18,2) DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `v1_items_code_unique` (`code`)\n) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "v1_lines": {
+            "rows": 3,
+            "rowSetSha256": "37a3dfa9bdc5e15a5185476fc40c118fbe27b9b06112d40a8ad6e2fb1a8bffa1",
+            "ddlSha256": "7ff61490e9303316d341b7e8c6fed4913d844d00e8881f8ce606cac1dc728403",
+            "ddl": "CREATE TABLE `v1_lines` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `document_id` bigint(20) unsigned NOT NULL,\n  `line_no` int(11) NOT NULL,\n  `item_id` bigint(20) unsigned NOT NULL,\n  `snapshot` text NOT NULL,\n  `quantity` decimal(18,0) NOT NULL,\n  `rate` decimal(18,2) NOT NULL,\n  `amount` decimal(18,2) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `v1_lines_document_id_line_no_unique` (`document_id`,`line_no`),\n  KEY `v1_lines_item_id_foreign` (`item_id`),\n  CONSTRAINT `v1_lines_document_id_foreign` FOREIGN KEY (`document_id`) REFERENCES `v1_documents` (`id`),\n  CONSTRAINT `v1_lines_item_id_foreign` FOREIGN KEY (`item_id`) REFERENCES `v1_items` (`id`)\n) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "v1_parties": {
+            "rows": 3,
+            "rowSetSha256": "59f3b29dba6a2e4dc6ba89ba1e97c762e3096c6a8a6ea0cbb2c0033aabaa714b",
+            "ddlSha256": "66d3cbc1bf7aa68c5b15b0580a009f9dbeb7b2ca9319a2d0183153711a6ab6a2",
+            "ddl": "CREATE TABLE `v1_parties` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `kind` varchar(10) NOT NULL,\n  `name` varchar(150) NOT NULL,\n  `phone` varchar(64) NOT NULL,\n  `address` text NOT NULL,\n  `remarks` text NOT NULL,\n  `active` tinyint(1) NOT NULL,\n  `opening_verified` tinyint(1) NOT NULL DEFAULT 0,\n  `version` int(11) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `v1_parties_kind_name_unique` (`kind`,`name`)\n) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "v1_party_journal": {
+            "rows": 6,
+            "rowSetSha256": "2c8188a3af6fc62d70dbb47623a8cd4f31c4c121ba4e8e996fe0a452a02a76ef",
+            "ddlSha256": "668508b1300436117c1f195b8b7a758ee4426d5e75fb6ac8c32815515f05fad3",
+            "ddl": "CREATE TABLE `v1_party_journal` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `document_id` bigint(20) unsigned NOT NULL,\n  `party_id` bigint(20) unsigned NOT NULL,\n  `debit` decimal(18,2) NOT NULL,\n  `credit` decimal(18,2) NOT NULL,\n  `particulars` varchar(200) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `v1_party_journal_document_id_party_id_unique` (`document_id`,`party_id`),\n  KEY `v1_party_journal_party_id_foreign` (`party_id`),\n  CONSTRAINT `v1_party_journal_document_id_foreign` FOREIGN KEY (`document_id`) REFERENCES `v1_documents` (`id`),\n  CONSTRAINT `v1_party_journal_party_id_foreign` FOREIGN KEY (`party_id`) REFERENCES `v1_parties` (`id`)\n) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "v1_stock": {
+            "rows": 1,
+            "rowSetSha256": "ca6412c6732a5cd8e0335d093dcdc0ec7c86e457f7cdf20cb3b4d5dc65cf7d2c",
+            "ddlSha256": "190ac7da85cdbabd9c7bbe4bb8704cbeba2bfc1227b259a94dc74af83c60d414",
+            "ddl": "CREATE TABLE `v1_stock` (\n  `item_id` bigint(20) unsigned NOT NULL,\n  `quantity` decimal(18,0) NOT NULL DEFAULT 0,\n  `verified` tinyint(1) NOT NULL DEFAULT 0,\n  PRIMARY KEY (`item_id`),\n  CONSTRAINT `v1_stock_item_id_foreign` FOREIGN KEY (`item_id`) REFERENCES `v1_items` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "v1_stock_journal": {
+            "rows": 3,
+            "rowSetSha256": "8c0c08a4adadb5ba2db96987b02906416b13ff4c2ddf1fb3ac3c4962e3ce94de",
+            "ddlSha256": "e218012ddb9c353f913917a713b52ec7433a1f2859fb22266fb4c855e86646de",
+            "ddl": "CREATE TABLE `v1_stock_journal` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `document_id` bigint(20) unsigned NOT NULL,\n  `item_id` bigint(20) unsigned NOT NULL,\n  `delta` decimal(18,0) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `v1_stock_journal_document_id_item_id_unique` (`document_id`,`item_id`),\n  KEY `v1_stock_journal_item_id_foreign` (`item_id`),\n  CONSTRAINT `v1_stock_journal_document_id_foreign` FOREIGN KEY (`document_id`) REFERENCES `v1_documents` (`id`),\n  CONSTRAINT `v1_stock_journal_item_id_foreign` FOREIGN KEY (`item_id`) REFERENCES `v1_items` (`id`)\n) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        }
+    },
+    "administrators": [
+        {
+            "id": 1,
+            "login_key": "admin",
+            "enabled": 1
+        },
+        {
+            "id": 2,
+            "login_key": "haris",
+            "enabled": 1
+        }
+    ],
+    "migrationReceipt": [
+        {
+            "id": 1,
+            "state": "ACTIVATED"
+        }
+    ],
+    "control": [
+        {
+            "id": 1,
+            "version": 1,
+            "operator_id": 1,
+            "state": "READY",
+            "next_dc": 2,
+            "next_item_code": 2
+        }
+    ],
+    "documentStates": [
+        {
+            "kind": "CHALLAN",
+            "status": "DRAFT",
+            "count": 1
+        },
+        {
+            "kind": "CHALLAN",
+            "status": "POSTED",
+            "count": 1
+        },
+        {
+            "kind": "CHALLAN_RETURN",
+            "status": "POSTED",
+            "count": 1
+        },
+        {
+            "kind": "CLIENT_OPENING",
+            "status": "POSTED",
+            "count": 2
+        },
+        {
+            "kind": "CLIENT_PAYMENT",
+            "status": "POSTED",
+            "count": 1
+        },
+        {
+            "kind": "STOCK_OPENING",
+            "status": "POSTED",
+            "count": 1
+        },
+        {
+            "kind": "VENDOR_OPENING",
+            "status": "POSTED",
+            "count": 1
+        }
+    ],
+    "php": {
+        "version": "8.3.36",
+        "sapi": "cli",
+        "extensions": [
+            "Core",
+            "date",
+            "libxml",
+            "openssl",
+            "pcre",
+            "sqlite3",
+            "zlib",
+            "bz2",
+            "calendar",
+            "ctype",
+            "curl",
+            "hash",
+            "filter",
+            "ftp",
+            "gettext",
+            "json",
+            "iconv",
+            "SPL",
+            "pcntl",
+            "random",
+            "readline",
+            "Reflection",
+            "session",
+            "standard",
+            "mbstring",
+            "shmop",
+            "SimpleXML",
+            "tokenizer",
+            "xml",
+            "i360",
+            "bcmath",
+            "dom",
+            "fileinfo",
+            "gd",
+            "imagick",
+            "imap",
+            "inotify",
+            "intl",
+            "exif",
+            "mcrypt",
+            "mysqlnd",
+            "mysqli",
+            "PDO",
+            "pdo_mysql",
+            "pdo_sqlite",
+            "Phar",
+            "posix",
+            "soap",
+            "sodium",
+            "xmlreader",
+            "xmlrpc",
+            "xmlwriter",
+            "zip",
+            "Zend OPcache"
+        ],
+        "disabledFunctions": "",
+        "memoryLimit": "128M",
+        "uploadMax": "30M",
+        "postMax": "32M",
+        "maxExecutionTime": "0"
+    },
+    "paths": {
+        "publicRoot": "/home/tsn6az96j3v7/public_html",
+        "managementRoot": "/home/tsn6az96j3v7/public_html/dashboard",
+        "privateRoot": "/home/tsn6az96j3v7/upms-php83-staging",
+        "backend": "/home/tsn6az96j3v7/upms-php83-staging/php84-release/private/backend"
+    },
+    "nonSecretFlags": {
+        "UPMS_ENABLED": "true",
+        "INQUIRY_MODE": "Disabled",
+        "APP_ENV": "production",
+        "APP_DEBUG": "false"
+    },
+    "releaseFiles": {
+        "composer.json": "6bc18cbac23231056098dd31cf417e5b3171e4d15e02bcb7c8c01cbba2ba31b3",
+        "composer.lock": "1e4c929cd7e6c3196a0f654acdd60e7eb83f5244e49c3c6ab94db08fb1747e21",
+        "app/Upms/Schema.php": "d479e79d2ba5954f7178893dc53f2745e82a767c5b9eb9efb1413199f7bf5cd1",
+        "app/Upms/CrudGuards.php": "16bede06297165ffd48024855be6886fdd788828f4c981e33ff450b4e0ac5a66",
+        "app/Upms/RuntimePrivileges.php": "ca9a977a55ca3201f9187f3999e9b6db5ec37d5e48bfd60894ce118362e9bc9f"
+    },
+    "tableCount": 20,
+    "guardCount": 45,
+    "completed": true
+}

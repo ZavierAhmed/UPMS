@@ -7,3 +7,5 @@ Production-only vendor staging contains 75 locked packages and 5850 verified fil
 Candidate Apache rules explicitly deny private paths and wrong-surface APIs; the Linux gateway requires a private backend outside the web root and fails closed if absent. These rules have not been validated on hosted Apache and are not deployed. Local syntax or PHP CLI checks cannot establish hosted routing acceptance.
 
 The structural 47/133 rehearsal does not make this candidate operationally ready for existing production. Production profile contracts, genuine migration receipts and historical accounting coverage remain blocked. Draft artifact metadata records these limits. No live administrator, password, grant, guard, database record or activation setting was changed.
+
+The committed-source management candidate contains 5978 files. Source 6710201de393595c399de01842bf6cc498dc8665, SHA-256 5410e83323364b84ae7af17020ca8c658391e3bf567bfc4bbadd25b124425cc0.

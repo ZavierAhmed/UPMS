@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "recordCount": 32,
+  "totals": {
+    "RECEIVED": "10000000005962.79",
+    "DEPOSITED": "1000.00",
+    "CLEARED": "52000.00",
+    "DISHONOURED": "0.00",
+    "RETURNED": "0.00",
+    "CANCELLED": "0.00"
+  },
+  "independentTotalsMatch": true,
+  "canonicalReceipt": "2",
+  "knownClearanceAmount": "50000.00",
+  "knownBankOpening": "0.00",
+  "otherKnownSyntheticClearance": "2000.00",
+  "knownSyntheticExternalSource": "100.00",
+  "knownBankClosing": "52100.00",
+  "exactlyOneLinkedBankCredit": true,
+  "browserHeadersFooters": false,
+  "applicationHeaders": true,
+  "files": [
+    "output/pdf/p4-cheque-register.pdf",
+    "output/pdf/p4-cheque-acknowledgment.pdf",
+    "output/pdf/p4-customer-receipt.pdf",
+    "output/pdf/p4-bank-statement.pdf"
+  ],
+  "ownerDataChanged": false
+}

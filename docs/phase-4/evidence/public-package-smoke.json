@@ -1,0 +1,60 @@
+{
+  "node": "v22.23.4",
+  "packagedFiles": 156,
+  "archiveSha256": "ecc9a5eaadf5b88c6ea39962dba284baf93c57b45de148ecd5a4453fc877d2de",
+  "corruptionRejected": true,
+  "productionOnlyInstall": true,
+  "routes": [
+    {
+      "path": "/",
+      "status": 200
+    },
+    {
+      "path": "/about",
+      "status": 200
+    },
+    {
+      "path": "/products",
+      "status": 200
+    },
+    {
+      "path": "/manufacturing",
+      "status": 200
+    },
+    {
+      "path": "/industries",
+      "status": 200
+    },
+    {
+      "path": "/contact",
+      "status": 200
+    },
+    {
+      "path": "/products/buckets",
+      "status": 200
+    },
+    {
+      "path": "/products/cans",
+      "status": 200
+    },
+    {
+      "path": "/products/containers",
+      "status": 200
+    },
+    {
+      "path": "/products/stickers",
+      "status": 200
+    },
+    {
+      "path": "/products/cartons",
+      "status": 200
+    }
+  ],
+  "asset": {
+    "path": "/assets/index-Bnw3qyQc.js",
+    "status": 200
+  },
+  "privateProbes": 7,
+  "smtp": "Disabled; synthetic inquiry returned delivery_unavailable",
+  "passed": true
+}

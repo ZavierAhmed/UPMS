@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "offHost": true,
+  "authenticatedDecryptionVerified": true,
+  "tables": 20,
+  "triggers": 45,
+  "sha256": "add202f15bd136aeba4c27b0d3a4abf8cc656f0c4b014e79fe758ebc523803eb",
+  "bytes": 74254,
+  "databaseWrites": 0,
+  "verifiedUtc": "2026-11-05T22:46:23.1509036+05:00"
+}

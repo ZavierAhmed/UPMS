@@ -1,0 +1,272 @@
+{
+  "passed": true,
+  "mode": "DRY_RUN_NO_DELETION_IMPLEMENTED",
+  "ownerApprovedPolicy": {
+    "version": 1,
+    "ownerApproved": true,
+    "approvalDate": "2026-11-05",
+    "timezone": "Asia/Karachi",
+    "hourlyHours": 48,
+    "dailyDays": 35,
+    "weeklyWeeks": 12,
+    "monthlyMonths": 12,
+    "preservePreReleaseAndIncidentHolds": true,
+    "retroactiveDeletionAuthorized": false,
+    "deletionEnabled": false,
+    "independentRecoveryRequiredBeforePruning": true
+  },
+  "archiveCount": 31,
+  "existingArchivesProtected": true,
+  "independentRecoveryGate": "BLOCKED",
+  "filesDeleted": 0,
+  "archives": [
+    {
+      "name": "upms-20261030T033042Z-b0b861ba2c3a.upmsbk",
+      "bytes": 53914,
+      "created": 1793331042000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261030T033601Z-6499730cff6b.upmsbk",
+      "bytes": 53912,
+      "created": 1793331361000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261030T085036Z-3f18a5b76fe8.upmsbk",
+      "bytes": 82280,
+      "created": 1793350236000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261030T094839Z-2e51386f0f7c.upmsbk",
+      "bytes": 82283,
+      "created": 1793353719000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261030T121621Z-79d414176a14.upmsbk",
+      "bytes": 82284,
+      "created": 1793362581000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261030T131435Z-178ccb63990a.upmsbk",
+      "bytes": 82284,
+      "created": 1793366075000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261102T044707Z-701c2a993a48.upmsbk",
+      "bytes": 73510,
+      "created": 1793594827000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261102T062002Z-09646f7f837a.upmsbk",
+      "bytes": 73516,
+      "created": 1793600402000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261102T082104Z-dee33ee5d49e.upmsbk",
+      "bytes": 73514,
+      "created": 1793607664000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261102T100132Z-93b4082fb63b.upmsbk",
+      "bytes": 73513,
+      "created": 1793613692000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261102T110005Z-41f1e3efe947.upmsbk",
+      "bytes": 73512,
+      "created": 1793617205000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261102T140337Z-e5dbe05f1429.upmsbk",
+      "bytes": 73511,
+      "created": 1793628217000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261102T150807Z-5fc17f5d3444.upmsbk",
+      "bytes": 73513,
+      "created": 1793632087000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261102T163107Z-36cd28a3e9d6.upmsbk",
+      "bytes": 73512,
+      "created": 1793637067000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261103T021415Z-1f02da8ed75b.upmsbk",
+      "bytes": 73512,
+      "created": 1793672055000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261103T031304Z-4f1d7dd1cd27.upmsbk",
+      "bytes": 73514,
+      "created": 1793675584000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261103T040901Z-3a48cdea4a12.upmsbk",
+      "bytes": 73513,
+      "created": 1793678941000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261103T061836Z-dbc6093404f6.upmsbk",
+      "bytes": 73512,
+      "created": 1793686716000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261103T074336Z-5d1ac79515e5.upmsbk",
+      "bytes": 74134,
+      "created": 1793691816000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261103T084040Z-82d850f50508.upmsbk",
+      "bytes": 74135,
+      "created": 1793695240000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261103T135942Z-484ba1152e79.upmsbk",
+      "bytes": 74132,
+      "created": 1793714382000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261104T101259Z-365ca9b997c7.upmsbk",
+      "bytes": 74034,
+      "created": 1793787179000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261104T113339Z-00a9c1d6adb0.upmsbk",
+      "bytes": 74032,
+      "created": 1793792019000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261104T123203Z-fb84b1baac05.upmsbk",
+      "bytes": 74034,
+      "created": 1793795523000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261104T133532Z-641ed7435aae.upmsbk",
+      "bytes": 75179,
+      "created": 1793799332000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261104T153101Z-2ed009a9594f.upmsbk",
+      "bytes": 76943,
+      "created": 1793806261000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261104T165911Z-7177caa767cf.upmsbk",
+      "bytes": 76943,
+      "created": 1793811551000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261105T054527Z-5fded6252abe.upmsbk",
+      "bytes": 76944,
+      "created": 1793857527000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261105T103831Z-09fd81db8a3b.upmsbk",
+      "bytes": 74254,
+      "created": 1793875111000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261105T163047Z-b57b929b3829.upmsbk",
+      "bytes": 74252,
+      "created": 1793896247000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    },
+    {
+      "name": "upms-20261105T174617Z-5bfadac0887e.upmsbk",
+      "bytes": 74254,
+      "created": 1793900777000,
+      "retain": true,
+      "reason": "pre-existing: no retroactive deletion",
+      "deletionAuthorized": false
+    }
+  ]
+}

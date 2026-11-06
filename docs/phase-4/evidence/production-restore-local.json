@@ -1,0 +1,129 @@
+{
+    "passed": true,
+    "sourceSchema": "upms_v1",
+    "sourceCipherSha256": "add202f15bd136aeba4c27b0d3a4abf8cc656f0c4b014e79fe758ebc523803eb",
+    "isolatedTarget": "upms_test_php_p4_restore_20261105175526d89936",
+    "maintenanceIdentity": "p4_restore_20261105175526d89936@localhost",
+    "runtimeIdentity": "p4_runtime_20261105175526d89936@localhost",
+    "tables": 20,
+    "guards": 45,
+    "rows": 140,
+    "tableEvidence": {
+        "identity_audit_events": {
+            "rows": 25,
+            "canonicalRowSetSha256": "c1781ad804dbdb84ebe50b34f2d9a90436edfb1335fe40c397063719ce89f53c",
+            "definitionMatched": true
+        },
+        "identity_guard": {
+            "rows": 1,
+            "canonicalRowSetSha256": "5811967f540d300d249ab30ae681359a7815fdb5d3dc71a94be1d491006a6b27",
+            "definitionMatched": true
+        },
+        "login_attempts": {
+            "rows": 2,
+            "canonicalRowSetSha256": "b1b18e7c0686e02bcccfba727df3b0db980ae099715f21a4694701c10a17b5c6",
+            "definitionMatched": true
+        },
+        "permissions": {
+            "rows": 11,
+            "canonicalRowSetSha256": "45eb6a4a3b53d2bb8f7db12c9b7d16b4639aefd628eb39186c84ae6b7929223a",
+            "definitionMatched": true
+        },
+        "role_permissions": {
+            "rows": 23,
+            "canonicalRowSetSha256": "90ce6ba497a8e8af8038aa355050a3297eb3aa3978e8ba612845ee40ec84cfb0",
+            "definitionMatched": true
+        },
+        "roles": {
+            "rows": 4,
+            "canonicalRowSetSha256": "8bf7e8348b6170b575c48954deded68bd4348898ffcef82d0ad674c831ef62e1",
+            "definitionMatched": true
+        },
+        "sessions": {
+            "rows": 1,
+            "canonicalRowSetSha256": "f15a06d1e6f2efbfcd3ee1bbb0e0ba8077672bde0b309f20ea28d5bc7b9eef10",
+            "definitionMatched": true
+        },
+        "upms_production_migrations": {
+            "rows": 1,
+            "canonicalRowSetSha256": "eeb860fab5a6d02c0ef0368f0fd817eba58642f7215cf3d9bdf0f36a5e97f494",
+            "definitionMatched": true
+        },
+        "user_roles": {
+            "rows": 2,
+            "canonicalRowSetSha256": "867ae983347283c7ee7ad6ef51493d0871711b37085a821ebe36b2e2b3a7fe33",
+            "definitionMatched": true
+        },
+        "users": {
+            "rows": 2,
+            "canonicalRowSetSha256": "e02632511995261b26dd3dc3fd2e6f7c6e27515cc842db66101cc1570b55fe6a",
+            "definitionMatched": true
+        },
+        "v1_audit": {
+            "rows": 21,
+            "canonicalRowSetSha256": "b5f6437bd4161105fabb1dd377d6c293d67dc574db6e767c1dea537a57b4adcd",
+            "definitionMatched": true
+        },
+        "v1_commands": {
+            "rows": 21,
+            "canonicalRowSetSha256": "5643b0c3dc00274ac6673703f9f0e9a7f1c69c03438d12b01078f236267edf1b",
+            "definitionMatched": true
+        },
+        "v1_control": {
+            "rows": 1,
+            "canonicalRowSetSha256": "6f269044adf4d2cfcce1df6e7316c0bf3994da5c51243848c46ed1201b492869",
+            "definitionMatched": true
+        },
+        "v1_documents": {
+            "rows": 8,
+            "canonicalRowSetSha256": "693c9a220fa01bf0847abc151d691c1ffe9764b0d2a3c28a366448804be829c8",
+            "definitionMatched": true
+        },
+        "v1_items": {
+            "rows": 1,
+            "canonicalRowSetSha256": "fc99281eeeceea53b8b1df4aae52085b724dc6d3d7f3e60863df2d1352c28a63",
+            "definitionMatched": true
+        },
+        "v1_lines": {
+            "rows": 3,
+            "canonicalRowSetSha256": "630d9b0620cb3bd8e4f3fbaae6c7f6b2ba36aa0bbf6063e81c52c866762aeae4",
+            "definitionMatched": true
+        },
+        "v1_parties": {
+            "rows": 3,
+            "canonicalRowSetSha256": "304d9c88bc86ed8ae08629edfef008b9af4575649d1d81edbab14cb915faaf6e",
+            "definitionMatched": true
+        },
+        "v1_party_journal": {
+            "rows": 6,
+            "canonicalRowSetSha256": "3011bde79eed89d32363ec4f8e09eedc87c38579d4013e2cfa948f9a1462ffe3",
+            "definitionMatched": true
+        },
+        "v1_stock": {
+            "rows": 1,
+            "canonicalRowSetSha256": "5cc9ed67f8779feea010fca35be127f5ba0c29c509cedef995c409a75f94eb0f",
+            "definitionMatched": true
+        },
+        "v1_stock_journal": {
+            "rows": 3,
+            "canonicalRowSetSha256": "3d3fe5c13808bc0fcc98fb8dcf731cb44551fc7889134899370e4f52038187e9",
+            "definitionMatched": true
+        }
+    },
+    "protectedMutationTests": {
+        "identity_audit_events": "PASS",
+        "v1_lines": "PASS",
+        "v1_stock_journal": "PASS",
+        "v1_party_journal": "PASS",
+        "v1_audit": "PASS",
+        "v1_commands": "PASS",
+        "upms_production_migrations": "PASS"
+    },
+    "sourceAndTargetRowsAndDefinitionsMatched": true,
+    "guardRemapping": "Only runtime username and definer change for the independent isolated target",
+    "financialAndStockRowsMatched": true,
+    "productionDatabaseWrites": 0,
+    "plaintextExportWrittenToDisk": false,
+    "originalWindowsOperatorRequired": true,
+    "independentOperatorGate": "BLOCKED - offline key custody and separate computer not yet demonstrated"
+}

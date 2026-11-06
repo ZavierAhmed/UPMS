@@ -1,0 +1,20 @@
+[
+  {
+    "kind": "website",
+    "sourceCommit": "6710201de393595c399de01842bf6cc498dc8665",
+    "archive": "upms-p4-public-node.zip",
+    "bytes": 50971629,
+    "sha256": "ecc9a5eaadf5b88c6ea39962dba284baf93c57b45de148ecd5a4453fc877d2de",
+    "fileCount": 156,
+    "operationalReady": false
+  },
+  {
+    "kind": "management",
+    "sourceCommit": "6710201de393595c399de01842bf6cc498dc8665",
+    "archive": "upms-p4-management-php.zip",
+    "bytes": 8141870,
+    "sha256": "5410e83323364b84ae7af17020ca8c658391e3bf567bfc4bbadd25b124425cc0",
+    "fileCount": 5978,
+    "operationalReady": false
+  }
+]

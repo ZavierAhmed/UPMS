@@ -1,0 +1,137 @@
+{
+  "passed": true,
+  "kind": "STRUCTURAL_ONLY",
+  "schema": "upms_test_php_p4_restore_20261105175526d89936",
+  "planHash": "1dcff6debd2957e6d82339a011dc7a8cb7eacddf8f7cb2e402dd6da45ef307ee",
+  "sourceCipherSha256": "add202f15bd136aeba4c27b0d3a4abf8cc656f0c4b014e79fe758ebc523803eb",
+  "tables": 47,
+  "guards": 133,
+  "addedTables": 27,
+  "addedGuards": 88,
+  "interruption": {
+    "expected": true,
+    "phase": "table-create-completed-before-receipt",
+    "recordedTables": 8,
+    "inFlight": {
+      "type": "table",
+      "name": "expense_schema_receipts",
+      "ddlHash": "9fffaef58ca6a843aea311574388725af27727ceb448259312fede46f90cd9c6"
+    }
+  },
+  "originalRowsUnchanged": true,
+  "originalRowCounts": {
+    "identity_audit_events": {
+      "rows": 25,
+      "sha256": "7f4438f8a319c8637139edb3a0400da18d0aaf6ba22bb3fbad4593b4e45436ce"
+    },
+    "identity_guard": {
+      "rows": 1,
+      "sha256": "ef4caae6906491ee062cfc2c77fc1b9eab4b5c59e3263318022e86ce25a35169"
+    },
+    "login_attempts": {
+      "rows": 2,
+      "sha256": "90b3d3600d67424fb732cae285bc9212d2fd25d0ba600a4293166d5ff1ddbda4"
+    },
+    "permissions": {
+      "rows": 11,
+      "sha256": "300df923f9a071faaa916e657eefaefe792574b6d889f4e10d3601caf3ad2e99"
+    },
+    "role_permissions": {
+      "rows": 23,
+      "sha256": "69578ec7e6b029055901d1f6134f508dbb801d9d614059b65dfef53d2673c4e1"
+    },
+    "roles": {
+      "rows": 4,
+      "sha256": "9e400f6d27ba18cfb9e9b43de9403e56e471f335dc9f3f6dad43f9ad779e1973"
+    },
+    "sessions": {
+      "rows": 1,
+      "sha256": "dec32856513fe7c4a7f526d939827916821ff365c24643ac45323df8b59b9129"
+    },
+    "upms_production_migrations": {
+      "rows": 1,
+      "sha256": "8ff317d66619f3eb544a92e2f77aa2e07e7bbf3f5c9d31829525cc6883e00f47"
+    },
+    "user_roles": {
+      "rows": 2,
+      "sha256": "ad4c9db6097f654a8e43ebb5640469efe2537411f1d1e2c2fa9d770f8f1a868a"
+    },
+    "users": {
+      "rows": 2,
+      "sha256": "bd301f392e64b2d073208925735869a6dc50a3af1be7ac16c276b5c0ac97648c"
+    },
+    "v1_audit": {
+      "rows": 21,
+      "sha256": "4f5a822dc0c5a5fbc377f7a18dcaa669829711beb5bbaa50819a9fc49f21a88a"
+    },
+    "v1_commands": {
+      "rows": 21,
+      "sha256": "73ea56c104da034e24345aad17014a80a96920b0c2d69a23da309edb941411b6"
+    },
+    "v1_control": {
+      "rows": 1,
+      "sha256": "0c90cbe31772e5ed2bae16818fdbb861be07327bdaf4eab847b0081ec8d58172"
+    },
+    "v1_documents": {
+      "rows": 8,
+      "sha256": "5bd947c7886089735348a251148f7742b97e6843bf59c45804853aa39099c771"
+    },
+    "v1_items": {
+      "rows": 1,
+      "sha256": "efd7e1511e1c4df9ede656f6d7a3e308961a98fdff73573ff3954af709b1adaf"
+    },
+    "v1_lines": {
+      "rows": 3,
+      "sha256": "acbad58209d682c5987b12f1005bdde39ba851a13532da2472272ae266dc2351"
+    },
+    "v1_parties": {
+      "rows": 3,
+      "sha256": "f3acf4cc345bbb73e49bf5c33cba80c9e3806a82bc30ac2e2871f6da8cb63209"
+    },
+    "v1_party_journal": {
+      "rows": 6,
+      "sha256": "d104788dab386c776b6f5ea521728cd03d1414dab7c561c8677b95daf1db781c"
+    },
+    "v1_stock": {
+      "rows": 1,
+      "sha256": "5da6ed43b68a38eb1d9b1c74f1610897399023610f4e8e448490eaf997e5e4c8"
+    },
+    "v1_stock_journal": {
+      "rows": 3,
+      "sha256": "b91258f65c3d69a6a8e0bcca00dc8b1f549abdac68bb421b41a82cb860a9d055"
+    }
+  },
+  "newTableRows": {
+    "cheque_attachments": 0,
+    "cheque_audit": 0,
+    "cheque_bank_creations": 0,
+    "cheque_clearances": 0,
+    "cheque_events": 0,
+    "cheque_extra_receipts": 0,
+    "cheque_instruments": 0,
+    "cheque_issuing_banks": 0,
+    "cheque_schema_receipts": 0,
+    "employees": 0,
+    "expense_categories": 0,
+    "expense_master_audit": 0,
+    "expense_schema_receipts": 0,
+    "labor_audit": 0,
+    "labor_earnings": 0,
+    "labor_expense_allocations": 0,
+    "labor_extension_audit": 0,
+    "labor_extension_receipts": 0,
+    "labor_openings": 0,
+    "labor_payments": 0,
+    "labor_schema_receipts": 0,
+    "money_accounts": 0,
+    "money_audit": 0,
+    "money_batches": 0,
+    "money_movements": 0,
+    "money_schema_receipts": 0,
+    "stock_initializations": 0
+  },
+  "productionWrites": 0,
+  "syntheticDataImported": false,
+  "applicationReady": false,
+  "blocker": "Production receipts, historical allocation policy, permissions and approved production-profile contracts are deliberately not fabricated"
+}
