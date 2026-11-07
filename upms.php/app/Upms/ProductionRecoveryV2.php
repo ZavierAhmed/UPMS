@@ -109,6 +109,23 @@ final class ProductionRecoveryV2
         return $rows;
     }
 
+    public static function lockedBusinessState(PDO $pdo): array
+    {
+        if (PHP_SAPI!=='cli' || !$pdo->inTransaction()) {
+            throw new RuntimeException('CUMULATIVE_ACTIVATION_TRANSACTION_REQUIRED');
+        }
+        $tables=[];
+        foreach (CumulativeProduction::schema()['tables'] as $name=>$ddl) {
+            // Lock rows and insertion gaps while the private activation is checked.
+            $pdo->query('SELECT * FROM `'.$name.'` FOR UPDATE')->fetchAll(PDO::FETCH_ASSOC);
+            $tables[$name]=['rows'=>self::readRows($pdo,$name)];
+        }
+        if (!ChequeRecovery::evidence(['tables'=>$tables],true)['matched']) {
+            throw new RuntimeException('CUMULATIVE_ACTIVATION_RECONCILIATION_REQUIRED');
+        }
+        return $tables;
+    }
+
     public static function restoreIsolated(PDO $installer, PDO $definer, array $snapshot, array $accounts): array
     {
         self::validate($snapshot);

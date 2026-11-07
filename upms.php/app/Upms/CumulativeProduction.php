@@ -211,6 +211,11 @@ final class CumulativeProduction
         }
         self::receipt($row, $scope, [self::READY,self::ACTIVE]);
         self::features($pdo, $scope['reference']);
+        $admins=$pdo->query("SELECT u.id,u.login_key FROM users u JOIN user_roles r ON r.user_id=u.id WHERE u.enabled=1 AND r.role_code='administrator' ORDER BY u.login_key")->fetchAll(PDO::FETCH_ASSOC);
+        if (array_column($admins,'login_key')!==['admin','haris']
+            || array_map('strval',array_column($admins,'id'))!==[$profile['operators']['admin'],$profile['operators']['haris']]) {
+            throw new RuntimeException('CUMULATIVE_RUNTIME_IDENTITIES_REJECTED');
+        }
         $control = $pdo->query('SELECT operator_id,state FROM v1_control WHERE id=1')->fetch(PDO::FETCH_ASSOC);
         if (!$control || (string)$control['operator_id'] !== $profile['operators']['admin']
             || $control['state'] !== ($row['state'] === self::ACTIVE ? 'READY' : 'PENDING')) {
@@ -247,7 +252,7 @@ final class CumulativeProduction
         }
     }
 
-    public static function activate(PDO $installer, PDO $runtime, array $profile): void
+    public static function activate(PDO $installer, PDO $definer, PDO $runtime, array $profile): void
     {
         if (PHP_SAPI !== 'cli') {
             throw new RuntimeException('CUMULATIVE_PRIVATE_OPERATION_REQUIRED');
@@ -262,9 +267,22 @@ final class CumulativeProduction
             'release'=>$profile['releaseSha'],'reference'=>$profile['reference']]);
         $installer->beginTransaction();
         try {
+            $installer->query('SELECT id FROM identity_guard WHERE id=1 FOR UPDATE')->fetchColumn();
             $row=$installer->query('SELECT * FROM upms_production_migrations WHERE id=1 FOR UPDATE')->fetch(PDO::FETCH_ASSOC);
             self::receipt($row,['targetHash'=>CleanInitialization::target($installer),
                 'release'=>$profile['releaseSha'],'reference'=>$profile['reference']],[self::READY,self::ACTIVE]);
+            CumulativeInitialization::verifyInstalled($installer,$definer,$proof['accounts']);
+            $data=ProductionRecoveryV2::lockedBusinessState($installer);
+            if ($row['state']===self::READY) {
+                $catalogs=['upms_production_migrations','identity_guard','permissions','roles','role_permissions',
+                    'users','user_roles','identity_audit_events','sessions','login_attempts','v1_control','money_accounts',
+                    ...array_keys(self::receipts())];
+                foreach ($data as $table=>$content) {
+                    if (!in_array($table,$catalogs,true) && $content['rows']!==[]) {
+                        throw new RuntimeException('CUMULATIVE_FRESH_ACTIVATION_REQUIRED');
+                    }
+                }
+            }
             $installer->exec("UPDATE v1_control SET state='READY' WHERE id=1");
             $installer->prepare('UPDATE upms_production_migrations SET state=? WHERE id=1')->execute([self::ACTIVE]);
             $installer->commit();

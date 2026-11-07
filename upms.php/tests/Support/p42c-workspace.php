@@ -182,9 +182,10 @@ if ($mode==='refresh') {
         $maintenance=$profiles['installer'];$maintenance['mode']='one-time-production-maintenance';
         $maintenance['backupRestoreVerified']=true;
         CleanInitialization::privateReceipt($directory.'/installer.activation.json',$maintenance,true);
-        $privateCommand('activate-cumulative.php',[$directory.'/installer.activation.json',$directory.'/runtime.json']);
+        $privateCommand('activate-cumulative.php',[$directory.'/installer.activation.json',
+            $directory.'/definer.maintenance.json',$directory.'/runtime.json']);
     } else {
-        CumulativeProduction::activate($connections['installer'],$connections['runtime'],$profile);
+        CumulativeProduction::activate($connections['installer'],$connections['definer'],$connections['runtime'],$profile);
     }
     echo json_encode(['passed'=>true,'state'=>CumulativeProduction::ACTIVE,'syntheticOnly'=>true]).PHP_EOL;
 } elseif ($mode==='negative') {
@@ -193,7 +194,7 @@ if ($mode==='refresh') {
         static fn()=>ProductionConnection::connect(array_replace($profiles['runtime'],['password'=>file_get_contents($profiles['runtime']['passwordFile']),'serverId'=>'0'])),
         static fn()=>CumulativeProduction::runtime($connections['runtime'],array_replace($profile,['reference'=>'wrong_reference_42c'])),
         static fn()=>CumulativeProduction::runtime($connections['runtime'],array_replace($profile,['cumulativeEvidenceSha256'=>str_repeat('0',64)])),
-        static fn()=>CumulativeProduction::activate($connections['installer'],$connections['runtime'],$profile),
+        static fn()=>CumulativeProduction::activate($connections['installer'],$connections['definer'],$connections['runtime'],$profile),
     ] as $operation) {
         try { $operation(); } catch (Throwable) { $rejections++; }
     }
