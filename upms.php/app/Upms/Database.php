@@ -45,6 +45,20 @@ final class Database
     {
         $c = ProductionProfile::load($path);
         $pdo = ProductionConnection::connect($c);
+        if (($c['schemaContract'] ?? '') === CumulativeProduction::CONTRACT) {
+            if (config('inquiries.mode') !== 'Disabled') {
+                throw new ApiError(503,'CUMULATIVE_SMTP_RELEASE_NOT_APPROVED');
+            }
+            CumulativeProduction::runtime($pdo, $c);
+            $admins = $pdo->query("SELECT u.id,u.login_key FROM users u JOIN user_roles r ON r.user_id=u.id WHERE u.enabled=1 AND r.role_code='administrator' ORDER BY u.login_key")->fetchAll(PDO::FETCH_ASSOC);
+            if (array_column($admins, 'login_key') !== ['admin','haris']
+                || array_map('strval', array_column($admins,'id')) !== [$c['operators']['admin'],$c['operators']['haris']]
+                || config('upms.origin') !== $c['origin']) {
+                throw new ApiError(503,'CUMULATIVE_RUNTIME_IDENTITIES_REJECTED');
+            }
+            config(['upms.database'=>$c['schema'],'upms.designated_operators'=>['schema'=>$c['schema'],'users'=>$c['operators']]]);
+            return $this->connection = $pdo;
+        }
         $grantReport = RuntimePrivileges::verify($pdo, $c);
         if (!$grantReport['passed']) {
             throw new ApiError(503, 'PRODUCTION_PRIVILEGES_REJECTED');

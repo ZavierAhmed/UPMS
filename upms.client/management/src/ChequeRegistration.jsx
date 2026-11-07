@@ -52,7 +52,7 @@ export function ChequeRegistration({api,data,draft,setDraft,errors,busy,submit,c
    {field('receivedDate','Received date',{type:'date',required:true,max:new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Karachi'}).format(new Date())})}
    <label><span className="cheque-field-label">Generated business reference</span><output aria-label="Generated business reference">{preview||'Complete the client, cheque number and amount.'}</output><small>A unique suffix is assigned on registration.</small></label>
   </fieldset>
-  {data.extrasEnabled&&<ChequeAttachments fieldError={errors.attachments} disabled={busy} files={draft.attachments||[]} onChange={files=>update('attachments',files)} onBusy={setReading}/>}
+  {(data.attachmentsEnabled??data.extrasEnabled)&&<ChequeAttachments fieldError={errors.attachments} disabled={busy} files={draft.attachments||[]} onChange={files=>update('attachments',files)} onBusy={setReading}/>}
   <p>Receiving a cheque does not mark the customer's payment as cleared.</p>
   <p>Synthetic issuer directory. Added names require operational bank identity approval.</p>
   <ActionButton variant="primary" type="submit" disabled={busy||reading||identity?.checking||identity?.available===false}>Register cheque in custody</ActionButton>

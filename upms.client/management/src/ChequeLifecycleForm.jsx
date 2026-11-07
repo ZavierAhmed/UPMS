@@ -19,7 +19,7 @@ export function ChequeLifecycleForm({action,selected,data,api,user,errors,busy,d
   const body={date:draft.date,reference:draft.reference,reason:draft.reason,evidence:draft.evidence,
    ...(action==='DEPOSITED'?{bankId:draft.bankId}:{}),
    ...(action==='CLEARED'?{approved:draft.approved,selfApprovalReason:draft.selfApprovalReason}:{}),
-   ...(data.extrasEnabled&&['DEPOSITED','CLEARED'].includes(action)&&draft.attachments.length?{attachments:draft.attachments}:{})};
+   ...((data.attachmentsEnabled??data.extrasEnabled)&&['DEPOSITED','CLEARED'].includes(action)&&draft.attachments.length?{attachments:draft.attachments}:{})};
   save(body,key);
  }}>
   <fieldset disabled={busy}><legend>{title(action)} · complete instrument PKR {selected.amount}</legend>
@@ -35,7 +35,7 @@ export function ChequeLifecycleForm({action,selected,data,api,user,errors,busy,d
     <p>No partial cheque, overpayment, future or unsupported backdated recognition is permitted.</p>
    </>}
   </fieldset>
-  {data.extrasEnabled&&['DEPOSITED','CLEARED'].includes(action)&&<ChequeAttachments fieldError={errors.attachments} disabled={busy} files={draft.attachments} onChange={files=>update('attachments',files)} onBusy={setReading}/>}
+  {(data.attachmentsEnabled??data.extrasEnabled)&&['DEPOSITED','CLEARED'].includes(action)&&<ChequeAttachments fieldError={errors.attachments} disabled={busy} files={draft.attachments} onChange={files=>update('attachments',files)} onBusy={setReading}/>}
   <div className="cheque-lifecycle-actions"><ActionButton type="submit" disabled={busy||reading||blocked}>Record {title(action)}</ActionButton>
   <ActionButton type="button" disabled={busy} onClick={cancel}>Dismiss action</ActionButton></div>
  </form>;

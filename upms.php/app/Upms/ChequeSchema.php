@@ -18,12 +18,14 @@ final class ChequeSchema
         LaborExtensionSchema::verify($pdo,true);
         $expected=json_decode(file_get_contents(dirname(__DIR__,2).'/resources/cheque-schema-hashes.json'),true,32,JSON_THROW_ON_ERROR);
         $r=$pdo->query('SELECT * FROM cheque_schema_receipts WHERE id=1')->fetch(PDO::FETCH_ASSOC);
-        if(self::hashes($pdo)!==$expected||!$r||$r['version']!==self::VERSION||$r['plan_hash']!==self::hash()||$r['reference']!=='ISOLATED-UAT2-ONLY') { throw new \RuntimeException('CHEQUE_SCHEMA_REJECTED'); }
+        if(self::hashes($pdo)!==$expected||!$r||$r['version']!==self::VERSION||$r['plan_hash']!==self::hash()||(!CumulativeProduction::uses($pdo)&&$r['reference']!=='ISOLATED-UAT2-ONLY')) { throw new \RuntimeException('CHEQUE_SCHEMA_REJECTED'); }
         if(ChequeExtras::enabled()) { ChequeExtras::verify($pdo); }
         return ['passed'=>true,'tables'=>ChequeExtras::enabled()?47:44,'version'=>self::VERSION,'planHash'=>self::hash()];
     }
     public static function ready(Database $db): void
     {
+        if (self::enabled() && LaborExtensionSchema::enabled() && config('upms.employee_hafta_enabled',false)
+            && config('upms.money_accounts_enabled',false) && CumulativeProduction::uses($db->pdo())) { return; }
         if(!self::enabled()||!LaborExtensionSchema::enabled()||!config('upms.employee_hafta_enabled',false)||!config('upms.money_accounts_enabled',false)||config('upms.production_profile')) { throw new ApiError(503,'CHEQUE_ISOLATED_FEATURE_REQUIRED',entry:false); }
         // One readiness verification per real HTTP request/connection. Nested existing
         // financial checks share it; no cache survives a subsequent HTTP request.

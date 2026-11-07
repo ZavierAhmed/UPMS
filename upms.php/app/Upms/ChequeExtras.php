@@ -70,6 +70,9 @@ final class ChequeExtras
     }
     public static function attachmentKey(): string
     {
+        if (config('upms.production_profile')) {
+            throw new ApiError(403,'CHEQUE_OPERATIONAL_ATTACHMENTS_DISABLED',entry:false);
+        }
         $key=(string)config('app.key');
         if(str_starts_with($key,'base64:')) { $key=base64_decode(substr($key,7),true)?:''; }
         if(strlen($key)<32) { throw new ApiError(503,'CHEQUE_ATTACHMENT_KEY_REQUIRED',entry:false); }
@@ -77,6 +80,9 @@ final class ChequeExtras
     }
     public static function files(mixed $files): array
     {
+        if (config('upms.production_profile') && $files !== []) {
+            throw new ApiError(403,'CHEQUE_OPERATIONAL_ATTACHMENTS_DISABLED',entry:false);
+        }
         if(!is_array($files)||count($files)>2) { V1Input::field('attachments','Attach at most two PDF, JPEG or PNG files, each up to 256 KiB.'); }
         $validated=[];
         foreach($files as $file) {

@@ -58,6 +58,10 @@ final class UpmsBoundary
             if ($unsafe && (!$session || !hash_equals($identity->csrf($session), $request->header('x-csrf-token', '')))) {
                 throw new ApiError(403, 'CSRF_REJECTED');
             }
+            if ($unsafe && str_starts_with($path, $base.'simple-v1/')
+                && !\App\Upms\CumulativeProduction::writesAllowed($db->pdo())) {
+                throw new ApiError(503,'CUMULATIVE_POSTING_NOT_APPROVED',entry:false);
+            }
             $response = $next($request);
             if ($session && !in_array($path, [$base.'session/login', $base.'session/logout', $base.'profile/password'], true)) {
                 if ($unsafe) {

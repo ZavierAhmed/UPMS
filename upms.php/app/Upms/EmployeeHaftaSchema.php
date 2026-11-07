@@ -20,7 +20,9 @@ final class EmployeeHaftaSchema
     }
     public static function verify(PDO $pdo): array
     {
-        MoneySchema::assertIsolated($pdo);
+        if (!CumulativeProduction::uses($pdo)) {
+            MoneySchema::assertIsolated($pdo);
+        }
         ExpenseSchema::verify($pdo);
         $hashes = json_decode(file_get_contents(dirname(__DIR__, 2).'/resources/employee-hafta-schema-hashes.json'), true, 32, JSON_THROW_ON_ERROR);
         foreach (self::plan()['tables'] as $table => $ddl) {
@@ -39,6 +41,9 @@ final class EmployeeHaftaSchema
     {
         if (!config('upms.employee_hafta_enabled', false)) {
             throw new ApiError(503, 'EMPLOYEE_HAFTA_DISABLED', publicMessage:'Employee Hafta is not enabled for this deployment.', entry:false);
+        }
+        if (CumulativeProduction::uses($db->pdo())) {
+            return;
         }
         try {
             // Even a true environment flag cannot activate this milestone on production.

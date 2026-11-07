@@ -37,6 +37,9 @@ final class ExpenseSchema
         if ($requireEnabled && !config('upms.expense_masters_enabled', false)) {
             throw new ApiError(503, 'EXPENSE_MASTERS_DISABLED', publicMessage:'Expense categories and employees are not enabled.', entry:false);
         }
+        if (CumulativeProduction::uses($db->pdo())) {
+            return;
+        }
         try {
             $pdo = $db->pdo();
             self::verify($pdo);

@@ -39,6 +39,7 @@ async function finish(kind,files,metadata){
  manifests.push({kind,sourceCommit:sha,archive:name,bytes:bytes.length,sha256:hash(bytes),fileCount:files.size,operationalReady:false});
 }
 if (!process.argv.includes('--management-only')) {
+if(build.managementOnly)throw Error('A public build is required for a website package');
 const website=new Map();
 for(const directory of ['config','middleware','inquiries','website'])await tree(website,'server/src/'+directory,'server/src/'+directory,name=>name.endsWith('.js'));
 for(const name of ['public-app.js','production/runtime.js'])await add(website,'server/src/'+name,'server/src/'+name);
@@ -59,7 +60,7 @@ for(const directory of ['app','bootstrap','config','routes','resources'])await t
 for(const name of ['artisan','composer.json','composer.lock'])await add(management,'private/backend/'+name,'upms.php/'+name);
 const cumulativeBootstrap = (await readdir('upms.php')).includes('operations');
 if (cumulativeBootstrap) {
- await add(management,'private/backend/operations/initialize-cumulative.php','upms.php/operations/initialize-cumulative.php');
+ for(const name of ['initialize-cumulative.php','activate-cumulative.php','backup-cumulative.php','restore-cumulative-isolated.php'])await add(management,'private/backend/operations/'+name,'upms.php/operations/'+name);
 }
 const vendor='tmp/phase-4/vendor-stage/vendor';
 await tree(management,vendor,'private/backend/vendor',name=>!name.endsWith('.bat')&&!/(^|\/)\.git(?:\/|$)/.test(name));
@@ -67,6 +68,6 @@ await tree(management,'upms.client/dist/management','management',name=>/\.(?:htm
 await add(management,'management/gateway.php','deployment/phase-4/gateway.php');await add(management,'management/.htaccess','deployment/phase-4/management.htaccess');
 await add(management,'private/management.env.disabled.example','deployment/phase-4/management.env.disabled.example');
 await add(management,'review/structural-transition-plan.json','docs/phase-4/evidence/structural-transition-plan.json');
-await finish('management',management,{surface:'php-simple-v1-management',phpRequired:'^8.3',schemaTarget:{tables:47,guards:133},productionProfileStatus:'BLOCKED - cumulative features intentionally reject production profiles',featureFlags:'All disabled in example',includesProvisioningTools:cumulativeBootstrap,includesSyntheticData:false,includesSecrets:false});
+await finish('management',management,{surface:'php-simple-v1-management',phpRequired:'^8.3',schemaTarget:{tables:47,guards:133},productionProfileStatus:'Cumulative contract requires private readiness evidence and separate recovery-bound activation approval',featureFlags:'All disabled in example',includesProvisioningTools:cumulativeBootstrap,includesSyntheticData:false,includesSecrets:false});
 await writeFile(resolve(output,'artifacts.json'),JSON.stringify(manifests,null,2)+'\n');
 console.log(JSON.stringify({output:relative(process.cwd(),output),artifacts:manifests},null,2));

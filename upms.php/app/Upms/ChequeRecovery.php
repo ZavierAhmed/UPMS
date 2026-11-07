@@ -25,20 +25,20 @@ final class ChequeRecovery
         sort($tables);
         return $tables;
     }
-    public static function evidence(array $s): array
+    public static function evidence(array $s, bool $cumulative = false): array
     {
         $data = [];
-        foreach (self::tables() as $t) {
+        foreach ($cumulative ? array_keys(CumulativeProduction::schema()['tables']) : self::tables() as $t) {
             $data[$t] = $s['tables'][$t]['rows'] ?? throw new \RuntimeException('CHEQUE_BACKUP_TABLE_REQUIRED');
         }
-        if(ChequeExtras::enabled()) {
+        if($cumulative || ChequeExtras::enabled()) {
             $extra=$data['cheque_extra_receipts'];
             if(count($extra)!==1||$extra[0]['version']!==ChequeExtras::VERSION||$extra[0]['plan_hash']!==ChequeExtras::hash()) { throw new \RuntimeException('CHEQUE_EXTRA_BACKUP_RECEIPT_REJECTED'); }
         }
         $receipts=$data['labor_extension_receipts'];
         if (count($receipts)!==1 || (string)$receipts[0]['id']!=='1' || $receipts[0]['version']!==LaborExtensionSchema::VERSION || $receipts[0]['plan_hash']!==LaborExtensionSchema::hash()) { throw new \RuntimeException('CHEQUE_BACKUP_SCHEMA_RECEIPT_REJECTED'); }
         $base = FinancialRecovery::evidence($s, true);
-        $cheques=ChequeReconciliation::run($data);
+        $cheques=ChequeReconciliation::run($data,!$cumulative);
         $cq=$data['cheque_schema_receipts'];
         if(count($cq)!==1 || $cq[0]['version']!==ChequeSchema::VERSION || $cq[0]['plan_hash']!==ChequeSchema::hash()) { throw new \RuntimeException('CHEQUE_BACKUP_RECEIPT_REJECTED'); }
         $labor = EmployeeHaftaReconciliation::run($data);

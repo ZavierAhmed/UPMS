@@ -70,6 +70,9 @@ final class MoneySchema
         if (!config('upms.money_accounts_enabled')) {
             throw new ApiError(503, 'MONEY_ACCOUNTS_DISABLED', publicMessage:'Money Accounts is not enabled for this deployment.', entry:false);
         }
+        if (CumulativeProduction::uses($db->pdo())) {
+            return;
+        }
         if (config('upms.expense_masters_enabled', false)) {
             ExpenseSchema::ready($db);
         }

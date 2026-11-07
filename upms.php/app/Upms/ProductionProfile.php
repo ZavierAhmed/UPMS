@@ -23,7 +23,7 @@ final class ProductionProfile
         if (!$private || is_link($c['privateRoot']) || (PHP_OS_FAMILY !== 'Windows' && (fileperms($private) & 0077))) {
             throw new ApiError(503, 'PRODUCTION_PRIVATE_ROOT_REJECTED');
         }
-        foreach (array_filter([$real, $private, $c['passwordFile'], $c['caFile'] ?? null, $c['approvalFile'] ?? null, $c['credentialsFile'] ?? null, isset($c['credentialsFile']) ? $c['credentialsFile'].'.handoff' : null, $c['receiptFile'] ?? null, $c['crudRiskApprovalFile'] ?? null, $c['guardEvidenceFile'] ?? null]) as $candidate) {
+        foreach (array_filter([$real, $private, $c['passwordFile'], $c['caFile'] ?? null, $c['approvalFile'] ?? null, $c['credentialsFile'] ?? null, isset($c['credentialsFile']) ? $c['credentialsFile'].'.handoff' : null, $c['receiptFile'] ?? null, $c['crudRiskApprovalFile'] ?? null, $c['guardEvidenceFile'] ?? null, $c['cumulativeEvidenceFile'] ?? null, $c['activationApprovalFile'] ?? null, $c['recoveryEvidenceFile'] ?? null]) as $candidate) {
             $file = realpath($candidate);
             if (!$file && in_array($candidate, [$c['credentialsFile'] ?? null, isset($c['credentialsFile']) ? $c['credentialsFile'].'.handoff' : null, $c['receiptFile'] ?? null], true) && realpath(dirname($candidate))) {
                 $file = realpath(dirname($candidate)).DIRECTORY_SEPARATOR.basename($candidate);
@@ -55,7 +55,9 @@ final class ProductionProfile
     public static function validate(mixed $c, string $mode = 'approved-production-runtime'): void
     {
         $readOnly = $mode === 'read-only-transport-verification';
-        $approved = is_array($c) && ($readOnly ? ($c['readOnlyMetadataApproved'] ?? false) === true : (($c['hostingVerified'] ?? false) === true && (($c['backupRestoreVerified'] ?? false) === true || LegacyRecoveryWaiver::valid($c))));
+        $inspection = is_array($c) && ($c['schemaContract']??'') === CumulativeProduction::CONTRACT
+            && ($c['readinessInspectionApproved']??false) === true && $mode === 'approved-production-runtime';
+        $approved = is_array($c) && ($readOnly ? ($c['readOnlyMetadataApproved'] ?? false) === true : (($c['hostingVerified'] ?? false) === true && (($c['backupRestoreVerified'] ?? false) === true || $inspection || LegacyRecoveryWaiver::valid($c))));
         if (!is_array($c) || !$approved || ($c['enabled'] ?? false) !== true || ($c['mode'] ?? '') !== $mode || !in_array($mode, ['approved-production-runtime','one-time-production-maintenance','one-time-clean-initialization','reviewed-clean-activation','read-only-transport-verification','one-time-sql-import-finalization'], true)) {
             throw new ApiError(503, 'PRODUCTION_PROFILE_DISABLED');
         }
@@ -76,6 +78,18 @@ final class ProductionProfile
         }
         ProductionConnection::transport($c);
         if ($mode !== 'approved-production-runtime') {
+            return;
+        }
+        if (($c['schemaContract'] ?? '') === CumulativeProduction::CONTRACT) {
+            if (!preg_match('/^(?:upms_v2|upms_stage_[0-9]+)$/D',$c['schema'])
+                || !preg_match('/^[a-f0-9]{40}$/D',$c['releaseSha']??'')
+                || !is_string($c['cumulativeEvidenceFile']??null)
+                || !preg_match('/^[a-f0-9]{64}$/D',$c['cumulativeEvidenceSha256']??'')) {
+                throw new ApiError(503,'CUMULATIVE_PROFILE_REJECTED');
+            }
+            OperatorPolicy::permits(['username'=>'admin','id'=>$c['operators']['admin']??''],
+                ['operator_id'=>$c['operators']['admin']??null],
+                ['schema'=>$c['schema'],'users'=>$c['operators']],$c['schema']);
             return;
         }
         $privilegePolicy = $c['privilegePolicy'] ?? RuntimePrivileges::STRICT;

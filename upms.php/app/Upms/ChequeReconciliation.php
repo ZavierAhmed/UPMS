@@ -42,7 +42,7 @@ final class ChequeReconciliation
         }
         foreach($d['v1_party_journal']??[] as $j) { if(isset($clients[(string)$j['party_id']])&&!isset($seen[(string)$j['id']])) { $add('CHEQUE_ORPHAN_CLIENT_JOURNAL',$j['id']); } }
     }
-    public static function run(array $d): array
+    public static function run(array $d, bool $decryptAttachments = true): array
     {
         $errors=[];$add=static function($code,$id='') use(&$errors) { $errors[]=['code'=>$code,'id'=>(string)$id]; };
         $index=static function($rows) { $out=[];foreach($rows as $r) { $out[(string)$r['id']]=$r; }return $out; };
@@ -101,7 +101,9 @@ final class ChequeReconciliation
             $event=$events[$file['event_id']]??null;
             $fileCounts[$file['event_id']]=($fileCounts[$file['event_id']]??0)+1;
             if(!$event||(string)$event['cheque_id']!==(string)$file['cheque_id']||(string)$event['actor_id']!==(string)$file['actor_id']||!in_array($event['type'],['RECEIVED','DEPOSITED','CLEARED'],true)||$fileCounts[$file['event_id']]>2) { $add('CHEQUE_ATTACHMENT_LINK_INVALID',$file['id']); }
-            try { ChequeExtras::decrypt($file); } catch(\Throwable) { $add('CHEQUE_ATTACHMENT_INTEGRITY_INVALID',$file['id']); }
+            if ($decryptAttachments) {
+                try { ChequeExtras::decrypt($file); } catch(\Throwable) { $add('CHEQUE_ATTACHMENT_INTEGRITY_INVALID',$file['id']); }
+            }
         }
         return ['matched'=>!$errors,'findings'=>$errors,'instruments'=>count($instruments),'events'=>count($events),'cleared'=>count($seenClaims),'policy'=>'No recognition until complete bank clearance; pending custody is not spendable money'];
     }

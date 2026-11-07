@@ -33,6 +33,7 @@ final class LaborExtensionSchema
     }
     public static function runtimeReady(Database $db): void
     {
+        if (self::enabled() && CumulativeProduction::uses($db->pdo())) { return; }
         if (ChequeSchema::enabled()) { ChequeSchema::ready($db); return; }
         if (!self::enabled()||config('upms.production_profile')) { throw new \RuntimeException('H1C_ISOLATED_ONLY'); }
         self::verify($db->pdo());$runtime=$db->pdo()->query('SELECT CURRENT_USER()')->fetchColumn();$name=explode('@',$runtime)[0];$path=config('upms.labor_extension_guard_evidence');

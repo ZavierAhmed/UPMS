@@ -61,7 +61,7 @@ final class CumulativeInitialization
         return '`'.$name.'`';
     }
 
-    private static function verifyGrant(PDO $pdo, string $schema, string $account, array $required): void
+    public static function verifyGrant(PDO $pdo, string $schema, string $account, array $required): void
     {
         if ($pdo->query('SELECT CURRENT_USER()')->fetchColumn() !== $account) {
             throw new RuntimeException('CUMULATIVE_ACCOUNT_REJECTED');
@@ -101,6 +101,48 @@ final class CumulativeInitialization
         $tables = $installer->query('SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE()')->fetchAll(PDO::FETCH_COLUMN);
         $guards = $definer->query('SELECT TRIGGER_NAME,EVENT_OBJECT_TABLE,EVENT_MANIPULATION,ACTION_TIMING,ACTION_STATEMENT,DEFINER,SQL_MODE FROM information_schema.TRIGGERS WHERE TRIGGER_SCHEMA=DATABASE()')->fetchAll(PDO::FETCH_ASSOC);
         return ['table' => array_fill_keys($tables, true), 'guard' => array_column($guards, null, 'TRIGGER_NAME')];
+    }
+
+    public static function hash(): string
+    {
+        return self::plan()[0];
+    }
+
+    public static function verifyInstalled(PDO $reader, PDO $definer, array $accounts): array
+    {
+        if ($reader->query('SELECT CURRENT_USER()')->fetchColumn() !== $accounts['installer']
+            || CleanInitialization::target($reader) !== CleanInitialization::target($definer)) {
+            throw new RuntimeException('CUMULATIVE_VERIFIER_IDENTITY_REJECTED');
+        }
+        [, $steps] = self::plan();
+        $inventory = self::inventory($reader, $definer);
+        if (count($inventory['table']) !== 47 || count($inventory['guard']) !== 133) {
+            throw new RuntimeException('CUMULATIVE_OBJECT_SET_REJECTED');
+        }
+        foreach ($steps as $step) {
+            self::verifyStep($reader, $step, $inventory, $accounts, false);
+        }
+        self::verifyGrant($reader, (string)$reader->query('SELECT DATABASE()')->fetchColumn(),
+            $accounts['installer'], ['CREATE','REFERENCES','SELECT','INSERT','UPDATE']);
+        self::verifyGrant($definer, (string)$reader->query('SELECT DATABASE()')->fetchColumn(),
+            $accounts['definer'], ['SELECT','TRIGGER']);
+        return ['planHash' => self::hash(), 'targetHash' => CleanInitialization::target($reader),
+            'accounts' => $accounts, 'tables' => 47, 'guards' => 133,
+            'guardDefinitionsHash' => self::guardDefinitionsHash($accounts)];
+    }
+
+    public static function guardDefinitionsHash(array $accounts): string
+    {
+        [, $steps] = self::plan();
+        $guards = [];
+        foreach ($steps as $step) {
+            if ($step['type'] === 'guard') {
+                $guards[$step['name']] = [$step['table'],$step['event'],$step['timing'],
+                    self::body($step,explode('@',$accounts['runtime'])[0]),$accounts['definer'],$step['sqlMode']];
+            }
+        }
+        ksort($guards);
+        return hash('sha256',json_encode($guards,JSON_THROW_ON_ERROR));
     }
 
     private static function body(array $step, string $runtime): string
