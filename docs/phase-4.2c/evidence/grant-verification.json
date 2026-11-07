@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "schema": "upms_stage_1794041628",
+  "authenticatedAccount": "p42c_runtime@localhost",
+  "grantHeads": [
+    "GRANT USAGE ON *.*",
+    "GRANT SELECT, INSERT, UPDATE, DELETE ON `upms\\_stage\\_1794041628`.*"
+  ],
+  "tables": 47,
+  "guards": 133,
+  "nativeMutationRejections": 6
+}

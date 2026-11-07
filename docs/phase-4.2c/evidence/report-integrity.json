@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "visualInspectionPassed": true,
+  "reports": [
+    {
+      "file": "cheque-register.pdf",
+      "bytes": 68418,
+      "sha256": "7716ee3489191163b8b3ed0c23b12ac89ecf9fa933db417762efd3960f14ac7e",
+      "pages": 1
+    },
+    {
+      "file": "Cheque-Register.xlsx",
+      "bytes": 5379,
+      "sha256": "640009a56d547a49f47f9c15b96681c5cd3261a27b6e4ae84e0370dca053e5d1",
+      "worksheets": 1
+    },
+    {
+      "file": "delivery-challan.pdf",
+      "bytes": 59370,
+      "sha256": "87082ad0b98a62e9e592ab9ae2a2166a58b7c45a06e18e0a91db227bfa5b4776",
+      "pages": 1
+    },
+    {
+      "file": "employee-hafta.pdf",
+      "bytes": 83870,
+      "sha256": "3858845f4ecfcdb8f68603bdf3de31cff3a0693dad2ca50a045af368a2b6a8b1",
+      "pages": 1
+    },
+    {
+      "file": "Employee-Hafta.xlsx",
+      "bytes": 11273,
+      "sha256": "fa9a16797f842cf255961f3ff8be7905f73d7d17496be43f4a6bdf2b150d2eb8",
+      "worksheets": 1
+    }
+  ]
+}

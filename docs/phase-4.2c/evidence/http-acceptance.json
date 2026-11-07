@@ -1,0 +1,83 @@
+{
+  "passed": true,
+  "productionConfigured": true,
+  "realPhpHttpServer": true,
+  "tlsVerified": true,
+  "gatewayCanceledReads": [
+    {
+      "method": "GET",
+      "path": "/api/v1/management/simple-v1/parties"
+    }
+  ],
+  "checks": [
+    "Wrong server, wrong reference, altered evidence, absent activation approval and extra table grant rejected",
+    "Two production-profile administrators independently rotated passwords and inspected readiness; posting rejected before approval",
+    "Exact Host, Origin, secure cookies and CSRF enforced over real HTTPS and PHP HTTP",
+    "Production, first stock initialization, purchase, challan, customer and vendor payments, cash/bank openings, expense and Hafta earnings",
+    "Cheque receipt/deposit/clearance, denied self-approval, concurrent idempotency and insufficient-stock rollback",
+    "Financial, expense, client/vendor and challan report data",
+    "Real Chrome management, PDF printing and Excel downloads",
+    "Both independent sessions revoked after logout"
+  ],
+  "tables": 47,
+  "guards": 133,
+  "recovery": {
+    "passed": true,
+    "format": "UPMS_PRODUCTION_BACKUP_V2",
+    "restoredTables": 47,
+    "restoredGuards": 133,
+    "rows": 233,
+    "allRowsIdentical": true,
+    "financialReconciliation": true,
+    "sourceAccounts": {
+      "installer": "p42c_installer@localhost",
+      "definer": "p42c_definer@localhost",
+      "runtime": "p42c_runtime@localhost"
+    },
+    "restoreAccounts": {
+      "installer": "p42cr_1794041669_installer@localhost",
+      "definer": "p42cr_1794041669_definer@localhost",
+      "runtime": "p42cr_1794041669_runtime@localhost"
+    },
+    "independentOwnerRecoveryVerified": false,
+    "targetHash": "9a34a58106d443c147d0a5234fff8c8107d32916effc2d8f5f98954279d53075",
+    "release": "0a07767c52851184265b766ed1ef373b7ca9e7cc",
+    "reference": "p42c_staging_1794041628",
+    "tamperRejected": true,
+    "archiveSha256": "8699a5e755c214e9372da0bd17afb569527f1634a35f03f6e47e3ae6e7c18507"
+  },
+  "independentFinancialOracle": {
+    "passed": true,
+    "tables": 47,
+    "guards": 133,
+    "nativeMutationRejections": 6,
+    "schema": "upms_stage_1794041628",
+    "authenticatedAccount": "p42c_runtime@localhost",
+    "grantHeads": [
+      "GRANT USAGE ON *.*",
+      "GRANT SELECT, INSERT, UPDATE, DELETE ON `upms\\_stage\\_1794041628`.*"
+    ],
+    "balances": {
+      "CHEQUES": "0.00",
+      "HARIS_CASH": "4885.00",
+      "JUNAID_CASH": "1000.00",
+      "UBL_OFFICIAL": "60.00"
+    },
+    "stock": [
+      "195"
+    ],
+    "parties": [
+      {
+        "kind": "CLIENT",
+        "balance": "0.00"
+      },
+      {
+        "kind": "VENDOR",
+        "balance": "-100.00"
+      }
+    ],
+    "clearances": 1,
+    "moneyBatches": 8
+  },
+  "liveHostingContacted": false
+}

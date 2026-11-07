@@ -19,10 +19,10 @@ webpid=''
 trap 'test -z "$webpid" || /bin/kill -TERM -- "-$webpid" 2>/dev/null || true; kill "$dbpid" 2>/dev/null || true; wait "$dbpid" 2>/dev/null || true' EXIT
 for i in $(seq 1 100); do [ ! -S "$fixture/mysql.sock" ] || break; sleep .1; done
 if [ "$#" -eq 0 ]; then "$base/bin/php" upms.php/tests/Support/p42c-workspace.php initialize; fi
-if [ "$#" -gt 0 ] && [ "${2:-}" != recover-only ]; then "$base/bin/php" upms.php/tests/Support/p42c-workspace.php refresh; fi
-"$base/bin/php" upms.php/tests/Support/p42c-workspace.php recover
+if [ "$#" -gt 0 ] && [ -z "${2:-}" ]; then "$base/bin/php" upms.php/tests/Support/p42c-workspace.php refresh; fi
+if [ "${2:-}" != verify-only ]; then "$base/bin/php" upms.php/tests/Support/p42c-workspace.php recover; fi
 "$base/bin/php" upms.php/tests/Support/p42c-workspace.php verify
-if [ "${2:-}" = recover-only ]; then exit; fi
+if [ "${2:-}" = recover-only ] || [ "${2:-}" = verify-only ]; then exit; fi
 PHP_CLI_SERVER_WORKERS=4 setsid "$base/bin/php" -S 127.0.0.1:5291 upms.php/tests/Support/p42c-router.php > "$fixture/http.log" 2>&1 &
 webpid=$!
 env -u LD_LIBRARY_PATH python3 scripts/p42c-http-acceptance.py "$fixture"

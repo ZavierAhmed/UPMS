@@ -18,6 +18,8 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 directory = Path(sys.argv[1])
 fixture = json.loads((directory / 'fixture.json').read_text())
 php = str(Path.home() / '.cache/upms-php81-local/bin/php')
+webroot=Path(os.environ['P42C_PACKAGE'])/'management' if os.environ.get('P42C_PACKAGE') else Path('upms.client/dist/management')
+cancellations=[]
 
 def operation(mode):
     completed = subprocess.run([php, 'upms.php/tests/Support/p42c-workspace.php', mode],
@@ -42,19 +44,25 @@ class Gateway(BaseHTTPRequestHandler):
     def log_message(self, *args):
         pass
 
+    def send_content(self, content):
+        try:
+            self.wfile.write(content)
+        except (BrokenPipeError, ConnectionResetError):
+            cancellations.append({'method':self.command,'path':self.path.split('?',1)[0]})
+
     def do_request(self):
         path=self.path.split('?',1)[0]
         if path == '/management' or path.startswith('/management/'):
             if re.fullmatch(r'/management/assets/[A-Za-z0-9_.-]+\.(?:js|css|svg)',path):
-                target=Path('upms.client/dist')/path.lstrip('/')
+                target=webroot/path.removeprefix('/management/')
             else:
-                target=Path('upms.client/dist/management/index.html')
+                target=webroot/'index.html'
             content = target.read_bytes()
             self.send_response(200)
             self.send_header('Content-Type', mimetypes.guess_type(target)[0] or 'application/octet-stream')
             self.send_header('Content-Length', str(len(content)))
             self.end_headers()
-            self.wfile.write(content)
+            self.send_content(content)
             return
         connection = http.client.HTTPConnection('127.0.0.1', 5291, timeout=60)
         headers = {key: value for key, value in self.headers.items()
@@ -70,7 +78,7 @@ class Gateway(BaseHTTPRequestHandler):
                 self.send_header(key, value)
         self.send_header('Content-Length', str(len(content)))
         self.end_headers()
-        self.wfile.write(content)
+        self.send_content(content)
         connection.close()
 
     do_GET = do_POST = do_PATCH = do_request
@@ -246,7 +254,9 @@ try:
         c.cookie=old
         assert c.request('GET','/session/current')[0]==401
     checks.append('Both independent sessions revoked after logout')
+    assert all(event['method']=='GET' for event in cancellations)
     result={'passed':True,'productionConfigured':True,'realPhpHttpServer':True,'tlsVerified':True,
+            'gatewayCanceledReads':cancellations,
             'checks':checks,'tables':47,'guards':133,'recovery':recovery,'independentFinancialOracle':native,'liveHostingContacted':False}
     Path('tmp/phase-4.2c/http-acceptance.json').write_text(json.dumps(result,indent=2)+'\n')
     print(json.dumps({'passed':True,'checks':len(checks),'tables':47,'guards':133}))

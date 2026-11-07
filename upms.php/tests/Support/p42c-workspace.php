@@ -41,7 +41,7 @@ if ($mode==='initialize') {
         $profiles[$role]=['enabled'=>true,'mode'=>'one-time-clean-initialization','hostingVerified'=>true,'backupRestoreVerified'=>false,
             'schemaContract'=>CumulativeProduction::CONTRACT,'cumulativeCleanApproved'=>true,
             'emptyTargetInitializationApproved'=>true,'cumulativeRecoveryApproved'=>true,
-            'privateRoot'=>$directory,'publicRoot'=>$directory.'/public','managementRoot'=>$directory.'/management',
+            'privateRoot'=>$directory,'publicRoot'=>$directory.'/public','managementRoot'=>$package?$package.'/management':dirname(__DIR__,3).'/upms.client/dist/management',
             'transport'=>'unix_socket','socket'=>$socket,'socketOwnerUid'=>(string)fileowner($socket),
             'serverHostname'=>gethostname(),'localSocketVerified'=>true,'schema'=>$schema,'user'=>$user,'account'=>$accounts[$role],
             'passwordFile'=>$directory.'/'.$role.'.password','serverVersion'=>$meta['version'],'serverId'=>(string)$meta['server_id'],
@@ -238,6 +238,9 @@ if ($mode==='refresh') {
     $stock=$connections['installer']->query('SELECT quantity FROM v1_stock ORDER BY item_id')->fetchAll(PDO::FETCH_COLUMN);
     $parties=$connections['installer']->query('SELECT p.kind,COALESCE(SUM(j.debit-j.credit),0) balance FROM v1_parties p LEFT JOIN v1_party_journal j ON j.party_id=p.id GROUP BY p.id ORDER BY p.kind')->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode(['passed'=>true,'tables'=>$proof['tables'],'guards'=>$proof['guards'],'nativeMutationRejections'=>$denied,
+        'schema'=>$scope['schema'],'authenticatedAccount'=>$connections['runtime']->query('SELECT CURRENT_USER()')->fetchColumn(),
+        'grantHeads'=>array_map(static fn($grant)=>explode(' TO ',$grant,2)[0],
+            $connections['runtime']->query('SHOW GRANTS')->fetchAll(PDO::FETCH_COLUMN)),
         'balances'=>$totals,'stock'=>$stock,'parties'=>$parties,
         'clearances'=>(int)$connections['installer']->query('SELECT COUNT(*) FROM cheque_clearances')->fetchColumn(),
         'moneyBatches'=>(int)$connections['installer']->query('SELECT COUNT(*) FROM money_batches')->fetchColumn()]).PHP_EOL;

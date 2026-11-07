@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "releaseSource": "0a07767c52851184265b766ed1ef373b7ca9e7cc",
+  "php": {
+    "tests": 169,
+    "assertions": 1912,
+    "logSha256": "62b192620e2ab59aa946019a79c0a3551b449acae6e0c0bf0d1b5a235fc302e6"
+  },
+  "react": {
+    "tests": 325,
+    "files": 47,
+    "logSha256": "4e4877f424c9ea2ac9c97a22503976c0b30d6d549ce32db9f8da1367d78fa493"
+  }
+}
