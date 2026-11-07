@@ -129,6 +129,8 @@ class Client:
         return result
 
 try:
+    assert operation('negative')['contractRejections']==5
+    checks.append('Wrong server, wrong reference, altered evidence, absent activation approval and extra table grant rejected')
     clients = [Client(), Client()]
     for client, name in zip(clients, ['admin', 'haris']):
         login = client.login(name, fixture['passwords'][name])
@@ -197,8 +199,10 @@ try:
     assert a.ok('GET','/employee-hafta?employeeId='+employee['id']+'&from='+today+'&to='+today)['blocks'][0]['closing']=='1900.00'
     checks.append('Production, first stock initialization, purchase, challan, customer and vendor payments, cash/bank openings, expense and Hafta earnings')
     bank=a.ok('POST','/cheque-banks',{'code':'P42CBANK','name':'Synthetic issuing bank','description':'Synthetic staging only'})
-    cheque=a.ok('POST','/cheques',{'clientId':client['id'],'issuingBankId':bank['id'],'drawerName':'Synthetic drawer',
-                'drawerAccount':'P42CACCOUNT01','number':'0004242','chequeDate':today,'receivedDate':today,'amount':'60.00'})
+    instrument={'clientId':client['id'],'issuingBankId':bank['id'],'drawerName':'Synthetic drawer',
+                'drawerAccount':'P42CACCOUNT01','number':'0004242','chequeDate':today,'receivedDate':today,'amount':'60.00'}
+    assert a.request('POST','/simple-v1/cheques',{**instrument,'attachments':[{}]})[0]==403
+    cheque=a.ok('POST','/cheques',instrument)
     action={'date':today,'reference':'P42C-STATEMENT','reason':'Synthetic bank statement reviewed','evidence':'Synthetic independent bank confirmation'}
     a.ok('POST','/cheques/'+cheque['id']+'/deposited',{**action,'bankId':accounts['UBL_OFFICIAL']})
     status,_=a.request('POST','/simple-v1/cheques/'+cheque['id']+'/cleared',{**action,'approved':True})

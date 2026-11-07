@@ -57,8 +57,17 @@ final class ProductionProfile
         $readOnly = $mode === 'read-only-transport-verification';
         $inspection = is_array($c) && ($c['schemaContract']??'') === CumulativeProduction::CONTRACT
             && ($c['readinessInspectionApproved']??false) === true && $mode === 'approved-production-runtime';
-        $approved = is_array($c) && ($readOnly ? ($c['readOnlyMetadataApproved'] ?? false) === true : (($c['hostingVerified'] ?? false) === true && (($c['backupRestoreVerified'] ?? false) === true || $inspection || LegacyRecoveryWaiver::valid($c))));
-        if (!is_array($c) || !$approved || ($c['enabled'] ?? false) !== true || ($c['mode'] ?? '') !== $mode || !in_array($mode, ['approved-production-runtime','one-time-production-maintenance','one-time-clean-initialization','reviewed-clean-activation','read-only-transport-verification','one-time-sql-import-finalization'], true)) {
+        $cumulative = is_array($c) && ($c['schemaContract']??'') === CumulativeProduction::CONTRACT
+            && preg_match('/^(?:upms_v2|upms_stage_[0-9]+(?:_restore)?)$/D',$c['schema']??'');
+        $emptyInitialization = $cumulative && $mode === 'one-time-clean-initialization'
+            && ($c['cumulativeCleanApproved']??false) === true && ($c['emptyTargetInitializationApproved']??false) === true;
+        $recoveryVerification = $cumulative && $mode === 'cumulative-recovery-verification'
+            && ($c['cumulativeRecoveryApproved']??false) === true;
+        if ($mode === 'cumulative-recovery-verification' && !$recoveryVerification) {
+            throw new ApiError(503,'CUMULATIVE_RECOVERY_SCOPE_REJECTED');
+        }
+        $approved = is_array($c) && ($readOnly ? ($c['readOnlyMetadataApproved'] ?? false) === true : (($c['hostingVerified'] ?? false) === true && (($c['backupRestoreVerified'] ?? false) === true || $inspection || $emptyInitialization || $recoveryVerification || LegacyRecoveryWaiver::valid($c))));
+        if (!is_array($c) || !$approved || ($c['enabled'] ?? false) !== true || ($c['mode'] ?? '') !== $mode || !in_array($mode, ['approved-production-runtime','one-time-production-maintenance','one-time-clean-initialization','reviewed-clean-activation','read-only-transport-verification','one-time-sql-import-finalization','cumulative-recovery-verification'], true)) {
             throw new ApiError(503, 'PRODUCTION_PROFILE_DISABLED');
         }
         foreach (['privateRoot', 'publicRoot', 'managementRoot', 'schema', 'user', 'account', 'passwordFile', 'serverVersion', 'serverId', 'origin', 'reference'] as $key) {

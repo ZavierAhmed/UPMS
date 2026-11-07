@@ -8,9 +8,9 @@ try {
     if ($argc!==5) {
         throw new RuntimeException('CUMULATIVE_RESTORE_INPUT_REQUIRED');
     }
-    $installer=App\Upms\ProductionProfile::load($argv[1],'one-time-production-maintenance');
-    $definer=App\Upms\ProductionProfile::load($argv[2],'one-time-production-maintenance');
-    $runtime=App\Upms\ProductionProfile::load($argv[4],'one-time-production-maintenance');
+    $installer=App\Upms\ProductionProfile::load($argv[1],'cumulative-recovery-verification');
+    $definer=App\Upms\ProductionProfile::load($argv[2],'cumulative-recovery-verification');
+    $runtime=App\Upms\ProductionProfile::load($argv[4],'cumulative-recovery-verification');
     App\Upms\ProductionRelease::verify($installer);
     if (!is_file($argv[3]) || is_link($argv[3])) { throw new RuntimeException('CUMULATIVE_RESTORE_ARCHIVE_REQUIRED'); }
     if (!preg_match('/^[a-f0-9]{64}$/D',$installer['restoreArchiveSha256']??'')

@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+ini_set('zend.exception_ignore_args','1');
 
 require __DIR__.'/../../vendor/autoload.php';
 
@@ -16,7 +17,7 @@ $configFile=$directory.'/fixture.json';
 $mode=$argv[1]??'';
 $package=getenv('P42C_PACKAGE')?:null;
 $privateCommand=static function(string $name,array $paths,string $input='') use($package): string {
-    $process=proc_open([PHP_BINARY,$package.'/private/backend/operations/'.$name,...$paths],
+    $process=proc_open([PHP_BINARY,'-d','zend.exception_ignore_args=1',$package.'/private/backend/operations/'.$name,...$paths],
         [0=>['pipe','r'],1=>['pipe','w'],2=>['pipe','w']],$pipes);
     fwrite($pipes[0],$input);fclose($pipes[0]);
     $output=stream_get_contents($pipes[1]);$error=stream_get_contents($pipes[2]);
@@ -37,7 +38,9 @@ if ($mode==='initialize') {
         $root->exec('GRANT '.$grants.' ON `'.str_replace('_','\\_',$schema)."`.* TO '$user'@'localhost'");
         file_put_contents($directory.'/'.$role.'.password',$password);chmod($directory.'/'.$role.'.password',0600);
         $accounts[$role]=$user.'@localhost';
-        $profiles[$role]=['enabled'=>true,'mode'=>'one-time-clean-initialization','hostingVerified'=>true,'backupRestoreVerified'=>true,
+        $profiles[$role]=['enabled'=>true,'mode'=>'one-time-clean-initialization','hostingVerified'=>true,'backupRestoreVerified'=>false,
+            'schemaContract'=>CumulativeProduction::CONTRACT,'cumulativeCleanApproved'=>true,
+            'emptyTargetInitializationApproved'=>true,'cumulativeRecoveryApproved'=>true,
             'privateRoot'=>$directory,'publicRoot'=>$directory.'/public','managementRoot'=>$directory.'/management',
             'transport'=>'unix_socket','socket'=>$socket,'socketOwnerUid'=>(string)fileowner($socket),
             'serverHostname'=>gethostname(),'localSocketVerified'=>true,'schema'=>$schema,'user'=>$user,'account'=>$accounts[$role],
@@ -57,7 +60,7 @@ if ($mode==='initialize') {
             $c+=['cumulativeCleanApproved'=>true,'receiptFile'=>$directory.'/journal.json',
                 'targetHash'=>$scope['targetHash'],'releaseSha'=>$scope['release'],
                 'releaseManifestSha256'=>hash_file('sha256',$package.'/RELEASE.json')];
-            $paths[]=$directory.'/'.$role.'.json';
+            $paths[]=$directory.'/'.$role.'.initialize.json';
             CleanInitialization::privateReceipt(end($paths),$c,true);
         }
         unset($c);
@@ -119,7 +122,7 @@ if ($mode==='refresh') {
     $pair=sodium_crypto_box_keypair();
     if ($package) {
         foreach (['installer','definer'] as $role) {
-            $c=$profiles[$role];$c['mode']='one-time-production-maintenance';
+            $c=$profiles[$role];$c['mode']='cumulative-recovery-verification';
             CleanInitialization::privateReceipt($directory.'/'.$role.'.maintenance.json',$c);
         }
         $cipher=$privateCommand('backup-cumulative.php',[$directory.'/installer.maintenance.json',
@@ -140,7 +143,7 @@ if ($mode==='refresh') {
         $c=$profiles[$role];$c['schema']=$restore;$c['user']='p42cr_'.$restoreId.'_'.$role;
         $c['restoreArchiveSha256']=hash('sha256',$cipher);
         $c['account']=$c['user'].'@localhost';$c['password']=bin2hex(random_bytes(32));
-        $c['passwordFile']=$directory.'/'.$c['user'].'.password';$c['mode']='one-time-production-maintenance';
+        $c['passwordFile']=$directory.'/'.$c['user'].'.password';$c['mode']='cumulative-recovery-verification';
         file_put_contents($c['passwordFile'],$c['password']);chmod($c['passwordFile'],0600);
         $root->exec("CREATE USER '".$c['user']."'@'localhost' IDENTIFIED BY ".$root->quote($c['password']));
         $root->exec('GRANT '.$grants.' ON `'.str_replace('_','\\_',$restore)."`.* TO '".$c['user']."'@'localhost'");
@@ -165,6 +168,7 @@ if ($mode==='refresh') {
     sodium_memzero($pair);
     echo json_encode($report).PHP_EOL;
 } elseif ($mode==='activate') {
+    $profile['backupRestoreVerified']=true;
     $profile['recoveryEvidenceFile']=$directory.'/recovery.json';
     $profile['recoveryEvidenceSha256']=hash_file('sha256',$directory.'/recovery.json');
     $approval=['status'=>'EXPLICIT_CUMULATIVE_ACTIVATION_APPROVED','targetHash'=>$scope['targetHash'],'release'=>$scope['release'],
@@ -175,11 +179,35 @@ if ($mode==='refresh') {
     $profile['activationApprovalSha256']=hash_file('sha256',$directory.'/activation.json');
     CleanInitialization::privateReceipt($directory.'/runtime.json',$profile);
     if ($package) {
-        $privateCommand('activate-cumulative.php',[$directory.'/installer.maintenance.json',$directory.'/runtime.json']);
+        $maintenance=$profiles['installer'];$maintenance['mode']='one-time-production-maintenance';
+        $maintenance['backupRestoreVerified']=true;
+        CleanInitialization::privateReceipt($directory.'/installer.activation.json',$maintenance,true);
+        $privateCommand('activate-cumulative.php',[$directory.'/installer.activation.json',$directory.'/runtime.json']);
     } else {
         CumulativeProduction::activate($connections['installer'],$connections['runtime'],$profile);
     }
     echo json_encode(['passed'=>true,'state'=>CumulativeProduction::ACTIVE,'syntheticOnly'=>true]).PHP_EOL;
+} elseif ($mode==='negative') {
+    $rejections=0;
+    foreach ([
+        static fn()=>ProductionConnection::connect(array_replace($profiles['runtime'],['password'=>file_get_contents($profiles['runtime']['passwordFile']),'serverId'=>'0'])),
+        static fn()=>CumulativeProduction::runtime($connections['runtime'],array_replace($profile,['reference'=>'wrong_reference_42c'])),
+        static fn()=>CumulativeProduction::runtime($connections['runtime'],array_replace($profile,['cumulativeEvidenceSha256'=>str_repeat('0',64)])),
+        static fn()=>CumulativeProduction::activate($connections['installer'],$connections['runtime'],$profile),
+    ] as $operation) {
+        try { $operation(); } catch (Throwable) { $rejections++; }
+    }
+    $root->exec("GRANT SELECT ON mysql.time_zone TO 'p42c_runtime'@'localhost'");
+    try {
+        try { CumulativeProduction::runtime($connections['runtime'],$profile); }
+        catch (Throwable) { $rejections++; }
+    } finally {
+        $root->exec("REVOKE SELECT ON mysql.time_zone FROM 'p42c_runtime'@'localhost'");
+    }
+    if ($rejections!==5 || $connections['installer']->query('SELECT state FROM v1_control WHERE id=1')->fetchColumn()!=='PENDING') {
+        throw new RuntimeException('P42C_NEGATIVE_CONTRACT_FAILED');
+    }
+    echo json_encode(['passed'=>true,'contractRejections'=>$rejections,'posting'=>'PENDING']).PHP_EOL;
 } elseif ($mode==='verify') {
     $profile=App\Upms\ProductionProfile::load($directory.'/runtime.json');
     $proof=CumulativeInitialization::verifyInstalled($connections['installer'],$connections['definer'],$accounts);

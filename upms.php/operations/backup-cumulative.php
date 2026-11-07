@@ -5,8 +5,8 @@ if (PHP_SAPI !== 'cli') { http_response_code(404);exit(1); }
 require dirname(__DIR__).'/vendor/autoload.php';
 try {
     if ($argc !== 4) { throw new RuntimeException('CUMULATIVE_BACKUP_PROFILES_REQUIRED'); }
-    $reader=App\Upms\ProductionProfile::load($argv[1],'one-time-production-maintenance');
-    $definer=App\Upms\ProductionProfile::load($argv[2],'one-time-production-maintenance');
+    $reader=App\Upms\ProductionProfile::load($argv[1],'cumulative-recovery-verification');
+    $definer=App\Upms\ProductionProfile::load($argv[2],'cumulative-recovery-verification');
     $runtime=App\Upms\ProductionProfile::load($argv[3]);
     App\Upms\ProductionRelease::verify($runtime);
     $pdo=App\Upms\ProductionConnection::connect($runtime);

@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+ini_set('zend.exception_ignore_args','1');
 
 // Isolated HTTP fixture only. TLS metadata is accepted from its authenticated local gateway.
 $directory=getenv('P42C_DIRECTORY');
