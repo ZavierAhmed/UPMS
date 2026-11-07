@@ -122,7 +122,10 @@ final class ProductionRecoveryV2
             || $definer->query('SELECT DATABASE()')->fetchColumn() !== $target['db']) {
             throw new RuntimeException('PRODUCTION_BACKUP_V2_EMPTY_ISOLATED_RESTORE_REQUIRED');
         }
-        if (count(array_unique($accounts))!==3) { throw new RuntimeException('CUMULATIVE_DISTINCT_IDENTITIES_REQUIRED'); }
+        if (count(array_unique($accounts))!==3
+            || array_filter($accounts,fn($account)=>!is_string($account)||!preg_match('/^[a-zA-Z0-9_]+@localhost$/D',$account))) {
+            throw new RuntimeException('CUMULATIVE_DISTINCT_IDENTITIES_REQUIRED');
+        }
         CumulativeInitialization::verifyGrant($installer,$target['db'],$accounts['installer'],['CREATE','REFERENCES','SELECT','INSERT','UPDATE']);
         CumulativeInitialization::verifyGrant($definer,$target['db'],$accounts['definer'],['SELECT','TRIGGER']);
         $installer->exec('SET FOREIGN_KEY_CHECKS=0');
