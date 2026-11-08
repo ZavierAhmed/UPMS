@@ -6,6 +6,22 @@ $dir=getenv('P43_RECOVERY_DIR');$base=getenv('HOME').'/.cache/upms-php81-local';
 if(!is_string($dir)||!str_starts_with($dir,$base.'/p42c-')||$argc!==3){exit(1);}
 require $dir.'/release/private/backend/vendor/autoload.php';
 require dirname(__DIR__).'/deployment/phase-4/recovery-key-capsule.php';
+
+/** Effective Linux UID without depending on the optional PHP POSIX extension. */
+function p43RecoveryEffectiveUid(): int
+{
+    if (function_exists('posix_geteuid')) {
+        return posix_geteuid();
+    }
+    // /proc/self/status exposes real, effective, saved and filesystem UIDs.
+    $status = @file_get_contents('/proc/self/status');
+    if (!is_string($status)
+        || !preg_match('/^Uid:[ \t]+[0-9]+[ \t]+([0-9]+)[ \t]+[0-9]+[ \t]+[0-9]+[ \t]*$/m', $status, $match)) {
+        throw new RuntimeException('RECOVERY_EFFECTIVE_UID_UNAVAILABLE');
+    }
+    return (int)$match[1];
+}
+
 $pair=null;$passphrase=null;
 try{
  $archive=$argv[1];$capsulePath=$argv[2];
@@ -33,7 +49,7 @@ try{
  $restored=App\Upms\ProductionRecoveryV2::restoreIsolated($connections['installer'],$connections['definer'],$snapshot,$accounts);
  $report=['technicalRestorePassed'=>true,'createdUtc'=>gmdate('c'),'archiveSha256'=>$expected,
   'sourceSchema'=>'upms_v2','sourceTargetHash'=>$snapshot['proof']['targetHash'],'release'=>'e3e9ece1d2bdc8e282a5481dd01bb3960059ac91',
-  'recipientSha256'=>$opened['recipientSha256'],'recoveryHost'=>gethostname(),'recoveryUid'=>posix_geteuid(),
+  'recipientSha256'=>$opened['recipientSha256'],'recoveryHost'=>gethostname(),'recoveryUid'=>p43RecoveryEffectiveUid(),
   'dpapiRequired'=>false,'applicationKeyRecovered'=>true,'applicationKeySha256'=>hash('sha256',$opened['applicationKey']),
   'restore'=>$restored,'operatorName'=>null,'operatorSignature'=>null,
   'separateComputerAndAccountAttested'=>false,'ownerAccepted'=>false,'independentOwnerRecoveryVerified'=>false];
