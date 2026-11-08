@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "reviewed": [
+    "cheque-register.pdf",
+    "employee-hafta.pdf",
+    "expense-report.pdf"
+  ],
+  "renderer": "Poppler pdftoppm",
+  "allSinglePage": true,
+  "overlapOrClippingObserved": false,
+  "emptyData": true,
+  "haftaScope": "Coverage warning only; no employee statement exists. Nonempty statement printing was not exercised.",
+  "screenshotsReviewed": [
+    "dashboard.png"
+  ],
+  "xlsxOpened": true,
+  "privateKeysExported": false
+}

@@ -1,0 +1,30 @@
+{
+  "passed": false,
+  "hostedHttps": true,
+  "realChrome": true,
+  "schema": "upms_stage_43",
+  "mechanism": "Isolated Chrome context; unchanged candidate assets and API requests routed through authenticated real GoDaddy HTTPS staging ingress",
+  "financialPostingActivated": false,
+  "nonemptyFinancialAcceptance": false,
+  "views": [],
+  "exports": [],
+  "pdfs": [],
+  "httpFailures": [
+    {
+      "path": "/api/v1/management/session/current",
+      "method": "GET",
+      "status": 401,
+      "expected": true
+    },
+    {
+      "path": "/api/v1/management/simple-v1/parties",
+      "method": "GET",
+      "status": 400,
+      "expected": false
+    }
+  ],
+  "requestFailures": [],
+  "pageErrors": [],
+  "providerTelemetryBlocked": 0,
+  "error": "Application alert in Dashboard\n\n1 !== 0\n"
+}

@@ -1,0 +1,127 @@
+{
+  "passed": true,
+  "hostedHttps": true,
+  "realChrome": true,
+  "schema": "upms_stage_43",
+  "mechanism": "Isolated Chrome context; unchanged candidate assets and API requests routed through authenticated real GoDaddy HTTPS staging ingress",
+  "financialPostingActivated": false,
+  "nonemptyFinancialAcceptance": false,
+  "views": [
+    {
+      "path": "",
+      "label": "Dashboard",
+      "passed": true
+    },
+    {
+      "path": "/items",
+      "label": "Inventory items",
+      "passed": true
+    },
+    {
+      "path": "/stock-in",
+      "label": "Inventory and production",
+      "passed": true
+    },
+    {
+      "path": "/challans",
+      "label": "Challans",
+      "passed": true
+    },
+    {
+      "path": "/ledgers",
+      "label": "Ledgers",
+      "passed": true
+    },
+    {
+      "path": "/money-accounts",
+      "label": "Money Accounts",
+      "passed": true
+    },
+    {
+      "path": "/employee-hafta",
+      "label": "Hafta",
+      "passed": true
+    },
+    {
+      "path": "/cheques",
+      "label": "Cheques",
+      "passed": true
+    },
+    {
+      "path": "/reports",
+      "label": "Reports",
+      "passed": true
+    },
+    {
+      "path": "/expense-reports",
+      "label": "Expense reports",
+      "passed": true
+    },
+    {
+      "path": "/cheques",
+      "label": "cheque-register",
+      "passed": true
+    },
+    {
+      "path": "/cheques",
+      "label": "cheque-register",
+      "passed": true
+    },
+    {
+      "path": "/employee-hafta",
+      "label": "employee-hafta",
+      "passed": true
+    },
+    {
+      "path": "/expense-reports",
+      "label": "expense-report",
+      "passed": true
+    }
+  ],
+  "exports": [
+    {
+      "name": "cheque-register",
+      "bytes": 4258,
+      "emptyData": true
+    },
+    {
+      "name": "employee-hafta",
+      "bytes": 4469,
+      "emptyData": true
+    },
+    {
+      "name": "expense-report",
+      "bytes": 4344,
+      "emptyData": true
+    }
+  ],
+  "pdfs": [
+    {
+      "name": "cheque-register",
+      "bytes": 59573,
+      "emptyData": true
+    },
+    {
+      "name": "employee-hafta",
+      "bytes": 15902,
+      "emptyData": true
+    },
+    {
+      "name": "expense-report",
+      "bytes": 42956,
+      "emptyData": true
+    }
+  ],
+  "httpFailures": [
+    {
+      "path": "/api/v1/management/session/current",
+      "method": "GET",
+      "status": 401,
+      "expected": true
+    }
+  ],
+  "requestFailures": [],
+  "pageErrors": [],
+  "providerTelemetryBlocked": 0,
+  "priorViewEvidence": "download-failed-results.json"
+}

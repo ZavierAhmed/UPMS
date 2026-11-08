@@ -1,0 +1,20 @@
+{
+    "format": "UPMS_PRODUCTION_BACKUP_V2",
+    "sha256": "df1ca9b785b4f60a9eb87c93aada5af9ed9b9dae6f51862dc247f94677bc50af",
+    "targetHash": "bcbee5f84b54675bdc11c69ca3788b567cc3b19f82bf66ec5e92f87e5e5a5004",
+    "release": "e3e9ece1d2bdc8e282a5481dd01bb3960059ac91",
+    "reference": "p43_hosted_production_v2",
+    "tables": 47,
+    "guards": 133,
+    "passed": true,
+    "schema": "upms_v2",
+    "backupAccount": "upms_backup_v2@localhost",
+    "readerPrivileges": [
+        "SELECT"
+    ],
+    "archive": "upms-v2-20261108013310.upmsbk",
+    "bytes": 113659,
+    "recipientSha256": "6de4351eff470bb9d7ed213571e48a26254b5e16c8e327f7d28541036e286464",
+    "privateKeyUploaded": false,
+    "independentOwnerRecoveryVerified": false
+}

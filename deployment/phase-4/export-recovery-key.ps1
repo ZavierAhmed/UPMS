@@ -1,6 +1,7 @@
 [CmdletBinding()]
-param([Parameter(Mandatory=$true)][string]$Destination,[switch]$Export,[switch]$OwnerConfirmedOfflineEncryptedUsb,[string]$ApplicationKeyFile)
+param([Parameter(Mandatory=$true)][string]$Destination,[switch]$Export,[switch]$OwnerConfirmedOfflineEncryptedUsb,[string]$ApplicationKeyFile,[string]$ApplicationKeyDpapiFile)
 $ErrorActionPreference='Stop'
+if($ApplicationKeyFile -and $ApplicationKeyDpapiFile){throw 'EXCLUSIVE_APPLICATION_KEY_SOURCE_REQUIRED'}
 $repo=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))
 $parent=(Resolve-Path -LiteralPath (Split-Path -Parent $Destination)).Path
 $profile=[Environment]::GetFolderPath('UserProfile')
@@ -18,6 +19,10 @@ try{
  $store=Get-Content -Raw -LiteralPath (Join-Path $repo 'tmp/protected-offhost-backups/recipient.dpapi.json')|ConvertFrom-Json
  $key=[Security.Cryptography.ProtectedData]::Unprotect([Convert]::FromBase64String($store.protectedKeyPair),[Text.Encoding]::UTF8.GetBytes('Unique Plastic Industry UPMS backups v1'),[Security.Cryptography.DataProtectionScope]::CurrentUser)
  if($ApplicationKeyFile){$applicationKey=[IO.File]::ReadAllText((Resolve-Path -LiteralPath $ApplicationKeyFile).Path).Trim()}
+ if($ApplicationKeyDpapiFile){
+  $appBytes=[Security.Cryptography.ProtectedData]::Unprotect([IO.File]::ReadAllBytes((Resolve-Path -LiteralPath $ApplicationKeyDpapiFile).Path),[Text.Encoding]::UTF8.GetBytes('UPMS P4.3 application key v1'),[Security.Cryptography.DataProtectionScope]::CurrentUser)
+  try{$applicationKey=[Text.Encoding]::UTF8.GetString($appBytes).Trim();if($applicationKey -cnotmatch '^base64:[A-Za-z0-9+/]{43}=$'){throw 'APPLICATION_KEY_ENCODING_REJECTED'}}finally{[Array]::Clear($appBytes,0,$appBytes.Length)}
+ }
  $start=[Diagnostics.ProcessStartInfo]::new();$start.FileName=Join-Path $repo 'tmp/php-runtime/bin/php.exe';$start.ArgumentList.Add((Join-Path $PSScriptRoot 'recovery-key-capsule.php'));$start.UseShellExecute=$false;$start.CreateNoWindow=$true
  $start.RedirectStandardInput=$true;$start.RedirectStandardOutput=$true;$start.RedirectStandardError=$true
  $utf8=[Text.UTF8Encoding]::new($false);$start.StandardInputEncoding=$utf8;$start.StandardOutputEncoding=$utf8;$start.StandardErrorEncoding=$utf8

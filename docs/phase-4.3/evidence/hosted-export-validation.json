@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "pdfs": [
+    {
+      "name": "cheque-register.pdf",
+      "pages": 1,
+      "hasText": true
+    },
+    {
+      "name": "employee-hafta.pdf",
+      "pages": 1,
+      "hasText": true
+    },
+    {
+      "name": "expense-report.pdf",
+      "pages": 1,
+      "hasText": true
+    }
+  ],
+  "workbooks": [
+    {
+      "name": "cheque-register.xlsx",
+      "sheets": [
+        {
+          "title": "UPMS Report",
+          "rows": 4,
+          "columns": 15,
+          "nonemptyCells": 18
+        }
+      ],
+      "opened": true
+    },
+    {
+      "name": "employee-hafta.xlsx",
+      "sheets": [
+        {
+          "title": "UPMS Report",
+          "rows": 10,
+          "columns": 9,
+          "nonemptyCells": 18
+        }
+      ],
+      "opened": true
+    },
+    {
+      "name": "expense-report.xlsx",
+      "sheets": [
+        {
+          "title": "UPMS Report",
+          "rows": 7,
+          "columns": 8,
+          "nonemptyCells": 20
+        }
+      ],
+      "opened": true
+    }
+  ],
+  "dataScope": "Empty hosted staging reports"
+}

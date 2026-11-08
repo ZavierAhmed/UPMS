@@ -1,0 +1,86 @@
+{
+  "passed": false,
+  "hostedHttps": true,
+  "realChrome": true,
+  "schema": "upms_stage_43",
+  "mechanism": "Isolated Chrome context; unchanged candidate assets and API requests routed through authenticated real GoDaddy HTTPS staging ingress",
+  "financialPostingActivated": false,
+  "nonemptyFinancialAcceptance": false,
+  "views": [
+    {
+      "path": "",
+      "label": "Dashboard",
+      "passed": true
+    },
+    {
+      "path": "/items",
+      "label": "Inventory items",
+      "passed": true
+    },
+    {
+      "path": "/stock-in",
+      "label": "Inventory and production",
+      "passed": true
+    },
+    {
+      "path": "/challans",
+      "label": "Challans",
+      "passed": true
+    },
+    {
+      "path": "/ledgers",
+      "label": "Ledgers",
+      "passed": true
+    },
+    {
+      "path": "/money-accounts",
+      "label": "Money Accounts",
+      "passed": true
+    },
+    {
+      "path": "/employee-hafta",
+      "label": "Hafta",
+      "passed": true
+    },
+    {
+      "path": "/cheques",
+      "label": "Cheques",
+      "passed": true
+    },
+    {
+      "path": "/reports",
+      "label": "Reports",
+      "passed": true
+    },
+    {
+      "path": "/expense-reports",
+      "label": "Expense reports",
+      "passed": true
+    },
+    {
+      "path": "/cheques",
+      "label": "cheque-register",
+      "passed": true
+    }
+  ],
+  "exports": [],
+  "pdfs": [
+    {
+      "name": "cheque-register",
+      "bytes": 59573,
+      "emptyData": true
+    }
+  ],
+  "httpFailures": [
+    {
+      "path": "/api/v1/management/session/current",
+      "method": "GET",
+      "status": 401,
+      "expected": true
+    }
+  ],
+  "requestFailures": [],
+  "pageErrors": [],
+  "providerTelemetryBlocked": 0,
+  "error": "H1C_EXCEL_DOWNLOAD_CANCELED"
+}

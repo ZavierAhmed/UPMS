@@ -1,0 +1,21 @@
+UPMS upms_v2 independent recovery — NOT YET PERFORMED
+
+The encrypted USB is not mounted and no operator is designated. No capsule or independent approval is present in this packet. Never substitute the developer's DPAPI validation for the independent test.
+
+Owner Windows step, only after confirming the real encrypted USB path:
+1. Run deployment/phase-4/export-recovery-key.ps1 with -Destination <actual-encrypted-USB>/upms-recovery-key.json and -ApplicationKeyDpapiFile <repository>/tmp/protected-offhost-backups/production-v2/application-key.dpapi for preflight.
+2. Repeat with -Export -OwnerConfirmedOfflineEncryptedUsb. Enter a new >=20-character passphrase privately at the secure prompts and hold it separately in the owner vault. Never place it in arguments or chat.
+3. Copy this packet and the encrypted capsule to the approved USB. Do not copy recipient.dpapi.json, raw keys, passwords or the Windows profile. Verify packet hashes against the separately retained Git receipt and known archive/release hashes.
+
+Separate operator computer/account:
+4. Use a protected, encrypted recovery disk and a trusted Linux PHP/MariaDB 10.11 runtime. The restore wrapper requires PHP with sodium and pdo_mysql at $HOME/.cache/upms-php81-local/bin/php and reviewed MariaDB binaries/libraries under that base's root/usr. Provision and verify that independent runtime first; do not copy developer fixture databases or credentials. The wrapper stops if prerequisites are missing.
+5. From the packet root in an interactive terminal, run:
+   bash scripts/p43-independent-restore.sh ./upms-v2-20261108013310.upmsbk ./upms-recovery-key.json ./management-p43.zip
+6. Enter the vault passphrase at the hidden prompt. The procedure uses no DPAPI and creates only a fresh private offline MariaDB instance. It checks archive/release hashes, approved recipient and source target, 47 tables, 133 guards, identical rows and reconciliation. It recovers the application key only into the private recovery directory, never logs it, and shuts the engine down afterward.
+7. Compare applicationKeySha256 in the receipt with the trusted management-cutover-plan.json. Review all restore results and retained private diagnostic evidence. On any failure stop; do not mark it passed or overwrite an existing target.
+8. Sign the pending restore receipt with the actual operator identity, separate computer/account evidence, date and approved signature/attestation method. Return the signed receipt and hashes to the owner for acceptance. The tool deliberately leaves independentOwnerRecoveryVerified false; no self-issued approval or live activation occurs.
+
+Expected production ciphertext SHA-256: df1ca9b785b4f60a9eb87c93aada5af9ed9b9dae6f51862dc247f94677bc50af
+Expected release SHA-256: 57036262281670a5f33123332ed357f749d528ea0b82503a3dbe647226523691
+Approved recipient fingerprint: 6de4351eff470bb9d7ed213571e48a26254b5e16c8e327f7d28541036e286464
+No GoDaddy writes, production binding switch or financial activation are part of this procedure.

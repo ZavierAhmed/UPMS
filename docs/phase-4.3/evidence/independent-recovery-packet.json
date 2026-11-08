@@ -1,0 +1,33 @@
+{
+  "prepared": true,
+  "usbExported": false,
+  "operatorDesignated": false,
+  "privateKeysIncluded": false,
+  "independentOwnerRecoveryVerified": false,
+  "files": [
+    {
+      "path": "management-p43.zip",
+      "sha256": "57036262281670a5f33123332ed357f749d528ea0b82503a3dbe647226523691"
+    },
+    {
+      "path": "README.txt",
+      "sha256": "dae95fa616796bd5292b4709a95036446ac16f9e14854a411a2fe33a1d3c64a1"
+    },
+    {
+      "path": "upms-v2-20261108013310.upmsbk",
+      "sha256": "df1ca9b785b4f60a9eb87c93aada5af9ed9b9dae6f51862dc247f94677bc50af"
+    },
+    {
+      "path": "deployment/phase-4/recovery-key-capsule.php",
+      "sha256": "3f3e4bf5d7abbd8159c7a959ecadb873bf62050888e5484afca95fcd4e7348b3"
+    },
+    {
+      "path": "scripts/p43-independent-restore.php",
+      "sha256": "37a9a3c7042e7e9e531597232d327c5bf800f55fe3290698de396f6405d6ad2b"
+    },
+    {
+      "path": "scripts/p43-independent-restore.sh",
+      "sha256": "b28d1f77a28085fe23017a0f87452e42f03504ea632b9b5a49bb0f72c28f07e0"
+    }
+  ]
+}

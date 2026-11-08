@@ -1,0 +1,48 @@
+{
+    "preparedUtc": "2026-11-08T01:49:11+00:00",
+    "prepared": true,
+    "ready": false,
+    "approved": false,
+    "bindingSwitched": false,
+    "publicWebsiteChanged": false,
+    "origin": "https:\/\/app.unique-plastic.com",
+    "targetSchema": "upms_v2",
+    "runtimeAccount": "upms_runtime_v2@localhost",
+    "backupAccount": "upms_backup_v2@localhost",
+    "releaseSha256": "57036262281670a5f33123332ed357f749d528ea0b82503a3dbe647226523691",
+    "targetDirectory": "\/home\/tsn6az96j3v7\/public_html\/dashboard",
+    "privateBackend": "\/home\/tsn6az96j3v7\/upms-releases\/p43\/management-570362622816\/private\/backend",
+    "privateProfile": "\/home\/tsn6az96j3v7\/upms-private\/p43\/production-v2\/runtime.json",
+    "applicationKeySha256": "ff067e0348be11f770aa6eb35df353a85fa8af7bfb4f9c316071fb53fb62c7a9",
+    "filesToPublish": {
+        ".htaccess": "d81d1fdb74c6a05034680fa44b75a158e47c0336f15c61c3a23bd396298fd675",
+        "assets\/index-BcteECY0.css": "182c26f933c5bb8ed3eb98d4649501291429896496580cc3ef2c542d234e8c5d",
+        "assets\/index-nrn30Q3k.js": "1241c0341f31ae68256cd4ca9d4edd38da97774b1e7015fb99510897e06a53ed",
+        "assets\/rolldown-runtime-WkwZ5CU-.js": "2629f2ad3cb75a57d98de697127f5af7d777ef572bbcdfa6e3ce8f438cd4527e",
+        "assets\/unique_plastic-Bg-VSvfO.svg": "c66124004874f8e90978158bbd960fcf36938bbaf29c2792e30cdac01bb49774",
+        "assets\/vendor-Dph6fTCk.js": "b3fb9753a098770a0bff61170086b70f94e9e44b6d8adda9b74a7e19d5c7b0c9",
+        "gateway.php": "c1ae0df335a710a763e78045d494812fd97e7401e6d96d7d2960a8b891b33df8",
+        "index.html": "164a219d8a3aa116ad0db7b12790e34706071dea849dea7b49886fa8c101464b"
+    },
+    "filesToDelete": [],
+    "rollbackFiles": {
+        "dashboard\/.htaccess": "e5a1fb5728817c8e5b7dea42d8e070e52385c6f36e3c4b31a509b5f525134236",
+        "dashboard\/gateway.php": "6bfceb51c94a0f6fb36f1281bb0163254a7bb388001f99996d8fb16c75574eb5",
+        "dashboard\/index.html": "6f0f2296568a2ae95de5bad47762502b39728955039ba6dc0c6be1c457b69d6d",
+        "dashboard\/management\/assets\/index-DHvRfyov.js": "6d0d76e447b88c0a8cffa0fa4817a4c41ed44d0c1145791940b555694b03e0e9",
+        "dashboard\/management\/assets\/index-UzaSqto8.css": "9a355d6031796b9d406dc50f3f1107a8fb0e3643e9b2339b60bf2f35327239c8",
+        "dashboard\/management\/assets\/unique_plastic-D2-7eM9F.svg": "c0b7c218137d04b5074476ea910b38dd6b112894a6cb915d2f965704fe96e059"
+    },
+    "rollbackDirectory": "\/home\/tsn6az96j3v7\/upms-private\/p43\/cutover-rollback\/dashboard",
+    "previousDashboardUnchanged": true,
+    "businessPostingEnabled": false,
+    "smtpEnabled": false,
+    "attachmentsEnabled": false,
+    "blockedBy": [
+        "Independent owner recovery not completed",
+        "Owner administrator handoff and first rotation pending",
+        "Explicit management cutover approval not recorded"
+    ],
+    "nonemptyFinancialAcceptance": "Not run; separate staging activation and legitimate recovery gates required",
+    "actionAfterGates": "Recheck actual identities, grants, 47\/133, recovery receipt, handoff and explicit approval; publish only these eight staged files with atomic replacements and preserved rollback; keep control PENDING; immediately verify HTTPS\/login\/read views\/exports and roll back on failure"
+}

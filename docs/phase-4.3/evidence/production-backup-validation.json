@@ -1,0 +1,16 @@
+{
+    "passed": true,
+    "schema": "upms_v2",
+    "offHost": true,
+    "authenticatedDecryptionVerified": true,
+    "sha256": "df1ca9b785b4f60a9eb87c93aada5af9ed9b9dae6f51862dc247f94677bc50af",
+    "recipientSha256": "6de4351eff470bb9d7ed213571e48a26254b5e16c8e327f7d28541036e286464",
+    "targetHash": "bcbee5f84b54675bdc11c69ca3788b567cc3b19f82bf66ec5e92f87e5e5a5004",
+    "tables": 47,
+    "guards": 133,
+    "rows": 87,
+    "tamperRejected": true,
+    "independentOwnerRecoveryVerified": false,
+    "privateKeyUploaded": false,
+    "plaintextWrittenToDisk": false
+}
