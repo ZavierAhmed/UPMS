@@ -1,8 +1,8 @@
 # P4.3 GoDaddy acceptance — 8 November 2026
 
-Hosted publication is **BLOCKED**, pending the approvals and checks below. No hosted files, schemas, accounts, grants, administrators or settings were changed. Existing `upms_v1` remains bound to the previous application; P4.3 is not activated.
+Hosted publication is **BLOCKED**, pending the approvals and checks below. The owner separately approved resource creation only. The two new empty schemas and eight approved SQL identities were created and authenticated successfully on 8 November 2026. Generated credentials and durable provisioning evidence are protected in `/home/tsn6az96j3v7/upms-private/p43` with private directories and 0600 files; secrets are not in Git or web roots. Existing `upms_v1` remains bound to the previous application; P4.3 is not activated. No initializer, administrator enrollment, staging/DNS change, publication or binding switch was performed.
 
-## Verified now
+## Pre-provisioning verification
 
 Read-only SSH authenticated as `tsn6az96j3v7` on `sg2plzcpnl508885.prod.sin2.secureserver.net`. `/usr/bin/uapi` succeeds. The account permits 10 databases and currently has `upms`, `upms_v1`, `upms_recovery84`, `upms_security85`. Six slots remain. Names have no required prefix; maximum lengths are 64 for databases and 47 for users. Proposed new names below are absent from current inventories. Today's account and database checks succeeded; a later account recheck failed before authentication with `ssh: connect to host unique-plastic.com port 22: Connection timed out`. The last successful JSON evidence was preserved. No durable cause for the intermittent failures has been established.
 
@@ -24,9 +24,11 @@ Latest protected off-host backup was created 2026-11-08 05:42:13 +05:00 and veri
 
 Local archives are `tmp/phase-4/artifacts/p42c-final/upms-p4-management-php.zip`, `tmp/phase-4.2a/static/upms-public-static.zip`, and `tmp/phase-4.2/clean-install-public-rollback.tar.gz`. They were not rebuilt. Current hosted release integrity passes, but full byte parity between the 114-file rollback and today's public tree has not yet been reverified. Preserve both old release and rollback archive.
 
-## Exact proposed targets — no approval recorded
+## Exact resource targets — creation approved and verified
 
 All names are unprefixed. Each SQL identity is `@localhost`, with privileges only on its corresponding schema. No global, wildcard, cross-schema or ALL PRIVILEGES grants.
+
+Provisioning and a subsequent verification-only run passed for all eight authenticated identities. Both databases have zero tables. Database count is now six of ten, with four slots remaining. Existing database/user association inventories match the pre-provisioning snapshot. A final independent read-only check again passed the original upms_v1 exact runtime grants, 20 tables, 45 native guards and existing release integrity. Evidence is in `evidence/resource-provisioning.json`, `evidence/resource-verification.json` and `evidence/post-provision-existing-installation.json`. Initialization and administrator enrollment require further approval; resource-only approval does not cover them.
 
 | Purpose | Final schema / identity | Isolated acceptance schema / identity | Exact intended privileges |
 |---|---|---|---|
@@ -51,7 +53,7 @@ Proposed new private candidate directory is `/home/tsn6az96j3v7/upms-releases/p4
 ## Short execution and approval checklist
 
 1. Resolve and test the two deployment-only compatibility constraints locally; retain original candidates and review the exact adaptation hashes. Resolve provider routing without disabling safeguards. Reverify backups and exact target absence immediately before approved writes.
-2. Obtain **database/identity provisioning approval** for only the two schemas and eight identities above. Obtain **separate hosted staging approval** for the two new hostnames, document roots, private directories and reviewed overlays. Create no resources before these approvals. Provision credentials through a reviewed private handoff; verify exact authenticated identities and grants before initialization.
+2. **Database/identity resource creation approval is recorded and completed** for only the two schemas and eight identities above. Obtain **initialization/enrollment approval** and **separate hosted staging approval** for the two new hostnames, document roots, candidate directories and reviewed overlays. No staging application directories or hostnames were created. Verify exact authenticated identities and grants again before initialization.
 3. Extract and verify the candidate in the new private directory. Generate purpose-specific private profiles bound to the actual schema/server/release. From that extracted release, run the packaged initializer with the three reviewed private profile paths. Verify 47/133, authentic receipts, fresh enrolled administrators and pending posting. Never copy UAT receipts or old testing transactions.
 
    ```sh
@@ -61,7 +63,7 @@ Proposed new private candidate directory is `/home/tsn6az96j3v7/upms-releases/p4
 4. After staging hostname adaptation and Apache runtime verification, test login/rotation, sessions, CSRF, cookies, logout, permissions, inventory, challans, money accounts, Hafta, cheques, exports and concurrent sessions. Posting tests use only the approved isolated acceptance schema and only after genuine recovery gates pass. No financial tests on existing schemas. Stop on failures and retain evidence.
 5. Obtain **website publication approval** for the fixed catalog archive to `public_html`, with exact manifest-based replacement and a validated delete allowlist limited to old public release files. Never recursively clear public_html or touch dashboard. Preserve contacts and disabled inquiry. Verify hosted gateway/private-path rejection before SPA fallback. Rollback restores only the original 114 public files and removes only verified new package files; dashboard is excluded.
 6. Obtain **management publication/binding approval** for the reviewed private release, exact published dashboard file manifest and `upms_v2` profiles. Preserve old published files and private binding for rollback. Recheck readiness immediately before switching. Rollback switches back to the preserved old binding/release; never drops or restores over either database automatically.
-7. Obtain **financial activation approval** only after actual independent recovery and approved opening balances. Use the packaged target/release-bound activation workflow. Publication does not imply posting authorization. No final approval in this checklist has been recorded.
+7. Obtain **financial activation approval** only after actual independent recovery and approved opening balances. Use the packaged target/release-bound activation workflow. Publication does not imply posting authorization. Website, management publication and financial activation approvals remain unrecorded.
 
 Read-only verification can be repeated from the repository with:
 
@@ -69,4 +71,4 @@ Read-only verification can be repeated from the repository with:
 & 'C:\Users\zasah\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell\pwsh.exe' -NoProfile -File scripts/p43-host-preflight.ps1
 ```
 
-Evidence is in `evidence/hosting-preflight.json` and `evidence/candidate-integrity.json`. Current state is preparation complete for target review, hosted acceptance incomplete, no P4.3 publication or financial activation.
+Evidence is in `evidence/hosting-preflight.json`, `evidence/candidate-integrity.json` and the two resource reports. Current state is resource provisioning complete, both new schemas empty, hosted acceptance incomplete, no P4.3 publication or financial activation. The SELECT-only backup accounts are provisioned but remain incompatible with the unmodified collector.

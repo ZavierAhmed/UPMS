@@ -1,0 +1,104 @@
+{
+    "verifiedUtc": "2026-11-08T00:55:48+00:00",
+    "passed": true,
+    "resourceOnly": true,
+    "verificationOnly": true,
+    "accounts": [
+        {
+            "schema": "upms_v2",
+            "account": "upms_init_v2@localhost",
+            "privileges": [
+                "CREATE",
+                "INSERT",
+                "REFERENCES",
+                "SELECT",
+                "UPDATE"
+            ],
+            "tables": 0,
+            "passed": true
+        },
+        {
+            "schema": "upms_v2",
+            "account": "upms_guard_v2@localhost",
+            "privileges": [
+                "SELECT",
+                "TRIGGER"
+            ],
+            "tables": 0,
+            "passed": true
+        },
+        {
+            "schema": "upms_v2",
+            "account": "upms_runtime_v2@localhost",
+            "privileges": [
+                "DELETE",
+                "INSERT",
+                "SELECT",
+                "UPDATE"
+            ],
+            "tables": 0,
+            "passed": true
+        },
+        {
+            "schema": "upms_v2",
+            "account": "upms_backup_v2@localhost",
+            "privileges": [
+                "SELECT"
+            ],
+            "tables": 0,
+            "passed": true
+        },
+        {
+            "schema": "upms_stage_43",
+            "account": "upms_i43@localhost",
+            "privileges": [
+                "CREATE",
+                "INSERT",
+                "REFERENCES",
+                "SELECT",
+                "UPDATE"
+            ],
+            "tables": 0,
+            "passed": true
+        },
+        {
+            "schema": "upms_stage_43",
+            "account": "upms_g43@localhost",
+            "privileges": [
+                "SELECT",
+                "TRIGGER"
+            ],
+            "tables": 0,
+            "passed": true
+        },
+        {
+            "schema": "upms_stage_43",
+            "account": "upms_r43@localhost",
+            "privileges": [
+                "DELETE",
+                "INSERT",
+                "SELECT",
+                "UPDATE"
+            ],
+            "tables": 0,
+            "passed": true
+        },
+        {
+            "schema": "upms_stage_43",
+            "account": "upms_b43@localhost",
+            "privileges": [
+                "SELECT"
+            ],
+            "tables": 0,
+            "passed": true
+        }
+    ],
+    "databaseCount": 6,
+    "existingInventoryUnchanged": true,
+    "applicationTablesCreated": 0,
+    "administratorsCreated": 0,
+    "applicationReleaseChanged": false,
+    "initializationPerformed": false,
+    "backupReaderCompatible": false,
+    "financialPostingActivated": false
+}
