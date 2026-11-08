@@ -1,0 +1,76 @@
+{
+  "verifiedUtc": "2026-11-08T05:46:35+05:00",
+  "account": "tsn6az96j3v7",
+  "hostname": "sg2plzcpnl508885.prod.sin2.secureserver.net",
+  "databaseWrites": 0,
+  "hostFilesWritten": 0,
+  "maximumDatabases": "10",
+  "schemas": [
+    "upms",
+    "upms_recovery84",
+    "upms_security85",
+    "upms_v1"
+  ],
+  "restrictions": {
+    "max_username_length": 47,
+    "prefix": null,
+    "max_database_name_length": 64
+  },
+  "domains": [
+    "unique-plastic.com",
+    "app.unique-plastic.com"
+  ],
+  "identity": {
+    "version": "10.11.19-MariaDB-cll-lve",
+    "schema_name": "upms_v1",
+    "authenticated_account": "upms_runtime84@localhost",
+    "connection_account": "upms_runtime84@localhost",
+    "server_hostname": "sg2plzcpnl508885.prod.sin2.secureserver.net",
+    "socket_path": "/var/lib/mysql/mysql.sock",
+    "port": 3306,
+    "charset_name": "utf8mb4"
+  },
+  "phpCliVersion": "8.3.36",
+  "webRuntimeVerified": false,
+  "tables": 20,
+  "guards": 45,
+  "runtimeGrants": {
+    "passed": true,
+    "policy": "godaddy_database_crud",
+    "account": "upms_runtime84@localhost",
+    "identityMatched": true,
+    "directGrantsOnly": true,
+    "expectedPrivileges": 4,
+    "actualPrivileges": 4,
+    "missing": [],
+    "unexpected": []
+  },
+  "guardVerification": {
+    "passed": true,
+    "triggers": 45,
+    "guardHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+    "definerPrivilegesVerified": true
+  },
+  "releaseIntegrity": {
+    "passed": true,
+    "filesVerified": 6070,
+    "publishedFilesVerified": 120,
+    "patchSha256": "43c400571ed2bc99a1e8421ec336b7e212817a16665cf7bf172d0f01a50c6909"
+  },
+  "webHandlerInventoryError": [
+    "You do not have the feature “multiphp”."
+  ],
+  "https": [
+    {
+      "url": "https://unique-plastic.com/",
+      "status": 200,
+      "title": "One moment, please..."
+    },
+    {
+      "url": "https://app.unique-plastic.com/",
+      "status": 200,
+      "title": "One moment, please..."
+    }
+  ],
+  "financialActivationAuthorized": false
+}

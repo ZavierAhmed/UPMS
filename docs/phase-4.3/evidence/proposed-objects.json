@@ -1,0 +1,863 @@
+{
+  "source": "upms.php/resources/cumulative-clean-schema.json",
+  "sourceSha256": "ca425de8b5c3bbce24fb211c59390a831b170c5a33de5162d7cedf2990165597",
+  "schemas": [
+    "upms_v2",
+    "upms_stage_43"
+  ],
+  "tables": [
+    "cheque_attachments",
+    "cheque_audit",
+    "cheque_bank_creations",
+    "cheque_clearances",
+    "cheque_events",
+    "cheque_extra_receipts",
+    "cheque_instruments",
+    "cheque_issuing_banks",
+    "cheque_schema_receipts",
+    "employees",
+    "expense_categories",
+    "expense_master_audit",
+    "expense_schema_receipts",
+    "identity_audit_events",
+    "identity_guard",
+    "labor_audit",
+    "labor_earnings",
+    "labor_expense_allocations",
+    "labor_extension_audit",
+    "labor_extension_receipts",
+    "labor_openings",
+    "labor_payments",
+    "labor_schema_receipts",
+    "login_attempts",
+    "money_accounts",
+    "money_audit",
+    "money_batches",
+    "money_movements",
+    "money_schema_receipts",
+    "permissions",
+    "role_permissions",
+    "roles",
+    "sessions",
+    "stock_initializations",
+    "upms_production_migrations",
+    "user_roles",
+    "users",
+    "v1_audit",
+    "v1_commands",
+    "v1_control",
+    "v1_documents",
+    "v1_items",
+    "v1_lines",
+    "v1_parties",
+    "v1_party_journal",
+    "v1_stock",
+    "v1_stock_journal"
+  ],
+  "guards": [
+    {
+      "name": "upms32b2_employees_delete",
+      "table": "employees",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms32b2_employees_insert",
+      "table": "employees",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms32b2_employees_update",
+      "table": "employees",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms32b2_expense_categories_delete",
+      "table": "expense_categories",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms32b2_expense_categories_insert",
+      "table": "expense_categories",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms32b2_expense_categories_update",
+      "table": "expense_categories",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms32b2_expense_master_audit_delete",
+      "table": "expense_master_audit",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms32b2_expense_master_audit_insert",
+      "table": "expense_master_audit",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms32b2_expense_master_audit_update",
+      "table": "expense_master_audit",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms32b2_expense_schema_receipts_delete",
+      "table": "expense_schema_receipts",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms32b2_expense_schema_receipts_insert",
+      "table": "expense_schema_receipts",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms32b2_expense_schema_receipts_update",
+      "table": "expense_schema_receipts",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms32_money_accounts_delete",
+      "table": "money_accounts",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms32_money_accounts_insert",
+      "table": "money_accounts",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms32_money_accounts_update",
+      "table": "money_accounts",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms32_money_audit_delete",
+      "table": "money_audit",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms32_money_audit_insert",
+      "table": "money_audit",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms32_money_audit_update",
+      "table": "money_audit",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms32_money_batches_delete",
+      "table": "money_batches",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms32_money_batches_insert",
+      "table": "money_batches",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms32_money_batches_update",
+      "table": "money_batches",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms32_money_movements_delete",
+      "table": "money_movements",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms32_money_movements_insert",
+      "table": "money_movements",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms32_money_movements_update",
+      "table": "money_movements",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms32_money_schema_receipts_delete",
+      "table": "money_schema_receipts",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms32_money_schema_receipts_insert",
+      "table": "money_schema_receipts",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms32_money_schema_receipts_update",
+      "table": "money_schema_receipts",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_identity_audit_events_delete",
+      "table": "identity_audit_events",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_identity_audit_events_update",
+      "table": "identity_audit_events",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_identity_guard_delete",
+      "table": "identity_guard",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_identity_guard_insert",
+      "table": "identity_guard",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_identity_guard_update",
+      "table": "identity_guard",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_permissions_delete",
+      "table": "permissions",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_permissions_insert",
+      "table": "permissions",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_permissions_update",
+      "table": "permissions",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_roles_delete",
+      "table": "roles",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_roles_insert",
+      "table": "roles",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_roles_update",
+      "table": "roles",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_role_permissions_delete",
+      "table": "role_permissions",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_role_permissions_insert",
+      "table": "role_permissions",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_role_permissions_update",
+      "table": "role_permissions",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_upms_production_migrations_delete",
+      "table": "upms_production_migrations",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_upms_production_migrations_insert",
+      "table": "upms_production_migrations",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_upms_production_migrations_update",
+      "table": "upms_production_migrations",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_users_delete",
+      "table": "users",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_users_insert",
+      "table": "users",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_users_update",
+      "table": "users",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_user_roles_delete",
+      "table": "user_roles",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_user_roles_insert",
+      "table": "user_roles",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_user_roles_update",
+      "table": "user_roles",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_v1_audit_delete",
+      "table": "v1_audit",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_v1_audit_update",
+      "table": "v1_audit",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_v1_commands_delete",
+      "table": "v1_commands",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_v1_commands_update",
+      "table": "v1_commands",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_v1_control_delete",
+      "table": "v1_control",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_v1_control_insert",
+      "table": "v1_control",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_v1_control_update",
+      "table": "v1_control",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_v1_documents_delete",
+      "table": "v1_documents",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_v1_documents_insert",
+      "table": "v1_documents",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_v1_documents_update",
+      "table": "v1_documents",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_v1_items_delete",
+      "table": "v1_items",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_v1_items_update",
+      "table": "v1_items",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_v1_lines_delete",
+      "table": "v1_lines",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_v1_lines_update",
+      "table": "v1_lines",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_v1_parties_delete",
+      "table": "v1_parties",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_v1_parties_update",
+      "table": "v1_parties",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_v1_party_journal_delete",
+      "table": "v1_party_journal",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_v1_party_journal_update",
+      "table": "v1_party_journal",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_v1_stock_delete",
+      "table": "v1_stock",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_v1_stock_journal_delete",
+      "table": "v1_stock_journal",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_v1_stock_journal_update",
+      "table": "v1_stock_journal",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upms85_v1_stock_update",
+      "table": "v1_stock",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscqa_cheque_attachments_delete",
+      "table": "cheque_attachments",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscqa_cheque_attachments_insert",
+      "table": "cheque_attachments",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscqa_cheque_attachments_update",
+      "table": "cheque_attachments",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscqa_cheque_bank_creations_delete",
+      "table": "cheque_bank_creations",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscqa_cheque_bank_creations_insert",
+      "table": "cheque_bank_creations",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscqa_cheque_bank_creations_update",
+      "table": "cheque_bank_creations",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscqa_cheque_extra_receipts_delete",
+      "table": "cheque_extra_receipts",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscqa_cheque_extra_receipts_insert",
+      "table": "cheque_extra_receipts",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscqa_cheque_extra_receipts_update",
+      "table": "cheque_extra_receipts",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscq_cheque_audit_delete",
+      "table": "cheque_audit",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscq_cheque_audit_insert",
+      "table": "cheque_audit",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscq_cheque_audit_update",
+      "table": "cheque_audit",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscq_cheque_clearances_delete",
+      "table": "cheque_clearances",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscq_cheque_clearances_insert",
+      "table": "cheque_clearances",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscq_cheque_clearances_update",
+      "table": "cheque_clearances",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscq_cheque_events_delete",
+      "table": "cheque_events",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscq_cheque_events_insert",
+      "table": "cheque_events",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscq_cheque_events_update",
+      "table": "cheque_events",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscq_cheque_instruments_delete",
+      "table": "cheque_instruments",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscq_cheque_instruments_insert",
+      "table": "cheque_instruments",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscq_cheque_instruments_update",
+      "table": "cheque_instruments",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscq_cheque_issuing_banks_delete",
+      "table": "cheque_issuing_banks",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscq_cheque_issuing_banks_insert",
+      "table": "cheque_issuing_banks",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscq_cheque_issuing_banks_update",
+      "table": "cheque_issuing_banks",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscq_cheque_schema_receipts_delete",
+      "table": "cheque_schema_receipts",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscq_cheque_schema_receipts_insert",
+      "table": "cheque_schema_receipts",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscq_cheque_schema_receipts_update",
+      "table": "cheque_schema_receipts",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscq_money_batches_insert",
+      "table": "money_batches",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscq_v1_documents_insert",
+      "table": "v1_documents",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmscq_v1_documents_update",
+      "table": "v1_documents",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1c_labor_expense_allocations_delete",
+      "table": "labor_expense_allocations",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1c_labor_expense_allocations_insert",
+      "table": "labor_expense_allocations",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1c_labor_expense_allocations_update",
+      "table": "labor_expense_allocations",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1c_labor_extension_audit_delete",
+      "table": "labor_extension_audit",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1c_labor_extension_audit_insert",
+      "table": "labor_extension_audit",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1c_labor_extension_audit_update",
+      "table": "labor_extension_audit",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1c_labor_extension_receipts_delete",
+      "table": "labor_extension_receipts",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1c_labor_extension_receipts_insert",
+      "table": "labor_extension_receipts",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1c_labor_extension_receipts_update",
+      "table": "labor_extension_receipts",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1c_money_batches_insert",
+      "table": "money_batches",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1c_stock_initializations_delete",
+      "table": "stock_initializations",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1c_stock_initializations_insert",
+      "table": "stock_initializations",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1c_stock_initializations_update",
+      "table": "stock_initializations",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1c_v1_documents_insert",
+      "table": "v1_documents",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1c_v1_documents_update",
+      "table": "v1_documents",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1_labor_audit_delete",
+      "table": "labor_audit",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1_labor_audit_insert",
+      "table": "labor_audit",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1_labor_audit_update",
+      "table": "labor_audit",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1_labor_earnings_delete",
+      "table": "labor_earnings",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1_labor_earnings_insert",
+      "table": "labor_earnings",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1_labor_earnings_update",
+      "table": "labor_earnings",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1_labor_openings_delete",
+      "table": "labor_openings",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1_labor_openings_insert",
+      "table": "labor_openings",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1_labor_openings_update",
+      "table": "labor_openings",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1_labor_payments_delete",
+      "table": "labor_payments",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1_labor_payments_insert",
+      "table": "labor_payments",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1_labor_payments_update",
+      "table": "labor_payments",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1_labor_schema_receipts_delete",
+      "table": "labor_schema_receipts",
+      "event": "DELETE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1_labor_schema_receipts_insert",
+      "table": "labor_schema_receipts",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1_labor_schema_receipts_update",
+      "table": "labor_schema_receipts",
+      "event": "UPDATE",
+      "timing": "BEFORE"
+    },
+    {
+      "name": "upmsh1_money_batches_insert",
+      "table": "money_batches",
+      "event": "INSERT",
+      "timing": "BEFORE"
+    }
+  ],
+  "existingSchemasExcluded": [
+    "upms",
+    "upms_v1",
+    "upms_recovery84",
+    "upms_security85"
+  ]
+}

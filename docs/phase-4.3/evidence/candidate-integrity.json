@@ -1,0 +1,23 @@
+{
+  "candidates": [
+    {
+      "kind": "management",
+      "sha256": "1ea4d46e20e312f1dabf70f95ec511e3d4dc1c4a38bab958df886b470957b3a7",
+      "sourceCommit": "0a07767c52851184265b766ed1ef373b7ca9e7cc",
+      "files": 5987,
+      "manifestVerified": true
+    },
+    {
+      "kind": "website",
+      "sha256": "6f3ef919bacb29139c21bc165ec2891978912c70746e07ca5d1de7982a394525",
+      "sourceCommit": "a06db064063cc5c4ded9610801d90efcfbe8b12f",
+      "files": 141,
+      "manifestVerified": true
+    }
+  ],
+  "rollback": {
+    "files": 114,
+    "sha256": "cb2cd0ec0462a0bd5af3172518c3e406fd81840ccd5498f1544de3166ebd2723",
+    "dashboardExcluded": true
+  }
+}
