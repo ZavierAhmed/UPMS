@@ -11,6 +11,20 @@ use PHPUnit\Framework\TestCase;
 
 final class ProductionProfileTest extends TestCase
 {
+    public function test_hosted_staging_origin_requires_exact_origin_schema_and_private_approval(): void
+    {
+        $p=['origin'=>'https://p43-app.unique-plastic.com','schema'=>'upms_stage_43','hostedStagingOriginApproved'=>true];
+        $this->assertTrue(ProductionProfile::managementOriginAllowed($p));
+        foreach (['origin'=>'http://p43-app.unique-plastic.com','schema'=>'upms_v2','hostedStagingOriginApproved'=>false] as $key=>$bad) {
+            $this->assertFalse(ProductionProfile::managementOriginAllowed(array_replace($p,[$key=>$bad])));
+        }
+        $this->assertFalse(ProductionProfile::managementOriginAllowed(array_replace($p,['origin'=>'https://p43-app.unique-plastic.com.evil.invalid'])));
+        $this->assertFalse(\App\Http\Middleware\HostBoundary::allows('p43-app.unique-plastic.com','/api/v1/management',true));
+        $this->assertTrue(\App\Http\Middleware\HostBoundary::allows('p43-app.unique-plastic.com','/api/v1/management',true,'p43-app.unique-plastic.com'));
+        $this->assertFalse(\App\Http\Middleware\HostBoundary::allows('app.unique-plastic.com','/api/v1/management',true,'p43-app.unique-plastic.com'));
+        $this->assertFalse(\App\Http\Middleware\HostBoundary::allows('p43-app.unique-plastic.com','/api/v1/public/inquiries',true,'p43-app.unique-plastic.com'));
+        $this->assertFalse(\App\Http\Middleware\HostBoundary::allows('p43-app.unique-plastic.com','/api/v1/management',false,'p43-app.unique-plastic.com'));
+    }
     private function profile(): array
     {
         return ['enabled' => true,'hostingVerified' => true,'backupRestoreVerified' => true,'mode' => 'approved-production-runtime','reference' => 'synthetic_review_only','privateRoot' => '/private','publicRoot' => '/public','managementRoot' => '/management','schema' => 'synthetic_candidate','host' => 'database.example.invalid','port' => 3306,'user' => 'runtime','account' => 'runtime@example.invalid','passwordFile' => '/private/password','caFile' => '/private/ca','serverVersion' => '10.11.19-MariaDB','serverId' => '123','origin' => 'https://app.unique-plastic.com','operators' => ['admin' => '1','haris' => '2']];

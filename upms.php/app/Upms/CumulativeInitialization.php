@@ -108,9 +108,11 @@ final class CumulativeInitialization
         return self::plan()[0];
     }
 
-    public static function verifyInstalled(PDO $reader, PDO $definer, array $accounts): array
+    public static function verifyInstalled(PDO $reader, PDO $definer, array $accounts, ?string $backupAccount = null): array
     {
-        if ($reader->query('SELECT CURRENT_USER()')->fetchColumn() !== $accounts['installer']
+        if (($backupAccount !== null && (!preg_match('/^[a-zA-Z0-9_]+@localhost$/D', $backupAccount)
+                || in_array($backupAccount, $accounts, true)))
+            || $reader->query('SELECT CURRENT_USER()')->fetchColumn() !== ($backupAccount ?? $accounts['installer'])
             || CleanInitialization::target($reader) !== CleanInitialization::target($definer)) {
             throw new RuntimeException('CUMULATIVE_VERIFIER_IDENTITY_REJECTED');
         }
@@ -123,7 +125,7 @@ final class CumulativeInitialization
             self::verifyStep($reader, $step, $inventory, $accounts, false);
         }
         self::verifyGrant($reader, (string)$reader->query('SELECT DATABASE()')->fetchColumn(),
-            $accounts['installer'], ['CREATE','REFERENCES','SELECT','INSERT','UPDATE']);
+            $backupAccount ?? $accounts['installer'], $backupAccount === null ? ['CREATE','REFERENCES','SELECT','INSERT','UPDATE'] : ['SELECT']);
         self::verifyGrant($definer, (string)$reader->query('SELECT DATABASE()')->fetchColumn(),
             $accounts['definer'], ['SELECT','TRIGGER']);
         return ['planHash' => self::hash(), 'targetHash' => CleanInitialization::target($reader),

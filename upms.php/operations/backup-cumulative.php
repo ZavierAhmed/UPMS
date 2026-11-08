@@ -16,14 +16,16 @@ try {
     $b=App\Upms\ProductionConnection::connect($definer);
     if (App\Upms\CleanInitialization::target($a)!==App\Upms\CleanInitialization::target($pdo)
         || App\Upms\CleanInitialization::target($b)!==App\Upms\CleanInitialization::target($pdo)
-        || $a->query('SELECT CURRENT_USER()')->fetchColumn()!==$proof['accounts']['installer']) {
+        || !is_string($runtime['backupAccount']??null)
+        || $reader['account']!==$runtime['backupAccount']
+        || $a->query('SELECT CURRENT_USER()')->fetchColumn()!==$runtime['backupAccount']) {
         throw new RuntimeException('CUMULATIVE_BACKUP_TARGET_REJECTED');
     }
     $key=base64_decode(trim(stream_get_contents(STDIN,128)),true);
     if ($key===false || strlen($key)!==SODIUM_CRYPTO_BOX_PUBLICKEYBYTES) {
         throw new RuntimeException('CUMULATIVE_BACKUP_RECIPIENT_REJECTED');
     }
-    $cipher=App\Upms\ProductionRecoveryV2::encrypt(App\Upms\ProductionRecoveryV2::capture($a,$b,$proof['accounts']),$key);
+    $cipher=App\Upms\ProductionRecoveryV2::encrypt(App\Upms\ProductionRecoveryV2::capture($a,$b,$proof['accounts'],$runtime['backupAccount']),$key);
     if (fwrite(STDOUT,$cipher)!==strlen($cipher)) { throw new RuntimeException('CUMULATIVE_BACKUP_WRITE_FAILED'); }
     fwrite(STDERR,json_encode(['format'=>App\Upms\ProductionRecoveryV2::FORMAT,'sha256'=>hash('sha256',$cipher),
         'targetHash'=>App\Upms\CleanInitialization::target($pdo),'release'=>$runtime['releaseSha'],

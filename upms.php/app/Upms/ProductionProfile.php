@@ -7,6 +7,13 @@ namespace App\Upms;
 /** Explicit private production configuration, independent of synthetic DB variables. */
 final class ProductionProfile
 {
+    public static function managementOriginAllowed(array $c): bool
+    {
+        return ($c['origin']??'') === 'https://app.unique-plastic.com'
+            || (($c['origin']??'') === 'https://p43-app.unique-plastic.com'
+                && ($c['schema']??'') === 'upms_stage_43'
+                && ($c['hostedStagingOriginApproved']??false) === true);
+    }
     public static function load(string $path, string $mode = 'approved-production-runtime'): array
     {
         $real = realpath($path);
@@ -78,7 +85,7 @@ final class ProductionProfile
         if (!preg_match('/^[a-zA-Z0-9_]+$/D', $c['schema']) || str_starts_with($c['schema'], 'upms_test_')
 
             || !preg_match('/^10\.11\.\d+-MariaDB/', $c['serverVersion']) || !ctype_digit($c['serverId'])
-            || $c['origin'] !== 'https://app.unique-plastic.com' || !preg_match('/^[a-zA-Z0-9_-]{12,64}$/D', $c['reference'])
+            || !self::managementOriginAllowed($c) || !preg_match('/^[a-zA-Z0-9_-]{12,64}$/D', $c['reference'])
             || ($mode === 'approved-production-runtime' && !is_array($c['operators'] ?? null))) {
             throw new ApiError(503, 'PRODUCTION_TARGET_REJECTED');
         }

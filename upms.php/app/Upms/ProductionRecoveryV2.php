@@ -12,9 +12,9 @@ final class ProductionRecoveryV2
 {
     public const FORMAT = 'UPMS_PRODUCTION_BACKUP_V2';
 
-    public static function capture(PDO $reader, PDO $definer, array $accounts): array
+    public static function capture(PDO $reader, PDO $definer, array $accounts, ?string $backupAccount = null): array
     {
-        $proof = CumulativeInitialization::verifyInstalled($reader,$definer,$accounts);
+        $proof = CumulativeInitialization::verifyInstalled($reader,$definer,$accounts,$backupAccount);
         $reader->exec('START TRANSACTION WITH CONSISTENT SNAPSHOT, READ ONLY');
         try {
             $tables = [];
@@ -29,7 +29,7 @@ final class ProductionRecoveryV2
         $snapshot = ['format'=>self::FORMAT,'createdUtc'=>gmdate('c'),'proof'=>$proof,
             'tables'=>$tables,'guards'=>CumulativeProduction::schema()['guards']];
         self::validate($snapshot);
-        CumulativeInitialization::verifyInstalled($reader,$definer,$accounts);
+        CumulativeInitialization::verifyInstalled($reader,$definer,$accounts,$backupAccount);
         return $snapshot;
     }
 
