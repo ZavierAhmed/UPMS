@@ -1,0 +1,30 @@
+{
+    "verifiedUtc": "2026-11-08T01:23:31+00:00",
+    "postingActivated": false,
+    "managementBindingSwitched": false,
+    "temporaryIngressesRemoved": true,
+    "schemas": {
+        "upms_stage_43": {
+            "tables": 47,
+            "guards": 133,
+            "exactGrantsVerified": true,
+            "backupAccount": "upms_b43@localhost",
+            "receiptState": "CUMULATIVE_READY",
+            "controlState": "PENDING",
+            "businessRows": 0,
+            "productionBackupRestoreVerified": false
+        },
+        "upms_v2": {
+            "tables": 47,
+            "guards": 133,
+            "exactGrantsVerified": true,
+            "backupAccount": "upms_backup_v2@localhost",
+            "receiptState": "CUMULATIVE_READY",
+            "controlState": "PENDING",
+            "businessRows": 0,
+            "productionBackupRestoreVerified": false
+        }
+    },
+    "previousDashboardUnchanged": true,
+    "archiveSha256": "57036262281670a5f33123332ed357f749d528ea0b82503a3dbe647226523691"
+}

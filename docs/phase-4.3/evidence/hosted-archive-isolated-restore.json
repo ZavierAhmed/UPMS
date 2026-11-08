@@ -1,0 +1,29 @@
+{
+    "passed": true,
+    "realHostedArchive": true,
+    "sourceSchema": "upms_stage_43",
+    "restoreSchema": "upms_stage_43_restore",
+    "archiveSha256": "c679bbbd04104c711b8cd2d8c4b1b00f04435c023cc0e15930cf2b5a5f2201dc",
+    "offlineEngine": true,
+    "independentOwnerRecoveryVerified": false,
+    "restore": {
+        "passed": true,
+        "format": "UPMS_PRODUCTION_BACKUP_V2",
+        "restoredTables": 47,
+        "restoredGuards": 133,
+        "rows": 87,
+        "allRowsIdentical": true,
+        "financialReconciliation": true,
+        "sourceAccounts": {
+            "installer": "upms_i43@localhost",
+            "definer": "upms_g43@localhost",
+            "runtime": "upms_r43@localhost"
+        },
+        "restoreAccounts": {
+            "installer": "p43_restore_installer@localhost",
+            "definer": "p43_restore_definer@localhost",
+            "runtime": "p43_restore_runtime@localhost"
+        },
+        "independentOwnerRecoveryVerified": false
+    }
+}

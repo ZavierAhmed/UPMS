@@ -1,0 +1,1329 @@
+{
+  "passed": true,
+  "origin": "https://unique-plastic.com",
+  "expectedArchiveSha256": "6f3ef919bacb29139c21bc165ec2891978912c70746e07ca5d1de7982a394525",
+  "checkedFilesAndRoutes": 139,
+  "pdfDownloads": 7,
+  "contacts": {
+    "phone": true,
+    "whatsapp": true
+  },
+  "checks": [
+    {
+      "path": "/assets/catalog-w07-blow-design-02-160.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "19d5ed7e182370b84b0443c4ee42ccb0d3ee2c37b18b88d952c89734316873d3",
+      "payloadSha256": "19d5ed7e182370b84b0443c4ee42ccb0d3ee2c37b18b88d952c89734316873d3",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-02-320.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "b827a6d539174b905aa77eace9519f12cc105dcc808ed4508bb7015fd7e5f4f5",
+      "payloadSha256": "b827a6d539174b905aa77eace9519f12cc105dcc808ed4508bb7015fd7e5f4f5",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-02-640.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "6099796baa94aaf352a1090a92bc6e2d735ae4554a20820757b0384901d48d51",
+      "payloadSha256": "6099796baa94aaf352a1090a92bc6e2d735ae4554a20820757b0384901d48d51",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-02-960.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "db7e20160d6f73eca783f40b2662030f551c5b1764a9986897fbbb1147aecf35",
+      "payloadSha256": "db7e20160d6f73eca783f40b2662030f551c5b1764a9986897fbbb1147aecf35",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-03-160.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "1b7a3f14b1753b777682758c1c81e26c61e446ecbbc2bcbae95af17f2440be9b",
+      "payloadSha256": "1b7a3f14b1753b777682758c1c81e26c61e446ecbbc2bcbae95af17f2440be9b",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-03-320.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "22b58cc9524bcf2aa44b60433c1bdbdbf65340206d72897ce50fcf95d780a6c3",
+      "payloadSha256": "22b58cc9524bcf2aa44b60433c1bdbdbf65340206d72897ce50fcf95d780a6c3",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-03-640.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "d11129bd804adf58f9d7a90ce3e35e2c940851dbe3cda29014d801f8ef420cc5",
+      "payloadSha256": "d11129bd804adf58f9d7a90ce3e35e2c940851dbe3cda29014d801f8ef420cc5",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-03-960.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "552c3835a32c0d48d222e4e059677fd212d98851c8fded440e3f7137a0993b4b",
+      "payloadSha256": "552c3835a32c0d48d222e4e059677fd212d98851c8fded440e3f7137a0993b4b",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-04-160.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "a3b94b34ab473cfa2601b5faa5fae1d42e1aed82e89146172e80e67dc956b1fe",
+      "payloadSha256": "a3b94b34ab473cfa2601b5faa5fae1d42e1aed82e89146172e80e67dc956b1fe",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-04-320.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "21a3fde0a29abb02c997ad305b23202a4b5f6a439e528c4b0972d847b37f9c9e",
+      "payloadSha256": "21a3fde0a29abb02c997ad305b23202a4b5f6a439e528c4b0972d847b37f9c9e",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-04-640.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "f012c6bd863c40d1cddd96fb6ce971f0ee31626afc741fe2b43efc230007f0e0",
+      "payloadSha256": "f012c6bd863c40d1cddd96fb6ce971f0ee31626afc741fe2b43efc230007f0e0",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-04-960.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "080f373433a34584ab695c70d2e31568acf1055fbe3713bd983cb2ec63d40b63",
+      "payloadSha256": "080f373433a34584ab695c70d2e31568acf1055fbe3713bd983cb2ec63d40b63",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-06-160.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "ce2686cbc025257871651cf78c9c93a6f9a06d04070dbc06a27abc4d3bef9a7e",
+      "payloadSha256": "ce2686cbc025257871651cf78c9c93a6f9a06d04070dbc06a27abc4d3bef9a7e",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-06-320.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "2b06ed52ecc151a75bd6ae2f53ef4c0bb7c6f0e4dc4ee21b9cc11a29dd4c0e63",
+      "payloadSha256": "2b06ed52ecc151a75bd6ae2f53ef4c0bb7c6f0e4dc4ee21b9cc11a29dd4c0e63",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-06-640.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "69e79ceece6778a6ee80dd64cd15b9ce51290a34e81f08c9e4e57904ec73b79d",
+      "payloadSha256": "69e79ceece6778a6ee80dd64cd15b9ce51290a34e81f08c9e4e57904ec73b79d",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-06-960.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "91f7f1fcc351c1a5fc6ae74e0cd0e5e5556ab18593e2d831a52b8971ae50decc",
+      "payloadSha256": "91f7f1fcc351c1a5fc6ae74e0cd0e5e5556ab18593e2d831a52b8971ae50decc",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-07-160.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "6032019b1f0588783c99e938ee109bf9bbb1c771dde6219aff2a01605ac4a294",
+      "payloadSha256": "6032019b1f0588783c99e938ee109bf9bbb1c771dde6219aff2a01605ac4a294",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-07-320.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "09be80d83b0d18af4f90895de657f80cde0d2fec5588b9b902e93ad730f709a0",
+      "payloadSha256": "09be80d83b0d18af4f90895de657f80cde0d2fec5588b9b902e93ad730f709a0",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-07-640.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "a1380caa32baaea62d9b30170dcac72b33b09b1e89cbb7ee90f962c94da2ff36",
+      "payloadSha256": "a1380caa32baaea62d9b30170dcac72b33b09b1e89cbb7ee90f962c94da2ff36",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-07-960.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "75a2461023f7b0431db96ae0a7cd8d20cca6e283021123901514abd16cf6d7f3",
+      "payloadSha256": "75a2461023f7b0431db96ae0a7cd8d20cca6e283021123901514abd16cf6d7f3",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-09-160.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "3c1e8310fa2bb857a767bf12cbcbdb3af7ec4d061cf64990f7ee998681fb320d",
+      "payloadSha256": "3c1e8310fa2bb857a767bf12cbcbdb3af7ec4d061cf64990f7ee998681fb320d",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-09-320.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "d2fd823f376d914ef3cc7c03cdc8f439526c545972110c8d141c86c6bc2f0bf8",
+      "payloadSha256": "d2fd823f376d914ef3cc7c03cdc8f439526c545972110c8d141c86c6bc2f0bf8",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-09-640.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "9e4d6900f6363e0fe0dcd5f999d0ba3d8982674847bf76994e1d3c8d59b2961a",
+      "payloadSha256": "9e4d6900f6363e0fe0dcd5f999d0ba3d8982674847bf76994e1d3c8d59b2961a",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-09-960.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "71d669f92fd663e5c2dce04725f9fb314efdbe28f6ff17d2abdd21732ecf2a46",
+      "payloadSha256": "71d669f92fd663e5c2dce04725f9fb314efdbe28f6ff17d2abdd21732ecf2a46",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-10-160.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "1e4f081d281eee813a7f5412658703eb1851ce33c7874c2ac9f90f7514c8042c",
+      "payloadSha256": "1e4f081d281eee813a7f5412658703eb1851ce33c7874c2ac9f90f7514c8042c",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-10-320.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "e6aeacf23c30b2d73e87a1c0f1bf2017822a1433093bc9ffe611c0246102a486",
+      "payloadSha256": "e6aeacf23c30b2d73e87a1c0f1bf2017822a1433093bc9ffe611c0246102a486",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-10-640.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "58ef0b02067030a4bba9dfa7998b41973bdf72255522e05ac440263a69a434f0",
+      "payloadSha256": "58ef0b02067030a4bba9dfa7998b41973bdf72255522e05ac440263a69a434f0",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-10-960.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "1251e6b35043139e3d41bbecca03292ee669cac7191a19f22bc13e07fe30de00",
+      "payloadSha256": "1251e6b35043139e3d41bbecca03292ee669cac7191a19f22bc13e07fe30de00",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-13-160.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "846fa7a4796d144d780f6c86f88f7c49defe7c459571eb951e47beb3041b712a",
+      "payloadSha256": "846fa7a4796d144d780f6c86f88f7c49defe7c459571eb951e47beb3041b712a",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-13-320.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "bb9a855722dad8f57ebf4b16776c7090bc6f11998b381932712b034b849175dd",
+      "payloadSha256": "bb9a855722dad8f57ebf4b16776c7090bc6f11998b381932712b034b849175dd",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-13-640.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "637c48eea2bd5a07f931ea3261a9aeab9e3dc312393c07306310329560ff3f1a",
+      "payloadSha256": "637c48eea2bd5a07f931ea3261a9aeab9e3dc312393c07306310329560ff3f1a",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-13-960.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "e4124015797a77d751325474ecfc8ee1b95cc8c50776768239fcb6deb7c11a1a",
+      "payloadSha256": "e4124015797a77d751325474ecfc8ee1b95cc8c50776768239fcb6deb7c11a1a",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-17-160.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "80e5f25a1b3883573470497af808c13db1cc4ecff09bb8454e0026f40be937aa",
+      "payloadSha256": "80e5f25a1b3883573470497af808c13db1cc4ecff09bb8454e0026f40be937aa",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-17-320.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "d42b4fbe782e7e12376b9dba22b6af38e13229b2ab7092860eff616061e7916f",
+      "payloadSha256": "d42b4fbe782e7e12376b9dba22b6af38e13229b2ab7092860eff616061e7916f",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-17-640.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "20e67a9eb37f397de66b40e7bf588ddffec740633df0d1b4e8b08db3c469cc80",
+      "payloadSha256": "20e67a9eb37f397de66b40e7bf588ddffec740633df0d1b4e8b08db3c469cc80",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-17-960.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "8a38a8ee339bb70ff61b5a01c77a652943047e0c44bcc584c5c0aa8d44ef1287",
+      "payloadSha256": "8a38a8ee339bb70ff61b5a01c77a652943047e0c44bcc584c5c0aa8d44ef1287",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-19-160.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "24887e3a327ce962c150fd47abbb65ed36f916a374af90eae2acfa10fd37fa86",
+      "payloadSha256": "24887e3a327ce962c150fd47abbb65ed36f916a374af90eae2acfa10fd37fa86",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-19-320.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "d0530e48581d7f95c1e9ad50ab5c718d3d265b3db549df931399df69955be76b",
+      "payloadSha256": "d0530e48581d7f95c1e9ad50ab5c718d3d265b3db549df931399df69955be76b",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-19-640.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "b607299926edb28cba94f2036c105be7fe1d0ddc90f88307a9aef69c73fa494c",
+      "payloadSha256": "b607299926edb28cba94f2036c105be7fe1d0ddc90f88307a9aef69c73fa494c",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-19-960.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "21098d2ca674d2bc8e84bd6969ab0275478ca203d4a2a24f535b29c04bcef079",
+      "payloadSha256": "21098d2ca674d2bc8e84bd6969ab0275478ca203d4a2a24f535b29c04bcef079",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-22-160.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "15ce7e30824a92ae311880bf03b29eee1d98a3a94f6594498e4c74f0684732b1",
+      "payloadSha256": "15ce7e30824a92ae311880bf03b29eee1d98a3a94f6594498e4c74f0684732b1",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-22-320.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "a42d0ab58a5d2961167ecc89b718a13a285420b6f2f4b5bb76abbdf8cc79e0eb",
+      "payloadSha256": "a42d0ab58a5d2961167ecc89b718a13a285420b6f2f4b5bb76abbdf8cc79e0eb",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-22-640.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "6f754922c846f4e6921e624549e1a9d3a5067b2142f0cadac331c941897f0209",
+      "payloadSha256": "6f754922c846f4e6921e624549e1a9d3a5067b2142f0cadac331c941897f0209",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-22-960.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "b3660ae9e47e00520c563dae2e73ad5dd09ece773718f4f3ce0981c9fee61d53",
+      "payloadSha256": "b3660ae9e47e00520c563dae2e73ad5dd09ece773718f4f3ce0981c9fee61d53",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-24-160.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "d08e72baadc2986a00092f16ac107fbd26a1a1acf77ee9d8e94c3acfac16e0be",
+      "payloadSha256": "d08e72baadc2986a00092f16ac107fbd26a1a1acf77ee9d8e94c3acfac16e0be",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-24-320.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "71ae0d973e0321f24b3ddaab36be0653d50cef8e9f94b66c1e0f6d06ad87f1da",
+      "payloadSha256": "71ae0d973e0321f24b3ddaab36be0653d50cef8e9f94b66c1e0f6d06ad87f1da",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-24-640.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "1f488760d6095e74322d76daa0bfb3aadfb50c62894a7883718c9c4843970430",
+      "payloadSha256": "1f488760d6095e74322d76daa0bfb3aadfb50c62894a7883718c9c4843970430",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-24-960.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "53a9d3bc04cfac1669486758223711bff334b3e1f88146f941c6a1c1b1fa7b73",
+      "payloadSha256": "53a9d3bc04cfac1669486758223711bff334b3e1f88146f941c6a1c1b1fa7b73",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-25-160.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "6d97ae8f19f712615510a58deb6497c81b99312032caa2f85a0bd0876ac77e96",
+      "payloadSha256": "6d97ae8f19f712615510a58deb6497c81b99312032caa2f85a0bd0876ac77e96",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-25-320.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "4d7e6dd7703e145eacea3555b2d0576ae8d9305085ea40a217c3e8f2e3ee117c",
+      "payloadSha256": "4d7e6dd7703e145eacea3555b2d0576ae8d9305085ea40a217c3e8f2e3ee117c",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-25-640.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "ab80351771c526496e74066734cd7a27e62253409cae291a625e5911bd6dab4f",
+      "payloadSha256": "ab80351771c526496e74066734cd7a27e62253409cae291a625e5911bd6dab4f",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-blow-design-25-960.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "03cbe8f4196da8b1ba5fb79deff85e362759768bef3f582819cbef9866acafb9",
+      "payloadSha256": "03cbe8f4196da8b1ba5fb79deff85e362759768bef3f582819cbef9866acafb9",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-bucket-10l-front-160.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "5354c3a13474dcfb97451bc17a2eff130da1da01b04af7e51e8ff274f4d1416d",
+      "payloadSha256": "5354c3a13474dcfb97451bc17a2eff130da1da01b04af7e51e8ff274f4d1416d",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-bucket-10l-front-320.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "32044f1844ac49857fd99e6eb6f6ffa2bc4047d3ace6a7b569f4b0c5afb096d9",
+      "payloadSha256": "32044f1844ac49857fd99e6eb6f6ffa2bc4047d3ace6a7b569f4b0c5afb096d9",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-bucket-10l-front-640.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "7440c6b475e793065cb7900d351637733ecfb692555f76ca568f79f95c044076",
+      "payloadSha256": "7440c6b475e793065cb7900d351637733ecfb692555f76ca568f79f95c044076",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-bucket-10l-front-960.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "9042debeabbaf303abe0b94474eb07e8c7890da5ab5af34e6dbef6fa556285f2",
+      "payloadSha256": "9042debeabbaf303abe0b94474eb07e8c7890da5ab5af34e6dbef6fa556285f2",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-bucket-16l-front-160.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "711a5894e0de88c87e60739f9a8eaa68233a6cdc78263b37c57bd7889dd033be",
+      "payloadSha256": "711a5894e0de88c87e60739f9a8eaa68233a6cdc78263b37c57bd7889dd033be",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-bucket-16l-front-320.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "79811aab1726d2e60ae696c7742ff29e5b01fa11df859496a8bfda1a9f4f3cd3",
+      "payloadSha256": "79811aab1726d2e60ae696c7742ff29e5b01fa11df859496a8bfda1a9f4f3cd3",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-bucket-16l-front-640.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "c5b574c72eb0c42eff02ec96391625e547d1c889404dcc898efedd52ce272472",
+      "payloadSha256": "c5b574c72eb0c42eff02ec96391625e547d1c889404dcc898efedd52ce272472",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-bucket-16l-front-960.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "39a7d8047d6aae762e3f0e11f41238b6c1d9b85e156d08acbeb742a75edc1d43",
+      "payloadSha256": "39a7d8047d6aae762e3f0e11f41238b6c1d9b85e156d08acbeb742a75edc1d43",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-bucket-20l-front-160.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "bcd3dc29004f700223a8f9e76f8a7a4b25a89be1e29d2c3bd7983a6186a25c63",
+      "payloadSha256": "bcd3dc29004f700223a8f9e76f8a7a4b25a89be1e29d2c3bd7983a6186a25c63",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-bucket-20l-front-320.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "163827c5f31765083700613dc45fa87b0fb8cd6b99dd95669f9bbaf00ae19e16",
+      "payloadSha256": "163827c5f31765083700613dc45fa87b0fb8cd6b99dd95669f9bbaf00ae19e16",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-bucket-20l-front-640.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "937405790db62082008da93219a975a713ce412dc0ff8bdd42e18628dd7417e0",
+      "payloadSha256": "937405790db62082008da93219a975a713ce412dc0ff8bdd42e18628dd7417e0",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-bucket-20l-front-960.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "2ab54cd8185e0ff2549de3c760f8e434ef2d3f0c43238d901abb26f8dd950325",
+      "payloadSha256": "2ab54cd8185e0ff2549de3c760f8e434ef2d3f0c43238d901abb26f8dd950325",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-bucket-20l-handle-160.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "dd9a07e4befe4352d77479d952d804ae1bc14af2e687500a53ffc520cc73b748",
+      "payloadSha256": "dd9a07e4befe4352d77479d952d804ae1bc14af2e687500a53ffc520cc73b748",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-bucket-20l-handle-320.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "340e61153909910ee596d49576ed06a42291f15319192ae43b750dcca54e2013",
+      "payloadSha256": "340e61153909910ee596d49576ed06a42291f15319192ae43b750dcca54e2013",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-bucket-20l-handle-640.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "fc438ed487e40c9575e7387d95d6dbe172a51bcc8f610c7bd668ffcff9faff28",
+      "payloadSha256": "fc438ed487e40c9575e7387d95d6dbe172a51bcc8f610c7bd668ffcff9faff28",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-bucket-20l-handle-960.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "dc6a47a0066fbde5a6bdc3d7a863e08c70534da7f38ea9f82f6ba4d5972e11b5",
+      "payloadSha256": "dc6a47a0066fbde5a6bdc3d7a863e08c70534da7f38ea9f82f6ba4d5972e11b5",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-bucket-8l-front-160.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "11d42da5155913a29712a620395ab4f4b3509773e1632e23d49aa2fc12c89faa",
+      "payloadSha256": "11d42da5155913a29712a620395ab4f4b3509773e1632e23d49aa2fc12c89faa",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-bucket-8l-front-320.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "5243707a13f0227512018668e325aad390e00c66a48da9ed4bf9ae21d620d7e6",
+      "payloadSha256": "5243707a13f0227512018668e325aad390e00c66a48da9ed4bf9ae21d620d7e6",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-bucket-8l-front-640.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "da4c4e91ad5fc1f5aa5a5a18c734678e1c2237b10b190aba905251ec28f6a4ae",
+      "payloadSha256": "da4c4e91ad5fc1f5aa5a5a18c734678e1c2237b10b190aba905251ec28f6a4ae",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-bucket-8l-front-960.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "a26dcff0b8cb4d7848eb281849263a7ea7f2698ceb8332cdbafaf6a11f2066f2",
+      "payloadSha256": "a26dcff0b8cb4d7848eb281849263a7ea7f2698ceb8332cdbafaf6a11f2066f2",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-image-unavailable.svg",
+      "status": 200,
+      "passed": true,
+      "sha256": "49763000360503f8457ce91b3ebd7085c8ff757ba9debbabdea5fc8f35fbe613",
+      "payloadSha256": "49763000360503f8457ce91b3ebd7085c8ff757ba9debbabdea5fc8f35fbe613",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-jerrycan-20l-160.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "04d9a2cacd266dec962c106f3d2b98cbfa341a79c432a3fcbf36d0d8067eeb35",
+      "payloadSha256": "04d9a2cacd266dec962c106f3d2b98cbfa341a79c432a3fcbf36d0d8067eeb35",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-jerrycan-20l-320.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "3f130c2cf372d4d3e43ae2788894f35abbb8ded196644ac70f1318c99a605f12",
+      "payloadSha256": "3f130c2cf372d4d3e43ae2788894f35abbb8ded196644ac70f1318c99a605f12",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-jerrycan-20l-640.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "157b546f9b6340ce5601c151ef2c0a5997c761f6cfde4a344b1c4023676dd35e",
+      "payloadSha256": "157b546f9b6340ce5601c151ef2c0a5997c761f6cfde4a344b1c4023676dd35e",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-jerrycan-20l-960.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "fe55dcffecb47dee48d1f4fa6e8a3ca4a1ae396af71b6a1db7b114f4dfe5336a",
+      "payloadSha256": "fe55dcffecb47dee48d1f4fa6e8a3ca4a1ae396af71b6a1db7b114f4dfe5336a",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-jerrycan-30l-160.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "577806866254fdaeb8bc3598101c75abfa78adc68c6224d3720ce79383d11033",
+      "payloadSha256": "577806866254fdaeb8bc3598101c75abfa78adc68c6224d3720ce79383d11033",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-jerrycan-30l-320.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "44f9410f70fe2bc3afe907eaf5d65690d42247b939b822c8e244d421b32b0580",
+      "payloadSha256": "44f9410f70fe2bc3afe907eaf5d65690d42247b939b822c8e244d421b32b0580",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-jerrycan-30l-640.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "8554e09465cbb211f9aa49d0c71d4ed16fa4058c15ac76cc4f047d41001570d9",
+      "payloadSha256": "8554e09465cbb211f9aa49d0c71d4ed16fa4058c15ac76cc4f047d41001570d9",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-jerrycan-30l-960.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "298c6d637a5991c9bf2c3492dac081b90c8d62b7c056172518d01f504833ba04",
+      "payloadSha256": "298c6d637a5991c9bf2c3492dac081b90c8d62b7c056172518d01f504833ba04",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-range-1200.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "2f56d8fe6e3fefa1478a3ad725fb7142ec429f034e110c7eda00b64012133ff5",
+      "payloadSha256": "2f56d8fe6e3fefa1478a3ad725fb7142ec429f034e110c7eda00b64012133ff5",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-range-160.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "f29565e0a523d7ddc5044370d9530f82801e2f4a0d37a4bc3d5bd18348b37735",
+      "payloadSha256": "f29565e0a523d7ddc5044370d9530f82801e2f4a0d37a4bc3d5bd18348b37735",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-range-320.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "ebe06982972b96ac291e544113cc062ad9fc4bb9979760bb0d39abd8abaa0247",
+      "payloadSha256": "ebe06982972b96ac291e544113cc062ad9fc4bb9979760bb0d39abd8abaa0247",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w07-range-640.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "eea6628cf08be30aaa4877c902a94d73ead78cd6d2cd348f17cab2f6a58a4789",
+      "payloadSha256": "eea6628cf08be30aaa4877c902a94d73ead78cd6d2cd348f17cab2f6a58a4789",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w072-capabilities-1200.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "eda47ab55eae2d4ba540e5cc0657b6723ba84dbb213ae039887b439cf0c736c7",
+      "payloadSha256": "eda47ab55eae2d4ba540e5cc0657b6723ba84dbb213ae039887b439cf0c736c7",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w072-capabilities-320.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "8fdd484cb06446612cad889789a38a449a40bba075333605390c4851e9995fef",
+      "payloadSha256": "8fdd484cb06446612cad889789a38a449a40bba075333605390c4851e9995fef",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/catalog-w072-capabilities-640.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "76b44e3f92af62934f0ddd04e3cd40ede32e73f8295318752b58779322c808ac",
+      "payloadSha256": "76b44e3f92af62934f0ddd04e3cd40ede32e73f8295318752b58779322c808ac",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/dm-sans-latin-CwMReqGs.woff2",
+      "status": 200,
+      "passed": true,
+      "sha256": "468d56b6b25b05b70190b6c233d773f6f1770e8579827ce022a57f03fa8002fb",
+      "payloadSha256": "468d56b6b25b05b70190b6c233d773f6f1770e8579827ce022a57f03fa8002fb",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/index-DzFeTHGl.css",
+      "status": 200,
+      "passed": true,
+      "sha256": "de3c84a3abd6a5300d1470bc3b3d9a8b2a77a842692ee5b8234dc21034a7d384",
+      "payloadSha256": "de3c84a3abd6a5300d1470bc3b3d9a8b2a77a842692ee5b8234dc21034a7d384",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/index-yCD1laCh.js",
+      "status": 200,
+      "passed": true,
+      "sha256": "177d99d0acb89b43787916d1f9149adfb80f8aa1ca22706ddac9675b54ea1779",
+      "payloadSha256": "177d99d0acb89b43787916d1f9149adfb80f8aa1ca22706ddac9675b54ea1779",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/manrope-latin-C46ZzDBF.woff2",
+      "status": 200,
+      "passed": true,
+      "sha256": "e310b55a7fd9677f5e3555e6c6c4d064fa1f1d24393f0ddbe217cea12a8c432f",
+      "payloadSha256": "e310b55a7fd9677f5e3555e6c6c4d064fa1f1d24393f0ddbe217cea12a8c432f",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/manufacturing-1rAttYiy.jpg",
+      "status": 200,
+      "passed": true,
+      "sha256": "a00011fc4eb2b5a9042faecb03924b4daa384591e8721d5b2dd3ace304b7fb5d",
+      "payloadSha256": "a00011fc4eb2b5a9042faecb03924b4daa384591e8721d5b2dd3ace304b7fb5d",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/owner-uat3a-label-blue-1086.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "fd9708a99483a7322493d587392c6d718d625ef1d547bb2f5f5c5021d845430c",
+      "payloadSha256": "fd9708a99483a7322493d587392c6d718d625ef1d547bb2f5f5c5021d845430c",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/owner-uat3a-label-blue-160.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "c50f642f50db98c907896ce5c317487b16aee12ee50aee9084d4c6db56862142",
+      "payloadSha256": "c50f642f50db98c907896ce5c317487b16aee12ee50aee9084d4c6db56862142",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/owner-uat3a-label-blue-320.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "e3a15b1dff4a661fe427354e77884d9933daea81275b0b9ced5c03e435a283af",
+      "payloadSha256": "e3a15b1dff4a661fe427354e77884d9933daea81275b0b9ced5c03e435a283af",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/owner-uat3a-label-blue-640.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "595a67a840a990737b491215e4bd5d091423b6d6965fbf757bde872749510b86",
+      "payloadSha256": "595a67a840a990737b491215e4bd5d091423b6d6965fbf757bde872749510b86",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/owner-uat3a-label-grey-1086.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "1c337c008f0d22dd3bfa55f3c2ef702c7703488c3a67174ca471bd73fe75a493",
+      "payloadSha256": "1c337c008f0d22dd3bfa55f3c2ef702c7703488c3a67174ca471bd73fe75a493",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/owner-uat3a-label-grey-160.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "43dc1f22a9198298eba88e012303d157ae573c7c7e47cd57b0e437be3098682e",
+      "payloadSha256": "43dc1f22a9198298eba88e012303d157ae573c7c7e47cd57b0e437be3098682e",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/owner-uat3a-label-grey-320.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "9f1f32d8a598b73cddc7872d703fcd5f44fa14b01a19a2333bdbf7ae017cb3bb",
+      "payloadSha256": "9f1f32d8a598b73cddc7872d703fcd5f44fa14b01a19a2333bdbf7ae017cb3bb",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/owner-uat3a-label-grey-640.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "e79d663d916bd7ca8a8f29c2549972c842ba894fbe2faacb3a50c64502658adc",
+      "payloadSha256": "e79d663d916bd7ca8a8f29c2549972c842ba894fbe2faacb3a50c64502658adc",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/owner-uat3a-label-yellow-1086.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "651e156f40d40915c2b2c0fc243f6ce168f36b5ca46a288a86d88c86452aa908",
+      "payloadSha256": "651e156f40d40915c2b2c0fc243f6ce168f36b5ca46a288a86d88c86452aa908",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/owner-uat3a-label-yellow-160.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "d2809084fa931d0d168fa4ee9d381c4ca0d3785c2a42edb03cadca1a4cc15f84",
+      "payloadSha256": "d2809084fa931d0d168fa4ee9d381c4ca0d3785c2a42edb03cadca1a4cc15f84",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/owner-uat3a-label-yellow-320.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "6986999c8b43c30c97eb33a804ae10c69f8fcc927cfcf56d5677b842c50857db",
+      "payloadSha256": "6986999c8b43c30c97eb33a804ae10c69f8fcc927cfcf56d5677b842c50857db",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/owner-uat3a-label-yellow-640.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "2728e468d0dd9f8715b7e3801e15ee7cb8cbb4e155c37284382ad743bd05e5ba",
+      "payloadSha256": "2728e468d0dd9f8715b7e3801e15ee7cb8cbb4e155c37284382ad743bd05e5ba",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/owner-uat3a-open-carton-1200.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "96d011d014312b8e7aa46d7b4b2eab377df30f384115d1fe4b684fbe6c48a995",
+      "payloadSha256": "96d011d014312b8e7aa46d7b4b2eab377df30f384115d1fe4b684fbe6c48a995",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/owner-uat3a-open-carton-160.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "d2454bfb16d77e20f4ee19864a1d069ef8abe792e39b9030e44199c288ada2f2",
+      "payloadSha256": "d2454bfb16d77e20f4ee19864a1d069ef8abe792e39b9030e44199c288ada2f2",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/owner-uat3a-open-carton-320.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "aec8345132c8d96f762a0b85047f2b7e687958f07f3570e109616781d9911131",
+      "payloadSha256": "aec8345132c8d96f762a0b85047f2b7e687958f07f3570e109616781d9911131",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/owner-uat3a-open-carton-640.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "a6803b03f62529ecf4c6fe0b878c7a8a8fe8a4641643607b69787bc322c471c9",
+      "payloadSha256": "a6803b03f62529ecf4c6fe0b878c7a8a8fe8a4641643607b69787bc322c471c9",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/owner-uat3a-plain-carton-1200.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "f4676cfc91388df06085dd4f738bfad95a3c9c7d63296a9529b86e0c53bd16f7",
+      "payloadSha256": "f4676cfc91388df06085dd4f738bfad95a3c9c7d63296a9529b86e0c53bd16f7",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/owner-uat3a-plain-carton-160.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "87e9fdfad1b39a1d1dc766b8d7d76504c87da5a59700fb040240fadcc19cdf11",
+      "payloadSha256": "87e9fdfad1b39a1d1dc766b8d7d76504c87da5a59700fb040240fadcc19cdf11",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/owner-uat3a-plain-carton-320.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "bc55c79a65d51053db9d70e1c87c98afe5b287fea7a39b29170b0cce5af2e790",
+      "payloadSha256": "bc55c79a65d51053db9d70e1c87c98afe5b287fea7a39b29170b0cce5af2e790",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/owner-uat3a-plain-carton-640.webp",
+      "status": 200,
+      "passed": true,
+      "sha256": "c25342d0d861d7e3e56a8b1e661dcdb051184af4b605cce5327f88ca033dffb1",
+      "payloadSha256": "c25342d0d861d7e3e56a8b1e661dcdb051184af4b605cce5327f88ca033dffb1",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/assets/unique_plastic-Bg-VSvfO.svg",
+      "status": 200,
+      "passed": true,
+      "sha256": "c66124004874f8e90978158bbd960fcf36938bbaf29c2792e30cdac01bb49774",
+      "payloadSha256": "c66124004874f8e90978158bbd960fcf36938bbaf29c2792e30cdac01bb49774",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/licenses/DM-Sans-OFL.txt",
+      "status": 200,
+      "passed": true,
+      "sha256": "be5f632588774077cbb19a8d3fd788fbc7861af041f4e7165eae5822b11392b3",
+      "payloadSha256": "be5f632588774077cbb19a8d3fd788fbc7861af041f4e7165eae5822b11392b3",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/licenses/Manrope-OFL.txt",
+      "status": 200,
+      "passed": true,
+      "sha256": "2e9a4958fb8e5be69eca9abc48544e1ca1898ca71edc54ac3da25cd93101881e",
+      "payloadSha256": "2e9a4958fb8e5be69eca9abc48544e1ca1898ca71edc54ac3da25cd93101881e",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/icons.svg",
+      "status": 200,
+      "passed": true,
+      "sha256": "b45fa506195cfcdef406ba9f0c77b36ddc1a7c224040926ec70abc2fdea7b93a",
+      "payloadSha256": "b45fa506195cfcdef406ba9f0c77b36ddc1a7c224040926ec70abc2fdea7b93a",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/favicon.svg",
+      "status": 200,
+      "passed": true,
+      "sha256": "61bc9a161de58248288e6905425d7180f0624c2865007b97d763fdac12043a66",
+      "payloadSha256": "61bc9a161de58248288e6905425d7180f0624c2865007b97d763fdac12043a66",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/404.html",
+      "status": 200,
+      "passed": true,
+      "sha256": "35ffd3d87785d62768323f8ea7fb9cdf8456b395b6ab465b5327b5176fc0bb09",
+      "payloadSha256": "1f9388dfa909b641ccf97f3c1443838862695c76e15aaa28c74cb00ba4cabaac",
+      "exactProviderTelemetryInjection": true,
+      "providerChallenge": false
+    },
+    {
+      "path": "/robots.txt",
+      "status": 200,
+      "passed": true,
+      "sha256": "4dd742049a71606fcee15052b771ea45150eaa42f368e67ca1f0108c77256832",
+      "payloadSha256": "4dd742049a71606fcee15052b771ea45150eaa42f368e67ca1f0108c77256832",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/sitemap.xml",
+      "status": 200,
+      "passed": true,
+      "sha256": "c3a366427481fdd996cedfbc74b93a3b6eaca414ea53a1978c5a47fa8624e6bc",
+      "payloadSha256": "c3a366427481fdd996cedfbc74b93a3b6eaca414ea53a1978c5a47fa8624e6bc",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/downloads/products/v1/unique-plastic-buckets-product-information.pdf",
+      "status": 200,
+      "passed": true,
+      "sha256": "f84f3d23e1eb58165cb3a3b1f31a27a8d34238a79a5a6a0ee6e8919f9ee4d90e",
+      "payloadSha256": "f84f3d23e1eb58165cb3a3b1f31a27a8d34238a79a5a6a0ee6e8919f9ee4d90e",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/downloads/products/v1/unique-plastic-cans-product-information.pdf",
+      "status": 200,
+      "passed": true,
+      "sha256": "806e26046f46c5d9bf0165737ae6d27fa7cd7035f67a84903e84ee6ff09da571",
+      "payloadSha256": "806e26046f46c5d9bf0165737ae6d27fa7cd7035f67a84903e84ee6ff09da571",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/downloads/products/v1/unique-plastic-containers-product-information.pdf",
+      "status": 200,
+      "passed": true,
+      "sha256": "a55a92b9de4e5b2c2fc206c5efb6b15c52ff92116ba41660d84645253e80cff2",
+      "payloadSha256": "a55a92b9de4e5b2c2fc206c5efb6b15c52ff92116ba41660d84645253e80cff2",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/downloads/products/v1/unique-plastic-stickers-product-information.pdf",
+      "status": 200,
+      "passed": true,
+      "sha256": "0b51c50e976ff326bc47cd595ef44423e284f9ee2218382de2f9c2273f90622a",
+      "payloadSha256": "0b51c50e976ff326bc47cd595ef44423e284f9ee2218382de2f9c2273f90622a",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/downloads/products/v1/unique-plastic-cartons-product-information.pdf",
+      "status": 200,
+      "passed": true,
+      "sha256": "6588e475cea32ec58ce31e5d0bfea9c76c7e2877db30b577270f755de6fda2f3",
+      "payloadSha256": "6588e475cea32ec58ce31e5d0bfea9c76c7e2877db30b577270f755de6fda2f3",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/downloads/products/v2/Bucket.pdf",
+      "status": 200,
+      "passed": true,
+      "sha256": "7bfd18a028647affa58c8485ae3871b600ce6cfaae1a5d785ccc9d5faaa6ff65",
+      "payloadSha256": "7bfd18a028647affa58c8485ae3871b600ce6cfaae1a5d785ccc9d5faaa6ff65",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/downloads/products/v2/Company_Profile_New_HD_Bottles.pdf",
+      "status": 200,
+      "passed": true,
+      "sha256": "a535f1c654f5d0d306d3706253c22564fc6cff9d86bbed787c90f854169f37f9",
+      "payloadSha256": "a535f1c654f5d0d306d3706253c22564fc6cff9d86bbed787c90f854169f37f9",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/",
+      "status": 200,
+      "passed": true,
+      "sha256": "015dde19f4f9f3e721f017bea5bc6e811f20026909e295bdf4b47709e43cea6c",
+      "payloadSha256": "62f87afd3aec51ea942df74c024dd5450fa7e81fc3e25c4dd0df79c888831d83",
+      "exactProviderTelemetryInjection": true,
+      "providerChallenge": false
+    },
+    {
+      "path": "/about",
+      "status": 200,
+      "passed": true,
+      "sha256": "16090d27ea7e5a06cc9472e45018786a56d6d3dec986da51249e2cdacf37d3fa",
+      "payloadSha256": "de4f7c1929dd7b379dcb7ce37a1b3d96f8e6e71421e7ce24332d6d13e9ced647",
+      "exactProviderTelemetryInjection": true,
+      "providerChallenge": false
+    },
+    {
+      "path": "/products",
+      "status": 200,
+      "passed": true,
+      "sha256": "b9e5974318c0286f7d9d6681ea27172fbb184ced5a77a950c74c94e8f8e21d67",
+      "payloadSha256": "883df73e79a59aafe0376d70b8a2f60c9af1290c2174d9ffc87b0d0f3b57e573",
+      "exactProviderTelemetryInjection": true,
+      "providerChallenge": false
+    },
+    {
+      "path": "/manufacturing",
+      "status": 200,
+      "passed": true,
+      "sha256": "ed28fb6ef2774519219ea78148106c797cc1764908e295cf534a41cc6f677167",
+      "payloadSha256": "69f5fbbd8967eff2dfc9ec21bc5229271309994438540c442c263c9bec27179b",
+      "exactProviderTelemetryInjection": true,
+      "providerChallenge": false
+    },
+    {
+      "path": "/industries",
+      "status": 200,
+      "passed": true,
+      "sha256": "c09616847b80dcd3fe435302377a1c83e6f48d78429023e580e76b6bcc627872",
+      "payloadSha256": "1f3b5ec0e85871e82b35a4efe4cdd327b0f93059d26305998713cafc724ee9cc",
+      "exactProviderTelemetryInjection": true,
+      "providerChallenge": false
+    },
+    {
+      "path": "/contact",
+      "status": 200,
+      "passed": true,
+      "sha256": "47d1bf40df78d4a193e648f22e03b7e7fcc2b2117914185deb832a1a7b0a8fe4",
+      "payloadSha256": "9570f759e7095cc1e33d33e973cb68017a22b50754766f10d33e82d03475087b",
+      "exactProviderTelemetryInjection": true,
+      "providerChallenge": false
+    },
+    {
+      "path": "/products/buckets",
+      "status": 200,
+      "passed": true,
+      "sha256": "3ce51d81445dacf7dda8cc381c436ce5b9e3dbd1f54e652af523819915965e0c",
+      "payloadSha256": "45850fbce03f3d6b46a9335a222c3b977db3823f363c2b2f6012f63e62414d0e",
+      "exactProviderTelemetryInjection": true,
+      "providerChallenge": false
+    },
+    {
+      "path": "/products/cans",
+      "status": 200,
+      "passed": true,
+      "sha256": "a7e301ef9250a1f631628a341dd58241451ae2e768e67261beff1b29b42cd2cd",
+      "payloadSha256": "93d43701de4883795d781b814d047d63c59e41917e1e0e4934006748a139af30",
+      "exactProviderTelemetryInjection": true,
+      "providerChallenge": false
+    },
+    {
+      "path": "/products/containers",
+      "status": 200,
+      "passed": true,
+      "sha256": "c85cb428c62ac6419956981c20b0094769fab332c9fcd51fe86cf58308bf9b7d",
+      "payloadSha256": "3422faed2150d90cc4409e4dd97f0bd8d381221d7327ca2c6c614ab45dfae1a1",
+      "exactProviderTelemetryInjection": true,
+      "providerChallenge": false
+    },
+    {
+      "path": "/products/stickers",
+      "status": 200,
+      "passed": true,
+      "sha256": "777066ac7c6e00d20a6236f0ca50b9db150952ecc8c037b8f8b99dd1daff1889",
+      "payloadSha256": "983933ec1a2ab36637afeec443ae640aa692d11f40dfe05f9c3c950541ab044d",
+      "exactProviderTelemetryInjection": true,
+      "providerChallenge": false
+    },
+    {
+      "path": "/products/cartons",
+      "status": 200,
+      "passed": true,
+      "sha256": "c6ed574bcb34c6d9be74db9419310a1f849b9dec018772fea4bb1b85617cc49c",
+      "payloadSha256": "b871fdbf26e05bac24e5c8eef83abb21552ff7879f521af3cd1c7e53abba4676",
+      "exactProviderTelemetryInjection": true,
+      "providerChallenge": false
+    }
+  ],
+  "denials": [
+    {
+      "path": "/gateway.php",
+      "status": 404,
+      "passed": true,
+      "sha256": "7d04f7431bbfa41a04bcc7e6b98b9de0d919756c4c671c5785c99fff45f16402",
+      "payloadSha256": "7d04f7431bbfa41a04bcc7e6b98b9de0d919756c4c671c5785c99fff45f16402",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/inquiry.php",
+      "status": 404,
+      "passed": true,
+      "sha256": "7d04f7431bbfa41a04bcc7e6b98b9de0d919756c4c671c5785c99fff45f16402",
+      "payloadSha256": "7d04f7431bbfa41a04bcc7e6b98b9de0d919756c4c671c5785c99fff45f16402",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/.env",
+      "status": 403,
+      "passed": true,
+      "sha256": "87f23f2eaef5148786c67ad042081a43ffa9198442fb2be0e741d65c0822b512",
+      "payloadSha256": "c910ee30e7154f9f566de2c5cdd5e1d938185629c5b2a9ebb368e99dfe601347",
+      "exactProviderTelemetryInjection": true,
+      "providerChallenge": false
+    },
+    {
+      "path": "/private/config.json",
+      "status": 404,
+      "passed": true,
+      "sha256": "7d04f7431bbfa41a04bcc7e6b98b9de0d919756c4c671c5785c99fff45f16402",
+      "payloadSha256": "7d04f7431bbfa41a04bcc7e6b98b9de0d919756c4c671c5785c99fff45f16402",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/vendor/autoload.php",
+      "status": 404,
+      "passed": true,
+      "sha256": "7d04f7431bbfa41a04bcc7e6b98b9de0d919756c4c671c5785c99fff45f16402",
+      "payloadSha256": "7d04f7431bbfa41a04bcc7e6b98b9de0d919756c4c671c5785c99fff45f16402",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/dashboard/",
+      "status": 403,
+      "passed": true,
+      "sha256": "58404bdf6dc25c24fedd979469e69bfb8dc9ebca64a469929a858a12b12b9c30",
+      "payloadSha256": "58404bdf6dc25c24fedd979469e69bfb8dc9ebca64a469929a858a12b12b9c30",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    },
+    {
+      "path": "/not-a-real-upms-route",
+      "status": 404,
+      "passed": true,
+      "sha256": "7d04f7431bbfa41a04bcc7e6b98b9de0d919756c4c671c5785c99fff45f16402",
+      "payloadSha256": "7d04f7431bbfa41a04bcc7e6b98b9de0d919756c4c671c5785c99fff45f16402",
+      "exactProviderTelemetryInjection": false,
+      "providerChallenge": false
+    }
+  ]
+}

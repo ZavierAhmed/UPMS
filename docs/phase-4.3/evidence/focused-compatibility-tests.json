@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "tests": 7,
+  "assertions": 46,
+  "runtime": "PHP 8.4.27 Windows",
+  "filter": "ProductionProfileTest|HostBoundaryTest",
+  "hostedRuntimeTestEvidence": "hosted-stage-http.json",
+  "fullHistoricalSuiteRerun": false
+}

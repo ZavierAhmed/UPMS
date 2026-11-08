@@ -1,0 +1,38 @@
+[
+  {
+    "url": "https://unique-plastic.com/",
+    "status": 200,
+    "title": "Plastic Packaging Manufacturer in Karachi | Unique Plastic Industry",
+    "providerChallenge": false
+  },
+  {
+    "url": "https://unique-plastic.com/about",
+    "status": 403,
+    "title": "403 Forbidden",
+    "providerChallenge": false
+  },
+  {
+    "url": "https://unique-plastic.com/manufacturing",
+    "status": 403,
+    "title": "403 Forbidden",
+    "providerChallenge": false
+  },
+  {
+    "url": "https://unique-plastic.com/gateway.php",
+    "status": 404,
+    "title": "",
+    "providerChallenge": false
+  },
+  {
+    "url": "https://unique-plastic.com/inquiry.php",
+    "status": 404,
+    "title": "",
+    "providerChallenge": false
+  },
+  {
+    "url": "https://app.unique-plastic.com/",
+    "status": 200,
+    "title": "Staff Management | Unique Plastic Industry",
+    "providerChallenge": false
+  }
+]

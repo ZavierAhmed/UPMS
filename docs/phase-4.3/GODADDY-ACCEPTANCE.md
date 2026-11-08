@@ -1,74 +1,36 @@
-# P4.3 GoDaddy acceptance — 8 November 2026
+# P4.3 final hosted result — 8 November 2026
 
-Hosted publication is **BLOCKED**, pending the approvals and checks below. The owner separately approved resource creation only. The two new empty schemas and eight approved SQL identities were created and authenticated successfully on 8 November 2026. Generated credentials and durable provisioning evidence are protected in `/home/tsn6az96j3v7/upms-private/p43` with private directories and 0600 files; secrets are not in Git or web roots. Existing `upms_v1` remains bound to the previous application; P4.3 is not activated. No initializer, administrator enrollment, staging/DNS change, publication or binding switch was performed.
+| Component | Status |
+|---|---|
+| Public website live | PASS — https://unique-plastic.com |
+| New management application live | BLOCKED — previous application retained at https://app.unique-plastic.com |
+| upms_stage_43 initialized and tested | BLOCKED for full acceptance — 47/133 and hosted authentication/read/security passed; React/export/financial acceptance incomplete |
+| upms_v2 initialized | PASS — 47 exact tables, 133 exact guards, genuine receipts, posting PENDING |
+| Backup V2 and restore | PASS for actual hosted staging archive; production recovery gate remains BLOCKED |
+| New release financial posting | DISABLED — neither new schema was activated |
+| Previous installation preserved | PASS — previous dashboard byte-identical, old databases untouched, rollback retained |
 
-## Pre-provisioning verification
+The owner authorized initialization and publication in FINAL GODADDY DEPLOYMENT. No further publishing approval was requested. The new management binding was deliberately not switched because its production recovery/readiness gates remain incomplete. It remains private at `/home/tsn6az96j3v7/upms-releases/p43/management-570362622816`. Its runtime profiles are explicitly inspection-only with backupRestoreVerified false; they were not relabeled as operational approval. Existing management continues using upms_v1, with its prior settings unchanged.
 
-Read-only SSH authenticated as `tsn6az96j3v7` on `sg2plzcpnl508885.prod.sin2.secureserver.net`. `/usr/bin/uapi` succeeds. The account permits 10 databases and currently has `upms`, `upms_v1`, `upms_recovery84`, `upms_security85`. Six slots remain. Names have no required prefix; maximum lengths are 64 for databases and 47 for users. Proposed new names below are absent from current inventories. Today's account and database checks succeeded; a later account recheck failed before authentication with `ssh: connect to host unique-plastic.com port 22: Connection timed out`. The last successful JSON evidence was preserved. No durable cause for the intermittent failures has been established.
+## Releases and actual hosting
 
-MariaDB is 10.11.19, socket `/var/lib/mysql/mysql.sock`. The actual authenticated `upms_runtime84@localhost` passes exact database-scoped SELECT, INSERT, UPDATE, DELETE verification on `upms_v1`, with no unexpected grants. All 20 tables and 45 guard definitions verify. Existing admin and haris identities remain enabled. Release verification passes for 6,070 private files and 120 published files.
+- Static archive remains `6f3ef919bacb29139c21bc165ec2891978912c70746e07ca5d1de7982a394525`, published to `/home/tsn6az96j3v7/public_html`. External acceptance passed 139 payloads/routes, seven PDF downloads, phone/WhatsApp contacts, deep links, 404 and private/executable denials. Online inquiry remains visibly disabled. GoDaddy injects an exact 456-byte telemetry block into HTML; evidence retains raw hashes and separately verifies payload hashes after removing only those fixed bytes. No provider challenge page was accepted as the website.
+- Patched management archive is `57036262281670a5f33123332ed357f749d528ea0b82503a3dbe647226523691`, source `e3e9ece1d2bdc8e282a5481dd01bb3960059ac91`. All 5,987 entries verified. Only five PHP files changed from accepted archive `1ea4d46e20e312f1dabf70f95ec511e3d4dc1c4a38bab958df886b470957b3a7`; React and vendor payloads were reused unchanged.
+- Actual HTTPS web runtime is PHP 8.3.36, LiteSpeed SAPI, with required PDO MySQL, sodium, XML, mbstring, ZIP and OpenSSL extensions. MariaDB is 10.11.19, local socket `/var/lib/mysql/mysql.sock`. Temporary authenticated inspection/front-controller files were removed. No DNS changes were made. Available filesystem space exceeded package requirements; this is not a claim about the account quota.
+- Initial public deployment returned 403 for new directories because the publisher inherited its private umask. The old 114-file release was restored and verified immediately. The directory-permission fix was applied, the unchanged package republished, and external acceptance then passed. Dashboard, ACME, CGI and unrelated files were preserved. The original rollback archive remains SHA `cb2cd0ec0462a0bd5af3172518c3e406fd81840ccd5498f1544de3166ebd2723`.
 
-PHP CLI is 8.3.36 with PDO MySQL, sodium, mbstring, XML, ZIP and OpenSSL. **Actual Apache PHP version/extensions remain unverified.** The read-only MultiPHP inventory returns `You do not have the feature “multiphp”.` CLI success does not establish web runtime compatibility.
+## Database identities and acceptance
 
-Both HTTPS roots return HTTP 200 with title `One moment, please...` through Windows' resolver. This is a provider challenge, not UPMS acceptance. Node's DNS resolver separately returned ECONNREFUSED. Certificate validation was retained. Host isolation, executable-path rejection and Apache behavior must be retested against actual application responses, not scored from these challenge pages.
+All identities authenticate as @localhost. Final schema upms_v2 uses upms_init_v2, upms_guard_v2, upms_runtime_v2 and upms_backup_v2. Isolated upms_stage_43 uses upms_i43, upms_g43, upms_r43 and upms_b43. Installer grants are CREATE, REFERENCES, SELECT, INSERT, UPDATE; guard owner SELECT, TRIGGER; runtime SELECT, INSERT, UPDATE, DELETE; backup SELECT only. Final checks authenticated all roles, verified exact grants and guard definers, and found zero financial business rows in both new schemas. Both migration receipts are CUMULATIVE_READY and both controls PENDING. Empty-schema defaults were corrected from latin1 to utf8mb4_unicode_ci using temporary installer-only ALTER, immediately revoked; final exact grants passed. No existing schema was altered or deleted.
 
-Latest protected off-host backup was created 2026-11-08 05:42:13 +05:00 and verified at 05:42:23 +05:00. Its receipt reports passed, offHost and authenticatedDecryptionVerified true, 20 tables and 45 triggers. The 74,501-byte encrypted archive exists and its SHA-256 matches `a7cc1566b1c1d0a0670cb0c0cd4f9ade44952869c01a364ef2189798d3dd775e`. No decrypted records or keys were printed. This protects the old schema; it is not evidence for recovery of the new 47-table system.
+Hosted staging passed both synthetic administrator logins, mandatory password changes, reauthentication, overlapping sessions, secure/HttpOnly/SameSite cookies, CSRF and Origin negatives, logout and revoked-cookie rejection. Read-only inventory, challans, money, Hafta and cheque views passed through a temporary header-authenticated front controller on the real HTTPS vhost. It preserved real Host/TLS metadata and application security. This was hosted PHP API acceptance, not full React/browser acceptance. Three wrong backup identities and three actual protected audit/receipt/control mutations were rejected. No financial test transactions were created. Focused PHP origin/host tests passed 7 tests and 46 assertions; historical suites were not rerun.
 
-## Fixed candidates and rollback
+The SELECT-only backup reader fix passed on GoDaddy with separate definer verification. Hosted ciphertext SHA is `c679bbbd04104c711b8cd2d8c4b1b00f04435c023cc0e15930cf2b5a5f2201dc`. Checksum, authenticated decryption and tamper rejection passed. That actual archive was downloaded to protected off-host storage and restored to a new offline Linux MariaDB target: 47 tables, 133 guards, 87 rows, all rows identical, reconciliation passed. This used synthetic staging recovery keys, never production key custody, and is not independent owner USB acceptance.
 
-| Candidate | SHA-256 | Verification |
-|---|---|---|
-| Management, source `0a07767c52851184265b766ed1ef373b7ca9e7cc` | `1ea4d46e20e312f1dabf70f95ec511e3d4dc1c4a38bab958df886b470957b3a7` | 5,987 entries, payload manifest verified |
-| Catalog website, source `a06db064063cc5c4ded9610801d90efcfbe8b12f` | `6f3ef919bacb29139c21bc165ec2891978912c70746e07ca5d1de7982a394525` | 141 entries, payload manifest verified |
-| Original website rollback | `cb2cd0ec0462a0bd5af3172518c3e406fd81840ccd5498f1544de3166ebd2723` | 114 regular files, no dashboard entries or traversal |
+## Exact remaining gates and owner action
 
-Local archives are `tmp/phase-4/artifacts/p42c-final/upms-p4-management-php.zip`, `tmp/phase-4.2a/static/upms-public-static.zip`, and `tmp/phase-4.2/clean-install-public-rollback.tar.gz`. They were not rebuilt. Current hosted release integrity passes, but full byte parity between the 114-file rollback and today's public tree has not yet been reverified. Preserve both old release and rollback archive.
+The production-v2 administrator handoff is protected at `/home/tsn6az96j3v7/upms-private/p43/production-v2/private-administrator-handoff.json` (0600). No credentials were printed, copied from old hashes or committed. New administrators still require their first password change. An owner-bound, DPAPI-encrypted handoff was also prepared and authenticated locally at tmp/protected-offhost-backups/p43-stage-recovery/production-administrator-handoff.dpapi. Owner receipt and initial password rotation remain pending; do not send passwords in chat.
 
-## Exact resource targets — creation approved and verified
+Provide the approved V2 recipient public key and arrange the designated operator's separate-account/computer recovery using the offline USB. Do not send private keys/passphrases. Produce and independently restore the actual upms_v2 protected archive before treating production recovery as passed. Full hosted React/browser, export and permitted synthetic financial acceptance remain incomplete; new production binding remains unchanged until required readiness checks legitimately pass. Independent USB recovery, approved real opening balances and separate financial activation are still required before real financial operations. SMTP and operational attachments remain disabled in the new private runtime. The existing 20/45 recurring backup job was preserved and must not be represented as covering upms_v2.
 
-All names are unprefixed. Each SQL identity is `@localhost`, with privileges only on its corresponding schema. No global, wildcard, cross-schema or ALL PRIVILEGES grants.
-
-Provisioning and a subsequent verification-only run passed for all eight authenticated identities. Both databases have zero tables. Database count is now six of ten, with four slots remaining. Existing database/user association inventories match the pre-provisioning snapshot. A final independent read-only check again passed the original upms_v1 exact runtime grants, 20 tables, 45 native guards and existing release integrity. Evidence is in `evidence/resource-provisioning.json`, `evidence/resource-verification.json` and `evidence/post-provision-existing-installation.json`. Initialization and administrator enrollment require further approval; resource-only approval does not cover them.
-
-| Purpose | Final schema / identity | Isolated acceptance schema / identity | Exact intended privileges |
-|---|---|---|---|
-| Empty database | `upms_v2` | `upms_stage_43` | No test import |
-| Installer | `upms_init_v2` | `upms_i43` | CREATE, REFERENCES, SELECT, INSERT, UPDATE |
-| Native guard owner | `upms_guard_v2` | `upms_g43` | SELECT, TRIGGER |
-| Runtime | `upms_runtime_v2` | `upms_r43` | SELECT, INSERT, UPDATE, DELETE |
-| Backup reader | `upms_backup_v2` | `upms_b43` | SELECT; compatibility blocker below must be resolved before claiming it works |
-
-The initializer creates exactly its reviewed 47 tables and 133 guards and genuine initialization receipts in each approved empty target. The exact object names and schema-plan digest are in `evidence/proposed-objects.json`. It connects separately as installer and guard owner, so guards are created by their intended definer without granting runtime DDL. Recheck actual CURRENT_USER, grants, definitions and definers after initialization. The four existing databases and their identities are explicitly outside this allowlist. No database drops, imports or credential resets are proposed. Fresh administrator enrollment uses the packaged enrollment flow and private, reviewed handoff; no defaults, reused password hashes, chat passwords or command-line password arguments.
-
-Proposed new private candidate directory is `/home/tsn6az96j3v7/upms-releases/p43/management-1ea4d46e20e3`; private configuration is `/home/tsn6az96j3v7/upms-private/p43`. Proposed acceptance names are `p43.unique-plastic.com` and `p43-app.unique-plastic.com`, with separate document roots `/home/tsn6az96j3v7/upms-hosted-uat43/public` and `/home/tsn6az96j3v7/upms-hosted-uat43/management`. Existing public root `/home/tsn6az96j3v7/public_html` and nested `/home/tsn6az96j3v7/public_html/dashboard` remain untouched during staging. Hostnames require approval, correct DNS, trusted TLS and access restriction before application installation; none have been created.
-
-## Remaining blockers
-
-1. The fixed management candidate requires origin `https://app.unique-plastic.com` in ProductionProfile and HostBoundary; Apache rules are also hostname-specific. It cannot truthfully be accepted on the proposed staging hostname unchanged. Prepare and test an explicit hostname-only staging adaptation, keep strict Host/Origin/CSRF checks, publish a separate adaptation hash for review, and never label modified bytes as the fixed candidate. Static staging rewrite rules require equivalent review. No adaptation has been applied.
-2. `operations/backup-cumulative.php` authenticates its reader as the initialization installer. `CumulativeInitialization::verifyInstalled` also requires that identity and its installer grants. The candidate cannot currently use the proposed SELECT-only backup account. A narrowly tested deployment/recovery adaptation is required; silently granting that reader installer permissions is not accepted.
-3. Hosted synthetic posting cannot use P4.2C's offline-only synthetic recovery exception. Keep posting pending. Obtain a real hosted V2 encrypted archive and genuine separate-account/computer restore using the owner-controlled offline USB before hosted financial acceptance. The owner-designated operator has not supplied that acceptance. Production recovery gate remains **BLOCKED**.
-4. Actual web runtime, provider challenge routing, hosted application acceptance, hosted native guard negative tests, concurrent sessions and exports remain **NOT RUN** for the new candidate. Prior isolated P4.2C tests are supporting evidence only.
-5. Independent recovery, approved opening balances and separate activation approval are prerequisites for real financial operations. SMTP and operational attachments remain disabled throughout the proposed deployment.
-
-## Short execution and approval checklist
-
-1. Resolve and test the two deployment-only compatibility constraints locally; retain original candidates and review the exact adaptation hashes. Resolve provider routing without disabling safeguards. Reverify backups and exact target absence immediately before approved writes.
-2. **Database/identity resource creation approval is recorded and completed** for only the two schemas and eight identities above. Obtain **initialization/enrollment approval** and **separate hosted staging approval** for the two new hostnames, document roots, candidate directories and reviewed overlays. No staging application directories or hostnames were created. Verify exact authenticated identities and grants again before initialization.
-3. Extract and verify the candidate in the new private directory. Generate purpose-specific private profiles bound to the actual schema/server/release. From that extracted release, run the packaged initializer with the three reviewed private profile paths. Verify 47/133, authentic receipts, fresh enrolled administrators and pending posting. Never copy UAT receipts or old testing transactions.
-
-   ```sh
-   /opt/alt/php83/usr/bin/php private/backend/operations/initialize-cumulative.php "$upms_private/installer.json" "$upms_private/definer.json" "$upms_private/runtime-initialization.json"
-   ```
-
-4. After staging hostname adaptation and Apache runtime verification, test login/rotation, sessions, CSRF, cookies, logout, permissions, inventory, challans, money accounts, Hafta, cheques, exports and concurrent sessions. Posting tests use only the approved isolated acceptance schema and only after genuine recovery gates pass. No financial tests on existing schemas. Stop on failures and retain evidence.
-5. Obtain **website publication approval** for the fixed catalog archive to `public_html`, with exact manifest-based replacement and a validated delete allowlist limited to old public release files. Never recursively clear public_html or touch dashboard. Preserve contacts and disabled inquiry. Verify hosted gateway/private-path rejection before SPA fallback. Rollback restores only the original 114 public files and removes only verified new package files; dashboard is excluded.
-6. Obtain **management publication/binding approval** for the reviewed private release, exact published dashboard file manifest and `upms_v2` profiles. Preserve old published files and private binding for rollback. Recheck readiness immediately before switching. Rollback switches back to the preserved old binding/release; never drops or restores over either database automatically.
-7. Obtain **financial activation approval** only after actual independent recovery and approved opening balances. Use the packaged target/release-bound activation workflow. Publication does not imply posting authorization. Website, management publication and financial activation approvals remain unrecorded.
-
-Read-only verification can be repeated from the repository with:
-
-```powershell
-& 'C:\Users\zasah\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell\pwsh.exe' -NoProfile -File scripts/p43-host-preflight.ps1
-```
-
-Evidence is in `evidence/hosting-preflight.json`, `evidence/candidate-integrity.json` and the two resource reports. Current state is resource provisioning complete, both new schemas empty, hosted acceptance incomplete, no P4.3 publication or financial activation. The SELECT-only backup accounts are provisioned but remain incompatible with the unmodified collector.
+Machine evidence is in this directory's evidence folder, especially final-hosted-state.json, static-live-acceptance.json, hosted-stage-http.json and hosted-archive-isolated-restore.json. No failed check was counted as passed.

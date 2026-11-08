@@ -1,0 +1,38 @@
+{
+  "verifiedUtc": "2026-11-08T06:25:54+05:00",
+  "schema": "upms_v1",
+  "authenticatedAccount": "upms_runtime84@localhost",
+  "tables": 20,
+  "guards": 45,
+  "runtimePrivileges": {
+    "passed": true,
+    "policy": "godaddy_database_crud",
+    "account": "upms_runtime84@localhost",
+    "identityMatched": true,
+    "directGrantsOnly": true,
+    "expectedPrivileges": 4,
+    "actualPrivileges": 4,
+    "missing": [],
+    "unexpected": []
+  },
+  "guardVerification": {
+    "passed": true,
+    "triggers": 45,
+    "guardHash": "7047bb1d5bce5b1208330594cb88478248a9f0cd10ceab09bd0ab34d4cdbce13",
+    "definerPrivilegesVerified": true
+  },
+  "administrators": [
+    {
+      "id": 1,
+      "login_key": "admin",
+      "enabled": 1
+    },
+    {
+      "id": 2,
+      "login_key": "haris",
+      "enabled": 1
+    }
+  ],
+  "databaseWrites": 0,
+  "hostFilesWritten": 0
+}

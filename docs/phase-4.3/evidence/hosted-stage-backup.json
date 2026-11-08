@@ -1,0 +1,17 @@
+{
+    "passed": true,
+    "authenticatedBackupAccount": "upms_b43@localhost",
+    "readerPrivileges": [
+        "SELECT"
+    ],
+    "guardVerifier": "upms_g43@localhost",
+    "sha256": "c679bbbd04104c711b8cd2d8c4b1b00f04435c023cc0e15930cf2b5a5f2201dc",
+    "bytes": 113594,
+    "tables": 47,
+    "guards": 133,
+    "authenticatedDecryptionVerified": true,
+    "tamperRejected": true,
+    "isolatedRestoreVerified": false,
+    "independentOwnerRecoveryVerified": false,
+    "businessPostingEnabled": false
+}

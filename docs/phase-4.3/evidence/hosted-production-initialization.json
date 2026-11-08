@@ -1,0 +1,20 @@
+{
+    "passed": true,
+    "schema": "upms_v2",
+    "result": {
+        "schema": "upms_v2",
+        "tables": 47,
+        "guards": 133,
+        "state": "CUMULATIVE_READY",
+        "adminIds": {
+            "admin": "1",
+            "haris": "2"
+        },
+        "businessPostingEnabled": false,
+        "productionStartupEnabled": true
+    },
+    "productionBindingChanged": false,
+    "productionSchemaInitialized": true,
+    "businessPostingEnabled": false,
+    "release": "\/home\/tsn6az96j3v7\/upms-releases\/p43\/management-570362622816"
+}
